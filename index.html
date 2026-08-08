@@ -1,2430 +1,1029 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aleksei Grebenkin - Software Engineer</title>
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-color: #60a5fa;
-            --secondary-color: #3b82f6;
-            --accent-color: #93c5fd;
-            --text-color: #f1f5f9;
-            --text-secondary: #e2e8f0;
-            --text-muted: #cbd5e1;
-            --text-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            --heading-gradient: linear-gradient(135deg, #ffffff 0%, #f1f5f9 50%, #e2e8f0 100%);
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-tertiary: #334155;
-            --bg-card: #475569;
-            --border-color: rgba(147, 197, 253, 0.3);
-            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            --shadow-hover: 0 35px 60px -12px rgba(96, 165, 250, 0.4);
-            --gradient-1: linear-gradient(135deg, #60a5fa 0%, #93c5fd 50%, #a5b4fc 100%);
-            --gradient-2: linear-gradient(45deg, #3b82f6 0%, #60a5fa 100%);
-            --gradient-3: linear-gradient(135deg, #1e40af 0%, #3b82f6 25%, #60a5fa 50%, #93c5fd 75%, #a5b4fc 100%);
-            --liquid-gradient: linear-gradient(45deg, #60a5fa, #93c5fd, #a5b4fc, #c7d2fe);
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-color);
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(147, 197, 253, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(96, 165, 250, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(165, 180, 252, 0.02) 0%, transparent 50%);
-            z-index: -2;
-            animation: liquidBgShift 20s ease-in-out infinite;
-        }
-
-        @keyframes liquidBgShift {
-            0%, 100% {
-                background: 
-                    radial-gradient(circle at 10% 20%, rgba(147, 197, 253, 0.03) 0%, transparent 50%),
-                    radial-gradient(circle at 80% 80%, rgba(96, 165, 250, 0.03) 0%, transparent 50%),
-                    radial-gradient(circle at 40% 40%, rgba(165, 180, 252, 0.02) 0%, transparent 50%);
-            }
-            33% {
-                background: 
-                    radial-gradient(circle at 70% 70%, rgba(147, 197, 253, 0.03) 0%, transparent 50%),
-                    radial-gradient(circle at 20% 20%, rgba(96, 165, 250, 0.03) 0%, transparent 50%),
-                    radial-gradient(circle at 90% 10%, rgba(165, 180, 252, 0.02) 0%, transparent 50%);
-            }
-            66% {
-                background: 
-                    radial-gradient(circle at 20% 80%, rgba(147, 197, 253, 0.03) 0%, transparent 50%),
-                    radial-gradient(circle at 90% 30%, rgba(96, 165, 250, 0.03) 0%, transparent 50%),
-                    radial-gradient(circle at 10% 90%, rgba(165, 180, 252, 0.02) 0%, transparent 50%);
-            }
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Enhanced Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            25% { transform: translateY(-10px) rotate(1deg); }
-            50% { transform: translateY(-20px) rotate(0deg); }
-            75% { transform: translateY(-10px) rotate(-1deg); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes liquidFloat {
-            0%, 100% { 
-                transform: translateY(0px) rotate(0deg) scale(1);
-                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-            }
-            25% { 
-                transform: translateY(-20px) rotate(90deg) scale(1.1);
-                border-radius: 40% 60% 70% 30% / 40% 70% 30% 60%;
-            }
-            50% { 
-                transform: translateY(-40px) rotate(180deg) scale(1.2);
-                border-radius: 70% 30% 40% 60% / 70% 40% 60% 30%;
-            }
-            75% { 
-                transform: translateY(-20px) rotate(270deg) scale(1.1);
-                border-radius: 30% 70% 60% 40% / 30% 60% 40% 70%;
-            }
-        }
-
-        @keyframes liquidPulse {
-            0%, 100% { 
-                transform: scale(1);
-                filter: hue-rotate(0deg);
-            }
-            50% { 
-                transform: scale(1.2);
-                filter: hue-rotate(180deg);
-            }
-        }
-
-        @keyframes liquidWave {
-            0% { 
-                transform: translateX(-50%) translateY(0px);
-            }
-            50% { 
-                transform: translateX(-50%) translateY(-10px);
-            }
-            100% { 
-                transform: translateX(-50%) translateY(0px);
-            }
-        }
-
-        @keyframes liquidMorph {
-            0%, 100% {
-                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-            }
-            25% {
-                border-radius: 40% 60% 70% 30% / 40% 70% 30% 60%;
-            }
-            50% {
-                border-radius: 70% 30% 40% 60% / 70% 40% 60% 30%;
-            }
-            75% {
-                border-radius: 30% 70% 60% 40% / 30% 60% 40% 70%;
-            }
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Liquid Background Elements */
-        .liquid-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .liquid-blob {
-            position: absolute;
-            background: var(--liquid-gradient);
-            background-size: 200% 200%;
-            animation: liquidFloat 8s ease-in-out infinite, gradientShift 4s ease-in-out infinite;
-            opacity: 0.1;
-            filter: blur(40px);
-        }
-
-        .liquid-blob:nth-child(1) {
-            width: 200px;
-            height: 200px;
-            top: 10%;
-            left: 10%;
-            animation-delay: -2s;
-        }
-
-        .liquid-blob:nth-child(2) {
-            width: 300px;
-            height: 300px;
-            top: 60%;
-            right: 10%;
-            animation-delay: -4s;
-        }
-
-        .liquid-blob:nth-child(3) {
-            width: 150px;
-            height: 150px;
-            bottom: 20%;
-            left: 20%;
-            animation-delay: -6s;
-        }
-
-        .liquid-blob:nth-child(4) {
-            width: 250px;
-            height: 250px;
-            top: 30%;
-            right: 30%;
-            animation-delay: -1s;
-        }
-
-        /* Enhanced Liquid Buttons */
-        .liquid-button {
-            position: relative;
-            overflow: hidden;
-            border-radius: 50px;
-            background: var(--gradient-1);
-            background-size: 200% 200%;
-            animation: gradientShift 3s ease infinite;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .liquid-button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: var(--gradient-2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: -1;
-        }
-
-        .liquid-button:hover::before {
-            width: 300%;
-            height: 300%;
-        }
-
-        .liquid-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 40px rgba(96, 165, 250, 0.4);
-        }
-
-        /* Liquid Cards */
-        .liquid-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: 20px;
-            background: var(--bg-tertiary);
-            border: 2px solid;
-            border-image: var(--gradient-3) 1;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .liquid-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-1);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            z-index: -1;
-        }
-
-        .liquid-card:hover::before {
-            opacity: 0.1;
-        }
-
-        .liquid-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-radius: 25px;
-            box-shadow: 0 30px 60px rgba(96, 165, 250, 0.3);
-        }
-
-        /* Liquid Navigation */
-        .liquid-nav-link {
-            position: relative;
-            background: var(--gradient-2);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 4s ease infinite;
-        }
-
-        .liquid-nav-link::after {
-            background: var(--gradient-1);
-            animation: liquidWave 2s ease-in-out infinite;
-        }
-
-        /* Liquid Hero Title */
-        .liquid-title {
-            background: var(--gradient-3);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 6s ease infinite;
-        }
-
-        /* Liquid Profile Avatar */
-        .liquid-avatar {
-            background: var(--gradient-1);
-            background-size: 200% 200%;
-            animation: gradientShift 4s ease infinite, liquidPulse 3s ease infinite;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .liquid-avatar::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: var(--gradient-2);
-            border-radius: 50%;
-            z-index: -1;
-            animation: liquidMorph 8s ease-in-out infinite;
-        }
-
-        /* Убираем анимацию подсветки для навыков */
-
-        /* Project Slider Styles */
-        .project-slider {
-            position: relative;
-            margin: 1.5rem 0;
-            border-radius: 12px;
-            overflow: hidden;
-            background: transparent;
-        }
-
-        .slider-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 12px;
-            background: transparent;
-        }
-
-        .slider-track {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .project-image {
-            min-width: 100%;
-            height: 250px;
-            object-fit: contain;
-            background: transparent;
-            cursor: pointer;
-            border-radius: 12px;
-        }
-
-        .slider-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            transition: all 0.3s ease;
-            z-index: 2;
-        }
-
-        .slider-nav:hover {
-            background: rgba(96, 165, 250, 0.8);
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .slider-nav.prev {
-            left: 10px;
-        }
-
-        .slider-nav.next {
-            right: 10px;
-        }
-
-        .slider-dots {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 15px;
-            padding: 0 20px;
-        }
-
-        .slider-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(147, 197, 253, 0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .slider-dot.active {
-            background: var(--accent-color);
-            transform: scale(1.3);
-        }
-
-        .slider-dot:hover {
-            background: var(--accent-color);
-            transform: scale(1.2);
-        }
-
-        /* Modal Styles */
-        .image-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 10000;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .image-modal.active {
-            display: flex;
-        }
-
-        .modal-image {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-        }
-
-        /* Liquid Section Titles */
-        .liquid-section-title {
-            background: var(--gradient-3);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 8s ease infinite;
-            position: relative;
-        }
-
-        .liquid-section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: var(--gradient-1);
-            border-radius: 2px;
-            animation: liquidWave 3s ease-in-out infinite;
-        }
-
-        .fade-in-up {
-            animation: fadeInUp 1s ease forwards;
-        }
-
-        .fade-in-left {
-            animation: fadeInLeft 1s ease forwards;
-        }
-
-        .fade-in-right {
-            animation: fadeInRight 1s ease forwards;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(20px);
-            z-index: 1000;
-            padding: 1rem 0;
-            transition: all 0.3s ease;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        nav.scrolled {
-            background: rgba(15, 23, 42, 0.95);
-            box-shadow: var(--shadow);
-        }
-
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.75rem;
-            font-weight: 800;
-            color: #ffffff !important;
-            letter-spacing: -0.02em;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo .icon {
-            width: 2rem;
-            height: 2rem;
-            stroke: #60a5fa;
-            margin: 0;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2.5rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            transition: all 0.3s ease;
-            position: relative;
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-color);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--gradient-1);
-            transition: width 0.3s ease;
-            border-radius: 1px;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 25% 25%, rgba(147, 197, 253, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            width: 100%;
-        }
-
-        .hero-text h1 {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            background: var(--gradient-3);
-            background-size: 400% 400%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 6s ease infinite;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-            text-align: left;
-        }
-
-        .hero-text .subtitle {
-            font-size: 1.5rem;
-            background: var(--gradient-2);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 4s ease infinite;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .hero-text p {
-            font-size: 1.1rem;
-            background: var(--text-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 2.5rem;
-            max-width: 500px;
-            line-height: 1.7;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--gradient-2);
-            background-size: 200% 200%;
-            color: white;
-            padding: 1rem 2rem;
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            animation: gradientShift 4s ease infinite;
-        }
-
-        .cta-button.secondary {
-            background: transparent;
-            border: 2px solid var(--accent-color);
-            color: var(--accent-color);
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .cta-button.secondary:hover {
-            background: var(--accent-color);
-            color: white;
-        }
-
-        .hero-visual {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .code-window {
-            background: var(--bg-tertiary);
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-            animation: float 6s ease-in-out infinite;
-            max-width: 400px;
-            position: relative;
-        }
-
-        .code-window::before {
-            content: '';
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            width: 12px;
-            height: 12px;
-            background: #ef4444;
-            border-radius: 50%;
-            box-shadow: 20px 0 #f59e0b, 40px 0 #10b981;
-        }
-
-        .code-content {
-            margin-top: 2rem;
-            font-family: 'Monaco', 'Menlo', monospace;
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        .code-line {
-            margin-bottom: 0.5rem;
-        }
-
-        .keyword { color: #f472b6; }
-        .string { color: #34d399; }
-        .comment { color: var(--text-muted); }
-        .function { color: #60a5fa; }
-
-        /* Sections */
-        section {
-            padding: 6rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 4rem;
-            background: var(--gradient-3);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.02em;
-            animation: gradientShift 6s ease infinite;
-        }
-
-        /* About Section */
-        .about-content {
-            display: flex;
-            flex-direction: column;
-            gap: 4rem;
-        }
-
-        .about-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            background: var(--text-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-            background: var(--text-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .experience-highlight {
-            background: var(--bg-tertiary);
-            padding: 1.5rem;
-            border-radius: 12px;
-            border-left: 4px solid;
-            border-image: var(--gradient-1) 1;
-            margin: 2rem 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .experience-highlight::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--gradient-1);
-            animation: gradientShift 3s ease infinite;
-        }
-
-        .experience-highlight p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .experience-highlight h4 {
-            color: #60a5fa !important;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            text-shadow: 0 0 10px rgba(147, 197, 253, 0.3);
-            -webkit-text-fill-color: #60a5fa !important;
-            background: none !important;
-            background-clip: border-box !important;
-            -webkit-background-clip: border-box !important;
-        }
-
-        .skills-section {
-            margin-top: 3rem;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
-
-        .skill-category h4 {
-            color: var(--accent-color);
-            margin-bottom: 1rem;
-            font-weight: 600;
-            text-shadow: 0 0 10px rgba(147, 197, 253, 0.3);
-        }
-
-        .skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
-
-        .skill-tag {
-            background: #475569 !important;
-            color: #e2e8f0 !important;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            border: 1px solid rgba(147, 197, 253, 0.3);
-            transition: all 0.3s ease;
-            font-weight: 500;
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-            text-shadow: none !important;
-            -webkit-text-fill-color: #e2e8f0 !important;
-            background-clip: border-box !important;
-            -webkit-background-clip: border-box !important;
-        }
-
-        .skill-tag:hover {
-            background: #60a5fa !important;
-            color: #ffffff !important;
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 10px 25px rgba(147, 197, 253, 0.3);
-            border-color: #60a5fa;
-            -webkit-text-fill-color: #ffffff !important;
-        }
-
-        /* White headings */
-        .section-heading {
-            color: #ffffff !important;
-            text-shadow: none !important;
-            -webkit-text-fill-color: #ffffff !important;
-            background: none !important;
-            background-clip: border-box !important;
-            -webkit-background-clip: border-box !important;
-        }
-
-        .project-title {
-            color: #ffffff !important;
-            -webkit-text-fill-color: #ffffff !important;
-            background: none !important;
-            background-clip: border-box !important;
-            -webkit-background-clip: border-box !important;
-        }
-
-        .section-title {
-            color: #ffffff !important;
-            -webkit-text-fill-color: #ffffff !important;
-            background: none !important;
-            background-clip: border-box !important;
-            -webkit-background-clip: border-box !important;
-        }
-
-        .about-visual {
-            display: flex;
-            justify-content: center;
-        }
-
-        .profile-card {
-            background: var(--bg-tertiary);
-            padding: 2.5rem;
-            border-radius: 20px;
-            text-align: center;
-            animation: pulse 4s ease-in-out infinite;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow);
-            max-width: 300px;
-        }
-
-        .profile-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: var(--gradient-1);
-            background-size: 200% 200%;
-            margin: 0 auto 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            color: white;
-            box-shadow: 0 10px 30px rgba(147, 197, 253, 0.3);
-            animation: gradientShift 4s ease infinite;
-            transition: all 0.3s ease;
-        }
-
-        .profile-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            background: var(--heading-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .profile-card p {
-            background: var(--text-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 500;
-        }
-
-        /* Projects Section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .project-card {
-            background: var(--bg-tertiary);
-            border-radius: 16px;
-            padding: 2.5rem;
-            transition: all 0.4s ease;
-            border: 1px solid var(--border-color);
-            position: relative;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-1);
-            animation: gradientShift 3s ease infinite;
-        }
-
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .project-card-header {
-            width: calc(100% + 5rem);
-            height: 200px;
-            background: var(--gradient-1);
-            background-size: 200% 200%;
-            border-radius: 16px 16px 0 0;
-            margin: -2.5rem -2.5rem 1.5rem -2.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: white;
-            animation: gradientShift 5s ease infinite;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
-            animation: liquidFloat 8s ease-in-out infinite;
-        }
-
-        .project-card-header .icon {
-            width: 3rem;
-            height: 3rem;
-            z-index: 1;
-            position: relative;
-        }
-
-        .project-card.ryadom .project-card-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .project-card.babydayka .project-card-header {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-
-        .project-card.loolza .project-card-header {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-
-        .project-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-1);
-            background-size: 200% 200%;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: white;
-            animation: gradientShift 5s ease infinite;
-            transition: all 0.3s ease;
-        }
-
-        .project-title {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            background: var(--heading-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 600;
-        }
-
-        .project-description {
-            background: var(--text-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .project-tech {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .tech-tag {
-            background: rgba(147, 197, 253, 0.1);
-            color: var(--accent-color);
-            padding: 0.25rem 0.75rem;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            border: 1px solid rgba(147, 197, 253, 0.3);
-        }
-
-        .project-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .project-link {
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        .project-link:hover {
-            color: var(--primary-color);
-            transform: translateX(3px);
-        }
-
-        /* Contact Section */
-        .contact-content {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .contact-description {
-            font-size: 1.2rem;
-            background: var(--text-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 3rem;
-            line-height: 1.7;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .contact-card {
-            background: var(--bg-tertiary);
-            padding: 2rem;
-            border-radius: 16px;
-            transition: all 0.3s ease;
-            border: 1px solid var(--border-color);
-            text-decoration: none;
-            color: inherit;
-            box-shadow: var(--shadow);
-        }
-
-        .contact-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .contact-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-1);
-            background-size: 200% 200%;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin: 0 auto 1rem;
-            color: white;
-            animation: gradientShift 5s ease infinite;
-            transition: all 0.3s ease;
-        }
-
-        .contact-card h3 {
-            margin-bottom: 0.5rem;
-            background: var(--heading-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .contact-card p {
-            background: var(--text-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 0.9rem;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--bg-secondary);
-            text-align: center;
-            padding: 3rem 0;
-            border-top: 1px solid var(--border-color);
-        }
-
-        footer p {
-            background: var(--text-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Responsive Design */
-        /* Для больших экранов - выравнивание заголовка по левому краю */
-        @media (min-width: 1025px) {
-            .hero-text h1 {
-                text-align: left;
-            }
-        }
-
-        @media (max-width: 1024px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 3rem;
-            }
-
-            .about-content {
-                text-align: center;
-                gap: 3rem;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .container {
-                padding: 0 1rem;
-            }
-
-            .hero {
-                padding: 2rem 0;
-            }
-
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-
-            .cta-buttons {
-                justify-content: center;
-            }
-
-            .section-title {
-                font-size: 2.5rem;
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .project-card-header {
-                height: 150px;
-                font-size: 2rem;
-            }
-
-            .project-card-header .icon {
-                width: 2rem;
-                height: 2rem;
-            }
-
-            .project-slider {
-                margin: 1rem 0;
-            }
-
-            .project-image {
-                height: 200px;
-            }
-
-            .slider-nav {
-                width: 35px;
-                height: 35px;
-                font-size: 16px;
-            }
-
-            .slider-nav.prev {
-                left: 5px;
-            }
-
-            .slider-nav.next {
-                right: 5px;
-            }
-
-            .modal-image {
-                max-width: 95%;
-                max-height: 80%;
-            }
-
-            section {
-                padding: 4rem 0;
-            }
-        }
-
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Reveal animations */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .reveal-left {
-            opacity: 0;
-            transform: translateX(-30px);
-            transition: all 0.8s ease;
-        }
-
-        .reveal-left.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .reveal-right {
-            opacity: 0;
-            transform: translateX(30px);
-            transition: all 0.8s ease;
-        }
-
-        .reveal-right.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        /* Additional Liquid Effects */
-        .liquid-particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .liquid-particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--gradient-1);
-            border-radius: 50%;
-            animation: liquidParticleFloat 15s linear infinite;
-            opacity: 0.3;
-        }
-
-        @keyframes liquidParticleFloat {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.3;
-            }
-            90% {
-                opacity: 0.3;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* Enhanced Liquid Hover Effects */
-        .liquid-hover-effect {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .liquid-hover-effect::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: var(--gradient-1);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            opacity: 0.1;
-            z-index: -1;
-        }
-
-        .liquid-hover-effect:hover::after {
-            width: 300%;
-            height: 300%;
-        }
-
-        /* Liquid Text Effects */
-        .liquid-text-glow {
-            position: relative;
-            animation: liquidTextGlow 4s ease-in-out infinite alternate;
-        }
-
-        @keyframes liquidTextGlow {
-            0% {
-                text-shadow: 0 0 2px rgba(96, 165, 250, 0.3);
-            }
-            100% {
-                text-shadow: 0 0 8px rgba(147, 197, 253, 0.5), 0 0 12px rgba(165, 180, 252, 0.3);
-            }
-        }
-
-        /* Enhanced Liquid Button Effects */
-        .liquid-button-enhanced {
-            position: relative;
-            background: var(--gradient-1);
-            background-size: 200% 200%;
-            animation: gradientShift 3s ease infinite;
-            border: none;
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            overflow: hidden;
-        }
-
-        .liquid-button-enhanced::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .liquid-button-enhanced:hover::before {
-            left: 100%;
-        }
-
-        .liquid-button-enhanced:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(96, 165, 250, 0.4);
-        }
-
-        /* Liquid Border Animation */
-        .liquid-border {
-            position: relative;
-            border: 2px solid transparent;
-            background: linear-gradient(var(--bg-tertiary), var(--bg-tertiary)) padding-box,
-                        var(--gradient-1) border-box;
-            border-radius: 20px;
-            animation: liquidBorderRotate 8s linear infinite;
-        }
-
-        @keyframes liquidBorderRotate {
-            0% {
-                background: linear-gradient(var(--bg-tertiary), var(--bg-tertiary)) padding-box,
-                            var(--gradient-1) border-box;
-            }
-            25% {
-                background: linear-gradient(var(--bg-tertiary), var(--bg-tertiary)) padding-box,
-                            var(--gradient-2) border-box;
-            }
-            50% {
-                background: linear-gradient(var(--bg-tertiary), var(--bg-tertiary)) padding-box,
-                            var(--gradient-3) border-box;
-            }
-            75% {
-                background: linear-gradient(var(--bg-tertiary), var(--bg-tertiary)) padding-box,
-                            var(--gradient-1) border-box;
-            }
-            100% {
-                background: linear-gradient(var(--bg-tertiary), var(--bg-tertiary)) padding-box,
-                            var(--gradient-2) border-box;
-            }
-        }
-
-        /* Liquid Loading Animation */
-        .liquid-loading {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .liquid-loading::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(147, 197, 253, 0.3), transparent);
-            animation: liquidLoading 2s ease-in-out infinite;
-        }
-
-        @keyframes liquidLoading {
-            0% {
-                left: -100%;
-            }
-            100% {
-                left: 100%;
-            }
-        }
-
-        /* Enhanced Profile Avatar */
-        .profile-avatar {
-            position: relative;
-        }
-
-        .profile-avatar::after {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: -5px;
-            right: -5px;
-            bottom: -5px;
-            background: var(--gradient-1);
-            border-radius: 50%;
-            z-index: -1;
-            animation: liquidMorph 6s ease-in-out infinite, gradientShift 4s ease infinite;
-            opacity: 0.7;
-        }
-
-        /* Liquid Skills Enhanced */
-        .skill-tag {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .skill-tag::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(147, 197, 253, 0.3), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .skill-tag:hover::before {
-            left: 100%;
-        }
-
-        /* Enhanced Project Cards */
-        .project-card {
-            position: relative;
-        }
-
-        .project-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--gradient-1);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            border-radius: 16px;
-            z-index: -1;
-        }
-
-        .project-card:hover::after {
-            opacity: 0.05;
-        }
-
-        /* Убираем анимацию подсветки для навигации */
-
-        /* Icon Styles */
-        .icon {
-            width: 1.2em;
-            height: 1.2em;
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 0.5rem;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .icon-large {
-            width: 2rem;
-            height: 2rem;
-        }
-
-        .icon-xl {
-            width: 2.5rem;
-            height: 2.5rem;
-        }
-
-        .project-icon .icon {
-            width: 1.5rem;
-            height: 1.5rem;
-            stroke: white;
-            margin: 0;
-        }
-
-        .contact-icon .icon {
-            width: 1.5rem;
-            height: 1.5rem;
-            stroke: white;
-            margin: 0;
-        }
-
-        .skill-category h4 .icon {
-            width: 1.1rem;
-            height: 1.1rem;
-            margin-right: 0.5rem;
-            stroke: var(--accent-color);
-        }
-
-        .experience-highlight h4 .icon {
-            width: 1.1rem;
-            height: 1.1rem;
-            margin-right: 0.5rem;
-            stroke: var(--accent-color);
-        }
-
-        .hero-text .subtitle .icon {
-            width: 1.5rem;
-            height: 1.5rem;
-            margin-right: 0.5rem;
-            transform: translateY(-3px);
-            vertical-align: middle;
-        }
-
-        .profile-avatar .icon {
-            margin: 0 !important;
-            margin-right: 0 !important;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aleksei Grebenkin — Founder of Speak-Y · iOS &amp; Full-stack Engineer</title>
+<meta name="description" content="Founder of Speak-Y, a system-wide voice input tool. Nine years in engineering: iOS apps on the App Store and the backends behind them. Open to Software Engineer roles.">
+<meta name="author" content="Aleksei Grebenkin">
+<link rel="canonical" href="https://avgrebenkin.com/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%235b4fd6'/%3E%3Cg fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M16 8v8'/%3E%3Cpath d='M11 12v4'/%3E%3Cpath d='M21 12v4'/%3E%3Cpath d='M16 20v4'/%3E%3C/g%3E%3C/svg%3E">
+
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Aleksei Grebenkin — Founder of Speak-Y · iOS &amp; Full-stack Engineer">
+<meta property="og:description" content="I build tools that cut cognitive load. Founder of Speak-Y — press a hotkey, speak, text lands where your cursor is.">
+<meta property="og:url" content="https://avgrebenkin.com/">
+<meta property="og:image" content="https://avgrebenkin.com/images/avgrebenkin_preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Aleksei Grebenkin",
+  "jobTitle": "Founder & CEO, Speak-Y",
+  "url": "https://avgrebenkin.com/",
+  "image": "https://avgrebenkin.com/images/avgrebenkin_preview.jpg",
+  "email": "mailto:aleksey.v.grebenkin@gmail.com",
+  "address": { "@type": "PostalAddress", "addressLocality": "Batumi", "addressCountry": "Georgia" },
+  "alumniOf": "B.N. Yeltsin Ural Federal University",
+  "knowsAbout": ["iOS development", "Swift", "Voice interfaces", "Backend engineering", "Product development"],
+  "sameAs": [
+    "https://www.linkedin.com/in/avgrebenkin/",
+    "https://github.com/alexstich",
+    "https://t.me/avgrebenkin",
+    "https://speak-y.com"
+  ]
+}
+</script>
+
+<style>
+/* ---------- tokens ---------- */
+:root{
+  --bg:#0b0c11;
+  --bg-elev:#12141c;
+  --surface:rgba(18,20,28,.82);
+  --card-bg:rgba(18,20,28,.72);
+  --text:#e9eaf0;
+  --muted:#9298a8;
+  --accent:#8b7cff;
+  --accent-rgb:139,124,255;
+  --accent-ink:#0b0c11;
+  --border:rgba(139,124,255,.20);
+  --border-soft:rgba(255,255,255,.08);
+  --ok:#3ecf8e;
+  --shadow:0 18px 40px -24px rgba(0,0,0,.8);
+
+  --font-head:'Space Grotesk',system-ui,-apple-system,sans-serif;
+  --font-body:'Inter',system-ui,-apple-system,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,monospace;
+
+  --nav-h:60px;
+  --content:920px;
+  --section-gap:72px;
+}
+:root[data-theme="light"]{
+  --bg:#f5f6f9;
+  --bg-elev:#ffffff;
+  --surface:rgba(255,255,255,.88);
+  --card-bg:rgba(255,255,255,.86);
+  --text:#14161f;
+  --muted:#5b6172;
+  --accent:#5b4fd6;
+  --accent-rgb:91,79,214;
+  --accent-ink:#ffffff;
+  --border:rgba(91,79,214,.22);
+  --border-soft:rgba(16,18,30,.10);
+  --ok:#15803d;
+  --shadow:0 18px 40px -28px rgba(20,22,50,.35);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 16px)}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  background:
+    radial-gradient(60% 45% at 78% -5%, rgba(var(--accent-rgb),.16), transparent 70%),
+    radial-gradient(45% 35% at 0% 30%, rgba(var(--accent-rgb),.08), transparent 70%);
+}
+a{color:var(--accent);text-decoration:none}
+h1,h2,h3,h4{font-family:var(--font-head);line-height:1.2;margin:0}
+img{max-width:100%;display:block}
+::selection{background:rgba(var(--accent-rgb),.3)}
+
+/* ---------- nav ---------- */
+.site-nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  height:var(--nav-h);
+  display:flex;align-items:center;gap:1rem;
+  padding:0 clamp(1rem,4vw,2rem);
+  background:var(--surface);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid transparent;
+  transition:border-color .25s, background .25s;
+}
+.site-nav.is-scrolled{border-bottom-color:var(--border-soft)}
+.nav-name{
+  font-family:var(--font-head);font-weight:700;font-size:1rem;
+  color:var(--text);letter-spacing:-.01em;margin-right:auto;white-space:nowrap;
+}
+.nav-name:hover{color:var(--accent)}
+.nav-links{display:flex;gap:.35rem}
+.nav-link{
+  color:var(--muted);font-size:.9rem;font-weight:500;
+  padding:.45rem .7rem;border-radius:7px;
+  transition:color .2s, background .2s;
+}
+.nav-link:hover{color:var(--text);background:rgba(var(--accent-rgb),.08)}
+.nav-link-active{color:var(--accent);background:rgba(var(--accent-rgb),.1)}
+.nav-controls{display:flex;align-items:center;gap:.5rem}
+.theme-switcher{display:flex;gap:2px;padding:3px;border-radius:9px;background:rgba(var(--accent-rgb),.08);border:1px solid var(--border-soft)}
+.theme-btn{
+  width:32px;height:28px;display:grid;place-items:center;
+  border:0;border-radius:6px;background:transparent;color:var(--muted);cursor:pointer;
+  transition:background .2s,color .2s;
+}
+.theme-btn:hover{color:var(--text)}
+.theme-btn-active{background:var(--bg-elev);color:var(--accent)}
+.theme-btn svg{width:15px;height:15px}
+.nav-burger{
+  display:none;position:relative;width:38px;height:34px;
+  border:1px solid var(--border-soft);border-radius:8px;
+  background:transparent;cursor:pointer;padding:0;
+}
+.nav-burger-line{
+  position:absolute;left:50%;top:50%;width:16px;height:1.6px;margin-left:-8px;
+  background:var(--text);border-radius:2px;transition:transform .25s,opacity .2s;
+}
+.nav-burger-line:nth-child(1){transform:translateY(-6px)}
+.nav-burger-line:nth-child(3){transform:translateY(6px)}
+.nav-burger[aria-expanded="true"] .nav-burger-line:nth-child(1){transform:rotate(45deg)}
+.nav-burger[aria-expanded="true"] .nav-burger-line:nth-child(2){opacity:0}
+.nav-burger[aria-expanded="true"] .nav-burger-line:nth-child(3){transform:rotate(-45deg)}
+
+/* ---------- layout ---------- */
+main{position:relative;z-index:1;max-width:var(--content);margin:0 auto;padding:0 clamp(1rem,4vw,2rem)}
+section{padding-top:var(--section-gap);scroll-margin-top:calc(var(--nav-h) + 8px)}
+.section-title{
+  font-size:1.35rem;font-weight:600;color:var(--accent);
+  margin-bottom:1.5rem;letter-spacing:-.01em;
+}
+.section-title::before{content:"— ";opacity:.45}
+
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in-view{opacity:1;transform:none}
+
+/* ---------- hero ---------- */
+#hero{padding-top:calc(var(--nav-h) + 56px)}
+.hero-photo{
+  width:150px;height:150px;border-radius:50%;object-fit:cover;
+  border:3px solid var(--border);
+  box-shadow:0 0 0 8px rgba(var(--accent-rgb),.05), var(--shadow);
+  margin-bottom:1.6rem;
+}
+.hero-name{font-size:clamp(2.3rem,7vw,3.4rem);font-weight:700;letter-spacing:-.03em;margin-bottom:.35rem}
+.hero-tag{
+  font-family:var(--font-mono);font-size:clamp(.9rem,2.6vw,1.05rem);
+  color:var(--muted);margin:0 0 1rem;min-height:1.6em;
+}
+.hero-tag-rotating::after{
+  content:"";display:inline-block;width:.6ch;height:1.05em;
+  background:var(--accent);vertical-align:-.18em;margin-left:2px;
+  animation:caret 1s steps(1) infinite;
+}
+@keyframes caret{50%{opacity:0}}
+.hero-status{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.82rem;font-weight:500;color:var(--ok);
+  padding:.3rem .7rem;border-radius:999px;
+  border:1px solid color-mix(in srgb, var(--ok) 35%, transparent);
+  background:color-mix(in srgb, var(--ok) 10%, transparent);
+  margin-bottom:1.4rem;
+}
+.hero-status-dot{width:7px;height:7px;border-radius:50%;background:var(--ok);animation:pulse-dot 2.4s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.8)}}
+.hero-value{margin:0 0 1.8rem;max-width:64ch;color:var(--text)}
+.mission-label{
+  display:inline-block;background:var(--accent);color:var(--accent-ink);
+  font-family:var(--font-mono);font-weight:500;text-transform:uppercase;
+  letter-spacing:.08em;font-size:.66rem;padding:.15em .55em;border-radius:5px;
+  margin-right:.55em;vertical-align:.14em;white-space:nowrap;
+}
+.hero-cta-row{display:flex;flex-wrap:wrap;gap:.7rem}
+.btn-primary,.btn-secondary{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:44px;padding:.6rem 1.4rem;border-radius:8px;
+  font-size:.92rem;font-weight:600;font-family:var(--font-body);
+  cursor:pointer;transition:transform .18s, background .2s, border-color .2s, color .2s;
+}
+.btn-primary{background:var(--accent);color:var(--accent-ink);border:1px solid var(--accent)}
+.btn-secondary{background:transparent;color:var(--accent);border:1px solid var(--border)}
+.btn-primary:hover,.btn-secondary:hover{transform:translateY(-2px)}
+.btn-secondary:hover{border-color:var(--accent);background:rgba(var(--accent-rgb),.08)}
+
+/* ---------- project cards ---------- */
+.project{
+  position:relative;overflow:hidden;
+  background:var(--card-bg);
+  border:1px solid var(--border-soft);
+  border-radius:14px;
+  padding:1.35rem;
+  box-shadow:var(--shadow);
+  transition:border-color .25s, transform .25s;
+}
+.project + .project{margin-top:1.5rem}
+.project:hover{border-color:var(--border);transform:translateY(-2px)}
+.project > *{position:relative;z-index:1}
+.project-featured::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse at top right,rgba(var(--accent-rgb),.14),transparent 58%);
+}
+.pf-header{display:flex;align-items:flex-start;gap:1rem;margin-bottom:.9rem}
+.pf-mark{
+  flex:0 0 auto;width:58px;height:58px;border-radius:14px;overflow:hidden;
+  border:1px solid var(--border-soft);background:var(--bg-elev);
+}
+.pf-mark img{width:100%;height:100%;object-fit:cover}
+.pf-name{font-size:1.25rem;font-weight:700;letter-spacing:-.02em}
+.pf-tagline{margin:.2rem 0 0;color:var(--muted);font-size:.95rem}
+.pf-badge{
+  display:inline-block;margin-bottom:.6rem;
+  font-family:var(--font-mono);font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--accent);border:1px solid var(--border);border-radius:5px;padding:.1em .5em;
+}
+.pf-summary{margin:0 0 1rem;color:var(--text)}
+.pf-section-heading{
+  font-family:var(--font-mono);font-size:.72rem;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+  margin-bottom:.55rem;
+}
+.pf-facts{list-style:none;margin:0 0 1rem;padding:0;display:grid;gap:.4rem}
+.pf-facts li{position:relative;padding-left:1.1rem;font-size:.92rem;color:var(--muted)}
+.pf-facts li::before{content:"▸";position:absolute;left:0;color:var(--accent);font-size:.75rem;top:.15rem}
+.pf-facts strong{color:var(--text);font-weight:600}
+
+.chips{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 1rem;padding:0;list-style:none}
+.chip{
+  padding:.25rem .65rem;border-radius:6px;
+  background:rgba(var(--accent-rgb),.08);
+  border:1px solid rgba(var(--accent-rgb),.2);
+  font-family:var(--font-mono);font-size:.76rem;color:var(--text);white-space:nowrap;
+}
+
+.shots{
+  display:flex;gap:.7rem;overflow-x:auto;padding-bottom:.6rem;margin-bottom:1rem;
+  scroll-snap-type:x mandatory;scrollbar-width:thin;
+}
+.shots img{
+  flex:0 0 auto;height:300px;width:auto;border-radius:12px;
+  border:1px solid var(--border-soft);background:var(--bg-elev);
+  scroll-snap-align:start;
+}
+.shots::-webkit-scrollbar{height:6px}
+.shots::-webkit-scrollbar-thumb{background:rgba(var(--accent-rgb),.3);border-radius:99px}
+
+.stack-details{border-top:1px solid var(--border-soft);padding-top:.8rem;margin-bottom:.9rem}
+.stack-details summary{
+  cursor:pointer;list-style:none;font-size:.85rem;color:var(--muted);
+  display:inline-flex;align-items:center;gap:.4rem;
+}
+.stack-details summary::-webkit-details-marker{display:none}
+.stack-details summary::before{content:"+";font-family:var(--font-mono);color:var(--accent)}
+.stack-details[open] summary::before{content:"−"}
+.stack-details summary:hover{color:var(--text)}
+.stack-count{font-family:var(--font-mono);font-size:.78rem;opacity:.7}
+.stack-tags{display:flex;flex-wrap:wrap;gap:.35rem;padding-top:.7rem}
+.tag{
+  padding:.15rem .55rem;border-radius:5px;
+  background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.18);
+  font-family:var(--font-mono);font-size:.72rem;color:var(--accent);white-space:nowrap;
+}
+.pf-footer{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
+.pf-cta{
+  display:inline-flex;align-items:center;gap:.35rem;min-height:40px;
+  padding:.4rem 1rem;border-radius:8px;border:1px solid var(--border);
+  font-size:.88rem;font-weight:600;transition:background .2s,transform .18s;
+}
+.pf-cta:hover{background:rgba(var(--accent-rgb),.1);transform:translateY(-1px)}
+.pf-role{font-size:.83rem;color:var(--muted);font-family:var(--font-mono)}
+
+/* ---------- stack section ---------- */
+.stack-grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.stack-card{
+  background:var(--card-bg);border:1px solid var(--border-soft);border-radius:12px;padding:1.1rem;
+}
+.stack-card h3{
+  font-size:.82rem;letter-spacing:.06em;
+  color:var(--muted);font-family:var(--font-mono);font-weight:500;margin-bottom:.75rem;
+}
+.stack-card .chips{margin-bottom:0}
+.certs{list-style:none;margin:.1rem 0 0;padding:0;display:grid;gap:.4rem}
+.certs li{font-size:.88rem;color:var(--muted);position:relative;padding-left:1.1rem}
+.certs li::before{content:"✓";position:absolute;left:0;color:var(--accent);font-size:.8rem}
+
+/* ---------- journey ---------- */
+.journey-timeline{position:relative;margin-left:28px}
+.journey-timeline::before{
+  content:"";position:absolute;left:-20px;top:6px;bottom:6px;width:1px;
+  background:linear-gradient(to bottom,var(--border),rgba(var(--accent-rgb),.05));
+}
+.journey-item{position:relative;padding-bottom:1.1rem}
+.journey-item:last-child{padding-bottom:0}
+.journey-dot{
+  position:absolute;left:-27px;top:12px;width:15px;height:15px;border-radius:50%;
+  background:var(--bg);border:2px solid var(--border-soft);z-index:1;
+  transition:border-color .3s,background .3s;
+}
+.journey-item-current .journey-dot{
+  border-color:var(--accent);background:var(--accent);
+  box-shadow:0 0 10px rgba(var(--accent-rgb),.5);animation:pulse-dot 2.4s ease-in-out infinite;
+}
+.journey-item.is-open .journey-dot{border-color:var(--accent);background:var(--accent)}
+.journey-head{
+  display:flex;align-items:flex-start;gap:.75rem;width:100%;
+  background:none;border:0;padding:.5rem .6rem;margin:0 -.6rem;
+  cursor:pointer;text-align:left;color:inherit;font:inherit;border-radius:8px;
+  transition:background .2s;
+}
+.journey-head:hover{background:rgba(var(--accent-rgb),.06)}
+.journey-head-text{flex:1 1 auto;min-width:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:.15rem .6rem}
+.journey-label{font-family:var(--font-head);font-weight:600;font-size:1rem}
+.journey-year{font-family:var(--font-mono);font-size:.78rem;color:var(--accent);white-space:nowrap}
+.journey-text{flex-basis:100%;font-size:.9rem;color:var(--muted);margin:0}
+.journey-chevron{
+  flex:0 0 auto;color:var(--muted);opacity:.6;margin-top:.25rem;
+  transition:transform .25s,color .2s,opacity .2s;
+}
+.journey-chevron svg{width:14px;height:14px;display:block}
+.journey-head[aria-expanded="true"] .journey-chevron{transform:rotate(180deg);color:var(--accent);opacity:1}
+.journey-body{
+  display:none;flex-direction:column;gap:.5rem;
+  border-top:1px solid var(--border-soft);
+  margin-top:.5rem;padding-top:.75rem;
+}
+.journey-item.is-open .journey-body{display:flex}
+.journey-item.is-open .journey-content{
+  background:rgba(var(--accent-rgb),.045);
+  border:1px solid var(--border);border-radius:10px;
+  padding:.15rem .8rem .8rem;margin:0 -.8rem;
+}
+.journey-body ul{margin:0;padding-left:1.1rem;display:grid;gap:.35rem}
+.journey-body li{font-size:.9rem;color:var(--muted)}
+.journey-body li strong{color:var(--text);font-weight:600}
+.journey-meta{font-family:var(--font-mono);font-size:.76rem;color:var(--muted);opacity:.8;margin:0}
+
+/* ---------- contacts ---------- */
+.contacts-grid{display:grid;gap:.6rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.contact-card{
+  display:flex;align-items:center;gap:.7rem;min-height:52px;
+  padding:.7rem .9rem;border-radius:10px;
+  background:var(--card-bg);border:1px solid var(--border-soft);
+  color:var(--text);font-size:.9rem;
+  transition:border-color .2s,transform .18s,background .2s;
+}
+a.contact-card:hover{border-color:var(--border);transform:translateY(-2px);background:rgba(var(--accent-rgb),.06)}
+.contact-icon{flex:0 0 auto;color:var(--accent);display:grid;place-items:center}
+.contact-icon svg{width:17px;height:17px;display:block}
+.contact-label{overflow-wrap:anywhere}
+.contacts-divider{height:1px;background:var(--border-soft);margin:1.1rem 0}
+.contact-card-info{cursor:default}
+
+/* ---------- footer ---------- */
+footer{
+  position:relative;z-index:1;max-width:var(--content);margin:var(--section-gap) auto 0;
+  padding:1.5rem clamp(1rem,4vw,2rem) 2.5rem;
+  border-top:1px solid var(--border-soft);
+  color:var(--muted);font-size:.82rem;
+  display:flex;flex-wrap:wrap;gap:.5rem 1rem;justify-content:space-between;
+}
+footer .to-top{font-family:var(--font-mono);font-size:.8rem}
+
+/* ---------- cyberpunk theme ---------- */
+:root[data-theme="cyber"]{
+  --bg:#07070a;
+  --bg-elev:#0d0d13;
+  --surface:rgba(7,7,10,.92);
+  --card-bg:rgba(13,13,19,.8);
+  --text:#eef2f5;
+  --muted:#7d8b96;
+  --accent:#fcee0a;
+  --accent-rgb:252,238,10;
+  --accent-ink:#07070a;
+  --border:rgba(252,238,10,.34);
+  --border-soft:rgba(0,240,255,.20);
+  --ok:#00f0ff;
+  --shadow:0 0 0 1px rgba(0,240,255,.06), 0 18px 40px -26px rgba(0,240,255,.35);
+  --cyan:#00f0ff;
+  --hot:#ff003c;
+}
+/* scanlines + magenta bloom */
+:root[data-theme="cyber"] body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:3;
+  background:repeating-linear-gradient(to bottom,rgba(0,0,0,.22) 0 1px,transparent 1px 3px);
+  opacity:.5;
+}
+:root[data-theme="cyber"] body::before{
+  background:
+    radial-gradient(55% 40% at 82% -5%, rgba(252,238,10,.14), transparent 70%),
+    radial-gradient(45% 35% at -5% 25%, rgba(0,240,255,.12), transparent 70%),
+    radial-gradient(40% 30% at 30% 105%, rgba(255,0,60,.10), transparent 70%);
+}
+/* chamfered corners instead of rounded */
+:root[data-theme="cyber"] .project,
+:root[data-theme="cyber"] .stack-card,
+:root[data-theme="cyber"] .contact-card,
+:root[data-theme="cyber"] .journey-item.is-open .journey-content{
+  border-radius:0;
+  clip-path:polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+}
+:root[data-theme="cyber"] .btn-primary,
+:root[data-theme="cyber"] .btn-secondary,
+:root[data-theme="cyber"] .pf-cta{
+  border-radius:0;
+  clip-path:polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+:root[data-theme="cyber"] .chip,
+:root[data-theme="cyber"] .tag,
+:root[data-theme="cyber"] .pf-badge{border-radius:0}
+:root[data-theme="cyber"] .hero-photo{
+  border-radius:0;border-color:var(--accent);box-shadow:0 0 24px rgba(252,238,10,.25);
+  clip-path:polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 22px 100%, 0 calc(100% - 22px));
+}
+:root[data-theme="cyber"] .pf-mark{border-radius:0;border-color:var(--border)}
+/* neon typography */
+:root[data-theme="cyber"] .section-title{
+  text-transform:uppercase;letter-spacing:.16em;font-family:var(--font-mono);font-size:1.05rem;
+  text-shadow:0 0 14px rgba(252,238,10,.45);
+}
+:root[data-theme="cyber"] .nav-link{text-transform:uppercase;letter-spacing:.1em;font-size:.78rem;font-family:var(--font-mono)}
+:root[data-theme="cyber"] .nav-name{text-transform:uppercase;letter-spacing:.08em}
+:root[data-theme="cyber"] .site-nav.is-scrolled{border-bottom-color:var(--accent)}
+:root[data-theme="cyber"] .btn-primary{box-shadow:0 0 18px rgba(252,238,10,.3)}
+:root[data-theme="cyber"] .btn-secondary{color:var(--cyan);border-color:rgba(0,240,255,.4)}
+:root[data-theme="cyber"] .btn-secondary:hover{border-color:var(--cyan);background:rgba(0,240,255,.1)}
+:root[data-theme="cyber"] .tag{color:var(--cyan);border-color:rgba(0,240,255,.28);background:rgba(0,240,255,.08)}
+:root[data-theme="cyber"] .journey-year{color:var(--cyan)}
+:root[data-theme="cyber"] .contact-icon{color:var(--cyan)}
+:root[data-theme="cyber"] .pf-facts li::before{color:var(--hot)}
+:root[data-theme="cyber"] .certs li::before{color:var(--cyan)}
+:root[data-theme="cyber"] .hero-status{color:var(--cyan);border-color:rgba(0,240,255,.45);background:rgba(0,240,255,.08);border-radius:0}
+:root[data-theme="cyber"] .hero-status-dot{background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+:root[data-theme="cyber"] .shots img{border-radius:0;border-color:var(--border-soft)}
+/* glitching name */
+:root[data-theme="cyber"] .hero-name{position:relative;text-transform:uppercase;letter-spacing:-.02em}
+:root[data-theme="cyber"] .hero-name::before,
+:root[data-theme="cyber"] .hero-name::after{
+  content:attr(data-text);position:absolute;left:0;top:0;width:100%;
+  pointer-events:none;opacity:0;
+}
+:root[data-theme="cyber"] .hero-name::before{color:var(--cyan);animation:cyber-glitch-a 4.2s infinite}
+:root[data-theme="cyber"] .hero-name::after{color:var(--hot);animation:cyber-glitch-b 5.3s infinite}
+@keyframes cyber-glitch-a{
+  0%,90%,100%{opacity:0;transform:translate(0)}
+  91%{opacity:.85;transform:translate(-3px,1px)}
+  93%{opacity:.85;transform:translate(2px,-2px)}
+  95%{opacity:.6;transform:translate(-1px,0)}
+  96%{opacity:0;transform:translate(0)}
+}
+@keyframes cyber-glitch-b{
+  0%,88%,100%{opacity:0;transform:translate(0)}
+  89%{opacity:.75;transform:translate(3px,-1px)}
+  92%{opacity:.75;transform:translate(-2px,2px)}
+  94%{opacity:0;transform:translate(0)}
+}
+
+/* ---------- responsive ---------- */
+@media (max-width:720px){
+  .nav-burger{display:block}
+  .nav-links{
+    position:absolute;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;gap:0;padding:.5rem clamp(1rem,4vw,2rem) 1rem;
+    background:var(--bg-elev);
+    border-bottom:1px solid var(--border-soft);
+    box-shadow:var(--shadow);
+    display:none;
+  }
+  .hero-tag{min-height:3.2em}
+  .nav-links.is-open{display:flex}
+  .nav-link{padding:.7rem .5rem;font-size:.95rem}
+  .shots img{height:230px}
+  .journey-timeline{margin-left:24px}
+  #hero{padding-top:calc(var(--nav-h) + 32px)}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
 </head>
 <body>
-    <!-- Liquid Background -->
-    <div class="liquid-bg">
-        <div class="liquid-blob"></div>
-        <div class="liquid-blob"></div>
-        <div class="liquid-blob"></div>
-        <div class="liquid-blob"></div>
+
+<nav class="site-nav" id="site-nav">
+  <a href="#hero" class="nav-name">Aleksei Grebenkin</a>
+  <div class="nav-links" id="nav-links">
+    <a href="#projects" class="nav-link">Projects</a>
+    <a href="#stack" class="nav-link">Stack</a>
+    <a href="#journey" class="nav-link">Journey</a>
+    <a href="#contacts" class="nav-link">Contacts</a>
+  </div>
+  <div class="nav-controls">
+    <div class="theme-switcher" id="theme-switcher" role="radiogroup" aria-label="Color theme">
+      <button type="button" class="theme-btn" data-theme="dark" role="radio" aria-label="Dark theme" aria-checked="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button type="button" class="theme-btn" data-theme="light" role="radio" aria-label="Light theme" aria-checked="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button type="button" class="theme-btn" data-theme="cyber" role="radio" aria-label="Cyberpunk theme" aria-checked="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+      </button>
     </div>
+    <button type="button" class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+      <span class="nav-burger-line"></span>
+      <span class="nav-burger-line"></span>
+      <span class="nav-burger-line"></span>
+    </button>
+  </div>
+</nav>
 
-    <!-- Liquid Particles -->
-    <div class="liquid-particles">
-        <div class="liquid-particle" style="left: 10%; animation-delay: 0s;"></div>
-        <div class="liquid-particle" style="left: 20%; animation-delay: 2s;"></div>
-        <div class="liquid-particle" style="left: 30%; animation-delay: 4s;"></div>
-        <div class="liquid-particle" style="left: 40%; animation-delay: 1s;"></div>
-        <div class="liquid-particle" style="left: 50%; animation-delay: 3s;"></div>
-        <div class="liquid-particle" style="left: 60%; animation-delay: 5s;"></div>
-        <div class="liquid-particle" style="left: 70%; animation-delay: 2.5s;"></div>
-        <div class="liquid-particle" style="left: 80%; animation-delay: 4.5s;"></div>
-        <div class="liquid-particle" style="left: 90%; animation-delay: 1.5s;"></div>
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section id="hero" aria-label="About me">
+    <img class="hero-photo" src="images/avgrebenkin_preview.jpg" alt="Aleksei Grebenkin" width="150" height="150" loading="eager">
+    <h1 class="hero-name" data-text="Aleksei Grebenkin">Aleksei Grebenkin</h1>
+    <p class="hero-tag"><span class="hero-tag-rotating" id="hero-tag-rotating" data-words="Building the voice layer of your workflow|Shipping products end-to-end|iOS &amp; full-stack engineer">Building the voice layer of your workflow</span></p>
+    <p class="hero-status"><span class="hero-status-dot" aria-hidden="true"></span>Open to Software Engineer roles</p>
+    <p class="hero-value">
+      <span class="mission-label">Mission</span>
+      I build tools that cut cognitive load, not just keystrokes. Typing forces your brain to think, formulate, type and correct all at once — speaking cuts that in half. That idea is now Speak-Y: press a hotkey, talk, and the text lands wherever your cursor is. Nine years in engineering behind it — five shipping iOS apps to the App Store, three building the backends underneath them. I own the whole loop: interview the people doing the work, design the architecture, write the Swift and the Python, ship it, keep it running.
+    </p>
+    <div class="hero-cta-row">
+      <a href="#projects" class="btn-primary">View projects</a>
+      <a href="#contacts" class="btn-secondary">Get in touch</a>
     </div>
+  </section>
 
-    <!-- Navigation -->
-    <nav id="navbar">
-        <div class="container">
-            <div class="nav-content">
-                <div class="logo"><i data-lucide="flame" class="icon"></i></div>
-                <ul class="nav-links">
-                    <li><a href="#home" class="liquid-nav-link">Home</a></li>
-                    <li><a href="#about" class="liquid-nav-link">About</a></li>
-                    <li><a href="#projects" class="liquid-nav-link">Projects</a></li>
-                    <li><a href="#contact" class="liquid-nav-link">Contact</a></li>
-                </ul>
-            </div>
+  <!-- ============ PROJECTS ============ -->
+  <section id="projects" aria-label="Projects" class="reveal">
+    <h2 class="section-title">Projects</h2>
+
+    <article class="project project-featured">
+      <span class="pf-badge">Current · solo founder</span>
+      <div class="pf-header">
+        <div class="pf-mark">
+          <img src="images/icons/speak-y.png" alt="Speak-Y app icon" width="58" height="58" loading="lazy" decoding="async">
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text fade-in-left">
-                    <div class="subtitle"><i data-lucide="user" class="icon"></i>Hi, I'm</div>
-                    <h1 class="section-title">Aleksei Grebenkin</h1>
-                    <p>Senior iOS Developer with 5+ years of specialized mobile development experience and almost 3 years of comprehensive backend expertise. I'm passionate about architecting scalable solutions, implementing cutting-edge technologies, and delivering exceptional user experiences that drive business value.</p>
-                    <div class="cta-buttons">
-                        <a href="#projects" class="cta-button liquid-button liquid-hover-effect">View My Work</a>
-                        <a href="#contact" class="cta-button secondary liquid-button liquid-hover-effect">Get In Touch</a>
-                    </div>
-                </div>
-                <div class="hero-visual fade-in-right">
-                    <div class="code-window liquid-card">
-                        <div class="code-content">
-                            <div class="code-line"><span class="keyword">import</span> <span class="string">UIKit</span></div>
-                            <div class="code-line"><span class="keyword">import</span> <span class="string">SwiftUI</span></div>
-                            <div class="code-line"></div>
-                            <div class="code-line"><span class="keyword">class</span> <span class="function">ViewController</span> {</div>
-                            <div class="code-line">  <span class="keyword">func</span> <span class="function">createAwesomeApp</span>() {</div>
-                            <div class="code-line">    <span class="comment">// Magic happens here ✨</span></div>
-                            <div class="code-line">  }</div>
-                            <div class="code-line">}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div>
+          <h3 class="pf-name">Speak-Y</h3>
+          <p class="pf-tagline">Stop typing. Just say it.</p>
         </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <h2 class="section-title reveal">About Me</h2>
-            <div class="about-content">
-                <div class="about-text reveal-left">
-                    <p>As a dedicated iOS Developer with 4 years of specialized mobile app development and 3 years of robust backend engineering experience, I bring a comprehensive full-stack perspective to every project. My expertise spans the entire development lifecycle, from system architecture and database design to user interface implementation and performance optimization.</p>
-                    
-                    <div class="experience-highlight liquid-card liquid-border">
-                        <h4><i data-lucide="rocket" class="icon"></i>Leadership Experience</h4>
-                        <p>Successfully led mobile development for the 'Ryadom' social networking platform over 6 months, coordinating with a cross-functional team and mentoring fellow developers. This experience enhanced my technical leadership skills while delivering complex social features including real-time messaging, geo-targeting, and multi-profile functionality.</p>
-                    </div>
-
-                    <p>My core strengths include analytical problem-solving, meticulous attention to detail, and unwavering commitment to code quality. I strictly adhere to SOLID principles and best practices in software architecture. I'm driven by continuous learning, embracing emerging technologies, and tackling complex technical challenges. Collaborating with talented teams to create innovative solutions that make a meaningful impact is what truly motivates me as a developer.</p>
-
-                    <div class="skills-section">
-                        <h3 class="section-heading">Technical Skills</h3>
-                        <div class="skills-grid">
-                            <div class="skill-category">
-                                <h4><i data-lucide="tablet-smartphone" class="icon"></i>iOS Development</h4>
-                                <div class="skills">
-                                    <!-- Core Languages & Tools -->
-                                    <span class="skill-tag liquid-skill">Swift</span>
-                                    <span class="skill-tag liquid-skill">Xcode</span>
-                                    
-                                    <!-- UI Frameworks -->
-                                    <span class="skill-tag liquid-skill">UIKit</span>
-                                    <span class="skill-tag liquid-skill">SnapKit</span>
-                                    
-                                    <!-- Architecture Patterns -->
-                                    <span class="skill-tag liquid-skill">MVVM</span>
-                                    <span class="skill-tag liquid-skill">Coordinators</span>
-                                    
-                                    <!-- Async Programming -->
-                                    <span class="skill-tag liquid-skill">GCD</span>
-                                    <span class="skill-tag liquid-skill">RxSwift</span>
-                                    
-                                    <!-- Networking & Communication -->
-                                    <span class="skill-tag liquid-skill">Alamofire</span>
-                                    <span class="skill-tag liquid-skill">WebRTC</span>
-                                    <span class="skill-tag liquid-skill">Starscream</span>
-                                    
-                                    <!-- Specialized Frameworks -->
-                                    <span class="skill-tag liquid-skill">Core Data</span>
-                                    <span class="skill-tag liquid-skill">CallKit</span>
-                                    <span class="skill-tag liquid-skill">AVFoundation</span>
-                                    <span class="skill-tag liquid-skill">StoreKit</span>
-                                    
-                                    <!-- Development Tools -->
-                                    <span class="skill-tag liquid-skill">CocoaPods</span>
-                                </div>
-                            </div>
-                            <div class="skill-category">
-                                <h4><i data-lucide="settings" class="icon"></i>Backend & Other</h4>
-                                <div class="skills">
-                                    <!-- Cloud Platforms -->
-                                    <span class="skill-tag liquid-skill">AWS</span>
-                                    
-                                    <!-- Backend Technologies -->
-                                    <span class="skill-tag liquid-skill">PHP</span>
-                                    <span class="skill-tag liquid-skill">Yii2</span>
-                                    <span class="skill-tag liquid-skill">SOAP</span>
-                                    
-                                    <!-- Database -->
-                                    <span class="skill-tag liquid-skill">SQL</span>
-                                    
-                                    <!-- Frontend Technologies -->
-                                    <span class="skill-tag liquid-skill">JavaScript</span>
-                                    <span class="skill-tag liquid-skill">AngularJS</span>
-                                    <span class="skill-tag liquid-skill">SCSS</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Profile Card after skills -->
-                    <div class="about-visual reveal-right" style="display: flex; justify-content: center; margin-top: 2rem;">
-                        <div class="profile-card liquid-card">
-                            <div class="profile-avatar liquid-avatar"><i data-lucide="code" class="icon icon-xl"></i></div>
-                            <h3>Software Engineer</h3>
-                            <p>7+ years in IT (since 2017)</p>
-                            <p>iOS focused with full-stack background</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="shots">
+        <img src="images/speak-y/01_main_screen.png" alt="Speak-Y — voice notes list" loading="lazy" decoding="async" width="480" height="1040">
+        <img src="images/speak-y/02_recording.png" alt="Speak-Y — recording screen" loading="lazy" decoding="async" width="480" height="1040">
+        <img src="images/speak-y/03_custom_keyboard.png" alt="Speak-Y — custom keyboard" loading="lazy" decoding="async" width="480" height="1040">
+        <img src="images/speak-y/04_ai_smart_mode.png" alt="Speak-Y — AI smart mode" loading="lazy" decoding="async" width="480" height="1040">
+        <img src="images/speak-y/05_ai_result.png" alt="Speak-Y — AI result" loading="lazy" decoding="async" width="480" height="1040">
+        <img src="images/speak-y/06_cross-device_sync.png" alt="Speak-Y — cross-device sync" loading="lazy" decoding="async" width="480" height="1040">
+      </div>
+      <p class="pf-summary">
+        Press a global hotkey, talk, and the text appears exactly where your cursor is — in Cursor, Slack, the terminal, your notes, anywhere. No app switching, no clipboard. The point isn't typing speed, it's cognitive load: typing makes your brain formulate, transcribe, type and proofread at once; speaking cuts that to two. 68% of the people I surveyed named formulating thoughts — not typing — as their real bottleneck.
+      </p>
+      <h4 class="pf-section-heading">What the product does</h4>
+      <ul class="chips">
+        <li class="chip">System-wide hotkey</li>
+        <li class="chip">Insert at cursor</li>
+        <li class="chip">Auto-punctuation</li>
+        <li class="chip">Voice commands</li>
+        <li class="chip">Multilingual</li>
+        <li class="chip">Meeting recording</li>
+        <li class="chip">Cross-device sync</li>
+        <li class="chip">Privacy-first</li>
+      </ul>
+      <ul class="pf-facts">
+        <li><strong>Shipped across three platforms</strong> — macOS, Windows and iOS, live on the App Store.</li>
+        <li><strong>Validated before building wide</strong> — 15+ deep interviews and a 19-person survey.</li>
+        <li><strong>Everything else is mine too</strong> — positioning, pricing and unit economics, Paddle payments, pitch deck, founder-led LinkedIn content and paid experiments.</li>
+      </ul>
+      <details class="stack-details">
+        <summary>Show tech stack <span class="stack-count">(8)</span></summary>
+        <div class="stack-tags">
+          <span class="tag">Swift</span><span class="tag">SwiftUI</span><span class="tag">AppKit</span>
+          <span class="tag">Node.js</span><span class="tag">Python</span><span class="tag">REST</span>
+          <span class="tag">Paddle</span><span class="tag">TDD</span>
         </div>
-    </section>
+      </details>
+      <div class="pf-footer">
+        <a class="pf-cta" href="https://speak-y.com" target="_blank" rel="noopener">speak-y.com <span aria-hidden="true">→</span></a>
+        <a class="pf-cta" href="https://apps.apple.com/us/app/speak-y-voice-notes-meetings/id6758596767" target="_blank" rel="noopener">App&nbsp;Store <span aria-hidden="true">→</span></a>
+        <span class="pf-role">Founder &amp; CEO · 2025 — now</span>
+      </div>
+    </article>
 
-    <!-- Projects Section -->
-    <section id="projects">
-        <div class="container">
-            <h2 class="section-title reveal">Featured Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card ryadom liquid-card liquid-border reveal">
-                    <div class="project-card-header">
-                        <i data-lucide="globe" class="icon"></i>
-                    </div>
-                    <h3 class="project-title">Ryadom Platform</h3>
-                    <p class="project-description">Comprehensive social networking platform featuring advanced business integration capabilities. Developed sophisticated geo-targeting algorithms for local event discovery, implemented seamless multi-profile architecture, designed QR-based loyalty programs, and engineered real-time messaging infrastructure. Successfully led mobile development team delivering scalable solutions for diverse user engagement scenarios.</p>
-                    
-                    <!-- Project Screenshots Slider -->
-                    <div class="project-slider">
-                        <div class="slider-container">
-                            <div class="slider-track" id="ryadomSlider">
-                                <img src="images/ryadom/phone1.png" alt="Ryadom Screenshot 1" class="project-image" onclick="openImageModal(this.src)">
-                                <img src="images/ryadom/phone2.png" alt="Ryadom Screenshot 2" class="project-image" onclick="openImageModal(this.src)">
-                                <img src="images/ryadom/phone3.png" alt="Ryadom Screenshot 3" class="project-image" onclick="openImageModal(this.src)">
-                                <img src="images/ryadom/phone4.png" alt="Ryadom Screenshot 4" class="project-image" onclick="openImageModal(this.src)">
-                                <img src="images/ryadom/phone5.png" alt="Ryadom Screenshot 5" class="project-image" onclick="openImageModal(this.src)">
-                                <img src="images/ryadom/phone6.png" alt="Ryadom Screenshot 6" class="project-image" onclick="openImageModal(this.src)">
-                            </div>
-                            <button class="slider-nav prev" onclick="prevSlide('ryadomSlider')">‹</button>
-                            <button class="slider-nav next" onclick="nextSlide('ryadomSlider')">›</button>
-                        </div>
-                        <div class="slider-dots" id="ryadomDots"></div>
-                    </div>
-                    
-                    <div class="project-tech">
-                        <span class="tech-tag liquid-skill">Swift</span>
-                        <span class="tech-tag liquid-skill">WebRTC</span>
-                        <span class="tech-tag liquid-skill">UIKit</span>
-                        <span class="tech-tag liquid-skill">Core Data</span>
-                        <span class="tech-tag liquid-skill">Alamofire</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://ryadom.app" class="project-link liquid-button-enhanced" target="_blank">Live App →</a>
-                    </div>
-                </div>
-
-                <div class="project-card babydayka liquid-card liquid-border reveal">
-                    <div class="project-card-header">
-                        <i data-lucide="baby" class="icon"></i>
-                    </div>
-                    <h3 class="project-title">Babydayka</h3>
-                    <p class="project-description">Intelligent pregnancy and baby development tracking application designed as a secure family-focused social network. Architected comprehensive monitoring systems for developmental milestones, implemented privacy-first sharing mechanisms for family members, and developed data visualization tools for health analytics. Created intuitive interfaces for capturing and organizing precious family moments with robust data security measures.</p>
-                    
-                    <!-- Project Screenshots Slider -->
-                    <div class="project-slider">
-                        <div class="slider-container">
-                            <div class="slider-track" id="babydaykaSlider">
-                                <img src="images/babydayka/screenshot_feed_en.png" alt="Babydayka Feed" class="project-image" onclick="openImageModal(this.src)">
-                                <img src="images/babydayka/screenshot_measurement_graphs_en.png" alt="Babydayka Graphs" class="project-image" onclick="openImageModal(this.src)">
-                                <img src="images/babydayka/screenshot_celebrate_achievements_en.png" alt="Babydayka Achievements" class="project-image" onclick="openImageModal(this.src)">
-                                <img src="images/babydayka/screenshot_keep_health_en.png" alt="Babydayka Health" class="project-image" onclick="openImageModal(this.src)">
-                                <img src="images/babydayka/screenshot_likes_and_comments_en.png" alt="Babydayka Comments" class="project-image" onclick="openImageModal(this.src)">
-                                <img src="images/babydayka/screenshot_private_posts_en.png" alt="Babydayka Private Posts" class="project-image" onclick="openImageModal(this.src)">
-                                <img src="images/babydayka/screenshot_talk_to_other_users_en.png" alt="Babydayka Chat" class="project-image" onclick="openImageModal(this.src)">
-                            </div>
-                            <button class="slider-nav prev" onclick="prevSlide('babydaykaSlider')">‹</button>
-                            <button class="slider-nav next" onclick="nextSlide('babydaykaSlider')">›</button>
-                        </div>
-                        <div class="slider-dots" id="babydaykaDots"></div>
-                    </div>
-                    
-                    <div class="project-tech">
-                        <span class="tech-tag liquid-skill">Swift</span>
-                        <span class="tech-tag liquid-skill">UIKit</span>
-                        <span class="tech-tag liquid-skill">Core Data</span>
-                        <span class="tech-tag liquid-skill">PHP</span>
-                        <span class="tech-tag liquid-skill">SQL</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://babydayka.com/" class="project-link liquid-button-enhanced" target="_blank">View Website →</a>
-                    </div>
-                </div>
-
-                <div class="project-card loolza liquid-card liquid-border reveal">
-                    <div class="project-card-header">
-                        <i data-lucide="phone" class="icon"></i>
-                    </div>
-                    <h3 class="project-title">Loolza</h3>
-                    <p class="project-description">Enterprise-grade telemedicine platform connecting healthcare professionals with patients through secure digital channels. Engineered high-performance real-time communication systems using WebRTC, developed HIPAA-compliant data management solutions, and implemented advanced social networking features for medical communities. Delivered full-stack architecture with robust backend integration, ensuring scalability and regulatory compliance for healthcare environments.</p>
-                    
-                    <!-- Project Screenshots Slider -->
-                    <div class="project-slider">
-                        <div class="slider-container">
-                            <div class="slider-track" id="loolzaSlider">
-                                <img src="images/loolza/slide-phone-1.png" alt="Loolza Screenshot 1" class="project-image" onclick="openImageModal(this.src)">
-                                <img src="images/loolza/slide-phone-2.png" alt="Loolza Screenshot 2" class="project-image" onclick="openImageModal(this.src)">
-                            </div>
-                            <button class="slider-nav prev" onclick="prevSlide('loolzaSlider')">‹</button>
-                            <button class="slider-nav next" onclick="nextSlide('loolzaSlider')">›</button>
-                        </div>
-                        <div class="slider-dots" id="loolzaDots"></div>
-                    </div>
-                    
-                    <div class="project-tech">
-                        <span class="tech-tag liquid-skill">Swift</span>
-                        <span class="tech-tag liquid-skill">CallKit</span>
-                        <span class="tech-tag liquid-skill">WebRTC</span>
-                        <span class="tech-tag liquid-skill">Starscream</span>
-                        <span class="tech-tag liquid-skill">AWS</span>
-                        <span class="tech-tag liquid-skill">MVVM</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="https://loolza.ru" class="project-link liquid-button-enhanced" target="_blank">Loolza →</a>
-                    </div>
-                </div>
-            </div>
+    <article class="project">
+      <div class="pf-header">
+        <div class="pf-mark">
+          <img src="images/icons/ryadom.png" alt="Ryadom app icon" width="58" height="58" loading="lazy" decoding="async">
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <div class="contact-content">
-                <h2 class="section-title reveal">Let's Work Together</h2>
-                <p class="contact-description reveal">Ready to discuss innovative projects and strategic collaboration opportunities. I'm passionate about joining talented, forward-thinking teams to architect exceptional solutions that drive meaningful impact. Let's connect and explore how we can create something extraordinary together.</p>
-                
-                <div class="contact-grid">
-                    <a href="mailto:aleksey.v.grebenkin@gmail.com" class="contact-card liquid-card liquid-border liquid-hover-effect reveal">
-                        <div class="contact-icon"><i data-lucide="mail" class="icon"></i></div>
-                        <h3>Email</h3>
-                        <p>aleksey.v.grebenkin@gmail.com</p>
-                    </a>
-                    
-                    <a href="https://t.me/avgrebenkin" class="contact-card liquid-card liquid-border liquid-hover-effect reveal" target="_blank">
-                        <div class="contact-icon"><i data-lucide="message-circle" class="icon"></i></div>
-                        <h3>Telegram</h3>
-                        <p>@avgrebenkin</p>
-                    </a>
-                    
-                    <a href="https://www.linkedin.com/in/avgrebenkin/" class="contact-card liquid-card liquid-border liquid-hover-effect reveal" target="_blank">
-                        <div class="contact-icon"><i data-lucide="linkedin" class="icon"></i></div>
-                        <h3>LinkedIn</h3>
-                        <p>Professional Profile</p>
-                    </a>
-                    
-                    <a href="https://github.com/alexstich" class="contact-card liquid-card liquid-border liquid-hover-effect reveal" target="_blank">
-                        <div class="contact-icon"><i data-lucide="github" class="icon"></i></div>
-                        <h3>GitHub</h3>
-                        <p>Code Repository</p>
-                    </a>
-                </div>
-            </div>
+        <div>
+          <h3 class="pf-name">Ryadom</h3>
+          <p class="pf-tagline">A local social platform where people and businesses meet</p>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Aleksei Grebenkin. All rights reserved. Crafted with precision and passion for exceptional iOS development.</p>
+      </div>
+      <div class="shots">
+        <img src="images/ryadom/phone1.png" alt="Ryadom app screen" loading="lazy" decoding="async" width="435" height="878">
+        <img src="images/ryadom/phone2.png" alt="Ryadom app screen" loading="lazy" decoding="async" width="435" height="878">
+        <img src="images/ryadom/phone3.png" alt="Ryadom app screen" loading="lazy" decoding="async" width="435" height="878">
+        <img src="images/ryadom/phone4.png" alt="Ryadom app screen" loading="lazy" decoding="async" width="435" height="878">
+        <img src="images/ryadom/phone5.png" alt="Ryadom app screen" loading="lazy" decoding="async" width="435" height="878">
+        <img src="images/ryadom/phone6.png" alt="Ryadom app screen" loading="lazy" decoding="async" width="435" height="878">
+      </div>
+      <p class="pf-summary">
+        Social networking with business integration built in: geo-targeted discovery of local events, multi-profile architecture for personal and business identities, QR-based loyalty programs and real-time messaging. I led the mobile side of it — coordinating a cross-functional team and mentoring developers while the feature set kept growing.
+      </p>
+      <ul class="pf-facts">
+        <li><strong>Team lead for mobile</strong> across iOS and Android delivery.</li>
+        <li><strong>Real-time layer</strong> — messaging and presence for feeds and events.</li>
+      </ul>
+      <details class="stack-details">
+        <summary>Show tech stack <span class="stack-count">(6)</span></summary>
+        <div class="stack-tags">
+          <span class="tag">Swift</span><span class="tag">UIKit</span><span class="tag">MVVM</span>
+          <span class="tag">Core Data</span><span class="tag">Alamofire</span><span class="tag">WebRTC</span>
         </div>
-    </footer>
+      </details>
+      <div class="pf-footer">
+        <a class="pf-cta" href="https://ryadom.app" target="_blank" rel="noopener">ryadom.app <span aria-hidden="true">→</span></a>
+        <a class="pf-cta" href="https://apps.apple.com/us/app/id1619482847" target="_blank" rel="noopener">App&nbsp;Store <span aria-hidden="true">→</span></a>
+        <span class="pf-role">Mobile team lead · Rucode</span>
+      </div>
+    </article>
 
-    <!-- Image Modal -->
-    <div id="imageModal" class="image-modal" onclick="closeImageModal()">
-        <img id="modalImage" class="modal-image" alt="Project Screenshot">
+    <article class="project">
+      <div class="pf-header">
+        <div class="pf-mark">
+          <img src="images/icons/babydayka.png" alt="Babydayka app icon" width="58" height="58" loading="lazy" decoding="async">
+        </div>
+        <div>
+          <h3 class="pf-name">Babydayka</h3>
+          <p class="pf-tagline">A private baby journal for the family, not the feed</p>
+        </div>
+      </div>
+      <div class="shots">
+        <img src="images/babydayka/screenshot_feed_en.png" alt="Babydayka feed" loading="lazy" decoding="async" width="436" height="882">
+        <img src="images/babydayka/screenshot_private_posts_en.png" alt="Babydayka private posts" loading="lazy" decoding="async" width="436" height="882">
+        <img src="images/babydayka/screenshot_measurement_graphs_en.png" alt="Babydayka growth graphs" loading="lazy" decoding="async" width="436" height="882">
+        <img src="images/babydayka/screenshot_keep_health_en.png" alt="Babydayka health tracking" loading="lazy" decoding="async" width="436" height="882">
+        <img src="images/babydayka/screenshot_celebrate_achievements_en.png" alt="Babydayka milestones" loading="lazy" decoding="async" width="436" height="882">
+        <img src="images/babydayka/screenshot_likes_and_comments_en.png" alt="Babydayka comments" loading="lazy" decoding="async" width="436" height="882">
+        <img src="images/babydayka/screenshot_subscription_by_invitation_en.png" alt="Babydayka invitations" loading="lazy" decoding="async" width="436" height="882">
+      </div>
+      <p class="pf-summary">
+        A pregnancy and baby-development journal built as a closed family network: milestones, health measurements and photos shared only with the people you invite. I worked both sides of it — features and performance in the iOS app, and the backend that serves them.
+      </p>
+      <ul class="pf-facts">
+        <li><strong>Backend performance</strong> — reworked SQL and the database structure, cutting heavy queries from 3–5 s to 0.2–0.3 s.</li>
+        <li><strong>App performance</strong> — refactored screen transitions and feed loading.</li>
+        <li><strong>Quality</strong> — API test suite in Postman.</li>
+      </ul>
+      <details class="stack-details">
+        <summary>Show tech stack <span class="stack-count">(6)</span></summary>
+        <div class="stack-tags">
+          <span class="tag">Swift</span><span class="tag">UIKit</span><span class="tag">Core Data</span>
+          <span class="tag">PHP / Yii2</span><span class="tag">SQL</span><span class="tag">Postman</span>
+        </div>
+      </details>
+      <div class="pf-footer">
+        <a class="pf-cta" href="https://babydayka.com/" target="_blank" rel="noopener">babydayka.com <span aria-hidden="true">→</span></a>
+        <a class="pf-cta" href="https://apps.apple.com/us/app/id964649899" target="_blank" rel="noopener">App&nbsp;Store <span aria-hidden="true">→</span></a>
+        <span class="pf-role">iOS &amp; backend developer · Rucode</span>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ STACK ============ -->
+  <section id="stack" aria-label="Stack" class="reveal">
+    <h2 class="section-title">Stack</h2>
+    <div class="stack-grid">
+      <div class="stack-card">
+        <h3>iOS</h3>
+        <ul class="chips">
+          <li class="chip">Swift</li><li class="chip">SwiftUI</li><li class="chip">UIKit</li>
+          <li class="chip">MVVM</li><li class="chip">Coordinators</li><li class="chip">SnapKit</li>
+          <li class="chip">RxSwift</li><li class="chip">GCD</li><li class="chip">Core Data</li>
+          <li class="chip">WebRTC</li><li class="chip">CallKit</li><li class="chip">AVFoundation</li>
+          <li class="chip">StoreKit</li><li class="chip">Alamofire</li>
+        </ul>
+      </div>
+      <div class="stack-card">
+        <h3>Backend &amp; web</h3>
+        <ul class="chips">
+          <li class="chip">Node.js</li><li class="chip">Python</li><li class="chip">PHP / Yii2</li>
+          <li class="chip">SQL</li><li class="chip">REST</li><li class="chip">SOAP</li>
+          <li class="chip">AWS</li><li class="chip">JavaScript</li><li class="chip">AngularJS</li>
+        </ul>
+      </div>
+      <div class="stack-card">
+        <h3>Practices</h3>
+        <ul class="chips">
+          <li class="chip">Test-Driven Development</li><li class="chip">Spec-Driven Development</li>
+          <li class="chip">Architectural design</li><li class="chip">SOLID</li>
+          <li class="chip">Code review</li><li class="chip">Mentoring</li>
+        </ul>
+      </div>
+      <div class="stack-card">
+        <h3>Certifications</h3>
+        <ul class="certs">
+          <li>edX — Artificial Intelligence (AI)</li>
+          <li>edX — Work with augmented reality (AR) and the web</li>
+          <li>Swift Code Challenges</li>
+        </ul>
+      </div>
     </div>
+  </section>
 
-    <script>
-        // Enhanced scroll effects
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 100) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+  <!-- ============ JOURNEY ============ -->
+  <section id="journey" aria-label="My journey" class="reveal">
+    <h2 class="section-title">My journey</h2>
+    <div class="journey-timeline">
 
-        // Enhanced reveal animations with different directions
-        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-        
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('active');
-                    }, index * 100); // Stagger animation
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
+      <div class="journey-item">
+        <div class="journey-dot" aria-hidden="true"></div>
+        <div class="journey-content">
+          <button type="button" class="journey-head" aria-expanded="false" aria-controls="journey-0-body">
+            <span class="journey-head-text">
+              <span class="journey-label">Ural Federal University</span>
+              <span class="journey-year">2002–2008</span>
+              <span class="journey-text">Six years of engineering fundamentals — control systems and applied informatics</span>
+            </span>
+            <span class="journey-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <div class="journey-body" id="journey-0-body">
+            <ul>
+              <li>Diploma of specialist — <strong>Technical Systems Management and Informatics Engineering</strong>.</li>
+              <li>Ekaterinburg, Russia. The engineering habit of modelling a system before touching it started here.</li>
+            </ul>
+            <p class="journey-meta">6 years · B.N. Yeltsin Ural Federal University</p>
+          </div>
+        </div>
+      </div>
 
-        revealElements.forEach(element => {
-            revealObserver.observe(element);
-        });
+      <div class="journey-item">
+        <div class="journey-dot" aria-hidden="true"></div>
+        <div class="journey-content">
+          <button type="button" class="journey-head" aria-expanded="false" aria-controls="journey-1-body">
+            <span class="journey-head-text">
+              <span class="journey-label">Renco Systems — founder</span>
+              <span class="journey-year">2011–2017</span>
+              <span class="journey-text">Ran my own manufacturing company before I ran my own software product</span>
+            </span>
+            <span class="journey-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <div class="journey-body" id="journey-1-body">
+            <ul>
+              <li>Founded and headed a small construction company manufacturing and installing <strong>glass structures</strong>: partitions, doors, visors.</li>
+              <li>Sales, hiring, production planning and delivery — the same loop I now run for a software product, with heavier materials.</li>
+            </ul>
+            <p class="journey-meta">6 years 2 months · Ekaterinburg, Russia</p>
+          </div>
+        </div>
+      </div>
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+      <div class="journey-item">
+        <div class="journey-dot" aria-hidden="true"></div>
+        <div class="journey-content">
+          <button type="button" class="journey-head" aria-expanded="false" aria-controls="journey-2-body">
+            <span class="journey-head-text">
+              <span class="journey-label">Rucode — backend developer</span>
+              <span class="journey-year">2017–2020</span>
+              <span class="journey-text">Moved into software through the part where performance is measurable</span>
+            </span>
+            <span class="journey-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <div class="journey-body" id="journey-2-body">
+            <ul>
+              <li>Refactored the Babydayka backend — optimised SQL and DB structure, <strong>heavy queries from 3–5 s down to 0.2–0.3 s</strong>.</li>
+              <li>Designed and implemented the <strong>REST API</strong> for commercial users of RIAS, a data-exchange system with the state housing and utilities information system (GIS ZhKH).</li>
+              <li>Built the RIAS web interface and maintained the SOAP exchange services behind it.</li>
+            </ul>
+            <p class="journey-meta">2 years 5 months · Ekaterinburg, Russia</p>
+          </div>
+        </div>
+      </div>
 
-        // Dynamic typing effect for hero subtitle
-        const subtitle = document.querySelector('.subtitle');
-        const roles = [
-            { text: 'Hi, I\'m', icon: 'user' },
-            { text: 'iOS Developer', icon: 'tablet-smartphone' },
-            { text: 'Software Engineer', icon: 'code' },
-            { text: 'Problem Solver', icon: 'lightbulb' }
-        ];
-        let currentRole = 0;
-        
-        function typeEffect() {
-            subtitle.style.opacity = '0';
-            setTimeout(() => {
-                subtitle.innerHTML = `<i data-lucide="${roles[currentRole].icon}" class="icon"></i>${roles[currentRole].text}`;
-                lucide.createIcons(); // Re-initialize icons
-                subtitle.style.opacity = '1';
-                currentRole = (currentRole + 1) % roles.length;
-            }, 500);
+      <div class="journey-item journey-item-current">
+        <div class="journey-dot" aria-hidden="true"></div>
+        <div class="journey-content">
+          <button type="button" class="journey-head" aria-expanded="false" aria-controls="journey-3-body">
+            <span class="journey-head-text">
+              <span class="journey-label">Rucode — iOS developer</span>
+              <span class="journey-year">2020 — now</span>
+              <span class="journey-text">Five years of shipping iOS products, and leading the team that ships them</span>
+            </span>
+            <span class="journey-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <div class="journey-body" id="journey-3-body">
+            <ul>
+              <li><strong>Team lead</strong> for Loolza development across iOS and Android.</li>
+              <li>Designed and built <strong>Loolza</strong> from scratch to App Store release, including chat and audio/video over WebRTC.</li>
+              <li>Built features for <strong>Babydayka</strong> and refactored it for faster screen transitions and feed loading.</li>
+              <li>Integrated Apple Pay, Tinkoff and YandexKassa across both apps; kept local-database sync reliable offline.</li>
+            </ul>
+            <p class="journey-meta">Moscow, Russia · remote</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="journey-item journey-item-current">
+        <div class="journey-dot" aria-hidden="true"></div>
+        <div class="journey-content">
+          <button type="button" class="journey-head" aria-expanded="false" aria-controls="journey-4-body">
+            <span class="journey-head-text">
+              <span class="journey-label">Speak-Y — founder &amp; CEO</span>
+              <span class="journey-year">2025 — now</span>
+              <span class="journey-text">Turning eight years of engineering into a product I own end-to-end</span>
+            </span>
+            <span class="journey-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </button>
+          <div class="journey-body" id="journey-4-body">
+            <ul>
+              <li>Product, strategy and positioning for a system-wide voice input tool on macOS, Windows and iOS.</li>
+              <li>Full-stack development in <strong>Swift, Node.js and Python</strong>; cross-platform MVP shipped.</li>
+              <li>Customer development — interviews, surveys and focus groups; growth through founder-led content and paid experiments.</li>
+              <li>Business side — pitch deck, unit economics, Paddle payments.</li>
+            </ul>
+            <p class="journey-meta">Batumi, Georgia</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ CONTACTS ============ -->
+  <section id="contacts" aria-label="Contacts" class="reveal">
+    <h2 class="section-title">Contacts</h2>
+    <div class="contacts-grid">
+      <a href="mailto:aleksey.v.grebenkin@gmail.com" class="contact-card">
+        <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span>
+        <span class="contact-label">aleksey.v.grebenkin@gmail.com</span>
+      </a>
+      <a href="https://t.me/avgrebenkin" class="contact-card" target="_blank" rel="noopener">
+        <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 3-20 8 6 2 2 6 3-4 5 4z"/><path d="m8 13 8-6"/></svg></span>
+        <span class="contact-label">@avgrebenkin</span>
+      </a>
+      <a href="tel:+995599581365" class="contact-card">
+        <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg></span>
+        <span class="contact-label">+995 599 581 365</span>
+      </a>
+      <a href="https://www.linkedin.com/in/avgrebenkin/" class="contact-card" target="_blank" rel="noopener">
+        <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-11h4v1.5A6 6 0 0 1 16 8z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></span>
+        <span class="contact-label">linkedin.com/in/avgrebenkin</span>
+      </a>
+      <a href="https://github.com/alexstich" class="contact-card" target="_blank" rel="noopener">
+        <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-.9-2.6c3-.3 6.2-1.5 6.2-6.7A5.2 5.2 0 0 0 19.9 5a4.9 4.9 0 0 0-.1-3.6s-1.2-.3-3.8 1.4a13.1 13.1 0 0 0-7 0C6.4 1.1 5.2 1.4 5.2 1.4A4.9 4.9 0 0 0 5.1 5a5.2 5.2 0 0 0-1.4 3.6c0 5.2 3.2 6.4 6.2 6.7a3.4 3.4 0 0 0-.9 2.6V22"/></svg></span>
+        <span class="contact-label">github.com/alexstich</span>
+      </a>
+      <a href="https://speak-y.com" class="contact-card" target="_blank" rel="noopener">
+        <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg></span>
+        <span class="contact-label">speak-y.com</span>
+      </a>
+    </div>
+    <div class="contacts-divider"></div>
+    <div class="contacts-grid">
+      <div class="contact-card contact-card-info">
+        <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+        <span class="contact-label">Batumi, Georgia · remote-first</span>
+      </div>
+      <div class="contact-card contact-card-info">
+        <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h11M9 4v4c0 5-2.5 8-6 9"/><path d="M11 17c-1.8-.6-3.4-1.9-4.5-3.6"/><path d="m13 21 4.5-10L22 21M15 17h5"/></svg></span>
+        <span class="contact-label">Russian (native), English</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>© 2026 Aleksei Grebenkin</span>
+  <a class="to-top" href="#hero">back to top ↑</a>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---- theme ---- */
+  var root = document.documentElement;
+  var themeBtns = Array.prototype.slice.call(document.querySelectorAll('.theme-btn'));
+  var THEMES = ['dark', 'light', 'cyber'];
+  var stored = null;
+  try { stored = localStorage.getItem('theme'); } catch (e) {}
+  if (THEMES.indexOf(stored) === -1) stored = null;
+  var initial = stored || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+
+  function applyTheme(name) {
+    root.setAttribute('data-theme', name);
+    themeBtns.forEach(function (b) {
+      var on = b.dataset.theme === name;
+      b.classList.toggle('theme-btn-active', on);
+      b.setAttribute('aria-checked', String(on));
+    });
+    try { localStorage.setItem('theme', name); } catch (e) {}
+  }
+  applyTheme(initial);
+  themeBtns.forEach(function (b) {
+    b.addEventListener('click', function () { applyTheme(b.dataset.theme); });
+  });
+
+  /* ---- burger ---- */
+  var burger = document.getElementById('nav-burger');
+  var navLinks = document.getElementById('nav-links');
+  function closeMenu() {
+    navLinks.classList.remove('is-open');
+    burger.setAttribute('aria-expanded', 'false');
+  }
+  burger.addEventListener('click', function () {
+    var open = navLinks.classList.toggle('is-open');
+    burger.setAttribute('aria-expanded', String(open));
+  });
+  navLinks.addEventListener('click', function (e) {
+    if (e.target.closest('.nav-link')) closeMenu();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  /* ---- nav shadow + scroll spy ---- */
+  var nav = document.getElementById('site-nav');
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
+  var sections = links
+    .map(function (l) { return document.querySelector(l.getAttribute('href')); })
+    .filter(Boolean);
+
+  function onScroll() {
+    nav.classList.toggle('is-scrolled', window.scrollY > 8);
+    var pos = window.scrollY + window.innerHeight * 0.3;
+    var active = null;
+    sections.forEach(function (s) { if (s.offsetTop <= pos) active = s.id; });
+    links.forEach(function (l) {
+      l.classList.toggle('nav-link-active', l.getAttribute('href') === '#' + active);
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* ---- reveal on scroll ---- */
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in-view'); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    reveals.forEach(function (el) { io.observe(el); });
+  } else {
+    reveals.forEach(function (el) { el.classList.add('in-view'); });
+  }
+
+  /* ---- journey accordion ---- */
+  Array.prototype.forEach.call(document.querySelectorAll('.journey-head'), function (head) {
+    head.addEventListener('click', function () {
+      var item = head.closest('.journey-item');
+      var open = head.getAttribute('aria-expanded') === 'true';
+      head.setAttribute('aria-expanded', String(!open));
+      item.classList.toggle('is-open', !open);
+    });
+  });
+
+  /* ---- rotating tagline ---- */
+  var tag = document.getElementById('hero-tag-rotating');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (tag && !reduce) {
+    var words = tag.dataset.words.split('|');
+    var wi = 0, ci = words[0].length, deleting = true;
+    tag.textContent = words[0];
+    setTimeout(function tick() {
+      var word = words[wi];
+      if (deleting) {
+        ci--;
+        if (ci <= 0) { deleting = false; wi = (wi + 1) % words.length; }
+      } else {
+        ci++;
+        if (ci >= word.length) {
+          deleting = true;
+          tag.textContent = word;
+          setTimeout(tick, 2600);
+          return;
         }
-        
-        setInterval(typeEffect, 3000);
+      }
+      tag.textContent = words[wi].slice(0, Math.max(ci, 0));
+      setTimeout(tick, deleting ? 28 : 55);
+    }, 2600);
+  }
+})();
+</script>
 
-        // Enhanced liquid skills interaction
-        document.querySelectorAll('.liquid-skill').forEach(skill => {
-            skill.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-3px) scale(1.1)';
-                this.style.borderRadius = '30px';
-                this.style.boxShadow = '0 15px 30px rgba(96, 165, 250, 0.4)';
-            });
-            
-            skill.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-                this.style.borderRadius = '25px';
-                this.style.boxShadow = 'none';
-            });
-        });
-
-        // Enhanced liquid cards interaction
-        document.querySelectorAll('.liquid-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px) scale(1.02)';
-                this.style.borderRadius = '25px';
-                this.style.boxShadow = '0 30px 60px rgba(96, 165, 250, 0.3)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-                this.style.borderRadius = '20px';
-                this.style.boxShadow = 'none';
-            });
-        });
-
-        // Enhanced liquid buttons interaction
-        document.querySelectorAll('.liquid-button').forEach(button => {
-            button.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-5px) scale(1.05)';
-                this.style.boxShadow = '0 20px 40px rgba(96, 165, 250, 0.4)';
-            });
-            
-            button.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-                this.style.boxShadow = 'none';
-            });
-        });
-
-        // Liquid background blobs interaction with mouse
-        document.addEventListener('mousemove', (e) => {
-            const blobs = document.querySelectorAll('.liquid-blob');
-            const mouseX = e.clientX / window.innerWidth;
-            const mouseY = e.clientY / window.innerHeight;
-            
-            blobs.forEach((blob, index) => {
-                const speed = (index + 1) * 0.5;
-                const x = (mouseX - 0.5) * speed * 20;
-                const y = (mouseY - 0.5) * speed * 20;
-                
-                blob.style.transform = `translate(${x}px, ${y}px) scale(${1 + mouseX * 0.1})`;
-            });
-        });
-
-        // Liquid avatar interaction
-        const liquidAvatar = document.querySelector('.liquid-avatar');
-        if (liquidAvatar) {
-            liquidAvatar.addEventListener('mouseenter', function() {
-                this.style.transform = 'scale(1.1)';
-                this.style.filter = 'hue-rotate(180deg)';
-            });
-            
-            liquidAvatar.addEventListener('mouseleave', function() {
-                this.style.transform = 'scale(1)';
-                this.style.filter = 'hue-rotate(0deg)';
-            });
-        }
-
-        // Add liquid trail effect for cursor
-        const createLiquidTrail = () => {
-            const trail = document.createElement('div');
-            trail.className = 'liquid-trail';
-            trail.style.cssText = `
-                position: fixed;
-                width: 10px;
-                height: 10px;
-                background: var(--gradient-1);
-                border-radius: 50%;
-                pointer-events: none;
-                opacity: 0.6;
-                z-index: 9999;
-                animation: liquidTrailFade 1s ease-out forwards;
-            `;
-            document.body.appendChild(trail);
-            
-            setTimeout(() => {
-                trail.remove();
-            }, 1000);
-            
-            return trail;
-        };
-
-        // Add trail animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes liquidTrailFade {
-                0% {
-                    opacity: 0.6;
-                    transform: scale(1);
-                }
-                100% {
-                    opacity: 0;
-                    transform: scale(0.5);
-                }
-            }
-        `;
-        document.head.appendChild(style);
-
-        // Mouse trail effect
-        let trailTimer;
-        document.addEventListener('mousemove', (e) => {
-            clearTimeout(trailTimer);
-            trailTimer = setTimeout(() => {
-                const trail = createLiquidTrail();
-                trail.style.left = e.clientX - 5 + 'px';
-                trail.style.top = e.clientY - 5 + 'px';
-            }, 50);
-        });
-
-        // Enhanced project cards with liquid effects
-        document.querySelectorAll('.project-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                const header = this.querySelector('.project-card-header');
-                if (header) {
-                    header.style.transform = 'scale(1.05)';
-                    header.style.filter = 'hue-rotate(30deg) brightness(1.1)';
-                    const icon = header.querySelector('.icon');
-                    if (icon) {
-                        icon.style.transform = 'scale(1.2) rotate(10deg)';
-                    }
-                }
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                const header = this.querySelector('.project-card-header');
-                if (header) {
-                    header.style.transform = 'scale(1)';
-                    header.style.filter = 'hue-rotate(0deg) brightness(1)';
-                    const icon = header.querySelector('.icon');
-                    if (icon) {
-                        icon.style.transform = 'scale(1) rotate(0deg)';
-                    }
-                }
-            });
-        });
-
-        // Add liquid loading effect on page load
-        window.addEventListener('load', () => {
-            const liquidElements = document.querySelectorAll('.liquid-title, .liquid-section-title, .liquid-avatar');
-            liquidElements.forEach((element, index) => {
-                setTimeout(() => {
-                    element.style.opacity = '1';
-                    element.style.transform = 'translateY(0)';
-                }, index * 200);
-            });
-        });
-
-        // Create additional dynamic liquid particles
-        function createDynamicParticles() {
-            const particlesContainer = document.querySelector('.liquid-particles');
-            const particleCount = 15;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'liquid-particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 10 + 's';
-                particle.style.animationDuration = (10 + Math.random() * 10) + 's';
-                
-                // Random size variation
-                const size = 2 + Math.random() * 4;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
-
-        // Initialize dynamic particles
-        createDynamicParticles();
-
-        // Enhanced liquid button interactions
-        document.querySelectorAll('.liquid-button-enhanced').forEach(button => {
-            button.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-3px) scale(1.05)';
-                this.style.boxShadow = '0 15px 35px rgba(96, 165, 250, 0.4)';
-            });
-            
-            button.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-                this.style.boxShadow = 'none';
-            });
-        });
-
-        // Enhanced liquid hover effects
-        document.querySelectorAll('.liquid-hover-effect').forEach(element => {
-            element.addEventListener('mouseenter', function() {
-                this.style.transition = 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-            });
-        });
-
-        // Add liquid ripple effect on click
-        document.addEventListener('click', (e) => {
-            const ripple = document.createElement('div');
-            ripple.style.cssText = `
-                position: fixed;
-                border-radius: 50%;
-                background: var(--gradient-1);
-                transform: scale(0);
-                animation: liquidRipple 0.6s linear;
-                z-index: 9999;
-                pointer-events: none;
-                opacity: 0.3;
-            `;
-            
-            const size = 60;
-            ripple.style.width = size + 'px';
-            ripple.style.height = size + 'px';
-            ripple.style.left = (e.clientX - size / 2) + 'px';
-            ripple.style.top = (e.clientY - size / 2) + 'px';
-            
-            document.body.appendChild(ripple);
-            
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
-        });
-
-        // Add ripple animation
-        const rippleStyle = document.createElement('style');
-        rippleStyle.textContent = `
-            @keyframes liquidRipple {
-                0% {
-                    transform: scale(0);
-                    opacity: 0.3;
-                }
-                50% {
-                    opacity: 0.1;
-                }
-                100% {
-                    transform: scale(4);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(rippleStyle);
-
-        // Enhanced scroll-based animations
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.5;
-            
-            // Parallax effect for liquid blobs
-            const blobs = document.querySelectorAll('.liquid-blob');
-            blobs.forEach((blob, index) => {
-                const speed = (index + 1) * 0.3;
-                blob.style.transform = `translateY(${rate * speed}px)`;
-            });
-        });
-
-        // Add liquid text effect to headings
-        document.querySelectorAll('.liquid-text-glow').forEach(element => {
-            element.addEventListener('mouseenter', function() {
-                this.style.transform = 'scale(1.01)';
-                this.style.textShadow = '0 0 10px rgba(147, 197, 253, 0.4), 0 0 20px rgba(165, 180, 252, 0.3)';
-            });
-            
-            element.addEventListener('mouseleave', function() {
-                this.style.transform = 'scale(1)';
-                this.style.textShadow = '';
-            });
-        });
-
-        // Image Modal Functions
-        function openImageModal(imageSrc) {
-            const modal = document.getElementById('imageModal');
-            const modalImage = document.getElementById('modalImage');
-            modalImage.src = imageSrc;
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeImageModal() {
-            const modal = document.getElementById('imageModal');
-            modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Close modal on Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeImageModal();
-            }
-        });
-
-        // Slider functionality
-        const sliders = {};
-
-        function initSlider(sliderId) {
-            const slider = document.getElementById(sliderId);
-            const images = slider.querySelectorAll('.project-image');
-            const dotsContainer = document.getElementById(sliderId.replace('Slider', 'Dots'));
-            
-            sliders[sliderId] = {
-                currentIndex: 0,
-                totalSlides: images.length,
-                slider: slider
-            };
-
-            // Create dots
-            dotsContainer.innerHTML = '';
-            for (let i = 0; i < images.length; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'slider-dot';
-                if (i === 0) dot.classList.add('active');
-                dot.onclick = () => goToSlide(sliderId, i);
-                dotsContainer.appendChild(dot);
-            }
-
-            updateSlider(sliderId);
-        }
-
-        function updateSlider(sliderId) {
-            const sliderData = sliders[sliderId];
-            const translateX = -sliderData.currentIndex * 100;
-            sliderData.slider.style.transform = `translateX(${translateX}%)`;
-
-            // Update dots
-            const dotsContainer = document.getElementById(sliderId.replace('Slider', 'Dots'));
-            const dots = dotsContainer.querySelectorAll('.slider-dot');
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === sliderData.currentIndex);
-            });
-        }
-
-        function nextSlide(sliderId) {
-            const sliderData = sliders[sliderId];
-            sliderData.currentIndex = (sliderData.currentIndex + 1) % sliderData.totalSlides;
-            updateSlider(sliderId);
-        }
-
-        function prevSlide(sliderId) {
-            const sliderData = sliders[sliderId];
-            sliderData.currentIndex = (sliderData.currentIndex - 1 + sliderData.totalSlides) % sliderData.totalSlides;
-            updateSlider(sliderId);
-        }
-
-        function goToSlide(sliderId, index) {
-            const sliderData = sliders[sliderId];
-            sliderData.currentIndex = index;
-            updateSlider(sliderId);
-        }
-
-        // Auto-play sliders
-        function startAutoPlay(sliderId, interval = 5000) {
-            setInterval(() => {
-                nextSlide(sliderId);
-            }, interval);
-        }
-
-        // Initialize Lucide icons and sliders
-        document.addEventListener('DOMContentLoaded', function() {
-            lucide.createIcons();
-            
-            // Initialize all sliders
-            initSlider('ryadomSlider');
-            initSlider('babydaykaSlider');
-            initSlider('loolzaSlider');
-            
-            // Start auto-play for sliders (optional)
-            // startAutoPlay('ryadomSlider', 6000);
-            // startAutoPlay('babydaykaSlider', 6000);
-            // startAutoPlay('loolzaSlider', 6000);
-        });
-    </script>
 </body>
 </html>
