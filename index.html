@@ -1152,13 +1152,16 @@ a.contact-card:hover{border-color:var(--border);transform:translateY(-2px);backg
 .contact-card-info{cursor:default}
 
 /* ---------- Speak-Y invite banner ---------- */
+/* Кнопка намеренно не в акценте сайта: рядом с ней ещё три такие же фиолетовые,
+   и она в них тонула. Оранжевый — из самой иконки Speak-Y, поэтому не чужой. */
+:root{--sy-1:#f49a20;--sy-2:#d96320;--sy-ink:#241205}
 .sy-banner{
   position:relative;z-index:1;
-  display:grid;grid-template-columns:auto 1fr auto;align-items:center;
-  gap:1.1rem 1.3rem;margin-top:3rem;padding:1.3rem 1.4rem;
+  display:grid;grid-template-columns:auto 1fr auto;align-items:start;
+  gap:1.1rem 1.4rem;margin-top:3rem;padding:1.4rem 1.5rem;
   border:1px solid var(--border);border-radius:16px;
   background:
-    linear-gradient(115deg,rgba(var(--accent-rgb),.16),rgba(var(--accent-rgb),.05) 55%,transparent 85%),
+    linear-gradient(115deg,rgba(244,154,32,.13),rgba(var(--accent-rgb),.07) 50%,transparent 85%),
     var(--card-bg);
   box-shadow:var(--shadow);
   transition:border-color .25s,transform .25s;
@@ -1171,23 +1174,41 @@ a.contact-card:hover{border-color:var(--border);transform:translateY(-2px);backg
 .sy-mark img{width:100%;height:100%;object-fit:cover}
 .sy-eyebrow{
   margin:0 0 .2rem;font-family:var(--font-mono);font-size:.66rem;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+  letter-spacing:.14em;text-transform:uppercase;color:var(--sy-1);
 }
-.sy-title{font-size:1.15rem;font-weight:600;letter-spacing:-.015em;margin:0 0 .3rem}
-.sy-dek{margin:0;color:var(--muted);font-size:.9rem;line-height:1.55;max-width:58ch}
+.sy-title{font-size:1.2rem;font-weight:600;letter-spacing:-.015em;margin:0 0 .35rem}
+.sy-dek{margin:0;color:var(--muted);font-size:.9rem;line-height:1.55;max-width:60ch}
+.sy-points{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.35rem 1.1rem;
+  list-style:none;margin:.75rem 0 0;padding:0;
+  font-size:.8rem;line-height:1.45;color:var(--muted);
+}
+.sy-points b{display:block;color:var(--text);font-weight:600;font-size:.82rem}
+.sy-cta-col{align-self:center;justify-self:end;text-align:right}
 .sy-cta{
-  justify-self:end;white-space:nowrap;
-  padding:.7rem 1.25rem;border-radius:999px;
-  background:var(--accent);color:var(--accent-ink);
-  font-size:.9rem;font-weight:600;
-  box-shadow:0 10px 26px -14px rgba(var(--accent-rgb),.9);
-  transition:transform .2s,box-shadow .2s;
+  display:inline-block;white-space:nowrap;
+  padding:.8rem 1.4rem;border-radius:999px;
+  background:linear-gradient(135deg,var(--sy-1),var(--sy-2));
+  color:var(--sy-ink);font-size:.95rem;font-weight:700;
+  box-shadow:0 12px 28px -12px rgba(217,99,32,.85);
+  transition:transform .2s,box-shadow .2s,filter .2s;
 }
-.sy-cta:hover{transform:translateY(-1px);box-shadow:0 14px 30px -14px rgba(var(--accent-rgb),.95)}
+.sy-cta:hover{transform:translateY(-1px);filter:brightness(1.06);
+  box-shadow:0 16px 34px -12px rgba(217,99,32,.95)}
+.sy-cta-sub{
+  display:block;margin-top:.4rem;text-align:right;
+  font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em;color:var(--muted);
+}
+@media (max-width:860px){
+  .sy-points{grid-template-columns:1fr 1fr}
+}
 @media (max-width:720px){
   .sy-banner{grid-template-columns:auto 1fr;align-items:start;gap:.9rem 1rem;padding:1.15rem 1.15rem 1.25rem}
   .sy-mark{width:46px;height:46px;border-radius:12px}
-  .sy-cta{grid-column:1 / -1;justify-self:stretch;text-align:center}
+  .sy-points{grid-template-columns:1fr;gap:.5rem}
+  .sy-cta-col{grid-column:1 / -1;justify-self:stretch;text-align:center}
+  .sy-cta{display:block;text-align:center}
+  .sy-cta-sub{text-align:center}
 }
 :root[data-theme="cyber"] .sy-banner{
   border-radius:0;
@@ -1195,7 +1216,7 @@ a.contact-card:hover{border-color:var(--border);transform:translateY(-2px);backg
 }
 :root[data-theme="cyber"] .sy-mark{border-radius:0}
 :root[data-theme="cyber"] .sy-cta{
-  border-radius:0;text-transform:uppercase;letter-spacing:.08em;font-size:.78rem;
+  border-radius:0;text-transform:uppercase;letter-spacing:.08em;font-size:.8rem;
   font-family:var(--font-mono);
   clip-path:polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
 }
@@ -1395,19 +1416,27 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
   </section>
 
   <!-- ============ SPEAK-Y INVITE ============ -->
-  <aside class="sy-banner reveal" aria-label="Speak-Y invite">
+  <aside class="sy-banner reveal" aria-label="Speak-Y">
     <div class="sy-mark">
       <img src="images/icons/speak-y.webp" alt="Speak-Y app icon" width="56" height="56" loading="lazy" decoding="async">
     </div>
     <div>
-      <p class="sy-eyebrow">The thing I build</p>
-      <h2 class="sy-title">Stop typing. Just say it.</h2>
-      <p class="sy-dek">Speak-Y is system-wide voice input for macOS, Windows and iOS. Press a hotkey,
-        talk, and the cleaned-up text lands wherever your cursor already is — in any app, no copy and paste.</p>
+      <p class="sy-eyebrow">Speak-Y · the thing I build</p>
+      <h2 class="sy-title">Voice input and meeting recording</h2>
+      <p class="sy-dek">One hotkey in every app: talk, and the cleaned-up text lands exactly where your
+        cursor already is. The same app records and transcribes your meetings, with who said what.</p>
+      <ul class="sy-points">
+        <li><b>Made for teams</b>Share a recording into a channel and everyone works off one transcript.</li>
+        <li><b>Private by design</b>End-to-end encrypted, kept on your own machine.</li>
+        <li><b>Fits your setup</b>macOS, Windows and iOS — and readable by your AI assistant over MCP.</li>
+      </ul>
     </div>
-    <a class="sy-cta" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">
-      Try it on my invite <span aria-hidden="true">→</span>
-    </a>
+    <div class="sy-cta-col">
+      <a class="sy-cta" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">
+        Try Speak-Y <span aria-hidden="true">→</span>
+      </a>
+      <span class="sy-cta-sub">my personal invite link</span>
+    </div>
   </aside>
 
   <!-- ============ PROJECTS ============ -->

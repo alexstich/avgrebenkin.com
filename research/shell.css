@@ -150,19 +150,45 @@ main{position:relative;z-index:1;max-width:var(--content);margin:0 auto;padding:
 }
 .section-title::before{content:"— ";opacity:.45}
 
-/* ---------- Speak-Y strip: одна строка, ничего не перекрывает ---------- */
+/* ---------- Speak-Y strip ---------- */
+/* Одна строка, но с собственным цветом: в прошлой версии её никто не замечал.
+   Оранжевый взят из иконки Speak-Y, поэтому он не спорит с темой сайта. */
+:root{--sy-1:#f49a20;--sy-2:#d96320;--sy-ink:#241205}
 .sy-strip{
-  display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin:0;
-  padding:.6rem .9rem;border:1px solid var(--border-soft);border-radius:10px;
-  font-size:.8rem;line-height:1.45;color:var(--muted);
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;
+  gap:.5rem 1rem;margin:0;padding:.85rem 1.05rem;
+  border:1px solid rgba(244,154,32,.42);border-radius:12px;
+  background:linear-gradient(115deg,rgba(244,154,32,.12),rgba(244,154,32,.03) 60%,transparent),
+             var(--card-bg);
+  font-size:.85rem;line-height:1.5;color:var(--muted);
 }
-.sy-strip img{width:22px;height:22px;border-radius:6px;flex:none}
-.sy-strip p{margin:0;flex:1 1 260px}
+.sy-strip img{width:34px;height:34px;border-radius:9px;flex:none;
+  border:1px solid var(--border-soft);background:var(--bg-elev)}
+.sy-strip p{margin:0;min-width:0}
 .sy-strip b{color:var(--text);font-weight:600}
-.sy-strip a.sy-go{color:var(--accent);font-weight:600;white-space:nowrap;text-decoration:none}
-.sy-strip a.sy-go:hover{text-decoration:underline}
+.sy-strip .sy-kicker{
+  display:block;font-family:var(--font-mono);font-size:.64rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--sy-1);margin-bottom:.12rem;
+}
+.sy-strip a.sy-go{
+  justify-self:end;white-space:nowrap;padding:.55rem 1.05rem;border-radius:999px;
+  background:linear-gradient(135deg,var(--sy-1),var(--sy-2));
+  color:var(--sy-ink);font-size:.85rem;font-weight:700;text-decoration:none;
+  box-shadow:0 10px 22px -12px rgba(217,99,32,.85);
+  transition:transform .2s,filter .2s;
+}
+.sy-strip a.sy-go:hover{transform:translateY(-1px);filter:brightness(1.06);text-decoration:none}
+@media (max-width:620px){
+  .sy-strip{grid-template-columns:auto 1fr;gap:.6rem .8rem}
+  .sy-strip a.sy-go{grid-column:1 / -1;justify-self:stretch;text-align:center}
+}
 :root[data-theme="cyber"] .sy-strip,
-:root[data-theme="cyber"] .sy-strip img{border-radius:0}
+:root[data-theme="cyber"] .sy-strip img,
+:root[data-theme="cyber"] .sy-strip a.sy-go{border-radius:0}
+:root[data-theme="cyber"] .sy-strip a.sy-go{
+  text-transform:uppercase;letter-spacing:.08em;font-size:.74rem;font-family:var(--font-mono);
+  clip-path:polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px));
+}
 
 /* ---------- footer ---------- */
 footer{

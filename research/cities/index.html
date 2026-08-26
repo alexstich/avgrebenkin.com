@@ -387,6 +387,60 @@
   .gname[hidden] { display: none; }
   :root[data-theme="cyber"] .gname { border-radius: 0; }
 
+  /* ── сворачиваемая панель фильтров ───────────────────────────── */
+  .foldpanel > summary.fsummary { cursor: pointer; list-style: none; display: flex;
+                                  align-items: baseline; gap: 10px; padding: 16px 20px; }
+  .foldpanel > summary.fsummary::-webkit-details-marker { display: none; }
+  .foldpanel > summary.fsummary::before { content: "▸"; color: var(--ink-3); font-size: 13px; }
+  .foldpanel[open] > summary.fsummary::before { content: "▾"; }
+  .foldpanel[open] > summary.fsummary { border-bottom: 1px solid var(--hair-soft); }
+  .fsummary h2 { font-family: var(--font-head); font-size: 17px; margin: 0;
+                 letter-spacing: -.01em; display: inline; }
+  .fnote { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px;
+           letter-spacing: .06em; color: var(--ink-3); }
+  .fintro { margin: 14px 20px 4px; color: var(--ink-2); font-size: 13.5px;
+            line-height: 1.5; max-width: 82ch; }
+
+  /* ── список: та же диаграмма, только читаемая сверху вниз ────── */
+  .ranklist { padding: 16px 20px 20px; position: relative; }
+  .ranklist h2 { font-family: 'Space Grotesk', system-ui, sans-serif; margin: 0 0 4px; }
+  .ranklist .lead { margin: 0 0 14px; color: var(--ink-2); font-size: 15px; max-width: 76ch; }
+  .ranklist .lead b { color: var(--ink); font-weight: 600; }
+  .rl-head, .rl-row { display: grid; grid-template-columns: 34px minmax(0,1fr) 76px 76px;
+                      gap: 10px; align-items: center; }
+  .rl-head { padding: 0 10px 7px; border-bottom: 1px solid var(--hair);
+             font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+             font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+  .rl-sort { border: 0; background: transparent; font: inherit; color: var(--ink-3);
+             text-align: right; cursor: pointer; padding: 2px 0; }
+  .rl-sort:hover { color: var(--ink); }
+  .rl-sort[aria-pressed="true"] { color: var(--accent); }
+  .rl-sort[aria-pressed="true"]::after { content: " ▼"; font-size: 9px; }
+  .rl-rows { max-height: 560px; overflow-y: auto; overscroll-behavior: contain; }
+  .rl-row { padding: 5px 10px; border-bottom: 1px solid var(--hair-soft); cursor: pointer; }
+  .rl-row:hover { background: var(--accent-soft); }
+  .rl-row .n { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+               font-size: 11px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .rl-row .nm { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+  .rl-row .nm b { font-weight: 500; color: var(--ink); font-size: 14.5px;
+                  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rl-row .nm i { font-style: normal; color: var(--ink-3); font-size: 11.5px;
+                  font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+                  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rl-row .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+  .rl-row .v { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 12.5px;
+               text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+  .rl-row .v.score { color: var(--ink); }
+  @media (max-width: 620px) {
+    .rl-head, .rl-row { grid-template-columns: 26px minmax(0,1fr) 54px 54px; gap: 7px; }
+    /* Имя и страна в две строки, но точка региона остаётся слева от обеих. */
+    .rl-row .nm { display: grid; grid-template-columns: auto minmax(0,1fr);
+                  gap: 0 7px; align-items: center; }
+    .rl-row .nm .dot { grid-row: 1 / 3; }
+    .rl-row .nm b { font-size: 14px; }
+  }
+  :root[data-theme="cyber"] .rl-row .dot { border-radius: 0; }
+
   /* ── страница в оболочке сайта ───────────────────────────────── */
   main { max-width: 1180px; padding: 0; }
   .wrap { max-width: 1180px; margin: 0 auto; line-height: 1.55;
@@ -467,7 +521,7 @@
     <h1>Build your own city</h1>
     <p class="sub">Twelve things people actually move for, 303 cities. Decide what matters to you — the vertical axis is whatever you say it is. Cost stays on the horizontal.</p>
     <div class="meta">
-      <span>Data: <a href="https://www.numbeo.com/quality-of-life/rankings.jsp" target="_blank" rel="noopener">Numbeo</a> · <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap</a> · <a href="https://ourairports.com/" target="_blank" rel="noopener">OurAirports</a> · Wikipedia</span>
+      <span>Data: <a href="https://www.numbeo.com/quality-of-life/rankings.jsp" target="_blank" rel="noopener">Numbeo</a> · <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap</a> · <a href="https://ourairports.com/" target="_blank" rel="noopener">OurAirports</a> · <a href="https://en.wikipedia.org/wiki/List_of_busiest_airports_by_passenger_traffic" target="_blank" rel="noopener">Wikipedia</a></span>
       <span>2026 mid-year</span>
     </div>
   </header>
@@ -496,12 +550,32 @@
     </div>
   </div>
 
-  <div class="panel">
-    <div class="phead">
+  <details class="panel foldpanel" id="controls" open>
+    <summary class="fsummary">
       <h2>Say what matters to you</h2>
-      <p>The only place on this page where you set anything: which regions to keep, what counts as
-        cost, and how much each of the twelve metrics is worth to you. The globe above and the chart
-        below both redraw from here.</p>
+      <span class="fnote">twelve sliders, six presets</span>
+    </summary>
+    <div class="fbody">
+      <p class="fintro">How much each of the twelve metrics is worth to you. The globe above and
+        everything below redraw from here. Regions and the cost basket sit next to the chart itself.</p>
+      <div class="presets">
+        <h3>Start from someone</h3>
+        <p class="subhint">Six ready sets of weights, each one a different person. Pick the nearest and
+          then move the sliders — the moment you do, the preset stops being highlighted.</p>
+        <div class="presetrow" id="presets"></div>
+      </div>
+      <p class="subhint whint">Twelve sliders, 0 to 3. Anything left at <b>0</b> is switched off and does
+        not count towards the score; the groups fold open one at a time.</p>
+      <div class="weights" id="weights"></div>
+    </div>
+  </details>
+
+  <div class="panel chartbox">
+    <div class="phead">
+      <h2>Your selection: score against cost</h2>
+      <p>Every city you kept, placed by what it costs (across) and what it scores on your weights (up).
+        Names are printed wherever they fit without covering each other — hover or tap any dot for the
+        rest, and the list below has all of them in order.</p>
     </div>
     <div class="bar">
       <div class="legend" id="legend" role="group" aria-label="Filter by region"></div>
@@ -513,42 +587,42 @@
         </div>
       </div>
     </div>
-    <p class="barhint">Click a region to drop it from the chart, the shortlist and the table — click
-      again to bring it back. <b>With rent</b> puts apartment rent into the cost basket;
-      <b>without rent</b> prices only groceries, restaurants, transport and utilities.</p>
-    <div class="presets">
-      <h3>Start from someone</h3>
-      <p class="subhint">Six ready sets of weights, each one a different person. Pick the nearest and
-        then move the sliders — the moment you do, the preset stops being highlighted.</p>
-      <div class="presetrow" id="presets"></div>
-    </div>
-    <p class="subhint whint">Twelve sliders, 0 to 3. Anything left at <b>0</b> is switched off and does
-      not count towards the score; the groups fold open one at a time.</p>
-    <div class="weights" id="weights"></div>
+    <p class="barhint">Click a region to drop it from the chart, the list and the table — click again to
+      bring it back. <b>With rent</b> puts apartment rent into the cost basket; <b>without rent</b>
+      prices only groceries, restaurants, transport and utilities.</p>
     <p class="note" id="moneynote" hidden>Purchasing power is on. Money is now in both axes — rich cities will drift up simply because they are rich. That is the effect this chart was built to avoid, so read it knowing it is back.</p>
-  </div>
-
-  <div class="panel chartbox">
-    <div class="phead">
-      <h2>Your selection: score against cost</h2>
-      <p>Only the regions you kept, placed by what a city costs (across) and what it scores on your
-        weights (up). Names are printed wherever they fit without covering each other — hover or tap
-        any dot for the rest, and the table at the bottom of the page has all 303 in full.</p>
-    </div>
+    <svg id="chart" viewBox="0 0 1000 720" role="img" aria-label="Scatter plot of cities: cost against your chosen score"></svg>
+    <div class="tip" id="tip"></div>
     <div class="quadkey">
       <div class="qk qk-best"><b>BEST VALUE</b><span>top left — scores above median, costs below</span></div>
       <div class="qk qk-premium"><b>PREMIUM</b><span>top right — expensive, and worth it</span></div>
       <div class="qk qk-budget"><b>BUDGET</b><span>bottom left — cheap, and it shows</span></div>
       <div class="qk qk-bad"><b>OVERPRICED</b><span>bottom right — expensive with little to show</span></div>
     </div>
-    <svg id="chart" viewBox="0 0 1000 720" role="img" aria-label="Scatter plot of cities: cost against your chosen score"></svg>
-    <div class="tip" id="tip"></div>
   </div>
 
   <section class="panel shortlist">
     <h2>Best value for your weights</h2>
-    <p class="lead">Cities that score highest relative to what they cost — the top-left corner of the chart, listed out. The number is how many percentiles the score sits above the cost.</p>
+    <p class="lead">The ten cities that score highest relative to what they cost — the top-left corner
+      of the chart, listed out. The number is how many percentiles the score sits above the cost.
+      Click one for its scorecard.</p>
     <div class="picks" id="picks"></div>
+  </section>
+
+  <section class="panel ranklist">
+    <h2>Every city in order</h2>
+    <p class="lead">The same chart read as a list. <b>Score</b> is the vertical axis — the weighted
+      average of the metrics you switched on, as a percentile out of these 303 cities. <b>Cost</b> is
+      the horizontal one, the cost-of-living percentile, where 100 is the most expensive. Sort by
+      either; hover or tap a row for the breakdown — tapping also fills the scorecard next to the globe.</p>
+    <div class="rl-head">
+      <span class="rl-n">#</span>
+      <span class="rl-city">City</span>
+      <button type="button" class="rl-sort" data-sort="score" aria-pressed="true">Score</button>
+      <button type="button" class="rl-sort" data-sort="cost" aria-pressed="false">Cost</button>
+    </div>
+    <div class="rl-rows" id="ranklist"></div>
+    <div class="tip" id="rltip"></div>
   </section>
 
   <section class="panel notes">
@@ -557,7 +631,7 @@
     <p><strong>The default is the five basics at equal weight.</strong> Numbeo's own index weights them differently. We do not claim to know the right weights — that is what the sliders are for.</p>
     <p><strong>Counts come from a 10 km circle around the city centre.</strong> The circle is the same size everywhere, 314 km², so a raw count is already a density and no population figure is needed. It also means a satellite town and a capital are measured on the same footprint.</p>
     <p><strong>Where OpenStreetMap can be trusted, and where it cannot.</strong> Bus stops and parks are mapped at nearly the same density in Europe, North America and Asia — within 10 %. That control is what makes the rest readable: rail transit and pedestrian streets differ by three to four times, and since the map itself is not thinner, the difference is real. Two metrics failed that test and were dropped: kindergartens (Europe counts 13× North America, because the tag is barely used in the US) and universities from Wikidata (Tallinn came out as zero). Universities here are counted from OpenStreetMap instead, and measure campus footprint rather than institutions — an American campus is one polygon, a European university is scattered buildings, so read that one within a region rather than across.</p>
-    <p><strong>Flights</strong> count unique nonstop destinations from every airport within 60 km, merged. Kyiv, Kharkiv, Dnipro, Lviv, Odesa and Rostov-on-Don show zero: their airports are closed. That is the one thing on this chart that a crowdsourced safety score does not capture.</p>
+    <p><strong>Flights</strong> count unique nonstop destinations from every airport within 60 km, merged. Kyiv, Kharkiv, Dnipro, Lviv, Odesa and Rostov-on-Don show zero: those airports have been shut to civilian traffic since 24 February 2022 and were still shut when this was collected in August 2026. That is the one thing on this chart that a crowdsourced safety score does not capture — and the one number here with a visible expiry date, since Ukraine began preparing a phased reopening of Lviv and the two Kyiv airports in early 2026.</p>
   </section>
 
   <details class="panel method">
@@ -643,7 +717,12 @@
         <a href="https://ourairports.com/data/" target="_blank" rel="noopener">OurAirports</a>,
         and its destination table is read off Wikipedia; the destinations are merged and counted once each.
         The 60&nbsp;km limit stops a satellite town from claiming the capital's hub. Six cities show zero —
-        Kyiv, Kharkiv, Dnipro, Lviv, Odesa and Rostov-on-Don — because their airports are closed.</p>
+        Kyiv, Kharkiv, Dnipro, Lviv, Odesa and Rostov-on-Don. All six have been closed to civilian
+        traffic since 24&nbsp;February 2022: Ukrainian airspace is shut, and Russia's
+        <a href="https://en.wikipedia.org/wiki/Platov_International_Airport" target="_blank" rel="noopener">Platov</a>
+        at Rostov-on-Don has not reopened either. Ukraine started preparing a phased reopening of Lviv
+        and the two Kyiv airports in early 2026, but no civilian flight had operated by the time this
+        snapshot was taken.</p>
 
       <p><strong>Every number here was rebuilt from source on 26 August 2026.</strong>
         All 2&thinsp;727 Numbeo values — nine metrics across 303 cities — were compared line by line against
@@ -665,8 +744,8 @@
         before the fallback could run. Prague, Atlanta, Kraków, Minneapolis, Dhaka and Caracas had all
         been reading zero because of those. The corrected pass moves the typical city by 4&nbsp;%, but
         fixes outright errors: Charlotte was listed with 15 nonstop destinations and actually has 200.
-        Six cities still read zero — Kyiv, Kharkiv, Dnipro, Lviv, Odesa and Rostov-on-Don — because their
-        airports are closed.</p>
+        Six cities still read zero — Kyiv, Kharkiv, Dnipro, Lviv, Odesa and Rostov-on-Don — and that one
+        is not a bug: those airports have been closed to civilian traffic since February 2022.</p>
 
     </div>
   </details>
@@ -680,8 +759,8 @@
 
   <aside class="sy-strip" aria-label="Speak-Y">
       <img src="/images/icons/speak-y.webp" alt="Speak-Y app icon" width="22" height="22" loading="lazy" decoding="async">
-      <p>Between studies I build <b>Speak-Y</b> — system-wide voice input for macOS, Windows and iOS. Press a hotkey, talk, and the text lands where your cursor already is.</p>
-      <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">Try it on my invite <span aria-hidden="true">→</span></a>
+      <p><span class="sy-kicker">Speak-Y · the thing I build</span><b>Voice input and meeting recording.</b> One hotkey in every app: talk, and the text lands where your cursor already is. Meetings get recorded and transcribed with who said what — end-to-end encrypted, shareable into team channels.</p>
+      <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">Try Speak-Y <span aria-hidden="true">→</span></a>
     </aside>
 </div>
 </main>
@@ -872,6 +951,7 @@
       svg.appendChild(el("text", { x: W / 2, y: H / 2, "text-anchor": "middle",
         class: "axis-title" }, "Turn at least one slider up to draw the chart"));
       picksBox.innerHTML = "";
+      rlBox.innerHTML = "";
       fillTable();
       return;
     }
@@ -991,6 +1071,7 @@
     svg.appendChild(dotLayer);
     svg.appendChild(labelLayer);
     fillShortlist(shown);
+    fillRankList(shown);
     fillTable();
   }
 
@@ -1000,15 +1081,76 @@
       return (b.yp - xp(b)) - (a.yp - xp(a));
     }).slice(0, 10);
     picksBox.innerHTML = best.map(function (c, i) {
-      return '<div class="pick"><span class="n">' + (i + 1) + '</span>' +
+      return '<div class="pick" data-city="' + esc(c.key) + '"><span class="n">' + (i + 1) + '</span>' +
         '<span class="nm">' + c.city + '</span>' +
         '<span class="cy">' + c.country + '</span>' +
         '<span class="gap">+' + Math.round(c.yp - xp(c)) + '</span></div>';
     }).join("");
   }
 
-  function showTip(c, x, y) {
-    var box = svg.getBoundingClientRect();
+  // ---- тот же график списком: карточка обещает клик по шорт-листу, значит он работает
+  function esc(v) { return String(v).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;"); }
+  var byKey = {};
+  cities.forEach(function (c) { c.key = c.city + "|" + c.country; byKey[c.key] = c; });
+  picksBox.addEventListener("click", function (e) {
+    var row = e.target.closest(".pick");
+    if (row) showCard(byKey[row.getAttribute("data-city")]);
+  });
+
+  var rlBox = document.getElementById("ranklist");
+  var rlTip = document.getElementById("rltip");
+  var rlHost = document.querySelector(".ranklist");
+  var rlSort = "score";
+  function fillRankList(shown) {
+    var rows = shown.slice().sort(function (a, b) {
+      return rlSort === "cost" ? xp(a) - xp(b) : (b.yp || 0) - (a.yp || 0);
+    });
+    rlBox.innerHTML = rows.map(function (c, i) {
+      return '<div class="rl-row" data-city="' + esc(c.key) + '">' +
+        '<span class="n">' + (i + 1) + '</span>' +
+        '<span class="nm"><i class="dot" style="background:' + REGIONS[c.region].color + '"></i>' +
+        '<b>' + c.city + '</b><i>' + c.country + '</i></span>' +
+        '<span class="v score">' + (c.yp == null ? "—" : Math.round(c.yp)) + '</span>' +
+        '<span class="v">' + Math.round(xp(c)) + '</span></div>';
+    }).join("");
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".rl-sort"), function (b) {
+    b.addEventListener("click", function () {
+      rlSort = b.getAttribute("data-sort");
+      Array.prototype.forEach.call(document.querySelectorAll(".rl-sort"), function (x) {
+        x.setAttribute("aria-pressed", String(x === b));
+      });
+      render();
+    });
+  });
+  function rlShowTip(row, clientX, clientY) {
+    var host = rlHost.getBoundingClientRect(), rb = row.getBoundingClientRect();
+    rlTip.innerHTML = tipHTML(byKey[row.getAttribute("data-city")]);
+    var x = clientX == null ? rb.left + Math.min(rb.width * 0.5, 180) : clientX;
+    var y = clientY == null ? rb.top + rb.height / 2 : clientY;
+    var left = x - host.left + 16, top = y - host.top - 8;
+    if (left + rlTip.offsetWidth > host.width) left = Math.max(8, left - rlTip.offsetWidth - 32);
+    rlTip.style.left = (left + rlTip.offsetWidth / 2) + "px";   // .tip центрируется трансформом
+    rlTip.style.top = top + "px";
+    rlTip.style.opacity = "1";
+  }
+  rlBox.addEventListener("click", function (e) {
+    var row = e.target.closest(".rl-row");
+    if (!row) return;
+    showCard(byKey[row.getAttribute("data-city")]);
+    rlShowTip(row);   // на телефоне наведения нет, а разбивку хочется видеть на месте
+  });
+  rlBox.addEventListener("mousemove", function (e) {
+    var row = e.target.closest(".rl-row");
+    if (!row) { rlTip.style.opacity = "0"; return; }
+    rlShowTip(row, e.clientX, e.clientY);
+  });
+  rlBox.addEventListener("mouseleave", function () { rlTip.style.opacity = "0"; });
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest(".rl-row")) rlTip.style.opacity = "0";
+  });
+
+  function tipHTML(c) {
     var html = "<b>" + c.city + "</b>, " + c.country +
       '<div class="r"><span>cost, percentile</span><span>' + fmt(xp(c), 0) + "</span></div>" +
       '<div class="r"><span>your score</span><span>' + fmt(c.yp, 0) + "</span></div>" +
@@ -1019,9 +1161,16 @@
           "</span><span>" + fmt(c[m.key], 0) + "</span></div>";
       }
     });
-    tip.innerHTML = html;
-    tip.style.left = (x * box.width / W + 10) + "px";
-    tip.style.top = (y * box.height / H) + "px";
+    return html;
+  }
+  // Считаем смещение svg внутри панели, а не полагаемся на то, что он первый:
+  // над ним теперь шапка и фильтры.
+  var chartHost = document.querySelector(".chartbox");
+  function showTip(c, x, y) {
+    var box = svg.getBoundingClientRect(), host = chartHost.getBoundingClientRect();
+    tip.innerHTML = tipHTML(c);
+    tip.style.left = (box.left - host.left + x * box.width / W + 10) + "px";
+    tip.style.top = (box.top - host.top + y * box.height / H) + "px";
     tip.style.opacity = "1";
   }
   function hideTip() { tip.style.opacity = "0"; }
@@ -1386,8 +1535,27 @@
     gctx.beginPath(); gctx.arc(cx, cy, R, 0, 6.284);
     gctx.strokeStyle = gvar("--sphere-edge"); gctx.lineWidth = 1; gctx.stroke();
 
-    if (!slowMotion && !gdrag && gidle <= 0 && zoom < 1.05) lon0 += 0.05;
+    // Кольца мало: под курсором десяток точек рядом, и непонятно, на какой из них
+    // он стоит. Пишем имя прямо у точки, поверх всего и вне обрезки по сфере.
+    if (ghover && ghover._gx != null) gtag(ghover);
+
+    if (!slowMotion && !gdrag && gidle <= 0) lon0 += 0.05 / zoom;
     if (gidle > 0) gidle -= 16;
+  }
+  function gtag(c) {
+    var pad = 7, h = 20;
+    gctx.font = "500 12px 'JetBrains Mono', ui-monospace, monospace";
+    var t = c.city, tw = gctx.measureText(t).width, w = tw + pad * 2;
+    var x = c._gx + 13, y = c._gy - h / 2;
+    if (x + w > GW - 2) x = c._gx - 13 - w;
+    if (x < 2) x = 2;
+    y = Math.max(2, Math.min(GH - h - 2, y));
+    gctx.beginPath();
+    if (gctx.roundRect) gctx.roundRect(x, y, w, h, 6); else gctx.rect(x, y, w, h);
+    gctx.fillStyle = gvar("--panel"); gctx.fill();
+    gctx.strokeStyle = gvar("--accent"); gctx.lineWidth = 1; gctx.stroke();
+    gctx.fillStyle = gvar("--ink");
+    gctx.fillText(t, x + pad, y + h / 2 + 4.2);
   }
   function gring(x, y, color, r, w) {
     gctx.beginPath(); gctx.arc(x, y, r, 0, 6.284);
