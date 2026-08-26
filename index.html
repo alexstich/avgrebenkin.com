@@ -1061,22 +1061,28 @@ section{padding-top:var(--section-gap);scroll-margin-top:calc(var(--nav-h) + 8px
 .talk-summary{margin:.7rem 0 1rem;font-size:.94rem;color:var(--muted);max-width:62ch}
 .talk .pf-footer{margin:0}
 
-/* ---------- stack section ---------- */
-.stack-grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-.stack-card{
+/* ---------- certifications ---------- */
+.cert-grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));align-items:start}
+.cert-card{
   background:var(--card-bg);border:1px solid var(--border-soft);border-radius:12px;padding:1.1rem;
+  display:flex;flex-direction:column;gap:.9rem;
 }
-.stack-card h3{
-  font-size:.82rem;letter-spacing:.06em;
-  color:var(--muted);font-family:var(--font-mono);font-weight:500;margin-bottom:.75rem;
+.cert-shot{
+  display:block;width:100%;padding:0;background:none;
+  border:1px solid var(--border-soft);border-radius:8px;overflow:hidden;cursor:zoom-in;
+  transition:border-color .2s ease;
 }
-.stack-card .chips{margin-bottom:0}
-.stack-card p{font-size:.94rem;color:var(--muted);max-width:62ch}
-.stack-card p + p{margin-top:.65rem}
-@media (min-width: 680px){.stack-card-wide{grid-column:span 2}}
-.certs{list-style:none;margin:.1rem 0 0;padding:0;display:grid;gap:.4rem}
-.certs li{font-size:.88rem;color:var(--muted);position:relative;padding-left:1.1rem}
-.certs li::before{content:"✓";position:absolute;left:0;color:var(--accent);font-size:.8rem}
+.cert-shot:hover,.cert-shot:focus-visible{border-color:var(--accent)}
+.cert-shot img{display:block;width:100%;height:auto}
+.cert-card h3{font-size:1rem;font-weight:700;letter-spacing:-.01em}
+.cert-meta{margin:.35rem 0 0;font-family:var(--font-mono);font-size:.76rem;letter-spacing:.03em;color:var(--muted)}
+.cert-info .pf-footer{margin-top:.8rem}
+.cert-zoom{
+  border:none;border-radius:12px;padding:0;max-width:min(1100px,92vw);
+  background:var(--card-bg);box-shadow:0 24px 80px rgba(0,0,0,.4);
+}
+.cert-zoom::backdrop{background:rgba(0,0,0,.6);backdrop-filter:blur(4px)}
+.cert-zoom img{display:block;width:100%;height:auto;cursor:zoom-out}
 
 /* ---------- journey ---------- */
 .journey-timeline{position:relative;margin-left:28px}
@@ -1187,7 +1193,7 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
 }
 /* chamfered corners instead of rounded */
 :root[data-theme="cyber"] .project,
-:root[data-theme="cyber"] .stack-card,
+:root[data-theme="cyber"] .cert-card,
 :root[data-theme="cyber"] .contact-card,
 :root[data-theme="cyber"] .journey-item.is-open .journey-content{
   border-radius:0;
@@ -1220,7 +1226,6 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
 :root[data-theme="cyber"] .journey-year{color:var(--cyan)}
 :root[data-theme="cyber"] .contact-icon{color:var(--cyan)}
 :root[data-theme="cyber"] .pf-facts li::before{color:var(--hot)}
-:root[data-theme="cyber"] .certs li::before{color:var(--cyan)}
 :root[data-theme="cyber"] .shots img{border-radius:0;border-color:var(--border-soft)}
 :root[data-theme="cyber"] .note,
 :root[data-theme="cyber"] .note-reader{
@@ -1296,7 +1301,7 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
     <a href="#projects" class="nav-link">Projects</a>
     <a href="#notes" class="nav-link">Notes</a>
     <a href="#speaking" class="nav-link">Speaking</a>
-    <a href="#stack" class="nav-link">How I work</a>
+    <a href="#certifications" class="nav-link">Certifications</a>
     <a href="#journey" class="nav-link">Journey</a>
     <a href="#contacts" class="nav-link">Contacts</a>
   </div>
@@ -1832,23 +1837,35 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
     </ol>
   </section>
 
-  <!-- ============ HOW I WORK ============ -->
-  <section id="stack" aria-label="How I work" class="reveal">
-    <h2 class="section-title">How I work<span class="sr-only"> — engineering practices and habits</span></h2>
-    <div class="stack-grid">
-      <div class="stack-card stack-card-wide">
-        <h3>Practices</h3>
-        <p>I write the spec before the task and the test before the code — spec-driven and test-driven development are the two habits that have survived every change of platform and language. Architecture gets designed before the first line is written: modelling the system first is the engineering reflex I brought over from ten years in manufacturing.</p>
-        <p>The rest is how the work stays good over time — code review as a normal part of every change, and mentoring, because a team that understands the design keeps it alive better than any document.</p>
-      </div>
-      <div class="stack-card">
-        <h3>Certifications</h3>
-        <ul class="certs">
-          <li>edX — Artificial Intelligence (AI)</li>
-          <li>edX — Work with augmented reality (AR) and the web</li>
-          <li>Swift Code Challenges</li>
-        </ul>
-      </div>
+  <!-- ============ CERTIFICATIONS ============ -->
+  <section id="certifications" aria-label="Certifications" class="reveal">
+    <h2 class="section-title">Certifications<span class="sr-only"> — verified certificates from online university courses</span></h2>
+    <div class="cert-grid">
+      <article class="cert-card">
+        <button type="button" class="cert-shot" data-zoom="images/certificates/edx-ai-columbia.webp" aria-label="Zoom in on the certificate: Artificial Intelligence, Columbia University">
+          <img src="images/certificates/edx-ai-columbia-thumb.webp" alt="edX verified certificate — CSMM.101x Artificial Intelligence (AI), ColumbiaX, an online learning initiative of Columbia University, issued May 2019" width="640" height="361" loading="lazy" decoding="async">
+        </button>
+        <div class="cert-info">
+          <h3>Artificial Intelligence (AI)</h3>
+          <p class="cert-meta">edX Verified Certificate · CSMM.101x by ColumbiaX — Columbia University · May 2019</p>
+          <div class="pf-footer">
+            <a class="pf-cta" href="https://courses.edx.org/certificates/a627fb7a1025413fbeceba598c6b7e44" target="_blank" rel="noopener">Verify on edX <span aria-hidden="true">→</span></a>
+            <a class="pf-cta" href="https://www.edx.org/learn/artificial-intelligence/columbia-university-artificial-intelligence-ai" target="_blank" rel="noopener">Course page <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </article>
+      <article class="cert-card">
+        <div class="cert-info">
+          <h3>Work with Augmented Reality (AR) and the Web</h3>
+          <p class="cert-meta">edX Verified Certificate · December 2022</p>
+        </div>
+      </article>
+      <article class="cert-card">
+        <div class="cert-info">
+          <h3>Swift Code Challenges</h3>
+          <p class="cert-meta">Certificate of completion</p>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -2037,6 +2054,10 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
 
 </main>
 
+<dialog class="cert-zoom" id="cert-zoom" aria-label="Certificate, enlarged">
+  <img id="cert-zoom-img" src="" alt="">
+</dialog>
+
 <dialog class="note-reader" id="note-reader" aria-label="Note">
   <button type="button" class="note-reader-close" id="note-reader-close" aria-label="Close note">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
@@ -2146,6 +2167,22 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
       item.classList.toggle('is-open', !open);
     });
   });
+
+  /* ---- certificate zoom ---- */
+  var certZoom = document.getElementById('cert-zoom');
+  if (certZoom && typeof certZoom.showModal === 'function') {
+    var certZoomImg = document.getElementById('cert-zoom-img');
+    Array.prototype.forEach.call(document.querySelectorAll('.cert-shot'), function (btn) {
+      btn.addEventListener('click', function () {
+        var thumb = btn.querySelector('img');
+        certZoomImg.src = btn.getAttribute('data-zoom');
+        certZoomImg.alt = thumb ? thumb.alt : '';
+        certZoom.showModal();
+      });
+    });
+    certZoom.addEventListener('click', function () { certZoom.close(); });
+    certZoom.addEventListener('close', function () { certZoomImg.src = ''; });
+  }
 
   /* ---- notes: filters + reader ---- */
   var notes = Array.prototype.slice.call(document.querySelectorAll('.note'));
