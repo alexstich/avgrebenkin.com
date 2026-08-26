@@ -1151,6 +1151,56 @@ a.contact-card:hover{border-color:var(--border);transform:translateY(-2px);backg
 .contacts-divider{height:1px;background:var(--border-soft);margin:1.1rem 0}
 .contact-card-info{cursor:default}
 
+/* ---------- Speak-Y invite banner ---------- */
+.sy-banner{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:auto 1fr auto;align-items:center;
+  gap:1.1rem 1.3rem;margin-top:3rem;padding:1.3rem 1.4rem;
+  border:1px solid var(--border);border-radius:16px;
+  background:
+    linear-gradient(115deg,rgba(var(--accent-rgb),.16),rgba(var(--accent-rgb),.05) 55%,transparent 85%),
+    var(--card-bg);
+  box-shadow:var(--shadow);
+  transition:border-color .25s,transform .25s;
+}
+.sy-banner:hover{transform:translateY(-2px)}
+.sy-mark{
+  width:56px;height:56px;flex:none;border-radius:14px;overflow:hidden;
+  border:1px solid var(--border-soft);background:var(--bg-elev);
+}
+.sy-mark img{width:100%;height:100%;object-fit:cover}
+.sy-eyebrow{
+  margin:0 0 .2rem;font-family:var(--font-mono);font-size:.66rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+}
+.sy-title{font-size:1.15rem;font-weight:600;letter-spacing:-.015em;margin:0 0 .3rem}
+.sy-dek{margin:0;color:var(--muted);font-size:.9rem;line-height:1.55;max-width:58ch}
+.sy-cta{
+  justify-self:end;white-space:nowrap;
+  padding:.7rem 1.25rem;border-radius:999px;
+  background:var(--accent);color:var(--accent-ink);
+  font-size:.9rem;font-weight:600;
+  box-shadow:0 10px 26px -14px rgba(var(--accent-rgb),.9);
+  transition:transform .2s,box-shadow .2s;
+}
+.sy-cta:hover{transform:translateY(-1px);box-shadow:0 14px 30px -14px rgba(var(--accent-rgb),.95)}
+@media (max-width:720px){
+  .sy-banner{grid-template-columns:auto 1fr;align-items:start;gap:.9rem 1rem;padding:1.15rem 1.15rem 1.25rem}
+  .sy-mark{width:46px;height:46px;border-radius:12px}
+  .sy-cta{grid-column:1 / -1;justify-self:stretch;text-align:center}
+}
+:root[data-theme="cyber"] .sy-banner{
+  border-radius:0;
+  clip-path:polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+}
+:root[data-theme="cyber"] .sy-mark{border-radius:0}
+:root[data-theme="cyber"] .sy-cta{
+  border-radius:0;text-transform:uppercase;letter-spacing:.08em;font-size:.78rem;
+  font-family:var(--font-mono);
+  clip-path:polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+:root[data-theme="cyber"] .sy-title{text-transform:uppercase;letter-spacing:.04em}
+
 /* ---------- footer ---------- */
 footer{
   position:relative;z-index:1;max-width:var(--content);margin:var(--section-gap) auto 0;
@@ -1343,6 +1393,22 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
       <a href="#contacts" class="btn-secondary">Get in touch</a>
     </div>
   </section>
+
+  <!-- ============ SPEAK-Y INVITE ============ -->
+  <aside class="sy-banner reveal" aria-label="Speak-Y invite">
+    <div class="sy-mark">
+      <img src="images/icons/speak-y.webp" alt="Speak-Y app icon" width="56" height="56" loading="lazy" decoding="async">
+    </div>
+    <div>
+      <p class="sy-eyebrow">The thing I build</p>
+      <h2 class="sy-title">Stop typing. Just say it.</h2>
+      <p class="sy-dek">Speak-Y is system-wide voice input for macOS, Windows and iOS. Press a hotkey,
+        talk, and the cleaned-up text lands wherever your cursor already is — in any app, no copy and paste.</p>
+    </div>
+    <a class="sy-cta" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">
+      Try it on my invite <span aria-hidden="true">→</span>
+    </a>
+  </aside>
 
   <!-- ============ PROJECTS ============ -->
   <section id="projects" aria-label="Projects" class="reveal">

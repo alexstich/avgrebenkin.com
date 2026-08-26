@@ -183,8 +183,13 @@
   .zbtn:disabled { opacity: .38; cursor: default; }
   .zlevel { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-3);
             text-align: center; letter-spacing: .06em; }
-  .ghint { position: absolute; left: 18px; bottom: 12px; font-family: 'JetBrains Mono', monospace;
-           font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); opacity: .8; }
+  /* На приближении под подсказкой оказывается карта — поэтому своя подложка. */
+  .ghint { position: absolute; left: 18px; bottom: 12px; z-index: 2;
+           padding: 3px 9px; border-radius: 999px;
+           background: var(--panel); border: 1px solid var(--hair-soft);
+           font-family: 'JetBrains Mono', monospace;
+           font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+  :root[data-theme="cyber"] .ghint { border-radius: 0; }
   .ghint-touch { display: none; }
   @media (hover: none) { .ghint-mouse { display: none; } .ghint-touch { display: inline; } }
   .cardcol { border-left: 1px solid var(--hair); padding: 18px 20px; min-width: 0; }
@@ -276,6 +281,7 @@
   @media (max-width: 620px) { .quadkey { grid-template-columns: 1fr; } }
 
   .chartbox { padding: 4px 10px 4px; position: relative; }
+  .chartbox .phead { margin: -4px -10px 4px; }
 
   /* Живой список: ответ на «так куда смотреть», без вглядывания в угол графика. */
   .shortlist { padding: 16px 20px 20px; }
@@ -297,7 +303,8 @@
   .tick { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
           font-size: 10px; fill: var(--ink-3); }
   .citylabel { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-               font-size: 9.5px; fill: var(--ink-2); pointer-events: none; }
+               font-size: 8.8px; fill: var(--ink-2); pointer-events: none; }
+  .citylabel.crowded { fill: var(--ink-3); }
   circle.pt { cursor: pointer; }
 
   .tip { position: absolute; pointer-events: none; opacity: 0;
@@ -356,6 +363,30 @@
             margin-right: 7px; vertical-align: middle; }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 
+  /* ── заголовки панелей: где смотреть и где крутить ───────────── */
+  .phead { padding: 16px 20px 13px; border-bottom: 1px solid var(--hair-soft); }
+  .phead h2 { font-family: var(--font-head); font-size: 17px; margin: 0 0 3px;
+              letter-spacing: -.01em; line-height: 1.25; }
+  .phead p { margin: 0; color: var(--ink-2); font-size: 13.5px; line-height: 1.5; max-width: 82ch; }
+  .phead p b { color: var(--ink); font-weight: 600; }
+  .subhint { margin: -4px 0 9px; color: var(--ink-3); font-size: 12px; line-height: 1.45; max-width: 82ch; }
+  .subhint b { color: var(--ink-2); font-weight: 500; }
+  .barhint { margin: 0; padding: 0 16px 13px; color: var(--ink-3);
+             font-size: 12px; line-height: 1.45; max-width: 86ch; }
+  .barhint b { color: var(--ink-2); font-weight: 500; }
+  .whint { padding: 0 16px; }
+
+  /* Имя выбранного города — над шаром, чтобы на телефоне было видно сразу,
+     не прокручивая до карточки. */
+  .gname { position: absolute; left: 14px; top: 14px; z-index: 2; max-width: calc(100% - 74px);
+           padding: 5px 11px; border-radius: 999px; border: 1px solid var(--border);
+           background: var(--panel); color: var(--ink);
+           font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+           white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .gname b { color: var(--accent); font-weight: 500; }
+  .gname[hidden] { display: none; }
+  :root[data-theme="cyber"] .gname { border-radius: 0; }
+
   /* ── страница в оболочке сайта ───────────────────────────────── */
   main { max-width: 1180px; padding: 0; }
   .wrap { max-width: 1180px; margin: 0 auto; line-height: 1.55;
@@ -389,6 +420,8 @@
     .globebox { min-height: 0; padding: 10px 2px 18px; }
     .ghint { left: 10px; bottom: 2px; }
     .cardcol { padding: 14px 16px; }
+    .phead { padding: 14px 16px 11px; }
+    .gname { left: 10px; top: 10px; max-width: calc(100% - 62px); }
     .zoombar { right: 8px; top: 8px; }
     .shortlist, .notes { padding-left: 16px; padding-right: 16px; }
   }
@@ -439,14 +472,22 @@
     </div>
   </header>
   <div class="panel">
+    <div class="phead">
+      <h2>The whole set: all 303 cities</h2>
+      <p>The overview. Every city in the study is here, each dot sized and brightened by its overall
+        score — so the bright clusters are the places that do well on the weights currently set.
+        Turn the globe, zoom in until names appear, click a dot for its full scorecard.
+        <b>Everything below narrows this down to what you ask for.</b></p>
+    </div>
     <div class="globewrap">
       <div class="globebox" id="globebox">
+        <div class="gname" id="gname" hidden></div>
         <div class="zoombar">
           <button type="button" class="zbtn" id="zin" aria-label="Zoom in">+</button>
           <button type="button" class="zbtn" id="zout" aria-label="Zoom out" disabled>−</button>
           <div class="zlevel" id="zlevel">1.0×</div>
         </div>
-        <div class="ghint"><span class="ghint-mouse">drag to turn · scroll to zoom · click a city</span><span class="ghint-touch">swipe to turn · pinch to zoom · tap a city</span></div>
+        <div class="ghint"><span class="ghint-mouse">drag to turn · + and − to zoom · click a city</span><span class="ghint-touch">swipe to turn · pinch to zoom · tap a city</span></div>
       </div>
       <div class="cardcol" id="card">
         <p class="plabel">Scorecard</p>
@@ -456,6 +497,12 @@
   </div>
 
   <div class="panel">
+    <div class="phead">
+      <h2>Say what matters to you</h2>
+      <p>The only place on this page where you set anything: which regions to keep, what counts as
+        cost, and how much each of the twelve metrics is worth to you. The globe above and the chart
+        below both redraw from here.</p>
+    </div>
     <div class="bar">
       <div class="legend" id="legend" role="group" aria-label="Filter by region"></div>
       <div class="toggle">
@@ -466,15 +513,28 @@
         </div>
       </div>
     </div>
+    <p class="barhint">Click a region to drop it from the chart, the shortlist and the table — click
+      again to bring it back. <b>With rent</b> puts apartment rent into the cost basket;
+      <b>without rent</b> prices only groceries, restaurants, transport and utilities.</p>
     <div class="presets">
       <h3>Start from someone</h3>
+      <p class="subhint">Six ready sets of weights, each one a different person. Pick the nearest and
+        then move the sliders — the moment you do, the preset stops being highlighted.</p>
       <div class="presetrow" id="presets"></div>
     </div>
+    <p class="subhint whint">Twelve sliders, 0 to 3. Anything left at <b>0</b> is switched off and does
+      not count towards the score; the groups fold open one at a time.</p>
     <div class="weights" id="weights"></div>
     <p class="note" id="moneynote" hidden>Purchasing power is on. Money is now in both axes — rich cities will drift up simply because they are rich. That is the effect this chart was built to avoid, so read it knowing it is back.</p>
   </div>
 
   <div class="panel chartbox">
+    <div class="phead">
+      <h2>Your selection: score against cost</h2>
+      <p>Only the regions you kept, placed by what a city costs (across) and what it scores on your
+        weights (up). Names are printed wherever they fit without covering each other — hover or tap
+        any dot for the rest, and the table at the bottom of the page has all 303 in full.</p>
+    </div>
     <div class="quadkey">
       <div class="qk qk-best"><b>BEST VALUE</b><span>top left — scores above median, costs below</span></div>
       <div class="qk qk-premium"><b>PREMIUM</b><span>top right — expensive, and worth it</span></div>
@@ -617,6 +677,12 @@
       <table id="tbl"><thead><tr id="thead"></tr></thead><tbody></tbody></table>
     </div>
   </details>
+
+  <aside class="sy-strip" aria-label="Speak-Y">
+      <img src="/images/icons/speak-y.webp" alt="Speak-Y app icon" width="22" height="22" loading="lazy" decoding="async">
+      <p>Between studies I build <b>Speak-Y</b> — system-wide voice input for macOS, Windows and iOS. Press a hotkey, talk, and the text lands where your cursor already is.</p>
+      <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">Try it on my invite <span aria-hidden="true">→</span></a>
+    </aside>
 </div>
 </main>
 
@@ -785,6 +851,12 @@
   function sy(p) { return M.t + PH - p / 100 * PH; }
   function fmt(v, d) { return v == null ? "—" : v.toFixed(d == null ? 1 : d); }
 
+  var measure = document.createElement("canvas").getContext("2d");
+  function charWidth() {
+    measure.font = "8.8px 'JetBrains Mono', ui-monospace, Menlo, monospace";
+    return measure.measureText("MMMMMMMMMM").width / 10;
+  }
+
   var ANCHORS = ["New York", "London", "Paris", "Tokyo", "Moscow", "Dubai", "Singapore",
     "Hong Kong", "Berlin", "Zurich", "San Francisco", "Los Angeles", "Amsterdam", "Vienna",
     "Prague", "Istanbul", "Seoul", "Sydney", "Toronto", "Barcelona", "Madrid", "Lisbon",
@@ -834,46 +906,76 @@
       transform: "translate(18," + (M.t + PH / 2) + ") rotate(-90)" },
       "Your score, percentile  →  better"));
 
+    var CHW = charWidth();
     var shown = cities.filter(function (c) { return active[c.region]; });
-    var boxes = [], labelLayer = el("g", {}), dotLayer = el("g", {});
-    shown.forEach(function (c) { boxes.push({ x: sx(xp(c)) - 6, y: sy(c.yp) - 6, w: 12, h: 12 }); });
+    var dotBoxes = [], labelBoxes = [];
+    var labelLayer = el("g", {}), dotLayer = el("g", {}), leadLayer = el("g", {});
+    shown.forEach(function (c) { dotBoxes.push({ x: sx(xp(c)) - 5, y: sy(c.yp) - 5, w: 10, h: 10 }); });
 
     var ranked = shown.slice().sort(function (a, b) {
       var pa = (ANCHORS.indexOf(a.city) >= 0 ? 60 : 0) + Math.abs(a.yp - 50) + Math.abs(xp(a) - 50);
       var pb = (ANCHORS.indexOf(b.city) >= 0 ? 60 : 0) + Math.abs(b.yp - 50) + Math.abs(xp(b) - 50);
       return pb - pa;
     });
-    function hits(bx) {
-      for (var i = 0; i < boxes.length; i++) {
-        var o = boxes[i];
+    function overlaps(bx, list) {
+      for (var i = 0; i < list.length; i++) {
+        var o = list[i];
         if (bx.x < o.x + o.w && bx.x + bx.w > o.x && bx.y < o.y + o.h && bx.y + bx.h > o.y) return true;
       }
       return false;
     }
-    ranked.forEach(function (c) {
+    // Кандидаты вокруг точки: сначала вплотную по сторонам, потом по диагоналям,
+    // потом всё дальше — чем длиннее список, тем больше названий находит место.
+    // Каждый кандидат описан только якорем текста, прямоугольник считается из него,
+    // иначе модель расходится с тем, что реально рисует браузер.
+    function candidates(x, y) {
+      var out = [];
+      [8, 14, 21, 29].forEach(function (d) {
+        out.push({ a: "start", lx: x + d, dy: 3.1 });
+        out.push({ a: "end", lx: x - d, dy: 3.1 });
+      });
+      [9, 15, 22, 30].forEach(function (d) {
+        out.push({ a: "middle", lx: x, dy: -(d + 2) });
+        out.push({ a: "middle", lx: x, dy: d + 7 });
+      });
+      [7, 13, 19, 26].forEach(function (d) {
+        out.push({ a: "start", lx: x + 7, dy: -d });
+        out.push({ a: "end", lx: x - 7, dy: -d });
+        out.push({ a: "start", lx: x + 7, dy: d + 4 });
+        out.push({ a: "end", lx: x - 7, dy: d + 4 });
+      });
+      return out;
+    }
+    function place(c, avoidDots) {
       var x = sx(xp(c)), y = sy(c.yp), name = c.city;
-      var w = name.length * 5.15 + 4, h = 11;
-      var cands = [
-        { x: x + 8, y: y - h / 2, a: "start", lx: x + 8 },
-        { x: x - 8 - w, y: y - h / 2, a: "end", lx: x - 8 },
-        { x: x - w / 2, y: y - 8 - h, a: "middle", lx: x, dy: -10 },
-        { x: x - w / 2, y: y + 8, a: "middle", lx: x, dy: 15 },
-        { x: x + 7, y: y - 7 - h, a: "start", lx: x + 7, dy: -7 },
-        { x: x - 7 - w, y: y - 7 - h, a: "end", lx: x - 7, dy: -7 },
-        { x: x + 7, y: y + 2, a: "start", lx: x + 7, dy: 13 },
-        { x: x - 7 - w, y: y + 2, a: "end", lx: x - 7, dy: 13 }
-      ];
+      var w = name.length * CHW + 3;
+      var cands = candidates(x, y);
       for (var i = 0; i < cands.length; i++) {
-        var cd = cands[i], bx = { x: cd.x, y: cd.y, w: w, h: h };
-        if (cd.x < 6 || cd.x + w > W - 6) continue;
-        if (!hits(bx)) {
-          boxes.push(bx);
-          labelLayer.appendChild(el("text", { x: cd.lx, y: cd.dy ? y + cd.dy : y + 3.3,
-            "text-anchor": cd.a, class: "citylabel" }, name));
-          break;
+        var cd = cands[i], ty = y + cd.dy;
+        var bx = {
+          x: cd.a === "start" ? cd.lx - 1 : (cd.a === "end" ? cd.lx - w - 1 : cd.lx - w / 2 - 1),
+          y: ty - 8.2, w: w + 2, h: 10.6   // по чернилам глифов, а не по em-боксу
+        };
+        if (bx.x < 4 || bx.x + bx.w > W - 4) continue;
+        if (bx.y < M.t - 8 || bx.y + bx.h > M.t + PH + 12) continue;
+        if (overlaps(bx, labelBoxes)) continue;
+        if (avoidDots && overlaps(bx, dotBoxes)) continue;
+        labelBoxes.push(bx);
+        var ax = cd.a === "start" ? cd.lx : (cd.a === "end" ? cd.lx - w : x);
+        if (Math.abs(ax - x) > 16 || Math.abs(ty - y) > 16) {
+          leadLayer.appendChild(el("line", { x1: x, y1: y, x2: ax, y2: ty - 3,
+            stroke: "var(--ink-3)", "stroke-width": 0.5, "stroke-opacity": .5 }));
         }
+        labelLayer.appendChild(el("text", { x: cd.lx, y: ty, "text-anchor": cd.a,
+          class: avoidDots ? "citylabel" : "citylabel crowded" }, name));
+        return true;
       }
-    });
+      return false;
+    }
+    // Первый проход бережёт точки, второй досаживает оставшиеся — наехать на
+    // кружок не страшно, наехать на чужую подпись страшно.
+    var leftover = ranked.filter(function (c) { return !place(c, true); });
+    leftover.forEach(function (c) { place(c, false); });
     shown.forEach(function (c) {
       var x = sx(xp(c)), y = sy(c.yp);
       var dot = el("circle", { cx: x, cy: y, r: 5.2, fill: REGIONS[c.region].color, class: "pt",
@@ -885,6 +987,7 @@
       dot.addEventListener("blur", hideTip);
       dotLayer.appendChild(dot);
     });
+    svg.appendChild(leadLayer);
     svg.appendChild(dotLayer);
     svg.appendChild(labelLayer);
     fillShortlist(shown);
@@ -1071,15 +1174,21 @@
   gbox.insertBefore(gcv, gbox.firstChild);
   var gctx = gcv.getContext("2d");
   var slowMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var GW = 0, lon0 = 10, lat0 = 18, zoom = 1, ZMIN = 1, ZMAX = 3.2;
+  var GW = 0, GH = 0, lon0 = 10, lat0 = 18, zoom = 1, ZMIN = 1, ZMAX = 3.2;
   var gdrag = false, gidle = 0, gmx = null, gmy = null, ghover = null, gpick = null, glive = true;
   var RAD = Math.PI / 180;
 
+  // Холст занимает всю ширину колонки, высоту держит квадратной, но не выше 520:
+  // на приближении увеличенный шар выходит за края, и лишняя ширина — это лишняя
+  // видимая география, а не пустое место справа.
   function gfit() {
     var dpr = Math.min(devicePixelRatio || 1, 2);
-    GW = Math.max(260, Math.min(520, gbox.clientWidth - 28));
-    gcv.style.width = GW + "px"; gcv.style.height = GW + "px";
-    gcv.width = GW * dpr; gcv.height = GW * dpr;
+    var cs = getComputedStyle(gbox);
+    var pad = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+    GW = Math.max(260, gbox.clientWidth - pad);
+    GH = Math.max(260, Math.min(520, GW));
+    gcv.style.width = GW + "px"; gcv.style.height = GH + "px";
+    gcv.width = GW * dpr; gcv.height = GH * dpr;
     gctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
   gfit(); addEventListener("resize", gfit);
@@ -1118,7 +1227,7 @@
     var prev = zoom;
     zoom = Math.max(ZMIN, Math.min(ZMAX, z));
     if (zoom !== prev && atX != null) {
-      var Rv = GW * 0.44, g = unproject(atX, atY, Rv * prev, GW / 2, GW / 2);
+      var Rv = GH * 0.44, g = unproject(atX, atY, Rv * prev, GW / 2, GH / 2);
       if (g) {  // подтягиваем точку под курсором к центру, иначе зум уводит в никуда
         lat0 += (g.lat - lat0) * 0.45;
         lat0 = Math.max(-75, Math.min(75, lat0));
@@ -1131,12 +1240,9 @@
   }
   document.getElementById("zin").addEventListener("click", function () { setZoom(zoom * 1.4); });
   document.getElementById("zout").addEventListener("click", function () { setZoom(zoom / 1.4); });
-  gcv.addEventListener("wheel", function (e) {
-    e.preventDefault();
-    var r = gcv.getBoundingClientRect();
-    setZoom(zoom * (1 - e.deltaY * 0.0016), e.clientX - r.left, e.clientY - r.top);
-    gidle = 2000;
-  }, { passive: false });
+  // Колесо и трекпад намеренно не зумят. Щипок на трекпаде приходит десятками
+  // wheel-событий в секунду, каждое подтягивало центр к курсору — шар метало.
+  // Зум остался на кнопках, клавишах + и −, и на щипке пальцами (pointer-события).
 
   var gpx = 0, gpy = 0, pointers = {}, pinch0 = 0, zoom0 = 1;
   gcv.addEventListener("pointerdown", function (e) {
@@ -1192,11 +1298,13 @@
   function gdraw() {
     requestAnimationFrame(gdraw);
     if (!glive) return;
-    var Rv = GW * 0.44, cx = GW / 2, cy = GW / 2, R = Rv * zoom;
+    var Rv = GH * 0.44, cx = GW / 2, cy = GH / 2, R = Rv * zoom;
     var pr = gproj(R, cx, cy);
-    gctx.clearRect(0, 0, GW, GW);
+    gctx.clearRect(0, 0, GW, GH);
     gctx.save();
-    gctx.beginPath(); gctx.arc(cx, cy, Rv, 0, 6.284); gctx.clip();   // окно остаётся круглым
+    // Режем по самому шару, а не по окну постоянного размера: на приближении
+    // глобус растёт и выходит за края холста, как и должен.
+    gctx.beginPath(); gctx.arc(cx, cy, R, 0, 6.284); gctx.clip();
 
     gctx.beginPath(); gctx.arc(cx, cy, R, 0, 6.284);
     gctx.fillStyle = gvar("--sphere"); gctx.fill();
@@ -1275,7 +1383,7 @@
     if (ghover && ghover !== gpick) gring(ghover._gx, ghover._gy, acc, 8, 1.2);
 
     gctx.restore();
-    gctx.beginPath(); gctx.arc(cx, cy, Rv, 0, 6.284);
+    gctx.beginPath(); gctx.arc(cx, cy, R, 0, 6.284);
     gctx.strokeStyle = gvar("--sphere-edge"); gctx.lineWidth = 1; gctx.stroke();
 
     if (!slowMotion && !gdrag && gidle <= 0 && zoom < 1.05) lon0 += 0.05;
@@ -1288,9 +1396,12 @@
   requestAnimationFrame(gdraw);
 
   var cardEl = document.getElementById("card");
+  var gnameEl = document.getElementById("gname");
   function showCard(c) {
     gpick = c || null;
-    if (!c) return;
+    if (!c) { gnameEl.hidden = true; return; }
+    gnameEl.innerHTML = "<b>" + c.city + "</b> · " + c.country;
+    gnameEl.hidden = false;
     var rows = METRICS.map(function (m) {
       var val = Math.round(c[m.key]), on = weights[m.key] > 0;
       return '<div class="cmet' + (on ? "" : " off") + '"><span>' + m.label +
@@ -1310,6 +1421,7 @@
   setZoom(1);
 
   render();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(render);
   window.addEventListener("resize", hideTip);
   window.__cities = cities;
 })();
