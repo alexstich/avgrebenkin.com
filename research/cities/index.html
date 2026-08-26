@@ -214,6 +214,12 @@
   .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
          gap: 12px; padding: 14px 16px; }
   .legend { display: flex; flex-wrap: wrap; gap: 6px; }
+  .sharebtn { border: 1px solid var(--hair); background: transparent; border-radius: 999px;
+              padding: 6px 14px; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+              font-size: 12px; color: var(--ink-2); cursor: pointer;
+              transition: color .15s, border-color .15s; }
+  .sharebtn:hover { color: var(--ink); border-color: var(--ink-3); }
+  .sharebtn.done { color: var(--accent); border-color: var(--accent); }
   .chip { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--hair);
           background: transparent; border-radius: 999px; padding: 5px 12px 5px 9px;
           font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 12px;
@@ -296,7 +302,10 @@
   .pick .cy { color: var(--ink-3); font-size: 11.5px;
               font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; }
   .pick .gap { margin-left: auto; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-               font-size: 11.5px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+               font-size: 11.5px; color: var(--ink-2); font-variant-numeric: tabular-nums;
+               white-space: nowrap; }
+  .pick .gap b { font-weight: 500; color: var(--ink); }
+  .pick .gap .sc { color: var(--ink-3); }
   .wrap svg { display: block; width: 100%; height: auto; overflow: visible; }
   .axis-title { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
                 font-size: 12px; letter-spacing: .04em; fill: var(--ink-2); }
@@ -586,11 +595,13 @@
           <button type="button" id="mode-norent" aria-pressed="false">without rent</button>
         </div>
       </div>
+      <button type="button" class="sharebtn" id="share">Copy link</button>
     </div>
     <p class="barhint">Click a region to drop it from the chart, the list and the table — click again to
       bring it back. <b>With rent</b> puts apartment rent into the cost basket; <b>without rent</b>
-      prices only groceries, restaurants, transport and utilities.</p>
-    <p class="note" id="moneynote" hidden>Purchasing power is on. Money is now in both axes — rich cities will drift up simply because they are rich. That is the effect this chart was built to avoid, so read it knowing it is back.</p>
+      prices only groceries, restaurants, transport and utilities. <b>Copy link</b> puts every slider,
+      region and toggle into the address — send it and the other side opens your exact city.</p>
+    <p class="note" id="moneynote" hidden>Purchasing power is on, and it is the softest number in the set. Money is now in both axes — rich cities drift up simply because they are rich, the effect this chart was built to avoid. Worse, the salaries behind it are self-reported by whoever fills in Numbeo, and in tech hubs that is mostly tech workers: Hyderabad reports 164.7, second in the world behind Bern and above Zurich, while Mumbai reports 63.1 and Delhi 66.6. No real economy splits four ways inside one country. Read this metric as what a Numbeo respondent earns, not what the city pays.</p>
     <svg id="chart" viewBox="0 0 1000 720" role="img" aria-label="Scatter plot of cities: cost against your chosen score"></svg>
     <div class="tip" id="tip"></div>
     <div class="quadkey">
@@ -604,8 +615,12 @@
   <section class="panel shortlist">
     <h2>Best value for your weights</h2>
     <p class="lead">The ten cities that score highest relative to what they cost — the top-left corner
-      of the chart, listed out. The number is how many percentiles the score sits above the cost.
-      Click one for its scorecard.</p>
+      of the chart, listed out. The number on the right is how many percentiles the score sits above the
+      cost, with the score itself next to it. Click one for its scorecard. Note what the subtraction does:
+      a city in the cheapest few per cent starts with a 70-point head start, so this column answers
+      &ldquo;most for the money&rdquo; and never &ldquo;best place to live&rdquo;. Vienna sits at the 72nd
+      cost percentile, so to match a city in the cheapest few per cent it would have to score 74 points
+      higher — which nothing can. For best outright, sort the full list below by score.</p>
     <div class="picks" id="picks"></div>
   </section>
 
@@ -631,6 +646,7 @@
     <p><strong>The default is the five basics at equal weight.</strong> Numbeo's own index weights them differently. We do not claim to know the right weights — that is what the sliders are for.</p>
     <p><strong>Counts come from a 10 km circle around the city centre.</strong> The circle is the same size everywhere, 314 km², so a raw count is already a density and no population figure is needed. It also means a satellite town and a capital are measured on the same footprint.</p>
     <p><strong>Where OpenStreetMap can be trusted, and where it cannot.</strong> Bus stops and parks are mapped at nearly the same density in Europe, North America and Asia — within 10 %. That control is what makes the rest readable: rail transit and pedestrian streets differ by three to four times, and since the map itself is not thinner, the difference is real. Two metrics failed that test and were dropped: kindergartens (Europe counts 13× North America, because the tag is barely used in the US) and universities from Wikidata (Tallinn came out as zero). Universities here are counted from OpenStreetMap instead, and measure campus footprint rather than institutions — an American campus is one polygon, a European university is scattered buildings, so read that one within a region rather than across.</p>
+    <p><strong>Purchasing power is the weakest number here, and it is worth knowing why.</strong> Numbeo builds it from salaries visitors type in themselves, and who bothers is not a random sample of the city — expats and urban professionals are heavily overrepresented, and in places where the site collects few answers a handful of them set the figure. It shows: Hyderabad comes out at 164.7, second of all 303 cities behind Bern and ahead of Zurich, while Mumbai sits at 63.1 and Delhi at 66.6. A fourfold gap inside one country is a sample artefact, not an economy. Cities that are cheap <em>because</em> local wages are low can therefore surface twice — once for the low cost, once for a salary figure that belongs to a narrow slice of the workforce. Give this slider a 3 and you are trusting that slice. The other prices — the cost basket and price-to-income — come from the same crowd but from thousands of individual price entries rather than a salary field, which is why they hold up better.</p>
     <p><strong>Flights</strong> count unique nonstop destinations from every airport within 60 km, merged. Kyiv, Kharkiv, Dnipro, Lviv, Odesa and Rostov-on-Don show zero: those airports have been shut to civilian traffic since 24 February 2022 and were still shut when this was collected in August 2026. That is the one thing on this chart that a crowdsourced safety score does not capture — and the one number here with a visible expiry date, since Ukraine began preparing a phased reopening of Lviv and the two Kyiv airports in early 2026.</p>
   </section>
 
@@ -668,7 +684,10 @@
 
         <dt>Purchasing power</dt>
         <dd>Average net salary in the city divided by what local prices cost, indexed to New York at 100.
-          A score of 120 means a local salary buys 20&nbsp;% more there than the same job's salary buys in New York.</dd>
+          A score of 120 means a local salary buys 20&nbsp;% more there than the same job's salary buys in New York.
+          The salaries are self-reported by site visitors, so in cities where the respondents skew towards
+          expats and tech workers the index reads high — Hyderabad at 164.7 against Mumbai at 63.1 is the
+          clearest case. Treat it as the loosest of the nine.</dd>
 
         <dt>Affordable to buy</dt>
         <dd>Median apartment price divided by median household income — the number of full annual incomes
@@ -850,6 +869,41 @@
   var activePreset = "default";
   var mode = "rent";
   var active = { eu: true, cis: true, gulf: true, na: true, asia: true, lat: true };
+
+  // ---- вся настройка живёт в адресе, поэтому ссылкой делятся целиком
+  var REGION_KEYS = Object.keys(REGIONS);
+  function presetFor() {
+    for (var i = 0; i < PRESETS.length; i++) {
+      var p = PRESETS[i], same = true;
+      METRICS.forEach(function (m) { if ((p.w[m.key] || 0) !== weights[m.key]) same = false; });
+      if (same) return p.key;
+    }
+    return null;
+  }
+  var shared = (function () {
+    var out = { sort: "score", pick: null };
+    if (!window.URLSearchParams) return out;
+    var q = new URLSearchParams(location.search), w = q.get("w"), g = q.get("g");
+    if (w && w.length === METRICS.length && /^[0-3]+$/.test(w)) {
+      METRICS.forEach(function (m, i) { weights[m.key] = +w.charAt(i); });
+      activePreset = presetFor();
+    }
+    if (q.get("c") === "n") mode = "norent";
+    if (g && g.length === REGION_KEYS.length && /^[01]+$/.test(g)) {
+      REGION_KEYS.forEach(function (k, i) { active[k] = g.charAt(i) === "1"; });
+    }
+    if (q.get("s") === "cost") out.sort = "cost";
+    out.pick = q.get("p");
+    return out;
+  })();
+  function shareURL() {
+    return location.origin + location.pathname +
+      "?w=" + METRICS.map(function (m) { return weights[m.key]; }).join("") +
+      "&c=" + (mode === "rent" ? "r" : "n") +
+      "&g=" + REGION_KEYS.map(function (k) { return active[k] ? "1" : "0"; }).join("") +
+      "&s=" + rlSort +
+      (gpick ? "&p=" + encodeURIComponent(gpick.key) : "");
+  }
 
   // ---- перцентили считаются один раз: значения метрик не зависят от весов
   function percentiles(values, invert) {
@@ -1075,6 +1129,22 @@
     fillTable();
   }
 
+  var shareBtn = document.getElementById("share");
+  shareBtn.addEventListener("click", function () {
+    var url = shareURL();
+    try { history.replaceState(null, "", url); } catch (err) {}
+    function said(msg) {
+      shareBtn.textContent = msg;
+      shareBtn.classList.add("done");
+      setTimeout(function () { shareBtn.textContent = "Copy link"; shareBtn.classList.remove("done"); }, 2400);
+    }
+    // Без https и без разрешения буфера остаётся адресная строка — она уже верная.
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(function () { said("Link copied"); },
+        function () { said("It is in the address bar"); });
+    } else { said("It is in the address bar"); }
+  });
+
   var picksBox = document.getElementById("picks");
   function fillShortlist(shown) {
     var best = shown.slice().sort(function (a, b) {
@@ -1084,7 +1154,8 @@
       return '<div class="pick" data-city="' + esc(c.key) + '"><span class="n">' + (i + 1) + '</span>' +
         '<span class="nm">' + c.city + '</span>' +
         '<span class="cy">' + c.country + '</span>' +
-        '<span class="gap">+' + Math.round(c.yp - xp(c)) + '</span></div>';
+        '<span class="gap"><b>+' + Math.round(c.yp - xp(c)) + '</b> <span class="sc">score ' +
+        Math.round(c.yp) + '</span></span></div>';
     }).join("");
   }
 
@@ -1100,7 +1171,7 @@
   var rlBox = document.getElementById("ranklist");
   var rlTip = document.getElementById("rltip");
   var rlHost = document.querySelector(".ranklist");
-  var rlSort = "score";
+  var rlSort = shared.sort;
   function fillRankList(shown) {
     var rows = shown.slice().sort(function (a, b) {
       return rlSort === "cost" ? xp(a) - xp(b) : (b.yp || 0) - (a.yp || 0);
@@ -1115,6 +1186,7 @@
     }).join("");
   }
   Array.prototype.forEach.call(document.querySelectorAll(".rl-sort"), function (b) {
+    b.setAttribute("aria-pressed", String(b.getAttribute("data-sort") === rlSort));
     b.addEventListener("click", function () {
       rlSort = b.getAttribute("data-sort");
       Array.prototype.forEach.call(document.querySelectorAll(".rl-sort"), function (x) {
@@ -1179,7 +1251,8 @@
   var legend = document.getElementById("legend");
   Object.keys(REGIONS).forEach(function (k) {
     var b = document.createElement("button");
-    b.type = "button"; b.className = "chip"; b.setAttribute("aria-pressed", "true");
+    b.type = "button"; b.className = "chip";
+    b.setAttribute("aria-pressed", active[k] ? "true" : "false");
     b.style.setProperty("--sw", REGIONS[k].color);
     b.innerHTML = '<span class="dot"></span>' + REGIONS[k].label;
     b.addEventListener("click", function () {
@@ -1191,6 +1264,8 @@
   });
 
   var bRent = document.getElementById("mode-rent"), bNo = document.getElementById("mode-norent");
+  bRent.setAttribute("aria-pressed", String(mode === "rent"));
+  bNo.setAttribute("aria-pressed", String(mode !== "rent"));
   bRent.addEventListener("click", function () {
     mode = "rent"; bRent.setAttribute("aria-pressed", "true");
     bNo.setAttribute("aria-pressed", "false"); render();
@@ -1216,10 +1291,10 @@
       row.className = "row";
       row.innerHTML = "<label>" + m.label + "<span class='hint'>" + m.hint + "</span></label>";
       var inp = document.createElement("input");
-      inp.type = "range"; inp.min = 0; inp.max = 3; inp.step = 1; inp.value = m.def;
+      inp.type = "range"; inp.min = 0; inp.max = 3; inp.step = 1; inp.value = weights[m.key];
       inp.setAttribute("aria-label", m.label + " importance");
       var val = document.createElement("span");
-      val.className = "val"; val.textContent = m.def;
+      val.className = "val"; val.textContent = weights[m.key];
       inp.addEventListener("input", function () {
         weights[m.key] = +inp.value;
         val.textContent = inp.value;
@@ -1589,6 +1664,7 @@
   setZoom(1);
 
   render();
+  if (shared.pick && byKey[shared.pick]) showCard(byKey[shared.pick]);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(render);
   window.addEventListener("resize", hideTip);
   window.__cities = cities;
