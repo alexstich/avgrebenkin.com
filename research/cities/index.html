@@ -225,6 +225,21 @@
                       background: rgba(var(--accent-rgb), .1); padding: 8px 18px; font-size: 12.5px; }
   .sharebtn.primary:hover { background: rgba(var(--accent-rgb), .18); color: var(--accent); }
   .sharebtn.primary.done { background: rgba(var(--accent-rgb), .18); }
+  /* Две маленькие кнопки в углу каждого блока: ссылка на настройку и печать. */
+  .pactions { float: right; display: flex; gap: 6px; margin: -2px 0 4px 12px; }
+  .ranklist .pactions, details.table .pactions { margin-top: 0; }
+  details.table .pactions { position: absolute; right: 20px; top: 13px; float: none; margin: 0; }
+  details.table summary { position: static; }
+  .ibtn { display: grid; place-items: center; width: 30px; height: 30px; padding: 0;
+          border: 1px solid var(--hair); border-radius: 8px; background: transparent;
+          color: var(--ink-3); cursor: pointer; transition: color .15s, border-color .15s; }
+  .ibtn:hover { color: var(--ink); border-color: var(--ink-3); }
+  .ibtn.done { color: var(--accent); border-color: var(--accent); }
+  .ibtn svg { width: 15px; height: 15px; fill: none; stroke: currentColor;
+              stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .ibtn.done svg { stroke-width: 2; }
+  :root[data-theme="cyber"] .ibtn { border-radius: 0; }
+
   .shareline { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; margin-top: 14px; }
   .rl-share { padding: 14px 16px 4px; border-top: 1px solid var(--hair-soft); margin-top: 10px; }
   .sharehint { color: var(--ink-3); font-size: 12.5px; max-width: 52ch; }
@@ -374,8 +389,8 @@
   code { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 13px;
          background: var(--hair-soft); border-radius: 4px; padding: 1px 5px; }
 
-  details.table { padding: 0; }
-  details.table summary { cursor: pointer; padding: 16px 22px; font-size: 17px;
+  details.table { padding: 0; position: relative; }
+  details.table summary { cursor: pointer; padding: 16px 100px 16px 22px; font-size: 17px;
                           font-weight: 600; list-style: none; }
   details.table summary::-webkit-details-marker { display: none; }
   details.table summary::before { content: "▸ "; color: var(--ink-3); }
@@ -512,6 +527,48 @@
     .zoombar { right: 8px; top: 8px; }
     .notes { padding-left: 16px; padding-right: 16px; }
   }
+
+  /* Печать: страница целиком на бумаге бессмысленна, поэтому печатается один
+     блок — тот, у чьей иконки нажали. Остальное убирается вместе с хромом сайта. */
+  @media print {
+    .site-nav, footer, .crumb, .ghint, .zoombar, .gsearch, .pactions, .toggle, .barhint,
+    .rl-head .rl-sort[aria-pressed="false"],
+    .shareline, .sy-strip, .tip, body::before, body::after { display: none !important; }
+    .panel, .chartbox, .ranklist { border: 0 !important; box-shadow: none !important;
+                                   background: #fff !important; }
+    :root[data-print] main .wrap > *, :root[data-print] header { display: none !important; }
+    :root[data-print] .wrap > .printhead { display: block !important; }
+    :root[data-print] .cempty { display: none !important; }
+    :root[data-print="globe"] #p-globe,
+    :root[data-print="chart"] #p-chart,
+    :root[data-print="list"] #p-list,
+    :root[data-print="table"] #p-table { display: block !important; }
+    :root[data-print="table"] .tablescroll { overflow: visible !important; max-height: none !important;
+                                            border: 0 !important; }
+    :root[data-print="table"] details.table summary { display: none !important; }
+    /* Двадцать три колонки в ширину листа влезают только мелким кеглем. */
+    :root[data-print="table"] table { font-size: 6.4px; table-layout: auto; }
+    :root[data-print="table"] th, :root[data-print="table"] td { padding: 1.5px 2px; }
+    :root[data-print="table"] thead { display: table-header-group; }
+    :root[data-print="table"] thead th { position: static; background: #fff !important; }
+    :root[data-print="table"] .swatch { width: 5px; height: 5px; margin-right: 3px; }
+    .rl-row, .qk, tr { break-inside: avoid; }
+    /* Шар печатается целиком на одном листе, а не разрезанным пополам. */
+    :root[data-print="globe"] .globewrap { display: block !important; }
+    :root[data-print="globe"] .globebox { break-inside: avoid; text-align: center; }
+    :root[data-print="globe"] .globebox canvas { max-width: 100% !important; margin: 0 auto; }
+    :root[data-print] .emptycard { display: none !important; }
+    :root[data-print] .printhead { break-after: avoid; }
+    /* Инструкции «покрутите шар» и «нажмите /» на бумаге не нужны, а место занимают. */
+    :root[data-print] .phead p { display: none !important; }
+    :root[data-print] .phead { padding-bottom: 10px; }
+    @page { margin: 12mm 10mm; }
+    .rl-rows { max-height: none !important; }
+  }
+  .printhead { display: none; }
+  .printhead h2 { font-family: var(--font-head); font-size: 19px; margin: 0 0 4px; }
+  .printhead p { margin: 0 0 14px; color: #444; font-size: 12px;
+                 font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; word-break: break-all; }
 </style>
 </head>
 <body>
@@ -549,6 +606,8 @@
 
 <main>
 <div class="wrap">
+  <div class="printhead"><h2>Build your own city — 303 cities, twelve metrics</h2>
+    <p id="printurl">avgrebenkin.com/research/cities/</p></div>
   <p class="crumb"><a href="/research/">← Research</a></p>
   <header>
     <h1>Build your own city</h1>
@@ -563,8 +622,9 @@
         sees your exact city, not the default one.</span>
     </div>
   </header>
-  <div class="panel">
+  <div class="panel" id="p-globe">
     <div class="phead">
+      <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-print="globe" title="Print the globe" aria-label="Print the globe"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
       <h2>The whole set: all 303 cities</h2>
       <p>The overview. Every city in the study is here, each dot sized and brightened by its overall
         score — so the bright clusters are the places that do well on the weights currently set.
@@ -617,8 +677,9 @@
     </div>
   </details>
 
-  <div class="panel chartbox">
+  <div class="panel chartbox" id="p-chart">
     <div class="phead">
+      <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-print="chart" title="Print the chart" aria-label="Print the chart"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
       <h2>Your selection: score against cost</h2>
       <p>Every city you kept, placed by what it costs (across) and what it scores on your weights (up).
         Names are printed wherever they fit without covering each other — hover or tap any dot for the
@@ -633,12 +694,10 @@
           <button type="button" id="mode-norent" aria-pressed="false">without rent</button>
         </div>
       </div>
-      <button type="button" class="sharebtn" data-share>Copy link</button>
     </div>
     <p class="barhint">Click a region to drop it from the chart, the list and the table — click again to
       bring it back. <b>With rent</b> puts apartment rent into the cost basket; <b>without rent</b>
-      prices only groceries, restaurants, transport and utilities. <b>Copy link</b> puts every slider,
-      region and toggle into the address — send it and the other side opens your exact city.</p>
+      prices only groceries, restaurants, transport and utilities.</p>
     <p class="note" id="moneynote" hidden>Purchasing power is on, and it is the softest number in the set. Money is now in both axes — rich cities drift up simply because they are rich, the effect this chart was built to avoid. Worse, the salaries behind it are self-reported by whoever fills in Numbeo, and in tech hubs that is mostly tech workers: Hyderabad reports 164.7, second in the world behind Bern and above Zurich, while Mumbai reports 63.1 and Delhi 66.6. No real economy splits four ways inside one country. Read this metric as what a Numbeo respondent earns, not what the city pays.</p>
     <svg id="chart" viewBox="0 0 1000 720" role="img" aria-label="Scatter plot of cities: cost against your chosen score"></svg>
     <div class="tip" id="tip"></div>
@@ -651,7 +710,8 @@
   </div>
 
 
-  <section class="panel ranklist">
+  <section class="panel ranklist" id="p-list">
+    <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-print="list" title="Print the list" aria-label="Print the list"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
     <h2>Every city in order</h2>
     <p class="lead">The same chart read as a list. <b>Score</b> is the vertical axis — the weighted
       average of the metrics you switched on, as a percentile out of these 303 cities. <b>Cost</b> is
@@ -665,10 +725,6 @@
     </div>
     <div class="rl-rows" id="ranklist"></div>
     <div class="tip" id="rltip"></div>
-    <div class="shareline rl-share">
-      <button type="button" class="sharebtn primary" data-share>Share this setup</button>
-      <span class="sharehint">Copies a link that reopens this exact list.</span>
-    </div>
   </section>
 
   <aside class="sy-strip" aria-label="Speak-Y">
@@ -806,8 +862,8 @@
     </div>
   </details>
 
-  <details class="panel table">
-    <summary>Table: every city, every number</summary>
+  <details class="panel table" id="p-table">
+    <summary>Table: every city, every number<div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-print="table" title="Print the table" aria-label="Print the table"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div></summary>
     <div class="tablescroll">
       <table id="tbl"><thead><tr id="thead"></tr></thead><tbody></tbody></table>
     </div>
@@ -1159,15 +1215,27 @@
     fillTable();
   }
 
+  // Кнопки таблицы живут внутри <summary>, иначе они прячутся вместе с ней.
+  Array.prototype.forEach.call(document.querySelectorAll(".pactions"), function (box) {
+    box.addEventListener("click", function (e) {
+      if (e.target.closest(".ibtn")) { e.preventDefault(); e.stopPropagation(); }
+    });
+  });
+  var TICK = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12.5 4.5 4.5L19 7"/></svg>';
   Array.prototype.forEach.call(document.querySelectorAll("[data-share]"), function (btn) {
-    var label = btn.textContent;
+    var icon = btn.classList.contains("ibtn"), label = btn.innerHTML;
     btn.addEventListener("click", function () {
       var url = shareURL();
       try { history.replaceState(null, "", url); } catch (err) {}
       function said(msg) {
-        btn.textContent = msg;
+        btn.innerHTML = icon ? TICK : msg;
+        if (icon) btn.title = msg;
         btn.classList.add("done");
-        setTimeout(function () { btn.textContent = label; btn.classList.remove("done"); }, 2400);
+        setTimeout(function () {
+          btn.innerHTML = label;
+          if (icon) btn.title = "Copy a link to this setup";
+          btn.classList.remove("done");
+        }, 2400);
       }
       // Без https и без разрешения буфера остаётся адресная строка — она уже верная.
       if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -1422,12 +1490,13 @@
   // Холст занимает всю ширину колонки, высоту держит квадратной, но не выше 520:
   // на приближении увеличенный шар выходит за края, и лишняя ширина — это лишняя
   // видимая география, а не пустое место справа.
-  function gfit() {
+  // fw/fh задаются только печатью: лист уже колонки, и шар надо вписать в него.
+  function gfit(fw, fh) {
     var dpr = Math.min(devicePixelRatio || 1, 2);
     var cs = getComputedStyle(gbox);
     var pad = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
-    GW = Math.max(260, gbox.clientWidth - pad);
-    GH = Math.max(260, Math.min(520, GW));
+    GW = fw || Math.max(260, gbox.clientWidth - pad);
+    GH = fh || Math.max(260, Math.min(520, GW));
     gcv.style.width = GW + "px"; gcv.style.height = GH + "px";
     gcv.width = GW * dpr; gcv.height = GH * dpr;
     gctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -1539,6 +1608,10 @@
   function gdraw() {
     requestAnimationFrame(gdraw);
     if (!glive) return;
+    gpaint();
+  }
+  // Отдельно от цикла: перед печатью кадр нужен сразу и в нужной теме.
+  function gpaint() {
     var Rv = GH * 0.44, cx = GW / 2, cy = GH / 2, R = Rv * zoom;
     var pr = gproj(R, cx, cy);
     gctx.clearRect(0, 0, GW, GH);
@@ -1695,6 +1768,52 @@
       '<p class="cmeta" style="margin-top:12px">Dimmed rows are switched off in your sliders.</p>';
   }
   function refreshCard() { if (gpick) showCard(gpick); }
+
+  // ---- печать: один блок на лист, в светлой палитре и с адресом настройки
+  var printedTheme = null, printedOpen = null;
+  function beforePrint(part) {
+    document.getElementById("printurl").textContent =
+      shareURL().replace(/^https?:\/\//, "");
+    var root = document.documentElement;
+    printedTheme = root.getAttribute("data-theme");
+    if (printedTheme !== "light") {
+      // Тёмный холст на бумаге — чёрный прямоугольник, поэтому печатаем в светлой.
+      root.setAttribute("data-theme", "light");
+      render(); gpaint();
+    }
+    if (part === "table") {
+      var tbl = document.getElementById("p-table");
+      printedOpen = tbl.open; tbl.open = true;
+    }
+    // Пустая карточка на бумаге — только заголовок «Scorecard» и ничего под ним.
+    cardEl.classList.toggle("emptycard", !gpick);
+    root.setAttribute("data-print", part);
+    // Ширина листа не равна ширине окна: холст надо пересчитать и нарисовать
+    // прямо сейчас — во время печати кадры анимации не приходят.
+    if (part === "globe") gfit(620, 420); else gfit();
+    gpaint();
+  }
+  function afterPrint() {
+    var root = document.documentElement;
+    root.removeAttribute("data-print");
+    gfit();
+    if (printedOpen !== null) { document.getElementById("p-table").open = printedOpen; printedOpen = null; }
+    if (printedTheme && printedTheme !== "light") {
+      root.setAttribute("data-theme", printedTheme);
+      render();
+    }
+    gpaint();
+    printedTheme = null;
+  }
+  window.addEventListener("afterprint", afterPrint);
+  Array.prototype.forEach.call(document.querySelectorAll("[data-print]"), function (btn) {
+    btn.addEventListener("click", function () {
+      beforePrint(btn.getAttribute("data-print"));
+      window.print();
+      // Safari не всегда шлёт afterprint — подстраховываемся таймером.
+      setTimeout(function () { if (document.documentElement.hasAttribute("data-print")) afterPrint(); }, 800);
+    });
+  });
 
   // ---- поиск по городам: 303 точки быстрее найти буквами, чем вращением
   var gqEl = document.getElementById("gq"), gsugEl = document.getElementById("gsug"),
