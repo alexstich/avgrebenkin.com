@@ -226,18 +226,26 @@
   .sharebtn.primary:hover { background: rgba(var(--accent-rgb), .18); color: var(--accent); }
   .sharebtn.primary.done { background: rgba(var(--accent-rgb), .18); }
   /* Две маленькие кнопки в углу каждого блока: ссылка на настройку и печать. */
-  .pactions { float: right; display: flex; gap: 6px; margin: -2px 0 4px 12px; }
+  .pactions { float: right; display: flex; gap: 5px; margin: 0 0 4px 12px; }
   .ranklist .pactions, details.table .pactions { margin-top: 0; }
-  details.table .pactions { position: absolute; right: 20px; top: 13px; float: none; margin: 0; }
+  details.table .pactions { position: absolute; right: 20px; top: 17px; float: none; margin: 0; }
   details.table summary { position: static; }
-  .ibtn { display: grid; place-items: center; width: 30px; height: 30px; padding: 0;
-          border: 1px solid var(--hair); border-radius: 8px; background: transparent;
+  .ibtn { display: grid; place-items: center; width: 23px; height: 23px; padding: 0;
+          border: 1px solid var(--hair); border-radius: 6px; background: transparent;
           color: var(--ink-3); cursor: pointer; transition: color .15s, border-color .15s; }
   .ibtn:hover { color: var(--ink); border-color: var(--ink-3); }
   .ibtn.done { color: var(--accent); border-color: var(--accent); }
-  .ibtn svg { width: 15px; height: 15px; fill: none; stroke: currentColor;
-              stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-  .ibtn.done svg { stroke-width: 2; }
+  .ibtn svg { width: 12px; height: 12px; fill: none; stroke: currentColor;
+              stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .ibtn.done svg { stroke-width: 2.2; }
+  /* Иконка меняется на галочку слишком тихо — рядом всплывает подпись. */
+  .copied { position: fixed; z-index: 40; padding: 6px 11px; border-radius: 8px;
+            background: var(--accent); color: var(--bg);
+            font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 11.5px;
+            white-space: nowrap; pointer-events: none; box-shadow: 0 10px 24px -14px rgba(0,0,0,.9);
+            opacity: 0; transform: translateY(-4px); transition: opacity .18s, transform .18s; }
+  .copied.in { opacity: 1; transform: translateY(0); }
+  :root[data-theme="cyber"] .copied { border-radius: 0; }
   :root[data-theme="cyber"] .ibtn { border-radius: 0; }
 
   .shareline { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; margin-top: 14px; }
@@ -390,7 +398,7 @@
          background: var(--hair-soft); border-radius: 4px; padding: 1px 5px; }
 
   details.table { padding: 0; position: relative; }
-  details.table summary { cursor: pointer; padding: 16px 100px 16px 22px; font-size: 17px;
+  details.table summary { cursor: pointer; padding: 16px 80px 16px 22px; font-size: 17px;
                           font-weight: 600; list-style: none; }
   details.table summary::-webkit-details-marker { display: none; }
   details.table summary::before { content: "▸ "; color: var(--ink-3); }
@@ -530,39 +538,50 @@
 
   /* Печать: страница целиком на бумаге бессмысленна, поэтому печатается один
      блок — тот, у чьей иконки нажали. Остальное убирается вместе с хромом сайта. */
+  /* Печать: на лист уходит один блок — тот, у чьей иконки нажали, — и выглядит он
+     так же, как на экране. Скрывается только то, что на бумаге не работает:
+     хром сайта, органы управления и подсказки про клики. */
   @media print {
-    .site-nav, footer, .crumb, .ghint, .zoombar, .gsearch, .pactions, .toggle, .barhint,
-    .rl-head .rl-sort[aria-pressed="false"],
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .site-nav, footer, .crumb, .ghint, .zoombar, .gsearch, .pactions,
     .shareline, .sy-strip, .tip, body::before, body::after { display: none !important; }
-    .panel, .chartbox, .ranklist { border: 0 !important; box-shadow: none !important;
-                                   background: #fff !important; }
     :root[data-print] main .wrap > *, :root[data-print] header { display: none !important; }
     :root[data-print] .wrap > .printhead { display: block !important; }
-    :root[data-print] .cempty { display: none !important; }
+    :root[data-print] .printhead { break-after: avoid; }
+    :root[data-print] .cempty, :root[data-print] .emptycard { display: none !important; }
     :root[data-print="globe"] #p-globe,
     :root[data-print="chart"] #p-chart,
     :root[data-print="list"] #p-list,
     :root[data-print="table"] #p-table { display: block !important; }
-    :root[data-print="table"] .tablescroll { overflow: visible !important; max-height: none !important;
-                                            border: 0 !important; }
-    :root[data-print="table"] details.table summary { display: none !important; }
-    /* Двадцать три колонки в ширину листа влезают только мелким кеглем. */
-    :root[data-print="table"] table { font-size: 6.4px; table-layout: auto; }
-    :root[data-print="table"] th, :root[data-print="table"] td { padding: 1.5px 2px; }
-    :root[data-print="table"] thead { display: table-header-group; }
-    :root[data-print="table"] thead th { position: static; background: #fff !important; }
-    :root[data-print="table"] .swatch { width: 5px; height: 5px; margin-right: 3px; }
-    .rl-row, .qk, tr { break-inside: avoid; }
-    /* Шар печатается целиком на одном листе, а не разрезанным пополам. */
+
+    /* Шар печатается целиком, а не разрезанным между листами. */
     :root[data-print="globe"] .globewrap { display: block !important; }
     :root[data-print="globe"] .globebox { break-inside: avoid; text-align: center; }
-    :root[data-print="globe"] .globebox canvas { max-width: 100% !important; margin: 0 auto; }
-    :root[data-print] .emptycard { display: none !important; }
-    :root[data-print] .printhead { break-after: avoid; }
-    /* Инструкции «покрутите шар» и «нажмите /» на бумаге не нужны, а место занимают. */
-    :root[data-print] .phead p { display: none !important; }
-    :root[data-print] .phead { padding-bottom: 10px; }
-    @page { margin: 12mm 10mm; }
+    :root[data-print="globe"] .globebox canvas { max-width: 100% !important; height: auto !important;
+                                                 margin: 0 auto; }
+
+    /* Таблица широкая — ей альбомный лист. */
+    @page portrait { size: A4 portrait; margin: 12mm 11mm; }
+    @page wide { size: A4 landscape; margin: 11mm 12mm; }
+    :root[data-print="globe"] .wrap, :root[data-print="list"] .wrap,
+    :root[data-print="chart"] .wrap { page: portrait; }
+    :root[data-print="table"] .wrap { page: wide; }
+
+    :root[data-print="table"] .tablescroll { overflow: visible !important; max-height: none !important; }
+    :root[data-print="table"] thead { display: table-header-group; }
+    :root[data-print="table"] thead th { position: static; }
+
+    /* Блок не переверстывается под узкий лист, а печатается ровно как на экране,
+       уменьшенный ровно настолько, чтобы влезть: zoom и ширину считает beforePrint. */
+    :root[data-print] .wrap { max-width: none; padding: 0; }
+    :root[data-print="globe"] #p-globe,
+    :root[data-print="chart"] #p-chart,
+    :root[data-print="list"] #p-list,
+    :root[data-print="table"] #p-table {
+      zoom: var(--pscale, 1); width: var(--pwidth, auto) !important; margin: 0 !important;
+    }
+
+    .rl-row, .qk, tr { break-inside: avoid; }
     .rl-rows { max-height: none !important; }
   }
   .printhead { display: none; }
@@ -1221,6 +1240,22 @@
       if (e.target.closest(".ibtn")) { e.preventDefault(); e.stopPropagation(); }
     });
   });
+  // Подпись всплывает у самой кнопки: галочка на иконке слишком тихая.
+  function flash(btn, msg) {
+    var t = document.createElement("div");
+    t.className = "copied"; t.textContent = msg; t.setAttribute("role", "status");
+    document.body.appendChild(t);
+    var r = btn.getBoundingClientRect(), w = t.offsetWidth, h = t.offsetHeight;
+    function clamp(v, max) { return Math.max(8, Math.min(v, max - 8)); }
+    var top = r.bottom + 8 + h > window.innerHeight ? r.top - h - 8 : r.bottom + 8;
+    t.style.left = clamp(r.right - w, window.innerWidth - w) + "px";
+    t.style.top = clamp(top, window.innerHeight - h) + "px";
+    setTimeout(function () { t.classList.add("in"); }, 16);
+    setTimeout(function () {
+      t.classList.remove("in");
+      setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 260);
+    }, 1800);
+  }
   var TICK = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12.5 4.5 4.5L19 7"/></svg>';
   Array.prototype.forEach.call(document.querySelectorAll("[data-share]"), function (btn) {
     var icon = btn.classList.contains("ibtn"), label = btn.innerHTML;
@@ -1231,6 +1266,7 @@
         btn.innerHTML = icon ? TICK : msg;
         if (icon) btn.title = msg;
         btn.classList.add("done");
+        flash(btn, msg);
         setTimeout(function () {
           btn.innerHTML = label;
           if (icon) btn.title = "Copy a link to this setup";
@@ -1790,12 +1826,39 @@
     root.setAttribute("data-print", part);
     // Ширина листа не равна ширине окна: холст надо пересчитать и нарисовать
     // прямо сейчас — во время печати кадры анимации не приходят.
-    if (part === "globe") gfit(620, 420); else gfit();
-    gpaint();
+    gfit(); gpaint();
+    fitToPage(part);
+  }
+
+  // Лист A4 при 96 dpi минус поля из @page. Схема и таблица печатаются альбомно.
+  function fitToPage(part) {
+    var wide = part === "table";                       // 23 колонки — только альбомный лист
+    var head = document.querySelector(".printhead").offsetHeight || 58;
+    var pw = wide ? 1033 : 710, ph = (wide ? 710 : 1033) - head - 16;
+    var node = document.getElementById("p-" + part), w = pw, sc = 1;
+    // Холст под ширину листа: иначе CSS сожмёт его по ширине и шар станет овалом.
+    if (part === "globe") { gfit(pw - 44, Math.min(520, pw - 44)); gpaint(); }
+    if (wide) {
+      // Таблица шире листа: печатаем её как есть и ужимаем целиком.
+      w = document.getElementById("tbl").scrollWidth + 44;
+      sc = Math.min(1, pw / w);
+    } else {
+      // Меряем блок уже в ширине листа: так видно настоящую высоту распечатки.
+      var prev = node.style.width;
+      node.style.width = pw + "px";
+      var h = node.getBoundingClientRect().height;
+      node.style.width = prev;
+      if (part !== "list") sc = Math.min(1, ph / h);   // список и так многостраничный
+    }
+    var root = document.documentElement;
+    root.style.setProperty("--pscale", sc.toFixed(4));
+    root.style.setProperty("--pwidth", Math.round(w) + "px");
   }
   function afterPrint() {
     var root = document.documentElement;
     root.removeAttribute("data-print");
+    root.style.removeProperty("--pscale");
+    root.style.removeProperty("--pwidth");
     gfit();
     if (printedOpen !== null) { document.getElementById("p-table").open = printedOpen; printedOpen = null; }
     if (printedTheme && printedTheme !== "light") {
