@@ -57,6 +57,23 @@ anchored on the canonical page at https://avgrebenkin.com/#note-<slug>.
 - [My stack in 2026](https://avgrebenkin.com/#note-my-stack) — Cursor, Claude, Perplexity, Xcode — and the one addition that removed three days of procrastination. (AI workflow, 2026-06-07)
 - [Your keyboard is the bottleneck](https://avgrebenkin.com/#note-prompting-bottleneck) — Not the model, not the context window. The thing that degrades your prompts by evening is typing. (AI workflow, 2026-06-06)
 
+## Research
+
+Interactive studies published as their own pages, one per folder under
+https://avgrebenkin.com/research/. Each one is built from data collected and rebuilt
+from source, with the method and its weak spots written down on the page.
+
+- [Build your own city](https://avgrebenkin.com/research/cities/) — 303 cities scored on
+  twelve things people actually move for: safety, health care, commute, clean air, climate,
+  culture and nightlife, car-free living, university presence, purchasing power, housing
+  affordability, kid infrastructure and nonstop flight destinations. The reader sets the
+  weight of each metric with sliders; a globe and a score-against-cost chart redraw on the
+  same weights, and a shortlist names the cities that score highest for what they cost.
+  Sources: Numbeo mid-year 2026 release (nine metrics), OpenStreetMap counts inside a 10 km
+  disk around each city centre (three metrics), OurAirports plus Wikipedia (nonstop
+  destinations). Every number was rebuilt from source on 26 August 2026. Raw dataset:
+  https://avgrebenkin.com/research/data/cities-303.json (2026-08-26)
+
 ## Speaking
 
 - March 2026, Batumi, Georgia — speaker at the Co-Founder Meeting (Rooms Hotel, Batumi) with a

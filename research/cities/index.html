@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Build your own city — 303 cities, twelve metrics, your weights</title>
+<meta name="description" content="Twelve things people actually move for, measured across 303 cities: safety, health care, commute, air, climate, culture, car-free living, universities, purchasing power, housing, kids and nonstop flights. Set the weights yourself and see what each city costs for the score it earns.">
+<link rel="canonical" href="https://avgrebenkin.com/research/cities/">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Aleksei Grebenkin">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0b0c11" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f6f9" media="(prefers-color-scheme: light)">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%235b4fd6'/%3E%3Cg fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M16 8v8'/%3E%3Cpath d='M11 12v4'/%3E%3Cpath d='M21 12v4'/%3E%3Cpath d='M16 20v4'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Aleksei Grebenkin">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Build your own city — 303 cities, twelve metrics, your weights">
+<meta property="og:description" content="Twelve things people actually move for, 303 cities. Turn the globe, pull the sliders, and see which cities give the most for what they cost.">
+<meta property="og:url" content="https://avgrebenkin.com/research/cities/">
+<meta property="og:image" content="https://avgrebenkin.com/images/research/build-your-own-city.jpg">
+<meta property="og:image:secure_url" content="https://avgrebenkin.com/images/research/build-your-own-city.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A globe with 303 cities marked as dots, each sized by how well it scores">
+<meta property="article:published_time" content="2026-08-26">
+<meta property="article:author" content="https://avgrebenkin.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Build your own city — 303 cities, twelve metrics, your weights">
+<meta name="twitter:description" content="Twelve things people actually move for, 303 cities. Turn the globe, pull the sliders, and see which cities give the most for what they cost.">
+<meta name="twitter:image" content="https://avgrebenkin.com/images/research/build-your-own-city.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"></noscript>
+<link rel="stylesheet" href="../shell.css">
+
+<script>
+  /* the theme before first paint, so a light reader never sees a dark flash */
+  (function () {
+    try {
+      var t = localStorage.getItem('theme');
+      if (['dark', 'light', 'cyber'].indexOf(t) === -1) {
+        t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://avgrebenkin.com/research/cities/#webpage",
+      "url": "https://avgrebenkin.com/research/cities/",
+      "name": "Build your own city — 303 cities, twelve metrics, your weights",
+      "description": "Twelve things people actually move for, measured across 303 cities. Set the weights yourself and see what each city costs for the score it earns.",
+      "isPartOf": { "@id": "https://avgrebenkin.com/#website" },
+      "author": { "@id": "https://avgrebenkin.com/#person" },
+      "datePublished": "2026-08-26",
+      "dateModified": "2026-08-26",
+      "inLanguage": "en",
+      "breadcrumb": { "@id": "https://avgrebenkin.com/research/cities/#breadcrumb" },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://avgrebenkin.com/images/research/build-your-own-city.jpg",
+        "width": 1200,
+        "height": 630
+      },
+      "mainEntity": { "@id": "https://avgrebenkin.com/research/cities/#dataset" }
+    },
+    {
+      "@type": "Dataset",
+      "@id": "https://avgrebenkin.com/research/cities/#dataset",
+      "name": "303 cities, twelve liveability metrics and two cost-of-living indices",
+      "description": "For each of 303 cities: nine Numbeo mid-year 2026 indices (safety, health care, commute, pollution, climate, purchasing power, price-to-income, cost of living with and without rent), OpenStreetMap counts inside a 10 km disk around the centre (museums, galleries, theatres, arts centres, cinemas, bars, pubs, nightclubs, rail stations, halts, tram stops, pedestrian streets, playgrounds, parks, schools, libraries, universities, colleges) and the number of unique nonstop destinations from airports within 60 km.",
+      "creator": { "@id": "https://avgrebenkin.com/#person" },
+      "datePublished": "2026-08-26",
+      "temporalCoverage": "2026",
+      "isAccessibleForFree": true,
+      "keywords": ["cost of living", "quality of life", "cities", "relocation", "OpenStreetMap", "Numbeo"],
+      "license": "https://opendatacommons.org/licenses/odbl/",
+      "distribution": {
+        "@type": "DataDownload",
+        "encodingFormat": "application/json",
+        "contentUrl": "https://avgrebenkin.com/research/data/cities-303.json"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://avgrebenkin.com/research/cities/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://avgrebenkin.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Research", "item": "https://avgrebenkin.com/research/" },
+        { "@type": "ListItem", "position": 3, "name": "Build your own city", "item": "https://avgrebenkin.com/research/cities/" }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+  /* Палитра исследования: только то, чего нет в токенах сайта. Тени, фон и текст
+     берутся из shell.css, поэтому три темы переключаются шапкой сайта. */
+  :root {
+    --ink-3: #6f7484;
+    --sphere: #151824; --sphere-edge: rgba(255,255,255,.18);
+    --land: rgba(139,124,255,.18); --coast: rgba(139,124,255,.42);
+    --grid-line: rgba(255,255,255,.06);
+    --pick: #ff9f6e;
+    --q1: rgba(62,207,142,.07); --q2: rgba(139,124,255,.08);
+    --q3: rgba(255,159,110,.06); --q4: rgba(255,255,255,.03);
+    --r-eu: #8b7cff; --r-cis: #3ecf8e; --r-gulf: #e0a83c;
+    --r-na: #ff7a8a; --r-asia: #b79bff; --r-lat: #ff9f6e;
+  }
+  :root[data-theme="light"] {
+    --ink-3: #8a90a1;
+    --sphere: #ffffff; --sphere-edge: rgba(16,18,30,.20);
+    --land: rgba(91,79,214,.15); --coast: rgba(91,79,214,.34);
+    --grid-line: rgba(16,18,30,.07);
+    --pick: #c2410c;
+    --q1: rgba(21,128,61,.07); --q2: rgba(91,79,214,.07);
+    --q3: rgba(194,65,12,.05); --q4: rgba(120,113,108,.06);
+    --r-eu: #5b4fd6; --r-cis: #15803d; --r-gulf: #b45309;
+    --r-na: #be123c; --r-asia: #7c3aed; --r-lat: #c2410c;
+  }
+  :root[data-theme="cyber"] {
+    --ink-3: #5d6a74;
+    --sphere: #0b0b12; --sphere-edge: rgba(0,240,255,.34);
+    --land: rgba(0,240,255,.13); --coast: rgba(0,240,255,.45);
+    --grid-line: rgba(0,240,255,.10);
+    --pick: #00f0ff;
+    --q1: rgba(0,240,255,.07); --q2: rgba(252,238,10,.07);
+    --q3: rgba(252,238,10,.04); --q4: rgba(125,139,150,.06);
+    --r-eu: #fcee0a; --r-cis: #00f0ff; --r-gulf: #ffb300;
+    --r-na: #ff5c8a; --r-asia: #b388ff; --r-lat: #7CFC00;
+  }
+
+  /* Алиасы: имена, которыми пользуются глобус и диаграмма, привязаны к токенам
+     сайта — палитра остаётся одна, а не две. */
+  :root {
+    --panel: var(--bg-elev); --ink: var(--text); --ink-2: var(--muted);
+    --hair: var(--border-soft); --hair-soft: var(--border-soft); --grid: var(--grid-line);
+    --q-best: var(--q1); --q-premium: var(--q2); --q-budget: var(--q3); --q-bad: var(--q4);
+    --c-eu: var(--r-eu); --c-cis: var(--r-cis); --c-gulf: var(--r-gulf);
+    --c-na: var(--r-na); --c-asia: var(--r-asia); --c-lat: var(--r-lat);
+    --accent-soft: rgba(var(--accent-rgb), .12);
+  }
+
+  .wrap a { color: inherit; text-decoration: underline; text-underline-offset: 2px;
+      text-decoration-color: var(--ink-3); }
+  .wrap a:hover { text-decoration-color: var(--ink); }
+
+  .panel { background: var(--panel); border: 1px solid var(--hair);
+           border-radius: 10px; box-shadow: var(--shadow); }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; }
+
+  /* ── глобус ───────────────────────────────────────────────────── */
+  .globewrap { display: grid; grid-template-columns: minmax(0,1fr) 300px; gap: 0; }
+  @media (max-width: 860px) { .globewrap { grid-template-columns: 1fr; } }
+  .globebox { position: relative; display: flex; align-items: center; justify-content: center;
+              padding: 14px; min-height: 440px; }
+  .globebox canvas { display: block; max-width: 100%; height: auto; cursor: grab;
+                     /* pan-y: вертикальный свайп остаётся прокруткой страницы,
+                        горизонтальный крутит шар, щипок зумит */
+                     touch-action: pan-y; }
+  .globebox canvas.drag { cursor: grabbing; }
+  .zoombar { position: absolute; right: 14px; top: 14px; display: flex; flex-direction: column;
+             gap: 6px; z-index: 2; }
+  .zbtn { width: 30px; height: 30px; border-radius: 8px; cursor: pointer; line-height: 1;
+          border: 1px solid var(--border); background: var(--panel); color: var(--ink);
+          font-size: 16px; font-family: 'JetBrains Mono', monospace; display: grid; place-items: center; }
+  .zbtn:disabled { opacity: .38; cursor: default; }
+  .zlevel { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-3);
+            text-align: center; letter-spacing: .06em; }
+  .ghint { position: absolute; left: 18px; bottom: 12px; font-family: 'JetBrains Mono', monospace;
+           font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); opacity: .8; }
+  .ghint-touch { display: none; }
+  @media (hover: none) { .ghint-mouse { display: none; } .ghint-touch { display: inline; } }
+  .cardcol { border-left: 1px solid var(--hair); padding: 18px 20px; min-width: 0; }
+  @media (max-width: 860px) { .cardcol { border-left: 0; border-top: 1px solid var(--hair); } }
+  .cardcol .plabel { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .14em;
+                     text-transform: uppercase; color: var(--ink-3); margin: 0 0 12px; }
+  .cname { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 21px;
+           line-height: 1.15; margin: 0; }
+  .cmeta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-3); margin: 2px 0 12px; }
+  .cbig { display: flex; align-items: baseline; gap: 8px; margin: 0 0 12px; }
+  .cbig b { font-family: 'Space Grotesk', sans-serif; font-size: 38px; line-height: 1; color: var(--accent); }
+  .cbig span { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--ink-3); }
+  .cmet { display: grid; grid-template-columns: 96px 1fr 28px; gap: 8px; align-items: center;
+          font-size: 13px; padding: 2.5px 0; }
+  .cmet .track { height: 6px; border-radius: 3px; background: var(--accent-soft); overflow: hidden; }
+  .cmet .fill { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
+  .cmet .v { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-3);
+             text-align: right; font-variant-numeric: tabular-nums; }
+  .cmet.off { opacity: .4; }
+  .cempty { color: var(--ink-2); font-size: 14px; margin: 0; }
+
+  .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+         gap: 12px; padding: 14px 16px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--hair);
+          background: transparent; border-radius: 999px; padding: 5px 12px 5px 9px;
+          font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 12px;
+          color: var(--ink-2); cursor: pointer; transition: opacity .15s, border-color .15s; }
+  .chip:hover { border-color: var(--ink-3); }
+  .chip[aria-pressed="false"] { opacity: .38; }
+  .chip .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--sw); flex: none; }
+  .toggle { display: flex; align-items: center; gap: 8px;
+            font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+            font-size: 12px; color: var(--ink-3); }
+  .seg { display: flex; border: 1px solid var(--hair); border-radius: 7px; overflow: hidden; }
+  .seg button { border: 0; background: transparent; color: var(--ink-2); font: inherit;
+                padding: 6px 11px; cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--ink); color: var(--panel); }
+
+  /* Пресеты — главный вход для тех, кто не хочет крутить двенадцать ползунков. */
+  .presets { padding: 14px 16px; border-top: 1px solid var(--hair-soft); }
+  .presets h3 { margin: 0 0 9px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+                color: var(--ink-3); font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+                font-weight: 600; }
+  .presetrow { display: flex; flex-wrap: wrap; gap: 7px; }
+  .preset { border: 1px solid var(--hair); background: transparent; border-radius: 8px;
+            padding: 7px 13px; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+            font-size: 12px; color: var(--ink-2); cursor: pointer; }
+  .preset:hover { border-color: var(--ink-3); }
+  .preset[aria-pressed="true"] { background: var(--ink); color: var(--panel); border-color: var(--ink); }
+
+  /* Веса: свёрнутые группы, чтобы на телефоне не было списка из двенадцати строк. */
+  .weights { padding: 6px 0 10px; }
+  .grp { border-top: 1px solid var(--hair-soft); }
+  .grp:first-child { border-top: 0; }
+  .grp > summary { cursor: pointer; list-style: none; padding: 11px 16px;
+                   font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+                   font-size: 12.5px; color: var(--ink-2); display: flex;
+                   align-items: center; gap: 6px; }
+  .grp > summary::-webkit-details-marker { display: none; }
+  .grp > summary::before { content: "▸ "; color: var(--ink-3); }
+  .grp[open] > summary::before { content: "▾ "; }
+  .grp .count { color: var(--ink-3); font-size: 11px; margin-left: auto; }
+  .rows { padding: 2px 16px 12px; display: flex; flex-direction: column; gap: 9px;
+          max-width: 620px; }
+  .row { display: grid; grid-template-columns: 1fr 132px 22px; align-items: center; gap: 12px; }
+  .row label { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+               font-size: 12.5px; color: var(--ink-2); }
+  .row .hint { display: block; font-size: 10.5px; color: var(--ink-3); }
+  .row input[type=range] { width: 132px; accent-color: var(--accent); }
+  .row .val { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+              font-size: 12px; color: var(--ink); text-align: right; font-variant-numeric: tabular-nums; }
+  .row.off label, .row.off .val { opacity: .45; }
+  .note { margin: 8px 16px 0; padding: 9px 12px; border-radius: 8px;
+          background: var(--q-bad); color: var(--ink-2);
+          font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; }
+  .note[hidden] { display: none; }
+
+  .quadkey { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 12px 12px 4px; }
+  .qk { border: 1px solid var(--hair); border-radius: 8px; padding: 7px 11px; }
+  .qk b { display: block; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+          font-size: 11.5px; font-weight: 600; letter-spacing: .08em; }
+  .qk span { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+             font-size: 10.5px; color: var(--ink-3); }
+  .qk-best { background: var(--q-best); } .qk-best b { color: var(--c-cis); }
+  .qk-premium { background: var(--q-premium); } .qk-premium b { color: var(--c-eu); }
+  .qk-budget { background: var(--q-budget); } .qk-budget b { color: var(--c-gulf); }
+  .qk-bad { background: var(--q-bad); } .qk-bad b { color: var(--c-na); }
+  @media (max-width: 620px) { .quadkey { grid-template-columns: 1fr; } }
+
+  .chartbox { padding: 4px 10px 4px; position: relative; }
+
+  /* Живой список: ответ на «так куда смотреть», без вглядывания в угол графика. */
+  .shortlist { padding: 16px 20px 20px; }
+  .shortlist h2 { font-family: 'Space Grotesk', system-ui, sans-serif; margin: 0 0 4px; }
+  .shortlist .lead { margin: 0 0 14px; color: var(--ink-2); font-size: 15px; max-width: 70ch; }
+  .picks { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+  .pick { display: flex; align-items: baseline; gap: 9px; border: 1px solid var(--hair);
+          border-radius: 8px; padding: 8px 11px; }
+  .pick .n { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+             font-size: 11px; color: var(--ink-3); min-width: 16px; }
+  .pick .nm { color: var(--ink); font-size: 15px; }
+  .pick .cy { color: var(--ink-3); font-size: 11.5px;
+              font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; }
+  .pick .gap { margin-left: auto; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+               font-size: 11.5px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .wrap svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .axis-title { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+                font-size: 12px; letter-spacing: .04em; fill: var(--ink-2); }
+  .tick { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+          font-size: 10px; fill: var(--ink-3); }
+  .citylabel { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+               font-size: 9.5px; fill: var(--ink-2); pointer-events: none; }
+  circle.pt { cursor: pointer; }
+
+  .tip { position: absolute; pointer-events: none; opacity: 0;
+         transform: translate(-50%,-100%); background: var(--panel);
+         border: 1px solid var(--hair); border-radius: 8px; box-shadow: var(--shadow);
+         padding: 9px 11px; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+         font-size: 11.5px; line-height: 1.5; color: var(--ink-2); white-space: nowrap;
+         z-index: 5; transition: opacity .1s; }
+  .tip b { color: var(--ink); font-size: 12.5px; }
+  .tip .r { display: flex; justify-content: space-between; gap: 16px; }
+  .tip .r span:last-child { color: var(--ink); font-variant-numeric: tabular-nums; }
+  .tip .sep { border-top: 1px solid var(--hair-soft); margin: 5px 0; }
+
+  .wrap h2 { font-size: 22px; margin: 0 0 12px; letter-spacing: -.01em; }
+  .method summary { cursor: pointer; padding: 16px 22px; font-size: 17px;
+                   list-style: none; color: var(--ink); }
+  .method summary::-webkit-details-marker { display: none; }
+  .method summary::before { content: "▸ "; color: var(--ink-3); }
+  .method[open] summary::before { content: "▾ "; }
+  .methodbody { padding: 4px 22px 22px; border-top: 1px solid var(--hair); }
+  .methodbody p { margin: 14px 0 0; color: var(--ink-2); max-width: 74ch; }
+  .methodbody p strong { color: var(--ink); font-weight: 600; }
+  .methodbody dl { margin: 12px 0 0; max-width: 74ch; }
+  .methodbody dt { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+                   font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+                   color: var(--ink); margin-top: 14px; }
+  .methodbody dd { margin: 3px 0 0; color: var(--ink-2); }
+  .methodbody code { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+                     font-size: 12.5px; background: var(--hair-soft); border-radius: 3px;
+                     padding: 1px 5px; color: var(--ink); white-space: nowrap; }
+  .notes { padding: 20px 22px; }
+  .notes p { margin: 0 0 12px; color: var(--ink-2); max-width: 74ch; }
+  .notes p:last-child { margin-bottom: 0; }
+  .notes strong { color: var(--ink); font-weight: 600; }
+  code { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 13px;
+         background: var(--hair-soft); border-radius: 4px; padding: 1px 5px; }
+
+  details.table { padding: 0; }
+  details.table summary { cursor: pointer; padding: 16px 22px; font-size: 17px;
+                          font-weight: 600; list-style: none; }
+  details.table summary::-webkit-details-marker { display: none; }
+  details.table summary::before { content: "▸ "; color: var(--ink-3); }
+  details.table[open] summary::before { content: "▾ "; }
+  .tablescroll { overflow-x: auto; max-height: 520px; overflow-y: auto;
+                 border-top: 1px solid var(--hair); }
+  table { border-collapse: collapse; width: 100%;
+          font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 12px; }
+  th, td { padding: 7px 12px; text-align: right; white-space: nowrap;
+           border-bottom: 1px solid var(--hair-soft); }
+  th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3) { text-align: left; }
+  thead th { position: sticky; top: 0; background: var(--panel); color: var(--ink-3);
+             font-weight: 500; border-bottom: 1px solid var(--hair); cursor: pointer; user-select: none; }
+  tbody td { color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  tbody td:nth-child(2) { color: var(--ink); }
+  .swatch { display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+            margin-right: 7px; vertical-align: middle; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  /* ── страница в оболочке сайта ───────────────────────────────── */
+  main { max-width: 1180px; padding: 0; }
+  .wrap { max-width: 1180px; margin: 0 auto; line-height: 1.55;
+          padding: calc(var(--nav-h) + 40px) 22px 40px;
+          display: flex; flex-direction: column; gap: 20px; }
+  .crumb { margin: 0 0 16px; font-family: var(--font-mono); font-size: 11px;
+           letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+  .wrap .crumb a { color: var(--accent); text-decoration: none; }
+  .wrap .crumb a:hover { text-decoration: underline; }
+  .wrap header h1 { font-family: var(--font-head); font-weight: 700;
+                    font-size: clamp(28px,4.4vw,44px); line-height: 1.08; margin: 0 0 10px;
+                    letter-spacing: -.015em; text-wrap: balance; }
+  .sub { margin: 0; color: var(--ink-2); font-size: 18px; max-width: 68ch; }
+  .meta { margin-top: 14px; font-family: var(--font-mono);
+          font-size: 12px; letter-spacing: .02em; color: var(--ink-3);
+          display: flex; flex-wrap: wrap; gap: 6px 18px; }
+
+  /* Кибертема сайта срезает углы — панели исследования следуют за ней. */
+  :root[data-theme="cyber"] .panel {
+    border-radius: 0;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  }
+  :root[data-theme="cyber"] .chip,
+  :root[data-theme="cyber"] .preset,
+  :root[data-theme="cyber"] .qk,
+  :root[data-theme="cyber"] .pick { border-radius: 0; }
+
+  /* На узком экране шар заметно меньше и не держит пустые 440 px высоты. */
+  @media (max-width: 620px) {
+    .wrap { padding-left: 14px; padding-right: 14px; }
+    .globebox { min-height: 0; padding: 10px 2px 18px; }
+    .ghint { left: 10px; bottom: 2px; }
+    .cardcol { padding: 14px 16px; }
+    .zoombar { right: 8px; top: 8px; }
+    .shortlist, .notes { padding-left: 16px; padding-right: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="site-nav" id="site-nav">
+  <a href="/" class="nav-name">Aleksei Grebenkin</a>
+  <div class="nav-links" id="nav-links">
+    <a href="/#projects" class="nav-link">Projects</a>
+    <a href="/#notes" class="nav-link">Notes</a>
+    <a href="/research/" class="nav-link nav-link-active">Research</a>
+    <a href="/#speaking" class="nav-link">Speaking</a>
+    <a href="/#certifications" class="nav-link">Certifications</a>
+    <a href="/#journey" class="nav-link">Journey</a>
+    <a href="/#contacts" class="nav-link">Contacts</a>
+  </div>
+  <div class="nav-controls">
+    <div class="theme-switcher" id="theme-switcher" role="radiogroup" aria-label="Color theme">
+      <button type="button" class="theme-btn" data-theme="dark" role="radio" aria-label="Dark theme" aria-checked="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button type="button" class="theme-btn" data-theme="light" role="radio" aria-label="Light theme" aria-checked="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button type="button" class="theme-btn" data-theme="cyber" role="radio" aria-label="Cyberpunk theme" aria-checked="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+      </button>
+    </div>
+    <button type="button" class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+      <span class="nav-burger-line"></span>
+      <span class="nav-burger-line"></span>
+      <span class="nav-burger-line"></span>
+    </button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+  <p class="crumb"><a href="/research/">← Research</a></p>
+  <header>
+    <h1>Build your own city</h1>
+    <p class="sub">Twelve things people actually move for, 303 cities. Decide what matters to you — the vertical axis is whatever you say it is. Cost stays on the horizontal.</p>
+    <div class="meta">
+      <span>Data: <a href="https://www.numbeo.com/quality-of-life/rankings.jsp" target="_blank" rel="noopener">Numbeo</a> · <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap</a> · <a href="https://ourairports.com/" target="_blank" rel="noopener">OurAirports</a> · Wikipedia</span>
+      <span>2026 mid-year</span>
+    </div>
+  </header>
+  <div class="panel">
+    <div class="globewrap">
+      <div class="globebox" id="globebox">
+        <div class="zoombar">
+          <button type="button" class="zbtn" id="zin" aria-label="Zoom in">+</button>
+          <button type="button" class="zbtn" id="zout" aria-label="Zoom out" disabled>−</button>
+          <div class="zlevel" id="zlevel">1.0×</div>
+        </div>
+        <div class="ghint"><span class="ghint-mouse">drag to turn · scroll to zoom · click a city</span><span class="ghint-touch">swipe to turn · pinch to zoom · tap a city</span></div>
+      </div>
+      <div class="cardcol" id="card">
+        <p class="plabel">Scorecard</p>
+        <p class="cempty">Click any city — on the globe or in the shortlist — to see how it earns its score.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="bar">
+      <div class="legend" id="legend" role="group" aria-label="Filter by region"></div>
+      <div class="toggle">
+        <span>Cost</span>
+        <div class="seg" role="group" aria-label="What counts as cost of living">
+          <button type="button" id="mode-rent" aria-pressed="true">with rent</button>
+          <button type="button" id="mode-norent" aria-pressed="false">without rent</button>
+        </div>
+      </div>
+    </div>
+    <div class="presets">
+      <h3>Start from someone</h3>
+      <div class="presetrow" id="presets"></div>
+    </div>
+    <div class="weights" id="weights"></div>
+    <p class="note" id="moneynote" hidden>Purchasing power is on. Money is now in both axes — rich cities will drift up simply because they are rich. That is the effect this chart was built to avoid, so read it knowing it is back.</p>
+  </div>
+
+  <div class="panel chartbox">
+    <div class="quadkey">
+      <div class="qk qk-best"><b>BEST VALUE</b><span>top left — scores above median, costs below</span></div>
+      <div class="qk qk-premium"><b>PREMIUM</b><span>top right — expensive, and worth it</span></div>
+      <div class="qk qk-budget"><b>BUDGET</b><span>bottom left — cheap, and it shows</span></div>
+      <div class="qk qk-bad"><b>OVERPRICED</b><span>bottom right — expensive with little to show</span></div>
+    </div>
+    <svg id="chart" viewBox="0 0 1000 720" role="img" aria-label="Scatter plot of cities: cost against your chosen score"></svg>
+    <div class="tip" id="tip"></div>
+  </div>
+
+  <section class="panel shortlist">
+    <h2>Best value for your weights</h2>
+    <p class="lead">Cities that score highest relative to what they cost — the top-left corner of the chart, listed out. The number is how many percentiles the score sits above the cost.</p>
+    <div class="picks" id="picks"></div>
+  </section>
+
+  <section class="panel notes">
+    <h2>How this works</h2>
+    <p><strong>Every metric becomes a percentile first.</strong> Museums are counted in hundreds, safety runs 0–100, flights in the hundreds — averaging those raw numbers would let the biggest counter drown out everything else. So each is converted to its rank within these 303 cities, and the score is the weighted average of the percentiles you switched on. Metrics where less is better — commute, pollution, price-to-income — are flipped, so on this chart higher always means better.</p>
+    <p><strong>The default is the five basics at equal weight.</strong> Numbeo's own index weights them differently. We do not claim to know the right weights — that is what the sliders are for.</p>
+    <p><strong>Counts come from a 10 km circle around the city centre.</strong> The circle is the same size everywhere, 314 km², so a raw count is already a density and no population figure is needed. It also means a satellite town and a capital are measured on the same footprint.</p>
+    <p><strong>Where OpenStreetMap can be trusted, and where it cannot.</strong> Bus stops and parks are mapped at nearly the same density in Europe, North America and Asia — within 10 %. That control is what makes the rest readable: rail transit and pedestrian streets differ by three to four times, and since the map itself is not thinner, the difference is real. Two metrics failed that test and were dropped: kindergartens (Europe counts 13× North America, because the tag is barely used in the US) and universities from Wikidata (Tallinn came out as zero). Universities here are counted from OpenStreetMap instead, and measure campus footprint rather than institutions — an American campus is one polygon, a European university is scattered buildings, so read that one within a region rather than across.</p>
+    <p><strong>Flights</strong> count unique nonstop destinations from every airport within 60 km, merged. Kyiv, Kharkiv, Dnipro, Lviv, Odesa and Rostov-on-Don show zero: their airports are closed. That is the one thing on this chart that a crowdsourced safety score does not capture.</p>
+  </section>
+
+  <details class="panel method">
+    <summary>Where every number comes from</summary>
+    <div class="methodbody">
+
+      <p><strong>Numbeo — nine of the twelve metrics.</strong> All of them are the
+        <a href="https://www.numbeo.com/quality-of-life/rankings.jsp?title=2026-mid" target="_blank" rel="noopener">2026 mid-year release</a>,
+        a fixed snapshot rather than the rolling &ldquo;current&rdquo; figures, so the chart does not shift under you.
+        Six of the nine are survey answers from site visitors, scored from &minus;2 to +2 and rescaled to 0&ndash;100.
+        Climate and the prices are computed, not opinions.</p>
+
+      <dl>
+        <dt>Safety</dt>
+        <dd>Fifteen survey questions — walking alone by day and by night, worry about mugging, car theft,
+          assault, insults, property crime, corruption and bribery. Averaged, then rescaled.
+          It is the exact inverse of Numbeo's Crime Index.</dd>
+
+        <dt>Health care</dt>
+        <dd>Survey of seven aspects: doctors' competence, speed of service, modern equipment,
+          accuracy of diagnosis, staff courtesy, waiting time and cost. Cost carries double weight.</dd>
+
+        <dt>Short commute</dt>
+        <dd>Not an opinion — visitors report their own one-way commute in minutes and which transport
+          they use. Higher on this chart means the reported trip is shorter.</dd>
+
+        <dt>Clean air</dt>
+        <dd>Numbeo's pollution survey: air and water, rubbish and cleanliness, noise and light, green space.
+          Air dominates it, carrying a weight of 7 out of 14.5.</dd>
+
+        <dt>Climate</dt>
+        <dd>The one input built from measurements rather than opinions — temperature, dew point and humidex,
+          with penalties for heat above 31&nbsp;°C, cold below 8&nbsp;°C and uncomfortable humidity.</dd>
+
+        <dt>Purchasing power</dt>
+        <dd>Average net salary in the city divided by what local prices cost, indexed to New York at 100.
+          A score of 120 means a local salary buys 20&nbsp;% more there than the same job's salary buys in New York.</dd>
+
+        <dt>Affordable to buy</dt>
+        <dd>Median apartment price divided by median household income — the number of full annual incomes
+          one flat costs. Flipped on this chart, so higher means more affordable.</dd>
+
+        <dt>Cost (the horizontal axis)</dt>
+        <dd>A basket of groceries, restaurants, transport and utilities priced by visitors, New York fixed at 100:
+          41 means 41&nbsp;% of New York prices. The <em>with rent</em> version adds apartment rents to the basket.</dd>
+      </dl>
+
+      <p><strong>OpenStreetMap — three metrics, counted inside the same 10 km disk.</strong>
+        Everything is an Overpass <code>out count</code> over nodes, ways and relations, taken in August 2026.
+        The exact tags, so the count can be reproduced or argued with:</p>
+
+      <dl>
+        <dt>Culture &amp; nightlife</dt>
+        <dd><code>tourism=museum</code>, <code>tourism=gallery</code>, <code>amenity=theatre</code>, <code>amenity=arts_centre</code>, <code>amenity=cinema</code> for culture, plus
+          <code>amenity=bar</code>, <code>amenity=pub</code>, <code>amenity=nightclub</code> for nightlife.
+          The two are added together, so a city can arrive here through either.</dd>
+
+        <dt>Car-free living</dt>
+        <dd><code>railway=station</code>, <code>railway=halt</code>, <code>railway=tram_stop</code> for rail access,
+          plus ways tagged <code>highway=pedestrian</code> for streets closed to cars. Metro entrances are
+          excluded on purpose — each staircase is its own point, so counting them would hand a city with
+          a subway a few hundred free stops. Bus stops are collected too, but only as a control:
+          almost every city has them, so they separate nothing. This is the one metric whose definition
+          changed when the data was rebuilt, so its numbers differ from the first version of this chart
+          by more than map drift — Kuala Lumpur went from 10 stops to 118.</dd>
+
+        <dt>Kid infrastructure</dt>
+        <dd><code>leisure=playground</code>, <code>leisure=park</code>, <code>amenity=school</code>,
+          <code>amenity=library</code>. Playgrounds are mapped far more densely in Russia and Europe than in Asia
+          or Latin America, and we cannot fully separate real difference from mapping habit — read this one
+          within a region rather than across.</dd>
+
+        <dt>University presence</dt>
+        <dd><code>amenity=university</code> plus <code>amenity=college</code>. Two warnings.
+          It measures campus footprint, not institutions: an American campus is one polygon, a European
+          university is scattered buildings. And <code>college</code> means different things in different
+          countries — in France it is the <em>collège</em>, a school for 11-to-15-year-olds, which is why
+          Paris shows 407 of them against 149 universities. French cities are overstated on this metric.</dd>
+      </dl>
+
+      <p><strong>Nonstop destinations — OurAirports and Wikipedia.</strong>
+        Every airport with scheduled service within 60&nbsp;km of the centre is taken from
+        <a href="https://ourairports.com/data/" target="_blank" rel="noopener">OurAirports</a>,
+        and its destination table is read off Wikipedia; the destinations are merged and counted once each.
+        The 60&nbsp;km limit stops a satellite town from claiming the capital's hub. Six cities show zero —
+        Kyiv, Kharkiv, Dnipro, Lviv, Odesa and Rostov-on-Don — because their airports are closed.</p>
+
+      <p><strong>Every number here was rebuilt from source on 26 August 2026.</strong>
+        All 2&thinsp;727 Numbeo values — nine metrics across 303 cities — were compared line by line against
+        the published mid-year tables: every one matched. As a second, independent test, Numbeo's own
+        quality-of-life index was recomputed from our eight fields and landed within 0.14 points of the
+        published figure for all 303 cities, which also proves no city got attached to another city's row.</p>
+
+      <p>The OpenStreetMap layer was not spot-checked but collected again from scratch, all 303 cities,
+        with the tags listed above. Universities and colleges came back identical for 298 cities, nightlife
+        for 242, pedestrian streets for 285; parks, playgrounds, schools and libraries moved by around
+        1&nbsp;% — the drift of a map people keep editing. Two cities came back almost empty and gave away
+        a real bug: the geocoder had returned the centroid of an administrative region rather than the city
+        centre for Cebu and Gdańsk, putting the 10 km circle in the wrong place. Both were fixed by hand
+        and re-collected.</p>
+
+      <p>Flights were re-collected for all 303 cities too, and that pass found three faults of its own:
+        airport pages whose titles carry diacritics were failing silently, one airport in the OurAirports
+        database links to a LinkedIn profile instead of Wikipedia, and an empty result was being cached
+        before the fallback could run. Prague, Atlanta, Kraków, Minneapolis, Dhaka and Caracas had all
+        been reading zero because of those. The corrected pass moves the typical city by 4&nbsp;%, but
+        fixes outright errors: Charlotte was listed with 15 nonstop destinations and actually has 200.
+        Six cities still read zero — Kyiv, Kharkiv, Dnipro, Lviv, Odesa and Rostov-on-Don — because their
+        airports are closed.</p>
+
+    </div>
+  </details>
+
+  <details class="panel table">
+    <summary>Table: every city, every number</summary>
+    <div class="tablescroll">
+      <table id="tbl"><thead><tr id="thead"></tr></thead><tbody></tbody></table>
+    </div>
+  </details>
+</div>
+</main>
+
+<footer>
+  <span>© 2026 Aleksei Grebenkin</span>
+  <a class="to-top" href="/research/">← back to Research</a>
+</footer>
+
+<script src="../shell.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var GEO = [[24.45,54.38],[26.44,50.1],[-34.93,138.6],[23.02,72.58],[35.08,-106.65],[31.2,29.9],[43.24,76.95],[31.95,35.92],[52.37,4.89],[61.22,-149.89],[39.92,32.85],[36.89,30.7],[51.22,4.4],[51.13,71.43],[37.98,23.73],[33.75,-84.39],[-36.85,174.76],[30.27,-97.74],[40.38,49.83],[39.29,-76.61],[12.98,77.59],[13.75,100.49],[44.77,17.19],[41.38,2.18],[47.56,7.59],[39.91,116.39],[33.9,35.48],[54.6,-5.93],[44.82,20.46],[-19.92,-43.95],[60.39,5.33],[52.52,13.4],[46.95,7.45],[52.48,-1.9],[4.65,-74.08],[43.62,-116.2],[44.49,11.34],[42.36,-71.06],[43.69,-79.76],[-15.79,-47.88],[48.15,17.11],[-27.47,153.02],[51.45,-2.6],[49.19,16.61],[50.85,4.35],[44.44,26.1],[47.5,19.04],[-34.61,-58.39],[42.89,-78.88],[40.18,29.07],[30.04,31.24],[51.05,-114.06],[52.21,0.12],[-22.91,-47.06],[-35.3,149.1],[-33.93,18.42],[10.51,-66.91],[33.59,-7.62],[10.32,123.89],[35.23,-80.84],[13.08,80.27],[18.79,98.99],[41.88,-87.62],[47.02,28.83],[-43.53,172.64],[39.1,-84.51],[41.5,-81.69],[46.77,23.59],[11.0,76.96],[50.94,6.96],[6.94,79.85],[38.83,-104.83],[39.96,-83.0],[55.69,12.57],[51.9,-8.47],[-2.9,-79.0],[-25.43,-49.27],[32.78,-96.8],[7.06,125.61],[28.67,77.22],[39.74,-104.98],[42.33,-83.05],[23.76,90.39],[48.47,35.04],[25.29,51.53],[25.26,55.29],[53.35,-6.26],[-29.86,31.01],[51.23,6.78],[55.95,-3.19],[53.55,-113.49],[51.44,5.48],[43.77,11.26],[-27.6,-48.55],[32.75,-97.33],[50.11,8.68],[54.35,18.65],[46.2,6.15],[44.41,8.93],[51.05,3.73],[55.86,-4.25],[-28.0,153.41],[57.71,11.97],[47.07,15.44],[53.22,6.57],[20.67,-103.34],[23.13,113.26],[28.46,77.03],[32.82,35.0],[44.65,-63.59],[53.55,10.0],[43.26,-79.87],[21.03,105.85],[60.17,24.94],[10.77,106.72],[-42.88,147.33],[22.28,114.16],[21.3,-157.86],[29.76,-95.37],[17.36,78.47],[47.16,27.58],[39.77,-86.16],[33.69,73.07],[41.01,28.98],[38.42,27.13],[30.33,-81.66],[26.92,75.82],[-6.18,106.83],[21.55,39.17],[-26.2,28.05],[54.71,20.51],[39.1,-94.58],[24.85,67.02],[27.71,85.32],[54.9,23.9],[55.79,49.11],[49.89,-119.5],[49.99,36.23],[50.45,30.52],[22.57,88.36],[50.05,20.0],[45.04,38.98],[3.15,101.69],[29.38,47.97],[6.46,3.39],[31.57,74.31],[36.17,-115.15],[46.52,6.63],[53.8,-1.54],[-12.05,-77.03],[34.69,33.03],[38.71,-9.14],[53.41,-2.99],[46.05,14.51],[51.77,19.48],[42.98,-81.25],[51.51,-0.13],[34.05,-118.24],[49.61,6.13],[49.84,24.03],[45.76,4.83],[43.07,-89.38],[40.42,-3.7],[36.72,-4.42],[26.22,50.58],[53.48,-2.25],[14.59,120.98],[6.27,-75.6],[-37.81,144.96],[19.43,-99.13],[25.77,-80.19],[45.46,9.19],[43.04,-87.91],[44.98,-93.27],[53.9,27.56],[43.59,-79.64],[25.68,-100.32],[-34.91,-56.19],[45.5,-73.57],[55.75,37.62],[19.05,72.87],[48.14,11.58],[23.61,58.59],[-1.29,36.82],[49.16,-123.94],[40.84,14.25],[36.16,-86.77],[29.96,-90.07],[40.71,-74.01],[54.97,-1.61],[35.17,33.36],[56.33,44.01],[28.57,77.33],[45.26,19.85],[55.01,82.94],[49.45,11.08],[37.8,-122.27],[46.48,30.73],[35.47,-97.52],[41.26,-95.94],[28.54,-81.38],[59.91,10.74],[45.42,-75.69],[8.97,-79.53],[48.86,2.32],[12.94,100.89],[-31.96,115.86],[39.95,-75.16],[33.45,-112.07],[40.44,-80.0],[42.14,24.75],[49.75,13.38],[45.52,-122.67],[-30.03,-51.23],[41.15,-8.61],[52.41,16.93],[50.09,14.42],[-25.75,28.19],[18.52,73.85],[36.07,120.38],[46.81,-71.21],[20.59,-100.39],[-0.22,-78.51],[35.78,-78.64],[-8.06,-34.88],[50.45,-104.62],[39.53,-119.81],[64.15,-21.94],[37.54,-77.43],[56.95,24.11],[45.33,14.44],[-22.91,-43.21],[24.64,46.72],[41.89,12.48],[47.22,39.72],[51.92,4.48],[38.58,-121.49],[38.63,-90.19],[59.94,30.32],[40.76,-111.89],[29.42,-98.5],[32.72,-117.16],[37.79,-122.41],[37.34,-121.89],[9.93,-84.08],[18.38,-66.05],[-33.44,-70.65],[18.47,-69.89],[-23.55,-46.63],[43.86,18.41],[47.6,-122.33],[37.57,126.98],[31.23,121.47],[25.35,55.42],[22.54,114.05],[1.29,103.85],[42.0,21.43],[42.7,23.32],[43.51,16.44],[47.66,-117.42],[58.97,5.73],[59.33,18.07],[48.78,9.18],[-33.87,151.21],[25.04,121.56],[59.44,24.76],[27.94,-82.46],[41.31,69.28],[41.69,44.8],[35.69,51.39],[32.09,34.78],[52.08,4.31],[40.64,22.94],[8.49,76.95],[45.75,21.23],[41.33,19.82],[35.68,139.76],[43.65,-79.38],[43.6,1.44],[45.65,13.78],[63.43,10.4],[32.22,-110.97],[36.16,-95.99],[36.8,10.19],[45.07,7.68],[52.09,5.12],[39.47,-0.38],[49.26,-123.11],[43.21,27.92],[48.43,-123.36],[48.21,16.37],[46.62,13.85],[54.69,25.28],[52.23,21.07],[38.9,-77.04],[-41.29,174.78],[-22.58,17.08],[49.9,-97.14],[51.11,17.03],[56.84,60.6],[40.18,44.51],[45.81,15.98],[47.37,8.54]];
+  var LAND = [[[107.0,77.0],[108.2,76.7],[111.1,76.7],[113.3,76.2],[114.1,75.8],[112.8,75.0],[110.2,74.5],[109.4,74.2],[110.6,74.0],[112.1,73.8],[113.0,74.0],[113.5,73.3],[115.6,73.8],[118.8,73.6],[123.2,73.0],[125.4,73.6],[127.0,73.6],[128.6,73.0],[129.1,72.4],[128.5,72.0],[129.7,71.2],[131.3,70.8],[132.3,71.8],[133.9,71.4],[135.6,71.7],[137.5,71.3],[138.2,71.6],[139.9,71.5],[139.1,72.4],[140.5,72.8],[149.5,72.2],[150.4,71.6],[153.0,70.8],[157.0,71.0],[159.0,70.9],[159.8,70.5],[160.9,69.4],[162.3,69.6],[164.1,69.7],[165.9,69.5],[167.8,69.6],[169.6,68.7],[170.8,69.0],[170.0,69.7],[173.6,69.8],[175.7,69.9],[178.6,69.4],[180,69.0],[180,65.0],[178.7,64.5],[177.4,64.6],[178.3,64.1],[178.9,63.3],[179.5,62.6],[177.4,62.5],[174.6,61.8],[173.7,61.7],[172.2,61.0],[170.7,60.3],[168.9,60.6],[166.3,59.8],[164.9,59.7],[163.5,59.9],[163.2,59.2],[162.0,58.2],[163.2,57.6],[163.1,56.2],[162.1,56.1],[161.7,55.3],[160.4,54.3],[160.0,53.2],[158.5,53.0],[158.2,51.9],[156.8,51.0],[156.4,51.7],[156.0,53.2],[155.4,55.4],[155.9,56.8],[156.8,57.4],[158.4,58.1],[160.2,59.3],[161.9,60.3],[163.7,61.1],[164.5,62.6],[163.3,62.5],[162.7,61.6],[160.1,60.5],[159.3,61.8],[156.7,61.4],[154.2,59.8],[155.0,59.1],[152.8,58.9],[151.3,58.8],[149.8,59.7],[148.5,59.2],[145.5,59.3],[142.2,59.0],[139.0,57.1],[135.1,54.7],[136.7,54.6],[137.2,54.0],[138.2,53.8],[138.8,54.3],[139.9,54.2],[141.3,53.1],[140.6,51.2],[140.5,50.0],[140.1,48.4],[138.6,47.0],[138.2,46.3],[136.9,45.1],[135.5,44.0],[134.9,43.4],[133.5,42.8],[132.3,43.3],[130.9,42.6],[130.0,41.9],[129.7,40.9],[129.0,40.5],[128.0,40.0],[127.5,39.3],[128.3,38.6],[129.2,37.4],[129.5,35.6],[129.1,35.1],[128.2,34.9],[127.4,34.5],[126.5,34.4],[126.6,35.7],[126.1,36.7],[126.9,36.9],[126.2,37.7],[125.3,37.7],[124.7,38.1],[125.2,38.7],[125.3,39.6],[124.3,39.9],[122.9,39.6],[122.1,39.2],[121.1,38.9],[121.6,39.4],[122.2,40.4],[121.6,40.9],[120.8,40.6],[119.6,39.9],[119.0,39.3],[118.0,39.2],[117.5,38.7],[118.1,38.1],[118.9,37.9],[119.7,37.2],[120.8,37.9],[121.7,37.5],[122.5,36.9],[121.1,36.7],[120.6,36.1],[119.7,35.6],[119.2,34.9],[120.2,34.4],[120.6,33.4],[121.2,32.5],[121.9,31.7],[121.3,30.7],[122.1,29.8],[121.9,29.0],[121.7,28.2],[120.4,27.1],[119.6,25.7],[118.7,24.5],[117.3,23.6],[115.9,22.8],[114.8,22.7],[114.2,22.2],[113.2,22.1],[111.8,21.6],[110.8,21.4],[110.4,20.3],[109.6,21.0],[108.5,21.7],[106.7,20.7],[105.9,19.8],[105.7,19.1],[106.4,18.0],[107.4,16.7],[108.3,16.1],[108.9,15.3],[109.3,13.4],[109.2,11.7],[108.4,11.0],[107.2,10.4],[106.4,9.5],[105.2,8.6],[104.8,9.2],[105.1,9.9],[104.3,10.5],[103.5,10.6],[103.1,11.2],[102.6,12.2],[101.7,12.6],[101.0,13.4],[100.0,12.3],[99.5,10.8],[99.2,10.0],[99.9,9.2],[100.3,8.3],[100.5,7.4],[101.0,6.9],[102.1,6.2],[103.0,5.5],[103.4,4.9],[103.3,3.7],[103.5,2.8],[104.2,1.6],[103.5,1.2],[102.6,2.0],[101.4,2.8],[100.7,3.9],[100.6,4.8],[100.2,5.3],[100.1,6.5],[99.5,7.3],[99.0,7.9],[98.5,8.4],[98.6,9.9],[98.8,11.4],[98.4,12.0],[98.5,13.1],[98.1,13.6],[97.8,14.8],[97.6,16.1],[97.2,16.9],[96.5,16.4],[95.4,15.7],[94.2,16.0],[94.5,17.3],[94.3,18.2],[93.5,19.4],[93.1,19.9],[92.4,20.7],[92.0,21.7],[91.4,22.8],[90.5,22.8],[90.3,21.8],[89.4,22.0],[88.2,21.7],[87.0,21.5],[86.5,20.2],[85.1,19.5],[83.9,18.3],[83.2,17.7],[82.2,17.0],[81.7,16.3],[80.8,16.0],[80.0,15.1],[80.2,13.8],[79.9,12.1],[79.9,10.4],[78.9,9.5],[78.3,8.9],[77.9,8.3],[76.6,8.9],[76.1,10.3],[75.7,11.3],[74.9,12.7],[74.6,14.0],[73.5,16.0],[73.1,17.9],[72.8,19.2],[72.8,20.4],[72.6,21.4],[71.2,20.8],[69.2,22.1],[69.3,22.8],[68.2,23.7],[67.4,23.9],[67.1,24.7],[66.4,25.4],[64.5,25.2],[62.9,25.2],[61.5,25.1],[59.6,25.4],[58.5,25.6],[57.4,25.7],[57.0,27.0],[55.7,27.0],[54.7,26.5],[53.5,26.8],[52.5,27.6],[51.5,27.9],[50.9,28.8],[50.1,30.1],[48.9,30.3],[48.0,30.0],[48.4,28.6],[48.8,27.7],[49.5,27.1],[50.2,26.7],[50.2,25.6],[50.7,25.0],[51.0,26.0],[51.6,25.2],[51.6,24.2],[52.6,24.2],[54.0,24.1],[54.7,24.8],[55.4,25.4],[56.1,26.1],[56.4,24.9],[56.8,24.2],[57.4,23.9],[58.7,23.6],[59.2,23.0],[59.8,22.5],[59.4,21.7],[58.9,21.1],[58.5,20.4],[57.7,19.7],[57.2,18.9],[56.6,18.6],[56.3,17.9],[55.3,17.6],[54.8,17.0],[53.6,16.7],[52.4,16.4],[52.2,15.6],[51.2,15.2],[49.6,14.7],[48.7,14.0],[47.4,13.6],[45.9,13.3],[45.1,13.0],[44.2,12.6],[43.2,13.2],[43.1,14.1],[42.9,14.8],[42.7,15.7],[42.6,16.8],[42.3,17.5],[41.2,18.7],[40.9,19.5],[40.2,20.2],[39.1,21.3],[39.1,22.6],[38.5,23.7],[37.5,24.3],[37.2,24.9],[36.9,25.6],[36.2,26.6],[35.6,27.4],[35.1,28.1],[34.8,29.0],[34.4,28.3],[33.9,27.6],[33.1,28.4],[32.4,29.9],[32.7,28.7],[33.3,27.7],[34.1,26.1],[34.5,25.6],[35.7,23.9],[35.5,23.1],[36.7,22.2],[37.2,21.0],[37.1,19.8],[37.5,18.6],[38.4,18.0],[39.0,16.8],[39.3,15.9],[39.8,15.4],[41.2,14.5],[41.7,13.9],[42.3,13.3],[43.1,12.7],[43.3,12.0],[43.7,10.9],[44.6,10.4],[45.6,10.7],[46.6,10.8],[47.5,11.1],[48.4,11.4],[49.3,11.4],[50.3,11.7],[51.1,12.0],[51.0,11.2],[50.8,10.3],[50.6,9.2],[50.1,8.1],[49.5,6.8],[48.6,5.3],[47.7,4.2],[46.6,2.9],[45.6,2.0],[44.1,1.1],[43.1,0.3],[42.0,-0.9],[41.6,-1.7],[40.9,-2.1],[40.3,-2.6],[39.8,-3.7],[39.2,-4.7],[38.7,-5.9],[39.4,-6.8],[39.2,-7.7],[39.5,-9.1],[39.9,-10.1],[40.5,-10.8],[40.4,-11.8],[40.6,-12.6],[40.6,-14.2],[40.5,-15.4],[40.1,-16.1],[39.5,-16.7],[38.5,-17.1],[37.4,-17.6],[36.3,-18.7],[35.2,-19.6],[34.7,-20.5],[35.2,-21.3],[35.4,-22.1],[35.5,-23.1],[35.5,-24.1],[34.2,-24.8],[33.0,-25.4],[32.7,-26.1],[32.6,-27.5],[32.5,-28.3],[31.5,-29.3],[30.9,-29.9],[30.1,-31.1],[28.9,-32.2],[28.2,-32.8],[27.5,-33.2],[26.4,-33.6],[25.8,-33.9],[24.7,-34.0],[23.6,-33.8],[22.6,-33.9],[21.5,-34.3],[20.7,-34.4],[20.1,-34.8],[19.2,-34.5],[18.4,-34.0],[17.9,-32.6],[18.2,-31.7],[17.6,-30.7],[17.1,-29.9],[16.3,-28.6],[15.6,-27.8],[15.2,-27.1],[15.0,-26.1],[14.7,-25.4],[14.4,-23.9],[14.4,-22.7],[13.9,-21.7],[13.4,-20.9],[12.8,-19.7],[11.8,-18.1],[11.6,-16.7],[11.8,-15.8],[12.1,-14.9],[12.5,-13.5],[13.3,-12.5],[13.7,-11.3],[13.4,-10.4],[12.9,-9.2],[13.2,-8.6],[12.9,-7.6],[12.2,-6.3],[11.9,-5.0],[11.1,-4.0],[10.1,-3.0],[9.4,-2.1],[8.8,-1.1],[9.0,-0.5],[9.3,0.3],[9.5,1.0],[9.6,2.3],[9.8,3.1],[9.4,3.7],[8.7,4.4],[7.5,4.4],[6.7,4.2],[5.4,4.9],[5.0,5.6],[4.3,6.3],[2.7,6.3],[1.9,6.1],[1.1,5.9],[-0.5,5.3],[-2.0,4.7],[-2.9,5.0],[-4.0,5.2],[-5.8,5.0],[-6.5,4.7],[-7.5,4.3],[-9.0,4.8],[-9.9,5.6],[-10.8,6.1],[-11.4,6.8],[-12.4,7.3],[-12.9,7.8],[-13.2,8.9],[-13.7,9.5],[-14.3,10.0],[-14.7,10.7],[-15.7,11.5],[-16.3,11.8],[-16.7,12.4],[-16.8,13.2],[-17.1,14.4],[-16.7,15.6],[-16.5,16.7],[-16.1,18.1],[-16.3,19.1],[-16.3,20.1],[-17.1,21.0],[-17.0,21.9],[-16.3,22.7],[-16.0,23.7],[-15.4,24.4],[-14.8,25.1],[-14.4,26.3],[-13.8,26.6],[-13.1,27.6],[-12.6,28.0],[-11.7,28.1],[-10.9,28.8],[-9.6,29.9],[-9.8,31.2],[-9.4,32.0],[-8.7,33.2],[-7.7,33.7],[-6.9,34.1],[-6.2,35.1],[-5.9,35.8],[-4.6,35.3],[-3.6,35.4],[-2.6,35.2],[-1.2,35.7],[-0.1,35.9],[0.5,36.3],[1.5,36.6],[3.2,36.8],[4.8,36.9],[6.3,37.1],[7.3,37.1],[8.4,36.9],[9.5,37.4],[10.2,36.7],[11.0,37.1],[10.6,36.4],[10.9,35.7],[10.8,34.8],[10.1,34.3],[10.9,33.8],[11.5,33.1],[12.7,32.8],[13.9,32.7],[15.2,32.3],[15.7,31.4],[16.6,31.2],[18.0,30.8],[19.1,30.3],[20.1,31.0],[19.8,31.8],[20.9,32.7],[22.9,32.6],[23.6,32.2],[24.9,31.9],[26.5,31.6],[27.5,31.3],[28.5,31.0],[29.7,31.2],[31.0,31.6],[32.0,30.9],[33.0,31.0],[34.3,31.2],[34.8,32.1],[35.0,32.8],[35.5,33.9],[36.0,34.6],[36.1,35.8],[35.6,36.6],[34.7,36.8],[34.0,36.2],[32.5,36.1],[31.7,36.6],[30.6,36.7],[29.7,36.1],[28.7,36.7],[27.6,36.7],[27.0,37.7],[26.3,38.2],[26.8,39.0],[26.2,39.5],[27.3,40.4],[28.8,40.5],[29.2,41.2],[31.1,41.1],[32.3,41.7],[33.5,42.0],[35.2,42.0],[36.9,41.3],[38.3,40.9],[39.5,41.1],[40.4,41.0],[41.6,41.5],[41.5,42.6],[40.9,43.0],[40.0,43.4],[38.7,44.3],[37.5,44.7],[36.7,45.2],[38.2,46.2],[37.7,46.6],[39.1,47.0],[38.2,47.1],[36.8,46.7],[35.8,46.6],[35.0,46.3],[35.5,45.4],[36.5,45.5],[35.2,44.9],[33.9,44.4],[33.5,45.0],[32.5,45.3],[33.6,45.9],[31.7,46.3],[30.7,46.6],[30.4,46.0],[29.6,45.3],[29.1,44.8],[28.6,43.7],[28.0,43.3],[27.7,42.6],[28.1,41.6],[29.0,41.3],[27.6,41.0],[26.4,40.2],[26.1,40.8],[24.9,40.9],[23.7,40.7],[24.4,40.1],[23.3,40.0],[22.8,40.5],[23.4,39.2],[24.0,38.2],[23.1,37.9],[22.8,37.3],[23.2,36.4],[21.7,36.8],[21.3,37.6],[20.7,38.8],[20.2,39.3],[19.4,40.3],[19.4,41.4],[18.9,42.3],[17.5,42.9],[16.9,43.2],[16.0,43.5],[15.2,44.2],[14.9,45.1],[14.0,44.8],[13.7,45.5],[12.3,45.4],[12.6,44.1],[13.5,43.6],[14.0,42.8],[15.1,42.0],[16.2,41.7],[16.8,41.2],[17.5,40.9],[18.4,40.4],[16.9,40.4],[16.4,39.8],[17.2,39.4],[16.6,38.8],[16.1,38.0],[15.9,38.8],[15.7,39.5],[15.0,40.2],[14.1,40.8],[12.9,41.3],[12.1,41.7],[11.2,42.4],[10.5,42.9],[10.2,43.9],[8.9,44.4],[7.9,43.8],[6.5,43.1],[4.6,43.4],[3.1,43.1],[3.0,41.9],[2.1,41.2],[0.8,41.0],[0.1,40.1],[-0.3,39.3],[0.1,38.7],[-0.5,38.3],[-1.4,37.4],[-2.1,36.7],[-3.4,36.7],[-4.4,36.7],[-5.0,36.3],[-5.9,36.0],[-6.5,36.9],[-7.5,37.1],[-8.4,37.0],[-8.7,37.7],[-9.3,38.4],[-9.4,39.4],[-9.0,40.2],[-8.8,41.2],[-9.0,41.9],[-9.4,43.0],[-8.0,43.7],[-6.8,43.6],[-5.4,43.6],[-4.3,43.4],[-1.9,43.4],[-1.4,44.0],[-1.2,46.0],[-2.2,47.1],[-3.0,47.6],[-4.5,48.0],[-3.3,48.9],[-1.6,48.6],[-1.9,49.8],[-1.0,49.3],[1.3,50.1],[1.6,50.9],[2.5,51.1],[3.3,51.3],[4.7,53.1],[6.1,53.5],[7.1,53.7],[8.1,53.5],[8.8,54.0],[8.5,55.0],[8.1,55.5],[8.1,56.5],[8.5,57.1],[9.4,57.2],[10.6,57.7],[10.3,56.9],[10.9,56.5],[9.7,55.5],[9.9,54.6],[11.0,54.4],[12.0,54.2],[13.6,54.1],[14.8,54.1],[16.4,54.5],[17.6,54.9],[18.6,54.7],[19.7,54.4],[21.3,55.2],[21.1,56.0],[21.6,57.4],[22.5,57.8],[23.3,57.0],[24.3,57.8],[23.4,58.6],[24.6,59.5],[25.9,59.6],[26.9,59.4],[28.0,59.5],[29.1,60.0],[28.1,60.5],[26.3,60.4],[24.5,60.1],[22.9,59.8],[22.3,60.4],[21.3,60.7],[21.5,61.7],[21.1,62.6],[21.5,63.2],[22.4,63.8],[24.7,64.9],[25.3,65.5],[23.9,66.0],[22.2,65.7],[21.2,65.0],[19.8,63.6],[17.8,62.7],[17.1,61.3],[17.8,60.6],[18.8,60.1],[17.9,59.0],[16.8,58.7],[16.4,57.0],[15.9,56.1],[14.7,56.2],[14.1,55.4],[12.9,55.4],[12.6,56.3],[11.8,57.4],[11.0,58.9],[10.4,59.5],[8.4,58.3],[7.0,58.1],[5.7,58.6],[5.3,59.7],[5.0,62.0],[5.9,62.6],[8.6,63.5],[10.5,64.5],[12.4,65.9],[14.8,67.8],[16.4,68.6],[19.2,69.8],[21.4,70.3],[23.0,70.2],[24.5,71.0],[26.4,71.0],[28.2,71.2],[31.3,70.5],[30.0,70.2],[31.1,69.6],[32.1,69.9],[33.8,69.3],[36.5,69.1],[40.3,67.9],[41.1,67.5],[40.0,66.3],[38.4,66.0],[33.9,66.8],[34.8,65.9],[34.9,64.4],[36.2,64.1],[37.0,63.8],[36.5,64.8],[37.2,65.1],[39.6,64.5],[40.4,64.8],[39.8,65.5],[42.1,66.5],[43.0,66.4],[43.9,66.1],[44.5,66.8],[43.7,67.4],[44.2,68.0],[43.5,68.6],[46.3,68.3],[46.8,67.7],[45.6,67.6],[46.3,66.7],[47.9,66.9],[50.2,68.0],[53.7,68.9],[54.7,68.1],[55.4,68.4],[57.3,68.5],[58.8,68.9],[59.9,68.3],[61.1,68.9],[60.0,69.5],[63.5,69.5],[64.9,69.2],[68.5,68.1],[69.2,68.6],[68.2,69.1],[66.9,69.5],[66.7,70.7],[68.5,71.9],[69.2,72.8],[69.9,73.0],[72.6,72.8],[71.8,71.4],[72.5,71.1],[72.8,70.4],[72.6,69.0],[73.7,68.4],[73.2,67.7],[71.3,66.3],[72.4,66.2],[73.9,66.8],[75.1,67.8],[74.5,68.3],[74.9,69.0],[73.8,69.1],[74.4,70.6],[73.1,71.4],[74.9,72.1],[74.7,72.8],[75.7,72.3],[75.3,71.3],[76.4,71.2],[75.9,71.9],[77.6,72.3],[79.7,72.3],[81.5,71.8],[80.6,72.6],[80.5,73.6],[82.3,73.9],[84.7,73.8],[86.8,73.9],[86.0,74.5],[87.2,75.1],[88.3,75.1],[90.3,75.6],[92.9,75.8],[95.9,76.1],[96.7,75.9],[98.9,76.4],[100.8,76.4],[102.0,77.3],[104.4,77.7],[106.1,77.4],[104.7,77.1],[107.0,77.0]],[[-90.5,69.5],[-90.6,68.5],[-89.2,69.3],[-88.0,68.6],[-88.3,67.9],[-87.4,67.2],[-86.3,67.9],[-85.6,68.8],[-85.5,69.9],[-84.1,69.8],[-82.6,69.7],[-81.3,69.2],[-82.0,68.1],[-81.3,67.6],[-83.3,66.4],[-84.7,66.3],[-85.8,66.6],[-87.0,65.2],[-88.5,64.1],[-89.9,64.0],[-90.7,63.6],[-91.9,62.8],[-93.2,62.0],[-94.2,60.9],[-94.6,60.1],[-94.7,58.9],[-93.2,58.8],[-92.8,57.8],[-92.3,57.1],[-90.9,57.3],[-89.0,56.9],[-88.0,56.5],[-87.3,56.0],[-86.1,55.7],[-85.0,55.3],[-83.4,55.2],[-82.3,55.1],[-82.4,54.3],[-82.1,53.3],[-81.4,52.2],[-79.9,51.2],[-79.1,51.5],[-78.6,52.6],[-79.1,54.1],[-79.8,54.7],[-78.2,55.1],[-77.1,55.8],[-76.5,56.5],[-77.3,58.1],[-78.5,58.8],[-77.3,59.9],[-77.8,60.8],[-78.1,62.3],[-77.4,62.6],[-75.7,62.3],[-74.7,62.2],[-73.8,62.4],[-72.9,62.1],[-71.7,61.5],[-69.6,61.1],[-69.3,59.0],[-68.4,58.8],[-67.6,58.2],[-66.2,58.8],[-65.2,59.9],[-64.6,60.3],[-63.8,59.4],[-62.5,58.2],[-61.4,57.0],[-61.8,56.3],[-60.5,55.8],[-59.6,55.2],[-58.0,54.9],[-57.3,54.6],[-56.9,53.8],[-56.2,53.6],[-55.7,52.1],[-56.4,51.8],[-57.1,51.4],[-58.8,51.1],[-60.0,50.2],[-61.7,50.1],[-63.9,50.3],[-65.4,50.3],[-66.4,50.2],[-67.2,49.5],[-68.5,49.1],[-70.0,47.7],[-71.1,46.8],[-70.3,47.0],[-68.7,48.3],[-66.6,49.1],[-65.1,49.2],[-64.2,48.7],[-65.1,48.1],[-64.8,47.0],[-64.5,46.2],[-63.2,45.7],[-61.5,45.9],[-60.5,47.0],[-59.8,45.9],[-61.0,45.3],[-63.3,44.7],[-64.2,44.3],[-65.4,43.5],[-66.2,44.5],[-64.4,45.3],[-66.0,45.3],[-67.1,45.1],[-68.0,44.3],[-69.1,44.0],[-70.1,43.7],[-70.7,43.0],[-70.5,41.8],[-71.1,41.5],[-71.9,41.3],[-72.9,41.2],[-73.7,40.9],[-72.2,41.1],[-73.3,40.6],[-74.3,40.5],[-74.9,38.9],[-75.5,39.5],[-75.1,38.8],[-75.4,38.0],[-75.9,37.2],[-75.7,37.9],[-76.3,39.2],[-76.3,38.1],[-76.3,37.0],[-75.7,35.6],[-76.4,34.8],[-77.4,34.5],[-78.1,33.9],[-79.1,33.5],[-80.3,32.5],[-80.9,32.0],[-81.3,31.4],[-81.3,30.0],[-81.0,29.2],[-80.5,28.5],[-80.1,26.9],[-80.1,25.8],[-80.7,25.1],[-81.3,25.6],[-82.2,26.7],[-82.7,27.5],[-82.7,28.6],[-83.7,29.9],[-85.1,29.6],[-85.8,30.2],[-87.5,30.3],[-88.4,30.4],[-89.6,30.2],[-89.2,29.3],[-90.2,29.1],[-91.6,29.7],[-92.5,29.6],[-93.2,29.8],[-94.7,29.5],[-95.6,28.7],[-96.6,28.3],[-97.1,27.8],[-97.4,26.7],[-97.1,25.9],[-97.5,25.0],[-97.8,22.9],[-97.7,21.9],[-97.2,20.6],[-96.5,19.9],[-95.9,18.8],[-94.8,18.6],[-93.5,18.4],[-92.0,18.7],[-90.8,19.3],[-90.5,20.7],[-89.6,21.3],[-88.5,21.5],[-87.7,21.5],[-86.8,21.3],[-87.4,20.3],[-87.6,19.0],[-87.8,18.3],[-88.3,17.6],[-88.4,16.5],[-88.9,15.9],[-88.1,15.7],[-87.4,15.8],[-86.4,15.8],[-85.7,16.0],[-84.5,15.9],[-83.8,15.4],[-83.1,15.0],[-83.4,14.0],[-83.6,13.1],[-83.7,11.9],[-83.7,10.9],[-83.0,10.0],[-82.2,9.2],[-81.4,8.8],[-80.5,9.1],[-79.6,9.6],[-78.5,9.4],[-77.7,8.9],[-76.8,8.6],[-76.1,9.3],[-75.5,10.6],[-74.9,11.1],[-74.2,11.3],[-72.6,11.7],[-71.8,12.4],[-71.1,12.1],[-71.9,11.4],[-71.6,10.4],[-72.1,9.9],[-71.7,9.1],[-71.0,9.9],[-71.4,11.0],[-70.2,11.4],[-69.9,12.2],[-69.6,11.5],[-68.2,10.9],[-67.3,10.5],[-66.2,10.6],[-65.7,10.2],[-64.3,10.4],[-63.1,10.7],[-61.9,10.7],[-62.7,10.4],[-61.6,9.9],[-60.8,9.4],[-60.7,8.6],[-59.8,8.4],[-59.1,8.0],[-58.5,7.3],[-58.1,6.8],[-57.5,6.3],[-55.9,5.8],[-55.0,6.0],[-54.0,5.8],[-52.9,5.4],[-51.8,4.6],[-51.1,3.7],[-50.5,1.9],[-49.9,1.0],[-50.7,0.2],[-48.6,-0.2],[-48.6,-1.2],[-47.8,-0.6],[-46.6,-0.9],[-44.9,-1.6],[-44.4,-2.1],[-43.4,-2.4],[-41.5,-2.9],[-40.0,-2.9],[-38.5,-3.7],[-37.2,-4.8],[-36.5,-5.1],[-35.2,-5.5],[-34.9,-6.7],[-35.1,-9.0],[-35.6,-9.6],[-37.0,-11.0],[-37.7,-12.2],[-38.4,-13.0],[-39.0,-13.8],[-38.9,-15.7],[-39.2,-17.2],[-39.6,-18.3],[-39.8,-19.6],[-40.8,-20.9],[-40.9,-21.9],[-41.8,-22.4],[-43.1,-23.0],[-44.6,-23.4],[-45.4,-23.8],[-46.5,-24.1],[-47.6,-24.9],[-48.5,-25.9],[-48.5,-27.2],[-48.7,-28.2],[-49.6,-29.2],[-50.7,-31.0],[-51.6,-31.8],[-52.3,-32.2],[-52.7,-33.2],[-53.4,-33.8],[-53.8,-34.4],[-54.9,-35.0],[-55.7,-34.8],[-57.1,-34.4],[-58.4,-33.9],[-57.2,-35.3],[-56.7,-36.4],[-57.7,-38.2],[-59.2,-38.7],[-61.2,-38.9],[-62.3,-38.8],[-62.3,-40.2],[-62.7,-41.0],[-63.8,-41.2],[-64.7,-40.8],[-65.0,-42.1],[-64.3,-42.4],[-63.5,-42.6],[-64.4,-42.9],[-65.2,-43.5],[-65.3,-44.5],[-66.5,-45.0],[-67.3,-45.6],[-67.6,-46.3],[-66.6,-47.0],[-65.6,-47.2],[-66.0,-48.1],[-67.2,-48.7],[-67.8,-49.9],[-68.7,-50.3],[-68.8,-51.8],[-68.2,-52.3],[-69.5,-52.3],[-70.8,-52.9],[-71.0,-53.8],[-72.6,-53.5],[-73.7,-52.8],[-74.9,-52.3],[-75.3,-51.6],[-75.5,-50.4],[-75.6,-48.7],[-75.2,-47.7],[-74.1,-46.9],[-75.6,-46.6],[-74.7,-45.8],[-74.4,-44.1],[-73.2,-44.5],[-72.7,-42.4],[-73.4,-42.1],[-73.7,-43.4],[-74.0,-41.8],[-73.7,-39.9],[-73.2,-39.3],[-73.5,-38.3],[-73.6,-37.2],[-72.6,-35.5],[-71.9,-33.9],[-71.4,-32.4],[-71.7,-30.9],[-71.4,-30.1],[-71.5,-28.9],[-70.9,-27.6],[-70.7,-25.7],[-70.4,-23.6],[-70.1,-21.4],[-70.2,-19.8],[-70.4,-18.3],[-71.4,-17.8],[-73.4,-16.4],[-75.2,-15.3],[-76.0,-14.6],[-76.4,-13.8],[-77.1,-12.2],[-78.1,-10.4],[-79.0,-8.4],[-79.8,-7.2],[-80.5,-6.5],[-81.2,-6.1],[-81.4,-4.7],[-81.1,-4.0],[-80.3,-3.4],[-79.8,-2.7],[-81.0,-2.2],[-80.9,-1.1],[-80.4,-0.3],[-80.0,0.4],[-79.5,1.0],[-78.9,1.4],[-78.7,2.3],[-77.9,2.7],[-77.5,3.3],[-77.1,3.8],[-77.3,4.7],[-77.5,5.6],[-77.5,6.7],[-77.9,7.2],[-78.4,8.1],[-79.1,9.0],[-79.8,8.6],[-80.4,8.3],[-80.0,7.5],[-80.9,7.2],[-81.5,7.7],[-82.1,8.2],[-83.5,8.4],[-83.9,9.3],[-84.6,9.6],[-85.3,9.8],[-85.8,10.4],[-86.1,11.4],[-86.7,12.1],[-87.7,12.9],[-88.5,13.2],[-89.3,13.5],[-90.1,13.7],[-91.2,13.9],[-92.2,14.5],[-93.4,15.6],[-94.7,16.2],[-96.1,15.8],[-97.3,15.9],[-98.0,16.1],[-98.9,16.6],[-100.8,17.2],[-101.7,17.6],[-102.5,18.0],[-103.5,18.3],[-105.0,19.3],[-105.5,19.9],[-105.3,21.1],[-105.6,21.9],[-106.0,22.8],[-106.9,23.8],[-107.9,24.5],[-108.4,25.2],[-109.3,25.6],[-109.8,26.7],[-110.4,27.2],[-110.6,27.9],[-111.8,28.5],[-112.2,29.0],[-112.8,30.0],[-113.2,30.8],[-113.9,31.6],[-114.8,31.8],[-114.7,30.2],[-113.6,29.1],[-113.1,28.4],[-112.8,27.8],[-112.2,27.2],[-111.6,26.7],[-111.3,25.7],[-110.7,24.8],[-110.2,24.3],[-109.4,23.4],[-109.9,22.8],[-110.3,23.4],[-110.9,24.0],[-111.7,24.5],[-112.1,25.5],[-112.8,26.3],[-113.5,26.8],[-114.5,27.1],[-115.1,27.7],[-114.2,28.1],[-114.9,29.3],[-115.9,30.2],[-116.3,30.8],[-116.7,31.6],[-117.1,32.5],[-117.9,33.6],[-118.5,34.0],[-119.4,34.3],[-120.4,34.4],[-120.7,35.2],[-121.7,36.2],[-122.5,37.6],[-123.0,38.1],[-123.7,39.0],[-123.9,39.8],[-124.4,40.3],[-124.2,41.1],[-124.5,42.8],[-124.1,43.7],[-123.9,45.5],[-124.1,46.9],[-124.4,47.7],[-123.1,48.0],[-122.6,47.1],[-122.5,48.2],[-122.8,49.0],[-124.9,50.0],[-125.6,50.4],[-127.4,50.8],[-128.0,51.7],[-129.1,52.8],[-129.3,53.6],[-130.5,54.3],[-131.1,55.2],[-132.0,55.5],[-132.2,56.4],[-133.5,57.2],[-134.1,58.1],[-135.0,58.2],[-136.6,58.2],[-137.8,58.5],[-139.9,59.5],[-140.8,59.7],[-142.6,60.1],[-144.0,60.0],[-145.9,60.5],[-147.1,60.9],[-148.2,60.7],[-148.0,60.0],[-149.7,59.7],[-150.6,59.4],[-151.7,59.2],[-151.4,60.7],[-150.3,61.0],[-151.9,60.7],[-152.6,60.1],[-154.0,59.4],[-153.3,58.9],[-154.2,58.1],[-155.3,57.7],[-156.3,57.4],[-158.1,56.5],[-159.6,55.6],[-161.2,55.4],[-162.2,55.0],[-163.1,54.7],[-164.8,54.4],[-163.8,55.0],[-162.9,55.3],[-161.8,55.9],[-160.6,56.0],[-160.1,56.4],[-158.7,57.0],[-157.7,57.6],[-157.6,58.3],[-157.0,58.9],[-158.2,58.6],[-159.1,58.4],[-159.7,58.9],[-161.4,58.7],[-162.1,59.3],[-162.5,60.0],[-163.8,59.8],[-164.7,60.3],[-165.3,60.5],[-166.1,61.5],[-165.7,62.1],[-164.9,62.6],[-163.8,63.2],[-162.3,63.5],[-160.8,63.8],[-161.5,64.4],[-160.8,64.8],[-162.5,64.6],[-163.5,64.6],[-165.0,64.4],[-166.4,64.7],[-168.1,65.7],[-166.7,66.1],[-164.5,66.6],[-163.8,66.1],[-161.7,66.1],[-162.5,66.7],[-163.7,67.1],[-164.4,67.6],[-165.4,68.0],[-166.8,68.4],[-166.2,68.9],[-164.4,68.9],[-163.2,69.4],[-161.9,70.3],[-160.9,70.4],[-159.0,70.9],[-158.1,70.8],[-156.6,71.4],[-155.1,71.1],[-154.3,70.7],[-152.2,70.8],[-150.7,70.4],[-149.7,70.5],[-147.6,70.2],[-145.7,70.1],[-144.9,70.0],[-143.6,70.2],[-142.1,69.9],[-141.0,69.7],[-139.1,69.5],[-137.5,69.0],[-136.5,68.9],[-135.6,69.3],[-134.4,69.6],[-132.9,69.5],[-131.4,69.9],[-129.8,70.2],[-129.1,69.8],[-128.4,70.0],[-127.4,70.4],[-125.8,69.5],[-124.4,70.2],[-123.1,69.6],[-121.5,69.8],[-119.9,69.4],[-117.6,69.0],[-116.2,68.8],[-115.2,68.9],[-113.9,68.4],[-115.3,67.9],[-113.5,67.7],[-110.8,67.8],[-109.9,68.0],[-108.9,67.4],[-107.8,67.9],[-108.8,68.3],[-108.2,68.7],[-107.0,68.7],[-106.2,68.8],[-105.3,68.6],[-104.3,68.0],[-103.2,68.1],[-101.5,67.6],[-99.9,67.8],[-98.4,67.8],[-97.7,68.6],[-96.1,68.2],[-96.1,67.3],[-95.5,68.1],[-94.2,69.1],[-95.3,69.7],[-96.5,70.1],[-96.4,71.2],[-95.2,71.9],[-93.9,71.8],[-92.9,71.3],[-91.5,70.2],[-92.4,69.7],[-90.5,69.5]],[[-58.6,-64.2],[-59.8,-64.2],[-60.6,-64.3],[-61.3,-64.5],[-62.0,-64.8],[-62.6,-65.5],[-62.1,-66.2],[-62.8,-66.4],[-63.7,-66.5],[-64.9,-67.2],[-65.5,-67.6],[-65.3,-68.4],[-64.0,-68.9],[-63.2,-69.2],[-62.6,-70.0],[-61.8,-70.7],[-61.4,-72.0],[-61.0,-72.8],[-60.8,-73.7],[-61.4,-74.1],[-62.0,-74.4],[-63.3,-74.6],[-64.4,-75.3],[-65.9,-75.6],[-67.2,-75.8],[-68.4,-76.0],[-69.8,-76.2],[-70.6,-76.6],[-72.2,-76.7],[-74.0,-76.6],[-75.6,-76.7],[-77.2,-76.7],[-75.4,-77.3],[-74.3,-77.6],[-73.7,-77.9],[-74.8,-78.2],[-76.5,-78.1],[-77.9,-78.4],[-78.0,-79.2],[-76.8,-79.5],[-75.4,-80.3],[-73.2,-80.4],[-71.4,-80.7],[-70.0,-81.0],[-68.2,-81.3],[-65.7,-81.5],[-63.3,-81.7],[-61.6,-82.0],[-59.7,-82.4],[-58.7,-82.8],[-57.0,-82.9],[-55.4,-82.6],[-53.6,-82.3],[-51.5,-82.0],[-49.8,-81.7],[-47.3,-81.7],[-44.8,-81.8],[-42.8,-82.1],[-42.2,-81.7],[-40.8,-81.4],[-38.2,-81.3],[-36.3,-81.1],[-34.4,-80.9],[-32.3,-80.8],[-30.1,-80.6],[-28.5,-80.3],[-29.3,-80.0],[-29.7,-79.3],[-31.6,-79.3],[-33.7,-79.5],[-35.6,-79.5],[-35.8,-78.3],[-33.9,-77.9],[-32.2,-77.7],[-31.0,-77.4],[-29.8,-77.1],[-28.9,-76.7],[-27.5,-76.5],[-26.2,-76.4],[-23.9,-76.2],[-22.5,-76.1],[-21.2,-75.9],[-20.0,-75.7],[-18.9,-75.4],[-17.5,-75.1],[-16.6,-74.8],[-15.7,-74.5],[-16.5,-73.9],[-15.4,-73.1],[-14.4,-73.0],[-13.3,-72.7],[-12.3,-72.4],[-11.5,-72.0],[-11.0,-71.5],[-10.3,-71.3],[-9.1,-71.3],[-7.4,-71.7],[-6.9,-70.9],[-5.8,-71.0],[-4.3,-71.5],[-3.0,-71.3],[-1.8,-71.2],[-0.7,-71.2],[0.9,-71.3],[1.9,-71.1],[3.0,-71.0],[4.1,-70.9],[5.2,-70.6],[6.3,-70.5],[7.1,-70.2],[7.7,-69.9],[8.5,-70.1],[9.5,-70.0],[10.2,-70.5],[10.8,-70.8],[12.0,-70.6],[13.4,-70.0],[14.7,-70.0],[15.9,-70.0],[17.0,-69.9],[18.2,-69.9],[19.3,-69.9],[20.4,-70.0],[21.5,-70.1],[22.6,-70.7],[23.7,-70.5],[24.8,-70.5],[26.0,-70.5],[27.1,-70.5],[28.1,-70.3],[29.2,-70.2],[30.0,-69.9],[31.0,-69.8],[32.0,-69.7],[32.8,-69.4],[33.3,-68.8],[33.9,-68.5],[34.9,-68.7],[36.2,-69.2],[37.2,-69.2],[37.9,-69.5],[38.6,-69.8],[39.7,-69.5],[40.9,-68.9],[42.0,-68.6],[42.9,-68.5],[44.1,-68.3],[44.9,-68.1],[45.7,-67.8],[46.5,-67.6],[47.4,-67.7],[48.3,-67.4],[49.0,-67.1],[49.9,-67.1],[50.8,-66.9],[51.8,-66.2],[52.6,-66.1],[53.6,-65.9],[54.5,-65.8],[55.4,-65.9],[56.4,-66.0],[57.2,-66.2],[58.1,-67.0],[59.9,-67.4],[60.6,-67.7],[61.4,-68.0],[62.4,-68.0],[63.2,-67.8],[64.1,-67.4],[65.0,-67.6],[66.0,-67.7],[66.9,-67.9],[67.9,-67.9],[68.9,-67.9],[69.7,-69.0],[68.6,-69.9],[67.8,-70.3],[69.1,-70.7],[68.4,-71.4],[68.7,-72.2],[69.9,-72.3],[71.0,-72.1],[71.6,-71.7],[72.5,-71.0],[73.1,-70.7],[73.9,-69.9],[75.6,-69.7],[76.6,-69.6],[77.6,-69.5],[78.4,-68.7],[79.1,-68.3],[80.1,-68.1],[80.9,-67.9],[82.1,-67.4],[83.8,-67.3],[84.7,-67.2],[85.7,-67.1],[86.8,-67.2],[87.5,-66.9],[88.0,-66.2],[88.8,-67.0],[89.7,-67.2],[90.6,-67.2],[91.6,-67.1],[92.6,-67.2],[93.5,-67.2],[95.0,-67.2],[95.8,-67.4],[96.7,-67.2],[97.8,-67.2],[98.7,-67.1],[99.7,-67.2],[100.4,-66.9],[101.6,-66.3],[102.8,-65.6],[104.2,-66.0],[104.9,-66.3],[106.2,-66.9],[107.2,-67.0],[108.1,-67.0],[109.2,-66.8],[110.2,-66.7],[111.1,-66.4],[111.7,-66.1],[112.9,-66.1],[113.6,-65.9],[114.4,-66.1],[115.6,-66.7],[116.7,-66.7],[117.4,-66.9],[118.6,-67.2],[119.8,-67.3],[120.9,-67.2],[121.7,-66.9],[122.3,-66.6],[123.2,-66.5],[124.1,-66.6],[125.2,-66.7],[126.1,-66.6],[127.0,-66.6],[127.9,-66.7],[128.8,-66.8],[129.7,-66.6],[130.8,-66.4],[131.8,-66.4],[132.9,-66.4],[133.9,-66.3],[134.8,-66.2],[135.1,-65.3],[135.7,-65.6],[136.2,-66.4],[137.5,-67.0],[138.6,-66.9],[139.9,-66.9],[140.8,-66.8],[142.1,-66.8],[143.1,-66.8],[144.4,-66.8],[145.5,-66.9],[146.2,-67.2],[146.6,-67.9],[147.7,-68.1],[148.8,-68.4],[150.1,-68.6],[151.5,-68.7],[152.5,-68.9],[153.6,-68.9],[154.3,-68.6],[155.2,-68.8],[155.9,-69.1],[156.8,-69.4],[158.0,-69.5],[159.2,-69.6],[160.8,-70.2],[161.6,-70.6],[162.7,-70.7],[163.8,-70.7],[164.9,-70.8],[166.1,-70.8],[167.3,-70.8],[168.4,-71.0],[169.5,-71.2],[170.5,-71.4],[171.2,-71.7],[170.6,-72.4],[170.1,-72.9],[169.3,-73.7],[168.0,-73.8],[167.4,-74.2],[166.1,-74.4],[165.0,-75.1],[164.2,-75.5],[163.6,-76.2],[163.5,-77.1],[164.1,-77.5],[164.7,-78.2],[166.6,-78.3],[165.2,-78.9],[163.7,-79.1],[161.8,-79.2],[160.9,-79.7],[160.3,-80.6],[159.8,-80.9],[161.1,-81.3],[161.6,-81.7],[162.5,-82.1],[163.7,-82.4],[165.1,-82.7],[166.6,-83.0],[168.9,-83.3],[169.4,-83.8],[172.3,-84.0],[173.2,-84.4],[176.0,-84.2],[178.3,-84.5],[180,-84.7],[180,-90],[-180,-90],[-180,-84.7],[-179.1,-84.1],[-177.3,-84.5],[-176.5,-84.2],[-174.4,-84.5],[-173.1,-84.1],[-170.0,-83.9],[-169.0,-84.1],[-167.0,-84.6],[-164.2,-84.8],[-161.9,-85.1],[-158.1,-85.4],[-155.2,-85.1],[-150.9,-85.3],[-148.5,-85.6],[-145.9,-85.3],[-143.1,-85.0],[-146.8,-84.5],[-150.1,-84.3],[-150.9,-83.9],[-153.6,-83.7],[-153.0,-82.8],[-152.9,-82.0],[-154.5,-81.8],[-155.3,-81.4],[-156.8,-81.1],[-154.4,-81.2],[-152.1,-81.0],[-150.6,-81.3],[-148.9,-81.0],[-147.2,-80.7],[-146.4,-80.3],[-148.1,-79.7],[-149.5,-79.4],[-151.6,-79.3],[-153.4,-79.2],[-155.3,-79.1],[-156.0,-78.7],[-157.3,-78.4],[-158.1,-78.0],[-158.4,-76.9],[-157.0,-77.3],[-155.3,-77.2],[-153.7,-77.1],[-152.9,-77.5],[-151.3,-77.4],[-150.0,-77.2],[-148.7,-76.9],[-147.6,-76.6],[-146.1,-76.5],[-146.5,-75.7],[-144.9,-75.2],[-144.3,-75.5],[-142.8,-75.3],[-141.6,-75.1],[-140.2,-75.1],[-138.9,-75.0],[-137.5,-74.7],[-136.4,-74.5],[-135.2,-74.3],[-133.7,-74.4],[-132.3,-74.3],[-130.9,-74.5],[-129.6,-74.5],[-128.2,-74.3],[-126.9,-74.4],[-125.4,-74.5],[-124.0,-74.5],[-122.6,-74.5],[-121.1,-74.5],[-119.7,-74.5],[-118.7,-74.2],[-117.5,-74.0],[-116.2,-74.2],[-115.0,-74.1],[-113.9,-73.7],[-113.3,-74.0],[-112.3,-74.7],[-111.3,-74.4],[-110.1,-74.8],[-108.7,-74.9],[-107.6,-75.2],[-106.1,-75.1],[-104.9,-74.9],[-103.4,-75.0],[-102.0,-75.1],[-100.6,-75.3],[-100.1,-74.9],[-100.8,-74.5],[-102.5,-74.1],[-103.1,-73.7],[-103.7,-72.6],[-102.9,-72.8],[-101.6,-72.8],[-100.3,-72.8],[-99.1,-72.9],[-98.1,-73.2],[-96.3,-73.6],[-95.0,-73.5],[-93.7,-73.3],[-92.4,-73.2],[-91.4,-73.4],[-90.1,-73.3],[-89.2,-72.6],[-88.4,-73.0],[-87.3,-73.2],[-86.0,-73.1],[-85.2,-73.5],[-83.9,-73.5],[-82.7,-73.6],[-81.5,-73.9],[-80.7,-73.5],[-79.3,-73.5],[-77.9,-73.4],[-76.9,-73.6],[-76.2,-74.0],[-74.9,-73.9],[-73.9,-73.7],[-72.8,-73.4],[-71.6,-73.3],[-70.2,-73.1],[-68.9,-73.0],[-68.0,-72.8],[-67.4,-72.5],[-67.3,-71.6],[-67.9,-70.9],[-68.5,-70.1],[-68.0,-69.0],[-67.4,-68.1],[-67.7,-67.3],[-67.3,-66.9],[-66.1,-66.2],[-65.4,-65.9],[-64.6,-65.6],[-63.6,-64.9],[-62.0,-64.6],[-61.4,-64.3],[-60.7,-64.1],[-59.9,-64.0],[-59.2,-63.7],[-57.8,-63.3],[-58.6,-64.2]],[[143.6,-13.8],[143.9,-14.5],[144.6,-14.2],[145.4,-15.0],[145.5,-16.3],[145.9,-16.9],[146.2,-17.8],[146.4,-19.0],[147.5,-19.5],[148.2,-20.0],[148.8,-20.4],[149.3,-21.3],[149.7,-22.3],[150.5,-22.6],[150.9,-23.5],[151.6,-24.1],[152.9,-25.3],[153.1,-26.1],[153.1,-27.3],[153.6,-28.1],[153.5,-29.0],[153.1,-30.4],[152.9,-31.6],[152.5,-32.6],[151.7,-33.0],[151.3,-33.8],[150.7,-35.2],[150.1,-36.4],[150.0,-37.4],[149.4,-37.8],[148.3,-37.8],[147.4,-38.2],[146.3,-39.0],[145.5,-38.6],[145.0,-37.9],[143.6,-38.8],[142.7,-38.5],[141.6,-38.3],[140.6,-38.0],[140.0,-37.4],[139.8,-36.6],[139.1,-35.7],[138.1,-35.6],[138.2,-34.4],[137.7,-35.1],[136.8,-35.3],[137.4,-34.7],[137.9,-33.6],[137.0,-33.8],[136.4,-34.1],[136.0,-34.9],[135.2,-34.5],[134.6,-33.2],[134.1,-32.8],[133.0,-32.0],[131.3,-31.5],[129.5,-31.6],[128.2,-31.9],[127.1,-32.3],[126.1,-32.2],[125.1,-32.7],[124.2,-33.0],[123.7,-33.9],[122.2,-34.0],[121.3,-33.8],[119.9,-34.0],[119.3,-34.5],[118.5,-34.7],[117.3,-35.0],[115.6,-34.4],[115.0,-33.6],[115.7,-33.3],[115.8,-32.2],[115.2,-30.6],[115.0,-29.5],[114.6,-28.8],[114.2,-28.1],[114.0,-27.3],[113.5,-26.5],[113.4,-25.6],[114.2,-26.3],[113.7,-25.0],[113.4,-24.4],[113.7,-23.6],[113.7,-22.5],[114.1,-21.8],[115.5,-21.5],[115.9,-21.1],[116.7,-20.7],[118.2,-20.4],[119.0,-20.0],[120.9,-19.7],[121.4,-19.2],[122.2,-18.2],[122.3,-17.3],[123.0,-16.4],[123.4,-17.3],[123.8,-16.1],[124.4,-15.6],[124.9,-15.1],[125.7,-14.5],[126.6,-14.0],[127.8,-14.3],[128.4,-14.9],[129.6,-15.0],[129.9,-13.6],[130.6,-12.5],[131.2,-12.2],[132.6,-12.1],[131.8,-11.3],[133.0,-11.4],[133.6,-11.8],[134.4,-12.0],[135.3,-12.2],[136.3,-12.0],[137.0,-12.4],[136.3,-13.3],[135.8,-14.2],[135.5,-15.0],[136.3,-15.6],[137.1,-15.9],[138.3,-16.8],[139.1,-17.1],[140.2,-17.7],[140.9,-17.4],[141.3,-16.4],[141.7,-15.0],[141.5,-13.7],[141.8,-12.7],[141.9,-11.9],[142.1,-11.0],[142.9,-11.8],[143.5,-12.8],[143.6,-13.8]],[[-27.1,83.5],[-20.8,82.7],[-22.7,82.3],[-26.5,82.3],[-31.9,82.2],[-27.9,82.1],[-24.8,81.8],[-22.9,82.1],[-22.1,81.7],[-23.2,81.2],[-20.6,81.5],[-15.8,81.9],[-12.8,81.7],[-12.2,81.3],[-16.3,80.6],[-20.0,80.2],[-17.7,80.1],[-18.9,79.4],[-19.7,78.8],[-19.7,77.6],[-18.5,77.0],[-20.0,76.9],[-21.7,76.6],[-19.8,76.1],[-19.6,75.2],[-20.7,75.2],[-19.4,74.3],[-21.6,74.2],[-20.4,73.8],[-22.2,73.3],[-23.6,73.3],[-22.3,72.6],[-24.3,72.6],[-23.4,72.1],[-22.1,71.5],[-21.8,70.7],[-23.5,70.5],[-24.3,70.9],[-25.5,71.4],[-25.2,70.8],[-26.4,70.2],[-23.7,70.2],[-22.3,70.1],[-25.0,69.3],[-27.7,68.5],[-30.7,68.1],[-31.8,68.1],[-32.8,67.7],[-34.2,66.7],[-36.4,66.0],[-38.4,65.7],[-39.8,65.5],[-40.7,64.8],[-41.2,63.5],[-42.8,62.7],[-42.4,61.9],[-42.9,61.1],[-43.4,60.1],[-44.8,60.0],[-46.3,60.9],[-48.3,60.9],[-49.2,61.4],[-49.9,62.4],[-51.6,63.6],[-52.1,64.3],[-52.3,65.2],[-53.7,66.1],[-53.3,66.8],[-54.0,67.2],[-53.0,68.4],[-51.5,68.7],[-50.9,69.9],[-52.0,69.6],[-53.5,69.3],[-54.7,69.6],[-54.4,70.8],[-53.4,70.8],[-51.4,70.6],[-53.1,71.2],[-54.0,71.5],[-55,71.4],[-55.8,71.7],[-54.7,72.6],[-55.3,73.0],[-56.1,73.6],[-57.3,74.7],[-58.6,75.1],[-61.3,76.1],[-63.4,76.2],[-66.1,76.1],[-68.5,76.1],[-69.7,76.4],[-71.4,77.0],[-68.8,77.3],[-66.8,77.4],[-71.0,77.6],[-73.3,78.0],[-69.4,78.9],[-65.7,79.4],[-68.0,80.1],[-67.2,80.5],[-63.7,81.2],[-62.2,81.3],[-60.3,82.0],[-57.2,82.2],[-54.1,82.2],[-53.0,81.9],[-50.4,82.4],[-48.0,82.1],[-46.6,82.0],[-44.5,81.7],[-46.9,82.2],[-43.4,83.2],[-39.9,83.2],[-38.6,83.5],[-35.1,83.6],[-27.1,83.5]],[[-86.6,73.2],[-85.8,72.5],[-84.9,73.3],[-82.3,73.8],[-80.6,72.7],[-78.8,72.4],[-77.8,72.7],[-75.6,72.2],[-74.2,71.8],[-72.2,71.6],[-71.2,70.9],[-68.8,70.5],[-67.9,70.1],[-67.0,69.2],[-68.8,68.7],[-66.4,68.1],[-64.9,67.8],[-63.4,66.9],[-61.9,66.9],[-62.2,66.2],[-63.9,65.0],[-65.1,65.4],[-66.7,66.4],[-68.0,66.3],[-67.1,65.1],[-65.7,64.6],[-64.7,63.4],[-65.0,62.7],[-66.3,62.9],[-68.8,63.7],[-67.4,62.9],[-66.3,62.3],[-68.9,62.3],[-71.0,62.9],[-72.2,63.4],[-73.4,64.2],[-74.8,64.7],[-77.7,64.2],[-78.6,64.6],[-77.9,65.3],[-76.0,65.3],[-74.0,65.5],[-72.7,67.3],[-73.3,68.1],[-74.8,68.6],[-76.9,68.9],[-77.3,69.8],[-78.2,69.8],[-79.0,70.2],[-81.3,69.7],[-84.9,70.0],[-87.1,70.3],[-88.7,70.4],[-89.5,70.8],[-88.5,71.2],[-89.9,71.2],[-90.2,72.2],[-89.4,73.1],[-88.4,73.5],[-85.8,73.8],[-86.6,73.2]],[[-68.5,83.1],[-65.8,83.0],[-63.7,82.9],[-61.9,82.6],[-64.3,81.9],[-66.8,81.7],[-67.7,81.5],[-65.5,81.5],[-67.8,80.9],[-69.5,80.6],[-71.2,79.8],[-73.2,79.6],[-76.9,79.3],[-75.5,79.2],[-76.3,78.2],[-77.9,77.9],[-79.8,77.2],[-77.9,77.0],[-80.6,76.2],[-83.2,76.5],[-86.1,76.3],[-87.6,76.4],[-89.5,76.5],[-87.8,77.2],[-88.3,77.9],[-85.0,77.5],[-86.3,78.2],[-88.0,78.4],[-87.2,78.8],[-85.4,79.0],[-86.5,79.7],[-86.9,80.3],[-84.2,80.2],[-81.8,80.5],[-84.1,80.6],[-87.6,80.5],[-89.4,80.9],[-90.2,81.3],[-91.4,81.6],[-90.1,82.1],[-88.9,82.1],[-87.0,82.3],[-85.5,82.7],[-84.3,82.6],[-83.2,82.3],[-82.4,82.9],[-81.1,83.0],[-79.3,83.1],[-76.2,83.2],[-72.8,83.2],[-70.7,83.2],[-68.5,83.1]],[[134.1,-1.2],[134.4,-2.8],[135.5,-3.4],[136.3,-2.3],[137.4,-1.7],[139.2,-2.1],[139.9,-2.4],[141.0,-2.6],[142.7,-3.3],[144.6,-3.9],[145.3,-4.4],[145.8,-4.9],[147.6,-6.1],[147.0,-6.7],[148.1,-8.0],[148.7,-9.1],[149.3,-9.5],[150.0,-9.7],[150.8,-10.3],[150.0,-10.7],[148.9,-10.3],[147.9,-10.1],[147.1,-9.5],[146.6,-8.9],[146.0,-8.1],[144.7,-7.6],[143.9,-7.9],[143.3,-8.2],[142.6,-9.3],[141.0,-9.1],[140.1,-8.3],[139.1,-8.1],[137.6,-8.4],[138.0,-7.6],[138.7,-7.3],[138.4,-6.2],[137.9,-5.4],[136.0,-4.5],[135.2,-4.5],[133.7,-3.5],[133.0,-4.1],[132.8,-3.3],[132.0,-2.8],[133.1,-2.5],[132.2,-2.2],[131.8,-1.6],[130.9,-1.4],[130.5,-0.9],[131.9,-0.7],[134.0,-0.8],[134.1,-1.2]],[[-114.2,73.1],[-114.7,72.7],[-112.4,73.0],[-111.1,72.5],[-109.9,73.0],[-109.0,72.6],[-108.2,71.7],[-107.7,72.1],[-108.4,73.1],[-107.5,73.2],[-106.5,73.1],[-105.4,72.7],[-104.8,71.7],[-104.5,71.0],[-102.8,70.5],[-101.0,70.0],[-102.7,69.5],[-102.1,69.1],[-104.2,68.9],[-106.0,69.2],[-107.1,69.1],[-109,68.8],[-112.0,68.6],[-113.3,68.5],[-113.9,69.0],[-115.2,69.3],[-116.1,69.2],[-117.3,70.0],[-115.1,70.2],[-113.7,70.2],[-112.4,70.4],[-114.3,70.6],[-116.5,70.5],[-117.9,70.5],[-116.1,71.3],[-117.7,71.3],[-119.4,71.6],[-118.6,72.3],[-117.9,72.7],[-115.2,73.3],[-114.2,73.1]],[[117.9,1.8],[119.0,0.9],[117.8,0.8],[117.5,0.1],[117.5,-0.8],[116.6,-1.5],[116.5,-2.5],[116.1,-4.0],[114.9,-4.1],[114.5,-3.5],[113.3,-3.1],[112.1,-3.5],[111.0,-3.0],[110.2,-2.9],[110.1,-1.6],[109.1,-0.5],[109.0,0.4],[109.1,1.3],[109.7,2.0],[110.4,1.7],[111.2,1.9],[111.4,2.7],[113.0,3.1],[113.7,3.9],[114.2,4.5],[115.5,5.4],[116.2,6.1],[116.7,6.9],[117.6,6.4],[118.3,5.7],[119.2,5.4],[118.4,5.0],[117.9,4.1],[117.3,3.2],[118.0,2.3],[117.9,1.8]],[[125.2,1.4],[124.4,0.4],[123.7,0.2],[122.7,0.4],[121.1,0.4],[120.2,0.2],[120.9,-1.4],[121.5,-1.0],[123.3,-0.6],[122.4,-1.5],[121.5,-1.9],[122.5,-3.2],[123.2,-4.7],[122.6,-5.6],[122.7,-4.5],[121.7,-4.9],[120.9,-3.6],[121.0,-2.6],[120.3,-2.9],[120.4,-4.1],[120.4,-5.5],[119.4,-5.4],[119.7,-4.5],[119.5,-3.5],[118.8,-2.8],[119.2,-2.1],[119.3,-1.4],[119.8,0.2],[120.9,1.3],[121.7,1.0],[122.9,0.9],[124.1,0.9],[125.1,1.6],[125.2,1.4]],[[141.0,37.1],[140.6,36.3],[140.3,35.1],[139.0,34.7],[137.2,34.6],[135.8,33.5],[135.1,33.8],[133.3,34.4],[132.2,33.9],[131.0,33.9],[132.0,33.1],[131.3,31.5],[130.7,31.0],[130.4,32.3],[129.8,32.6],[129.4,33.3],[130.4,33.6],[130.9,34.2],[131.9,34.7],[132.6,35.4],[134.6,35.7],[135.7,35.5],[136.7,37.3],[137.4,36.8],[138.9,37.8],[139.4,38.2],[140.1,39.4],[139.9,40.6],[140.3,41.2],[141.4,41.4],[141.9,40.0],[141.0,38.2],[141.0,37.1]],[[-3.0,58.6],[-4.1,57.6],[-3.1,57.7],[-2.0,57.7],[-2.2,56.9],[-3.1,56.0],[-2.1,55.9],[-1.1,54.6],[0.2,53.3],[1.7,52.7],[1.1,51.8],[1.4,51.3],[0.6,50.8],[-0.8,50.8],[-2.5,50.5],[-3.6,50.2],[-4.5,50.3],[-5.2,50.0],[-4.3,51.2],[-3.4,51.4],[-5.0,51.6],[-4.2,52.3],[-4.8,52.8],[-3.1,53.4],[-3.6,54.6],[-4.8,54.8],[-5.0,55.8],[-5.6,55.3],[-5.6,56.3],[-6.1,56.8],[-5.8,57.8],[-5.0,58.6],[-3.0,58.6]],[[105.8,-5.9],[104.7,-5.9],[103.9,-5.0],[102.6,-4.2],[102.2,-3.6],[101.4,-2.8],[100.9,-2.1],[100.1,-0.7],[99.3,0.2],[99.0,1.0],[98.6,1.8],[97.7,2.5],[97.2,3.3],[96.4,3.9],[95.4,5.0],[95.9,5.4],[97.5,5.2],[98.4,4.3],[99.1,3.6],[99.7,3.2],[100.6,2.1],[101.7,2.1],[102.5,1.4],[103.1,0.6],[103.8,0.1],[103.4,-0.7],[104.0,-1.1],[104.5,-1.8],[104.9,-2.3],[106.1,-3.1],[105.9,-4.3],[105.8,-5.9]],[[50.1,-13.6],[50.2,-14.8],[50.4,-15.7],[49.9,-16.5],[49.5,-17.1],[49.4,-18.0],[49.0,-19.1],[48.5,-20.5],[47.9,-22.4],[47.5,-23.8],[47.1,-24.9],[46.3,-25.2],[45.4,-25.6],[44.0,-25.0],[43.7,-23.6],[43.3,-22.8],[43.4,-21.3],[43.9,-20.8],[44.4,-20.1],[44.2,-19.0],[44.0,-17.4],[44.3,-16.9],[44.9,-16.2],[45.9,-15.8],[46.9,-15.2],[47.7,-14.6],[47.9,-13.7],[48.8,-13.1],[49.2,-12.0],[49.8,-12.9],[50.1,-13.6]],[[174.6,-36.2],[175.3,-37.2],[176.0,-37.6],[176.8,-37.9],[178.0,-37.6],[178.3,-38.6],[177.2,-39.1],[177.0,-39.9],[176.5,-40.6],[176.0,-41.3],[175.2,-41.7],[174.7,-41.3],[175.2,-40.5],[173.8,-39.5],[174.6,-38.8],[174.7,-38.0],[174.3,-36.7],[173.8,-36.1],[173.1,-35.2],[172.6,-34.5],[173.6,-35.0],[174.3,-35.3],[174.6,-36.2]],[[-79.7,22.8],[-78.3,22.5],[-77.1,21.7],[-76.5,21.2],[-75.6,21.0],[-74.9,20.7],[-74.2,20.3],[-75.0,19.9],[-76.3,20.0],[-77.8,19.9],[-77.1,20.4],[-78.1,20.7],[-78.7,21.6],[-80.2,21.8],[-81.8,22.2],[-82.8,22.7],[-83.5,22.2],[-84.5,21.8],[-84.2,22.6],[-83.3,23.0],[-82.3,23.2],[-81.4,23.1],[-79.7,22.8]],[[-94.7,77.1],[-93.6,76.8],[-91.6,76.8],[-90.7,76.4],[-89.8,75.8],[-87.8,75.6],[-86.4,75.5],[-84.8,75.7],[-82.8,75.8],[-81.1,75.7],[-80.1,75.3],[-80.5,74.7],[-81.9,74.4],[-83.2,74.6],[-86.1,74.4],[-88.2,74.4],[-89.8,74.5],[-92.4,74.8],[-92.9,75.9],[-93.9,76.3],[-96.0,76.4],[-97.1,76.8],[-94.7,77.1]],[[173.0,-40.9],[174.0,-40.9],[174.2,-41.8],[173.2,-43.0],[172.7,-43.4],[171.5,-44.2],[171.2,-44.9],[170.6,-45.9],[169.8,-46.4],[168.4,-46.6],[167.8,-46.3],[166.7,-46.2],[167.0,-45.1],[168.3,-44.1],[169.7,-43.6],[170.5,-43.0],[171.1,-42.5],[171.6,-41.8],[172.1,-41.0],[172.8,-40.5],[173.0,-40.9]],[[-56.1,50.7],[-56.8,49.8],[-56.1,50.2],[-54.9,49.3],[-53.5,49.2],[-53.8,48.5],[-53.0,48.2],[-52.6,47.5],[-53.1,46.7],[-54.2,46.8],[-54.0,47.6],[-55.4,46.9],[-56.3,47.6],[-57.3,47.6],[-59.3,47.6],[-58.8,48.3],[-58.4,49.1],[-57.4,50.7],[-56.7,51.3],[-55.9,51.6],[-56.1,50.7]],[[-175.0,66.6],[-174.3,66.3],[-174.6,67.1],[-171.9,66.9],[-169.9,66.0],[-170.9,65.5],[-172.5,65.4],[-172.6,64.5],[-173.9,64.3],[-174.7,64.6],[-176.0,64.9],[-177.2,65.5],[-178.4,65.4],[-178.7,66.1],[-179.9,65.9],[-179.4,65.4],[-180,65.0],[-180,69.0],[-177.6,68.2],[-174.9,67.2],[-175.0,66.6]],[[57.5,70.7],[53.7,70.8],[51.6,71.5],[52.5,72.2],[54.4,73.6],[53.5,73.7],[55.9,74.6],[57.9,75.6],[61.2,76.3],[64.5,76.4],[66.2,76.8],[68.2,76.9],[68.9,76.5],[68.2,76.2],[64.6,75.7],[61.6,75.3],[58.5,74.3],[57.0,73.3],[55.4,72.4],[55.6,71.5],[57.5,70.7]],[[-67.8,-53.9],[-66.5,-54.5],[-65.0,-54.7],[-65.5,-55.2],[-66.5,-55.2],[-68.1,-55.6],[-69.2,-55.5],[-70.0,-55.2],[-71.0,-55.1],[-72.3,-54.5],[-73.3,-54.0],[-74.7,-52.8],[-73.8,-53.0],[-72.4,-53.7],[-71.1,-54.1],[-70.6,-53.6],[-70.3,-52.9],[-69.3,-52.5],[-68.2,-53.1],[-67.8,-53.9]],[[108.6,-6.8],[110.5,-6.9],[112.6,-6.9],[113.0,-7.6],[114.5,-7.8],[115.7,-8.4],[114.6,-8.8],[113.5,-8.3],[112.6,-8.4],[111.5,-8.3],[110.6,-8.1],[109.4,-7.7],[108.3,-7.8],[106.5,-7.4],[105.4,-6.9],[106.1,-5.9],[107.3,-6.0],[108.1,-6.3],[108.6,-6.8]],[[121.3,18.5],[121.9,18.2],[122.5,17.1],[122.3,16.3],[121.7,15.9],[121.5,15.1],[121.7,14.3],[122.7,14.3],[124.0,13.8],[124.2,13.0],[123.3,13.0],[122.0,13.8],[121.1,13.6],[120.7,14.3],[120.1,15.0],[119.9,16.4],[120.4,17.6],[120.7,18.5],[121.3,18.5]],[[-108.2,76.2],[-106.9,76.0],[-105.9,76.0],[-106.3,75.0],[-109.7,74.8],[-112.2,74.4],[-113.7,74.4],[-111.8,75.2],[-116.3,75.0],[-117.7,75.2],[-116.3,76.2],[-115.4,76.5],[-112.6,76.1],[-110.8,75.5],[-109.1,75.5],[-110.5,76.4],[-109.6,76.8],[-108.5,76.7],[-108.2,76.2]],[[-87.0,79.7],[-85.8,79.3],[-87.2,79.0],[-89.0,78.3],[-90.8,78.2],[-92.9,78.3],[-94.0,78.8],[-93.1,79.4],[-95.0,79.4],[-96.1,79.7],[-96.7,80.2],[-96.0,80.6],[-95.3,80.9],[-94.3,81.0],[-92.4,81.3],[-91.1,80.7],[-89.5,80.5],[-87.8,80.3],[-87.0,79.7]],[[126.4,8.4],[126.5,7.2],[126.2,6.3],[125.8,7.3],[125.4,6.8],[125.7,6.0],[124.2,6.2],[123.9,6.9],[123.6,7.8],[122.8,7.5],[122.1,6.9],[122.3,8.0],[122.9,8.3],[123.5,8.7],[124.6,8.5],[125.5,9.0],[126.2,9.3],[126.4,8.4]],[[-14.5,66.5],[-13.6,65.1],[-14.9,64.4],[-17.8,63.7],[-18.7,63.5],[-20.0,63.6],[-22.8,64.0],[-21.8,64.4],[-24.0,64.9],[-22.2,65.1],[-24.3,65.6],[-23.7,66.3],[-22.1,66.4],[-20.6,65.7],[-19.1,66.3],[-17.8,66.0],[-16.2,66.5],[-14.5,66.5]],[[-45.2,-78.0],[-43.9,-78.5],[-43.5,-79.1],[-43.3,-80.0],[-44.9,-80.3],[-46.5,-80.6],[-48.4,-80.8],[-50.5,-81.0],[-52.9,-81.0],[-54.2,-80.6],[-51.9,-79.9],[-51.0,-79.6],[-50.4,-79.2],[-49.3,-78.5],[-48.7,-78.0],[-46.7,-77.8],[-45.2,-78.0]],[[-72.6,19.9],[-71.7,19.7],[-70.8,19.9],[-70.0,19.6],[-69.2,19.3],[-68.3,18.6],[-69.2,18.4],[-70.1,18.2],[-71.0,18.3],[-71.4,17.6],[-72.4,18.2],[-73.5,18.2],[-74.5,18.3],[-73.4,18.5],[-72.3,18.7],[-72.8,19.5],[-72.6,19.9]],[[143.6,50.7],[144.7,49.0],[143.2,49.3],[142.6,47.9],[143.5,46.8],[142.1,46.0],[141.9,46.8],[142.0,47.8],[141.9,48.9],[142.1,49.6],[142.2,51.0],[141.6,51.9],[141.7,53.3],[142.6,53.8],[143.3,52.7],[143.2,51.8],[143.6,50.7]],[[-85.2,65.7],[-84.5,65.4],[-82.8,64.8],[-81.6,64.5],[-80.8,64.1],[-80.1,63.7],[-81.0,63.4],[-82.5,63.7],[-83.1,64.1],[-84.1,63.6],[-85.5,63.1],[-85.9,63.6],[-87.2,63.5],[-86.4,64.0],[-86.2,64.8],[-85.9,65.7],[-85.2,65.7]],[[-68.5,-71.0],[-68.5,-71.8],[-70.0,-72.3],[-71.1,-72.5],[-72.4,-72.5],[-73.1,-72.2],[-74.2,-72.4],[-75.0,-72.1],[-73.9,-71.3],[-72.1,-71.2],[-71.7,-70.3],[-71.2,-69.0],[-70.3,-68.9],[-69.7,-69.3],[-69.1,-70.1],[-68.5,-71.0]],[[143.9,44.2],[144.6,44.0],[145.3,44.4],[145.5,43.3],[144.1,43.0],[143.2,42.0],[141.6,42.7],[141.1,41.6],[140.0,41.6],[139.8,42.6],[140.3,43.3],[141.4,43.4],[141.7,44.8],[142.0,45.6],[143.1,44.5],[143.9,44.2]],[[-120.5,71.4],[-123.1,70.9],[-123.6,71.3],[-125.9,71.9],[-124.8,73.0],[-123.9,73.7],[-124.9,74.3],[-121.5,74.4],[-120.1,74.2],[-117.6,74.2],[-116.6,73.9],[-115.5,73.5],[-116.8,73.2],[-119.2,72.5],[-120.5,71.8],[-120.5,71.4]],[[18.3,79.7],[21.5,79.0],[19.0,78.6],[18.5,77.8],[17.6,77.6],[17.1,76.8],[15.9,76.8],[13.8,77.4],[14.7,77.7],[13.2,78.0],[11.2,78.9],[10.4,79.7],[13.2,80.0],[15.1,79.7],[17.0,80.1],[18.3,79.7]],[[-100.4,73.8],[-99.2,73.6],[-97.4,73.8],[-98.1,73.0],[-96.5,72.6],[-96.7,71.7],[-98.4,71.3],[-99.3,71.4],[-100.0,71.7],[-102.5,72.5],[-100.4,72.7],[-101.5,73.4],[-100.4,73.8]],[[152.0,-5.5],[151.3,-5.8],[150.2,-6.3],[148.9,-6.0],[148.4,-5.4],[149.3,-5.6],[150.0,-5.0],[150.8,-5.5],[151.6,-4.8],[152.1,-4.1],[152.3,-4.9],[152.0,-5.5]],[[-99.0,-71.9],[-97.9,-72.1],[-96.8,-72.0],[-96.2,-72.5],[-98.2,-72.5],[-99.4,-72.4],[-100.8,-72.5],[-101.8,-72.3],[-102.3,-71.9],[-100.4,-71.9],[-99.0,-71.9]],[[-116.2,77.6],[-116.3,76.9],[-117.1,76.5],[-118.0,76.5],[-119.9,76.1],[-121.5,75.9],[-122.9,76.1],[-121.2,76.9],[-119.1,77.5],[-117.6,77.5],[-116.2,77.6]],[[25.4,80.4],[27.4,80.1],[25.9,79.5],[23.0,79.4],[20.1,79.6],[18.5,79.9],[17.4,80.3],[20.5,80.6],[21.9,80.4],[22.9,80.7],[25.4,80.4]],[[51.1,80.5],[49.8,80.4],[48.9,80.3],[47.6,80.0],[46.5,80.2],[44.8,80.6],[46.8,80.8],[48.3,80.8],[50.0,80.9],[51.5,80.7],[51.1,80.5]],[[99.9,78.9],[97.8,78.8],[95.0,79.0],[93.3,79.4],[92.5,80.1],[91.2,80.3],[93.8,81.0],[95.9,81.3],[97.9,80.7],[100.2,79.8],[99.9,78.9]],[[-159.2,-79.5],[-161.1,-79.6],[-162.4,-79.3],[-163.0,-78.9],[-163.7,-78.6],[-163.1,-78.2],[-161.2,-78.4],[-160.2,-78.7],[-159.5,-79.0],[-159.2,-79.5]],[[145.4,-40.8],[146.4,-41.1],[147.7,-40.8],[148.4,-42.1],[147.9,-43.2],[146.9,-43.6],[146.0,-43.5],[145.4,-42.7],[144.7,-41.2],[145.4,-40.8]],[[81.2,6.2],[80.3,6.0],[79.9,6.8],[79.7,8.2],[80.1,9.8],[80.8,9.3],[81.3,8.6],[81.8,7.5],[81.6,6.5],[81.2,6.2]],[[-123.5,48.5],[-125.7,48.8],[-126.9,49.5],[-128.1,50.0],[-128.4,50.5],[-127.3,50.6],[-125.8,50.3],[-124.9,49.5],[-123.9,49.1],[-123.5,48.5]],[[-6.8,52.3],[-8.6,51.7],[-10.0,51.8],[-9.2,52.9],[-9.7,53.9],[-8.3,54.7],[-7.6,55.1],[-5.7,54.6],[-6.2,53.9],[-6.8,52.3]],[[-95.6,69.1],[-96.3,68.8],[-97.6,69.1],[-98.4,69.0],[-99.8,69.4],[-98.9,69.7],[-98.2,70.1],[-97.2,69.9],[-96.3,69.5],[-95.6,69.1]],[[-93.2,72.8],[-94.3,72.0],[-95.4,72.1],[-96.0,72.9],[-95.5,73.9],[-94.5,74.1],[-92.4,74.1],[-90.5,73.9],[-92.0,73.0],[-93.2,72.8]],[[-98.5,76.7],[-97.7,76.3],[-98.2,75],[-99.8,74.9],[-100.9,75.1],[-102.5,75.6],[-101.5,76.3],[-100.0,76.6],[-98.6,76.6],[-98.5,76.7]],[[-59.6,-80.0],[-60.2,-81.0],[-62.3,-80.9],[-64.5,-80.9],[-65.7,-80.6],[-64.0,-80.3],[-61.9,-80.4],[-61.1,-80.0],[-59.6,-80.0]],[[124.4,-10.1],[123.6,-10.4],[124.0,-9.3],[125.0,-8.9],[125.9,-8.4],[127.0,-8.3],[125.9,-9.1],[125.1,-9.4],[124.4,-10.1]],[[128.7,1.1],[128.6,0.3],[128.0,-0.3],[128.4,-0.8],[127.7,-0.3],[127.4,1.0],[127.6,1.8],[128.6,1.5],[128.7,1.1]],[[118.5,9.3],[117.2,8.4],[117.7,9.1],[118.4,9.7],[119.0,10.4],[119.5,11.4],[119.7,10.6],[119.0,10.0],[118.5,9.3]],[[125.5,12.2],[125.8,11.0],[125.0,11.3],[125.3,10.4],[124.8,10.8],[124.3,11.5],[124.3,12.6],[125.2,12.5],[125.5,12.2]],[[145.1,75.6],[144.3,74.8],[140.6,74.8],[139.0,74.6],[137.0,75.3],[137.5,75.9],[138.8,76.1],[141.5,76.1],[145.1,75.6]],[[-100.1,78.3],[-101.3,78.0],[-102.9,78.3],[-105.2,78.4],[-104.2,78.7],[-105.4,78.9],[-103.5,79.2],[-100.8,78.8],[-100.1,78.3]],[[-121.2,-73.5],[-119.9,-73.7],[-118.7,-73.5],[-119.3,-73.8],[-120.2,-74.1],[-121.6,-74.0],[-122.6,-73.7],[-121.2,-73.5]]];
+  var DATA = {"fields":["city","country","region","cost_rent","cost_only","safety","health","traffic","pollution","climate","power","price_to_income","culture","nightlife","rail","pedestrian","flights","playground","park","school","library","university","college"],"rows":[["Abu Dhabi","United Arab Emirates","gulf",50.9,55.1,88.6,72.3,29.8,45.5,43.9,98.2,7.4,37,43,0,159,156,151,136,90,5,7,6],["Ad Dammam","Saudi Arabia","gulf",29.4,43.7,72.0,60.2,28.7,59.1,27.3,97.1,3.5,3,0,1,4,101,31,98,39,2,8,3],["Adelaide","Australia","asia",56.2,74.4,66.9,72.4,38.2,25.0,95.0,125.7,10.1,68,233,102,197,42,472,806,171,29,11,20],["Ahmedabad","India","asia",13.8,21.4,68.4,67.8,39.9,72.2,49.3,68.4,7.4,39,3,46,10,35,47,173,65,21,8,33],["Albuquerque","NM, United States","na",48.7,63.7,29.1,63.4,25.9,40.0,67.1,154.0,3.0,101,71,3,133,28,299,261,190,34,4,5],["Alexandria","Egypt","lat",12.9,21.1,55.3,45.4,46.3,74.2,95.5,20.7,21.4,31,2,84,38,23,3,187,94,4,20,6],["Almaty","Kazakhstan","cis",28.4,38.7,47.1,50.9,38.2,78.8,58.3,52.5,11.6,71,153,14,171,101,963,101,213,22,44,19],["Amman","Jordan","gulf",28.3,44.8,62.7,65.6,40.6,76.6,89.0,46.5,9.5,50,40,4,56,111,32,120,195,16,15,16],["Amsterdam","Netherlands","eu",69.1,81.4,70.0,75.4,22.8,26.8,87.5,123.5,9.9,358,668,506,3400,317,1630,363,442,48,27,33],["Anchorage","AK, United States","na",64.6,87.4,37.1,61.5,25.6,17.3,41.6,137.0,3.7,29,42,2,50,71,257,179,90,8,6,3],["Ankara","Turkey","gulf",29.7,41.7,60.6,70.0,36.8,64.2,91.5,68.5,6.5,105,114,58,516,96,252,1173,604,25,57,3],["Antalya","Turkey","gulf",28.0,41.1,70.9,73.7,36.2,44.7,91.5,61.5,10.1,34,61,117,77,194,151,755,216,6,3,2],["Antwerp","Belgium","eu",49.3,71.2,60.2,79.7,38.8,58.2,85.4,114.4,6.3,156,499,426,1008,201,448,302,320,31,30,22],["Astana (Nur-Sultan)","Kazakhstan","cis",23.6,32.8,66.7,67.3,35.4,55.1,21.3,63.5,7.5,38,111,37,80,75,323,122,155,9,18,26],["Athens","Greece","eu",38.8,56.9,45.0,58.4,37.1,55.6,95.2,63.2,14.0,557,637,165,2822,195,785,2167,1199,62,55,35],["Atlanta","GA, United States","na",62.0,78.0,35.7,65.9,41.3,45.1,89.7,155.4,3.2,108,170,37,348,226,169,377,182,34,22,10],["Auckland","New Zealand","asia",48.6,64.4,49.4,69.1,37.4,30.6,99.9,119.4,10.5,125,248,38,415,71,524,886,205,40,17,20],["Austin","TX, United States","na",59.4,71.2,55.9,64.8,40.5,42.8,82.1,160.1,5.1,99,274,7,116,79,216,267,150,29,6,11],["Baku","Azerbaijan","cis",23.5,33.5,69.9,48.2,37.9,74.1,91.4,45.2,15.7,115,200,40,104,109,77,577,255,12,66,44],["Baltimore","MD, United States","na",56.1,74.7,28.9,72.2,31.7,52.0,81.2,143.1,2.8,108,271,34,332,92,540,474,386,41,23,17],["Bangalore","India","asia",15.8,21.8,46.3,65.4,53.6,82.5,89.4,101.5,8.4,238,321,64,116,131,261,1034,909,82,20,341],["Bangkok","Thailand","asia",32.2,43.5,61.6,77.3,44.4,77.7,58.4,36.6,37.8,215,673,98,322,178,79,222,390,55,58,31],["Banja Luka","Bosnia And Herzegovina","eu",28.0,43.6,65.1,46.1,22.4,56.1,82.8,60.2,14.1,20,74,5,82,13,96,85,52,5,26,5],["Barcelona","Spain","eu",48.7,59.9,47.9,76.7,29.8,62.8,95.7,88.8,13.8,342,1926,323,4060,249,1432,960,800,112,86,76],["Basel","Switzerland","eu",82.7,111.9,66.7,66.9,38.6,34.1,82.8,164.3,11.7,166,167,444,312,110,474,284,305,65,16,11],["Beijing","China","asia",31.4,37.9,74.4,70.3,43.0,76.7,57.6,92.7,29.7,214,231,226,623,259,28,632,643,44,75,54],["Beirut","Lebanon","gulf",39.1,54.6,53.3,64.9,39.3,93.6,94.7,32.5,21.2,59,115,0,683,69,13,90,149,30,39,13],["Belfast","United Kingdom","eu",49.3,69.3,50.8,70.8,37.3,26.6,90.8,112.4,5.6,46,172,17,363,77,180,145,189,27,14,11],["Belgrade","Serbia","eu",35.1,48.6,62.3,53.2,36.5,68.7,84.1,65.8,17.2,195,384,212,215,137,687,531,243,42,80,15],["Belo Horizonte","Brazil","lat",23.7,34.9,40.6,64.4,43.1,53.0,98.5,47.9,13.8,87,393,23,95,73,44,601,343,14,47,22],["Bergen","Norway","eu",61.5,89.6,74.9,72.7,32.0,25.9,78.8,130.9,7.0,106,109,46,323,63,908,120,125,18,10,7],["Berlin","Germany","eu",55.2,72.5,55.4,66.0,33.4,37.9,83.3,113.1,11.1,911,1794,805,465,163,3158,1440,670,106,91,105],["Bern","Switzerland","eu",79.4,108.7,72.6,66.9,38.8,31.9,76.0,170.2,11.4,93,120,203,248,11,479,135,221,64,69,32],["Birmingham","United Kingdom","eu",51.9,70.2,36.0,70.8,33.4,51.0,87.7,142.7,6.1,85,650,91,293,173,484,435,602,56,36,45],["Bogota","Colombia","lat",27.5,38.4,33.3,66.0,51.4,69.4,97.1,47.3,16.2,208,764,26,1205,134,718,2368,718,67,165,91],["Boise","ID, United States","na",52.7,69.1,61.6,64.5,37.5,36.5,65.1,154.5,6.0,35,43,0,45,29,119,141,66,8,2,4],["Bologna","Italy","eu",49.2,67.6,51.2,76.1,32.5,59.6,88.1,83.2,10.6,158,468,111,680,105,230,663,193,101,80,5],["Boston","MA, United States","na",83.5,89.0,59.7,69.0,45.0,32.5,71.7,139.7,7.9,237,257,135,570,160,673,862,436,195,46,43],["Brampton","Canada","na",45.8,57.9,44.4,68.5,41.7,36.9,59.2,116.2,9.7,14,23,4,29,226,523,563,206,11,4,16],["Brasilia","Brazil","lat",24.6,35.5,41.5,52.7,30.6,30.0,99.0,68.4,11.7,98,173,11,200,52,181,295,250,17,57,27],["Bratislava","Slovakia","eu",42.0,56.9,69.7,55.7,30.2,36.0,80.7,76.7,15.4,186,388,189,409,251,813,615,212,90,40,7],["Brisbane","Australia","asia",56.5,68.5,61.8,71.2,42.7,32.9,98.1,139.6,8.0,107,273,52,132,104,556,1093,198,47,24,16],["Bristol","United Kingdom","eu",57.1,70.5,56.7,73.2,31.1,47.4,88.5,120.4,8.2,82,559,24,472,134,350,316,275,43,24,21],["Brno","Czech Republic","eu",38.6,53.0,75.2,76.1,26.2,39.9,78.2,92.7,15.8,103,413,350,347,42,666,385,187,54,34,26],["Brussels","Belgium","eu",54.2,71.9,44.1,73.6,36.4,62.2,83.8,111.0,7.2,448,847,813,3001,271,700,824,757,109,20,91],["Bucharest","Romania","eu",31.3,45.3,71.6,55.3,41.0,74.8,75.6,84.4,11.0,238,286,675,553,157,867,550,397,52,130,27],["Budapest","Hungary","eu",40.1,55.5,66.4,52.1,38.7,52.7,78.4,82.8,14.6,486,879,774,878,159,871,1082,493,78,76,18],["Buenos Aires","Argentina","lat",37.1,52.4,37.0,68.0,49.9,51.3,98.3,42.5,13.1,380,588,138,365,71,482,1133,1491,77,107,338],["Buffalo","NY, United States","na",55.1,74.7,51.4,70.3,26.8,30.3,66.4,122.3,3.3,68,104,15,128,44,205,237,219,23,8,5],["Bursa","Turkey","gulf",26.3,40.4,70.6,77.5,33.8,46.4,93.4,72.4,6.2,39,18,75,214,8,67,303,238,6,4,1],["Cairo","Egypt","lat",15.9,24.4,50.2,46.4,49.6,90.6,88.5,33.2,12.7,111,37,78,140,153,30,153,169,29,23,39],["Calgary","Canada","na",47.9,63.9,62.1,73.0,29.4,23.6,33.1,116.7,6.0,72,159,51,130,110,754,1154,263,16,6,8],["Cambridge","United Kingdom","eu",60.3,74.3,59.1,71.6,39.5,36.2,91.4,136.1,8.6,38,157,5,245,280,280,498,120,50,99,14],["Campinas","Brazil","lat",24.5,36.3,35.2,61.7,27.3,46.1,98.9,48.5,12.9,51,130,3,39,77,40,742,205,9,17,26],["Canberra","Australia","asia",59.7,77.7,71.5,69.0,39.3,27.6,82.7,137.2,9.9,64,74,10,265,13,373,739,94,23,10,10],["Cape Town","South Africa","lat",33.1,42.2,26.4,68.9,42.4,38.3,98.2,92.2,5.9,57,107,31,183,48,135,252,193,23,24,23],["Caracas","Venezuela","lat",32.8,48.3,18.5,38.7,33.2,72.5,99.9,17.4,17.7,121,82,43,115,56,40,233,388,54,33,78],["Casablanca","Morocco","lat",24.7,34.7,44.8,44.5,44.0,81.9,98.1,47.0,14.6,32,56,218,340,120,47,188,346,8,29,31],["Cebu","Philippines","asia",23.1,32.3,51.1,60.7,36.0,84.5,60.4,30.4,33.0,27,108,0,115,49,18,144,332,8,30,30],["Charlotte","NC, United States","na",59.0,71.9,51.0,67.9,35.8,35.9,84.0,138.2,3.9,56,163,55,90,200,280,146,124,17,10,4],["Chennai","India","asia",13.2,20.1,59.8,69.8,46.5,74.0,53.2,100.1,8.8,108,29,82,83,86,61,265,399,71,5,83],["Chiang Mai","Thailand","asia",22.3,32.4,78.0,84.7,26.2,77.8,75.9,50.2,14.4,41,438,3,84,31,38,141,136,23,40,17],["Chicago","IL, United States","na",66.2,75.8,34.8,64.8,41.7,50.3,66.1,141.6,3.2,217,693,101,706,317,552,516,458,47,25,19],["Chisinau","Moldova","cis",27.5,38.0,58.7,51.7,28.8,63.5,76.9,57.4,13.4,69,214,7,119,84,784,200,195,40,70,43],["Christchurch","New Zealand","asia",43.0,58.3,55.3,71.2,23.4,25.5,88.8,118.2,6.7,46,129,19,273,32,627,1007,140,29,9,4],["Cincinnati","OH, United States","na",51.7,64.6,51.0,68.6,30.6,40.2,73.2,148.2,3.4,106,195,21,382,88,450,299,184,37,12,7],["Cleveland","OH, United States","na",51.9,65.6,36.1,71.9,31.5,39.6,73.1,123.7,2.3,87,269,38,277,40,209,206,166,33,6,8],["Cluj-Napoca","Romania","eu",32.5,46.2,77.5,66.6,29.9,42.7,74.3,77.6,15.1,69,141,49,138,60,388,120,67,26,60,3],["Coimbatore","India","asia",11.0,17.3,62.0,68.8,46.4,63.7,78.1,65.9,12.1,25,7,7,6,15,32,79,155,13,10,76],["Cologne","Germany","eu",51.5,71.2,54.9,72.3,36.7,37.1,84.8,114.4,10.5,223,572,454,483,252,1437,335,377,70,33,41],["Colombo","Sri Lanka","asia",23.7,33.7,56.9,70.8,59.3,60.2,59.1,19.9,47.7,66,59,31,28,60,63,78,366,25,27,35],["Colorado Springs","CO, United States","na",58.1,74.3,58.4,61.9,26.0,31.8,51.4,137.4,2.9,52,109,1,59,14,401,185,118,9,25,2],["Columbus","OH, United States","na",55.7,73.8,51.0,68.6,31.2,31.4,71.3,125.3,3.5,68,178,0,434,51,232,327,232,33,8,4],["Copenhagen","Denmark","eu",67.5,86.8,73.7,75.2,27.5,25.1,83.7,130.6,10.7,229,701,126,399,233,1093,1599,257,55,35,28],["Cork","Ireland","eu",61.0,72.2,62.9,55.9,34.1,25.8,89.8,130.9,4.8,31,233,2,236,47,67,160,119,16,13,12],["Cuenca","Ecuador","lat",21.0,30.6,54.2,80.4,34.9,46.0,98.4,48.9,9.5,54,116,37,109,3,95,283,266,11,38,20],["Curitiba","Brazil","lat",23.8,35.9,40.5,67.0,32.8,30.9,99.6,50.7,15.9,92,465,2,117,30,192,873,456,48,44,30],["Dallas","TX, United States","na",61.5,75.3,48.3,66.7,35.3,41.1,81.9,147.8,6.2,57,155,85,128,271,201,262,167,10,11,6],["Davao","Philippines","asia",19.5,30.3,71.2,73.6,27.4,58.0,58.6,21.0,35.6,24,73,0,21,20,34,39,181,5,11,56],["Delhi","India","asia",15.1,22.1,41.0,65.8,57.4,90.4,58.9,66.6,16.1,139,44,157,177,174,66,1690,418,40,15,58],["Denver","CO, United States","na",63.3,78.5,51.9,68.1,35.5,44.9,56.3,133.2,5.2,176,393,39,268,234,704,490,314,39,15,15],["Detroit","MI, United States","na",52.2,68.4,27.2,62.6,43.7,62.1,66.0,122.8,3.8,87,173,38,190,134,390,480,250,36,12,7],["Dhaka","Bangladesh","asia",15.9,25.7,37.5,40.2,60.2,94.0,71.3,33.3,20.1,82,33,28,253,64,493,243,1147,53,106,165],["Dnipro","Ukraine","cis",21.0,30.6,46.3,53.9,33.5,80.6,69.5,46.0,9.6,48,134,338,105,0,464,78,179,25,30,30],["Doha","Qatar","gulf",48.2,52.0,84.6,73.8,28.9,59.2,36.0,124.3,5.3,44,19,65,275,205,47,133,161,9,10,2],["Dubai","United Arab Emirates","gulf",58.7,62.5,83.8,70.0,36.3,49.3,50.3,117.9,7.8,53,103,45,86,361,59,110,96,6,5,4],["Dublin","Ireland","eu",68.1,76.3,45.9,51.3,40.4,41.4,85.9,108.3,9.0,149,684,133,941,211,346,506,395,64,42,83],["Durban","South Africa","lat",25.4,36.9,19.5,58.3,25.3,53.2,95.6,99.7,2.8,14,36,29,67,13,17,147,133,9,12,3],["Dusseldorf","Germany","eu",52.3,71.7,65.9,73.4,26.9,28.8,86.4,136.5,9.7,131,391,496,688,252,1194,312,273,54,12,23],["Edinburgh","United Kingdom","eu",56.6,73.5,69.7,75.9,26.2,28.0,84.0,115.2,8.1,136,523,55,432,169,346,277,172,47,27,9],["Edmonton","Canada","na",45.1,63.0,53.2,76.7,27.9,28.6,32.1,138.3,3.4,74,113,55,108,60,481,686,289,18,6,12],["Eindhoven","Netherlands","eu",54.9,70.9,77.8,76.5,23.5,20.7,85.4,131.9,7.3,55,142,7,629,82,773,137,216,21,5,10],["Florence","Italy","eu",53.8,71.0,58.2,65.9,27.3,45.4,92.4,71.7,12.5,228,381,99,1000,48,117,565,218,307,69,4],["Florianopolis","Brazil","lat",27.3,37.5,55.0,60.6,41.6,40.1,97.0,62.5,12.0,58,90,0,63,21,125,203,105,10,23,31],["Fort Worth","TX, United States","na",56.6,72.5,56.7,63.6,27.3,53.4,81.6,149.0,3.3,57,71,7,31,271,89,174,156,8,9,13],["Frankfurt","Germany","eu",54.3,71.5,54.5,76.4,22.8,32.0,84.7,142.3,7.7,205,537,409,821,335,1015,620,300,50,35,15],["Gdansk","Poland","eu",37.1,50.3,68.8,50.5,30.6,52.2,75.5,96.4,11.6,106,123,266,406,102,1356,195,155,41,21,10],["Geneva","Switzerland","eu",89.8,111.3,70.5,69.3,32.6,26.5,82.6,155.1,13.1,175,269,208,1421,158,781,1023,369,96,58,18],["Genoa","Italy","eu",42.5,62.4,54.3,66.5,33.7,50.5,95.0,95.1,5.6,107,544,59,2092,31,210,313,207,99,75,7],["Gent","Belgium","eu",50.7,71.5,75.2,80.2,25.2,35.8,88.7,135.3,6.1,97,395,188,400,201,309,392,233,31,29,31],["Glasgow","United Kingdom","eu",51.9,68.0,55.1,78.4,28.3,33.4,84.8,121.4,5.3,105,526,98,664,196,731,563,312,54,10,17],["Gold Coast","Australia","asia",60.6,75.9,52.6,75.2,30.1,25.5,97.7,127.8,9.5,20,85,27,47,22,194,745,56,11,2,5],["Gothenburg","Sweden","eu",46.2,64.4,54.2,69.4,24.3,22.3,77.5,147.7,6.8,83,171,332,257,82,1279,231,250,34,4,21],["Graz","Austria","eu",47.1,70.3,72.5,77.1,28.6,37.6,73.9,127.8,7.2,118,160,248,433,30,442,212,183,66,33,10],["Groningen","Netherlands","eu",50.3,71.1,76.1,72.9,19.2,19.4,83.5,113.2,7.6,56,128,6,318,17,609,77,140,17,24,24],["Guadalajara","Mexico","lat",33.3,44.8,37.6,78.3,41.6,59.3,92.8,44.5,16.6,111,137,50,869,72,73,912,1972,21,207,243],["Guangzhou","China","asia",25.7,36.7,71.6,67.2,36.0,67.5,80.3,95.5,23.3,133,26,165,358,140,28,306,604,45,30,58],["Gurgaon","India","asia",17.6,24.9,45.9,65.1,37.0,90.8,59.9,84.5,14.4,27,31,23,25,174,15,444,145,3,3,11],["Haifa","Israel","gulf",58.9,89.1,71.7,74.5,28.5,66.8,93.6,141.2,9.0,34,40,14,100,10,198,374,133,11,3,6],["Halifax","Canada","na",48.3,61.4,60.4,65.0,31.3,24.3,59.0,104.9,5.4,52,89,1,56,40,299,614,76,17,39,5],["Hamburg","Germany","eu",52.2,70.8,59.3,74.3,30.5,27.3,82.8,127.1,11.1,301,767,118,549,133,1662,802,355,122,38,53],["Hamilton","Canada","na",44.9,57.7,44.4,74.5,35.8,60.2,61.1,119.2,4.8,49,82,5,31,226,425,360,152,25,4,7],["Hanoi","Vietnam","asia",19.9,28.3,66.2,56.9,27.7,89.0,79.0,47.9,37.7,109,242,22,366,109,143,407,634,34,90,55],["Helsinki","Finland","eu",53.9,73.9,74.9,80.1,24.1,12.5,62.8,109.8,11.4,255,396,433,2238,145,1544,949,230,63,31,13],["Ho Chi Minh City","Vietnam","asia",21.8,29.6,50.2,62.9,32.1,92.1,63.4,43.5,32.4,80,205,13,294,104,62,559,703,11,82,52],["Hobart","Australia","asia",54.9,73.8,65.9,64.2,37.1,28.5,90.6,140.1,8.7,32,93,5,49,10,165,316,75,5,6,5],["Hong Kong","Hong Kong (China)","asia",68.5,76.4,78.2,66.5,41.9,66.3,83.6,87.9,35.2,149,227,199,1267,300,391,614,668,62,20,47],["Honolulu","HI, United States","na",86.4,105.4,52.7,72.5,40.4,37.1,95.3,89.8,9.6,42,81,4,61,61,118,162,77,17,6,5],["Houston","TX, United States","na",53.7,65.1,37.1,69.4,41.8,56.5,85.5,159.5,2.4,91,217,46,210,209,275,394,176,32,18,13],["Hyderabad","India","asia",14.3,21.5,57.4,65.5,42.2,76.0,73.5,164.7,4.3,108,66,73,32,103,65,641,225,15,192,138],["Iasi","Romania","eu",27.7,40.9,65.2,55.9,32.7,60.7,73.0,77.9,10.7,74,93,121,36,32,192,92,110,20,30,1],["Indianapolis","IN, United States","na",54.3,69.9,40.4,71.9,29.4,43.5,69.9,152.5,2.6,76,85,1,71,85,292,248,154,26,13,2],["Islamabad","Pakistan","asia",16.4,25.2,69.2,63.7,35.9,41.5,76.9,43.7,14.3,19,6,3,128,47,58,273,293,22,50,108],["Istanbul","Turkey","gulf",35.7,46.6,52.0,70.1,50.7,67.3,93.0,62.0,10.1,272,392,217,1285,407,526,1220,907,173,111,15],["Izmir","Turkey","gulf",30.3,43.7,66.7,73.3,39.9,60.2,96.9,69.3,5.9,110,83,125,344,129,233,985,519,27,24,4],["Jacksonville","FL, United States","na",51.3,66.0,43.6,69.0,34.9,38.2,87.8,145.5,2.8,35,42,12,31,41,116,235,166,14,4,3],["Jaipur","India","asia",12.5,19.4,64.3,72.9,42.1,61.1,57.8,56.6,8.5,40,23,20,42,20,26,294,57,7,8,28],["Jakarta","Indonesia","asia",20.5,28.7,47.3,57.2,53.5,84.6,63.8,41.0,24.9,84,79,67,139,117,78,680,1815,47,97,131],["Jeddah (Jiddah)","Saudi Arabia","gulf",30.5,44.0,75.1,60.8,29.9,65.5,66.2,103.0,3.9,17,0,1,26,153,33,224,122,6,20,5],["Johannesburg","South Africa","lat",30.4,44.2,19.2,60.5,40.7,62.1,91.4,106.7,2.6,54,50,32,52,100,35,253,258,17,23,19],["Kaliningrad","Russia","cis",30.0,45.1,70.2,69.9,29.2,41.9,73.7,52.7,14.5,62,71,89,133,31,564,55,100,16,55,18],["Kansas City","MO, United States","na",51.7,67.7,41.4,68.6,32.6,33.3,75.1,142.5,2.9,82,141,36,533,60,381,343,189,25,7,8],["Karachi","Pakistan","asia",13.3,21.8,42.4,57.6,42.1,89.5,71.3,25.2,19.1,77,41,14,44,52,83,581,777,57,77,128],["Kathmandu","Nepal","asia",14.9,23.8,63.6,55.6,35.2,95.7,92.6,35.3,32.8,92,157,0,118,60,123,299,1986,52,16,483],["Kaunas","Lithuania","eu",34.2,52.0,63.2,74.7,26.0,25.3,68.9,92.6,9.0,70,50,4,83,27,178,56,97,18,43,11],["Kazan","Russia","cis",27.8,40.3,69.9,68.7,35.0,58.7,39.6,61.3,20.0,113,197,235,29,88,1309,149,215,45,67,44],["Kelowna","Canada","na",48.5,62.2,38.4,74.6,27.9,26.3,59.7,113.8,6.1,16,36,0,35,23,76,258,40,6,4,4],["Kharkiv","Ukraine","cis",16.9,26.7,52.8,49.2,38.2,56.9,65.4,55.6,8.3,96,152,391,105,0,770,178,221,35,76,56],["Kiev (Kyiv)","Ukraine","cis",23.7,32.7,54.4,58.3,43.2,64.6,70.0,60.6,12.4,256,473,346,447,0,3332,625,468,134,134,73],["Kolkata","India","asia",12.4,19.5,53.1,60.3,59.4,78.2,60.9,59.8,11.0,94,18,133,40,75,113,749,165,17,37,76],["Krakow (Cracow)","Poland","eu",36.9,50.8,74.9,58.7,30.9,69.6,73.9,97.0,12.5,199,297,421,449,139,1313,243,348,93,114,16],["Krasnodar","Russia","cis",27.5,39.9,66.1,50.3,51.8,55.2,78.7,58.4,12.4,109,112,364,47,34,1546,194,142,23,51,26],["Kuala Lumpur","Malaysia","asia",27.2,38.8,40.9,69.5,41.6,64.8,56.6,111.8,8.6,108,278,118,286,153,317,308,540,35,40,103],["Kuwait City","Kuwait","gulf",35.4,46.0,71.2,58.3,33.7,71.1,20.2,110.0,9.3,22,3,1,180,113,19,88,82,11,4,7],["Lagos","Nigeria","lat",25.9,26.4,30.9,46.8,68.3,88.7,60.8,8.5,102.7,18,33,14,6,75,1,19,103,3,4,5],["Lahore","Pakistan","asia",13.3,21.7,63.8,63.6,34.9,78.7,67.6,25.8,19.7,38,5,29,142,44,24,440,217,10,45,60],["Las Vegas","NV, United States","na",55.6,71.6,44.6,53.6,27.1,51.5,57.4,126.9,5.3,96,228,29,57,167,69,169,205,12,3,7],["Lausanne","Switzerland","eu",83.3,108.7,71.2,68.1,35.2,33.0,73.3,148.1,12.5,105,137,69,696,158,662,190,178,55,15,15],["Leeds","United Kingdom","eu",49.5,66.7,54.5,79.1,29.8,45.1,84.6,122.9,5.6,54,590,15,516,81,240,380,257,41,19,21],["Lima","Peru","lat",25.7,35.4,29.9,59.1,51.2,84.4,97.7,46.2,14.8,266,207,22,1620,74,180,3246,2628,44,103,187],["Limassol","Cyprus","eu",50.8,63.3,60.0,51.2,23.0,56.2,95.7,98.6,8.7,54,94,0,100,151,193,449,115,4,25,6],["Lisbon","Portugal","eu",46.3,55.2,67.1,72.4,34.6,37.1,98.6,65.6,18.7,342,518,304,1892,183,633,677,585,108,63,20],["Liverpool","United Kingdom","eu",48.1,67.3,52.7,79.1,27.8,30.4,90.9,128.1,4.9,63,684,54,648,236,253,293,374,38,14,18],["Ljubljana","Slovenia","eu",43.6,57.9,78.2,66.6,26.3,24.0,76.1,84.3,14.7,79,249,23,497,39,366,166,116,30,47,3],["Lodz","Poland","eu",32.0,46.9,62.4,58.6,35.6,57.4,77.0,97.3,8.5,96,86,437,268,11,1143,162,266,85,68,23],["London","Canada","na",46.2,61.0,46.3,67.3,30.0,35.6,59.3,117.3,6.1,31,44,1,18,5,297,296,131,18,22,7],["London","United Kingdom","eu",78.3,88.0,44.7,69.5,44.7,57.6,88.3,105.0,16.2,859,3146,298,3338,483,1950,1418,1289,182,162,126],["Los Angeles","CA, United States","na",75.9,84.5,46.2,61.9,57.1,68.5,95.5,111.0,8.2,223,187,52,446,241,222,265,496,63,18,18],["Luxembourg","Luxembourg","eu",67.6,80.6,71.5,72.4,27.8,21.6,82.6,140.8,10.6,63,195,68,271,170,410,142,127,7,4,2],["Lviv","Ukraine","cis",22.2,31.5,62.9,61.7,31.9,48.9,69.6,53.2,13.2,106,207,232,234,0,868,200,217,56,83,72],["Lyon","France","eu",49.1,71.7,40.8,75.8,35.8,51.7,88.5,122.3,8.2,280,582,298,1227,173,859,673,912,86,80,156],["Madison","WI, United States","na",57.0,70.2,63.4,67.9,34.9,33.8,51.6,142.5,4.0,54,150,0,998,17,384,412,84,23,3,5],["Madrid","Spain","eu",48.4,59.1,71.0,79.2,28.2,38.2,85.5,98.1,13.2,377,2623,257,2684,228,1963,2112,1163,107,73,69],["Malaga","Spain","eu",41.6,51.5,68.2,70.8,25.2,37.2,97.0,88.0,10.3,90,247,26,857,179,581,349,208,42,3,36],["Manama","Bahrain","gulf",35.5,45.3,82.0,67.7,30.8,62.3,64.3,122.1,5.0,25,35,0,41,86,63,60,130,6,11,4],["Manchester","United Kingdom","eu",54.1,67.7,44.1,74.5,39.0,52.3,86.9,108.3,7.6,95,826,195,1277,242,504,576,509,65,19,20],["Manila","Philippines","asia",26.2,34.3,35.4,62.5,50.7,89.4,61.2,35.8,34.8,173,452,78,910,99,110,339,779,40,68,164],["Medellin","Colombia","lat",30.0,39.1,45.9,78.9,37.8,62.5,99.8,35.0,19.4,112,228,34,657,71,146,979,931,67,57,69],["Melbourne","Australia","asia",60.8,77.3,55.7,72.1,42.0,28.1,94.3,134.4,7.6,223,835,1499,774,81,683,1338,307,74,72,36],["Mexico City","Mexico","lat",39.2,48.9,33.8,66.0,52.7,80.5,92.4,52.6,13.6,442,401,174,1034,137,351,1116,968,102,93,36],["Miami","FL, United States","na",77.1,85.1,46.7,63.0,42.9,39.5,85.7,103.8,6.2,93,121,54,122,274,101,214,353,33,7,9],["Milan","Italy","eu",58.9,74.3,46.0,70.0,35.9,68.1,88.1,70.2,18.2,297,1023,970,2362,305,880,1251,594,85,52,8],["Milwaukee","WI, United States","na",52.8,67.3,34.4,63.4,30.3,32.0,61.0,131.7,3.0,135,340,22,246,35,441,295,297,35,8,9],["Minneapolis","MN, United States","na",58.7,75.9,43.8,71.7,36.5,28.7,49.5,139.1,3.2,161,173,35,211,164,626,526,224,45,12,12],["Minsk","Belarus","cis",24.5,34.5,50.9,50.3,31.4,42.5,64.4,72.6,10.7,174,300,131,209,56,2329,268,309,65,122,68],["Mississauga","Canada","na",50.0,61.3,56.1,70.2,35.6,23.5,58.7,113.7,11.4,30,66,22,81,226,707,466,261,24,2,26],["Monterrey","Mexico","lat",38.2,50.8,52.1,68.8,31.9,70.9,80.4,54.1,16.3,82,55,87,345,65,118,1388,425,36,44,23],["Montevideo","Uruguay","lat",38.9,57.9,43.2,68.5,41.0,46.1,98.0,63.8,11.1,103,149,5,93,19,91,88,425,11,44,10],["Montreal","Canada","na",44.8,58.3,67.0,61.9,40.1,33.7,52.4,121.8,7.6,229,424,91,347,195,1098,1079,496,77,47,54],["Moscow","Russia","cis",43.2,51.7,65.0,67.9,50.5,54.6,55.8,79.6,21.1,789,979,833,277,206,5655,645,706,211,273,160],["Mumbai","India","asia",22.4,25.8,56.1,65.5,55.2,83.3,71.5,63.1,30.1,70,74,99,64,152,111,499,311,29,21,91],["Munich","Germany","eu",60.6,77.4,78.3,77.0,28.2,24.7,76.0,129.7,13.1,417,621,405,839,242,3071,996,475,102,76,56],["Muscat","Oman","gulf",32.5,47.3,81.4,63.3,22.5,35.9,67.2,96.1,6.6,17,2,0,23,91,6,19,22,0,0,2],["Nairobi","Kenya","lat",22.6,32.6,40.9,63.2,53.2,79.8,99.8,35.2,14.4,137,566,15,40,88,179,112,1927,35,30,88],["Nanaimo","BC, Canada","na",46.9,61.0,47.1,61.4,26.0,27.6,92.3,121.2,5.9,23,25,0,10,130,114,348,39,4,1,4],["Naples","Italy","eu",42.8,59.2,37.7,59.6,43.8,77.9,95.8,81.0,9.3,161,338,155,1123,139,90,1184,295,19,43,4],["Nashville","TN, United States","na",62.2,74.0,50.4,64.7,38.4,38.2,83.0,136.1,5.8,75,139,4,21,127,110,142,211,23,13,8],["New Orleans","LA, United States","na",60.0,78.0,32.1,61.7,28.0,50.6,86.5,126.1,4.1,92,229,214,58,53,90,187,309,24,11,5],["New York","NY, United States","na",100.0,100.0,49.2,62.9,43.3,58.1,79.7,105.5,10.8,869,1703,308,2275,290,896,934,1109,112,60,38],["Newcastle upon Tyne","United Kingdom","eu",48.8,67.5,60.7,77.2,33.1,36.9,85.7,139.1,8.1,65,520,54,494,95,353,243,290,47,8,15],["Nicosia","Cyprus","eu",41.3,57.7,67.8,55.2,27.1,60.1,86.0,83.7,7.4,110,103,0,188,139,224,325,192,16,47,13],["Nizhny Novgorod","Russia","cis",29.0,42.1,72.0,73.9,27.1,34.4,45.5,56.0,18.4,110,145,267,29,22,764,152,139,46,43,33],["Noida","India","asia",13.8,20.9,44.3,67.5,44.4,91.1,58.9,112.1,6.7,63,30,90,126,182,87,1575,315,14,20,25],["Novi Sad","Serbia","eu",31.4,47.1,61.6,50.2,18.0,53.4,84.0,63.0,15.1,29,109,6,79,137,216,71,73,17,7,11],["Novosibirsk","Russia","cis",27.3,39.2,54.9,56.1,40.5,67.6,16.1,57.1,13.6,81,132,283,299,112,1202,108,240,34,47,34],["Nuremberg","Germany","eu",46.9,67.6,66.6,67.1,25.3,27.2,77.5,149.8,7.3,143,296,247,358,63,649,164,203,29,14,12],["Oakland","CA, United States","na",72.9,85.2,31.4,72.0,36.5,42.4,96.4,135.9,6.5,173,199,16,268,166,364,331,233,68,14,24],["Odessa (Odesa)","Ukraine","cis",19.5,30.1,45.2,51.4,36.6,62.1,79.0,46.0,12.9,83,114,333,60,0,241,158,168,58,62,48],["Oklahoma City","OK, United States","na",51.4,70.0,49.3,63.7,32.1,29.7,77.6,136.5,2.8,57,68,27,59,25,224,296,177,11,16,17],["Omaha","NE, United States","na",53.0,67.4,53.5,69.3,27.4,37.6,59.8,138.5,2.4,48,95,1,294,42,333,185,211,19,9,5],["Orlando","FL, United States","na",59.0,72.0,50.5,61.6,37.8,34.5,87.2,145.0,3.1,39,58,6,16,209,85,215,142,15,9,10],["Oslo","Norway","eu",67.9,92.1,65.7,77.4,27.8,21.7,60.0,114.1,11.0,164,315,276,590,174,1367,432,271,30,17,10],["Ottawa","Canada","na",48.8,62.4,69.1,68.4,32.6,24.3,44.5,136.9,6.5,65,173,29,115,57,1148,631,250,33,8,10],["Panama City","Panama","lat",39.1,49.1,53.5,60.9,32.8,61.9,67.8,44.3,13.2,54,132,20,67,114,81,479,160,17,22,9],["Paris","France","eu",61.0,78.4,42.1,76.9,41.1,63.0,88.4,112.3,17.0,1571,2717,720,5834,390,2142,1821,2818,287,149,407],["Pattaya","Thailand","asia",27.2,37.9,54.9,75.1,21.9,87.0,75.0,32.3,21.5,29,1365,3,11,2,8,28,38,1,0,4],["Perth","Australia","asia",57.6,73.6,57.8,71.7,42.9,29.4,95.7,140.2,6.6,72,207,37,59,66,424,1082,182,33,11,24],["Philadelphia","PA, United States","na",64.6,81.3,34.6,71.1,39.7,47.7,78.0,128.8,3.4,214,291,559,303,142,697,567,599,70,36,20],["Phoenix","AZ, United States","na",59.8,75.9,46.7,66.0,32.7,58.0,53.8,131.5,4.7,64,135,43,64,159,203,259,235,15,16,13],["Pittsburgh","PA, United States","na",52.4,68.9,60.6,69.8,37.7,46.9,72.1,154.8,2.8,97,203,39,193,68,356,305,286,111,30,5],["Plovdiv","Bulgaria","eu",27.9,41.4,76.0,59.5,26.6,56.8,82.6,77.1,8.4,57,69,13,165,9,219,206,98,4,16,5],["Plzen","Czech Republic","eu",34.8,51.0,69.8,76.3,21.6,30.0,81.4,103.8,12.0,54,129,141,186,3,256,111,94,29,27,2],["Portland","OR, United States","na",66.7,83.6,41.9,65.4,37.4,35.7,89.6,142.8,3.6,152,573,142,233,103,413,283,209,31,25,17],["Porto Alegre","Brazil","lat",23.4,35.1,29.6,64.7,31.3,56.9,98.7,41.5,14.0,126,190,8,122,21,201,538,343,17,38,25],["Porto","Portugal","eu",41.1,50.6,66.2,78.7,24.7,24.5,96.6,73.5,14.2,214,337,129,2345,144,339,277,447,34,50,15],["Poznan","Poland","eu",33.0,46.0,72.3,58.0,31.3,58.8,77.4,104.8,8.6,116,169,356,548,70,1310,103,279,72,81,17],["Prague","Czech Republic","eu",44.6,57.3,75.3,74.7,31.8,33.0,80.7,99.1,18.2,386,949,757,1093,181,1387,715,450,90,104,79],["Pretoria","South Africa","lat",28.6,42.3,18.3,66.5,43.7,57.1,95.8,97.1,2.7,46,53,36,59,100,58,282,145,12,18,25],["Pune","India","asia",15.2,22.2,58.7,65.6,44.2,71.3,74.3,141.2,7.1,62,48,64,67,43,53,393,238,81,52,88],["Qingdao","Shandong, China","asia",20.0,30.0,88.4,76.7,27.9,50.5,70.4,109.2,12.1,78,26,92,265,74,7,296,218,6,10,13],["Quebec City","Canada","na",41.2,58.4,77.7,69.0,33.4,36.4,48.0,127.9,7.6,82,84,3,100,37,348,436,148,28,10,16],["Queretaro (Santiago de Querétaro)","Mexico","lat",34.2,47.5,62.5,73.6,33.3,39.0,94.5,51.5,9.7,51,55,0,306,38,122,584,229,12,32,18],["Quito","Ecuador","lat",23.5,34.9,36.9,69.1,41.0,64.5,99.0,48.2,10.1,137,238,16,199,42,112,689,432,19,61,99],["Raleigh","NC, United States","na",53.9,67.0,51.0,65.2,39.8,39.7,83.9,152.1,3.5,50,89,2,47,83,104,254,95,18,26,1],["Recife","Brazil","lat",22.1,32.0,25.0,64.5,46.9,69.9,79.3,35.4,17.8,103,130,26,364,50,93,839,576,22,53,20],["Regina","Canada","na",44.5,61.3,46.5,65.4,23.7,41.4,14.3,110.7,4.0,29,27,0,7,16,253,365,107,9,3,1],["Reno","NV, United States","na",59.9,76.2,53.6,62.6,29.1,30.4,62.3,134.4,4.0,38,120,6,113,25,174,153,137,14,2,1],["Reykjavik","Iceland","eu",75.6,98.3,75.4,69.6,20.5,15.6,68.8,111.7,7.8,76,89,0,201,105,681,64,89,13,9,11],["Richmond","VA, United States","na",54.3,70.2,49.3,65.9,40.1,35.3,81.3,149.9,3.2,77,65,1,100,39,201,164,94,21,8,2],["Riga","Latvia","eu",36.6,55.6,62.8,60.5,30.2,36.7,74.7,78.8,8.6,152,280,258,514,106,867,133,202,35,61,15],["Rijeka","Croatia","eu",36.4,53.6,76.9,67.2,17.0,31.9,94.9,78.4,13.3,26,76,4,186,21,217,76,60,10,13,1],["Rio de Janeiro","Brazil","lat",26.4,36.8,24.6,46.4,51.2,67.7,88.2,39.1,22.1,265,721,172,638,69,141,510,646,41,94,38],["Riyadh","Saudi Arabia","gulf",38.4,50.0,75.4,66.2,34.0,63.8,44.4,99.9,6.1,10,0,42,83,122,35,132,143,8,3,2],["Rome","Italy","eu",46.6,60.0,53.3,64.9,35.2,47.7,93.7,81.0,14.8,395,622,295,2045,255,347,893,591,164,93,40],["Rostov-on-Don (Rostov-na-donu)","Russia","cis",25.1,36.1,47.7,51.5,42.0,71.5,73.9,65.6,12.0,41,92,145,35,0,744,253,166,22,40,47],["Rotterdam","Netherlands","eu",60.9,77.0,70.0,79.2,21.3,23.8,87.9,124.6,6.1,118,316,414,1903,317,1351,255,553,51,12,35],["Sacramento","CA, United States","na",63.4,79.0,50.6,67.4,27.1,46.9,90.6,136.0,4.6,49,74,39,348,39,185,337,216,32,7,3],["Saint Louis","MO, United States","na",54.4,75.2,29.9,69.9,28.4,37.5,74.8,144.5,2.0,76,167,31,719,51,303,187,175,27,14,7],["Saint Petersburg","Russia","cis",31.7,42.5,62.5,61.6,49.1,60.9,60.6,70.0,15.6,557,964,733,45,131,4192,1020,575,155,208,126],["Salt Lake City","UT, United States","na",52.8,65.9,64.4,66.9,33.6,61.7,66.5,150.1,4.2,83,137,47,257,107,278,192,125,19,5,5],["San Antonio","TX, United States","na",51.9,65.7,50.4,66.8,36.7,45.6,80.6,150.5,3.8,98,86,2,76,47,169,173,255,20,11,14],["San Diego","CA, United States","na",79.2,83.7,60.1,67.1,34.9,39.3,97.1,123.9,7.1,151,266,39,501,130,193,240,216,29,9,10],["San Francisco","CA, United States","na",88.7,94.9,39.5,64.9,49.0,48.4,97.3,162.7,6.5,264,545,363,385,162,319,368,277,49,34,21],["San Jose","CA, United States","na",79.5,87.7,52.0,68.0,38.3,48.4,95.5,144.7,7.3,86,136,52,266,165,810,321,338,38,14,9],["San Jose","Costa Rica","lat",42.6,59.2,44.1,62.9,63.3,48.5,99.5,47.0,9.6,126,540,27,59,47,80,1584,441,41,59,56],["San Juan","Puerto Rico","na",53.5,70.9,33.0,63.3,33.8,48.6,71.2,98.5,9.6,58,190,14,300,54,219,302,345,18,22,11],["Santiago","Chile","lat",29.6,42.9,35.9,65.7,36.9,70.7,90.2,52.3,16.9,297,341,104,621,83,657,1641,1475,93,194,53],["Santo Domingo","Dominican Republic","lat",29.1,41.5,33.2,54.5,35.5,79.1,67.8,40.6,13.4,72,208,61,49,44,19,390,351,11,28,28],["Sao Paulo","Brazil","lat",29.8,41.3,30.2,60.3,51.2,78.9,99.0,53.1,13.8,266,952,103,430,126,135,2479,691,59,108,112],["Sarajevo","Bosnia And Herzegovina","eu",29.3,44.1,56.2,59.6,26.9,65.2,78.2,68.2,13.1,69,123,81,236,45,161,224,96,17,30,3],["Seattle","WA, United States","na",76.9,91.4,44.7,66.6,42.9,38.8,91.7,160.7,4.8,167,508,53,453,155,384,555,203,51,8,13],["Seoul","South Korea","asia",45.3,64.5,74.6,83.0,40.4,47.6,68.4,127.9,29.1,1235,1891,226,933,201,783,1108,787,352,102,9],["Shanghai","China","asia",33.0,40.5,73.5,67.8,45.1,68.0,83.6,95.2,31.2,289,359,317,594,244,85,492,838,52,45,20],["Sharjah","United Arab Emirates","gulf",37.2,49.6,84.7,60.3,57.2,48.2,43.3,113.9,12.1,45,15,4,71,361,50,185,188,10,10,4],["Shenzhen","China","asia",29.3,38.7,75.5,64.2,33.7,54.8,81.8,107.3,28.6,72,33,146,356,300,91,325,337,18,9,14],["Singapore","Singapore","asia",80.5,90.8,77.7,71.9,41.0,32.5,57.5,93.3,24.9,217,538,116,576,197,924,449,279,40,27,51],["Skopje","North Macedonia","eu",25.0,37.9,54.2,55.0,27.2,82.2,76.3,66.3,12.8,36,107,8,184,55,121,120,111,14,29,2],["Sofia","Bulgaria","eu",35.9,50.3,61.4,58.5,30.5,67.4,76.0,90.6,11.0,218,329,413,311,110,1512,436,268,18,50,4],["Split","Croatia","eu",42.1,57.1,69.5,68.4,15.7,27.6,96.3,73.1,18.7,32,118,10,541,76,118,112,85,8,17,5],["Spokane","WA, United States","na",56.0,72.5,42.9,66.0,29.0,26.8,67.1,143.7,3.3,28,83,1,67,24,175,162,97,14,7,8],["Stavanger","Norway","eu",63.6,87.5,71.5,70.2,39.1,24.6,80.0,144.4,5.6,34,65,5,88,35,858,209,104,6,3,3],["Stockholm","Sweden","eu",59.8,79.1,53.8,65.7,34.1,18.1,69.7,113.6,12.5,228,339,230,944,186,1588,1286,424,57,29,17],["Stuttgart","Germany","eu",49.7,70.1,66.0,77.1,25.0,35.0,81.1,156.1,7.0,178,466,343,974,136,1187,335,338,54,24,24],["Sydney","Australia","asia",68.6,79.2,66.2,74.6,43.5,28.7,97.1,109.2,12.5,235,623,91,694,115,673,1580,321,63,19,25],["Taipei","Taiwan","asia",37.8,54.5,83.4,87.2,34.6,48.7,84.4,86.1,31.4,249,277,108,648,124,432,1254,366,176,43,21],["Tallinn","Estonia","eu",43.2,63.5,78.3,73.9,24.4,18.2,64.3,91.4,10.1,169,181,103,426,71,973,178,98,27,12,9],["Tampa","FL, United States","na",61.1,69.4,55.2,66.2,38.0,34.2,84.7,139.9,4.1,38,93,44,183,155,99,175,158,13,6,7],["Tashkent","Uzbekistan","cis",22.8,30.7,74.2,65.7,35.8,60.2,69.8,53.8,9.9,108,138,56,290,123,256,98,448,23,97,92],["Tbilisi","Georgia","cis",28.0,38.6,74.0,55.4,38.0,71.9,84.2,43.7,14.9,134,335,33,205,66,890,634,196,36,42,19],["Tehran","Iran","gulf",17.4,23.0,42.8,53.3,52.9,80.3,71.0,22.8,24.3,254,3,104,103,58,258,1610,1388,99,153,73],["Tel Aviv-Yafo","Israel","gulf",79.0,103.9,73.8,73.9,36.6,46.5,93.9,102.9,20.0,129,247,50,711,143,597,1324,454,40,8,21],["The Hague (Den Haag)","Netherlands","eu",58.3,74.7,78.9,82.7,20.2,17.9,90.6,137.0,6.5,214,327,455,1438,317,1452,372,427,42,28,20],["Thessaloniki","Greece","eu",36.7,55.8,48.2,57.4,27.9,54.2,88.4,59.6,14.2,127,234,14,831,107,213,536,428,30,11,10],["Thiruvananthapuram","India","asia",11.9,18.6,60.8,63.4,40.9,56.0,64.8,38.5,11.4,53,18,5,13,26,38,84,303,107,6,67],["Timisoara","Romania","eu",27.0,40.3,74.2,71.4,24.7,56.5,82.0,84.6,9.5,59,101,173,202,43,132,214,76,11,36,0],["Tirana","Albania","eu",34.7,48.9,59.9,47.3,38.4,87.5,86.4,48.5,18.1,38,445,4,179,147,129,260,239,14,40,3],["Tokyo","Japan","asia",41.4,54.3,75.9,78.3,42.7,42.5,85.3,109.1,16.0,660,5047,511,2611,167,586,2361,1068,182,296,173],["Toronto","Canada","na",52.8,65.6,56.3,73.9,43.9,37.5,65.3,122.0,11.4,208,537,661,394,217,902,837,405,86,21,29],["Toulouse","France","eu",46.9,70.0,50.2,79.4,32.2,36.9,91.9,115.1,8.4,173,318,112,645,99,520,396,537,62,133,109],["Trieste","Italy","eu",43.4,64.6,72.7,64.5,28.8,45.0,92.6,83.2,7.7,91,253,24,791,31,120,93,181,103,12,4],["Trondheim","Norway","eu",60.5,87.0,78.1,75.8,32.6,24.5,66.7,127.8,6.6,60,50,41,239,39,774,190,100,20,14,8],["Tucson","AZ, United States","na",48.5,64.4,45.6,61.3,33.1,32.1,72.7,154.0,3.7,48,54,34,138,13,526,190,151,15,49,10],["Tulsa","OK, United States","na",48.1,66.0,48.0,68.7,35.1,32.2,79.3,134.8,2.5,53,92,1,77,25,179,118,104,10,11,5],["Tunis","Tunisia","lat",20.2,31.5,51.6,56.0,37.0,74.0,93.2,33.8,14.9,53,30,94,1373,62,6,210,322,41,58,39],["Turin","Italy","eu",42.7,62.7,48.0,66.0,27.6,66.8,85.7,90.0,8.3,164,493,472,971,83,438,727,367,48,59,9],["Utrecht","Netherlands","eu",60.7,76.1,73.5,78.6,23.7,28.8,87.2,134.4,7.5,108,144,47,1479,317,1417,239,381,31,34,45],["Valencia","Spain","eu",41.8,52.2,62.5,77.0,19.7,28.8,93.8,87.2,11.6,155,627,196,3168,109,1108,926,457,76,31,17],["Vancouver","Canada","na",57.9,68.5,57.2,71.6,35.9,25.4,91.2,109.0,11.7,136,257,41,548,147,839,548,267,33,16,39],["Varna","Bulgaria","eu",32.0,46.9,65.7,63.5,28.7,58.3,85.1,69.3,11.2,36,102,3,132,54,232,128,76,5,12,1],["Victoria","Canada","na",54.1,68.3,60.3,65.6,31.8,22.7,92.5,102.9,8.5,46,75,0,21,23,340,546,89,15,4,6],["Vienna","Austria","eu",54.1,74.5,70.6,79.9,22.9,15.8,81.8,116.1,15.8,512,746,1134,1519,221,1803,1097,607,146,96,29],["Villach","Austria","eu",44.1,65.2,71.4,70.0,16.0,34.0,75.9,116.8,7.2,27,56,16,78,8,68,31,47,3,3,1],["Vilnius","Lithuania","eu",37.3,52.7,70.8,76.6,25.9,23.7,66.6,98.3,12.0,130,207,6,80,88,1143,116,166,28,35,20],["Warsaw","Poland","eu",41.5,52.7,74.7,58.4,34.8,59.8,74.6,97.0,11.7,322,454,603,699,193,2146,323,679,202,113,89],["Washington","DC, United States","na",81.2,92.1,40.3,71.0,41.2,42.1,81.6,161.4,4.3,236,380,79,521,219,778,1066,487,77,41,9],["Wellington","New Zealand","asia",49.0,65.1,66.6,64.1,39.4,24.8,97.7,106.3,9.5,52,135,15,470,22,202,222,72,21,10,1],["Windhoek","Namibia","lat",28.4,40.0,32.5,67.7,23.9,34.3,85.0,67.0,5.5,26,62,2,21,28,49,33,100,7,9,10],["Winnipeg","Canada","na",42.5,58.0,39.8,68.5,31.7,35.5,24.7,109.4,4.7,80,65,2,60,68,678,857,276,22,4,17],["Wroclaw","Poland","eu",35.7,49.2,74.8,57.5,34.8,61.6,78.4,95.8,11.0,125,177,482,220,93,1654,318,369,51,177,51],["Yekaterinburg","Russia","cis",31.1,41.8,56.6,53.6,39.3,69.6,21.3,56.6,12.1,118,155,380,371,101,1687,287,237,48,51,50],["Yerevan","Armenia","cis",31.4,43.6,77.9,60.1,30.5,60.9,63.4,40.0,17.5,114,196,20,160,103,354,309,259,21,55,23],["Zagreb","Croatia","eu",38.1,54.2,78.4,64.8,29.6,35.5,82.2,93.1,10.8,123,288,280,292,58,790,383,222,50,80,17],["Zurich","Switzerland","eu",100.9,123.1,75.9,68.8,37.0,26.6,81.5,156.1,12.8,261,383,552,569,215,1618,322,505,96,28,62]]};
+  var F = {};
+  DATA.fields.forEach(function (name, i) { F[name] = i; });
+
+  var REGIONS = {
+    eu: { label: "Europe", color: "var(--c-eu)" },
+    cis: { label: "CIS & neighbours", color: "var(--c-cis)" },
+    gulf: { label: "Gulf, Israel, Turkey", color: "var(--c-gulf)" },
+    na: { label: "North America", color: "var(--c-na)" },
+    asia: { label: "Asia & Oceania", color: "var(--c-asia)" },
+    lat: { label: "Latin America & Africa", color: "var(--c-lat)" }
+  };
+
+  // invert: у метрики меньше значит лучше, перцентиль переворачивается.
+  var METRICS = [
+    { key: "safety",   group: "basics", label: "Safety",          hint: "Numbeo survey", def: 2,
+      get: function (r) { return r[F.safety]; } },
+    { key: "health",   group: "basics", label: "Health care",     hint: "Numbeo survey", def: 2,
+      get: function (r) { return r[F.health]; } },
+    { key: "commute",  group: "basics", label: "Short commute",   hint: "minutes, reported", def: 2, invert: true,
+      get: function (r) { return r[F.traffic]; } },
+    { key: "air",      group: "basics", label: "Clean air",       hint: "Numbeo pollution", def: 2, invert: true,
+      get: function (r) { return r[F.pollution]; } },
+    { key: "climate",  group: "basics", label: "Climate",         hint: "weather data", def: 2,
+      get: function (r) { return r[F.climate]; } },
+
+    { key: "culture",  group: "city", label: "Culture & nightlife", hint: "museums, theatres, bars — OSM", def: 0,
+      get: function (r) { return r[F.culture] + r[F.nightlife]; } },
+    { key: "walk",     group: "city", label: "Car-free living",   hint: "rail stops, pedestrian streets — OSM", def: 0,
+      get: function (r) { return r[F.rail] + r[F.pedestrian]; } },
+    { key: "edu",      group: "city", label: "University presence", hint: "campus footprint — OSM", def: 0,
+      get: function (r) { return r[F.university] + r[F.college]; } },
+
+    { key: "power",    group: "money", label: "Purchasing power", hint: "what a local salary buys", def: 0,
+      get: function (r) { return r[F.power]; } },
+    { key: "housing",  group: "money", label: "Affordable to buy", hint: "years of income per flat", def: 0, invert: true,
+      get: function (r) { return r[F.price_to_income]; } },
+
+    { key: "kids",     group: "family", label: "Kid infrastructure", hint: "playgrounds, parks, schools, libraries — OSM", def: 0,
+      get: function (r) { return r[F.playground] + r[F.park] + r[F.school] + r[F.library]; } },
+
+    { key: "flights",  group: "world", label: "Nonstop destinations", hint: "airports within 60 km", def: 0,
+      get: function (r) { return r[F.flights]; } }
+  ];
+
+  var GROUPS = [
+    { key: "basics", label: "The basics", open: true },
+    { key: "city",   label: "City life",  open: false },
+    { key: "money",  label: "Money",      open: false },
+    { key: "family", label: "Family",     open: false },
+    { key: "world",  label: "Reaching the world", open: false }
+  ];
+
+  var PRESETS = [
+    { key: "default", label: "the basics",
+      w: { safety: 2, health: 2, commute: 2, air: 2, climate: 2 } },
+    { key: "remote", label: "remote worker",
+      w: { safety: 2, air: 2, climate: 3, culture: 2, walk: 2, flights: 3, housing: 1 } },
+    { key: "family", label: "family with kids",
+      w: { safety: 3, health: 3, air: 3, kids: 3, walk: 2, climate: 1, edu: 1 } },
+    { key: "night", label: "culture & nightlife",
+      w: { culture: 3, walk: 3, flights: 1, safety: 1, climate: 1 } },
+    { key: "quiet", label: "quiet retirement",
+      w: { health: 3, air: 3, climate: 3, safety: 2, commute: 1, housing: 2 } },
+    { key: "local", label: "living on a local salary",
+      w: { power: 3, housing: 3, safety: 2, health: 2, air: 1 } }
+  ];
+
+  var weights = {};
+  METRICS.forEach(function (m) { weights[m.key] = m.def; });
+  var activePreset = "default";
+  var mode = "rent";
+  var active = { eu: true, cis: true, gulf: true, na: true, asia: true, lat: true };
+
+  // ---- перцентили считаются один раз: значения метрик не зависят от весов
+  function percentiles(values, invert) {
+    var idx = values.map(function (v, i) { return i; });
+    idx.sort(function (a, b) { return values[a] - values[b]; });
+    var out = new Array(values.length), n = values.length, i = 0;
+    while (i < n) {
+      var j = i;
+      while (j + 1 < n && values[idx[j + 1]] === values[idx[i]]) j++;
+      var p = ((i + j) / 2 + 0.5) / n * 100;
+      for (var k = i; k <= j; k++) out[idx[k]] = invert ? 100 - p : p;
+      i = j + 1;
+    }
+    return out;
+  }
+
+  var cities = DATA.rows.map(function (r) {
+    return { city: r[F.city], country: r[F.country], region: r[F.region], raw: r };
+  });
+
+  // Лондон британский и Лондон канадский, Сан-Хосе калифорнийский и коста-риканский:
+  // на графике одинаковые подписи неразличимы, поэтому тёзкам дописываем страну.
+  (function disambiguate() {
+    var seen = {};
+    cities.forEach(function (c) { seen[c.city] = (seen[c.city] || 0) + 1; });
+    cities.forEach(function (c) {
+      if (seen[c.city] < 2) return;
+      var tail = c.country.indexOf(",") > -1 ? c.country.split(",")[0].trim() : c.country;
+      tail = tail.replace("United Kingdom", "UK").replace("United States", "US");
+      c.city = c.city + " (" + tail + ")";
+    });
+  })();
+  METRICS.forEach(function (m) {
+    var vals = DATA.rows.map(m.get);
+    var pct = percentiles(vals, m.invert);
+    cities.forEach(function (c, i) { c[m.key] = pct[i]; c[m.key + "_raw"] = vals[i]; });
+  });
+  var costRentPct = percentiles(DATA.rows.map(function (r) { return r[F.cost_rent]; }), false);
+  var costOnlyPct = percentiles(DATA.rows.map(function (r) { return r[F.cost_only]; }), false);
+  cities.forEach(function (c, i) { c.xpRent = costRentPct[i]; c.xpNoRent = costOnlyPct[i]; });
+
+  function xp(c) { return mode === "rent" ? c.xpRent : c.xpNoRent; }
+
+  function score(c) {
+    var sum = 0, tot = 0;
+    for (var i = 0; i < METRICS.length; i++) {
+      var w = weights[METRICS[i].key];
+      if (w > 0) { sum += c[METRICS[i].key] * w; tot += w; }
+    }
+    return tot === 0 ? null : sum / tot;
+  }
+
+  function recomputeScores() {
+    var any = false;
+    cities.forEach(function (c) { c.score = score(c); if (c.score !== null) any = true; });
+    if (!any) return false;
+    // Итоговый балл сам переводится в перцентиль: иначе при одной включённой
+    // метрике облако жалось бы к середине, а при многих — растягивалось.
+    var pct = percentiles(cities.map(function (c) { return c.score; }), false);
+    cities.forEach(function (c, i) { c.yp = pct[i]; });
+    return true;
+  }
+
+  // ---- отрисовка графика
+  var W = 1000, H = 720, M = { t: 26, r: 26, b: 62, l: 66 };
+  var PW = W - M.l - M.r, PH = H - M.t - M.b;
+  var svg = document.getElementById("chart");
+  var tip = document.getElementById("tip");
+  var NS = "http://www.w3.org/2000/svg";
+
+  function el(name, attrs, text) {
+    var n = document.createElementNS(NS, name);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  function sx(p) { return M.l + p / 100 * PW; }
+  function sy(p) { return M.t + PH - p / 100 * PH; }
+  function fmt(v, d) { return v == null ? "—" : v.toFixed(d == null ? 1 : d); }
+
+  var ANCHORS = ["New York", "London", "Paris", "Tokyo", "Moscow", "Dubai", "Singapore",
+    "Hong Kong", "Berlin", "Zurich", "San Francisco", "Los Angeles", "Amsterdam", "Vienna",
+    "Prague", "Istanbul", "Seoul", "Sydney", "Toronto", "Barcelona", "Madrid", "Lisbon",
+    "Rome", "Milan", "Bangkok", "Delhi", "Mumbai", "Shanghai", "Beijing", "Porto",
+    "Valencia", "Vilnius", "Tallinn", "Warsaw", "Budapest", "Copenhagen", "Stockholm",
+    "Oslo", "Helsinki", "Dublin", "Brussels", "Munich", "Tel Aviv-Yafo", "Cape Town",
+    "Mexico City", "Sao Paulo", "Buenos Aires", "Kiev (Kyiv)", "Tbilisi", "Almaty"];
+
+  function render() {
+    if (typeof refreshCard === "function") setTimeout(refreshCard, 0);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    if (!recomputeScores()) {
+      svg.appendChild(el("text", { x: W / 2, y: H / 2, "text-anchor": "middle",
+        class: "axis-title" }, "Turn at least one slider up to draw the chart"));
+      picksBox.innerHTML = "";
+      fillTable();
+      return;
+    }
+
+    var mid = 50;
+    [{ x: M.l, y: M.t, w: sx(mid) - M.l, h: sy(mid) - M.t, f: "var(--q-best)" },
+     { x: sx(mid), y: M.t, w: M.l + PW - sx(mid), h: sy(mid) - M.t, f: "var(--q-premium)" },
+     { x: M.l, y: sy(mid), w: sx(mid) - M.l, h: M.t + PH - sy(mid), f: "var(--q-budget)" },
+     { x: sx(mid), y: sy(mid), w: M.l + PW - sx(mid), h: M.t + PH - sy(mid), f: "var(--q-bad)" }
+    ].forEach(function (q) {
+      svg.appendChild(el("rect", { x: q.x, y: q.y, width: q.w, height: q.h, fill: q.f }));
+    });
+
+    for (var g = 0; g <= 100; g += 10) {
+      svg.appendChild(el("line", { x1: sx(g), y1: M.t, x2: sx(g), y2: M.t + PH,
+        stroke: "var(--grid)", "stroke-width": 1 }));
+      svg.appendChild(el("line", { x1: M.l, y1: sy(g), x2: M.l + PW, y2: sy(g),
+        stroke: "var(--grid)", "stroke-width": 1 }));
+      if (g % 20 === 0) {
+        svg.appendChild(el("text", { x: sx(g), y: M.t + PH + 20, "text-anchor": "middle", class: "tick" }, String(g)));
+        svg.appendChild(el("text", { x: M.l - 12, y: sy(g) + 3.5, "text-anchor": "end", class: "tick" }, String(g)));
+      }
+    }
+    svg.appendChild(el("line", { x1: sx(50), y1: M.t, x2: sx(50), y2: M.t + PH,
+      stroke: "var(--ink-3)", "stroke-width": 1, "stroke-dasharray": "5 5" }));
+    svg.appendChild(el("line", { x1: M.l, y1: sy(50), x2: M.l + PW, y2: sy(50),
+      stroke: "var(--ink-3)", "stroke-width": 1, "stroke-dasharray": "5 5" }));
+
+    svg.appendChild(el("text", { x: M.l + PW / 2, y: H - 18, "text-anchor": "middle", class: "axis-title" },
+      (mode === "rent" ? "Cost of living with rent" : "Cost of living without rent") + ", percentile  →  pricier"));
+    svg.appendChild(el("text", { x: 0, y: 0, "text-anchor": "middle", class: "axis-title",
+      transform: "translate(18," + (M.t + PH / 2) + ") rotate(-90)" },
+      "Your score, percentile  →  better"));
+
+    var shown = cities.filter(function (c) { return active[c.region]; });
+    var boxes = [], labelLayer = el("g", {}), dotLayer = el("g", {});
+    shown.forEach(function (c) { boxes.push({ x: sx(xp(c)) - 6, y: sy(c.yp) - 6, w: 12, h: 12 }); });
+
+    var ranked = shown.slice().sort(function (a, b) {
+      var pa = (ANCHORS.indexOf(a.city) >= 0 ? 60 : 0) + Math.abs(a.yp - 50) + Math.abs(xp(a) - 50);
+      var pb = (ANCHORS.indexOf(b.city) >= 0 ? 60 : 0) + Math.abs(b.yp - 50) + Math.abs(xp(b) - 50);
+      return pb - pa;
+    });
+    function hits(bx) {
+      for (var i = 0; i < boxes.length; i++) {
+        var o = boxes[i];
+        if (bx.x < o.x + o.w && bx.x + bx.w > o.x && bx.y < o.y + o.h && bx.y + bx.h > o.y) return true;
+      }
+      return false;
+    }
+    ranked.forEach(function (c) {
+      var x = sx(xp(c)), y = sy(c.yp), name = c.city;
+      var w = name.length * 5.15 + 4, h = 11;
+      var cands = [
+        { x: x + 8, y: y - h / 2, a: "start", lx: x + 8 },
+        { x: x - 8 - w, y: y - h / 2, a: "end", lx: x - 8 },
+        { x: x - w / 2, y: y - 8 - h, a: "middle", lx: x, dy: -10 },
+        { x: x - w / 2, y: y + 8, a: "middle", lx: x, dy: 15 },
+        { x: x + 7, y: y - 7 - h, a: "start", lx: x + 7, dy: -7 },
+        { x: x - 7 - w, y: y - 7 - h, a: "end", lx: x - 7, dy: -7 },
+        { x: x + 7, y: y + 2, a: "start", lx: x + 7, dy: 13 },
+        { x: x - 7 - w, y: y + 2, a: "end", lx: x - 7, dy: 13 }
+      ];
+      for (var i = 0; i < cands.length; i++) {
+        var cd = cands[i], bx = { x: cd.x, y: cd.y, w: w, h: h };
+        if (cd.x < 6 || cd.x + w > W - 6) continue;
+        if (!hits(bx)) {
+          boxes.push(bx);
+          labelLayer.appendChild(el("text", { x: cd.lx, y: cd.dy ? y + cd.dy : y + 3.3,
+            "text-anchor": cd.a, class: "citylabel" }, name));
+          break;
+        }
+      }
+    });
+    shown.forEach(function (c) {
+      var x = sx(xp(c)), y = sy(c.yp);
+      var dot = el("circle", { cx: x, cy: y, r: 5.2, fill: REGIONS[c.region].color, class: "pt",
+        stroke: "var(--panel)", "stroke-width": 1.4, tabindex: 0,
+        "aria-label": c.city + ", " + c.country });
+      dot.addEventListener("mouseenter", function () { showTip(c, x, y); });
+      dot.addEventListener("focus", function () { showTip(c, x, y); });
+      dot.addEventListener("mouseleave", hideTip);
+      dot.addEventListener("blur", hideTip);
+      dotLayer.appendChild(dot);
+    });
+    svg.appendChild(dotLayer);
+    svg.appendChild(labelLayer);
+    fillShortlist(shown);
+    fillTable();
+  }
+
+  var picksBox = document.getElementById("picks");
+  function fillShortlist(shown) {
+    var best = shown.slice().sort(function (a, b) {
+      return (b.yp - xp(b)) - (a.yp - xp(a));
+    }).slice(0, 10);
+    picksBox.innerHTML = best.map(function (c, i) {
+      return '<div class="pick"><span class="n">' + (i + 1) + '</span>' +
+        '<span class="nm">' + c.city + '</span>' +
+        '<span class="cy">' + c.country + '</span>' +
+        '<span class="gap">+' + Math.round(c.yp - xp(c)) + '</span></div>';
+    }).join("");
+  }
+
+  function showTip(c, x, y) {
+    var box = svg.getBoundingClientRect();
+    var html = "<b>" + c.city + "</b>, " + c.country +
+      '<div class="r"><span>cost, percentile</span><span>' + fmt(xp(c), 0) + "</span></div>" +
+      '<div class="r"><span>your score</span><span>' + fmt(c.yp, 0) + "</span></div>" +
+      '<div class="sep"></div>';
+    METRICS.forEach(function (m) {
+      if (weights[m.key] > 0) {
+        html += '<div class="r"><span>' + m.label.toLowerCase() + " ×" + weights[m.key] +
+          "</span><span>" + fmt(c[m.key], 0) + "</span></div>";
+      }
+    });
+    tip.innerHTML = html;
+    tip.style.left = (x * box.width / W + 10) + "px";
+    tip.style.top = (y * box.height / H) + "px";
+    tip.style.opacity = "1";
+  }
+  function hideTip() { tip.style.opacity = "0"; }
+
+  // ---- органы управления
+  var legend = document.getElementById("legend");
+  Object.keys(REGIONS).forEach(function (k) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "chip"; b.setAttribute("aria-pressed", "true");
+    b.style.setProperty("--sw", REGIONS[k].color);
+    b.innerHTML = '<span class="dot"></span>' + REGIONS[k].label;
+    b.addEventListener("click", function () {
+      active[k] = !active[k];
+      b.setAttribute("aria-pressed", active[k] ? "true" : "false");
+      render();
+    });
+    legend.appendChild(b);
+  });
+
+  var bRent = document.getElementById("mode-rent"), bNo = document.getElementById("mode-norent");
+  bRent.addEventListener("click", function () {
+    mode = "rent"; bRent.setAttribute("aria-pressed", "true");
+    bNo.setAttribute("aria-pressed", "false"); render();
+  });
+  bNo.addEventListener("click", function () {
+    mode = "norent"; bNo.setAttribute("aria-pressed", "true");
+    bRent.setAttribute("aria-pressed", "false"); render();
+  });
+
+  var weightsBox = document.getElementById("weights");
+  var rowEls = {}, countEls = {};
+  GROUPS.forEach(function (grp) {
+    var d = document.createElement("details");
+    d.className = "grp"; d.open = grp.open;
+    var sum = document.createElement("summary");
+    sum.innerHTML = "<span>" + grp.label + "</span><span class='count'></span>";
+    countEls[grp.key] = sum.querySelector(".count");
+    d.appendChild(sum);
+    var rows = document.createElement("div");
+    rows.className = "rows";
+    METRICS.filter(function (m) { return m.group === grp.key; }).forEach(function (m) {
+      var row = document.createElement("div");
+      row.className = "row";
+      row.innerHTML = "<label>" + m.label + "<span class='hint'>" + m.hint + "</span></label>";
+      var inp = document.createElement("input");
+      inp.type = "range"; inp.min = 0; inp.max = 3; inp.step = 1; inp.value = m.def;
+      inp.setAttribute("aria-label", m.label + " importance");
+      var val = document.createElement("span");
+      val.className = "val"; val.textContent = m.def;
+      inp.addEventListener("input", function () {
+        weights[m.key] = +inp.value;
+        val.textContent = inp.value;
+        activePreset = null;
+        syncUI();
+        render();
+      });
+      row.appendChild(inp); row.appendChild(val);
+      rowEls[m.key] = { row: row, input: inp, val: val };
+      rows.appendChild(row);
+    });
+    d.appendChild(rows);
+    weightsBox.appendChild(d);
+  });
+
+  var presetsBox = document.getElementById("presets");
+  PRESETS.forEach(function (p) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "preset"; b.textContent = p.label;
+    b.setAttribute("aria-pressed", p.key === activePreset ? "true" : "false");
+    b.dataset.key = p.key;
+    b.addEventListener("click", function () {
+      METRICS.forEach(function (m) { weights[m.key] = p.w[m.key] || 0; });
+      activePreset = p.key;
+      syncUI();
+      render();
+    });
+    presetsBox.appendChild(b);
+  });
+
+  function syncUI() {
+    METRICS.forEach(function (m) {
+      var r = rowEls[m.key];
+      r.input.value = weights[m.key];
+      r.val.textContent = weights[m.key];
+      r.row.classList.toggle("off", weights[m.key] === 0);
+    });
+    GROUPS.forEach(function (g) {
+      var on = METRICS.filter(function (m) { return m.group === g.key && weights[m.key] > 0; }).length;
+      var all = METRICS.filter(function (m) { return m.group === g.key; }).length;
+      countEls[g.key].textContent = on + " of " + all + " on";
+    });
+    Array.prototype.forEach.call(presetsBox.children, function (b) {
+      b.setAttribute("aria-pressed", b.dataset.key === activePreset ? "true" : "false");
+    });
+    document.getElementById("moneynote").hidden = weights.power === 0;
+  }
+
+  // ---- таблица
+  var TCOLS = [
+    { key: "yp", label: "Score" }, { key: "city", label: "City" }, { key: "country", label: "Country" },
+    { key: "xp", label: "Cost pct." }
+  ].concat(METRICS.map(function (m) { return { key: m.key, label: m.label }; }));
+  var thead = document.getElementById("thead");
+  TCOLS.forEach(function (c) {
+    var th = document.createElement("th");
+    th.textContent = c.label; th.dataset.key = c.key;
+    thead.appendChild(th);
+  });
+  var sortKey = "yp", sortDir = -1;
+  var tbody = document.querySelector("#tbl tbody");
+
+  function fillTable() {
+    var rows = cities.slice().sort(function (a, b) {
+      var av = sortKey === "xp" ? xp(a) : a[sortKey];
+      var bv = sortKey === "xp" ? xp(b) : b[sortKey];
+      if (typeof av === "string") return sortDir * av.localeCompare(bv);
+      if (av == null) return 1;
+      if (bv == null) return -1;
+      return sortDir * (av - bv);
+    });
+    tbody.innerHTML = rows.map(function (c) {
+      var cells = TCOLS.map(function (col) {
+        if (col.key === "city") {
+          return '<td><span class="swatch" style="background:' + REGIONS[c.region].color + '"></span>' + c.city + "</td>";
+        }
+        if (col.key === "country") return "<td>" + c.country + "</td>";
+        if (col.key === "xp") return "<td>" + fmt(xp(c), 0) + "</td>";
+        return "<td>" + fmt(c[col.key], 0) + "</td>";
+      });
+      return "<tr>" + cells.join("") + "</tr>";
+    }).join("");
+  }
+  thead.addEventListener("click", function (e) {
+    var th = e.target.closest("th");
+    if (!th) return;
+    var k = th.dataset.key;
+    if (k === sortKey) sortDir = -sortDir;
+    else { sortKey = k; sortDir = (k === "city" || k === "country") ? 1 : -1; }
+    fillTable();
+  });
+
+  syncUI();
+
+  // ── глобус ──────────────────────────────────────────────────────────
+  // Шар и диаграмма живут на одних весах: он читает c.yp, который считает render().
+  var gbox = document.getElementById("globebox");
+  var gcv = document.createElement("canvas");
+  gcv.setAttribute("tabindex", "0");
+  gcv.setAttribute("aria-label", "Globe of 303 cities. Drag to turn, scroll to zoom, click a city for its scorecard.");
+  gbox.insertBefore(gcv, gbox.firstChild);
+  var gctx = gcv.getContext("2d");
+  var slowMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var GW = 0, lon0 = 10, lat0 = 18, zoom = 1, ZMIN = 1, ZMAX = 3.2;
+  var gdrag = false, gidle = 0, gmx = null, gmy = null, ghover = null, gpick = null, glive = true;
+  var RAD = Math.PI / 180;
+
+  function gfit() {
+    var dpr = Math.min(devicePixelRatio || 1, 2);
+    GW = Math.max(260, Math.min(520, gbox.clientWidth - 28));
+    gcv.style.width = GW + "px"; gcv.style.height = GW + "px";
+    gcv.width = GW * dpr; gcv.height = GW * dpr;
+    gctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  gfit(); addEventListener("resize", gfit);
+  if (window.IntersectionObserver) {
+    new IntersectionObserver(function (e) { glive = e[0].isIntersecting; }).observe(gcv);
+  }
+
+  function gproj(R, cx, cy) {
+    var s0 = Math.sin(lat0 * RAD), c0 = Math.cos(lat0 * RAD);
+    return function (lat, lon) {
+      var la = lat * RAD, lo = (lon - lon0) * RAD;
+      var sla = Math.sin(la), cla = Math.cos(la), clo = Math.cos(lo), slo = Math.sin(lo);
+      var vis = s0 * sla + c0 * cla * clo > 0;
+      var x = cx + R * cla * slo, y = cy - R * (c0 * sla - s0 * cla * clo);
+      if (!vis) {
+        var dx = x - cx, dy = y - cy, d = Math.sqrt(dx * dx + dy * dy) || 1;
+        x = cx + dx / d * R; y = cy + dy / d * R;
+      }
+      return { x: x, y: y, vis: vis };
+    };
+  }
+
+  // Обратная проекция: под курсором есть точка Земли — к ней и приближаемся.
+  function unproject(px2, py2, R, cx, cy) {
+    var x = px2 - cx, y = cy - py2, rho = Math.sqrt(x * x + y * y);
+    if (rho > R) return null;
+    var c = Math.asin(Math.min(1, rho / R));
+    var s0 = Math.sin(lat0 * RAD), c0 = Math.cos(lat0 * RAD);
+    var sc = Math.sin(c), cc = Math.cos(c);
+    var lat = Math.asin(cc * s0 + (rho ? y * sc * c0 / rho : 0)) / RAD;
+    var lon = lon0 + Math.atan2(x * sc, rho * cc * c0 - y * sc * s0) / RAD;
+    return { lat: lat, lon: lon };
+  }
+
+  function setZoom(z, atX, atY) {
+    var prev = zoom;
+    zoom = Math.max(ZMIN, Math.min(ZMAX, z));
+    if (zoom !== prev && atX != null) {
+      var Rv = GW * 0.44, g = unproject(atX, atY, Rv * prev, GW / 2, GW / 2);
+      if (g) {  // подтягиваем точку под курсором к центру, иначе зум уводит в никуда
+        lat0 += (g.lat - lat0) * 0.45;
+        lat0 = Math.max(-75, Math.min(75, lat0));
+        lon0 += (g.lon - lon0) * 0.45;
+      }
+    }
+    document.getElementById("zlevel").textContent = zoom.toFixed(1) + "×";
+    document.getElementById("zin").disabled = zoom >= ZMAX - 0.01;
+    document.getElementById("zout").disabled = zoom <= ZMIN + 0.01;
+  }
+  document.getElementById("zin").addEventListener("click", function () { setZoom(zoom * 1.4); });
+  document.getElementById("zout").addEventListener("click", function () { setZoom(zoom / 1.4); });
+  gcv.addEventListener("wheel", function (e) {
+    e.preventDefault();
+    var r = gcv.getBoundingClientRect();
+    setZoom(zoom * (1 - e.deltaY * 0.0016), e.clientX - r.left, e.clientY - r.top);
+    gidle = 2000;
+  }, { passive: false });
+
+  var gpx = 0, gpy = 0, pointers = {}, pinch0 = 0, zoom0 = 1;
+  gcv.addEventListener("pointerdown", function (e) {
+    pointers[e.pointerId] = { x: e.clientX, y: e.clientY };
+    var ids = Object.keys(pointers);
+    if (ids.length === 2) {
+      var a = pointers[ids[0]], b = pointers[ids[1]];
+      pinch0 = Math.hypot(a.x - b.x, a.y - b.y); zoom0 = zoom;
+    } else {
+      gdrag = true; gcv.classList.add("drag"); gpx = e.clientX; gpy = e.clientY;
+    }
+    gidle = 2000;
+    try { gcv.setPointerCapture(e.pointerId); } catch (err) {}
+  });
+  gcv.addEventListener("pointermove", function (e) {
+    if (pointers[e.pointerId]) pointers[e.pointerId] = { x: e.clientX, y: e.clientY };
+    var ids = Object.keys(pointers);
+    if (ids.length === 2 && pinch0) {
+      var a = pointers[ids[0]], b = pointers[ids[1]];
+      setZoom(zoom0 * Math.hypot(a.x - b.x, a.y - b.y) / pinch0);
+      gidle = 2000; return;
+    }
+    var r = gcv.getBoundingClientRect();
+    if (gdrag) {
+      // при приближении тот же жест должен двигать медленнее, иначе шар улетает
+      lon0 -= (e.clientX - gpx) * 0.4 / zoom;
+      lat0 = Math.max(-75, Math.min(75, lat0 + (e.clientY - gpy) * 0.28 / zoom));
+      gpx = e.clientX; gpy = e.clientY;
+    }
+    gmx = e.clientX - r.left; gmy = e.clientY - r.top; gidle = 2000;
+  });
+  function gstop(e) {
+    if (e && pointers[e.pointerId]) delete pointers[e.pointerId];
+    if (Object.keys(pointers).length < 2) pinch0 = 0;
+    gdrag = false; gcv.classList.remove("drag");
+  }
+  gcv.addEventListener("pointerup", gstop);
+  gcv.addEventListener("pointercancel", gstop);
+  gcv.addEventListener("pointerleave", function (e) { gstop(e); gmx = gmy = null; ghover = null; gidle = 0; });
+  gcv.addEventListener("click", function () { if (ghover) showCard(ghover); });
+  gcv.addEventListener("keydown", function (e) {
+    var k = e.key;
+    if (k === "ArrowLeft")  { lon0 -= 8 / zoom; gidle = 2000; e.preventDefault(); }
+    if (k === "ArrowRight") { lon0 += 8 / zoom; gidle = 2000; e.preventDefault(); }
+    if (k === "ArrowUp")    { lat0 = Math.min(75, lat0 + 6 / zoom); e.preventDefault(); }
+    if (k === "ArrowDown")  { lat0 = Math.max(-75, lat0 - 6 / zoom); e.preventDefault(); }
+    if (k === "+" || k === "=") { setZoom(zoom * 1.4); e.preventDefault(); }
+    if (k === "-") { setZoom(zoom / 1.4); e.preventDefault(); }
+  });
+
+  function gvar(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+
+  function gdraw() {
+    requestAnimationFrame(gdraw);
+    if (!glive) return;
+    var Rv = GW * 0.44, cx = GW / 2, cy = GW / 2, R = Rv * zoom;
+    var pr = gproj(R, cx, cy);
+    gctx.clearRect(0, 0, GW, GW);
+    gctx.save();
+    gctx.beginPath(); gctx.arc(cx, cy, Rv, 0, 6.284); gctx.clip();   // окно остаётся круглым
+
+    gctx.beginPath(); gctx.arc(cx, cy, R, 0, 6.284);
+    gctx.fillStyle = gvar("--sphere"); gctx.fill();
+
+    for (var n = 0; n < LAND.length; n++) {
+      var poly = LAND[n], any = false;
+      gctx.beginPath();
+      for (var i = 0; i < poly.length; i++) {
+        var p = pr(poly[i][1], poly[i][0]);
+        if (i === 0) gctx.moveTo(p.x, p.y); else gctx.lineTo(p.x, p.y);
+        if (p.vis) any = true;
+      }
+      gctx.closePath();
+      if (any) {
+        gctx.fillStyle = gvar("--land"); gctx.fill();
+        gctx.strokeStyle = gvar("--coast"); gctx.lineWidth = zoom > 1.6 ? 1 : 0.6; gctx.stroke();
+      }
+    }
+
+    gctx.strokeStyle = gvar("--grid-line"); gctx.lineWidth = 1;
+    var lat, lon, on;
+    for (lat = -60; lat <= 60; lat += 30) {
+      gctx.beginPath(); on = false;
+      for (lon = -180; lon <= 180; lon += 4) {
+        var q = pr(lat, lon);
+        if (!q.vis) { on = false; continue; }
+        if (!on) { gctx.moveTo(q.x, q.y); on = true; } else gctx.lineTo(q.x, q.y);
+      }
+      gctx.stroke();
+    }
+    for (lon = -180; lon < 180; lon += 30) {
+      gctx.beginPath(); on = false;
+      for (lat = -90; lat <= 90; lat += 4) {
+        var w2 = pr(lat, lon);
+        if (!w2.vis) { on = false; continue; }
+        if (!on) { gctx.moveTo(w2.x, w2.y); on = true; } else gctx.lineTo(w2.x, w2.y);
+      }
+      gctx.stroke();
+    }
+
+    var rgb = gvar("--accent-rgb"), acc = gvar("--accent"), hot = gvar("--pick");
+    var best = null, bd = 15, label = zoom >= 1.9, taken = [];
+    gctx.font = "500 11px 'JetBrains Mono', monospace";
+    // подпись ставим, только если её прямоугольник ни с чем не пересёкся
+    function free(x, y, w) {
+      for (var t = 0; t < taken.length; t++) {
+        var b = taken[t];
+        if (x < b[2] && x + w > b[0] && y - 9 < b[3] && y + 3 > b[1]) return false;
+      }
+      taken.push([x, y - 9, x + w, y + 3]); return true;
+    }
+    for (var k = 0; k < cities.length; k++) {
+      var c = cities[k], g = GEO[k];
+      var pp = pr(g[0], g[1]); if (!pp.vis) continue;
+      c._gx = pp.x; c._gy = pp.y;
+      var s = (c.yp == null ? 50 : c.yp) / 100;
+      var rad = (1.5 + s * s * 4) * (zoom > 1 ? 1 + (zoom - 1) * 0.22 : 1);
+      gctx.beginPath(); gctx.arc(pp.x, pp.y, rad, 0, 6.284);
+      gctx.fillStyle = "rgba(" + rgb + "," + (0.16 + s * s * 0.8).toFixed(2) + ")"; gctx.fill();
+      // подписи появляются только на приближении — иначе Европа заплывает текстом
+      if (label && s > 0.55) {
+        var tw = gctx.measureText(c.city).width, tx = pp.x + rad + 4;
+        if (free(tx, pp.y + 3.5, tw)) {
+          gctx.fillStyle = gvar("--ink-2"); gctx.globalAlpha = .9;
+          gctx.fillText(c.city, tx, pp.y + 3.5); gctx.globalAlpha = 1;
+        }
+      }
+      if (gmx != null) {
+        var dx = pp.x - gmx, dy = pp.y - gmy, dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 15 && dist - (c.yp || 0) * 0.04 < bd) { bd = dist - (c.yp || 0) * 0.04; best = c; }
+      }
+    }
+    ghover = best;
+    gcv.style.cursor = gdrag ? "grabbing" : (ghover ? "pointer" : "grab");
+    if (gpick && gpick._gx != null) gring(gpick._gx, gpick._gy, hot, 10, 1.8);
+    if (ghover && ghover !== gpick) gring(ghover._gx, ghover._gy, acc, 8, 1.2);
+
+    gctx.restore();
+    gctx.beginPath(); gctx.arc(cx, cy, Rv, 0, 6.284);
+    gctx.strokeStyle = gvar("--sphere-edge"); gctx.lineWidth = 1; gctx.stroke();
+
+    if (!slowMotion && !gdrag && gidle <= 0 && zoom < 1.05) lon0 += 0.05;
+    if (gidle > 0) gidle -= 16;
+  }
+  function gring(x, y, color, r, w) {
+    gctx.beginPath(); gctx.arc(x, y, r, 0, 6.284);
+    gctx.strokeStyle = color; gctx.lineWidth = w; gctx.stroke();
+  }
+  requestAnimationFrame(gdraw);
+
+  var cardEl = document.getElementById("card");
+  function showCard(c) {
+    gpick = c || null;
+    if (!c) return;
+    var rows = METRICS.map(function (m) {
+      var val = Math.round(c[m.key]), on = weights[m.key] > 0;
+      return '<div class="cmet' + (on ? "" : " off") + '"><span>' + m.label +
+             '</span><span class="track"><i class="fill" style="width:' + val + '%"></i></span>' +
+             '<span class="v">' + val + '</span></div>';
+    }).join("");
+    cardEl.innerHTML = '<p class="plabel">Scorecard</p><p class="cname">' + c.city + '</p>' +
+      '<p class="cmeta">' + c.country + '</p>' +
+      '<p class="cbig"><b>' + (c.yp == null ? "—" : Math.round(c.yp)) +
+      '</b><span>overall, with your weights</span></p>' + rows +
+      '<p class="cmeta" style="margin-top:12px">Dimmed rows are switched off in your sliders.</p>';
+  }
+  function refreshCard() { if (gpick) showCard(gpick); }
+
+  // Тему переключает шапка сайта; шар и диаграмма перечитывают переменные заново.
+  document.addEventListener("themechange", function () { render(); });
+  setZoom(1);
+
+  render();
+  window.addEventListener("resize", hideTip);
+  window.__cities = cities;
+})();
+</script>
+
+</body>
+</html>

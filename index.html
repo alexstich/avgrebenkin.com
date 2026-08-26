@@ -1300,6 +1300,7 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
   <div class="nav-links" id="nav-links">
     <a href="#projects" class="nav-link">Projects</a>
     <a href="#notes" class="nav-link">Notes</a>
+    <a href="/research/" class="nav-link">Research</a>
     <a href="#speaking" class="nav-link">Speaking</a>
     <a href="#certifications" class="nav-link">Certifications</a>
     <a href="#journey" class="nav-link">Journey</a>
@@ -2143,6 +2144,7 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
   var nav = document.getElementById('site-nav');
   var links = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
   var sections = links
+    .filter(function (l) { return l.getAttribute('href').charAt(0) === '#'; })
     .map(function (l) { return document.querySelector(l.getAttribute('href')); })
     .filter(Boolean);
 
