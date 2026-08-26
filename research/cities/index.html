@@ -217,9 +217,49 @@
   .sharebtn { border: 1px solid var(--hair); background: transparent; border-radius: 999px;
               padding: 6px 14px; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
               font-size: 12px; color: var(--ink-2); cursor: pointer;
-              transition: color .15s, border-color .15s; }
+              transition: color .15s, border-color .15s, background .15s; }
   .sharebtn:hover { color: var(--ink); border-color: var(--ink-3); }
   .sharebtn.done { color: var(--accent); border-color: var(--accent); }
+  /* Заметный вариант той же кнопки: в шапке и под списком, где её ищут глазами. */
+  .sharebtn.primary { border-color: var(--accent); color: var(--accent);
+                      background: rgba(var(--accent-rgb), .1); padding: 8px 18px; font-size: 12.5px; }
+  .sharebtn.primary:hover { background: rgba(var(--accent-rgb), .18); color: var(--accent); }
+  .sharebtn.primary.done { background: rgba(var(--accent-rgb), .18); }
+  .shareline { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; margin-top: 14px; }
+  .rl-share { padding: 14px 16px 4px; border-top: 1px solid var(--hair-soft); margin-top: 10px; }
+  .sharehint { color: var(--ink-3); font-size: 12.5px; max-width: 52ch; }
+
+  /* Поиск по глобусу: 303 точки быстрее найти буквами, чем вращением. */
+  .gsearch { position: relative; margin: 0 16px 10px; max-width: 420px; }
+  .gsearch input { width: 100%; box-sizing: border-box; padding: 9px 34px 9px 32px;
+                   border: 1px solid var(--hair); border-radius: 999px; background: var(--panel);
+                   color: var(--ink); font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+                   font-size: 13px; }
+  .gsearch input::placeholder { color: var(--ink-3); }
+  .gsearch input:focus { outline: none; border-color: var(--accent); }
+  .gsearch::before { content: "⌕"; position: absolute; left: 12px; top: 50%; translate: 0 -50%;
+                     color: var(--ink-3); font-size: 15px; pointer-events: none; }
+  .phead kbd { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: .85em;
+               padding: 1px 5px; border: 1px solid var(--hair); border-radius: 4px;
+               background: var(--panel); color: var(--ink-2); }
+  .gq-clear { position: absolute; right: 8px; top: 50%; translate: 0 -50%; border: 0;
+              background: transparent; color: var(--ink-3); font-size: 17px; line-height: 1;
+              cursor: pointer; padding: 2px 6px; }
+  .gq-clear:hover { color: var(--ink); }
+  .gsug { position: absolute; z-index: 6; left: 0; right: 0; top: calc(100% + 4px); margin: 0;
+          padding: 4px; list-style: none; max-height: 264px; overflow-y: auto;
+          border: 1px solid var(--hair); border-radius: 12px; background: var(--panel);
+          box-shadow: 0 18px 40px -22px rgba(0, 0, 0, .8); }
+  .gsug li { display: flex; align-items: baseline; gap: 8px; padding: 7px 10px; border-radius: 8px;
+             cursor: pointer; font-size: 14px; color: var(--ink); }
+  .gsug li .cy { margin-left: auto; color: var(--ink-3); font-size: 11.5px;
+                 font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; }
+  .gsug li .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sw); flex: none; }
+  .gsug li[aria-selected="true"], .gsug li:hover { background: rgba(var(--accent-rgb), .14); }
+  .gsug .none { color: var(--ink-3); cursor: default; }
+  :root[data-theme="cyber"] .gsearch input,
+  :root[data-theme="cyber"] .gsug,
+  :root[data-theme="cyber"] .gsug li { border-radius: 0; }
   .chip { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--hair);
           background: transparent; border-radius: 999px; padding: 5px 12px 5px 9px;
           font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 12px;
@@ -289,23 +329,6 @@
   .chartbox { padding: 4px 10px 4px; position: relative; }
   .chartbox .phead { margin: -4px -10px 4px; }
 
-  /* Живой список: ответ на «так куда смотреть», без вглядывания в угол графика. */
-  .shortlist { padding: 16px 20px 20px; }
-  .shortlist h2 { font-family: 'Space Grotesk', system-ui, sans-serif; margin: 0 0 4px; }
-  .shortlist .lead { margin: 0 0 14px; color: var(--ink-2); font-size: 15px; max-width: 70ch; }
-  .picks { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
-  .pick { display: flex; align-items: baseline; gap: 9px; border: 1px solid var(--hair);
-          border-radius: 8px; padding: 8px 11px; }
-  .pick .n { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-             font-size: 11px; color: var(--ink-3); min-width: 16px; }
-  .pick .nm { color: var(--ink); font-size: 15px; }
-  .pick .cy { color: var(--ink-3); font-size: 11.5px;
-              font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; }
-  .pick .gap { margin-left: auto; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-               font-size: 11.5px; color: var(--ink-2); font-variant-numeric: tabular-nums;
-               white-space: nowrap; }
-  .pick .gap b { font-weight: 500; color: var(--ink); }
-  .pick .gap .sc { color: var(--ink-3); }
   .wrap svg { display: block; width: 100%; height: auto; overflow: visible; }
   .axis-title { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
                 font-size: 12px; letter-spacing: .04em; fill: var(--ink-2); }
@@ -474,8 +497,7 @@
   }
   :root[data-theme="cyber"] .chip,
   :root[data-theme="cyber"] .preset,
-  :root[data-theme="cyber"] .qk,
-  :root[data-theme="cyber"] .pick { border-radius: 0; }
+  :root[data-theme="cyber"] .qk { border-radius: 0; }
 
   /* На узком экране шар заметно меньше и не держит пустые 440 px высоты. */
   @media (max-width: 620px) {
@@ -485,8 +507,10 @@
     .cardcol { padding: 14px 16px; }
     .phead { padding: 14px 16px 11px; }
     .gname { left: 10px; top: 10px; max-width: calc(100% - 62px); }
+    .gsearch { margin-left: 12px; margin-right: 12px; }
+    .rl-share { padding-left: 12px; padding-right: 12px; }
     .zoombar { right: 8px; top: 8px; }
-    .shortlist, .notes { padding-left: 16px; padding-right: 16px; }
+    .notes { padding-left: 16px; padding-right: 16px; }
   }
 </style>
 </head>
@@ -533,14 +557,28 @@
       <span>Data: <a href="https://www.numbeo.com/quality-of-life/rankings.jsp" target="_blank" rel="noopener">Numbeo</a> · <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap</a> · <a href="https://ourairports.com/" target="_blank" rel="noopener">OurAirports</a> · <a href="https://en.wikipedia.org/wiki/List_of_busiest_airports_by_passenger_traffic" target="_blank" rel="noopener">Wikipedia</a></span>
       <span>2026 mid-year</span>
     </div>
+    <div class="shareline">
+      <button type="button" class="sharebtn primary" data-share>Share this setup</button>
+      <span class="sharehint">Every slider, region and toggle goes into the link — whoever opens it
+        sees your exact city, not the default one.</span>
+    </div>
   </header>
   <div class="panel">
     <div class="phead">
       <h2>The whole set: all 303 cities</h2>
       <p>The overview. Every city in the study is here, each dot sized and brightened by its overall
         score — so the bright clusters are the places that do well on the weights currently set.
-        Turn the globe, zoom in until names appear, click a dot for its full scorecard.
+        Turn the globe, zoom in until names appear, click a dot for its full scorecard — or type a
+        name in the search box and the globe turns to it (press <kbd>/</kbd> from anywhere on the page).
         <b>Everything below narrows this down to what you ask for.</b></p>
+    </div>
+    <div class="gsearch">
+      <label class="sr-only" for="gq">Find a city on the globe</label>
+      <input id="gq" type="text" placeholder="Find a city — start typing" autocomplete="off"
+             spellcheck="false" role="combobox" aria-expanded="false" aria-controls="gsug"
+             aria-autocomplete="list">
+      <button type="button" class="gq-clear" id="gqx" aria-label="Clear search" hidden>×</button>
+      <ul class="gsug" id="gsug" role="listbox" aria-label="Matching cities" hidden></ul>
     </div>
     <div class="globewrap">
       <div class="globebox" id="globebox">
@@ -554,7 +592,7 @@
       </div>
       <div class="cardcol" id="card">
         <p class="plabel">Scorecard</p>
-        <p class="cempty">Click any city — on the globe or in the shortlist — to see how it earns its score.</p>
+        <p class="cempty">Search for a city above, click a dot on the globe, or tap any row in the list below — the scorecard shows how it earns its score.</p>
       </div>
     </div>
   </div>
@@ -574,7 +612,7 @@
         <div class="presetrow" id="presets"></div>
       </div>
       <p class="subhint whint">Twelve sliders, 0 to 3. Anything left at <b>0</b> is switched off and does
-        not count towards the score; the groups fold open one at a time.</p>
+        not count towards the score. All five groups start open — fold the ones you do not care about.</p>
       <div class="weights" id="weights"></div>
     </div>
   </details>
@@ -595,7 +633,7 @@
           <button type="button" id="mode-norent" aria-pressed="false">without rent</button>
         </div>
       </div>
-      <button type="button" class="sharebtn" id="share">Copy link</button>
+      <button type="button" class="sharebtn" data-share>Copy link</button>
     </div>
     <p class="barhint">Click a region to drop it from the chart, the list and the table — click again to
       bring it back. <b>With rent</b> puts apartment rent into the cost basket; <b>without rent</b>
@@ -612,17 +650,6 @@
     </div>
   </div>
 
-  <section class="panel shortlist">
-    <h2>Best value for your weights</h2>
-    <p class="lead">The ten cities that score highest relative to what they cost — the top-left corner
-      of the chart, listed out. The number on the right is how many percentiles the score sits above the
-      cost, with the score itself next to it. Click one for its scorecard. Note what the subtraction does:
-      a city in the cheapest few per cent starts with a 70-point head start, so this column answers
-      &ldquo;most for the money&rdquo; and never &ldquo;best place to live&rdquo;. Vienna sits at the 72nd
-      cost percentile, so to match a city in the cheapest few per cent it would have to score 74 points
-      higher — which nothing can. For best outright, sort the full list below by score.</p>
-    <div class="picks" id="picks"></div>
-  </section>
 
   <section class="panel ranklist">
     <h2>Every city in order</h2>
@@ -638,7 +665,17 @@
     </div>
     <div class="rl-rows" id="ranklist"></div>
     <div class="tip" id="rltip"></div>
+    <div class="shareline rl-share">
+      <button type="button" class="sharebtn primary" data-share>Share this setup</button>
+      <span class="sharehint">Copies a link that reopens this exact list.</span>
+    </div>
   </section>
+
+  <aside class="sy-strip" aria-label="Speak-Y">
+      <img src="/images/icons/speak-y.webp" alt="Speak-Y app icon" width="22" height="22" loading="lazy" decoding="async">
+      <p><span class="sy-kicker">Speak-Y · the thing I build</span><b>Voice input and meeting recording.</b> One hotkey in every app: talk, and the text lands where your cursor already is. Meetings get recorded and transcribed with who said what — end-to-end encrypted, shareable into team channels.</p>
+      <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener"><b>30 days of Pro — free <span aria-hidden="true">→</span></b><span>unlimited voice input</span></a>
+    </aside>
 
   <section class="panel notes">
     <h2>How this works</h2>
@@ -776,11 +813,6 @@
     </div>
   </details>
 
-  <aside class="sy-strip" aria-label="Speak-Y">
-      <img src="/images/icons/speak-y.webp" alt="Speak-Y app icon" width="22" height="22" loading="lazy" decoding="async">
-      <p><span class="sy-kicker">Speak-Y · the thing I build</span><b>Voice input and meeting recording.</b> One hotkey in every app: talk, and the text lands where your cursor already is. Meetings get recorded and transcribed with who said what — end-to-end encrypted, shareable into team channels.</p>
-      <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">Try Speak-Y <span aria-hidden="true">→</span></a>
-    </aside>
 </div>
 </main>
 
@@ -843,10 +875,10 @@
 
   var GROUPS = [
     { key: "basics", label: "The basics", open: true },
-    { key: "city",   label: "City life",  open: false },
-    { key: "money",  label: "Money",      open: false },
-    { key: "family", label: "Family",     open: false },
-    { key: "world",  label: "Reaching the world", open: false }
+    { key: "city",   label: "City life",  open: true },
+    { key: "money",  label: "Money",      open: true },
+    { key: "family", label: "Family",     open: true },
+    { key: "world",  label: "Reaching the world", open: true }
   ];
 
   var PRESETS = [
@@ -1004,7 +1036,6 @@
     if (!recomputeScores()) {
       svg.appendChild(el("text", { x: W / 2, y: H / 2, "text-anchor": "middle",
         class: "axis-title" }, "Turn at least one slider up to draw the chart"));
-      picksBox.innerHTML = "";
       rlBox.innerHTML = "";
       fillTable();
       return;
@@ -1124,50 +1155,36 @@
     svg.appendChild(leadLayer);
     svg.appendChild(dotLayer);
     svg.appendChild(labelLayer);
-    fillShortlist(shown);
     fillRankList(shown);
     fillTable();
   }
 
-  var shareBtn = document.getElementById("share");
-  shareBtn.addEventListener("click", function () {
-    var url = shareURL();
-    try { history.replaceState(null, "", url); } catch (err) {}
-    function said(msg) {
-      shareBtn.textContent = msg;
-      shareBtn.classList.add("done");
-      setTimeout(function () { shareBtn.textContent = "Copy link"; shareBtn.classList.remove("done"); }, 2400);
-    }
-    // Без https и без разрешения буфера остаётся адресная строка — она уже верная.
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(url).then(function () { said("Link copied"); },
-        function () { said("It is in the address bar"); });
-    } else { said("It is in the address bar"); }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-share]"), function (btn) {
+    var label = btn.textContent;
+    btn.addEventListener("click", function () {
+      var url = shareURL();
+      try { history.replaceState(null, "", url); } catch (err) {}
+      function said(msg) {
+        btn.textContent = msg;
+        btn.classList.add("done");
+        setTimeout(function () { btn.textContent = label; btn.classList.remove("done"); }, 2400);
+      }
+      // Без https и без разрешения буфера остаётся адресная строка — она уже верная.
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () { said("Link copied"); },
+          function () { said("It is in the address bar"); });
+      } else { said("It is in the address bar"); }
+    });
   });
 
-  var picksBox = document.getElementById("picks");
-  function fillShortlist(shown) {
-    var best = shown.slice().sort(function (a, b) {
-      return (b.yp - xp(b)) - (a.yp - xp(a));
-    }).slice(0, 10);
-    picksBox.innerHTML = best.map(function (c, i) {
-      return '<div class="pick" data-city="' + esc(c.key) + '"><span class="n">' + (i + 1) + '</span>' +
-        '<span class="nm">' + c.city + '</span>' +
-        '<span class="cy">' + c.country + '</span>' +
-        '<span class="gap"><b>+' + Math.round(c.yp - xp(c)) + '</b> <span class="sc">score ' +
-        Math.round(c.yp) + '</span></span></div>';
-    }).join("");
-  }
-
-  // ---- тот же график списком: карточка обещает клик по шорт-листу, значит он работает
+  // ---- тот же график списком: для тех, кому диаграмма читается хуже таблицы
   function esc(v) { return String(v).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;"); }
   var byKey = {};
-  cities.forEach(function (c) { c.key = c.city + "|" + c.country; byKey[c.key] = c; });
-  picksBox.addEventListener("click", function (e) {
-    var row = e.target.closest(".pick");
-    if (row) showCard(byKey[row.getAttribute("data-city")]);
+  cities.forEach(function (c, i) {
+    c.key = c.city + "|" + c.country;
+    c.lat = GEO[i][0]; c.lon = GEO[i][1];
+    byKey[c.key] = c;
   });
-
   var rlBox = document.getElementById("ranklist");
   var rlTip = document.getElementById("rltip");
   var rlHost = document.querySelector(".ranklist");
@@ -1614,9 +1631,29 @@
     // он стоит. Пишем имя прямо у точки, поверх всего и вне обрезки по сфере.
     if (ghover && ghover._gx != null) gtag(ghover);
 
+    if (gfly) stepFly();
     if (!slowMotion && !gdrag && gidle <= 0) lon0 += 0.05 / zoom;
     if (gidle > 0) gidle -= 16;
   }
+  // Поиск наводит шар на город: крутим по кратчайшей дуге и одновременно приближаем.
+  var gfly = null;
+  function flyTo(c) {
+    gfly = { lat: Math.max(-70, Math.min(70, c.lat)), lon: c.lon, z: Math.max(zoom, 2.2) };
+    gidle = 3000;
+  }
+  function stepFly() {
+    var dLat = gfly.lat - lat0;
+    var dLon = ((gfly.lon - lon0 + 540) % 360) - 180;
+    var dZ = gfly.z - zoom;
+    if (slowMotion || (Math.abs(dLat) < .35 && Math.abs(dLon) < .35 && Math.abs(dZ) < .02)) {
+      lat0 = gfly.lat; lon0 = gfly.lon; setZoom(gfly.z); gfly = null; gidle = 2500; return;
+    }
+    lat0 += dLat * 0.15;
+    lon0 += dLon * 0.15;
+    if (Math.abs(dZ) > .002) setZoom(zoom + dZ * 0.15);
+    gidle = Math.max(gidle, 600);
+  }
+
   function gtag(c) {
     var pad = 7, h = 20;
     gctx.font = "500 12px 'JetBrains Mono', ui-monospace, monospace";
@@ -1659,12 +1696,97 @@
   }
   function refreshCard() { if (gpick) showCard(gpick); }
 
+  // ---- поиск по городам: 303 точки быстрее найти буквами, чем вращением
+  var gqEl = document.getElementById("gq"), gsugEl = document.getElementById("gsug"),
+      gqxEl = document.getElementById("gqx");
+  function fold(v) {
+    v = String(v).toLowerCase();
+    return v.normalize ? v.normalize("NFD").replace(/[\u0300-\u036f]/g, "") : v;
+  }
+  cities.forEach(function (c) { c._qc = fold(c.city); c._q = fold(c.city + " " + c.country); });
+  var sugList = [], sugIdx = -1;
+
+  function findCities(q) {
+    q = fold(q).trim();
+    if (!q) return [];
+    var exact = [], head = [], tail = [];
+    for (var i = 0; i < cities.length; i++) {
+      var c = cities[i];
+      if (c._qc === q) exact.push(c);            // Porto раньше Porto Alegre
+      else if (c._qc.indexOf(q) === 0) head.push(c);
+      else if (c._q.indexOf(q) >= 0) tail.push(c);
+    }
+    return exact.concat(head, tail).slice(0, 8);
+  }
+  function closeSug() {
+    gsugEl.hidden = true; gsugEl.innerHTML = ""; sugList = []; sugIdx = -1;
+    gqEl.setAttribute("aria-expanded", "false");
+  }
+  function drawSug() {
+    if (!sugList.length) {
+      gsugEl.innerHTML = '<li class="none">Nothing matches — try another spelling</li>';
+    } else {
+      gsugEl.innerHTML = sugList.map(function (c, i) {
+        return '<li role="option" data-i="' + i + '" aria-selected="' + (i === sugIdx) + '"' +
+          ' style="--sw:' + REGIONS[c.region].color + '"><span class="dot"></span>' +
+          '<span>' + c.city + '</span><span class="cy">' + c.country + '</span></li>';
+      }).join("");
+    }
+    gsugEl.hidden = false;
+    gqEl.setAttribute("aria-expanded", "true");
+  }
+  function moveSug(step) {
+    if (!sugList.length) return;
+    sugIdx = (sugIdx + step + sugList.length) % sugList.length;
+    drawSug();
+    var row = gsugEl.querySelector('[data-i="' + sugIdx + '"]');
+    if (row && row.scrollIntoView) row.scrollIntoView({ block: "nearest" });
+  }
+  function takeSug(c) {
+    if (!c) return;
+    gqEl.value = c.city;
+    gqxEl.hidden = false;
+    closeSug();
+    showCard(c);
+    flyTo(c);
+  }
+  gqEl.addEventListener("input", function () {
+    gqxEl.hidden = !gqEl.value;
+    sugList = findCities(gqEl.value);
+    sugIdx = sugList.length ? 0 : -1;
+    if (!gqEl.value.trim()) closeSug(); else drawSug();
+  });
+  gqEl.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowDown") { moveSug(1); e.preventDefault(); }
+    else if (e.key === "ArrowUp") { moveSug(-1); e.preventDefault(); }
+    else if (e.key === "Enter") { takeSug(sugList[sugIdx]); e.preventDefault(); }
+    else if (e.key === "Escape") { closeSug(); }
+  });
+  gqEl.addEventListener("focus", function () { if (sugList.length) drawSug(); });
+  gsugEl.addEventListener("mousedown", function (e) {
+    var li = e.target.closest("li[data-i]");
+    if (li) { e.preventDefault(); takeSug(sugList[+li.getAttribute("data-i")]); }
+  });
+  gqxEl.addEventListener("click", function () {
+    gqEl.value = ""; gqxEl.hidden = true; closeSug(); gqEl.focus();
+  });
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest(".gsearch")) closeSug();
+  });
+  // «/» из любого места страницы ставит курсор в поиск — привычка из почты и гита.
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "/" || e.metaKey || e.ctrlKey || e.altKey) return;
+    var t = e.target, tag = t && t.tagName;
+    if (tag === "INPUT" || tag === "TEXTAREA" || (t && t.isContentEditable)) return;
+    e.preventDefault(); gqEl.focus(); gqEl.select();
+  });
+
   // Тему переключает шапка сайта; шар и диаграмма перечитывают переменные заново.
   document.addEventListener("themechange", function () { render(); });
   setZoom(1);
 
   render();
-  if (shared.pick && byKey[shared.pick]) showCard(byKey[shared.pick]);
+  if (shared.pick && byKey[shared.pick]) { showCard(byKey[shared.pick]); flyTo(byKey[shared.pick]); }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(render);
   window.addEventListener("resize", hideTip);
   window.__cities = cities;

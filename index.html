@@ -1185,19 +1185,28 @@ a.contact-card:hover{border-color:var(--border);transform:translateY(-2px);backg
 }
 .sy-points b{display:block;color:var(--text);font-weight:600;font-size:.82rem}
 .sy-cta-col{align-self:center;justify-self:end;text-align:right}
+.sy-offer{
+  margin:0 0 .5rem;line-height:1.25;
+}
+.sy-offer b{
+  display:block;font-family:var(--font-head);font-size:1.35rem;font-weight:600;
+  letter-spacing:-.02em;color:var(--sy-1);
+}
+.sy-offer span{
+  display:block;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--muted);margin-top:.15rem;
+}
 .sy-cta{
   display:inline-block;white-space:nowrap;
-  padding:.8rem 1.4rem;border-radius:999px;
-  background:linear-gradient(135deg,var(--sy-1),var(--sy-2));
-  color:var(--sy-ink);font-size:.95rem;font-weight:700;
-  box-shadow:0 12px 28px -12px rgba(217,99,32,.85);
-  transition:transform .2s,box-shadow .2s,filter .2s;
+  padding:.72rem 1.3rem;border-radius:10px;
+  background:var(--sy-1);border:1px solid var(--sy-2);
+  color:var(--sy-ink);font-size:.92rem;font-weight:700;letter-spacing:-.01em;
+  transition:background .18s,border-color .18s;
 }
-.sy-cta:hover{transform:translateY(-1px);filter:brightness(1.06);
-  box-shadow:0 16px 34px -12px rgba(217,99,32,.95)}
+.sy-cta:hover{background:var(--sy-2);border-color:var(--sy-2);color:#fff}
 .sy-cta-sub{
-  display:block;margin-top:.4rem;text-align:right;
-  font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em;color:var(--muted);
+  display:block;margin-top:.45rem;text-align:right;
+  font-family:var(--font-mono);font-size:.66rem;letter-spacing:.05em;color:var(--muted);
 }
 @media (max-width:860px){
   .sy-points{grid-template-columns:1fr 1fr}
@@ -1207,8 +1216,15 @@ a.contact-card:hover{border-color:var(--border);transform:translateY(-2px);backg
   .sy-mark{width:46px;height:46px;border-radius:12px}
   .sy-points{grid-template-columns:1fr;gap:.5rem}
   .sy-cta-col{grid-column:1 / -1;justify-self:stretch;text-align:center}
+  .sy-offer{display:flex;align-items:baseline;justify-content:center;gap:.5rem}
+  .sy-offer b{font-size:1.15rem}
   .sy-cta{display:block;text-align:center}
   .sy-cta-sub{text-align:center}
+}
+:root[data-theme="cyber"] .sy-cta{
+  border-radius:0;text-transform:uppercase;letter-spacing:.08em;
+  font-family:var(--font-mono);font-size:.78rem;
+  clip-path:polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
 }
 :root[data-theme="cyber"] .sy-banner{
   border-radius:0;
@@ -1432,10 +1448,11 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
       </ul>
     </div>
     <div class="sy-cta-col">
+      <p class="sy-offer"><b>30 days of Pro</b><span>free, on my invite</span></p>
       <a class="sy-cta" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">
-        Try Speak-Y <span aria-hidden="true">→</span>
+        Get 30 days free <span aria-hidden="true">→</span>
       </a>
-      <span class="sy-cta-sub">my personal invite link</span>
+      <span class="sy-cta-sub">unlimited voice input · 67+ languages</span>
     </div>
   </aside>
 
