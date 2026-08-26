@@ -950,22 +950,6 @@ section{padding-top:var(--section-gap);scroll-margin-top:calc(var(--nav-h) + 8px
 .shots::-webkit-scrollbar{height:6px}
 .shots::-webkit-scrollbar-thumb{background:rgba(var(--accent-rgb),.3);border-radius:99px}
 
-.stack-details{border-top:1px solid var(--border-soft);padding-top:.8rem;margin-bottom:.9rem}
-.stack-details summary{
-  cursor:pointer;list-style:none;font-size:.85rem;color:var(--muted);
-  display:inline-flex;align-items:center;gap:.4rem;
-}
-.stack-details summary::-webkit-details-marker{display:none}
-.stack-details summary::before{content:"+";font-family:var(--font-mono);color:var(--accent)}
-.stack-details[open] summary::before{content:"−"}
-.stack-details summary:hover{color:var(--text)}
-.stack-count{font-family:var(--font-mono);font-size:.78rem;opacity:.7}
-.stack-tags{display:flex;flex-wrap:wrap;gap:.35rem;padding-top:.7rem}
-.tag{
-  padding:.15rem .55rem;border-radius:5px;
-  background:rgba(var(--accent-rgb),.1);border:1px solid rgba(var(--accent-rgb),.18);
-  font-family:var(--font-mono);font-size:.72rem;color:var(--accent);white-space:nowrap;
-}
 .pf-footer{display:flex;flex-wrap:wrap;gap:.6rem;align-items:center}
 .pf-cta{
   display:inline-flex;align-items:center;gap:.35rem;min-height:40px;
@@ -1087,6 +1071,9 @@ section{padding-top:var(--section-gap);scroll-margin-top:calc(var(--nav-h) + 8px
   color:var(--muted);font-family:var(--font-mono);font-weight:500;margin-bottom:.75rem;
 }
 .stack-card .chips{margin-bottom:0}
+.stack-card p{font-size:.94rem;color:var(--muted);max-width:62ch}
+.stack-card p + p{margin-top:.65rem}
+@media (min-width: 680px){.stack-card-wide{grid-column:span 2}}
 .certs{list-style:none;margin:.1rem 0 0;padding:0;display:grid;gap:.4rem}
 .certs li{font-size:.88rem;color:var(--muted);position:relative;padding-left:1.1rem}
 .certs li::before{content:"✓";position:absolute;left:0;color:var(--accent);font-size:.8rem}
@@ -1213,7 +1200,6 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
   clip-path:polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
 }
 :root[data-theme="cyber"] .chip,
-:root[data-theme="cyber"] .tag,
 :root[data-theme="cyber"] .pf-badge{border-radius:0}
 :root[data-theme="cyber"] .hero-photo{
   border-radius:0;border-color:var(--accent);box-shadow:0 0 24px rgba(252,238,10,.25);
@@ -1231,7 +1217,6 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
 :root[data-theme="cyber"] .btn-primary{box-shadow:0 0 18px rgba(252,238,10,.3)}
 :root[data-theme="cyber"] .btn-secondary{color:var(--cyan);border-color:rgba(0,240,255,.4)}
 :root[data-theme="cyber"] .btn-secondary:hover{border-color:var(--cyan);background:rgba(0,240,255,.1)}
-:root[data-theme="cyber"] .tag{color:var(--cyan);border-color:rgba(0,240,255,.28);background:rgba(0,240,255,.08)}
 :root[data-theme="cyber"] .journey-year{color:var(--cyan)}
 :root[data-theme="cyber"] .contact-icon{color:var(--cyan)}
 :root[data-theme="cyber"] .pf-facts li::before{color:var(--hot)}
@@ -1311,7 +1296,7 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
     <a href="#projects" class="nav-link">Projects</a>
     <a href="#notes" class="nav-link">Notes</a>
     <a href="#speaking" class="nav-link">Speaking</a>
-    <a href="#stack" class="nav-link">Stack</a>
+    <a href="#stack" class="nav-link">How I work</a>
     <a href="#journey" class="nav-link">Journey</a>
     <a href="#contacts" class="nav-link">Contacts</a>
   </div>
@@ -1393,16 +1378,8 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
       <ul class="pf-facts">
         <li><strong>Shipped across three platforms</strong> — macOS, Windows and iOS, live on the App Store.</li>
         <li><strong>Validated before building wide</strong> — 15+ deep interviews and a 19-person survey.</li>
-        <li><strong>Everything else is mine too</strong> — positioning, pricing and unit economics, Paddle payments, pitch deck, founder-led LinkedIn content and paid experiments.</li>
+        <li><strong>Everything else is mine too</strong> — positioning, pricing, taking subscription payments, investor materials, founder-led LinkedIn content and paid experiments.</li>
       </ul>
-      <details class="stack-details">
-        <summary>Show tech stack <span class="stack-count">(8)</span></summary>
-        <div class="stack-tags">
-          <span class="tag">Swift</span><span class="tag">SwiftUI</span><span class="tag">AppKit</span>
-          <span class="tag">Node.js</span><span class="tag">Python</span><span class="tag">REST</span>
-          <span class="tag">Paddle</span><span class="tag">TDD</span>
-        </div>
-      </details>
       <div class="pf-footer">
         <a class="pf-cta" href="https://speak-y.com" target="_blank" rel="noopener">speak-y.com <span aria-hidden="true">→</span></a>
         <a class="pf-cta" href="https://apps.apple.com/us/app/speak-y-voice-notes-meetings/id6758596767" target="_blank" rel="noopener">App&nbsp;Store <span aria-hidden="true">→</span></a>
@@ -1435,13 +1412,6 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
         <li><strong>Team lead for mobile</strong> across iOS and Android delivery.</li>
         <li><strong>Real-time layer</strong> — messaging and presence for feeds and events.</li>
       </ul>
-      <details class="stack-details">
-        <summary>Show tech stack <span class="stack-count">(6)</span></summary>
-        <div class="stack-tags">
-          <span class="tag">Swift</span><span class="tag">UIKit</span><span class="tag">MVVM</span>
-          <span class="tag">Core Data</span><span class="tag">Alamofire</span><span class="tag">WebRTC</span>
-        </div>
-      </details>
       <div class="pf-footer">
         <a class="pf-cta" href="https://ryadom.app" target="_blank" rel="noopener">ryadom.app <span aria-hidden="true">→</span></a>
         <a class="pf-cta" href="https://apps.apple.com/us/app/id1619482847" target="_blank" rel="noopener">App&nbsp;Store <span aria-hidden="true">→</span></a>
@@ -1472,17 +1442,10 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
         A pregnancy and baby-development journal built as a closed family network: milestones, health measurements and photos shared only with the people you invite. I worked both sides of it — features and performance in the iOS app, and the backend that serves them.
       </p>
       <ul class="pf-facts">
-        <li><strong>Backend performance</strong> — reworked SQL and the database structure, cutting heavy queries from 3–5 s to 0.2–0.3 s.</li>
+        <li><strong>Backend performance</strong> — reworked the database so the heaviest screens stopped keeping people waiting.</li>
         <li><strong>App performance</strong> — refactored screen transitions and feed loading.</li>
-        <li><strong>Quality</strong> — API test suite in Postman.</li>
+        <li><strong>Quality</strong> — an automated test suite for the whole API.</li>
       </ul>
-      <details class="stack-details">
-        <summary>Show tech stack <span class="stack-count">(6)</span></summary>
-        <div class="stack-tags">
-          <span class="tag">Swift</span><span class="tag">UIKit</span><span class="tag">Core Data</span>
-          <span class="tag">PHP / Yii2</span><span class="tag">SQL</span><span class="tag">Postman</span>
-        </div>
-      </details>
       <div class="pf-footer">
         <a class="pf-cta" href="https://babydayka.com/" target="_blank" rel="noopener">babydayka.com <span aria-hidden="true">→</span></a>
         <a class="pf-cta" href="https://apps.apple.com/us/app/id964649899" target="_blank" rel="noopener">App&nbsp;Store <span aria-hidden="true">→</span></a>
@@ -1869,35 +1832,14 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
     </ol>
   </section>
 
-  <!-- ============ STACK ============ -->
-  <section id="stack" aria-label="Tech stack" class="reveal">
-    <h2 class="section-title">Stack<span class="sr-only"> — the technologies I work with day to day</span></h2>
+  <!-- ============ HOW I WORK ============ -->
+  <section id="stack" aria-label="How I work" class="reveal">
+    <h2 class="section-title">How I work<span class="sr-only"> — engineering practices and habits</span></h2>
     <div class="stack-grid">
-      <div class="stack-card">
-        <h3>iOS</h3>
-        <ul class="chips">
-          <li class="chip">Swift</li><li class="chip">SwiftUI</li><li class="chip">UIKit</li>
-          <li class="chip">MVVM</li><li class="chip">Coordinators</li><li class="chip">SnapKit</li>
-          <li class="chip">RxSwift</li><li class="chip">GCD</li><li class="chip">Core Data</li>
-          <li class="chip">WebRTC</li><li class="chip">CallKit</li><li class="chip">AVFoundation</li>
-          <li class="chip">StoreKit</li><li class="chip">Alamofire</li>
-        </ul>
-      </div>
-      <div class="stack-card">
-        <h3>Backend &amp; web</h3>
-        <ul class="chips">
-          <li class="chip">Node.js</li><li class="chip">Python</li><li class="chip">PHP / Yii2</li>
-          <li class="chip">SQL</li><li class="chip">REST</li><li class="chip">SOAP</li>
-          <li class="chip">AWS</li><li class="chip">JavaScript</li><li class="chip">AngularJS</li>
-        </ul>
-      </div>
-      <div class="stack-card">
+      <div class="stack-card stack-card-wide">
         <h3>Practices</h3>
-        <ul class="chips">
-          <li class="chip">Test-Driven Development</li><li class="chip">Spec-Driven Development</li>
-          <li class="chip">Architectural design</li><li class="chip">SOLID</li>
-          <li class="chip">Code review</li><li class="chip">Mentoring</li>
-        </ul>
+        <p>I write the spec before the task and the test before the code — spec-driven and test-driven development are the two habits that have survived every change of platform and language. Architecture gets designed before the first line is written: modelling the system first is the engineering reflex I brought over from ten years in manufacturing.</p>
+        <p>The rest is how the work stays good over time — code review as a normal part of every change, and mentoring, because a team that understands the design keeps it alive better than any document.</p>
       </div>
       <div class="stack-card">
         <h3>Certifications</h3>
@@ -1992,9 +1934,9 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
           </button>
           <div class="journey-body" id="journey-3-body">
             <ul>
-              <li>Refactored the Babydayka backend: reworked the SQL and database structure so that <strong>heavy queries dropped from 3–5 seconds to 0.2–0.3</strong>.</li>
-              <li>Designed and implemented the <strong>REST API</strong> that let commercial users work with RIAS, a data-exchange system connected to the state housing and utilities information system (GIS ZhKH).</li>
-              <li>Built the RIAS web interface and kept the SOAP exchange services behind it running.</li>
+              <li>Worked on the server side of <strong>Babydayka</strong>, a private family journal — mostly on making the app noticeably faster for the people using it.</li>
+              <li>Built the part of <strong>RIAS</strong>, a data-exchange system for the state housing and utilities sector, that commercial clients connected to — and the web interface around it.</li>
+              <li>Learned what production software demands that pet projects never do: other people's data, other people's deadlines, systems that must keep running.</li>
             </ul>
             <p class="journey-meta">2 years 5 months · Ekaterinburg, Russia</p>
           </div>
@@ -2014,10 +1956,10 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
           </button>
           <div class="journey-body" id="journey-4-body">
             <ul>
-              <li>Lead the mobile team behind <strong>Loolza</strong>, coordinating its development across iOS and Android.</li>
-              <li>Designed and built the Loolza iOS app from scratch to its App Store release, including chat and audio/video calls over WebRTC.</li>
-              <li>Built new features for <strong>Babydayka</strong> and refactored it so screens open and the feed loads noticeably faster.</li>
-              <li>Integrated Apple Pay, Tinkoff and YandexKassa payments across both apps, and kept the local database syncing reliably even offline.</li>
+              <li>Lead the mobile team behind <strong>Loolza</strong>, a local social platform, coordinating its development across iOS and Android.</li>
+              <li>Designed and built the Loolza iOS app from scratch to its App Store release — feeds, chat, audio and video calls.</li>
+              <li>Kept <strong>Babydayka</strong> growing too: new features, and a round of work that made screens open and the feed load noticeably faster.</li>
+              <li>Own the parts users only notice when they break — taking payments and keeping data in sync when the connection drops.</li>
             </ul>
             <p class="journey-meta">Moscow, Russia · remote</p>
           </div>
@@ -2038,9 +1980,9 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
           <div class="journey-body" id="journey-5-body">
             <ul>
               <li>Set the product direction, strategy and positioning for a system-wide voice input tool on macOS, Windows and iOS.</li>
-              <li>Write the code end to end in <strong>Swift, Node.js and Python</strong>; the cross-platform MVP is shipped and in users' hands.</li>
+              <li>Write all the code myself — the apps and the backend behind them; the cross-platform MVP is shipped and in users' hands.</li>
               <li>Talk to users directly — through interviews, surveys and focus groups — and grow the product with founder-led content and paid experiments.</li>
-              <li>Run the commercial side myself: pricing and the unit economics behind it, subscription payments through <strong>Paddle</strong>, and the pitch materials for investors.</li>
+              <li>Run the commercial side myself: pricing, taking subscription payments, and the materials investors ask for.</li>
             </ul>
             <p class="journey-meta">Batumi, Georgia</p>
           </div>

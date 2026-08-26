@@ -25,17 +25,15 @@ six years, which is where the sales, hiring and delivery side of running a produ
   press a global hotkey, talk, and the text appears where the cursor is, in any app.
   Shipped on macOS, Windows and iOS ([App Store](https://apps.apple.com/us/app/speak-y-voice-notes-meetings/id6758596767)).
   Validated with 15+ deep interviews and a 19-person survey before building wide.
-  Stack: Swift, SwiftUI, AppKit, Node.js, Python, REST, Paddle, TDD.
 - [Ryadom](https://ryadom.app): Mobile team lead at Rucode. A local social platform where
   people and businesses meet — geo-targeted event discovery, multi-profile architecture,
   QR-based loyalty programs and real-time messaging
   ([App Store](https://apps.apple.com/us/app/id1619482847)).
-  Stack: Swift, UIKit, MVVM, Core Data, Alamofire, WebRTC.
 - [Babydayka](https://babydayka.com/): iOS and backend developer at Rucode. A private
   pregnancy and baby-development journal shared only with invited family
   ([App Store](https://apps.apple.com/us/app/id964649899)).
-  Reworked SQL and database structure, cutting heavy queries from 3–5 s to 0.2–0.3 s.
-  Stack: Swift, UIKit, Core Data, PHP/Yii2, SQL, Postman.
+  Worked both sides of it — the iOS app and the backend serving it — with a focus on
+  making the app fast for the families using it.
 
 ## Notes
 
@@ -67,13 +65,14 @@ anchored on the canonical page at https://avgrebenkin.com/#note-<slug>.
   talk "Method dispatch in Swift" (static, table and message dispatch; method swizzling).
   Event page: https://gara.ge/event/ios-meetup/
 
-## Skills
+## How I work
 
-- iOS: Swift, SwiftUI, UIKit, MVVM, Coordinators, SnapKit, RxSwift, GCD, Core Data,
-  WebRTC, CallKit, AVFoundation, StoreKit, Alamofire.
-- Backend and web: Node.js, Python, PHP/Yii2, SQL, REST, SOAP, AWS, JavaScript, AngularJS.
-- Practices: test-driven development, spec-driven development, architectural design,
-  SOLID, code review, mentoring.
+- Spec-driven and test-driven development: the spec is written before the task and the
+  test before the code — the two habits that have survived every change of platform.
+- Architecture is designed before implementation; modelling the system first is an
+  engineering reflex carried over from ten years in manufacturing.
+- Code review as a normal part of every change, and mentoring — a team that understands
+  the design keeps it alive better than any document.
 
 ## Experience
 
