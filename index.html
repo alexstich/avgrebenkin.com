@@ -1154,7 +1154,9 @@ a.contact-card:hover{border-color:var(--border);transform:translateY(-2px);backg
 /* ---------- Speak-Y invite banner ---------- */
 /* Кнопка намеренно не в акценте сайта: рядом с ней ещё три такие же фиолетовые,
    и она в них тонула. Оранжевый — из самой иконки Speak-Y, поэтому не чужой. */
-:root{--sy-1:#f49a20;--sy-2:#d96320;--sy-ink:#241205}
+:root{--sy-1:#ffb020;--sy-2:#ff7a18;--sy-ink:#3a1800;--sy-label:#ffc04d}
+:root[data-theme="light"]{--sy-1:#ff9f12;--sy-2:#f97316;--sy-label:#b45309}
+:root[data-theme="cyber"]{--sy-label:var(--accent)}
 .sy-banner{
   position:relative;z-index:1;
   display:grid;grid-template-columns:auto 1fr auto;align-items:start;
@@ -1173,8 +1175,8 @@ a.contact-card:hover{border-color:var(--border);transform:translateY(-2px);backg
 }
 .sy-mark img{width:100%;height:100%;object-fit:cover}
 .sy-eyebrow{
-  margin:0 0 .2rem;font-family:var(--font-mono);font-size:.66rem;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--sy-1);
+  margin:0 0 .3rem;font-family:var(--font-mono);font-size:.72rem;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--sy-label);
 }
 .sy-title{font-size:1.2rem;font-weight:600;letter-spacing:-.015em;margin:0 0 .35rem}
 .sy-dek{margin:0;color:var(--muted);font-size:.9rem;line-height:1.55;max-width:60ch}
@@ -1190,7 +1192,7 @@ a.contact-card:hover{border-color:var(--border);transform:translateY(-2px);backg
 }
 .sy-offer b{
   display:block;font-family:var(--font-head);font-size:1.35rem;font-weight:600;
-  letter-spacing:-.02em;color:var(--sy-1);
+  letter-spacing:-.02em;color:var(--sy-label);
 }
 .sy-offer span{
   display:block;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;
@@ -1198,12 +1200,17 @@ a.contact-card:hover{border-color:var(--border);transform:translateY(-2px);backg
 }
 .sy-cta{
   display:inline-block;white-space:nowrap;
-  padding:.72rem 1.3rem;border-radius:10px;
-  background:var(--sy-1);border:1px solid var(--sy-2);
+  padding:.72rem 1.3rem;border-radius:10px;border:0;
+  background:linear-gradient(135deg,var(--sy-1),var(--sy-2));
   color:var(--sy-ink);font-size:.92rem;font-weight:700;letter-spacing:-.01em;
-  transition:background .18s,border-color .18s;
+  box-shadow:0 8px 20px -10px var(--sy-2);
+  transition:filter .18s,transform .18s,box-shadow .18s;
 }
-.sy-cta:hover{background:var(--sy-2);border-color:var(--sy-2);color:#fff}
+.sy-banner:hover .sy-cta{filter:brightness(1.06);box-shadow:0 12px 26px -10px var(--sy-2)}
+.sy-cta:active{transform:translateY(1px)}
+/* Ссылка растянута на весь баннер: кликается любое место, не только кнопка. */
+.sy-cta::after{content:"";position:absolute;inset:0;z-index:2}
+.sy-banner{cursor:pointer}
 .sy-cta-sub{
   display:block;margin-top:.45rem;text-align:right;
   font-family:var(--font-mono);font-size:.66rem;letter-spacing:.05em;color:var(--muted);
