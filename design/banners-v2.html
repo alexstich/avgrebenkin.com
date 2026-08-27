@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Speak-Y banners — brand series</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/research/shell.css">
+<style>
+  /* ── фирменные цвета Speak-Y, снятые с speak-y.com ─────────────────── */
+  :root {
+    --sy-orange: #FF6700;
+    --sy-orange-2: #E05A00;
+    --sy-amber: #FFB020;
+    --sy-tint: #FFF0E5;
+    --sy-blue: #004E98;
+    --sy-blue-2: #3A6EA5;
+    --sy-blue-3: #7A9AB8;
+    --sy-paper: #F5F5F5;
+    --sy-white: #ffffff;
+    --sy-line: #DCDCDC;
+  }
+
+  body { font-family: var(--font-body); background: var(--bg); color: var(--text); }
+  .lab { max-width: 1180px; margin: 0 auto; padding: 20px 24px 90px; }
+  .labbar { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: 10px 18px;
+            align-items: center; padding: 14px 0; margin-bottom: 18px;
+            background: var(--bg); border-bottom: 1px solid var(--border-soft); }
+  .labbar h1 { font-family: var(--font-head); font-size: 1.05rem; margin: 0 auto 0 0; }
+  .seg { display: flex; gap: 2px; padding: 3px; border-radius: 9px;
+         background: rgba(var(--accent-rgb), .08); border: 1px solid var(--border-soft); }
+  .seg button { border: 0; border-radius: 6px; background: transparent; color: var(--muted);
+                padding: 6px 12px; font-family: var(--font-mono); font-size: 12px; cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--bg-elev); color: var(--accent); }
+  .case { margin: 0 0 46px; }
+  .case > h2 { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em;
+               text-transform: uppercase; color: var(--accent); margin: 0 0 4px; }
+  .case > p.why { margin: 0 0 14px; color: var(--muted); font-size: 13.5px; max-width: 80ch; }
+  .stage { max-width: 1120px; transition: max-width .2s; }
+  body[data-w="narrow"] .stage { max-width: 780px; }
+
+  /* ── общая механика ───────────────────────────────────────────────── */
+  .b { position: relative; overflow: hidden; cursor: pointer; border-radius: 16px; }
+  .b a.go { position: relative; z-index: 3; text-decoration: none; }
+  .b a.go::after { content: ""; position: absolute; inset: 0; }
+  .b .full::before { content: ""; position: absolute; inset: 0; z-index: 2; }
+
+  /* Логотип-волна и написание имени — как на og-image самого Speak-Y. */
+  .logo { font-family: var(--font-head); font-weight: 700; letter-spacing: -.03em; }
+  .logo i { font-style: normal; color: var(--sy-orange); }
+  .wavemark { display: block; }
+  .wavemark rect { fill: url(#syg); }
+
+  .cta { display: inline-flex; align-items: center; gap: .5rem; white-space: nowrap;
+         padding: .78rem 1.35rem; border-radius: 10px; border: 0;
+         background: var(--sy-orange); color: #fff;
+         font-family: var(--font-head); font-size: .95rem; font-weight: 600; letter-spacing: -.01em;
+         transition: background .18s; }
+  .b:hover .cta { background: var(--sy-orange-2); }
+  .cta.small { padding: .55rem 1.05rem; font-size: .85rem; border-radius: 8px; }
+  .cta.white { background: #fff; color: var(--sy-blue); }
+  .b:hover .cta.white { background: var(--sy-tint); }
+  .cta.blue { background: var(--sy-blue); color: #fff; }
+  .b:hover .cta.blue { background: #003a73; }
+
+  /* Всё, что стоит на фирменном фоне, живёт в своей палитре и не зависит от темы сайта. */
+  .paper { background: var(--sy-white); color: var(--sy-blue); }
+  .paper .dim { color: var(--sy-blue-2); }
+  .navy { background: var(--sy-blue); color: #fff; }
+  .navy .dim { color: #b9d0e6; }
+  .free { font-family: var(--font-head); font-weight: 700; letter-spacing: -.02em; }
+
+  h3.t { font-family: var(--font-head); font-weight: 600; letter-spacing: -.02em; margin: 0; }
+
+  /* ── 1 ─ Белая карточка, как og-image ─────────────────────────────── */
+  .n1 { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.4rem;
+        padding: 1.4rem 1.6rem; border: 1px solid var(--sy-line); }
+  .n1 .logo { font-size: 1.5rem; }
+  .n1 h3 { font-size: 1.22rem; }
+  .n1 .dim { font-size: .9rem; margin: .2rem 0 0; }
+
+  /* ── 2 ─ Синяя плашка ─────────────────────────────────────────────── */
+  .n2 { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.5rem;
+        padding: 1.5rem 1.7rem; }
+  .n2 h3 { font-size: 1.35rem; }
+  .n2 .dim { font-size: .92rem; margin: .25rem 0 0; }
+
+  /* ── 3 ─ Оффер блоком слева ───────────────────────────────────────── */
+  .n3 { display: grid; grid-template-columns: 150px 1fr auto; align-items: stretch; gap: 0;
+        border: 1px solid var(--sy-line); }
+  .n3 .offer { display: grid; place-content: center; text-align: center; padding: 1.3rem 1rem;
+               background: var(--sy-orange); color: #fff; }
+  .n3 .offer b { display: block; font-family: var(--font-head); font-size: 2.1rem; font-weight: 700;
+                 line-height: 1; letter-spacing: -.04em; }
+  .n3 .offer span { font-size: .68rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+  .n3 .mid { padding: 1.35rem 1.5rem; }
+  .n3 .end { display: grid; place-content: center; padding: 1rem 1.5rem 1rem 0; }
+  .n3 h3 { font-size: 1.2rem; }
+  .n3 .dim { font-size: .88rem; margin: .25rem 0 0; }
+
+  /* ── 4 ─ Половина на половину ─────────────────────────────────────── */
+  .n4 { display: grid; grid-template-columns: 1.15fr .85fr; align-items: stretch; }
+  .n4 .l { padding: 1.6rem 1.7rem; }
+  .n4 .r { display: grid; align-content: center; gap: .8rem; justify-items: start;
+           padding: 1.6rem 1.7rem; }
+  .n4 h3 { font-size: 1.3rem; }
+  .n4 .dim { font-size: .9rem; margin: .3rem 0 0; }
+  .n4 .big { font-family: var(--font-head); font-size: 1.9rem; font-weight: 700; letter-spacing: -.03em; }
+
+  /* ── 5 ─ Волна во всю ширину ──────────────────────────────────────── */
+  .n5 { padding: 1.5rem 1.7rem 1.3rem; border: 1px solid var(--sy-line); }
+  .n5 .row { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
+  .n5 h3 { font-size: 1.3rem; }
+  .n5 .dim { font-size: .9rem; margin: .25rem 0 0; }
+  .n5 .band { margin-top: 1.05rem; opacity: .85; }
+
+  /* ── 6 ─ Тонкая рамка, минимум ────────────────────────────────────── */
+  .n6 { display: flex; align-items: center; gap: 1.2rem; padding: 1.15rem 1.4rem;
+        border: 1.5px solid var(--sy-blue); background: transparent; color: inherit; }
+  .n6 .logo { font-size: 1.15rem; }
+  .n6 .txt { flex: 1; font-size: .98rem; }
+  .n6 .txt b { font-weight: 600; }
+
+  /* ── 7 ─ Оранжевый градиент ───────────────────────────────────────── */
+  .n7 { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.4rem;
+        padding: 1.5rem 1.7rem; color: #2b1200;
+        background: linear-gradient(115deg, var(--sy-amber), var(--sy-orange) 65%, var(--sy-orange-2)); }
+  .n7 h3 { font-size: 1.35rem; color: #2b1200; }
+  .n7 .dim { font-size: .92rem; margin: .25rem 0 0; color: rgba(43, 18, 0, .78); }
+
+  /* ── 8 ─ Купон с корешком ─────────────────────────────────────────── */
+  .n8 { display: grid; grid-template-columns: 1fr auto; align-items: stretch;
+        border: 1px dashed var(--sy-orange); }
+  .n8 .l { padding: 1.4rem 1.6rem; }
+  .n8 .stub { display: grid; place-content: center; gap: .5rem; text-align: center;
+              padding: 1.3rem 1.7rem; border-left: 1px dashed var(--sy-orange);
+              background: var(--sy-tint); color: var(--sy-blue); }
+  .n8 .stub b { font-family: var(--font-head); font-size: 1.5rem; font-weight: 700; letter-spacing: -.03em;
+                color: var(--sy-orange); }
+  .n8 h3 { font-size: 1.22rem; }
+  .n8 .dim { font-size: .88rem; margin: .25rem 0 0; }
+
+  /* ── 9 ─ Тёмно-синий герой ────────────────────────────────────────── */
+  .n9 { position: relative; display: grid; grid-template-columns: 1fr auto; align-items: center;
+        gap: 1.6rem; padding: 1.9rem 1.8rem;
+        background: radial-gradient(90% 200% at 85% 50%, #0a5fb4, var(--sy-blue) 60%); color: #fff; }
+  .n9 h3 { font-size: 1.6rem; }
+  .n9 .dim { font-size: .95rem; margin: .35rem 0 0; }
+  .n9 .bg { position: absolute; right: -20px; bottom: -30px; opacity: .18; pointer-events: none; }
+
+  /* ── 10 ─ Две строки, ничего больше ───────────────────────────────── */
+  .n10 { display: flex; align-items: center; justify-content: space-between; gap: 1.4rem;
+         padding: 1.25rem 1.5rem; border: 1px solid var(--sy-line); }
+  .n10 .lead { font-family: var(--font-head); font-size: 1.15rem; font-weight: 600; letter-spacing: -.015em; }
+  .n10 .dim { font-size: .88rem; margin-top: .2rem; }
+
+  /* ── 11 ─ Чипы ────────────────────────────────────────────────────── */
+  .n11 { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.3rem;
+         padding: 1.35rem 1.55rem; border: 1px solid var(--sy-line); }
+  .n11 h3 { font-size: 1.15rem; margin-bottom: .55rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+  .chip { padding: .3rem .7rem; border-radius: 999px; border: 1px solid var(--sy-line);
+          background: var(--sy-paper); color: var(--sy-blue-2);
+          font-family: var(--font-mono); font-size: .7rem; }
+  .chip.hot { background: var(--sy-tint); border-color: rgba(255, 103, 0, .35); color: var(--sy-orange-2);
+              font-weight: 600; }
+
+  /* ── 12 ─ Строка транскрипта ──────────────────────────────────────── */
+  .n12 { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 1.6rem;
+         padding: 1.4rem 1.6rem; border: 1px solid var(--sy-line); }
+  .n12 h3 { font-size: 1.15rem; margin-bottom: .6rem; }
+  .line { font-family: var(--font-mono); font-size: .84rem; line-height: 1.75; color: var(--sy-blue-2); }
+  .line b { color: var(--sy-orange-2); font-weight: 600; }
+  .line .out { color: var(--sy-blue); }
+
+  /* ── 13 ─ Угловая лента ───────────────────────────────────────────── */
+  .n13 { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.4rem;
+         padding: 1.7rem 1.7rem; border: 1px solid var(--sy-line); }
+  .ribbon { position: absolute; top: 0; right: 0; padding: .3rem .85rem;
+            border-radius: 0 0 0 10px; background: var(--sy-orange); color: #fff;
+            font-family: var(--font-mono); font-size: .62rem; font-weight: 700; letter-spacing: .12em;
+            text-transform: uppercase; }
+  .n13 h3 { font-size: 1.3rem; }
+  .n13 .dim { font-size: .9rem; margin: .25rem 0 0; }
+
+  /* ── 14 ─ Иконка, линейка, текст ──────────────────────────────────── */
+  .n14 { display: grid; grid-template-columns: auto 1px 1fr auto; align-items: center; gap: 1.3rem;
+         padding: 1.4rem 1.6rem; border: 1px solid var(--sy-line); }
+  .n14 .rule { align-self: stretch; background: var(--sy-line); }
+  .n14 h3 { font-size: 1.18rem; }
+  .n14 .dim { font-size: .88rem; margin: .25rem 0 0; }
+
+  /* ── 15 ─ Моноширинный тон ────────────────────────────────────────── */
+  .n15 { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 1.4rem;
+         padding: 1.35rem 1.6rem; border: 1px solid var(--sy-blue-3);
+         background: var(--sy-paper); color: var(--sy-blue); }
+  .n15 .mono { font-family: var(--font-mono); font-size: .9rem; line-height: 1.7; }
+  .n15 .mono b { color: var(--sy-orange-2); }
+  .n15 .mono span { color: var(--sy-blue-2); }
+
+  /* ── 16 ─ Огромная Y ──────────────────────────────────────────────── */
+  .n16 { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.6rem;
+         padding: 1.4rem 1.7rem; border: 1px solid var(--sy-line); }
+  .n16 .y { font-family: var(--font-head); font-size: 4.6rem; font-weight: 700; line-height: .8;
+            letter-spacing: -.06em; color: var(--sy-orange); }
+  .n16 h3 { font-size: 1.28rem; }
+  .n16 .dim { font-size: .9rem; margin: .25rem 0 0; }
+
+  /* ── 17 ─ Карточка встречи ────────────────────────────────────────── */
+  .n17 { display: grid; grid-template-columns: 1fr 300px; align-items: center; gap: 1.6rem;
+         padding: 1.45rem 1.6rem; border: 1px solid var(--sy-line); }
+  .n17 h3 { font-size: 1.25rem; margin-bottom: .35rem; }
+  .n17 .dim { font-size: .89rem; margin: 0 0 1rem; }
+  .meet { border: 1px solid var(--sy-line); border-radius: 12px; overflow: hidden; background: var(--sy-paper); }
+  .meet .hd { padding: .5rem .8rem; background: var(--sy-blue); color: #fff;
+              font-family: var(--font-mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; }
+  .meet .row { display: flex; gap: .55rem; padding: .55rem .8rem; font-size: .82rem; color: var(--sy-blue); }
+  .meet .row b { color: var(--sy-orange-2); font-weight: 600; min-width: 46px; }
+
+  /* ── 18 ─ Полоса-волна ────────────────────────────────────────────── */
+  .n18 { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.3rem;
+         padding: 0; border: 1px solid var(--sy-line); }
+  .n18 .strip { align-self: stretch; width: 74px; display: grid; place-items: center;
+                background: var(--sy-blue); }
+  .n18 .mid { padding: 1.25rem 0; }
+  .n18 .end { padding-right: 1.5rem; }
+  .n18 h3 { font-size: 1.18rem; }
+  .n18 .dim { font-size: .88rem; margin: .22rem 0 0; }
+
+  /* ── 19–20 ─ узкая полоса для страницы исследования ───────────────── */
+  .n19 { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem;
+         padding: .85rem 1.1rem; border: 1px solid var(--sy-line); border-radius: 12px; }
+  .n19 .txt { font-size: .88rem; }
+  .n19 .txt b { font-weight: 600; }
+
+  .n20 { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem;
+         padding: .8rem 1rem; border-radius: 12px; border: 1px solid rgba(255, 103, 0, .35);
+         background: var(--sy-tint); color: var(--sy-blue); }
+  .n20 .free { font-family: var(--font-mono); font-size: .68rem; font-weight: 700; letter-spacing: .12em;
+               text-transform: uppercase; padding: .3rem .65rem; border-radius: 999px;
+               background: var(--sy-orange); color: #fff; white-space: nowrap; }
+  .n20 .txt { font-size: .87rem; }
+
+  @media (max-width: 780px) {
+    .n1, .n2, .n3, .n4, .n7, .n9, .n11, .n12, .n13, .n14, .n16, .n17, .n18 { grid-template-columns: 1fr; }
+    .n3 .end, .n18 .end { padding: 0 1.5rem 1.3rem; }
+    .ribbon { display: none; }
+  }
+</style>
+</head>
+<body data-w="wide">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs><linearGradient id="syg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#FFB020"/><stop offset="1" stop-color="#FF6700"/>
+  </linearGradient></defs>
+</svg>
+
+<div class="lab">
+  <div class="labbar">
+    <h1>Speak-Y banners — brand series</h1>
+    <div class="seg" role="group" aria-label="Theme">
+      <button type="button" data-theme="dark" aria-pressed="true">dark</button>
+      <button type="button" data-theme="light" aria-pressed="false">light</button>
+      <button type="button" data-theme="cyber" aria-pressed="false">cyber</button>
+    </div>
+    <div class="seg" role="group" aria-label="Width">
+      <button type="button" data-w="wide" aria-pressed="true">front page</button>
+      <button type="button" data-w="narrow" aria-pressed="false">research page</button>
+    </div>
+  </div>
+
+  <!-- 23 -->
+  <section class="case"><h2>23 · Paper card — как og-image</h2>
+    <p class="why">Один в один приём с обложки самого Speak-Y: белый лист, имя с оранжевой Y, короткая строка «что это». Узнаётся теми, кто уже видел сайт.</p>
+    <div class="stage"><aside class="b n1 paper">
+      <svg class="wavemark" width="46" height="30" viewBox="0 0 46 30" aria-hidden="true">
+        <rect x="0" y="11" width="5" height="8" rx="2.5"/><rect x="8" y="6" width="5" height="18" rx="2.5"/>
+        <rect x="16" y="0" width="5" height="30" rx="2.5"/><rect x="24" y="5" width="5" height="20" rx="2.5"/>
+        <rect x="32" y="9" width="5" height="12" rx="2.5"/><rect x="40" y="12" width="5" height="6" rx="2.5"/>
+      </svg>
+      <div>
+        <p class="logo" style="margin:0;font-size:1.15rem">Speak-<i>Y</i></p>
+        <h3 class="t">Voice input and meeting recording</h3>
+      </div>
+      <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free →</a>
+    </aside></div>
+  </section>
+
+  <!-- 24 -->
+  <section class="case"><h2>24 · Navy block</h2>
+    <p class="why">Фирменный синий как фон: блок не спорит ни с одной темой сайта, потому что живёт в собственной палитре. Оранжевая кнопка — единственное яркое пятно.</p>
+    <div class="stage"><aside class="b n2 navy">
+      <svg class="wavemark" width="52" height="34" viewBox="0 0 46 30" aria-hidden="true">
+        <rect x="0" y="11" width="5" height="8" rx="2.5"/><rect x="8" y="6" width="5" height="18" rx="2.5"/>
+        <rect x="16" y="0" width="5" height="30" rx="2.5"/><rect x="24" y="5" width="5" height="20" rx="2.5"/>
+        <rect x="32" y="9" width="5" height="12" rx="2.5"/><rect x="40" y="12" width="5" height="6" rx="2.5"/>
+      </svg>
+      <div>
+        <h3 class="t">Voice input and meeting recording</h3>
+        <p class="dim">Speak-Y — one hotkey turns your voice into polished text, in any app.</p>
+      </div>
+      <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free →</a>
+    </aside></div>
+  </section>
+
+  <!-- 25 -->
+  <section class="case"><h2>25 · Offer block</h2>
+    <p class="why">«30 days free» стоит первым и крупно — читатель узнаёт цену входа раньше, чем описание. Формат для тех, кто решает быстро.</p>
+    <div class="stage"><aside class="b n3 paper">
+      <div class="offer"><b>30</b><span>days free</span></div>
+      <div class="mid">
+        <p class="logo" style="margin:0 0 .15rem;font-size:1.05rem">Speak-<i>Y</i></p>
+        <h3 class="t">Voice input and meeting recording</h3>
+        <p class="dim">Dictate in any app. Capture any meeting. 67+ languages.</p>
+      </div>
+      <div class="end"><a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">Get it free →</a></div>
+    </aside></div>
+  </section>
+
+  <!-- 26 -->
+  <section class="case"><h2>26 · Split navy / paper</h2>
+    <p class="why">Слева — что это, справа — сколько стоит. Две половины делят баннер на «понял» и «беру», между ними нет ничего лишнего.</p>
+    <div class="stage"><aside class="b n4">
+      <div class="l paper">
+        <p class="logo" style="margin:0 0 .2rem;font-size:1.1rem">Speak-<i>Y</i></p>
+        <h3 class="t">Voice input and meeting recording</h3>
+        <p class="dim">One hotkey turns your voice into polished text — in any app on macOS, Windows and iOS.</p>
+      </div>
+      <div class="r navy">
+        <span class="big">30 days free</span>
+        <a class="cta white go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">Start now →</a>
+      </div>
+    </aside></div>
+  </section>
+
+  <!-- 27 -->
+  <section class="case"><h2>27 · Wave band</h2>
+    <p class="why">Волна — единственный узнаваемый графический знак продукта. Здесь она работает как подпись под текстом и делает блок «своим» без логотипа во всю ширину.</p>
+    <div class="stage"><aside class="b n5 paper">
+      <div class="row">
+        <div>
+          <p class="logo" style="margin:0 0 .15rem;font-size:1.05rem">Speak-<i>Y</i></p>
+          <h3 class="t">Voice input and meeting recording</h3>
+          <p class="dim">Dictate in any app. Capture any meeting.</p>
+        </div>
+        <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free →</a>
+      </div>
+      <svg class="band wavemark" width="300" height="26" viewBox="0 0 300 26" aria-hidden="true">
+        <g>
+          <rect x="0" y="9" width="4" height="8" rx="2"/><rect x="10" y="5" width="4" height="16" rx="2"/>
+          <rect x="20" y="1" width="4" height="24" rx="2"/><rect x="30" y="7" width="4" height="12" rx="2"/>
+          <rect x="40" y="3" width="4" height="20" rx="2"/><rect x="50" y="10" width="4" height="6" rx="2"/>
+          <rect x="60" y="6" width="4" height="14" rx="2"/><rect x="70" y="2" width="4" height="22" rx="2"/>
+          <rect x="80" y="8" width="4" height="10" rx="2"/><rect x="90" y="4" width="4" height="18" rx="2"/>
+          <rect x="100" y="9" width="4" height="8" rx="2"/><rect x="110" y="6" width="4" height="14" rx="2"/>
+          <rect x="120" y="1" width="4" height="24" rx="2"/><rect x="130" y="8" width="4" height="10" rx="2"/>
+          <rect x="140" y="5" width="4" height="16" rx="2"/><rect x="150" y="10" width="4" height="6" rx="2"/>
+          <rect x="160" y="3" width="4" height="20" rx="2"/><rect x="170" y="7" width="4" height="12" rx="2"/>
+          <rect x="180" y="9" width="4" height="8" rx="2"/><rect x="190" y="4" width="4" height="18" rx="2"/>
+          <rect x="200" y="6" width="4" height="14" rx="2"/><rect x="210" y="2" width="4" height="22" rx="2"/>
+          <rect x="220" y="9" width="4" height="8" rx="2"/><rect x="230" y="5" width="4" height="16" rx="2"/>
+          <rect x="240" y="10" width="4" height="6" rx="2"/><rect x="250" y="3" width="4" height="20" rx="2"/>
+          <rect x="260" y="8" width="4" height="10" rx="2"/><rect x="270" y="6" width="4" height="14" rx="2"/>
+          <rect x="280" y="1" width="4" height="24" rx="2"/><rect x="290" y="9" width="4" height="8" rx="2"/>
+        </g>
+      </svg>
+    </aside></div>
+  </section>
+
+  <!-- 28 -->
+  <section class="case"><h2>28 · Outline</h2>
+    <p class="why">Только рамка фирменного синего и одна строка. Самый тихий блок серии — для мест, где реклама не должна перебивать содержание.</p>
+    <div class="stage"><aside class="b n6">
+      <span class="logo">Speak-<i>Y</i></span>
+      <span class="txt"><b>Voice input and meeting recording.</b> One hotkey, any app, 67+ languages.</span>
+      <a class="cta small go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free →</a>
+    </aside></div>
+  </section>
+
+  <!-- 29 -->
+  <section class="case"><h2>29 · Orange field</h2>
+    <p class="why">Фирменный оранжевый занимает весь блок — максимальная заметность на любой теме. Кнопка становится белой, чтобы не спорить с фоном.</p>
+    <div class="stage"><aside class="b n7">
+      <svg class="wavemark" width="50" height="32" viewBox="0 0 46 30" aria-hidden="true" style="opacity:.9">
+        <g fill="#2b1200">
+          <rect x="0" y="11" width="5" height="8" rx="2.5"/><rect x="8" y="6" width="5" height="18" rx="2.5"/>
+          <rect x="16" y="0" width="5" height="30" rx="2.5"/><rect x="24" y="5" width="5" height="20" rx="2.5"/>
+          <rect x="32" y="9" width="5" height="12" rx="2.5"/><rect x="40" y="12" width="5" height="6" rx="2.5"/>
+        </g>
+      </svg>
+      <div>
+        <h3 class="t">Voice input and meeting recording</h3>
+        <p class="dim">Speak-Y · dictate in any app, capture any meeting</p>
+      </div>
+      <a class="cta white go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free →</a>
+    </aside></div>
+  </section>
+
+  <!-- 30 -->
+  <section class="case"><h2>30 · Coupon</h2>
+    <p class="why">Пунктир и корешок читаются как «это подарок, а не реклама». Хорошо ложится на личную рекомендацию с сайта автора.</p>
+    <div class="stage"><aside class="b n8 paper">
+      <div class="l">
+        <p class="logo" style="margin:0 0 .15rem;font-size:1.05rem">Speak-<i>Y</i></p>
+        <h3 class="t">Voice input and meeting recording</h3>
+        <p class="dim">Dictate in any app, capture any meeting, keep it all on your machine.</p>
+      </div>
+      <div class="stub">
+        <b>30 days free</b>
+        <a class="cta small go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">Redeem →</a>
+      </div>
+    </aside></div>
+  </section>
+
+  <!-- 31 -->
+  <section class="case"><h2>31 · Navy hero</h2>
+    <p class="why">Самый «баннерный» вариант: крупная типографика, глубокий фирменный фон, волна в углу. Заметен даже боковым зрением.</p>
+    <div class="stage"><aside class="b n9">
+      <div>
+        <p class="logo" style="margin:0 0 .3rem;font-size:1.05rem;opacity:.9">Speak-<i>Y</i></p>
+        <h3 class="t">Voice input and meeting recording</h3>
+        <p class="dim">One hotkey turns your voice into polished text. Meetings recorded and transcribed — no bots in the call.</p>
+      </div>
+      <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free →</a>
+      <svg class="bg" width="260" height="150" viewBox="0 0 46 30" aria-hidden="true">
+        <g fill="#fff">
+          <rect x="0" y="11" width="5" height="8" rx="2.5"/><rect x="8" y="6" width="5" height="18" rx="2.5"/>
+          <rect x="16" y="0" width="5" height="30" rx="2.5"/><rect x="24" y="5" width="5" height="20" rx="2.5"/>
+          <rect x="32" y="9" width="5" height="12" rx="2.5"/><rect x="40" y="12" width="5" height="6" rx="2.5"/>
+        </g>
+      </svg>
+    </aside></div>
+  </section>
+
+  <!-- 32 -->
+  <section class="case"><h2>32 · Two lines</h2>
+    <p class="why">Название инструмента, что он делает, сколько стоит попробовать — и всё. Минимальный блок, который всё равно отвечает на три главных вопроса.</p>
+    <div class="stage"><aside class="b n10 paper">
+      <div>
+        <div class="lead"><span class="logo">Speak-<i>Y</i></span> — voice input and meeting recording</div>
+        <p class="dim" style="margin:0">One hotkey, any app · macOS, Windows, iOS · 67+ languages</p>
+      </div>
+      <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free →</a>
+    </aside></div>
+  </section>
+
+  <!-- 33 -->
+  <section class="case"><h2>33 · Chips</h2>
+    <p class="why">Каждый чип снимает по возражению — платформа, языки, приватность, — а последний чип и есть оффер. Плотно, но читается за секунду.</p>
+    <div class="stage"><aside class="b n11 paper">
+      <svg class="wavemark" width="40" height="26" viewBox="0 0 46 30" aria-hidden="true">
+        <rect x="0" y="11" width="5" height="8" rx="2.5"/><rect x="8" y="6" width="5" height="18" rx="2.5"/>
+        <rect x="16" y="0" width="5" height="30" rx="2.5"/><rect x="24" y="5" width="5" height="20" rx="2.5"/>
+        <rect x="32" y="9" width="5" height="12" rx="2.5"/><rect x="40" y="12" width="5" height="6" rx="2.5"/>
+      </svg>
+      <div>
+        <h3 class="t">Speak-Y — voice input and meeting recording</h3>
+        <div class="chips">
+          <span class="chip">one hotkey</span><span class="chip">macOS · Windows · iOS</span>
+          <span class="chip">67+ languages</span><span class="chip">no bots in your calls</span>
+          <span class="chip hot">30 days free</span>
+        </div>
+      </div>
+      <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">Try it →</a>
+    </aside></div>
+  </section>
+
+  <!-- 34 -->
+  <section class="case"><h2>34 · Transcript line</h2>
+    <p class="why">Показывает результат работы инструмента прямо в баннере: сказанное сверху, готовый текст снизу. Объясняет продукт без единого прилагательного.</p>
+    <div class="stage"><aside class="b n12 paper">
+      <div>
+        <h3 class="t">Voice input and meeting recording</h3>
+        <div class="line">
+          <b>you say</b> &nbsp;“send maria the pricing page and cc alex”<br>
+          <b>you get</b> &nbsp;<span class="out">Send Maria the pricing page and cc Alex.</span>
+        </div>
+      </div>
+      <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free →</a>
+    </aside></div>
+  </section>
+
+  <!-- 35 -->
+  <section class="case"><h2>35 · Corner tag</h2>
+    <p class="why">Ярлык в углу — приём из магазинов: сообщает про акцию, не отнимая ни строки у основного текста.</p>
+    <div class="stage"><aside class="b n13 paper">
+      <span class="ribbon">30 days free</span>
+      <svg class="wavemark" width="44" height="28" viewBox="0 0 46 30" aria-hidden="true">
+        <rect x="0" y="11" width="5" height="8" rx="2.5"/><rect x="8" y="6" width="5" height="18" rx="2.5"/>
+        <rect x="16" y="0" width="5" height="30" rx="2.5"/><rect x="24" y="5" width="5" height="20" rx="2.5"/>
+        <rect x="32" y="9" width="5" height="12" rx="2.5"/><rect x="40" y="12" width="5" height="6" rx="2.5"/>
+      </svg>
+      <div>
+        <h3 class="t">Speak-Y — voice input and meeting recording</h3>
+        <p class="dim">Dictate in any app. Capture any meeting. Nothing leaves your machine.</p>
+      </div>
+      <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener" style="margin-right:2.2rem">Try free →</a>
+    </aside></div>
+  </section>
+
+  <!-- 36 -->
+  <section class="case"><h2>36 · Icon and rule</h2>
+    <p class="why">Иконка приложения плюс тонкая линейка — сдержанная «визитка» продукта. Формат для страницы, где вокруг много текста.</p>
+    <div class="stage"><aside class="b n14 paper">
+      <img src="/images/icons/speak-y.webp" alt="" width="44" height="44" style="border-radius:11px;display:block">
+      <div class="rule"></div>
+      <div>
+        <h3 class="t">Voice input and meeting recording</h3>
+        <p class="dim">Speak-Y · one hotkey in every app, meetings transcribed with who said what</p>
+      </div>
+      <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free →</a>
+    </aside></div>
+  </section>
+
+  <!-- 37 -->
+  <section class="case"><h2>37 · Mono</h2>
+    <p class="why">Технический тон под аудиторию сайта: моноширинный шрифт, стрелки, никакой рекламной интонации. Не включает баннерную слепоту.</p>
+    <div class="stage"><aside class="b n15">
+      <div class="mono">
+        <b>speak-y</b> → voice input and meeting recording<br>
+        <span>hotkey → speak → polished text at the cursor · 67+ languages · nothing leaves your machine</span>
+      </div>
+      <a class="cta small go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free →</a>
+    </aside></div>
+  </section>
+
+  <!-- 38 -->
+  <section class="case"><h2>38 · The Y</h2>
+    <p class="why">Оранжевая Y из логотипа увеличена до графики. Узнаваемо, дёшево по вниманию и не требует ни иллюстрации, ни скриншота.</p>
+    <div class="stage"><aside class="b n16 paper">
+      <div class="y">Y</div>
+      <div>
+        <p class="logo" style="margin:0 0 .1rem;font-size:1rem">Speak-<i>Y</i></p>
+        <h3 class="t">Voice input and meeting recording</h3>
+        <p class="dim">Dictate in any app. Capture any meeting.</p>
+      </div>
+      <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free →</a>
+    </aside></div>
+  </section>
+
+  <!-- 39 -->
+  <section class="case"><h2>39 · Meeting card</h2>
+    <p class="why">Половина продукта — встречи — обычно теряется. Маленькая карточка расшифровки продаёт её без объяснений: видно имена и реплики.</p>
+    <div class="stage"><aside class="b n17 paper">
+      <div>
+        <p class="logo" style="margin:0 0 .15rem;font-size:1.05rem">Speak-<i>Y</i></p>
+        <h3 class="t">Voice input and meeting recording</h3>
+        <p class="dim">Talk into any app instead of typing — and let the meeting write itself down, with no bot joining the call.</p>
+        <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free →</a>
+      </div>
+      <div class="meet">
+        <div class="hd">Product sync · transcript</div>
+        <div class="row"><b>Maria</b><span>Ship the pricing page Thursday.</span></div>
+        <div class="row"><b>Alex</b><span>I'll take the migration.</span></div>
+      </div>
+    </aside></div>
+  </section>
+
+  <!-- 40 -->
+  <section class="case"><h2>40 · Side strip</h2>
+    <p class="why">Синяя полоса с волной вместо иконки: блок читается как фирменный, но занимает высоту одной строки текста.</p>
+    <div class="stage"><aside class="b n18 paper">
+      <div class="strip">
+        <svg width="34" height="22" viewBox="0 0 46 30" aria-hidden="true">
+          <g fill="#fff">
+            <rect x="0" y="11" width="5" height="8" rx="2.5"/><rect x="8" y="6" width="5" height="18" rx="2.5"/>
+            <rect x="16" y="0" width="5" height="30" rx="2.5"/><rect x="24" y="5" width="5" height="20" rx="2.5"/>
+            <rect x="32" y="9" width="5" height="12" rx="2.5"/><rect x="40" y="12" width="5" height="6" rx="2.5"/>
+          </g>
+        </svg>
+      </div>
+      <div class="mid">
+        <h3 class="t">Speak-Y — voice input and meeting recording</h3>
+        <p class="dim">One hotkey, any app · meetings transcribed with who said what</p>
+      </div>
+      <div class="end"><a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free →</a></div>
+    </aside></div>
+  </section>
+
+  <!-- 41 -->
+  <section class="case"><h2>41 · Research strip — paper</h2>
+    <p class="why">Компактная фирменная полоса для страницы исследования: имя, что за инструмент, оффер. Ровно три вещи и ничего сверх.</p>
+    <div class="stage" style="max-width:780px"><aside class="b n19 paper">
+      <img src="/images/icons/speak-y.webp" alt="" width="30" height="30" style="border-radius:8px;display:block">
+      <div class="txt"><b>Speak-Y — voice input and meeting recording.</b> One hotkey, any app.</div>
+      <a class="cta small go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free →</a>
+    </aside></div>
+  </section>
+
+  <!-- 42 -->
+  <section class="case"><h2>42 · Research strip — tint</h2>
+    <p class="why">Светло-оранжевая подложка отделяет рекламу от исследования мягче, чем рамка, а чип с оффером читается первым.</p>
+    <div class="stage" style="max-width:780px"><aside class="b n20">
+      <span class="free">30 days free</span>
+      <div class="txt"><b>Speak-Y</b> — voice input and meeting recording. One hotkey turns speech into polished text in any app.</div>
+      <a class="cta small go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">Try it →</a>
+    </aside></div>
+  </section>
+</div>
+
+<script>
+  var root = document.documentElement;
+  document.querySelectorAll('.seg button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      b.parentNode.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      if (b.dataset.theme) root.setAttribute('data-theme', b.dataset.theme);
+      if (b.dataset.w) document.body.setAttribute('data-w', b.dataset.w);
+    });
+  });
+</script>
+</body>
+</html>

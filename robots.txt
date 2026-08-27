@@ -3,6 +3,8 @@
 
 User-agent: *
 Allow: /
+# Черновики баннеров — рабочий материал, не для индексации.
+Disallow: /design/
 
 # Answer engines and AI assistants are welcome to read and cite this page.
 User-agent: GPTBot

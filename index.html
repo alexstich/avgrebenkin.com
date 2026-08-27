@@ -1154,96 +1154,45 @@ a.contact-card:hover{border-color:var(--border);transform:translateY(-2px);backg
 /* ---------- Speak-Y invite banner ---------- */
 /* Кнопка намеренно не в акценте сайта: рядом с ней ещё три такие же фиолетовые,
    и она в них тонула. Оранжевый — из самой иконки Speak-Y, поэтому не чужой. */
-:root{--sy-1:#ffb020;--sy-2:#ff7a18;--sy-ink:#3a1800;--sy-label:#ffc04d}
-:root[data-theme="light"]{--sy-1:#ff9f12;--sy-2:#f97316;--sy-label:#b45309}
-:root[data-theme="cyber"]{--sy-label:var(--accent)}
+:root{--sy-orange:#FF6700;--sy-orange-2:#E05A00;--sy-blue:#004E98;--sy-rule:#004E98}
+:root[data-theme="dark"]{--sy-rule:#3A6EA5}
+:root[data-theme="cyber"]{--sy-rule:rgba(0,240,255,.55)}
+/* Баннер Speak-Y: рамка фирменного синего, одна строка, оранжевая кнопка —
+   единственное яркое пятно. Цвета взяты со speak-y.com. */
 .sy-banner{
-  position:relative;z-index:1;
-  display:grid;grid-template-columns:auto 1fr auto;align-items:start;
-  gap:1.1rem 1.4rem;margin-top:3rem;padding:1.4rem 1.5rem;
-  border:1px solid var(--border);border-radius:16px;
-  background:
-    linear-gradient(115deg,rgba(244,154,32,.13),rgba(var(--accent-rgb),.07) 50%,transparent 85%),
-    var(--card-bg);
-  box-shadow:var(--shadow);
-  transition:border-color .25s,transform .25s;
+  position:relative;z-index:1;display:flex;align-items:center;flex-wrap:wrap;gap:.7rem 1.4rem;
+  margin-top:3rem;padding:1.15rem 1.4rem;
+  border:1.5px solid var(--sy-rule);border-radius:14px;background:transparent;cursor:pointer;
 }
-.sy-banner:hover{transform:translateY(-2px)}
-.sy-mark{
-  width:56px;height:56px;flex:none;border-radius:14px;overflow:hidden;
-  border:1px solid var(--border-soft);background:var(--bg-elev);
+.sy-name{
+  font-family:var(--font-head);font-size:1.25rem;font-weight:700;letter-spacing:-.03em;
+  color:var(--text);white-space:nowrap;
 }
-.sy-mark img{width:100%;height:100%;object-fit:cover}
-.sy-eyebrow{
-  margin:0 0 .3rem;font-family:var(--font-mono);font-size:.72rem;font-weight:600;
-  letter-spacing:.12em;text-transform:uppercase;color:var(--sy-label);
-}
-.sy-title{font-size:1.2rem;font-weight:600;letter-spacing:-.015em;margin:0 0 .35rem}
-.sy-dek{margin:0;color:var(--muted);font-size:.9rem;line-height:1.55;max-width:60ch}
-.sy-points{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.35rem 1.1rem;
-  list-style:none;margin:.75rem 0 0;padding:0;
-  font-size:.8rem;line-height:1.45;color:var(--muted);
-}
-.sy-points b{display:block;color:var(--text);font-weight:600;font-size:.82rem}
-.sy-cta-col{align-self:center;justify-self:end;text-align:right}
-.sy-offer{
-  margin:0 0 .5rem;line-height:1.25;
-}
-.sy-offer b{
-  display:block;font-family:var(--font-head);font-size:1.35rem;font-weight:600;
-  letter-spacing:-.02em;color:var(--sy-label);
-}
-.sy-offer span{
-  display:block;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--muted);margin-top:.15rem;
-}
+.sy-name i{font-style:normal;color:var(--sy-orange)}
+.sy-line{flex:1;min-width:16rem;margin:0;color:var(--muted);font-size:.95rem;line-height:1.5}
+.sy-line b{color:var(--text);font-weight:600}
 .sy-cta{
   display:inline-block;white-space:nowrap;
-  padding:.72rem 1.3rem;border-radius:10px;border:0;
-  background:linear-gradient(135deg,var(--sy-1),var(--sy-2));
-  color:var(--sy-ink);font-size:.92rem;font-weight:700;letter-spacing:-.01em;
-  box-shadow:0 8px 20px -10px var(--sy-2);
-  transition:filter .18s,transform .18s,box-shadow .18s;
+  padding:.7rem 1.3rem;border-radius:10px;border:0;
+  background:var(--sy-orange);color:#fff;
+  font-family:var(--font-head);font-size:.95rem;font-weight:600;letter-spacing:-.01em;
+  transition:background .18s;
 }
-.sy-banner:hover .sy-cta{filter:brightness(1.06);box-shadow:0 12px 26px -10px var(--sy-2)}
-.sy-cta:active{transform:translateY(1px)}
-/* Ссылка растянута на весь баннер: кликается любое место, не только кнопка. */
+/* Кликается весь баннер, а не только кнопка. */
 .sy-cta::after{content:"";position:absolute;inset:0;z-index:2}
-.sy-banner{cursor:pointer}
-.sy-cta-sub{
-  display:block;margin-top:.45rem;text-align:right;
-  font-family:var(--font-mono);font-size:.66rem;letter-spacing:.05em;color:var(--muted);
-}
-@media (max-width:860px){
-  .sy-points{grid-template-columns:1fr 1fr}
-}
+.sy-banner:hover .sy-cta{background:var(--sy-orange-2)}
 @media (max-width:720px){
-  .sy-banner{grid-template-columns:auto 1fr;align-items:start;gap:.9rem 1rem;padding:1.15rem 1.15rem 1.25rem}
-  .sy-mark{width:46px;height:46px;border-radius:12px}
-  .sy-points{grid-template-columns:1fr;gap:.5rem}
-  .sy-cta-col{grid-column:1 / -1;justify-self:stretch;text-align:center}
-  .sy-offer{display:flex;align-items:baseline;justify-content:center;gap:.5rem}
-  .sy-offer b{font-size:1.15rem}
-  .sy-cta{display:block;text-align:center}
-  .sy-cta-sub{text-align:center}
+  .sy-banner{gap:.55rem 1rem;padding:1.05rem 1.15rem}
+  /* На узком экране имя, строка и кнопка встают друг под другом. */
+  .sy-line{flex:1 0 100%;min-width:0}
+  .sy-cta{flex:1 0 100%;text-align:center;margin-top:.15rem}
 }
+:root[data-theme="cyber"] .sy-banner{border-radius:0}
 :root[data-theme="cyber"] .sy-cta{
-  border-radius:0;text-transform:uppercase;letter-spacing:.08em;
-  font-family:var(--font-mono);font-size:.78rem;
-  clip-path:polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
-}
-:root[data-theme="cyber"] .sy-banner{
-  border-radius:0;
-  clip-path:polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
-}
-:root[data-theme="cyber"] .sy-mark{border-radius:0}
-:root[data-theme="cyber"] .sy-cta{
-  border-radius:0;text-transform:uppercase;letter-spacing:.08em;font-size:.8rem;
+  border-radius:0;text-transform:uppercase;letter-spacing:.08em;font-size:.82rem;
   font-family:var(--font-mono);
   clip-path:polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
 }
-:root[data-theme="cyber"] .sy-title{text-transform:uppercase;letter-spacing:.04em}
 
 /* ---------- footer ---------- */
 footer{
@@ -1440,27 +1389,9 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
 
   <!-- ============ SPEAK-Y INVITE ============ -->
   <aside class="sy-banner reveal" aria-label="Speak-Y">
-    <div class="sy-mark">
-      <img src="images/icons/speak-y.webp" alt="Speak-Y app icon" width="56" height="56" loading="lazy" decoding="async">
-    </div>
-    <div>
-      <p class="sy-eyebrow">Speak-Y · the thing I build</p>
-      <h2 class="sy-title">Voice input and meeting recording</h2>
-      <p class="sy-dek">One hotkey in every app: talk, and the cleaned-up text lands exactly where your
-        cursor already is. The same app records and transcribes your meetings, with who said what.</p>
-      <ul class="sy-points">
-        <li><b>Made for teams</b>Share a recording into a channel and everyone works off one transcript.</li>
-        <li><b>Private by design</b>End-to-end encrypted, kept on your own machine.</li>
-        <li><b>Fits your setup</b>macOS, Windows and iOS — and readable by your AI assistant over MCP.</li>
-      </ul>
-    </div>
-    <div class="sy-cta-col">
-      <p class="sy-offer"><b>30 days of Pro</b><span>free, on my invite</span></p>
-      <a class="sy-cta" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">
-        Get 30 days free <span aria-hidden="true">→</span>
-      </a>
-      <span class="sy-cta-sub">unlimited voice input · 67+ languages</span>
-    </div>
+    <span class="sy-name">Speak-<i>Y</i></span>
+    <p class="sy-line"><b>Voice input and meeting recording.</b> One hotkey, any app, 67+ languages.</p>
+    <a class="sy-cta" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free <span aria-hidden="true">→</span></a>
   </aside>
 
   <!-- ============ PROJECTS ============ -->

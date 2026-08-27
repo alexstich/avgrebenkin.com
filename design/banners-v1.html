@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Speak-Y banner options — 20 drafts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/research/shell.css">
+<style>
+  /* ── лаборатория: шапка, сетка, подписи ───────────────────────────── */
+  body { font-family: var(--font-body); background: var(--bg); color: var(--text); }
+  .lab { max-width: 1180px; margin: 0 auto; padding: 20px 24px 90px; }
+  .labbar { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: 10px 18px;
+            align-items: center; padding: 14px 0; margin-bottom: 18px;
+            background: var(--bg); border-bottom: 1px solid var(--border-soft); }
+  .labbar h1 { font-family: var(--font-head); font-size: 1.05rem; margin: 0 auto 0 0; }
+  .seg { display: flex; gap: 2px; padding: 3px; border-radius: 9px;
+         background: rgba(var(--accent-rgb), .08); border: 1px solid var(--border-soft); }
+  .seg button { border: 0; border-radius: 6px; background: transparent; color: var(--muted);
+                padding: 6px 12px; font-family: var(--font-mono); font-size: 12px; cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--bg-elev); color: var(--accent); }
+  .case { margin: 0 0 46px; }
+  .case > h2 { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em;
+               text-transform: uppercase; color: var(--accent); margin: 0 0 4px; }
+  .case > p.why { margin: 0 0 14px; color: var(--muted); font-size: 13.5px; max-width: 80ch; }
+  .stage { max-width: 1120px; transition: max-width .2s; }
+  body[data-w="narrow"] .stage { max-width: 780px; }
+
+  /* ── общее для всех вариантов ─────────────────────────────────────── */
+  .b { position: relative; overflow: hidden; cursor: pointer; }
+  .b a.go { position: relative; z-index: 3; }
+  .b a.go::after { content: ""; position: absolute; inset: 0; }
+  .b .stretch::after { content: ""; position: absolute; inset: 0; z-index: 2; }
+  .mark { flex: none; border-radius: 14px; overflow: hidden; border: 1px solid var(--border-soft);
+          background: var(--bg-elev); }
+  .mark img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .eyebrow { font-family: var(--font-mono); font-size: .7rem; font-weight: 600; letter-spacing: .12em;
+             text-transform: uppercase; color: var(--accent); margin: 0; }
+  .fine { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .04em; color: var(--muted); }
+
+  /* Кнопка-эталон: один яркий центр внимания на весь баннер. */
+  .cta { display: inline-flex; align-items: center; gap: .5rem; white-space: nowrap;
+         padding: .78rem 1.35rem; border-radius: 10px; border: 0;
+         background: var(--accent); color: var(--accent-ink);
+         font-family: var(--font-head); font-size: .95rem; font-weight: 600; letter-spacing: -.01em;
+         text-decoration: none; transition: filter .18s, transform .18s; }
+  .b:hover .cta { filter: brightness(1.08); }
+  .cta.sun { background: linear-gradient(135deg, #ffb020, #ff7a18); color: #3a1800; }
+  .cta.ghost { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
+  .cta.small { padding: .55rem 1rem; font-size: .85rem; border-radius: 8px; }
+  :root[data-theme="cyber"] .cta { border-radius: 0; font-family: var(--font-mono); font-size: .82rem;
+    text-transform: uppercase; letter-spacing: .08em;
+    clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px)); }
+
+  /* ── 1. Одна мысль ─────────────────────────────────────────────────── */
+  .v1 { display: flex; align-items: center; gap: 1.4rem; padding: 1.5rem 1.6rem;
+        border: 1px solid var(--border); border-radius: 16px; background: var(--card-bg);
+        box-shadow: var(--shadow); }
+  .v1 .mark { width: 46px; height: 46px; border-radius: 12px; }
+  .v1 h3 { font-family: var(--font-head); font-size: 1.35rem; font-weight: 600; letter-spacing: -.02em;
+           margin: 0; flex: 1; }
+  .v1 h3 span { color: var(--muted); font-weight: 400; }
+
+  /* ── 2. Оффер плашкой ──────────────────────────────────────────────── */
+  .v2 { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1.5rem;
+        padding: 1.3rem 1.5rem; border: 1px solid var(--border); border-radius: 16px;
+        background: var(--card-bg); box-shadow: var(--shadow); }
+  .v2 .badge { display: grid; place-items: center; width: 104px; height: 104px; border-radius: 14px;
+               background: linear-gradient(135deg, #ffb020, #ff7a18); color: #3a1800;
+               font-family: var(--font-head); text-align: center; line-height: 1.05; }
+  .v2 .badge b { display: block; font-size: 2.5rem; font-weight: 700; letter-spacing: -.04em; }
+  .v2 .badge span { font-size: .64rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+  .v2 h3 { font-family: var(--font-head); font-size: 1.3rem; margin: 0 0 .3rem; letter-spacing: -.02em; }
+  .v2 p { margin: 0; color: var(--muted); font-size: .92rem; line-height: 1.5; max-width: 54ch; }
+
+  /* ── 3. Окно продукта ──────────────────────────────────────────────── */
+  .v3 { display: grid; grid-template-columns: 1fr 340px; gap: 1.8rem; align-items: center;
+        padding: 1.5rem 1.6rem; border: 1px solid var(--border); border-radius: 16px;
+        background: var(--card-bg); box-shadow: var(--shadow); }
+  .v3 h3 { font-family: var(--font-head); font-size: 1.5rem; margin: .2rem 0 .5rem; letter-spacing: -.025em; }
+  .v3 p { margin: 0 0 1.1rem; color: var(--muted); font-size: .93rem; line-height: 1.55; max-width: 46ch; }
+  .win { border: 1px solid var(--border-soft); border-radius: 12px; overflow: hidden;
+         background: var(--bg-elev); box-shadow: var(--shadow); }
+  .win .bar { display: flex; gap: 6px; padding: 9px 12px; border-bottom: 1px solid var(--border-soft); }
+  .win .bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--border-soft); }
+  .win .body { padding: 14px 14px 16px; font-family: var(--font-mono); font-size: 12.5px;
+               line-height: 1.7; color: var(--text); }
+  .win .body .said { color: var(--muted); }
+  .win .caret { display: inline-block; width: 7px; height: 15px; vertical-align: -3px;
+                background: var(--accent); animation: blink 1.05s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0 } }
+
+  /* ── 4. Клавиша ────────────────────────────────────────────────────── */
+  .v4 { display: grid; grid-template-columns: auto 1fr auto; gap: 1.6rem; align-items: center;
+        padding: 1.5rem 1.6rem; border: 1px solid var(--border); border-radius: 16px;
+        background: radial-gradient(120% 160% at 8% 20%, rgba(var(--accent-rgb), .16), transparent 60%),
+                    var(--card-bg); box-shadow: var(--shadow); }
+  .keycap { display: grid; place-items: center; gap: 2px; min-width: 130px; padding: 14px 18px;
+            border-radius: 12px; border: 1px solid var(--border);
+            background: var(--bg-elev); box-shadow: 0 4px 0 0 rgba(var(--accent-rgb), .25);
+            font-family: var(--font-mono); color: var(--text); }
+  .keycap b { font-size: 1.5rem; font-weight: 500; letter-spacing: .04em; }
+  .keycap span { font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .v4 h3 { font-family: var(--font-head); font-size: 1.45rem; margin: 0 0 .35rem; letter-spacing: -.025em; }
+  .v4 p { margin: 0; color: var(--muted); font-size: .92rem; max-width: 50ch; line-height: 1.5; }
+
+  /* ── 5. Волна ──────────────────────────────────────────────────────── */
+  .v5 { display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+        padding: 1.7rem 1.7rem; border: 1px solid var(--border); border-radius: 16px;
+        background: var(--card-bg); box-shadow: var(--shadow); }
+  .v5 .wave { position: absolute; inset: 0 0 0 34%; z-index: 0; opacity: .45; pointer-events: none;
+              mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent); }
+  .v5 .in { position: relative; z-index: 1; }
+  .v5 h3 { font-family: var(--font-head); font-size: 1.55rem; margin: 0 0 .4rem; letter-spacing: -.03em; }
+  .v5 p { margin: 0; color: var(--muted); font-size: .93rem; }
+
+  /* ── 6. Три шага ───────────────────────────────────────────────────── */
+  .v6 { display: grid; grid-template-columns: 1fr auto; gap: 1.4rem 2rem; align-items: center;
+        padding: 1.4rem 1.6rem; border: 1px solid var(--border); border-radius: 16px;
+        background: var(--card-bg); box-shadow: var(--shadow); }
+  .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.1rem; }
+  .step { display: flex; gap: .7rem; align-items: flex-start; }
+  .step i { flex: none; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%;
+            background: rgba(var(--accent-rgb), .14); color: var(--accent);
+            font-family: var(--font-mono); font-size: .72rem; font-style: normal; font-weight: 600; }
+  .step b { display: block; font-size: .93rem; font-weight: 600; letter-spacing: -.01em; }
+  .step span { color: var(--muted); font-size: .82rem; line-height: 1.45; }
+  .v6 h3 { grid-column: 1 / -1; font-family: var(--font-head); font-size: 1.3rem; margin: 0;
+           letter-spacing: -.02em; }
+
+  /* ── 7. Купон ──────────────────────────────────────────────────────── */
+  .v7 { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 1.6rem;
+        padding: 0; border: 1px dashed rgba(var(--accent-rgb), .5); border-radius: 16px;
+        background: var(--card-bg); }
+  .v7 .left { padding: 1.5rem 1.6rem; }
+  .v7 h3 { font-family: var(--font-head); font-size: 1.35rem; margin: 0 0 .35rem; letter-spacing: -.02em; }
+  .v7 p { margin: 0; color: var(--muted); font-size: .9rem; }
+  .v7 .stub { position: relative; align-self: stretch; display: grid; place-items: center; gap: .55rem;
+              padding: 1.5rem 1.9rem; border-left: 1px dashed rgba(var(--accent-rgb), .5);
+              background: rgba(var(--accent-rgb), .07); text-align: center; }
+  .v7 .stub b { font-family: var(--font-head); font-size: 1.6rem; letter-spacing: -.03em; color: var(--accent); }
+  .v7 .stub code { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .18em;
+                   color: var(--muted); }
+
+  /* ── 8. Записка автора ─────────────────────────────────────────────── */
+  .v8 { display: grid; grid-template-columns: auto 1fr auto; gap: 1.3rem; align-items: center;
+        padding: 1.5rem 1.6rem; border: 1px solid var(--border-soft); border-radius: 16px;
+        background: var(--card-bg); }
+  .v8 .photo { width: 52px; height: 52px; border-radius: 50%; overflow: hidden; flex: none;
+               border: 1px solid var(--border); }
+  .v8 .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .v8 p { margin: 0; font-size: .98rem; line-height: 1.6; max-width: 62ch; }
+  .v8 p b { font-weight: 600; }
+  .v8 .sign { display: block; margin-top: .45rem; font-family: var(--font-mono); font-size: .7rem;
+              letter-spacing: .06em; color: var(--muted); }
+
+  /* ── 9. Вопрос ─────────────────────────────────────────────────────── */
+  .v9 { display: grid; grid-template-columns: 1fr auto; gap: 1.8rem; align-items: end;
+        padding: 1.8rem 1.7rem 1.6rem; border: 1px solid var(--border); border-radius: 16px;
+        background: var(--card-bg); box-shadow: var(--shadow); }
+  .v9 h3 { font-family: var(--font-head); font-size: 2rem; font-weight: 600; letter-spacing: -.035em;
+           margin: 0 0 .5rem; line-height: 1.05; }
+  .v9 h3 em { font-style: normal; color: var(--accent); }
+  .v9 p { margin: 0; color: var(--muted); font-size: .95rem; max-width: 52ch; line-height: 1.55; }
+
+  /* ── 10. Было / стало ──────────────────────────────────────────────── */
+  .v10 { display: grid; grid-template-columns: 1fr 1fr auto; gap: 0 1.4rem; align-items: center;
+         padding: 1.4rem 1.6rem; border: 1px solid var(--border); border-radius: 16px;
+         background: var(--card-bg); box-shadow: var(--shadow); }
+  .v10 .side { padding: .9rem 1.1rem; border-radius: 12px; }
+  .v10 .was { background: rgba(127, 127, 140, .1); color: var(--muted); }
+  .v10 .now { background: rgba(var(--accent-rgb), .12); }
+  .v10 .side b { display: block; font-family: var(--font-mono); font-size: .66rem; letter-spacing: .14em;
+                 text-transform: uppercase; margin-bottom: .3rem; }
+  .v10 .now b { color: var(--accent); }
+  .v10 .side span { font-size: .95rem; line-height: 1.45; }
+
+  /* ── 11. Реплика встречи ───────────────────────────────────────────── */
+  .v11 { display: grid; grid-template-columns: 1fr auto; gap: 1.8rem; align-items: center;
+         padding: 1.5rem 1.6rem; border: 1px solid var(--border); border-radius: 16px;
+         background: var(--card-bg); box-shadow: var(--shadow); }
+  .bubble { position: relative; padding: .85rem 1.05rem; border-radius: 14px 14px 14px 4px;
+            background: rgba(var(--accent-rgb), .1); border: 1px solid var(--border);
+            font-size: .95rem; line-height: 1.5; max-width: 52ch; }
+  .bubble .who { display: block; font-family: var(--font-mono); font-size: .66rem; letter-spacing: .1em;
+                 text-transform: uppercase; color: var(--accent); margin-bottom: .3rem; }
+  .v11 h3 { font-family: var(--font-head); font-size: 1.2rem; margin: 0 0 .7rem; letter-spacing: -.02em; }
+
+  /* ── 12. Свет на кнопке ────────────────────────────────────────────── */
+  .v12 { display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+         padding: 2rem 1.8rem; border: 1px solid var(--border); border-radius: 18px;
+         background: radial-gradient(80% 180% at 88% 50%, rgba(var(--accent-rgb), .22), transparent 62%),
+                     var(--card-bg); box-shadow: var(--shadow); }
+  .v12 h3 { font-family: var(--font-head); font-size: 1.7rem; letter-spacing: -.03em; margin: 0 0 .4rem; }
+  .v12 p { margin: 0; color: var(--muted); font-size: .93rem; max-width: 50ch; }
+  .v12 .cta { box-shadow: 0 0 0 8px rgba(var(--accent-rgb), .12), 0 18px 40px -18px rgba(var(--accent-rgb), .9); }
+
+  /* ── 13. Бегущая строка ────────────────────────────────────────────── */
+  .v13 { padding: 1.4rem 0 1.2rem; border: 1px solid var(--border); border-radius: 16px;
+         background: var(--card-bg); box-shadow: var(--shadow); }
+  .v13 .top { display: flex; align-items: center; justify-content: space-between; gap: 1.4rem;
+              padding: 0 1.6rem 1.1rem; }
+  .v13 h3 { font-family: var(--font-head); font-size: 1.35rem; margin: 0; letter-spacing: -.02em; }
+  .track { overflow: hidden; border-top: 1px solid var(--border-soft); padding-top: .85rem;
+           mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  .track div { display: flex; gap: 2.2rem; width: max-content; animation: slide 26s linear infinite;
+               font-family: var(--font-mono); font-size: .76rem; letter-spacing: .08em; color: var(--muted); }
+  @keyframes slide { to { transform: translateX(-50%) } }
+
+  /* ── 14. Три галочки ───────────────────────────────────────────────── */
+  .v14 { display: grid; grid-template-columns: auto 1fr auto; gap: 1.3rem; align-items: center;
+         padding: 1.35rem 1.5rem; border: 1px solid var(--border); border-radius: 14px;
+         background: var(--card-bg); }
+  .v14 .mark { width: 42px; height: 42px; border-radius: 11px; }
+  .v14 h3 { font-family: var(--font-head); font-size: 1.1rem; margin: 0 0 .45rem; letter-spacing: -.015em; }
+  .ticks { display: flex; flex-wrap: wrap; gap: .4rem 1.3rem; margin: 0; padding: 0; list-style: none;
+           font-size: .85rem; color: var(--muted); }
+  .ticks li::before { content: "✓"; color: var(--ok); font-weight: 700; margin-right: .4rem; }
+
+  /* ── 15. Крупное число ─────────────────────────────────────────────── */
+  .v15 { display: grid; grid-template-columns: auto 1fr auto; gap: 1.7rem; align-items: center;
+         padding: 1.5rem 1.7rem; border: 1px solid var(--border); border-radius: 16px;
+         background: var(--card-bg); box-shadow: var(--shadow); }
+  .v15 .num { font-family: var(--font-head); font-size: 3.6rem; font-weight: 700; letter-spacing: -.05em;
+              line-height: .9; color: var(--accent); }
+  .v15 h3 { font-family: var(--font-head); font-size: 1.25rem; margin: 0 0 .3rem; letter-spacing: -.02em; }
+  .v15 p { margin: 0; color: var(--muted); font-size: .9rem; max-width: 48ch; line-height: 1.5; }
+
+  /* ── 16. Платформы ─────────────────────────────────────────────────── */
+  .v16 { display: grid; grid-template-columns: 1fr auto; gap: 1.6rem; align-items: center;
+         padding: 1.45rem 1.6rem; border: 1px solid var(--border); border-radius: 16px;
+         background: var(--card-bg); box-shadow: var(--shadow); }
+  .v16 h3 { font-family: var(--font-head); font-size: 1.3rem; margin: 0 0 .55rem; letter-spacing: -.02em; }
+  .plats { display: flex; gap: .5rem; flex-wrap: wrap; }
+  .plat { display: inline-flex; align-items: center; gap: .4rem; padding: .35rem .7rem; border-radius: 999px;
+          border: 1px solid var(--border-soft); background: var(--bg-elev);
+          font-family: var(--font-mono); font-size: .72rem; color: var(--muted); }
+  .plat svg { width: 13px; height: 13px; fill: currentColor; }
+
+  /* ── 17. Кибер-ярлык ───────────────────────────────────────────────── */
+  .v17wrap { padding: 1px; background: var(--accent);
+             clip-path: polygon(0 0, calc(100% - 17px) 0, 100% 17px, 100% 100%, 17px 100%, 0 calc(100% - 17px)); }
+  .v17 { display: grid; grid-template-columns: auto 1fr auto; gap: 1.4rem; align-items: center;
+         padding: 1.4rem 1.6rem; border: 0;
+         background: linear-gradient(100deg, rgba(var(--accent-rgb), .12), transparent 55%),
+                     var(--bg-elev);
+         clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px)); }
+  .v17 h3 { font-family: var(--font-mono); font-size: 1.05rem; font-weight: 600; letter-spacing: .02em;
+            text-transform: uppercase; margin: 0 0 .35rem; }
+  .v17 p { margin: 0; color: var(--muted); font-size: .86rem; font-family: var(--font-mono);
+           letter-spacing: .02em; max-width: 56ch; line-height: 1.5; }
+  .v17 .rail { width: 4px; align-self: stretch; background: var(--accent); }
+
+  /* ── 18. Наклейка ──────────────────────────────────────────────────── */
+  .v18 { display: grid; grid-template-columns: 1fr auto; gap: 1.6rem; align-items: center;
+         padding: 1.6rem 1.7rem; border: 1px solid var(--border); border-radius: 16px;
+         background: var(--card-bg); box-shadow: var(--shadow); }
+  .v18 h3 { font-family: var(--font-head); font-size: 1.45rem; margin: 0 0 .4rem; letter-spacing: -.025em; }
+  .v18 p { margin: 0; color: var(--muted); font-size: .92rem; max-width: 54ch; line-height: 1.5; }
+  .sticker { position: absolute; top: 18px; right: 250px; rotate: -7deg;
+             padding: .4rem .85rem; border-radius: 999px;
+             background: linear-gradient(135deg, #ffb020, #ff7a18); color: #3a1800;
+             font-family: var(--font-mono); font-size: .68rem; font-weight: 600;
+             letter-spacing: .1em; text-transform: uppercase;
+             box-shadow: 0 10px 24px -12px rgba(255, 122, 24, .9); }
+
+  /* ── 19–22: узкая полоса для страницы исследования ─────────────────── */
+  .v19 { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .9rem 1.2rem;
+         padding: .9rem 1.1rem; border: 1px solid var(--border); border-radius: 12px;
+         background: var(--card-bg); font-size: .88rem; color: var(--muted); }
+  .v19 .mark { width: 30px; height: 30px; border-radius: 8px; }
+  .v19 b { color: var(--text); font-weight: 600; }
+
+  .v20 { display: grid; grid-template-columns: 5px 1fr auto; align-items: center; gap: 0 1.1rem;
+         padding: 0; border: 1px solid var(--border-soft); border-radius: 12px;
+         background: var(--card-bg); overflow: hidden; }
+  .v20 .rail { align-self: stretch; background: linear-gradient(180deg, #ffb020, #ff7a18); }
+  .v20 .mid { padding: .95rem 0; font-size: .88rem; color: var(--muted); line-height: 1.5; }
+  .v20 .mid b { color: var(--text); font-weight: 600; }
+  .v20 .end { padding-right: 1.1rem; }
+
+  .v21 { display: flex; align-items: baseline; gap: .8rem; flex-wrap: wrap;
+         padding: .85rem 0 .9rem; border-top: 1px solid var(--border-soft);
+         border-bottom: 1px solid var(--border-soft); font-size: .88rem; color: var(--muted); }
+  .v21 .tag { font-family: var(--font-mono); font-size: .66rem; letter-spacing: .14em;
+              text-transform: uppercase; color: var(--accent); }
+  .v21 a.link { color: var(--text); font-weight: 600; text-decoration: none;
+                border-bottom: 2px solid var(--accent); padding-bottom: 1px; }
+
+  .v22 { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem;
+         padding: .85rem 1rem; border-radius: 12px;
+         border: 1px solid rgba(255, 176, 32, .35);
+         background: linear-gradient(100deg, rgba(255, 176, 32, .14), transparent 60%), var(--card-bg); }
+  .v22 .chip { padding: .3rem .7rem; border-radius: 999px; background: linear-gradient(135deg, #ffb020, #ff7a18);
+               color: #3a1800; font-family: var(--font-mono); font-size: .64rem; font-weight: 700;
+               letter-spacing: .1em; text-transform: uppercase; white-space: nowrap; }
+  .v22 .mid { font-size: .88rem; color: var(--muted); line-height: 1.5; }
+  .v22 .mid b { color: var(--text); font-weight: 600; }
+
+  @media (max-width: 780px) {
+    .v2, .v3, .v4, .v6, .v9, .v10, .v11, .v14, .v15, .v16, .v17, .v18 { grid-template-columns: 1fr; }
+    .v1, .v5, .v12 { flex-wrap: wrap; }
+    .sticker { display: none; }
+  }
+</style>
+</head>
+<body data-w="wide">
+
+<div class="lab">
+  <div class="labbar">
+    <h1>Speak-Y banners — 20 drafts</h1>
+    <div class="seg" role="group" aria-label="Theme">
+      <button type="button" data-theme="dark" aria-pressed="true">dark</button>
+      <button type="button" data-theme="light" aria-pressed="false">light</button>
+      <button type="button" data-theme="cyber" aria-pressed="false">cyber</button>
+    </div>
+    <div class="seg" role="group" aria-label="Width">
+      <button type="button" data-w="wide" aria-pressed="true">front page</button>
+      <button type="button" data-w="narrow" aria-pressed="false">research page</button>
+    </div>
+  </div>
+
+  <!-- 1 -->
+  <section class="case"><h2>01 · One line, one action</h2>
+    <p class="why">Единственная мысль и единственная кнопка. Ничто не соревнуется за внимание — самый высокий CTR из всех форматов, но не продаёт продукт, только клик.</p>
+    <div class="stage"><aside class="b v1">
+      <div class="mark"><img src="/images/icons/speak-y.webp" alt="" width="46" height="46"></div>
+      <h3>Talk instead of typing. <span>In any app on your Mac, PC and iPhone.</span></h3>
+      <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days of Pro, free →</a>
+    </aside></div>
+  </section>
+
+  <!-- 2 -->
+  <section class="case"><h2>02 · Offer as the hero</h2>
+    <p class="why">Оффер вынесен в плашку и работает как визуальный якорь: глаз цепляется за «30 days», а текст объясняет, за что. Приём для холодной аудитории, которой важно «что мне за это».</p>
+    <div class="stage"><aside class="b v2">
+      <div class="badge"><b>30</b><span>days of Pro</span></div>
+      <div>
+        <h3>Your voice, typed into any app</h3>
+        <p>One hotkey anywhere on macOS, Windows and iOS. The same app records your meetings and writes down who said what — end-to-end encrypted.</p>
+      </div>
+      <a class="cta sun go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">Claim on my invite →</a>
+    </aside></div>
+  </section>
+
+  <!-- 3 -->
+  <section class="case"><h2>03 · Show the product</h2>
+    <p class="why">Показать вместо «рассказать»: маленькое окно с бегущим курсором даёт понять механику за секунду. Самый убедительный формат для инструмента, который трудно объяснить словами.</p>
+    <div class="stage"><aside class="b v3">
+      <div>
+        <p class="eyebrow">Speak-Y</p>
+        <h3>Press the hotkey. Talk. It’s typed.</h3>
+        <p>The cleaned-up text lands exactly where your cursor already is — mail, docs, chat, code. Meetings get recorded and transcribed with speakers separated.</p>
+        <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">Get 30 days of Pro free →</a>
+      </div>
+      <div class="win">
+        <div class="bar"><i></i><i></i><i></i></div>
+        <div class="body"><span class="said">“let’s move the release to Tuesday and tell the team”</span><br>
+          Let’s move the release to Tuesday and tell the team<span class="caret"></span></div>
+      </div>
+    </aside></div>
+  </section>
+
+  <!-- 4 -->
+  <section class="case"><h2>04 · The hotkey</h2>
+    <p class="why">Продукт — это одно движение. Клавиша делает обещание физическим и запоминается лучше слов. Хорошо работает для аудитории, которая живёт в горячих клавишах.</p>
+    <div class="stage"><aside class="b v4">
+      <div class="keycap"><b>⌥ Space</b><span>hold and talk</span></div>
+      <div>
+        <h3>One key away from never typing again</h3>
+        <p>Hold it in any app, say what you mean, let go — the text is already there. Same key records the meeting and gives you the transcript.</p>
+      </div>
+      <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">Try 30 days free →</a>
+    </aside></div>
+  </section>
+
+  <!-- 5 -->
+  <section class="case"><h2>05 · Waveform</h2>
+    <p class="why">Голосовая волна как фон: продукт узнаётся до чтения. Тихий, «редакторский» вариант — подходит сайту, где вокруг много текста.</p>
+    <div class="stage"><aside class="b v5">
+      <svg class="wave" viewBox="0 0 740 130" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 65 Q 30 20 60 65 T 120 65 T 180 65 T 240 65 T 300 65 T 360 65 T 420 65 T 480 65 T 540 65 T 600 65 T 660 65 T 720 65 T 780 65 T 840 65 T 900 65 T 960 65 T 1020 65 T 1080 65 T 1140 65"
+              fill="none" stroke="var(--accent)" stroke-width="1.4" opacity=".45"/>
+        <g fill="var(--accent)" opacity=".55">
+          <rect x="300" y="45" width="3" height="40" rx="1.5"/><rect x="312" y="30" width="3" height="70" rx="1.5"/>
+          <rect x="324" y="52" width="3" height="26" rx="1.5"/><rect x="336" y="18" width="3" height="94" rx="1.5"/>
+          <rect x="348" y="40" width="3" height="50" rx="1.5"/><rect x="360" y="55" width="3" height="20" rx="1.5"/>
+          <rect x="372" y="34" width="3" height="62" rx="1.5"/><rect x="384" y="48" width="3" height="34" rx="1.5"/>
+        </g>
+      </svg>
+      <div class="in">
+        <h3>Say it once. It’s written.</h3>
+        <p>Voice input in every app, and meetings transcribed with who said what.</p>
+      </div>
+      <a class="cta go in" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days of Pro, free →</a>
+    </aside></div>
+  </section>
+
+  <!-- 6 -->
+  <section class="case"><h2>06 · Three steps</h2>
+    <p class="why">Снимает главное возражение — «мне придётся разбираться». Показанный за три шага процесс читается как «это займёт секунду», и это лучший ответ на трение установки.</p>
+    <div class="stage"><aside class="b v6">
+      <h3>From thought to text in three moves</h3>
+      <div class="steps">
+        <div class="step"><i>1</i><div><b>Press</b><span>One global hotkey, any app, any window.</span></div></div>
+        <div class="step"><i>2</i><div><b>Talk</b><span>Normal speech, 67+ languages, filler words dropped.</span></div></div>
+        <div class="step"><i>3</i><div><b>It’s typed</b><span>Clean text right where the cursor was.</span></div></div>
+      </div>
+      <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">Start free for 30 days →</a>
+    </aside></div>
+  </section>
+
+  <!-- 7 -->
+  <section class="case"><h2>07 · Invite coupon</h2>
+    <p class="why">Приглашение выглядит как приглашение: пунктир, корешок, код. Форма купона включает «это лично для меня» и заметно поднимает отклик на личных рекомендациях.</p>
+    <div class="stage"><aside class="b v7">
+      <div class="left">
+        <p class="eyebrow">Personal invite · Speak-Y</p>
+        <h3>Voice input and meeting recording</h3>
+        <p>Talk into any app instead of typing. Record meetings, get the transcript with speakers named.</p>
+      </div>
+      <div class="stub">
+        <b>30 days</b>
+        <code>CODE 33BW7</code>
+        <a class="cta small go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">Redeem →</a>
+      </div>
+    </aside></div>
+  </section>
+
+  <!-- 8 -->
+  <section class="case"><h2>08 · A note from the maker</h2>
+    <p class="why">Личное обращение вместо рекламы. На персональном сайте это самый органичный формат: доверие переносится с автора на продукт, а не наоборот.</p>
+    <div class="stage"><aside class="b v8">
+      <div class="photo"><img src="/images/avgrebenkin_avatar.webp" alt="" width="52" height="52"
+           onerror="this.parentNode.innerHTML='<div style=&quot;width:100%;height:100%;display:grid;place-items:center;font-family:var(--font-mono);color:var(--accent)&quot;>AG</div>'"></div>
+      <p><b>I build Speak-Y</b> — a hotkey that turns talking into typed text in any app, and records meetings with who said what. If the notes above were useful, this is the tool behind most of them.
+        <span class="sign">— Aleksei · 30 days of Pro on my invite</span></p>
+      <a class="cta ghost go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">Take the invite →</a>
+    </aside></div>
+  </section>
+
+  <!-- 9 -->
+  <section class="case"><h2>09 · The question</h2>
+    <p class="why">Вопрос-крючок заставляет читателя ответить про себя — и он уже вовлечён. Крупная типографика делает баннер заметным без единой картинки.</p>
+    <div class="stage"><aside class="b v9">
+      <div>
+        <h3>Still typing<br>what you could <em>say</em>?</h3>
+        <p>Speak-Y puts a hotkey in every app: talk, and the cleaned-up text appears where the cursor is. Meetings recorded and transcribed, end-to-end encrypted.</p>
+      </div>
+      <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days of Pro, free →</a>
+    </aside></div>
+  </section>
+
+  <!-- 10 -->
+  <section class="case"><h2>10 · Before / after</h2>
+    <p class="why">Контраст двух состояний — самый быстрый способ показать выгоду. Читатель узнаёт себя в левой половине и хочет оказаться в правой.</p>
+    <div class="stage"><aside class="b v10">
+      <div class="side was"><b>Now</b><span>Typing out the same thought twice as slowly as you can say it.</span></div>
+      <div class="side now"><b>With Speak-Y</b><span>Hold a key, say it once, and the clean text is already in the app.</span></div>
+      <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">Switch, free for 30 days →</a>
+    </aside></div>
+  </section>
+
+  <!-- 11 -->
+  <section class="case"><h2>11 · Meeting transcript</h2>
+    <p class="why">Вторая половина продукта — встречи — обычно теряется за «голосовым вводом». Реплика с именем говорящего продаёт её мгновенно, без объяснений.</p>
+    <div class="stage"><aside class="b v11">
+      <div>
+        <h3>Meetings that write themselves down</h3>
+        <div class="bubble"><span class="who">Maria · 12:04</span>“Ship the pricing page Thursday, and Alex takes the migration.”</div>
+      </div>
+      <div>
+        <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">Record free for 30 days →</a>
+        <p class="fine" style="margin:.6rem 0 0;text-align:right">shared into team channels · encrypted</p>
+      </div>
+    </aside></div>
+  </section>
+
+  <!-- 12 -->
+  <section class="case"><h2>12 · Spotlight</h2>
+    <p class="why">Свет ведёт глаз прямо к кнопке. Самый «продающий» из тихих вариантов: композиция сама подсказывает, куда нажать.</p>
+    <div class="stage"><aside class="b v12">
+      <div>
+        <h3>Your hands are the bottleneck</h3>
+        <p>Speak-Y types what you say, in any app, on macOS, Windows and iOS — and turns meetings into transcripts with speakers named.</p>
+      </div>
+      <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">Get 30 days of Pro →</a>
+    </aside></div>
+  </section>
+
+  <!-- 13 -->
+  <section class="case"><h2>13 · Ticker</h2>
+    <p class="why">Бегущая строка приложений и языков показывает охват без списка на пол-экрана. Движение притягивает взгляд там, где статичный баннер пролистывают.</p>
+    <div class="stage"><aside class="b v13">
+      <div class="top">
+        <h3>Works where you already work</h3>
+        <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free →</a>
+      </div>
+      <div class="track"><div>
+        <span>Mail</span><span>Slack</span><span>Notion</span><span>Docs</span><span>VS&nbsp;Code</span><span>Figma</span><span>Jira</span><span>Telegram</span><span>Xcode</span><span>67+&nbsp;languages</span>
+        <span>Mail</span><span>Slack</span><span>Notion</span><span>Docs</span><span>VS&nbsp;Code</span><span>Figma</span><span>Jira</span><span>Telegram</span><span>Xcode</span><span>67+&nbsp;languages</span>
+      </div></div>
+    </aside></div>
+  </section>
+
+  <!-- 14 -->
+  <section class="case"><h2>14 · Three ticks</h2>
+    <p class="why">Компактный ответ на три главных возражения — команда, приватность, платформы — в одну строку. Занимает вдвое меньше места, чем нынешний блок с колонками.</p>
+    <div class="stage"><aside class="b v14">
+      <div class="mark"><img src="/images/icons/speak-y.webp" alt="" width="42" height="42"></div>
+      <div>
+        <h3>Speak-Y — voice input and meeting recording</h3>
+        <ul class="ticks"><li>End-to-end encrypted</li><li>macOS, Windows, iOS</li><li>Shared into team channels</li></ul>
+      </div>
+      <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days of Pro, free →</a>
+    </aside></div>
+  </section>
+
+  <!-- 15 -->
+  <section class="case"><h2>15 · One big number</h2>
+    <p class="why">Цифра работает как заголовок и запоминается лучше фразы. Здесь она честная и проверяемая — количество языков, а не выдуманный прирост продуктивности.</p>
+    <div class="stage"><aside class="b v15">
+      <div class="num">67+</div>
+      <div>
+        <h3>languages, one hotkey</h3>
+        <p>Speak in yours, get clean text in any app — and meeting transcripts that keep track of who said what.</p>
+      </div>
+      <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">Try 30 days free →</a>
+    </aside></div>
+  </section>
+
+  <!-- 16 -->
+  <section class="case"><h2>16 · Platforms</h2>
+    <p class="why">Первый вопрос читателя — «а у меня заработает?». Чипы платформ отвечают на него до клика и снимают самое частое возражение.</p>
+    <div class="stage"><aside class="b v16">
+      <div>
+        <h3>Talk into any app you already use</h3>
+        <div class="plats">
+          <span class="plat">macOS</span><span class="plat">Windows</span><span class="plat">iOS</span>
+          <span class="plat">67+ languages</span><span class="plat">MCP for your AI assistant</span>
+        </div>
+      </div>
+      <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days of Pro, free →</a>
+    </aside></div>
+  </section>
+
+  <!-- 17 -->
+  <section class="case"><h2>17 · Terminal tag</h2>
+    <p class="why">Моноширинный, «инженерный» тон — под аудиторию сайта. Не выглядит рекламой, а значит не включает баннерную слепоту.</p>
+    <div class="stage"><div class="v17wrap"><aside class="b v17">
+      <div class="rail"></div>
+      <div>
+        <h3>speak-y — voice input, meeting notes</h3>
+        <p>hold hotkey → speak → clean text lands at the cursor. meetings recorded, transcribed, speakers labelled, end-to-end encrypted.</p>
+      </div>
+      <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">--free-30-days →</a>
+    </aside></div></div>
+  </section>
+
+  <!-- 18 -->
+  <section class="case"><h2>18 · Sticker</h2>
+    <p class="why">Наклейка «30 days free» под углом добавляет баннеру голос и живость, не трогая основную типографику. Тот случай, когда один элемент делает всю разницу.</p>
+    <div class="stage"><aside class="b v18">
+      <span class="sticker">30 days free</span>
+      <div>
+        <h3>Stop typing. Just say it.</h3>
+        <p>A hotkey in every app turns speech into clean text; the same app records your meetings and writes down who said what.</p>
+      </div>
+      <a class="cta go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">Take my invite →</a>
+    </aside></div>
+  </section>
+
+  <!-- 19 -->
+  <section class="case"><h2>19 · Research strip — plain</h2>
+    <p class="why">Компактная полоса для страницы исследования: одна мысль, одна кнопка, никакого давления. Не спорит с содержанием страницы.</p>
+    <div class="stage" style="max-width:780px"><aside class="b v19">
+      <div class="mark"><img src="/images/icons/speak-y.webp" alt="" width="30" height="30"></div>
+      <div><b>Speak-Y</b> — the tool behind this study: a hotkey that types what you say, in any app.</div>
+      <a class="cta small go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free →</a>
+    </aside></div>
+  </section>
+
+  <!-- 20 -->
+  <section class="case"><h2>20 · Research strip — accent rail</h2>
+    <p class="why">Цветная полоска слева отделяет рекламу от исследования честно и без рамки-коробки. Меньше визуального шума, чем у нынешней плашки.</p>
+    <div class="stage" style="max-width:780px"><aside class="b v20">
+      <div class="rail"></div>
+      <div class="mid"><b>Voice input and meeting recording.</b> Talk into any app instead of typing; meetings get transcribed with who said what.</div>
+      <div class="end"><a class="cta small sun go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days of Pro →</a></div>
+    </aside></div>
+  </section>
+
+  <!-- 21 -->
+  <section class="case"><h2>21 · Research strip — quiet line</h2>
+    <p class="why">Почти не баннер: строка и подчёркнутая ссылка. Формат для тех, кто боится «продавать» на странице с данными — доверие сохраняется полностью.</p>
+    <div class="stage" style="max-width:780px"><aside class="b v21">
+      <span class="tag">Built by the author</span>
+      <span>Speak-Y types what you say, in any app — and records meetings with speaker names.</span>
+      <a class="link go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days of Pro, free →</a>
+    </aside></div>
+  </section>
+
+  <!-- 22 -->
+  <section class="case"><h2>22 · Research strip — offer chip</h2>
+    <p class="why">Оффер вынесен в чип и читается первым. Самый «кликабельный» из компактных, если задача — конверсия, а не тон.</p>
+    <div class="stage" style="max-width:780px"><aside class="b v22">
+      <span class="chip">30 days free</span>
+      <div class="mid"><b>Speak-Y</b> — voice input in every app and meetings transcribed with who said what.</div>
+      <a class="cta small go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">Take the invite →</a>
+    </aside></div>
+  </section>
+</div>
+
+<script>
+  var root = document.documentElement;
+  document.querySelectorAll('.seg button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var group = b.parentNode;
+      group.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      if (b.dataset.theme) root.setAttribute('data-theme', b.dataset.theme);
+      if (b.dataset.w) document.body.setAttribute('data-w', b.dataset.w);
+    });
+  });
+</script>
+</body>
+</html>

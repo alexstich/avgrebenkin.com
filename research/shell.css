@@ -151,46 +151,42 @@ main{position:relative;z-index:1;max-width:var(--content);margin:0 auto;padding:
 .section-title::before{content:"— ";opacity:.45}
 
 /* ---------- Speak-Y strip ---------- */
-/* Одна строка, но с собственным цветом: в прошлой версии её никто не замечал.
-   Оранжевый взят из иконки Speak-Y, поэтому он не спорит с темой сайта. */
-:root{--sy-1:#f49a20;--sy-2:#d96320;--sy-ink:#241205}
+/* Вариант «outline»: рамка фирменного синего Speak-Y, одна строка текста и
+   оранжевая кнопка — единственное яркое пятно. Цвета сняты со speak-y.com,
+   поэтому блок читается одинаково на всех трёх темах сайта. */
+:root{--sy-orange:#FF6700;--sy-orange-2:#E05A00;--sy-blue:#004E98;--sy-rule:#004E98}
+:root[data-theme="dark"]{--sy-rule:#3A6EA5}
+:root[data-theme="cyber"]{--sy-rule:rgba(0,240,255,.55)}
 .sy-strip{
-  display:grid;grid-template-columns:auto 1fr auto;align-items:center;
-  gap:.5rem 1rem;margin:0;padding:.85rem 1.05rem;
-  border:1px solid rgba(244,154,32,.42);border-radius:12px;
-  background:linear-gradient(115deg,rgba(244,154,32,.12),rgba(244,154,32,.03) 60%,transparent),
-             var(--card-bg);
-  font-size:.85rem;line-height:1.5;color:var(--muted);
+  position:relative;display:flex;align-items:center;flex-wrap:wrap;gap:.6rem 1.15rem;
+  margin:0;padding:1rem 1.25rem;border:1.5px solid var(--sy-rule);border-radius:12px;
+  background:transparent;font-size:.92rem;line-height:1.5;color:var(--muted);cursor:pointer;
 }
-.sy-strip img{width:34px;height:34px;border-radius:9px;flex:none;
-  border:1px solid var(--border-soft);background:var(--bg-elev)}
-.sy-strip p{margin:0;min-width:0}
+.sy-name{
+  font-family:var(--font-head);font-size:1.05rem;font-weight:700;letter-spacing:-.03em;
+  color:var(--text);white-space:nowrap;
+}
+.sy-name i{font-style:normal;color:var(--sy-orange)}
+.sy-strip p{margin:0;flex:1;min-width:14rem}
 .sy-strip b{color:var(--text);font-weight:600}
-.sy-strip .sy-kicker{
-  display:block;font-family:var(--font-mono);font-size:.64rem;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--sy-1);margin-bottom:.12rem;
-}
 .sy-strip a.sy-go{
-  justify-self:end;white-space:nowrap;padding:.5rem 1.05rem;border-radius:10px;
-  background:var(--sy-1);border:1px solid var(--sy-2);
-  color:var(--sy-ink);text-decoration:none;text-align:center;line-height:1.2;
-  transition:background .18s,border-color .18s,color .18s;
+  white-space:nowrap;padding:.55rem 1.1rem;border-radius:10px;
+  background:var(--sy-orange);border:0;color:#fff;text-decoration:none;
+  font-family:var(--font-head);font-size:.88rem;font-weight:600;letter-spacing:-.01em;
+  transition:background .18s;
 }
-.sy-strip a.sy-go b{display:block;white-space:nowrap;font-size:.85rem;font-weight:700}
-.sy-strip a.sy-go > span{
-  display:block;white-space:nowrap;font-family:var(--font-mono);font-size:.6rem;
-  letter-spacing:.06em;text-transform:uppercase;opacity:.78;margin-top:.1rem;
-}
-.sy-strip a.sy-go:hover{background:var(--sy-2);border-color:var(--sy-2);color:#fff;text-decoration:none}
+/* Кликается вся полоса, а не только кнопка. */
+.sy-strip a.sy-go::after{content:"";position:absolute;inset:0;z-index:2}
+.sy-strip:hover a.sy-go{background:var(--sy-orange-2);text-decoration:none}
 @media (max-width:620px){
-  .sy-strip{grid-template-columns:auto 1fr;gap:.6rem .8rem}
-  .sy-strip a.sy-go{grid-column:1 / -1;justify-self:stretch;text-align:center}
+  .sy-strip{gap:.45rem .9rem}
+  .sy-strip p{flex:1 0 100%}
+  .sy-strip a.sy-go{flex:1 0 100%;text-align:center;margin-top:.15rem}
 }
-:root[data-theme="cyber"] .sy-strip,
-:root[data-theme="cyber"] .sy-strip img,
-:root[data-theme="cyber"] .sy-strip a.sy-go{border-radius:0}
+:root[data-theme="cyber"] .sy-strip{border-radius:0}
 :root[data-theme="cyber"] .sy-strip a.sy-go{
-  text-transform:uppercase;letter-spacing:.08em;font-size:.74rem;font-family:var(--font-mono);
+  border-radius:0;text-transform:uppercase;letter-spacing:.08em;font-size:.76rem;
+  font-family:var(--font-mono);
   clip-path:polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px));
 }
 
