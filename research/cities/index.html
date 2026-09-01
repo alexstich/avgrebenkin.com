@@ -702,7 +702,7 @@
 
   <div class="panel chartbox" id="p-chart">
     <div class="phead">
-      <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-print="chart" title="Print the chart" aria-label="Print the chart"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
+      <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-png title="Copy the chart as a PNG with your settings" aria-label="Copy the chart as a PNG with your settings"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.2" y="5" width="17.6" height="14" rx="2.4"/><circle cx="8.6" cy="10" r="1.5"/><path d="m4.4 16.6 4.4-4 3.4 3 3-2.6 4.4 4"/></svg></button><button type="button" class="ibtn" data-print="chart" title="Print the chart" aria-label="Print the chart"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
       <h2>Your selection: score against cost</h2>
       <p>Every city you kept, placed by what it costs (across) and what it scores on your weights (up).
         Names are printed wherever they fit without covering each other — hover or tap any dot for the
@@ -720,7 +720,8 @@
     </div>
     <p class="barhint">Click a region to drop it from the chart, the list and the table — click again to
       bring it back. <b>With rent</b> puts apartment rent into the cost basket; <b>without rent</b>
-      prices only groceries, restaurants, transport and utilities.</p>
+      prices only groceries, restaurants, transport and utilities. The picture icon above copies the
+      whole chart as a PNG with your settings written under it.</p>
     <p class="note" id="moneynote" hidden>Purchasing power is on, and it is the softest number in the set. Money is now in both axes — rich cities drift up simply because they are rich, the effect this chart was built to avoid. Worse, the salaries behind it are self-reported by whoever fills in Numbeo, and in tech hubs that is mostly tech workers: Hyderabad reports 164.7, second in the world behind Bern and above Zurich, while Mumbai reports 63.1 and Delhi 66.6. No real economy splits four ways inside one country. Read this metric as what a Numbeo respondent earns, not what the city pays.</p>
     <svg id="chart" viewBox="0 0 1000 720" role="img" aria-label="Scatter plot of cities: cost against your chosen score"></svg>
     <div class="tip" id="tip"></div>
@@ -1819,6 +1820,163 @@
       '<p class="cmeta" style="margin-top:12px">Dimmed rows are switched off in your sliders.</p>';
   }
   function refreshCard() { if (gpick) showCard(gpick); }
+
+  // ---- картинка схемы: цельный PNG, где рядом со схемой записана вся настройка
+  var SVG_NS = "http://www.w3.org/2000/svg";
+  var PNG_W = 1400, PNG_SCALE = 2, PAD = 52;
+
+  // Внутрь картинки внешние стили не попадают, поэтому каждый узел уносит свои с собой.
+  function inlineStyles(src, clone) {
+    var props = ["fill", "fill-opacity", "stroke", "stroke-width", "stroke-opacity",
+                 "stroke-dasharray", "stroke-linecap", "opacity", "font-family",
+                 "font-size", "font-weight", "text-anchor", "letter-spacing"];
+    var a = src.querySelectorAll("*"), b = clone.querySelectorAll("*");
+    for (var i = 0; i < a.length; i++) {
+      var cs = getComputedStyle(a[i]), css = "";
+      for (var j = 0; j < props.length; j++) {
+        var v = cs.getPropertyValue(props[j]);
+        if (v) css += props[j] + ":" + v + ";";
+      }
+      b[i].setAttribute("style", css);
+      b[i].removeAttribute("class");
+    }
+  }
+
+  function chartImage() {
+    var clone = svg.cloneNode(true);
+    inlineStyles(svg, clone);
+    clone.setAttribute("xmlns", SVG_NS);
+    clone.setAttribute("width", W);
+    clone.setAttribute("height", H);
+    var bg = document.createElementNS(SVG_NS, "rect");
+    bg.setAttribute("x", -20); bg.setAttribute("y", -20);
+    bg.setAttribute("width", W + 40); bg.setAttribute("height", H + 40);
+    bg.setAttribute("fill", gvar("--panel"));
+    clone.insertBefore(bg, clone.firstChild);
+    var img = new Image();
+    img.src = "data:image/svg+xml;charset=utf-8," +
+      encodeURIComponent(new XMLSerializer().serializeToString(clone));
+    return img.decode ? img.decode().then(function () { return img; })
+                      : new Promise(function (ok) { img.onload = function () { ok(img); }; });
+  }
+
+  // Легенда: что именно включено и с каким весом, чтобы картинку можно было прочитать
+  // без страницы — и повторить настройку по адресу внизу.
+  function legendRows() {
+    var on = METRICS.filter(function (m) { return weights[m.key] > 0; });
+    var off = METRICS.length - on.length;
+    var regions = REGION_KEYS.filter(function (k) { return active[k]; });
+    var shown = cities.filter(function (c) { return active[c.region]; }).length;
+    return [
+      ["Weights", on.map(function (m) { return m.label + " ×" + weights[m.key]; }).join(" · ") +
+                  (off ? "   (" + off + " switched off)" : "")],
+      ["Cost", mode === "rent" ? "With rent — groceries, restaurants, transport, utilities and apartment rent"
+                               : "Without rent — groceries, restaurants, transport and utilities"],
+      ["Regions", regions.length === REGION_KEYS.length ? "All six regions"
+                : regions.map(function (k) { return REGIONS[k].label; }).join(" · ")],
+      ["Cities", shown + " of " + cities.length + " on the chart"]
+    ];
+  }
+
+  function wrapText(ctx, text, x, y, maxW, lh) {
+    var words = text.split(" "), line = "", used = 0;
+    for (var i = 0; i < words.length; i++) {
+      var probe = line ? line + " " + words[i] : words[i];
+      if (ctx.measureText(probe).width > maxW && line) {
+        ctx.fillText(line, x, y + used * lh); used++; line = words[i];
+      } else line = probe;
+    }
+    if (line) { ctx.fillText(line, x, y + used * lh); used++; }
+    return used * lh;
+  }
+
+  function buildPNG() {
+    return chartImage().then(function (img) {
+      var head = "'Space Grotesk', system-ui, sans-serif";
+      var body = "'Inter', system-ui, sans-serif";
+      var mono = "'JetBrains Mono', ui-monospace, Menlo, monospace";
+      var inner = PNG_W - PAD * 2;
+      var chartH = Math.round(inner * H / W);
+      var rows = legendRows();
+
+      // Высоту считаем на черновом холсте: строки переносятся по ширине.
+      var probe = document.createElement("canvas").getContext("2d");
+      probe.font = "15px " + body;
+      var labelW = 128, textW = inner - labelW;
+      var rowsH = rows.reduce(function (sum, r) {
+        var lines = 1, line = "", words = r[1].split(" ");
+        for (var i = 0; i < words.length; i++) {
+          var probeLine = line ? line + " " + words[i] : words[i];
+          if (probe.measureText(probeLine).width > textW && line) { lines++; line = words[i]; }
+          else line = probeLine;
+        }
+        return sum + lines * 24 + 14;
+      }, 0);
+
+      var height = PAD + 54 + 30 + 26 + chartH + 34 + rowsH + 30 + PAD;
+      var cv = document.createElement("canvas");
+      cv.width = PNG_W * PNG_SCALE; cv.height = height * PNG_SCALE;
+      var ctx = cv.getContext("2d");
+      ctx.scale(PNG_SCALE, PNG_SCALE);
+      ctx.textBaseline = "alphabetic";
+
+      ctx.fillStyle = gvar("--bg"); ctx.fillRect(0, 0, PNG_W, height);
+      var y = PAD + 40;
+      ctx.fillStyle = gvar("--ink");
+      ctx.font = "600 38px " + head;
+      ctx.fillText("Find your city", PAD, y);
+      y += 30;
+      ctx.fillStyle = gvar("--ink-2");
+      ctx.font = "17px " + body;
+      ctx.fillText("Score against cost of living · 303 cities · Numbeo 2026 mid-year", PAD, y);
+
+      y += 26;
+      ctx.drawImage(img, PAD, y, inner, chartH);
+      y += chartH + 28;
+
+      ctx.strokeStyle = gvar("--hair"); ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(PAD, y - 12); ctx.lineTo(PNG_W - PAD, y - 12); ctx.stroke();
+
+      rows.forEach(function (r) {
+        ctx.fillStyle = gvar("--ink-3");
+        ctx.font = "600 12px " + mono;
+        ctx.fillText(r[0].toUpperCase(), PAD, y + 14);
+        ctx.fillStyle = gvar("--ink-2");
+        ctx.font = "15px " + body;
+        y += wrapText(ctx, r[1], PAD + labelW, y + 14, textW, 24) + 14;
+      });
+
+      y += 16;
+      ctx.fillStyle = gvar("--ink-3");
+      ctx.font = "12px " + mono;
+      ctx.fillText(shareURL().replace(/^https?:\/\//, ""), PAD, y);
+      return new Promise(function (ok) { cv.toBlob(ok, "image/png"); });
+    });
+  }
+
+  var pngBtn = document.querySelector("[data-png]");
+  pngBtn.addEventListener("click", function () {
+    var label = pngBtn.innerHTML;
+    function done(msg) {
+      pngBtn.innerHTML = TICK; pngBtn.classList.add("done"); flash(pngBtn, msg);
+      setTimeout(function () { pngBtn.innerHTML = label; pngBtn.classList.remove("done"); }, 2400);
+    }
+    function save(blob) {
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "find-your-city.png";
+      a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+      done("Saved as PNG");
+    }
+    buildPNG().then(function (blob) {
+      // Без разрешения на буфер картинка просто скачивается — результат тот же.
+      if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
+        navigator.clipboard.write([new ClipboardItem({ "image/png": blob })])
+          .then(function () { done("Chart copied"); }, function () { save(blob); });
+      } else save(blob);
+    }, function () { flash(pngBtn, "Could not build the image"); });
+  });
 
   // ---- печать: один блок на лист, в светлой палитре и с адресом настройки
   var printedTheme = null, printedOpen = null;
