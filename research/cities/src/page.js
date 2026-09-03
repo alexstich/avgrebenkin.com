@@ -1049,29 +1049,38 @@
     });
   }
 
-  var pngBtn = document.querySelector("[data-png]");
-  pngBtn.addEventListener("click", function () {
-    var label = pngBtn.innerHTML;
-    function done(msg) {
-      pngBtn.innerHTML = TICK; pngBtn.classList.add("done"); flash(pngBtn, msg);
-      setTimeout(function () { pngBtn.innerHTML = label; pngBtn.classList.remove("done"); }, 2400);
-    }
-    function save(blob) {
-      var a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "find-your-city.png";
-      a.click();
-      setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
-      done({{js:toastSaved}});
-    }
-    buildPNG().then(function (blob) {
-      // Без разрешения на буфер картинка просто скачивается — результат тот же.
-      if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
-        navigator.clipboard.write([new ClipboardItem({ "image/png": blob })])
-          .then(function () { done({{js:toastCopied}}); }, function () { save(blob); });
-      } else save(blob);
-    }, function () { flash(pngBtn, {{js:toastFailed}}); });
+  // Копирование и скачивание — одна картинка, разные способы её забрать.
+  function pngAction(btn, run) {
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var label = btn.innerHTML;
+      function done(msg) {
+        btn.innerHTML = TICK; btn.classList.add("done"); flash(btn, msg);
+        setTimeout(function () { btn.innerHTML = label; btn.classList.remove("done"); }, 2400);
+      }
+      buildPNG().then(function (blob) { run(blob, done); },
+        function () { flash(btn, {{js:toastFailed}}); });
+    });
+  }
+
+  function savePNG(blob, done) {
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "find-your-city.png";
+    a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+    done({{js:toastSaved}});
+  }
+
+  pngAction(document.querySelector("[data-png]"), function (blob, done) {
+    // Без разрешения на буфер картинка просто скачивается — результат тот же.
+    if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
+      navigator.clipboard.write([new ClipboardItem({ "image/png": blob })])
+        .then(function () { done({{js:toastCopied}}); }, function () { savePNG(blob, done); });
+    } else savePNG(blob, done);
   });
+
+  pngAction(document.querySelector("[data-png-dl]"), savePNG);
 
   // ---- печать: один блок на лист, в светлой палитре и с адресом настройки
   var printedTheme = null, printedOpen = null;
