@@ -702,7 +702,7 @@
 
   <div class="panel chartbox" id="p-chart">
     <div class="phead">
-      <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-png title="Copy the chart as a PNG with your settings" aria-label="Copy the chart as a PNG with your settings"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.2" y="5" width="17.6" height="14" rx="2.4"/><circle cx="8.6" cy="10" r="1.5"/><path d="m4.4 16.6 4.4-4 3.4 3 3-2.6 4.4 4"/></svg></button><button type="button" class="ibtn" data-print="chart" title="Print the chart" aria-label="Print the chart"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
+      <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-png title="Copy the chart as a PNG with your settings" aria-label="Copy the chart as a PNG with your settings"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.2" y="5" width="17.6" height="14" rx="2.4"/><circle cx="8.6" cy="10" r="1.5"/><path d="m4.4 16.6 4.4-4 3.4 3 3-2.6 4.4 4"/></svg></button><button type="button" class="ibtn" data-png-dl title="Download the chart as a PNG with your settings" aria-label="Download the chart as a PNG with your settings"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v10.4"/><path d="m7.6 10.6 4.4 4.4 4.4-4.4"/><path d="M4.8 19.2h14.4"/></svg></button><button type="button" class="ibtn" data-print="chart" title="Print the chart" aria-label="Print the chart"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
       <h2>Your selection: score against cost</h2>
       <p>Every city you kept, placed by what it costs (across) and what it scores on your weights (up).
         Names are printed wherever they fit without covering each other — hover or tap any dot for the
@@ -721,7 +721,8 @@
     <p class="barhint">Click a region to drop it from the chart, the list and the table — click again to
       bring it back. <b>With rent</b> puts apartment rent into the cost basket; <b>without rent</b>
       prices only groceries, restaurants, transport and utilities. The picture icon above copies the
-      whole chart as a PNG with your settings written under it.</p>
+      whole chart as a PNG with your settings written under it; the arrow next to it saves the same
+      picture as a file.</p>
     <p class="note" id="moneynote" hidden>Purchasing power is on, and it is the softest number in the set. Money is now in both axes — rich cities drift up simply because they are rich, the effect this chart was built to avoid. Worse, the salaries behind it are self-reported by whoever fills in Numbeo, and in tech hubs that is mostly tech workers: Hyderabad reports 164.7, second in the world behind Bern and above Zurich, while Mumbai reports 63.1 and Delhi 66.6. No real economy splits four ways inside one country. Read this metric as what a Numbeo respondent earns, not what the city pays.</p>
     <svg id="chart" viewBox="0 0 1000 720" role="img" aria-label="Scatter plot of cities: cost against your chosen score"></svg>
     <div class="tip" id="tip"></div>
@@ -1954,29 +1955,38 @@
     });
   }
 
-  var pngBtn = document.querySelector("[data-png]");
-  pngBtn.addEventListener("click", function () {
-    var label = pngBtn.innerHTML;
-    function done(msg) {
-      pngBtn.innerHTML = TICK; pngBtn.classList.add("done"); flash(pngBtn, msg);
-      setTimeout(function () { pngBtn.innerHTML = label; pngBtn.classList.remove("done"); }, 2400);
-    }
-    function save(blob) {
-      var a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "find-your-city.png";
-      a.click();
-      setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
-      done("Saved as PNG");
-    }
-    buildPNG().then(function (blob) {
-      // Без разрешения на буфер картинка просто скачивается — результат тот же.
-      if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
-        navigator.clipboard.write([new ClipboardItem({ "image/png": blob })])
-          .then(function () { done("Chart copied"); }, function () { save(blob); });
-      } else save(blob);
-    }, function () { flash(pngBtn, "Could not build the image"); });
+  // Копирование и скачивание — одна картинка, разные способы её забрать.
+  function pngAction(btn, run) {
+    if (!btn) return;
+    btn.addEventListener("click", function () {
+      var label = btn.innerHTML;
+      function done(msg) {
+        btn.innerHTML = TICK; btn.classList.add("done"); flash(btn, msg);
+        setTimeout(function () { btn.innerHTML = label; btn.classList.remove("done"); }, 2400);
+      }
+      buildPNG().then(function (blob) { run(blob, done); },
+        function () { flash(btn, "Could not build the image"); });
+    });
+  }
+
+  function savePNG(blob, done) {
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "find-your-city.png";
+    a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+    done("Saved as PNG");
+  }
+
+  pngAction(document.querySelector("[data-png]"), function (blob, done) {
+    // Без разрешения на буфер картинка просто скачивается — результат тот же.
+    if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
+      navigator.clipboard.write([new ClipboardItem({ "image/png": blob })])
+        .then(function () { done("Chart copied"); }, function () { savePNG(blob, done); });
+    } else savePNG(blob, done);
   });
+
+  pngAction(document.querySelector("[data-png-dl]"), savePNG);
 
   // ---- печать: один блок на лист, в светлой палитре и с адресом настройки
   var printedTheme = null, printedOpen = null;
