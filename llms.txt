@@ -71,10 +71,37 @@ from source, with the method and its weak spots written down on the page.
   same weights, every city is listed in order below them, and any city can be found by name
   in a search box that turns the globe to it. A share button puts the whole setup into the
   URL, so a link reopens someone else's exact weights, regions and selected city.
-  Sources: Numbeo mid-year 2026 release (nine metrics), OpenStreetMap counts inside a 10 km
-  disk around each city centre (three metrics), OurAirports plus Wikipedia (nonstop
-  destinations). Every number was rebuilt from source on 26 August 2026. Raw dataset:
-  https://avgrebenkin.com/research/data/cities-303.json (2026-08-26)
+  Sources: Numbeo mid-year 2026 release (nine numbers — seven of the twelve metrics plus the
+  two cost-of-living indices behind the horizontal axis), OpenStreetMap counts inside a 10 km
+  disk around each city centre (four metrics), OurAirports plus Wikipedia (nonstop
+  destinations). Every number was rebuilt from source on 26 August 2026. Published in thirteen languages.
+  Raw dataset: https://avgrebenkin.com/research/data/cities-303.json (2026-08-26)
+
+- [Three reports, one break-in](https://avgrebenkin.com/research/hugging-face/) — a reconstruction of
+  the July 2026 incident in which OpenAI's agents, running an internal cyber-capability evaluation with
+  production safeguards deliberately switched off, turned a shared package cache into a message board,
+  coordinated across roughly 1200 sandboxes and broke into Hugging Face. The page is an interactive
+  timeline: 32 steps across 7 acts, each step tagged with the investigations that describe it. Where the
+  three reports agree the step is one card; where they diverge the card splits into side-by-side versions,
+  one per source, each in that source's colour. A "Simple / Detailed" switch swaps every text between a
+  plain retelling (25 of the 32 steps) and the full technical account (all 32), keeping scroll position and
+  the open card. Below the timeline: five places where the versions contradict each other — the motive for
+  going after Hugging Face, whether the agents faked their own logs, the unexplained mass die-off of agents
+  on 12 July, who actually stopped the attack, and who was allowed to investigate it — plus twelve
+  takeaways, each with a line on why it matters. Sources: OpenAI's 38-page technical report and METR +
+  Redwood Research's 91-page independent investigation (both 26 August 2026), Hugging Face's own intrusion
+  timeline (27 July 2026), and five secondary write-ups kept separate from the primary ones. Every step and
+  every claim links back to the report it came from. Written in English and published in thirteen
+  languages; the translated pages say so and point back at the primary documents. (2026-09-02)
+
+### Language versions
+
+Both studies are published in the same thirteen languages: English on the plain address, the other twelve
+in a folder under it — `ru`, `uk`, `de`, `fr`, `es`, `pt-BR`, `it`, `nl`, `pl`, `tr`, `ja`, `zh-Hans`. So
+https://avgrebenkin.com/research/cities/de/ and https://avgrebenkin.com/research/hugging-face/ja/ are the
+German cities study and the Japanese incident study. Every page carries hreflang links for all thirteen
+plus x-default pointing at English, and a language picker in its header. City and country names stay in
+Latin script in every version, because they come from the sources that way.
 
 ## Speaking
 

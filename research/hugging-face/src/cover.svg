@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse">
+      <path d="M16 0H0V16" fill="none" stroke="#ffffff" stroke-opacity=".045" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="glow" cx="78%" cy="0%" r="70%">
+      <stop offset="0%" stop-color="#8b7cff" stop-opacity=".20"/>
+      <stop offset="100%" stop-color="#8b7cff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#0b0c11"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- линия времени и точки шагов -->
+  <line x1="88" y1="96" x2="88" y2="330" stroke="#8b7cff" stroke-opacity=".38" stroke-width="2"/>
+  <circle cx="88" cy="150" r="6" fill="#6f7484"/>
+  <circle cx="88" cy="212" r="6" fill="#6f7484"/>
+  <circle cx="88" cy="274" r="6" fill="#6f7484"/>
+
+  <!-- точка расхождения и вилка на три версии -->
+  <circle cx="88" cy="330" r="9" fill="#f97362"/>
+  <path d="M88 339V400" fill="none" stroke="#9298a8" stroke-width="2.5"/>
+  <path d="M88 366H965V430" fill="none" stroke="#f97362" stroke-width="2.5"/>
+  <path d="M88 383H600V430" fill="none" stroke="#6ea8fe" stroke-width="2.5"/>
+  <path d="M88 400H235V430" fill="none" stroke="#e0a33e" stroke-width="2.5"/>
+
+  <!-- три карточки версий -->
+  <g>
+    <rect x="70" y="430" width="330" height="120" fill="#12141c" stroke="#ffffff" stroke-opacity=".10"/>
+    <rect x="70" y="430" width="330" height="4" fill="#e0a33e"/>
+    <text x="92" y="466" font-family="Menlo, monospace" font-size="15" letter-spacing="2.4" fill="#e0a33e">METR</text>
+    <rect x="92" y="486" width="240" height="9" fill="#ffffff" fill-opacity=".16"/>
+    <rect x="92" y="506" width="286" height="9" fill="#ffffff" fill-opacity=".10"/>
+    <rect x="92" y="526" width="180" height="9" fill="#ffffff" fill-opacity=".10"/>
+  </g>
+  <g>
+    <rect x="435" y="430" width="330" height="120" fill="#12141c" stroke="#ffffff" stroke-opacity=".10"/>
+    <rect x="435" y="430" width="330" height="4" fill="#6ea8fe"/>
+    <text x="457" y="466" font-family="Menlo, monospace" font-size="15" letter-spacing="2.4" fill="#6ea8fe">OPENAI</text>
+    <rect x="457" y="486" width="200" height="9" fill="#ffffff" fill-opacity=".16"/>
+    <rect x="457" y="506" width="286" height="9" fill="#ffffff" fill-opacity=".10"/>
+    <rect x="457" y="526" width="150" height="9" fill="#ffffff" fill-opacity=".10"/>
+  </g>
+  <g>
+    <rect x="800" y="430" width="330" height="120" fill="#12141c" stroke="#ffffff" stroke-opacity=".10"/>
+    <rect x="800" y="430" width="330" height="4" fill="#f97362"/>
+    <text x="822" y="466" font-family="Menlo, monospace" font-size="15" letter-spacing="2.4" fill="#f97362">HUGGING FACE</text>
+    <rect x="822" y="486" width="260" height="9" fill="#ffffff" fill-opacity=".16"/>
+    <rect x="822" y="506" width="200" height="9" fill="#ffffff" fill-opacity=".10"/>
+    <rect x="822" y="526" width="240" height="9" fill="#ffffff" fill-opacity=".10"/>
+  </g>
+
+  <!-- заголовок -->
+  <text x="140" y="164" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="62" letter-spacing="-1.6" fill="#e9eaf0">Three reports,</text>
+  <text x="140" y="234" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-weight="700" font-size="62" letter-spacing="-1.6" fill="#e9eaf0">one break-in</text>
+  <text x="140" y="288" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" fill="#9298a8">The Hugging Face incident, July 2026</text>
+  <text x="140" y="330" font-family="Menlo, monospace" font-size="15" letter-spacing="2" fill="#6f7484">32 STEPS · 3 SOURCES · 5 DISAGREEMENTS</text>
+
+  <text x="70" y="596" font-family="Menlo, monospace" font-size="15" letter-spacing="1.6" fill="#6f7484">avgrebenkin.com/research</text>
+</svg>
