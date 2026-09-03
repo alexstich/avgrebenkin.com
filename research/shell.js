@@ -1,5 +1,6 @@
-/* Shell behaviour shared by the /research/ pages: theme switcher, burger menu
-   and the border the navigation grows once the page is scrolled. The theme is
+/* Shell behaviour shared by the /research/ pages: theme switcher, language
+   memory, burger menu and the border the navigation grows once the page is
+   scrolled. The theme is
    read from and written to the same localStorage key as the front page, so the
    choice follows the reader across the site. */
 (function () {
@@ -24,6 +25,18 @@
   themeBtns.forEach(function (b) {
     b.addEventListener('click', function () { applyTheme(b.dataset.theme); });
   });
+
+  /* A language picked by hand outranks the browser's own preference list the
+     next time this reader opens a bare /research/<study>/ address. The head
+     script there does the sending; all this has to do is remember. */
+  var langpick = document.querySelector('.langpick');
+  if (langpick) {
+    langpick.addEventListener('click', function (e) {
+      var a = e.target.closest('a[hreflang]');
+      if (!a) return;
+      try { localStorage.setItem('lang', a.getAttribute('hreflang').toLowerCase()); } catch (err) {}
+    });
+  }
 
   var burger = document.getElementById('nav-burger');
   var navLinks = document.getElementById('nav-links');
