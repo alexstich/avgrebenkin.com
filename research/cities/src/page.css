@@ -1,0 +1,520 @@
+  /* Палитра исследования: только то, чего нет в токенах сайта. Тени, фон и текст
+     берутся из shell.css, поэтому три темы переключаются шапкой сайта. */
+  :root {
+    --ink-3: #6f7484;
+    --sphere: #151824; --sphere-edge: rgba(255,255,255,.18);
+    --land: rgba(139,124,255,.18); --coast: rgba(139,124,255,.42);
+    --grid-line: rgba(255,255,255,.06);
+    --pick: #ff9f6e;
+    --q1: rgba(62,207,142,.07); --q2: rgba(139,124,255,.08);
+    --q3: rgba(255,159,110,.06); --q4: rgba(255,255,255,.03);
+    --r-eu: #8b7cff; --r-cis: #3ecf8e; --r-gulf: #e0a83c;
+    --r-na: #ff7a8a; --r-asia: #b79bff; --r-lat: #ff9f6e;
+  }
+  :root[data-theme="light"] {
+    --ink-3: #8a90a1;
+    --sphere: #ffffff; --sphere-edge: rgba(16,18,30,.20);
+    --land: rgba(91,79,214,.15); --coast: rgba(91,79,214,.34);
+    --grid-line: rgba(16,18,30,.07);
+    --pick: #c2410c;
+    --q1: rgba(21,128,61,.07); --q2: rgba(91,79,214,.07);
+    --q3: rgba(194,65,12,.05); --q4: rgba(120,113,108,.06);
+    --r-eu: #5b4fd6; --r-cis: #15803d; --r-gulf: #b45309;
+    --r-na: #be123c; --r-asia: #7c3aed; --r-lat: #c2410c;
+  }
+  :root[data-theme="cyber"] {
+    --ink-3: #5d6a74;
+    --sphere: #0b0b12; --sphere-edge: rgba(0,240,255,.34);
+    --land: rgba(0,240,255,.13); --coast: rgba(0,240,255,.45);
+    --grid-line: rgba(0,240,255,.10);
+    --pick: #00f0ff;
+    --q1: rgba(0,240,255,.07); --q2: rgba(252,238,10,.07);
+    --q3: rgba(252,238,10,.04); --q4: rgba(125,139,150,.06);
+    --r-eu: #fcee0a; --r-cis: #00f0ff; --r-gulf: #ffb300;
+    --r-na: #ff5c8a; --r-asia: #b388ff; --r-lat: #7CFC00;
+  }
+
+  /* Алиасы: имена, которыми пользуются глобус и диаграмма, привязаны к токенам
+     сайта — палитра остаётся одна, а не две. */
+  :root {
+    --panel: var(--bg-elev); --ink: var(--text); --ink-2: var(--muted);
+    --hair: var(--border-soft); --hair-soft: var(--border-soft); --grid: var(--grid-line);
+    --q-best: var(--q1); --q-premium: var(--q2); --q-budget: var(--q3); --q-bad: var(--q4);
+    --c-eu: var(--r-eu); --c-cis: var(--r-cis); --c-gulf: var(--r-gulf);
+    --c-na: var(--r-na); --c-asia: var(--r-asia); --c-lat: var(--r-lat);
+    --accent-soft: rgba(var(--accent-rgb), .12);
+  }
+
+  .wrap a { color: inherit; text-decoration: underline; text-underline-offset: 2px;
+      text-decoration-color: var(--ink-3); }
+  .wrap a:hover { text-decoration-color: var(--ink); }
+
+  .panel { background: var(--panel); border: 1px solid var(--hair);
+           border-radius: 10px; box-shadow: var(--shadow); }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; }
+
+  /* ── глобус ───────────────────────────────────────────────────── */
+  .globewrap { display: grid; grid-template-columns: minmax(0,1fr) 300px; gap: 0; }
+  @media (max-width: 860px) { .globewrap { grid-template-columns: 1fr; } }
+  .globebox { position: relative; display: flex; align-items: center; justify-content: center;
+              padding: 14px; min-height: 440px; }
+  .globebox canvas { display: block; max-width: 100%; height: auto; cursor: grab;
+                     /* pan-y: вертикальный свайп остаётся прокруткой страницы,
+                        горизонтальный крутит шар, щипок зумит */
+                     touch-action: pan-y; }
+  .globebox canvas.drag { cursor: grabbing; }
+  .zoombar { position: absolute; right: 14px; top: 14px; display: flex; flex-direction: column;
+             gap: 6px; z-index: 2; }
+  .zbtn { width: 30px; height: 30px; border-radius: 8px; cursor: pointer; line-height: 1;
+          border: 1px solid var(--border); background: var(--panel); color: var(--ink);
+          font-size: 16px; font-family: 'JetBrains Mono', monospace; display: grid; place-items: center; }
+  .zbtn:disabled { opacity: .38; cursor: default; }
+  .zlevel { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-3);
+            text-align: center; letter-spacing: .06em; }
+  /* На приближении под подсказкой оказывается карта — поэтому своя подложка. */
+  .ghint { position: absolute; left: 18px; bottom: 12px; z-index: 2;
+           padding: 3px 9px; border-radius: 999px;
+           background: var(--panel); border: 1px solid var(--hair-soft);
+           font-family: 'JetBrains Mono', monospace;
+           font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+  :root[data-theme="cyber"] .ghint { border-radius: 0; }
+  .ghint-touch { display: none; }
+  @media (hover: none) { .ghint-mouse { display: none; } .ghint-touch { display: inline; } }
+  .cardcol { border-left: 1px solid var(--hair); padding: 18px 20px; min-width: 0; }
+  @media (max-width: 860px) { .cardcol { border-left: 0; border-top: 1px solid var(--hair); } }
+  .cardcol .plabel { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .14em;
+                     text-transform: uppercase; color: var(--ink-3); margin: 0 0 12px; }
+  .cname { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 21px;
+           line-height: 1.15; margin: 0; }
+  .cmeta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-3); margin: 2px 0 12px; }
+  .cbig { display: flex; align-items: baseline; gap: 8px; margin: 0 0 12px; }
+  .cbig b { font-family: 'Space Grotesk', sans-serif; font-size: 38px; line-height: 1; color: var(--accent); }
+  .cbig span { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--ink-3); }
+  .cmet { display: grid; grid-template-columns: 96px 1fr 28px; gap: 8px; align-items: center;
+          font-size: 13px; padding: 2.5px 0; }
+  .cmet .track { height: 6px; border-radius: 3px; background: var(--accent-soft); overflow: hidden; }
+  .cmet .fill { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
+  .cmet .v { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-3);
+             text-align: right; font-variant-numeric: tabular-nums; }
+  .cmet.off { opacity: .4; }
+  .cempty { color: var(--ink-2); font-size: 14px; margin: 0; }
+
+  .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+         gap: 12px; padding: 14px 16px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px; }
+  /* Кнопка шаринга в шапке — того же роста, что кнопки сайта. */
+  .htop { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  .sharebtn { display: inline-flex; align-items: center; gap: 8px; flex: none;
+              border: 1px solid var(--accent); border-radius: 10px; padding: 9px 16px;
+              background: rgba(var(--accent-rgb), .12); color: var(--accent);
+              font-family: var(--font-head), system-ui, sans-serif; font-size: 13.5px;
+              font-weight: 600; letter-spacing: -.01em; cursor: pointer;
+              transition: background .18s, color .18s; }
+  .wrap .sharebtn svg { display: block; width: 14px; height: 14px; fill: none; stroke: currentColor;
+                        stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+  .sharebtn:hover { background: rgba(var(--accent-rgb), .2); }
+  .sharebtn.done { background: var(--accent); color: var(--bg); }
+  :root[data-theme="cyber"] .sharebtn {
+    border-radius: 0; text-transform: uppercase; letter-spacing: .08em; font-size: 12px;
+    font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px));
+  }
+
+  /* Иконки в углу блока собраны в одну капсулу — как переключатель тем в шапке сайта. */
+  .pactions { float: right; display: flex; gap: 2px; padding: 3px; margin: 0 0 6px 14px;
+              border: 1px solid var(--hair); border-radius: 9px;
+              background: rgba(var(--accent-rgb), .07); }
+  details.table .pactions { position: absolute; right: 20px; top: 14px; float: none; margin: 0; }
+  details.table summary { position: static; }
+  .ibtn { display: grid; place-items: center; width: 28px; height: 24px; padding: 0;
+          border: 0; border-radius: 6px; background: transparent;
+          color: var(--ink-3); cursor: pointer; transition: color .15s, background .15s; }
+  .ibtn:hover { color: var(--ink); background: var(--panel); }
+  .ibtn.done { color: var(--accent); background: var(--panel); }
+  .wrap .ibtn svg { display: block; width: 13px; height: 13px; fill: none; stroke: currentColor;
+              stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .ibtn.done svg { stroke-width: 2.2; }
+  :root[data-theme="cyber"] .pactions, :root[data-theme="cyber"] .ibtn { border-radius: 0; }
+  /* Иконка меняется на галочку слишком тихо — рядом всплывает подпись. */
+  .copied { position: fixed; z-index: 40; padding: 6px 11px; border-radius: 8px;
+            background: var(--accent); color: var(--bg);
+            font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 11.5px;
+            white-space: nowrap; pointer-events: none; box-shadow: 0 10px 24px -14px rgba(0,0,0,.9);
+            opacity: 0; transform: translateY(-4px); transition: opacity .18s, transform .18s; }
+  .copied.in { opacity: 1; transform: translateY(0); }
+  :root[data-theme="cyber"] .copied { border-radius: 0; }
+  :root[data-theme="cyber"] .ibtn { border-radius: 0; }
+
+
+  /* Поиск по глобусу: 303 точки быстрее найти буквами, чем вращением. */
+  .gsearch { position: relative; margin: 14px 16px 4px; max-width: 420px; }
+  .gsearch input { width: 100%; box-sizing: border-box; padding: 9px 34px 9px 32px;
+                   border: 1px solid var(--hair); border-radius: 999px; background: var(--panel);
+                   color: var(--ink); font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+                   font-size: 13px; }
+  .gsearch input::placeholder { color: var(--ink-3); }
+  .gsearch input:focus { outline: none; border-color: var(--accent); }
+  .gsearch::before { content: "⌕"; position: absolute; left: 12px; top: 50%; translate: 0 -50%;
+                     color: var(--ink-3); font-size: 15px; pointer-events: none; }
+  .phead kbd { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: .85em;
+               padding: 1px 5px; border: 1px solid var(--hair); border-radius: 4px;
+               background: var(--panel); color: var(--ink-2); }
+  .gq-clear { position: absolute; right: 8px; top: 50%; translate: 0 -50%; border: 0;
+              background: transparent; color: var(--ink-3); font-size: 17px; line-height: 1;
+              cursor: pointer; padding: 2px 6px; }
+  .gq-clear:hover { color: var(--ink); }
+  .gsug { position: absolute; z-index: 6; left: 0; right: 0; top: calc(100% + 4px); margin: 0;
+          padding: 4px; list-style: none; max-height: 264px; overflow-y: auto;
+          border: 1px solid var(--hair); border-radius: 12px; background: var(--panel);
+          box-shadow: 0 18px 40px -22px rgba(0, 0, 0, .8); }
+  .gsug li { display: flex; align-items: baseline; gap: 8px; padding: 7px 10px; border-radius: 8px;
+             cursor: pointer; font-size: 14px; color: var(--ink); }
+  .gsug li .cy { margin-left: auto; color: var(--ink-3); font-size: 11.5px;
+                 font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; }
+  .gsug li .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sw); flex: none; }
+  .gsug li[aria-selected="true"], .gsug li:hover { background: rgba(var(--accent-rgb), .14); }
+  .gsug .none { color: var(--ink-3); cursor: default; }
+  :root[data-theme="cyber"] .gsearch input,
+  :root[data-theme="cyber"] .gsug,
+  :root[data-theme="cyber"] .gsug li { border-radius: 0; }
+  .chip { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--hair);
+          background: transparent; border-radius: 999px; padding: 5px 12px 5px 9px;
+          font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 12px;
+          color: var(--ink-2); cursor: pointer; transition: opacity .15s, border-color .15s; }
+  .chip:hover { border-color: var(--ink-3); }
+  .chip[aria-pressed="false"] { opacity: .38; }
+  .chip .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--sw); flex: none; }
+  .toggle { display: flex; align-items: center; gap: 8px;
+            font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+            font-size: 12px; color: var(--ink-3); }
+  .seg { display: flex; border: 1px solid var(--hair); border-radius: 7px; overflow: hidden; }
+  .seg button { border: 0; background: transparent; color: var(--ink-2); font: inherit;
+                padding: 6px 11px; cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--ink); color: var(--panel); }
+
+  /* Пресеты — главный вход для тех, кто не хочет крутить двенадцать ползунков. */
+  .presets { padding: 14px 16px; border-top: 1px solid var(--hair-soft); }
+  .presets h3 { margin: 0 0 9px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+                color: var(--ink-3); font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+                font-weight: 600; }
+  .presetrow { display: flex; flex-wrap: wrap; gap: 7px; }
+  .preset { border: 1px solid var(--hair); background: transparent; border-radius: 8px;
+            padding: 7px 13px; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+            font-size: 12px; color: var(--ink-2); cursor: pointer; }
+  .preset:hover { border-color: var(--ink-3); }
+  .preset[aria-pressed="true"] { background: var(--ink); color: var(--panel); border-color: var(--ink); }
+
+  /* Веса: свёрнутые группы, чтобы на телефоне не было списка из двенадцати строк. */
+  .weights { padding: 6px 0 10px; }
+  .grp { border-top: 1px solid var(--hair-soft); }
+  .grp:first-child { border-top: 0; }
+  .grp > summary { cursor: pointer; list-style: none; padding: 11px 16px;
+                   font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+                   font-size: 12.5px; color: var(--ink-2); display: flex;
+                   align-items: center; gap: 6px; }
+  .grp > summary::-webkit-details-marker { display: none; }
+  .grp > summary::before { content: "▸ "; color: var(--ink-3); }
+  .grp[open] > summary::before { content: "▾ "; }
+  .grp .count { color: var(--ink-3); font-size: 11px; margin-left: auto; }
+  .rows { padding: 2px 16px 12px; display: flex; flex-direction: column; gap: 9px;
+          max-width: 620px; }
+  .row { display: grid; grid-template-columns: 1fr 132px 22px; align-items: center; gap: 12px; }
+  .row label { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+               font-size: 12.5px; color: var(--ink-2); }
+  .row .hint { display: block; font-size: 10.5px; color: var(--ink-3); }
+  .row input[type=range] { width: 132px; accent-color: var(--accent); }
+  .row .val { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+              font-size: 12px; color: var(--ink); text-align: right; font-variant-numeric: tabular-nums; }
+  .row.off label, .row.off .val { opacity: .45; }
+  .note { margin: 8px 16px 0; padding: 9px 12px; border-radius: 8px;
+          background: var(--q-bad); color: var(--ink-2);
+          font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; }
+  .note[hidden] { display: none; }
+
+  .quadkey { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 12px 12px 4px; }
+  .qk { border: 1px solid var(--hair); border-radius: 8px; padding: 7px 11px; }
+  .qk b { display: block; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+          font-size: 11.5px; font-weight: 600; letter-spacing: .08em; }
+  .qk span { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+             font-size: 10.5px; color: var(--ink-3); }
+  .qk-best { background: var(--q-best); } .qk-best b { color: var(--c-cis); }
+  .qk-premium { background: var(--q-premium); } .qk-premium b { color: var(--c-eu); }
+  .qk-budget { background: var(--q-budget); } .qk-budget b { color: var(--c-gulf); }
+  .qk-bad { background: var(--q-bad); } .qk-bad b { color: var(--c-na); }
+  @media (max-width: 620px) { .quadkey { grid-template-columns: 1fr; } }
+
+  .chartbox { padding: 4px 10px 4px; position: relative; }
+  .chartbox .phead { margin: -4px -10px 4px; }
+
+  .wrap svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .axis-title { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+                font-size: 12px; letter-spacing: .04em; fill: var(--ink-2); }
+  .tick { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+          font-size: 10px; fill: var(--ink-3); }
+  .citylabel { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+               font-size: 8.8px; fill: var(--ink-2); pointer-events: none; }
+  .citylabel.crowded { fill: var(--ink-3); }
+  circle.pt { cursor: pointer; }
+
+  .tip { position: absolute; pointer-events: none; opacity: 0;
+         transform: translate(-50%,-100%); background: var(--panel);
+         border: 1px solid var(--hair); border-radius: 8px; box-shadow: var(--shadow);
+         padding: 9px 11px; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+         font-size: 11.5px; line-height: 1.5; color: var(--ink-2); white-space: nowrap;
+         z-index: 5; transition: opacity .1s; }
+  .tip b { color: var(--ink); font-size: 12.5px; }
+  .tip .r { display: flex; justify-content: space-between; gap: 16px; }
+  .tip .r span:last-child { color: var(--ink); font-variant-numeric: tabular-nums; }
+  .tip .sep { border-top: 1px solid var(--hair-soft); margin: 5px 0; }
+
+  .wrap h2 { font-size: 22px; margin: 0 0 12px; letter-spacing: -.01em; }
+  .method summary { cursor: pointer; padding: 16px 22px; font-size: 17px;
+                   list-style: none; color: var(--ink); }
+  .method summary::-webkit-details-marker { display: none; }
+  .method summary::before { content: "▸ "; color: var(--ink-3); }
+  .method[open] summary::before { content: "▾ "; }
+  .methodbody { padding: 4px 22px 22px; border-top: 1px solid var(--hair); }
+  .methodbody p { margin: 14px 0 0; color: var(--ink-2); max-width: 74ch; }
+  .methodbody p strong { color: var(--ink); font-weight: 600; }
+  .methodbody dl { margin: 12px 0 0; max-width: 74ch; }
+  .methodbody dt { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+                   font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+                   color: var(--ink); margin-top: 14px; }
+  .methodbody dd { margin: 3px 0 0; color: var(--ink-2); }
+  .methodbody code { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+                     font-size: 12.5px; background: var(--hair-soft); border-radius: 3px;
+                     padding: 1px 5px; color: var(--ink); white-space: nowrap; }
+  .notes { padding: 20px 22px; }
+  .notes p { margin: 0 0 12px; color: var(--ink-2); max-width: 74ch; }
+  .notes p:last-child { margin-bottom: 0; }
+  .notes strong { color: var(--ink); font-weight: 600; }
+  code { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 13px;
+         background: var(--hair-soft); border-radius: 4px; padding: 1px 5px; }
+
+  details.table { padding: 0; position: relative; }
+  details.table summary { cursor: pointer; padding: 16px 80px 16px 22px; font-size: 17px;
+                          font-weight: 600; list-style: none; }
+  details.table summary::-webkit-details-marker { display: none; }
+  details.table summary::before { content: "▸ "; color: var(--ink-3); }
+  details.table[open] summary::before { content: "▾ "; }
+  .tablescroll { overflow-x: auto; max-height: 520px; overflow-y: auto;
+                 border-top: 1px solid var(--hair); }
+  table { border-collapse: collapse; width: 100%;
+          font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 12px; }
+  th, td { padding: 7px 12px; text-align: right; white-space: nowrap;
+           border-bottom: 1px solid var(--hair-soft); }
+  th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3) { text-align: left; }
+  thead th { position: sticky; top: 0; background: var(--panel); color: var(--ink-3);
+             font-weight: 500; border-bottom: 1px solid var(--hair); cursor: pointer; user-select: none; }
+  tbody td { color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  tbody td:nth-child(2) { color: var(--ink); }
+  .swatch { display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+            margin-right: 7px; vertical-align: middle; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+  /* ── заголовки панелей: где смотреть и где крутить ───────────── */
+  .phead { padding: 16px 20px 13px; border-bottom: 1px solid var(--hair-soft); }
+  .phead h2 { font-family: var(--font-head); font-size: 17px; margin: 0 0 3px;
+              letter-spacing: -.01em; line-height: 1.25; }
+  .phead p { margin: 0; color: var(--ink-2); font-size: 13.5px; line-height: 1.5; max-width: 82ch; }
+  .phead p b { color: var(--ink); font-weight: 600; }
+  .subhint { margin: -4px 0 9px; color: var(--ink-3); font-size: 12px; line-height: 1.45; max-width: 82ch; }
+  .subhint b { color: var(--ink-2); font-weight: 500; }
+  .barhint { margin: 0; padding: 0 16px 13px; color: var(--ink-3);
+             font-size: 12px; line-height: 1.45; max-width: 86ch; }
+  .barhint b { color: var(--ink-2); font-weight: 500; }
+  .whint { padding: 0 16px; }
+
+  /* Имя выбранного города — над шаром, чтобы на телефоне было видно сразу,
+     не прокручивая до карточки. */
+  .gname { position: absolute; left: 14px; top: 14px; z-index: 2; max-width: calc(100% - 74px);
+           padding: 5px 11px; border-radius: 999px; border: 1px solid var(--border);
+           background: var(--panel); color: var(--ink);
+           font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+           white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .gname b { color: var(--accent); font-weight: 500; }
+  .gname[hidden] { display: none; }
+  :root[data-theme="cyber"] .gname { border-radius: 0; }
+
+  /* ── сворачиваемая панель фильтров ───────────────────────────── */
+  .foldpanel > summary.fsummary { cursor: pointer; list-style: none; display: flex;
+                                  align-items: baseline; gap: 10px; padding: 16px 20px; }
+  .foldpanel > summary.fsummary::-webkit-details-marker { display: none; }
+  .foldpanel > summary.fsummary::before { content: "▸"; color: var(--ink-3); font-size: 13px; }
+  .foldpanel[open] > summary.fsummary::before { content: "▾"; }
+  .foldpanel[open] > summary.fsummary { border-bottom: 1px solid var(--hair-soft); }
+  .fsummary h2 { font-family: var(--font-head); font-size: 17px; margin: 0;
+                 letter-spacing: -.01em; display: inline; }
+  .fnote { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px;
+           letter-spacing: .06em; color: var(--ink-3); }
+  .fintro { margin: 14px 20px 4px; color: var(--ink-2); font-size: 13.5px;
+            line-height: 1.5; max-width: 82ch; }
+
+  /* ── список: та же диаграмма, только читаемая сверху вниз ────── */
+  .ranklist { padding: 16px 20px 20px; position: relative; }
+  .ranklist h2 { font-family: 'Space Grotesk', system-ui, sans-serif; margin: 0 0 4px; }
+  .ranklist .lead { margin: 0 0 14px; color: var(--ink-2); font-size: 15px; max-width: 76ch; }
+  .ranklist .lead b { color: var(--ink); font-weight: 600; }
+  .rl-head, .rl-row { display: grid; grid-template-columns: 34px minmax(0,1fr) 76px 76px;
+                      gap: 10px; align-items: center; }
+  .rl-head { padding: 0 10px 7px; border-bottom: 1px solid var(--hair);
+             font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+             font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+  .rl-sort { border: 0; background: transparent; font: inherit; color: var(--ink-3);
+             text-align: right; cursor: pointer; padding: 2px 0; }
+  .rl-sort:hover { color: var(--ink); }
+  .rl-sort[aria-pressed="true"] { color: var(--accent); }
+  .rl-sort[aria-pressed="true"]::after { content: " ▼"; font-size: 9px; }
+  .rl-rows { max-height: 560px; overflow-y: auto; overscroll-behavior: contain; }
+  .rl-row { padding: 5px 10px; border-bottom: 1px solid var(--hair-soft); cursor: pointer; }
+  .rl-row:hover { background: var(--accent-soft); }
+  .rl-row .n { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+               font-size: 11px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .rl-row .nm { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+  .rl-row .nm b { font-weight: 500; color: var(--ink); font-size: 14.5px;
+                  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rl-row .nm i { font-style: normal; color: var(--ink-3); font-size: 11.5px;
+                  font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+                  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rl-row .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+  .rl-row .v { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 12.5px;
+               text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+  .rl-row .v.score { color: var(--ink); }
+  @media (max-width: 620px) {
+    .rl-head, .rl-row { grid-template-columns: 26px minmax(0,1fr) 54px 54px; gap: 7px; }
+    /* Имя и страна в две строки, но точка региона остаётся слева от обеих. */
+    .rl-row .nm { display: grid; grid-template-columns: auto minmax(0,1fr);
+                  gap: 0 7px; align-items: center; }
+    .rl-row .nm .dot { grid-row: 1 / 3; }
+    .rl-row .nm b { font-size: 14px; }
+  }
+  :root[data-theme="cyber"] .rl-row .dot { border-radius: 0; }
+
+  /* ── страница в оболочке сайта ───────────────────────────────── */
+  main { max-width: 1180px; padding: 0; }
+  .wrap { max-width: 1180px; margin: 0 auto; line-height: 1.55;
+          padding: calc(var(--nav-h) + 40px) 22px 40px;
+          display: flex; flex-direction: column; gap: 20px; }
+  .crumb { margin: 0 0 16px; font-family: var(--font-mono); font-size: 11px;
+           letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+  .wrap .crumb a { color: var(--accent); text-decoration: none; }
+  .wrap .crumb a:hover { text-decoration: underline; }
+  .wrap header h1 { font-family: var(--font-head); font-weight: 700;
+                    font-size: clamp(28px,4.4vw,44px); line-height: 1.08; margin: 0 0 10px;
+                    letter-spacing: -.015em; text-wrap: balance; }
+  .sub { margin: 0; color: var(--ink-2); font-size: 18px; max-width: 68ch; }
+  .meta { margin-top: 14px; font-family: var(--font-mono);
+          font-size: 12px; letter-spacing: .02em; color: var(--ink-3);
+          display: flex; flex-wrap: wrap; gap: 6px 18px; }
+
+  /* Кибертема сайта срезает углы — панели исследования следуют за ней. */
+  :root[data-theme="cyber"] .panel {
+    border-radius: 0;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  }
+  :root[data-theme="cyber"] .chip,
+  :root[data-theme="cyber"] .preset,
+  :root[data-theme="cyber"] .qk { border-radius: 0; }
+
+  /* На узком экране шар заметно меньше и не держит пустые 440 px высоты. */
+  @media (max-width: 620px) {
+    .wrap { padding-left: 14px; padding-right: 14px; }
+    .globebox { min-height: 0; padding: 10px 2px 18px; }
+    .ghint { left: 10px; bottom: 2px; }
+    .cardcol { padding: 14px 16px; }
+    .phead { padding: 14px 16px 11px; }
+    .gname { left: 10px; top: 10px; max-width: calc(100% - 62px); }
+    .gsearch { margin: 12px 12px 4px; }
+    .zoombar { right: 8px; top: 8px; }
+    .notes { padding-left: 16px; padding-right: 16px; }
+  }
+
+  /* Печать: страница целиком на бумаге бессмысленна, поэтому печатается один
+     блок — тот, у чьей иконки нажали. Остальное убирается вместе с хромом сайта. */
+  /* Печать: на лист уходит один блок — тот, у чьей иконки нажали, — и выглядит он
+     так же, как на экране. Скрывается только то, что на бумаге не работает:
+     хром сайта, органы управления и подсказки про клики. */
+  @media print {
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .site-nav, footer, .crumb, .ghint, .zoombar, .gsearch, .pactions,
+    .sharebtn, .sy-strip, .tip, body::before, body::after { display: none !important; }
+    :root[data-print] main .wrap > *, :root[data-print] header { display: none !important; }
+    :root[data-print] .wrap > .printhead { display: block !important; }
+    :root[data-print] .printhead { break-after: avoid; }
+    :root[data-print] .cempty, :root[data-print] .emptycard { display: none !important; }
+    :root[data-print="globe"] #p-globe,
+    :root[data-print="chart"] #p-chart,
+    :root[data-print="list"] #p-list,
+    :root[data-print="table"] #p-table { display: block !important; }
+
+    /* Шар печатается целиком, а не разрезанным между листами. */
+    :root[data-print="globe"] .globewrap { display: block !important; }
+    :root[data-print="globe"] .globebox { break-inside: avoid; text-align: center; }
+    :root[data-print="globe"] .globebox canvas { max-width: 100% !important; height: auto !important;
+                                                 margin: 0 auto; }
+
+    /* Таблица широкая — ей альбомный лист. */
+    @page portrait { size: A4 portrait; margin: 12mm 11mm; }
+    @page wide { size: A4 landscape; margin: 11mm 12mm; }
+    :root[data-print="globe"] .wrap, :root[data-print="list"] .wrap,
+    :root[data-print="chart"] .wrap { page: portrait; }
+    :root[data-print="table"] .wrap { page: wide; }
+
+    :root[data-print="table"] .tablescroll { overflow: visible !important; max-height: none !important; }
+    :root[data-print="table"] thead { display: table-header-group; }
+    :root[data-print="table"] thead th { position: static; }
+
+    /* Блок не переверстывается под узкий лист, а печатается ровно как на экране,
+       уменьшенный ровно настолько, чтобы влезть: zoom и ширину считает beforePrint. */
+    :root[data-print] .wrap { max-width: none; padding: 0; }
+    :root[data-print="globe"] #p-globe,
+    :root[data-print="chart"] #p-chart,
+    :root[data-print="list"] #p-list,
+    :root[data-print="table"] #p-table {
+      zoom: var(--pscale, 1); width: var(--pwidth, auto) !important; margin: 0 !important;
+    }
+
+    .rl-row, .qk, tr { break-inside: avoid; }
+    .rl-rows { max-height: none !important; }
+  }
+  .printhead { display: none; }
+  .printhead h2 { font-family: var(--font-head); font-size: 19px; margin: 0 0 4px; }
+  .printhead p { margin: 0 0 14px; color: #444; font-size: 12px;
+                 font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; word-break: break-all; }
+
+  /* ── выбор языка ─────────────────────────────────────────── */
+  /* На нативном <details>: открывается и без скрипта, закрывается Esc,
+     и в списке лежат обычные ссылки — их видит и поисковик, и читалка. */
+  .langpick { position: relative; margin-inline-start: auto; margin-top: -4px; }
+  .langpick > summary {
+    display: inline-flex; align-items: center; gap: .4rem; cursor: pointer;
+    list-style: none; padding: .3rem .6rem; border: 1px solid var(--hair);
+    border-radius: 8px; font-family: var(--font-body); font-size: 12.5px;
+    font-weight: 500; letter-spacing: 0; color: var(--ink-2);
+    transition: color .18s, background .18s;
+  }
+  .langpick > summary::-webkit-details-marker { display: none; }
+  .langpick > summary:hover { color: var(--ink); background: rgba(var(--accent-rgb), .08); }
+  .langpick > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .langpick .globe { font-size: 11px; color: var(--accent); }
+  .langpick[open] > summary { color: var(--accent); background: rgba(var(--accent-rgb), .12); }
+  .langpick ul {
+    position: absolute; z-index: 30; inset-inline-end: 0; top: calc(100% + 6px);
+    margin: 0; padding: 6px; list-style: none; min-width: 11rem;
+    background: var(--panel); border: 1px solid var(--hair);
+    border-radius: 10px; box-shadow: 0 18px 40px rgba(0,0,0,.28);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  }
+  .langpick li a {
+    display: block; padding: .4rem .55rem; border-radius: 6px;
+    font-family: var(--font-body); font-size: 12.5px; letter-spacing: 0;
+    color: var(--ink-2); text-decoration: none; white-space: nowrap;
+  }
+  .langpick li a:hover { background: rgba(var(--accent-rgb), .10); color: var(--ink); }
+  .langpick li.is-current a { color: var(--accent); background: rgba(var(--accent-rgb), .12); }
+  :root[data-theme="cyber"] .langpick > summary,
+  :root[data-theme="cyber"] .langpick ul,
+  :root[data-theme="cyber"] .langpick li a { border-radius: 0; }
+  @media print { .langpick { display: none; } }
+  .transnote { margin-top: 4px; padding-top: 14px; border-top: 1px dashed var(--hair);
+               font-size: .88rem; color: var(--ink-3); }

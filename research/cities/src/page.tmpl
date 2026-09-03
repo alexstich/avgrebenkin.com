@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="{{lang}}" dir="{{dir}}" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>{{htmlTitle}}</title>
+<meta name="description" content="{{metaDescription}}">
+<link rel="canonical" href="{{canonical}}">
+{{hreflang}}
+
+<script>
+  /* the reader's own language, before anything is painted. The bare
+     /research/<study>/ address is the neutral one, so a browser that asks for a
+     language published here is sent to it. A /xx/ address is somebody's
+     deliberate choice — a shared link, say — and is left pointing where it
+     points. The alternates just above are the entire catalogue, so this list
+     never has to be kept in sync by hand. */
+  (function () {
+    if (location.protocol !== 'http:' && location.protocol !== 'https:') return;
+    var links = document.querySelectorAll('link[rel="alternate"][hreflang]');
+    var have = {}, neutral = '';
+    for (var i = 0; i < links.length; i++) {
+      var path = new URL(links[i].href).pathname;
+      if (links[i].hreflang === 'x-default') neutral = path;
+      else have[links[i].hreflang.toLowerCase()] = path;
+    }
+    if (!neutral || location.pathname !== neutral) return;
+
+    function match(tag) {
+      tag = String(tag).toLowerCase();
+      if (have[tag]) return tag;
+      var base = tag.split('-')[0];
+      /* only simplified Chinese is published, so it takes an explicit sign of
+         it — zh-Hans, or a region that writes it. A bare 'zh' says nothing, and
+         zh-TW and zh-HK read traditional; both fall through to whatever the
+         reader listed next, and to English if that is all there is. */
+      if (base === 'zh') return /hans|^zh-(cn|sg|my)$/.test(tag) ? 'zh-hans' : '';
+      if (have[base]) return base;
+      for (var k in have) if (k.split('-')[0] === base) return k;   /* pt → pt-br */
+      return '';
+    }
+
+    var want = '';
+    try { want = (localStorage.getItem('lang') || '').toLowerCase(); } catch (e) {}
+    if (!have[want]) {
+      var prefs = navigator.languages || [navigator.language || ''];
+      for (var j = 0; j < prefs.length && !have[want]; j++) want = match(prefs[j]);
+    }
+    /* English lives at the neutral address, so choosing it means staying put */
+    var to = have[want];
+    if (to && to !== neutral) location.replace(to + location.search + location.hash);
+  })();
+</script>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Aleksei Grebenkin">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0b0c11" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f6f9" media="(prefers-color-scheme: light)">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%235b4fd6'/%3E%3Cg fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M16 8v8'/%3E%3Cpath d='M11 12v4'/%3E%3Cpath d='M21 12v4'/%3E%3Cpath d='M16 20v4'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Aleksei Grebenkin">
+<meta property="og:locale" content="{{locale}}">
+{{ogLocaleAlt}}
+<meta property="og:title" content="{{htmlTitle}}">
+<meta property="og:description" content="{{ogDescription}}">
+<meta property="og:url" content="{{canonical}}">
+<meta property="og:image" content="https://avgrebenkin.com/images/research/find-your-city.jpg">
+<meta property="og:image:secure_url" content="https://avgrebenkin.com/images/research/find-your-city.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{imageAlt}}">
+<meta property="article:published_time" content="2026-08-26">
+<meta property="article:modified_time" content="2026-09-03">
+<meta property="article:author" content="https://avgrebenkin.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{htmlTitle}}">
+<meta name="twitter:description" content="{{ogDescription}}">
+<meta name="twitter:image" content="https://avgrebenkin.com/images/research/find-your-city.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"></noscript>
+<link rel="stylesheet" href="{{up}}shell.css?v=2">
+
+<script>
+  /* the theme before first paint, so a light reader never sees a dark flash */
+  (function () {
+    try {
+      var t = localStorage.getItem('theme');
+      if (['dark', 'light', 'cyber'].indexOf(t) === -1) {
+        t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "{{canonical}}#webpage",
+      "url": "{{canonical}}",
+      "name": "{{ldTitle}}",
+      "description": "{{ldDescription}}",
+      "isPartOf": { "@id": "https://avgrebenkin.com/#website" },
+      "author": { "@id": "https://avgrebenkin.com/#person" },
+      "datePublished": "2026-08-26",
+      "dateModified": "2026-09-03",
+      "inLanguage": "{{lang}}",
+      {{ldTranslations}}
+      "breadcrumb": { "@id": "{{canonical}}#breadcrumb" },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://avgrebenkin.com/images/research/find-your-city.jpg",
+        "width": 1200,
+        "height": 630
+      },
+      "mainEntity": { "@id": "{{canonical}}#dataset" }
+    },
+    {
+      "@type": "Dataset",
+      "@id": "{{canonical}}#dataset",
+      "name": "{{ldDatasetName}}",
+      "description": "{{ldDatasetDescription}}",
+      "creator": { "@id": "https://avgrebenkin.com/#person" },
+      "datePublished": "2026-08-26",
+      "temporalCoverage": "2026",
+      "spatialCoverage": { "@type": "Place", "name": "303 cities worldwide" },
+      "measurementTechnique": [
+        "Numbeo mid-2026 crowdsourced indices",
+        "Overpass counts of OpenStreetMap features within a 10 km radius of the city centre",
+        "OurAirports nonstop destinations from airports within 60 km"
+      ],
+      "variableMeasured": [
+        { "@type": "PropertyValue", "name": "Safety", "description": "Numbeo crime index, inverted; 15 survey questions on how safe residents feel" },
+        { "@type": "PropertyValue", "name": "Health care", "description": "Numbeo health care index; 7 aspects rated by residents who use the system" },
+        { "@type": "PropertyValue", "name": "Short commute", "description": "Numbeo traffic time index, inverted; one-way commute in minutes as reported" },
+        { "@type": "PropertyValue", "name": "Clean air", "description": "Numbeo pollution index, inverted; air, water, noise and litter" },
+        { "@type": "PropertyValue", "name": "Climate", "description": "Numbeo climate index; temperature, dew point and humidex, penalised for extremes" },
+        { "@type": "PropertyValue", "name": "Culture and nightlife", "description": "OpenStreetMap count of museums, theatres, cinemas, bars and clubs within 10 km" },
+        { "@type": "PropertyValue", "name": "Life without a car", "description": "OpenStreetMap count of rail stops and pedestrian streets within 10 km" },
+        { "@type": "PropertyValue", "name": "Universities", "description": "OpenStreetMap area covered by university campuses within 10 km" },
+        { "@type": "PropertyValue", "name": "Purchasing power", "description": "Numbeo local purchasing power index; New York = 100" },
+        { "@type": "PropertyValue", "name": "Affordability", "description": "Numbeo price-to-income ratio, inverted; annual incomes needed for a flat" },
+        { "@type": "PropertyValue", "name": "Children", "description": "OpenStreetMap count of playgrounds, parks, schools and libraries within 10 km" },
+        { "@type": "PropertyValue", "name": "Nonstop destinations", "description": "OurAirports unique nonstop destinations from all airports within 60 km" },
+        { "@type": "PropertyValue", "name": "Cost of living index", "description": "Numbeo cost-of-living index excluding rent; New York = 100" },
+        { "@type": "PropertyValue", "name": "Cost of living plus rent index", "description": "Numbeo cost-of-living index including rent; New York = 100" }
+      ],
+      "citation": [
+        "https://www.numbeo.com/quality-of-life/",
+        "https://www.openstreetmap.org/",
+        "https://ourairports.com/"
+      ],
+      "isAccessibleForFree": true,
+      "keywords": ["cost of living", "quality of life", "cities", "relocation", "OpenStreetMap", "Numbeo"],
+      "license": "https://opendatacommons.org/licenses/odbl/",
+      "distribution": {
+        "@type": "DataDownload",
+        "encodingFormat": "application/json",
+        "contentUrl": "https://avgrebenkin.com/research/data/cities-303.json"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "{{canonical}}#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://avgrebenkin.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Research", "item": "https://avgrebenkin.com/research/" },
+        { "@type": "ListItem", "position": 3, "name": "{{ldName}}", "item": "{{canonical}}" }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+{{css}}
+</style>
+</head>
+<body>
+
+<nav class="site-nav" id="site-nav">
+  <a href="/" class="nav-name">Aleksei Grebenkin</a>
+  <div class="nav-links" id="nav-links">
+    <a href="/#projects" class="nav-link">Projects</a>
+    <a href="/#notes" class="nav-link">Notes</a>
+    <a href="/research/" class="nav-link nav-link-active">Research</a>
+    <a href="/#speaking" class="nav-link">Speaking</a>
+    <a href="/#certifications" class="nav-link">Certifications</a>
+    <a href="/#journey" class="nav-link">Journey</a>
+    <a href="/#contacts" class="nav-link">Contacts</a>
+  </div>
+  <div class="nav-controls">
+    <div class="theme-switcher" id="theme-switcher" role="radiogroup" aria-label="Color theme">
+      <button type="button" class="theme-btn" data-theme="dark" role="radio" aria-label="Dark theme" aria-checked="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button type="button" class="theme-btn" data-theme="light" role="radio" aria-label="Light theme" aria-checked="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button type="button" class="theme-btn" data-theme="cyber" role="radio" aria-label="Cyberpunk theme" aria-checked="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+      </button>
+    </div>
+    <button type="button" class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+      <span class="nav-burger-line"></span>
+      <span class="nav-burger-line"></span>
+      <span class="nav-burger-line"></span>
+    </button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+  <div class="printhead"><h2>{{printHead}}</h2>
+    <p id="printurl">{{printUrl}}</p></div>
+  <p class="crumb"><a href="/research/">{{crumb}}</a></p>
+  <header>
+    <div class="htop">
+      <h1>{{title}}</h1>
+      <button type="button" class="sharebtn primary" data-share
+              title="{{shareTitle}}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg>{{share}}</button>
+    </div>
+    <p class="sub">{{sub}}</p>
+    <div class="meta">
+      <span>{{dataLabel}} <a href="https://www.numbeo.com/quality-of-life/rankings.jsp" target="_blank" rel="noopener">Numbeo</a> · <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap</a> · <a href="https://ourairports.com/" target="_blank" rel="noopener">OurAirports</a> · <a href="https://en.wikipedia.org/wiki/List_of_busiest_airports_by_passenger_traffic" target="_blank" rel="noopener">Wikipedia</a></span>
+      <span>{{vintage}}</span>
+      {{langpicker}}
+    </div>
+  </header>
+  <div class="panel" id="p-globe">
+    <div class="phead">
+      <div class="pactions"><button type="button" class="ibtn" data-share title="{{copySetup}}" aria-label="{{copySetup}}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-print="globe" title="{{printGlobe}}" aria-label="{{printGlobe}}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
+      <h2>{{globeH}}</h2>
+      <p>{{globeP}}</p>
+    </div>
+    <div class="gsearch">
+      <label class="sr-only" for="gq">{{searchLabel}}</label>
+      <input id="gq" type="text" placeholder="{{searchPlaceholder}}" autocomplete="off"
+             spellcheck="false" role="combobox" aria-expanded="false" aria-controls="gsug"
+             aria-autocomplete="list">
+      <button type="button" class="gq-clear" id="gqx" aria-label="{{clearSearch}}" hidden>×</button>
+      <ul class="gsug" id="gsug" role="listbox" aria-label="{{matchingCities}}" hidden></ul>
+    </div>
+    <div class="globewrap">
+      <div class="globebox" id="globebox">
+        <div class="gname" id="gname" hidden></div>
+        <div class="zoombar">
+          <button type="button" class="zbtn" id="zin" aria-label="{{zoomIn}}">+</button>
+          <button type="button" class="zbtn" id="zout" aria-label="{{zoomOut}}" disabled>−</button>
+          <div class="zlevel" id="zlevel">1.0×</div>
+        </div>
+        <div class="ghint"><span class="ghint-mouse">{{hintMouse}}</span><span class="ghint-touch">{{hintTouch}}</span></div>
+      </div>
+      <div class="cardcol" id="card">
+        <p class="plabel">{{scorecard}}</p>
+        <p class="cempty">{{cardEmpty}}</p>
+      </div>
+    </div>
+  </div>
+
+  <details class="panel foldpanel" id="controls" open>
+    <summary class="fsummary">
+      <h2>{{ctlH}}</h2>
+      <span class="fnote">{{ctlNote}}</span>
+    </summary>
+    <div class="fbody">
+      <p class="fintro">{{ctlIntro}}</p>
+      <div class="presets">
+        <h3>{{ctlPresetsH}}</h3>
+        <p class="subhint">{{ctlPresetsNote}}</p>
+        <div class="presetrow" id="presets"></div>
+      </div>
+      <p class="subhint whint">{{ctlSlidersNote}}</p>
+      <div class="weights" id="weights"></div>
+    </div>
+  </details>
+
+  <div class="panel chartbox" id="p-chart">
+    <div class="phead">
+      <div class="pactions"><button type="button" class="ibtn" data-share title="{{copySetup}}" aria-label="{{copySetup}}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-png title="{{copyPNG}}" aria-label="{{copyPNG}}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.2" y="5" width="17.6" height="14" rx="2.4"/><circle cx="8.6" cy="10" r="1.5"/><path d="m4.4 16.6 4.4-4 3.4 3 3-2.6 4.4 4"/></svg></button><button type="button" class="ibtn" data-print="chart" title="{{printChart}}" aria-label="{{printChart}}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
+      <h2>{{chartH}}</h2>
+      <p>{{chartP}}</p>
+    </div>
+    <div class="bar">
+      <div class="legend" id="legend" role="group" aria-label="{{filterRegion}}"></div>
+      <div class="toggle">
+        <span>{{cost}}</span>
+        <div class="seg" role="group" aria-label="{{costGroup}}">
+          <button type="button" id="mode-rent" aria-pressed="true">{{withRent}}</button>
+          <button type="button" id="mode-norent" aria-pressed="false">{{withoutRent}}</button>
+        </div>
+      </div>
+    </div>
+    <p class="barhint">{{chartBarhint}}</p>
+    <p class="note" id="moneynote" hidden>{{chartMoneynote}}</p>
+    <svg id="chart" viewBox="0 0 1000 720" role="img" aria-label="{{chartAlt}}"></svg>
+    <div class="tip" id="tip"></div>
+    <div class="quadkey">
+      <div class="qk qk-best"><b>{{qBestT}}</b><span>{{qBestD}}</span></div>
+      <div class="qk qk-premium"><b>{{qPremiumT}}</b><span>{{qPremiumD}}</span></div>
+      <div class="qk qk-budget"><b>{{qBudgetT}}</b><span>{{qBudgetD}}</span></div>
+      <div class="qk qk-bad"><b>{{qBadT}}</b><span>{{qBadD}}</span></div>
+    </div>
+  </div>
+
+
+  <section class="panel ranklist" id="p-list">
+    <div class="pactions"><button type="button" class="ibtn" data-share title="{{copySetup}}" aria-label="{{copySetup}}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-print="list" title="{{printList}}" aria-label="{{printList}}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
+    <h2>{{listH}}</h2>
+    <p class="lead">{{listLead}}</p>
+    <div class="rl-head">
+      <span class="rl-n">#</span>
+      <span class="rl-city">{{city}}</span>
+      <button type="button" class="rl-sort" data-sort="score" aria-pressed="true">{{score}}</button>
+      <button type="button" class="rl-sort" data-sort="cost" aria-pressed="false">{{cost}}</button>
+    </div>
+    <div class="rl-rows" id="ranklist"></div>
+    <div class="tip" id="rltip"></div>
+  </section>
+
+  <aside class="sy-strip" aria-label="Speak-Y">
+      <span class="sy-name">Speak-<i>Y</i></span>
+      <p>{{syText}}</p>
+      <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">{{syCta}} <span aria-hidden="true">→</span></a>
+    </aside>
+
+  <section class="panel notes">
+    <h2>{{notesH}}</h2>
+    <p>{{notesP1}}</p>
+    <p>{{notesP2}}</p>
+    <p>{{notesP3}}</p>
+    <p>{{notesP4}}</p>
+    <p>{{notesP5}}</p>
+    <p>{{notesP6}}</p>
+    {{transNote}}
+  </section>
+
+  <details class="panel method">
+    <summary>{{methodH}}</summary>
+    <div class="methodbody">
+
+      <p>{{methodP1}}</p>
+
+      <dl>
+        <dt>{{methodDt1}}</dt>
+        <dd>{{methodDd1}}</dd>
+
+        <dt>{{methodDt2}}</dt>
+        <dd>{{methodDd2}}</dd>
+
+        <dt>{{methodDt3}}</dt>
+        <dd>{{methodDd3}}</dd>
+
+        <dt>{{methodDt4}}</dt>
+        <dd>{{methodDd4}}</dd>
+
+        <dt>{{methodDt5}}</dt>
+        <dd>{{methodDd5}}</dd>
+
+        <dt>{{methodDt6}}</dt>
+        <dd>{{methodDd6}}</dd>
+
+        <dt>{{methodDt7}}</dt>
+        <dd>{{methodDd7}}</dd>
+
+        <dt>{{methodDt8}}</dt>
+        <dd>{{methodDd8}}</dd>
+      </dl>
+
+      <p>{{methodP2}}</p>
+
+      <dl>
+        <dt>{{methodDt9}}</dt>
+        <dd>{{methodDd9}}</dd>
+
+        <dt>{{methodDt10}}</dt>
+        <dd>{{methodDd10}}</dd>
+
+        <dt>{{methodDt11}}</dt>
+        <dd>{{methodDd11}}</dd>
+
+        <dt>{{methodDt12}}</dt>
+        <dd>{{methodDd12}}</dd>
+      </dl>
+
+      <p>{{methodP3}}</p>
+
+      <p>{{methodP4}}</p>
+
+      <p>{{methodP5}}</p>
+
+      <p>{{methodP6}}</p>
+
+    </div>
+  </details>
+
+  <details class="panel table" id="p-table">
+    <summary>{{tableH}}<div class="pactions"><button type="button" class="ibtn" data-share title="{{copySetup}}" aria-label="{{copySetup}}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-print="table" title="{{printTable}}" aria-label="{{printTable}}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div></summary>
+    <div class="tablescroll">
+      <table id="tbl"><thead><tr id="thead"></tr></thead><tbody></tbody></table>
+    </div>
+  </details>
+
+</div>
+</main>
+
+<footer>
+  <span>© 2026 Aleksei Grebenkin</span>
+  <a class="to-top" href="/research/">{{backToResearch}}</a>
+</footer>
+
+<script src="{{up}}shell.js?v=3"></script>
+<script>
+{{js}}
+</script>
+
+</body>
+</html>
