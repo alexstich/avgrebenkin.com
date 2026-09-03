@@ -1,984 +1,3 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr" data-theme="dark">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Find your city — 303 cities, 12 measures, your priorities</title>
-<meta name="description" content="303 cities scored on 12 things people actually move for: safety, health care, the commute, clean air, climate, culture, living without a car, universities, what a local salary buys, whether a flat is within reach, what there is for children, and where you can fly without changing planes. You decide how much each one counts, and the chart shows what every city charges for the score it earns.">
-<link rel="canonical" href="https://avgrebenkin.com/research/cities/">
-<link rel="alternate" hreflang="en" href="https://avgrebenkin.com/research/cities/">
-<link rel="alternate" hreflang="ru" href="https://avgrebenkin.com/research/cities/ru/">
-<link rel="alternate" hreflang="uk" href="https://avgrebenkin.com/research/cities/uk/">
-<link rel="alternate" hreflang="de" href="https://avgrebenkin.com/research/cities/de/">
-<link rel="alternate" hreflang="fr" href="https://avgrebenkin.com/research/cities/fr/">
-<link rel="alternate" hreflang="es" href="https://avgrebenkin.com/research/cities/es/">
-<link rel="alternate" hreflang="pt-BR" href="https://avgrebenkin.com/research/cities/pt-BR/">
-<link rel="alternate" hreflang="it" href="https://avgrebenkin.com/research/cities/it/">
-<link rel="alternate" hreflang="nl" href="https://avgrebenkin.com/research/cities/nl/">
-<link rel="alternate" hreflang="pl" href="https://avgrebenkin.com/research/cities/pl/">
-<link rel="alternate" hreflang="tr" href="https://avgrebenkin.com/research/cities/tr/">
-<link rel="alternate" hreflang="ja" href="https://avgrebenkin.com/research/cities/ja/">
-<link rel="alternate" hreflang="zh-Hans" href="https://avgrebenkin.com/research/cities/zh-Hans/">
-<link rel="alternate" hreflang="x-default" href="https://avgrebenkin.com/research/cities/">
-
-<script>
-  /* the reader's own language, before anything is painted. The bare
-     /research/<study>/ address is the neutral one, so a browser that asks for a
-     language published here is sent to it. A /xx/ address is somebody's
-     deliberate choice — a shared link, say — and is left pointing where it
-     points. The alternates just above are the entire catalogue, so this list
-     never has to be kept in sync by hand. */
-  (function () {
-    if (location.protocol !== 'http:' && location.protocol !== 'https:') return;
-    var links = document.querySelectorAll('link[rel="alternate"][hreflang]');
-    var have = {}, neutral = '';
-    for (var i = 0; i < links.length; i++) {
-      var path = new URL(links[i].href).pathname;
-      if (links[i].hreflang === 'x-default') neutral = path;
-      else have[links[i].hreflang.toLowerCase()] = path;
-    }
-    if (!neutral || location.pathname !== neutral) return;
-
-    function match(tag) {
-      tag = String(tag).toLowerCase();
-      if (have[tag]) return tag;
-      var base = tag.split('-')[0];
-      /* only simplified Chinese is published, so it takes an explicit sign of
-         it — zh-Hans, or a region that writes it. A bare 'zh' says nothing, and
-         zh-TW and zh-HK read traditional; both fall through to whatever the
-         reader listed next, and to English if that is all there is. */
-      if (base === 'zh') return /hans|^zh-(cn|sg|my)$/.test(tag) ? 'zh-hans' : '';
-      if (have[base]) return base;
-      for (var k in have) if (k.split('-')[0] === base) return k;   /* pt → pt-br */
-      return '';
-    }
-
-    var want = '';
-    try { want = (localStorage.getItem('lang') || '').toLowerCase(); } catch (e) {}
-    if (!have[want]) {
-      var prefs = navigator.languages || [navigator.language || ''];
-      for (var j = 0; j < prefs.length && !have[want]; j++) want = match(prefs[j]);
-    }
-    /* English lives at the neutral address, so choosing it means staying put */
-    var to = have[want];
-    if (to && to !== neutral) location.replace(to + location.search + location.hash);
-  })();
-</script>
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-<meta name="author" content="Aleksei Grebenkin">
-<meta name="color-scheme" content="dark light">
-<meta name="theme-color" content="#0b0c11" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#f5f6f9" media="(prefers-color-scheme: light)">
-
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%235b4fd6'/%3E%3Cg fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M16 8v8'/%3E%3Cpath d='M11 12v4'/%3E%3Cpath d='M21 12v4'/%3E%3Cpath d='M16 20v4'/%3E%3C/g%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
-
-<meta property="og:type" content="article">
-<meta property="og:site_name" content="Aleksei Grebenkin">
-<meta property="og:locale" content="en_US">
-<meta property="og:locale:alternate" content="ru_RU">
-<meta property="og:locale:alternate" content="uk_UA">
-<meta property="og:locale:alternate" content="de_DE">
-<meta property="og:locale:alternate" content="fr_FR">
-<meta property="og:locale:alternate" content="es_ES">
-<meta property="og:locale:alternate" content="pt_BR">
-<meta property="og:locale:alternate" content="it_IT">
-<meta property="og:locale:alternate" content="nl_NL">
-<meta property="og:locale:alternate" content="pl_PL">
-<meta property="og:locale:alternate" content="tr_TR">
-<meta property="og:locale:alternate" content="ja_JP">
-<meta property="og:locale:alternate" content="zh_CN">
-<meta property="og:title" content="Find your city — 303 cities, 12 measures, your priorities">
-<meta property="og:description" content="12 things people actually move for, measured across 303 cities. Turn the globe, set 12 sliders to say what matters to you, and see which cities give the most for what they cost.">
-<meta property="og:url" content="https://avgrebenkin.com/research/cities/">
-<meta property="og:image" content="https://avgrebenkin.com/images/research/find-your-city.jpg">
-<meta property="og:image:secure_url" content="https://avgrebenkin.com/images/research/find-your-city.jpg">
-<meta property="og:image:type" content="image/jpeg">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="A globe with 303 cities marked as dots, the biggest and brightest ones scoring best on the chosen settings">
-<meta property="article:published_time" content="2026-08-26">
-<meta property="article:modified_time" content="2026-09-03">
-<meta property="article:author" content="https://avgrebenkin.com/">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Find your city — 303 cities, 12 measures, your priorities">
-<meta name="twitter:description" content="12 things people actually move for, measured across 303 cities. Turn the globe, set 12 sliders to say what matters to you, and see which cities give the most for what they cost.">
-<meta name="twitter:image" content="https://avgrebenkin.com/images/research/find-your-city.jpg">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"></noscript>
-<link rel="stylesheet" href="../shell.css?v=2">
-
-<script>
-  /* the theme before first paint, so a light reader never sees a dark flash */
-  (function () {
-    try {
-      var t = localStorage.getItem('theme');
-      if (['dark', 'light', 'cyber'].indexOf(t) === -1) {
-        t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-      }
-      document.documentElement.setAttribute('data-theme', t);
-    } catch (e) {}
-  })();
-</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebPage",
-      "@id": "https://avgrebenkin.com/research/cities/#webpage",
-      "url": "https://avgrebenkin.com/research/cities/",
-      "name": "Find your city — 303 cities, 12 measures, your priorities",
-      "description": "12 things people actually move for, measured across 303 cities. You decide how much each one counts, and the chart shows what every city charges for the score it earns.",
-      "isPartOf": { "@id": "https://avgrebenkin.com/#website" },
-      "author": { "@id": "https://avgrebenkin.com/#person" },
-      "datePublished": "2026-08-26",
-      "dateModified": "2026-09-03",
-      "inLanguage": "en",
-      "workTranslation": [
-      { "@type": "Dataset", "@id": "https://avgrebenkin.com/research/cities/ru/#dataset", "inLanguage": "ru" },
-      { "@type": "Dataset", "@id": "https://avgrebenkin.com/research/cities/uk/#dataset", "inLanguage": "uk" },
-      { "@type": "Dataset", "@id": "https://avgrebenkin.com/research/cities/de/#dataset", "inLanguage": "de" },
-      { "@type": "Dataset", "@id": "https://avgrebenkin.com/research/cities/fr/#dataset", "inLanguage": "fr" },
-      { "@type": "Dataset", "@id": "https://avgrebenkin.com/research/cities/es/#dataset", "inLanguage": "es" },
-      { "@type": "Dataset", "@id": "https://avgrebenkin.com/research/cities/pt-BR/#dataset", "inLanguage": "pt-BR" },
-      { "@type": "Dataset", "@id": "https://avgrebenkin.com/research/cities/it/#dataset", "inLanguage": "it" },
-      { "@type": "Dataset", "@id": "https://avgrebenkin.com/research/cities/nl/#dataset", "inLanguage": "nl" },
-      { "@type": "Dataset", "@id": "https://avgrebenkin.com/research/cities/pl/#dataset", "inLanguage": "pl" },
-      { "@type": "Dataset", "@id": "https://avgrebenkin.com/research/cities/tr/#dataset", "inLanguage": "tr" },
-      { "@type": "Dataset", "@id": "https://avgrebenkin.com/research/cities/ja/#dataset", "inLanguage": "ja" },
-      { "@type": "Dataset", "@id": "https://avgrebenkin.com/research/cities/zh-Hans/#dataset", "inLanguage": "zh-Hans" }
-    ],
-      "breadcrumb": { "@id": "https://avgrebenkin.com/research/cities/#breadcrumb" },
-      "primaryImageOfPage": {
-        "@type": "ImageObject",
-        "url": "https://avgrebenkin.com/images/research/find-your-city.jpg",
-        "width": 1200,
-        "height": 630
-      },
-      "mainEntity": { "@id": "https://avgrebenkin.com/research/cities/#dataset" }
-    },
-    {
-      "@type": "Dataset",
-      "@id": "https://avgrebenkin.com/research/cities/#dataset",
-      "name": "303 cities: 12 liveability measures and 2 cost-of-living indices",
-      "description": "For each of 303 cities: 9 Numbeo mid-year 2026 indices (safety, health care, commute, pollution, climate, purchasing power, price-to-income, and cost of living both with and without rent), counts of what OpenStreetMap shows inside a 10 km circle around the centre (museums, galleries, theatres, arts centres, cinemas, bars, pubs, nightclubs, rail stations, halts, tram stops, pedestrian streets, playgrounds, parks, schools, libraries, universities, colleges), and the number of different places reachable without changing planes from airports within 60 km.",
-      "creator": { "@id": "https://avgrebenkin.com/#person" },
-      "datePublished": "2026-08-26",
-      "temporalCoverage": "2026",
-      "spatialCoverage": { "@type": "Place", "name": "303 cities worldwide" },
-      "measurementTechnique": [
-        "Numbeo mid-2026 crowdsourced indices",
-        "Overpass counts of OpenStreetMap features within a 10 km radius of the city centre",
-        "OurAirports nonstop destinations from airports within 60 km"
-      ],
-      "variableMeasured": [
-        { "@type": "PropertyValue", "name": "Safety", "description": "Numbeo crime index, inverted; 15 survey questions on how safe residents feel" },
-        { "@type": "PropertyValue", "name": "Health care", "description": "Numbeo health care index; 7 aspects rated by residents who use the system" },
-        { "@type": "PropertyValue", "name": "Short commute", "description": "Numbeo traffic time index, inverted; one-way commute in minutes as reported" },
-        { "@type": "PropertyValue", "name": "Clean air", "description": "Numbeo pollution index, inverted; air, water, noise and litter" },
-        { "@type": "PropertyValue", "name": "Climate", "description": "Numbeo climate index; temperature, dew point and humidex, penalised for extremes" },
-        { "@type": "PropertyValue", "name": "Culture and nightlife", "description": "OpenStreetMap count of museums, theatres, cinemas, bars and clubs within 10 km" },
-        { "@type": "PropertyValue", "name": "Life without a car", "description": "OpenStreetMap count of rail stops and pedestrian streets within 10 km" },
-        { "@type": "PropertyValue", "name": "Universities", "description": "OpenStreetMap area covered by university campuses within 10 km" },
-        { "@type": "PropertyValue", "name": "Purchasing power", "description": "Numbeo local purchasing power index; New York = 100" },
-        { "@type": "PropertyValue", "name": "Affordability", "description": "Numbeo price-to-income ratio, inverted; annual incomes needed for a flat" },
-        { "@type": "PropertyValue", "name": "Children", "description": "OpenStreetMap count of playgrounds, parks, schools and libraries within 10 km" },
-        { "@type": "PropertyValue", "name": "Nonstop destinations", "description": "OurAirports unique nonstop destinations from all airports within 60 km" },
-        { "@type": "PropertyValue", "name": "Cost of living index", "description": "Numbeo cost-of-living index excluding rent; New York = 100" },
-        { "@type": "PropertyValue", "name": "Cost of living plus rent index", "description": "Numbeo cost-of-living index including rent; New York = 100" }
-      ],
-      "citation": [
-        "https://www.numbeo.com/quality-of-life/",
-        "https://www.openstreetmap.org/",
-        "https://ourairports.com/"
-      ],
-      "isAccessibleForFree": true,
-      "keywords": ["cost of living", "quality of life", "cities", "relocation", "OpenStreetMap", "Numbeo"],
-      "license": "https://opendatacommons.org/licenses/odbl/",
-      "distribution": {
-        "@type": "DataDownload",
-        "encodingFormat": "application/json",
-        "contentUrl": "https://avgrebenkin.com/research/data/cities-303.json"
-      }
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": "https://avgrebenkin.com/research/cities/#breadcrumb",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://avgrebenkin.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Research", "item": "https://avgrebenkin.com/research/" },
-        { "@type": "ListItem", "position": 3, "name": "Find your city", "item": "https://avgrebenkin.com/research/cities/" }
-      ]
-    }
-  ]
-}
-</script>
-
-<style>
-  /* Палитра исследования: только то, чего нет в токенах сайта. Тени, фон и текст
-     берутся из shell.css, поэтому три темы переключаются шапкой сайта. */
-  :root {
-    --ink-3: #6f7484;
-    --sphere: #151824; --sphere-edge: rgba(255,255,255,.18);
-    --land: rgba(139,124,255,.18); --coast: rgba(139,124,255,.42);
-    --grid-line: rgba(255,255,255,.06);
-    --pick: #ff9f6e;
-    --q1: rgba(62,207,142,.07); --q2: rgba(139,124,255,.08);
-    --q3: rgba(255,159,110,.06); --q4: rgba(255,255,255,.03);
-    --r-eu: #8b7cff; --r-cis: #3ecf8e; --r-gulf: #e0a83c;
-    --r-na: #ff7a8a; --r-asia: #b79bff; --r-lat: #ff9f6e;
-  }
-  :root[data-theme="light"] {
-    --ink-3: #8a90a1;
-    --sphere: #ffffff; --sphere-edge: rgba(16,18,30,.20);
-    --land: rgba(91,79,214,.15); --coast: rgba(91,79,214,.34);
-    --grid-line: rgba(16,18,30,.07);
-    --pick: #c2410c;
-    --q1: rgba(21,128,61,.07); --q2: rgba(91,79,214,.07);
-    --q3: rgba(194,65,12,.05); --q4: rgba(120,113,108,.06);
-    --r-eu: #5b4fd6; --r-cis: #15803d; --r-gulf: #b45309;
-    --r-na: #be123c; --r-asia: #7c3aed; --r-lat: #c2410c;
-  }
-  :root[data-theme="cyber"] {
-    --ink-3: #5d6a74;
-    --sphere: #0b0b12; --sphere-edge: rgba(0,240,255,.34);
-    --land: rgba(0,240,255,.13); --coast: rgba(0,240,255,.45);
-    --grid-line: rgba(0,240,255,.10);
-    --pick: #00f0ff;
-    --q1: rgba(0,240,255,.07); --q2: rgba(252,238,10,.07);
-    --q3: rgba(252,238,10,.04); --q4: rgba(125,139,150,.06);
-    --r-eu: #fcee0a; --r-cis: #00f0ff; --r-gulf: #ffb300;
-    --r-na: #ff5c8a; --r-asia: #b388ff; --r-lat: #7CFC00;
-  }
-
-  /* Алиасы: имена, которыми пользуются глобус и диаграмма, привязаны к токенам
-     сайта — палитра остаётся одна, а не две. */
-  :root {
-    --panel: var(--bg-elev); --ink: var(--text); --ink-2: var(--muted);
-    --hair: var(--border-soft); --hair-soft: var(--border-soft); --grid: var(--grid-line);
-    --q-best: var(--q1); --q-premium: var(--q2); --q-budget: var(--q3); --q-bad: var(--q4);
-    --c-eu: var(--r-eu); --c-cis: var(--r-cis); --c-gulf: var(--r-gulf);
-    --c-na: var(--r-na); --c-asia: var(--r-asia); --c-lat: var(--r-lat);
-    --accent-soft: rgba(var(--accent-rgb), .12);
-  }
-
-  .wrap a { color: inherit; text-decoration: underline; text-underline-offset: 2px;
-      text-decoration-color: var(--ink-3); }
-  .wrap a:hover { text-decoration-color: var(--ink); }
-
-  .panel { background: var(--panel); border: 1px solid var(--hair);
-           border-radius: 10px; box-shadow: var(--shadow); }
-  .mono { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; }
-
-  /* ── глобус ───────────────────────────────────────────────────── */
-  .globewrap { display: grid; grid-template-columns: minmax(0,1fr) 300px; gap: 0; }
-  @media (max-width: 860px) { .globewrap { grid-template-columns: 1fr; } }
-  .globebox { position: relative; display: flex; align-items: center; justify-content: center;
-              padding: 14px; min-height: 440px; }
-  .globebox canvas { display: block; max-width: 100%; height: auto; cursor: grab;
-                     /* pan-y: вертикальный свайп остаётся прокруткой страницы,
-                        горизонтальный крутит шар, щипок зумит */
-                     touch-action: pan-y; }
-  .globebox canvas.drag { cursor: grabbing; }
-  .zoombar { position: absolute; right: 14px; top: 14px; display: flex; flex-direction: column;
-             gap: 6px; z-index: 2; }
-  .zbtn { width: 30px; height: 30px; border-radius: 8px; cursor: pointer; line-height: 1;
-          border: 1px solid var(--border); background: var(--panel); color: var(--ink);
-          font-size: 16px; font-family: 'JetBrains Mono', monospace; display: grid; place-items: center; }
-  .zbtn:disabled { opacity: .38; cursor: default; }
-  .zlevel { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-3);
-            text-align: center; letter-spacing: .06em; }
-  /* На приближении под подсказкой оказывается карта — поэтому своя подложка. */
-  .ghint { position: absolute; left: 18px; bottom: 12px; z-index: 2;
-           padding: 3px 9px; border-radius: 999px;
-           background: var(--panel); border: 1px solid var(--hair-soft);
-           font-family: 'JetBrains Mono', monospace;
-           font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
-  :root[data-theme="cyber"] .ghint { border-radius: 0; }
-  .ghint-touch { display: none; }
-  @media (hover: none) { .ghint-mouse { display: none; } .ghint-touch { display: inline; } }
-  .cardcol { border-left: 1px solid var(--hair); padding: 18px 20px; min-width: 0; }
-  @media (max-width: 860px) { .cardcol { border-left: 0; border-top: 1px solid var(--hair); } }
-  .cardcol .plabel { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .14em;
-                     text-transform: uppercase; color: var(--ink-3); margin: 0 0 12px; }
-  .cname { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 21px;
-           line-height: 1.15; margin: 0; }
-  .cmeta { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-3); margin: 2px 0 12px; }
-  .cbig { display: flex; align-items: baseline; gap: 8px; margin: 0 0 12px; }
-  .cbig b { font-family: 'Space Grotesk', sans-serif; font-size: 38px; line-height: 1; color: var(--accent); }
-  .cbig span { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--ink-3); }
-  .cmet { display: grid; grid-template-columns: 96px 1fr 28px; gap: 8px; align-items: center;
-          font-size: 13px; padding: 2.5px 0; }
-  .cmet .track { height: 6px; border-radius: 3px; background: var(--accent-soft); overflow: hidden; }
-  .cmet .fill { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
-  .cmet .v { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-3);
-             text-align: right; font-variant-numeric: tabular-nums; }
-  .cmet.off { opacity: .4; }
-  .cempty { color: var(--ink-2); font-size: 14px; margin: 0; }
-
-  .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-         gap: 12px; padding: 14px 16px; }
-  .legend { display: flex; flex-wrap: wrap; gap: 6px; }
-  /* Кнопка шаринга в шапке — того же роста, что кнопки сайта. */
-  .htop { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
-  .sharebtn { display: inline-flex; align-items: center; gap: 8px; flex: none;
-              border: 1px solid var(--accent); border-radius: 10px; padding: 9px 16px;
-              background: rgba(var(--accent-rgb), .12); color: var(--accent);
-              font-family: var(--font-head), system-ui, sans-serif; font-size: 13.5px;
-              font-weight: 600; letter-spacing: -.01em; cursor: pointer;
-              transition: background .18s, color .18s; }
-  .wrap .sharebtn svg { display: block; width: 14px; height: 14px; fill: none; stroke: currentColor;
-                        stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
-  .sharebtn:hover { background: rgba(var(--accent-rgb), .2); }
-  .sharebtn.done { background: var(--accent); color: var(--bg); }
-  :root[data-theme="cyber"] .sharebtn {
-    border-radius: 0; text-transform: uppercase; letter-spacing: .08em; font-size: 12px;
-    font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-    clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px));
-  }
-
-  /* Иконки в углу блока собраны в одну капсулу — как переключатель тем в шапке сайта. */
-  .pactions { float: right; display: flex; gap: 2px; padding: 3px; margin: 0 0 6px 14px;
-              border: 1px solid var(--hair); border-radius: 9px;
-              background: rgba(var(--accent-rgb), .07); }
-  details.table .pactions { position: absolute; right: 20px; top: 14px; float: none; margin: 0; }
-  details.table summary { position: static; }
-  .ibtn { display: grid; place-items: center; width: 28px; height: 24px; padding: 0;
-          border: 0; border-radius: 6px; background: transparent;
-          color: var(--ink-3); cursor: pointer; transition: color .15s, background .15s; }
-  .ibtn:hover { color: var(--ink); background: var(--panel); }
-  .ibtn.done { color: var(--accent); background: var(--panel); }
-  .wrap .ibtn svg { display: block; width: 13px; height: 13px; fill: none; stroke: currentColor;
-              stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-  .ibtn.done svg { stroke-width: 2.2; }
-  :root[data-theme="cyber"] .pactions, :root[data-theme="cyber"] .ibtn { border-radius: 0; }
-  /* Иконка меняется на галочку слишком тихо — рядом всплывает подпись. */
-  .copied { position: fixed; z-index: 40; padding: 6px 11px; border-radius: 8px;
-            background: var(--accent); color: var(--bg);
-            font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 11.5px;
-            white-space: nowrap; pointer-events: none; box-shadow: 0 10px 24px -14px rgba(0,0,0,.9);
-            opacity: 0; transform: translateY(-4px); transition: opacity .18s, transform .18s; }
-  .copied.in { opacity: 1; transform: translateY(0); }
-  :root[data-theme="cyber"] .copied { border-radius: 0; }
-  :root[data-theme="cyber"] .ibtn { border-radius: 0; }
-
-
-  /* Поиск по глобусу: 303 точки быстрее найти буквами, чем вращением. */
-  .gsearch { position: relative; margin: 14px 16px 4px; max-width: 420px; }
-  .gsearch input { width: 100%; box-sizing: border-box; padding: 9px 34px 9px 32px;
-                   border: 1px solid var(--hair); border-radius: 999px; background: var(--panel);
-                   color: var(--ink); font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-                   font-size: 13px; }
-  .gsearch input::placeholder { color: var(--ink-3); }
-  .gsearch input:focus { outline: none; border-color: var(--accent); }
-  .gsearch::before { content: "⌕"; position: absolute; left: 12px; top: 50%; translate: 0 -50%;
-                     color: var(--ink-3); font-size: 15px; pointer-events: none; }
-  .phead kbd { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: .85em;
-               padding: 1px 5px; border: 1px solid var(--hair); border-radius: 4px;
-               background: var(--panel); color: var(--ink-2); }
-  .gq-clear { position: absolute; right: 8px; top: 50%; translate: 0 -50%; border: 0;
-              background: transparent; color: var(--ink-3); font-size: 17px; line-height: 1;
-              cursor: pointer; padding: 2px 6px; }
-  .gq-clear:hover { color: var(--ink); }
-  .gsug { position: absolute; z-index: 6; left: 0; right: 0; top: calc(100% + 4px); margin: 0;
-          padding: 4px; list-style: none; max-height: 264px; overflow-y: auto;
-          border: 1px solid var(--hair); border-radius: 12px; background: var(--panel);
-          box-shadow: 0 18px 40px -22px rgba(0, 0, 0, .8); }
-  .gsug li { display: flex; align-items: baseline; gap: 8px; padding: 7px 10px; border-radius: 8px;
-             cursor: pointer; font-size: 14px; color: var(--ink); }
-  .gsug li .cy { margin-left: auto; color: var(--ink-3); font-size: 11.5px;
-                 font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; }
-  .gsug li .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sw); flex: none; }
-  .gsug li[aria-selected="true"], .gsug li:hover { background: rgba(var(--accent-rgb), .14); }
-  .gsug .none { color: var(--ink-3); cursor: default; }
-  :root[data-theme="cyber"] .gsearch input,
-  :root[data-theme="cyber"] .gsug,
-  :root[data-theme="cyber"] .gsug li { border-radius: 0; }
-  .chip { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--hair);
-          background: transparent; border-radius: 999px; padding: 5px 12px 5px 9px;
-          font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 12px;
-          color: var(--ink-2); cursor: pointer; transition: opacity .15s, border-color .15s; }
-  .chip:hover { border-color: var(--ink-3); }
-  .chip[aria-pressed="false"] { opacity: .38; }
-  .chip .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--sw); flex: none; }
-  .toggle { display: flex; align-items: center; gap: 8px;
-            font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-            font-size: 12px; color: var(--ink-3); }
-  .seg { display: flex; border: 1px solid var(--hair); border-radius: 7px; overflow: hidden; }
-  .seg button { border: 0; background: transparent; color: var(--ink-2); font: inherit;
-                padding: 6px 11px; cursor: pointer; }
-  .seg button[aria-pressed="true"] { background: var(--ink); color: var(--panel); }
-
-  /* Пресеты — главный вход для тех, кто не хочет крутить двенадцать ползунков. */
-  .presets { padding: 14px 16px; border-top: 1px solid var(--hair-soft); }
-  .presets h3 { margin: 0 0 9px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
-                color: var(--ink-3); font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-                font-weight: 600; }
-  .presetrow { display: flex; flex-wrap: wrap; gap: 7px; }
-  .preset { border: 1px solid var(--hair); background: transparent; border-radius: 8px;
-            padding: 7px 13px; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-            font-size: 12px; color: var(--ink-2); cursor: pointer; }
-  .preset:hover { border-color: var(--ink-3); }
-  .preset[aria-pressed="true"] { background: var(--ink); color: var(--panel); border-color: var(--ink); }
-
-  /* Веса: свёрнутые группы, чтобы на телефоне не было списка из двенадцати строк. */
-  .weights { padding: 6px 0 10px; }
-  .grp { border-top: 1px solid var(--hair-soft); }
-  .grp:first-child { border-top: 0; }
-  .grp > summary { cursor: pointer; list-style: none; padding: 11px 16px;
-                   font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-                   font-size: 12.5px; color: var(--ink-2); display: flex;
-                   align-items: center; gap: 6px; }
-  .grp > summary::-webkit-details-marker { display: none; }
-  .grp > summary::before { content: "▸ "; color: var(--ink-3); }
-  .grp[open] > summary::before { content: "▾ "; }
-  .grp .count { color: var(--ink-3); font-size: 11px; margin-left: auto; }
-  .rows { padding: 2px 16px 12px; display: flex; flex-direction: column; gap: 9px;
-          max-width: 620px; }
-  .row { display: grid; grid-template-columns: 1fr 132px 22px; align-items: center; gap: 12px; }
-  .row label { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-               font-size: 12.5px; color: var(--ink-2); }
-  .row .hint { display: block; font-size: 10.5px; color: var(--ink-3); }
-  .row input[type=range] { width: 132px; accent-color: var(--accent); }
-  .row .val { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-              font-size: 12px; color: var(--ink); text-align: right; font-variant-numeric: tabular-nums; }
-  .row.off label, .row.off .val { opacity: .45; }
-  .note { margin: 8px 16px 0; padding: 9px 12px; border-radius: 8px;
-          background: var(--q-bad); color: var(--ink-2);
-          font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 11.5px; }
-  .note[hidden] { display: none; }
-
-  .quadkey { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 12px 12px 4px; }
-  .qk { border: 1px solid var(--hair); border-radius: 8px; padding: 7px 11px; }
-  .qk b { display: block; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-          font-size: 11.5px; font-weight: 600; letter-spacing: .08em; }
-  .qk span { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-             font-size: 10.5px; color: var(--ink-3); }
-  .qk-best { background: var(--q-best); } .qk-best b { color: var(--c-cis); }
-  .qk-premium { background: var(--q-premium); } .qk-premium b { color: var(--c-eu); }
-  .qk-budget { background: var(--q-budget); } .qk-budget b { color: var(--c-gulf); }
-  .qk-bad { background: var(--q-bad); } .qk-bad b { color: var(--c-na); }
-  @media (max-width: 620px) { .quadkey { grid-template-columns: 1fr; } }
-
-  .chartbox { padding: 4px 10px 4px; position: relative; }
-  .chartbox .phead { margin: -4px -10px 4px; }
-
-  .wrap svg { display: block; width: 100%; height: auto; overflow: visible; }
-  .axis-title { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-                font-size: 12px; letter-spacing: .04em; fill: var(--ink-2); }
-  .tick { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-          font-size: 10px; fill: var(--ink-3); }
-  .citylabel { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-               font-size: 8.8px; fill: var(--ink-2); pointer-events: none; }
-  .citylabel.crowded { fill: var(--ink-3); }
-  circle.pt { cursor: pointer; }
-
-  .tip { position: absolute; pointer-events: none; opacity: 0;
-         transform: translate(-50%,-100%); background: var(--panel);
-         border: 1px solid var(--hair); border-radius: 8px; box-shadow: var(--shadow);
-         padding: 9px 11px; font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-         font-size: 11.5px; line-height: 1.5; color: var(--ink-2); white-space: nowrap;
-         z-index: 5; transition: opacity .1s; }
-  .tip b { color: var(--ink); font-size: 12.5px; }
-  .tip .r { display: flex; justify-content: space-between; gap: 16px; }
-  .tip .r span:last-child { color: var(--ink); font-variant-numeric: tabular-nums; }
-  .tip .sep { border-top: 1px solid var(--hair-soft); margin: 5px 0; }
-
-  .wrap h2 { font-size: 22px; margin: 0 0 12px; letter-spacing: -.01em; }
-  .method summary { cursor: pointer; padding: 16px 22px; font-size: 17px;
-                   list-style: none; color: var(--ink); }
-  .method summary::-webkit-details-marker { display: none; }
-  .method summary::before { content: "▸ "; color: var(--ink-3); }
-  .method[open] summary::before { content: "▾ "; }
-  .methodbody { padding: 4px 22px 22px; border-top: 1px solid var(--hair); }
-  .methodbody p { margin: 14px 0 0; color: var(--ink-2); max-width: 74ch; }
-  .methodbody p strong { color: var(--ink); font-weight: 600; }
-  .methodbody dl { margin: 12px 0 0; max-width: 74ch; }
-  .methodbody dt { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-                   font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
-                   color: var(--ink); margin-top: 14px; }
-  .methodbody dd { margin: 3px 0 0; color: var(--ink-2); }
-  .methodbody code { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-                     font-size: 12.5px; background: var(--hair-soft); border-radius: 3px;
-                     padding: 1px 5px; color: var(--ink); white-space: nowrap; }
-  .notes { padding: 20px 22px; }
-  .notes p { margin: 0 0 12px; color: var(--ink-2); max-width: 74ch; }
-  .notes p:last-child { margin-bottom: 0; }
-  .notes strong { color: var(--ink); font-weight: 600; }
-  code { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 13px;
-         background: var(--hair-soft); border-radius: 4px; padding: 1px 5px; }
-
-  details.table { padding: 0; position: relative; }
-  details.table summary { cursor: pointer; padding: 16px 80px 16px 22px; font-size: 17px;
-                          font-weight: 600; list-style: none; }
-  details.table summary::-webkit-details-marker { display: none; }
-  details.table summary::before { content: "▸ "; color: var(--ink-3); }
-  details.table[open] summary::before { content: "▾ "; }
-  .tablescroll { overflow-x: auto; max-height: 520px; overflow-y: auto;
-                 border-top: 1px solid var(--hair); }
-  table { border-collapse: collapse; width: 100%;
-          font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 12px; }
-  th, td { padding: 7px 12px; text-align: right; white-space: nowrap;
-           border-bottom: 1px solid var(--hair-soft); }
-  th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3) { text-align: left; }
-  thead th { position: sticky; top: 0; background: var(--panel); color: var(--ink-3);
-             font-weight: 500; border-bottom: 1px solid var(--hair); cursor: pointer; user-select: none; }
-  tbody td { color: var(--ink-2); font-variant-numeric: tabular-nums; }
-  tbody td:nth-child(2) { color: var(--ink); }
-  .swatch { display: inline-block; width: 8px; height: 8px; border-radius: 50%;
-            margin-right: 7px; vertical-align: middle; }
-  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
-
-  /* ── заголовки панелей: где смотреть и где крутить ───────────── */
-  .phead { padding: 16px 20px 13px; border-bottom: 1px solid var(--hair-soft); }
-  .phead h2 { font-family: var(--font-head); font-size: 17px; margin: 0 0 3px;
-              letter-spacing: -.01em; line-height: 1.25; }
-  .phead p { margin: 0; color: var(--ink-2); font-size: 13.5px; line-height: 1.5; max-width: 82ch; }
-  .phead p b { color: var(--ink); font-weight: 600; }
-  .subhint { margin: -4px 0 9px; color: var(--ink-3); font-size: 12px; line-height: 1.45; max-width: 82ch; }
-  .subhint b { color: var(--ink-2); font-weight: 500; }
-  .barhint { margin: 0; padding: 0 16px 13px; color: var(--ink-3);
-             font-size: 12px; line-height: 1.45; max-width: 86ch; }
-  .barhint b { color: var(--ink-2); font-weight: 500; }
-  .whint { padding: 0 16px; }
-
-  /* Имя выбранного города — над шаром, чтобы на телефоне было видно сразу,
-     не прокручивая до карточки. */
-  .gname { position: absolute; left: 14px; top: 14px; z-index: 2; max-width: calc(100% - 74px);
-           padding: 5px 11px; border-radius: 999px; border: 1px solid var(--border);
-           background: var(--panel); color: var(--ink);
-           font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
-           white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .gname b { color: var(--accent); font-weight: 500; }
-  .gname[hidden] { display: none; }
-  :root[data-theme="cyber"] .gname { border-radius: 0; }
-
-  /* ── сворачиваемая панель фильтров ───────────────────────────── */
-  .foldpanel > summary.fsummary { cursor: pointer; list-style: none; display: flex;
-                                  align-items: baseline; gap: 10px; padding: 16px 20px; }
-  .foldpanel > summary.fsummary::-webkit-details-marker { display: none; }
-  .foldpanel > summary.fsummary::before { content: "▸"; color: var(--ink-3); font-size: 13px; }
-  .foldpanel[open] > summary.fsummary::before { content: "▾"; }
-  .foldpanel[open] > summary.fsummary { border-bottom: 1px solid var(--hair-soft); }
-  .fsummary h2 { font-family: var(--font-head); font-size: 17px; margin: 0;
-                 letter-spacing: -.01em; display: inline; }
-  .fnote { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px;
-           letter-spacing: .06em; color: var(--ink-3); }
-  .fintro { margin: 14px 20px 4px; color: var(--ink-2); font-size: 13.5px;
-            line-height: 1.5; max-width: 82ch; }
-
-  /* ── список: та же диаграмма, только читаемая сверху вниз ────── */
-  .ranklist { padding: 16px 20px 20px; position: relative; }
-  .ranklist h2 { font-family: 'Space Grotesk', system-ui, sans-serif; margin: 0 0 4px; }
-  .ranklist .lead { margin: 0 0 14px; color: var(--ink-2); font-size: 15px; max-width: 76ch; }
-  .ranklist .lead b { color: var(--ink); font-weight: 600; }
-  .rl-head, .rl-row { display: grid; grid-template-columns: 34px minmax(0,1fr) 76px 76px;
-                      gap: 10px; align-items: center; }
-  .rl-head { padding: 0 10px 7px; border-bottom: 1px solid var(--hair);
-             font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-             font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
-  .rl-sort { border: 0; background: transparent; font: inherit; color: var(--ink-3);
-             text-align: right; cursor: pointer; padding: 2px 0; }
-  .rl-sort:hover { color: var(--ink); }
-  .rl-sort[aria-pressed="true"] { color: var(--accent); }
-  .rl-sort[aria-pressed="true"]::after { content: " ▼"; font-size: 9px; }
-  .rl-rows { max-height: 560px; overflow-y: auto; overscroll-behavior: contain; }
-  .rl-row { padding: 5px 10px; border-bottom: 1px solid var(--hair-soft); cursor: pointer; }
-  .rl-row:hover { background: var(--accent-soft); }
-  .rl-row .n { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-               font-size: 11px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
-  .rl-row .nm { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
-  .rl-row .nm b { font-weight: 500; color: var(--ink); font-size: 14.5px;
-                  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .rl-row .nm i { font-style: normal; color: var(--ink-3); font-size: 11.5px;
-                  font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
-                  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .rl-row .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
-  .rl-row .v { font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 12.5px;
-               text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); }
-  .rl-row .v.score { color: var(--ink); }
-  @media (max-width: 620px) {
-    .rl-head, .rl-row { grid-template-columns: 26px minmax(0,1fr) 54px 54px; gap: 7px; }
-    /* Имя и страна в две строки, но точка региона остаётся слева от обеих. */
-    .rl-row .nm { display: grid; grid-template-columns: auto minmax(0,1fr);
-                  gap: 0 7px; align-items: center; }
-    .rl-row .nm .dot { grid-row: 1 / 3; }
-    .rl-row .nm b { font-size: 14px; }
-  }
-  :root[data-theme="cyber"] .rl-row .dot { border-radius: 0; }
-
-  /* ── страница в оболочке сайта ───────────────────────────────── */
-  main { max-width: 1180px; padding: 0; }
-  .wrap { max-width: 1180px; margin: 0 auto; line-height: 1.55;
-          padding: calc(var(--nav-h) + 40px) 22px 40px;
-          display: flex; flex-direction: column; gap: 20px; }
-  .crumb { margin: 0 0 16px; font-family: var(--font-mono); font-size: 11px;
-           letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
-  .wrap .crumb a { color: var(--accent); text-decoration: none; }
-  .wrap .crumb a:hover { text-decoration: underline; }
-  .wrap header h1 { font-family: var(--font-head); font-weight: 700;
-                    font-size: clamp(28px,4.4vw,44px); line-height: 1.08; margin: 0 0 10px;
-                    letter-spacing: -.015em; text-wrap: balance; }
-  .sub { margin: 0; color: var(--ink-2); font-size: 18px; max-width: 68ch; }
-  .meta { margin-top: 14px; font-family: var(--font-mono);
-          font-size: 12px; letter-spacing: .02em; color: var(--ink-3);
-          display: flex; flex-wrap: wrap; gap: 6px 18px; }
-
-  /* Кибертема сайта срезает углы — панели исследования следуют за ней. */
-  :root[data-theme="cyber"] .panel {
-    border-radius: 0;
-    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
-  }
-  :root[data-theme="cyber"] .chip,
-  :root[data-theme="cyber"] .preset,
-  :root[data-theme="cyber"] .qk { border-radius: 0; }
-
-  /* На узком экране шар заметно меньше и не держит пустые 440 px высоты. */
-  @media (max-width: 620px) {
-    .wrap { padding-left: 14px; padding-right: 14px; }
-    .globebox { min-height: 0; padding: 10px 2px 18px; }
-    .ghint { left: 10px; bottom: 2px; }
-    .cardcol { padding: 14px 16px; }
-    .phead { padding: 14px 16px 11px; }
-    .gname { left: 10px; top: 10px; max-width: calc(100% - 62px); }
-    .gsearch { margin: 12px 12px 4px; }
-    .zoombar { right: 8px; top: 8px; }
-    .notes { padding-left: 16px; padding-right: 16px; }
-  }
-
-  /* Печать: страница целиком на бумаге бессмысленна, поэтому печатается один
-     блок — тот, у чьей иконки нажали. Остальное убирается вместе с хромом сайта. */
-  /* Печать: на лист уходит один блок — тот, у чьей иконки нажали, — и выглядит он
-     так же, как на экране. Скрывается только то, что на бумаге не работает:
-     хром сайта, органы управления и подсказки про клики. */
-  @media print {
-    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .site-nav, footer, .crumb, .ghint, .zoombar, .gsearch, .pactions,
-    .sharebtn, .sy-strip, .tip, body::before, body::after { display: none !important; }
-    :root[data-print] main .wrap > *, :root[data-print] header { display: none !important; }
-    :root[data-print] .wrap > .printhead { display: block !important; }
-    :root[data-print] .printhead { break-after: avoid; }
-    :root[data-print] .cempty, :root[data-print] .emptycard { display: none !important; }
-    :root[data-print="globe"] #p-globe,
-    :root[data-print="chart"] #p-chart,
-    :root[data-print="list"] #p-list,
-    :root[data-print="table"] #p-table { display: block !important; }
-
-    /* Шар печатается целиком, а не разрезанным между листами. */
-    :root[data-print="globe"] .globewrap { display: block !important; }
-    :root[data-print="globe"] .globebox { break-inside: avoid; text-align: center; }
-    :root[data-print="globe"] .globebox canvas { max-width: 100% !important; height: auto !important;
-                                                 margin: 0 auto; }
-
-    /* Таблица широкая — ей альбомный лист. */
-    @page portrait { size: A4 portrait; margin: 12mm 11mm; }
-    @page wide { size: A4 landscape; margin: 11mm 12mm; }
-    :root[data-print="globe"] .wrap, :root[data-print="list"] .wrap,
-    :root[data-print="chart"] .wrap { page: portrait; }
-    :root[data-print="table"] .wrap { page: wide; }
-
-    :root[data-print="table"] .tablescroll { overflow: visible !important; max-height: none !important; }
-    :root[data-print="table"] thead { display: table-header-group; }
-    :root[data-print="table"] thead th { position: static; }
-
-    /* Блок не переверстывается под узкий лист, а печатается ровно как на экране,
-       уменьшенный ровно настолько, чтобы влезть: zoom и ширину считает beforePrint. */
-    :root[data-print] .wrap { max-width: none; padding: 0; }
-    :root[data-print="globe"] #p-globe,
-    :root[data-print="chart"] #p-chart,
-    :root[data-print="list"] #p-list,
-    :root[data-print="table"] #p-table {
-      zoom: var(--pscale, 1); width: var(--pwidth, auto) !important; margin: 0 !important;
-    }
-
-    .rl-row, .qk, tr { break-inside: avoid; }
-    .rl-rows { max-height: none !important; }
-  }
-  .printhead { display: none; }
-  .printhead h2 { font-family: var(--font-head); font-size: 19px; margin: 0 0 4px; }
-  .printhead p { margin: 0 0 14px; color: #444; font-size: 12px;
-                 font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; word-break: break-all; }
-
-  /* ── выбор языка ─────────────────────────────────────────── */
-  /* На нативном <details>: открывается и без скрипта, закрывается Esc,
-     и в списке лежат обычные ссылки — их видит и поисковик, и читалка. */
-  .langpick { position: relative; margin-inline-start: auto; margin-top: -4px; }
-  .langpick > summary {
-    display: inline-flex; align-items: center; gap: .4rem; cursor: pointer;
-    list-style: none; padding: .3rem .6rem; border: 1px solid var(--hair);
-    border-radius: 8px; font-family: var(--font-body); font-size: 12.5px;
-    font-weight: 500; letter-spacing: 0; color: var(--ink-2);
-    transition: color .18s, background .18s;
-  }
-  .langpick > summary::-webkit-details-marker { display: none; }
-  .langpick > summary:hover { color: var(--ink); background: rgba(var(--accent-rgb), .08); }
-  .langpick > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
-  .langpick .globe { font-size: 11px; color: var(--accent); }
-  .langpick[open] > summary { color: var(--accent); background: rgba(var(--accent-rgb), .12); }
-  .langpick ul {
-    position: absolute; z-index: 30; inset-inline-end: 0; top: calc(100% + 6px);
-    margin: 0; padding: 6px; list-style: none; min-width: 11rem;
-    background: var(--panel); border: 1px solid var(--hair);
-    border-radius: 10px; box-shadow: 0 18px 40px rgba(0,0,0,.28);
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
-  }
-  .langpick li a {
-    display: block; padding: .4rem .55rem; border-radius: 6px;
-    font-family: var(--font-body); font-size: 12.5px; letter-spacing: 0;
-    color: var(--ink-2); text-decoration: none; white-space: nowrap;
-  }
-  .langpick li a:hover { background: rgba(var(--accent-rgb), .10); color: var(--ink); }
-  .langpick li.is-current a { color: var(--accent); background: rgba(var(--accent-rgb), .12); }
-  :root[data-theme="cyber"] .langpick > summary,
-  :root[data-theme="cyber"] .langpick ul,
-  :root[data-theme="cyber"] .langpick li a { border-radius: 0; }
-  @media print { .langpick { display: none; } }
-  .transnote { margin-top: 4px; padding-top: 14px; border-top: 1px dashed var(--hair);
-               font-size: .88rem; color: var(--ink-3); }
-</style>
-</head>
-<body>
-
-<nav class="site-nav" id="site-nav">
-  <a href="/" class="nav-name">Aleksei Grebenkin</a>
-  <div class="nav-links" id="nav-links">
-    <a href="/#projects" class="nav-link">Projects</a>
-    <a href="/#notes" class="nav-link">Notes</a>
-    <a href="/research/" class="nav-link nav-link-active">Research</a>
-    <a href="/#speaking" class="nav-link">Speaking</a>
-    <a href="/#certifications" class="nav-link">Certifications</a>
-    <a href="/#journey" class="nav-link">Journey</a>
-    <a href="/#contacts" class="nav-link">Contacts</a>
-  </div>
-  <div class="nav-controls">
-    <div class="theme-switcher" id="theme-switcher" role="radiogroup" aria-label="Color theme">
-      <button type="button" class="theme-btn" data-theme="dark" role="radio" aria-label="Dark theme" aria-checked="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      </button>
-      <button type="button" class="theme-btn" data-theme="light" role="radio" aria-label="Light theme" aria-checked="false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-      </button>
-      <button type="button" class="theme-btn" data-theme="cyber" role="radio" aria-label="Cyberpunk theme" aria-checked="false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>
-      </button>
-    </div>
-    <button type="button" class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
-      <span class="nav-burger-line"></span>
-      <span class="nav-burger-line"></span>
-      <span class="nav-burger-line"></span>
-    </button>
-  </div>
-</nav>
-
-<main>
-<div class="wrap">
-  <div class="printhead"><h2>Find your city — 303 cities, 12 measures</h2>
-    <p id="printurl">avgrebenkin.com/research/cities/</p></div>
-  <p class="crumb"><a href="/research/">← Research</a></p>
-  <header>
-    <div class="htop">
-      <h1>Find your city</h1>
-      <button type="button" class="sharebtn primary" data-share
-              title="Copy a link to this page that carries your settings with it"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg>Share</button>
-    </div>
-    <p class="sub">303 cities, scored on 12 things people actually move for: safety, health care, the commute, clean air, climate, culture, living without a car, universities, what a local salary buys, whether a flat is within reach, what there is for children, and where you can fly without changing planes. How much each of them counts is up to you: 12 sliders, 0 to 3. Together they add up to a single score for every city, and that score is then set against what living there costs — so you can see which cities charge a lot for what they offer and which give back more than they take.</p>
-    <div class="meta">
-      <span>Data: <a href="https://www.numbeo.com/quality-of-life/rankings.jsp" target="_blank" rel="noopener">Numbeo</a> · <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap</a> · <a href="https://ourairports.com/" target="_blank" rel="noopener">OurAirports</a> · <a href="https://en.wikipedia.org/wiki/List_of_busiest_airports_by_passenger_traffic" target="_blank" rel="noopener">Wikipedia</a></span>
-      <span>2026 mid-year</span>
-      <details class="langpick"><summary aria-label="Language"><span class="globe" aria-hidden="true">◍</span>English</summary><ul><li class="is-current"><a href="/research/cities/" hreflang="en" lang="en" aria-current="true">English</a></li><li><a href="/research/cities/ru/" hreflang="ru" lang="ru">Русский</a></li><li><a href="/research/cities/uk/" hreflang="uk" lang="uk">Українська</a></li><li><a href="/research/cities/de/" hreflang="de" lang="de">Deutsch</a></li><li><a href="/research/cities/fr/" hreflang="fr" lang="fr">Français</a></li><li><a href="/research/cities/es/" hreflang="es" lang="es">Español</a></li><li><a href="/research/cities/pt-BR/" hreflang="pt-BR" lang="pt-BR">Português (BR)</a></li><li><a href="/research/cities/it/" hreflang="it" lang="it">Italiano</a></li><li><a href="/research/cities/nl/" hreflang="nl" lang="nl">Nederlands</a></li><li><a href="/research/cities/pl/" hreflang="pl" lang="pl">Polski</a></li><li><a href="/research/cities/tr/" hreflang="tr" lang="tr">Türkçe</a></li><li><a href="/research/cities/ja/" hreflang="ja" lang="ja">日本語</a></li><li><a href="/research/cities/zh-Hans/" hreflang="zh-Hans" lang="zh-Hans">简体中文</a></li></ul></details>
-    </div>
-  </header>
-  <div class="panel" id="p-globe">
-    <div class="phead">
-      <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link that reopens this page with the settings you have made" aria-label="Copy a link that reopens this page with the settings you have made"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-print="globe" title="Print the globe" aria-label="Print the globe"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
-      <h2>The whole set: all 303 cities</h2>
-      <p>All 303 cities at once. Every dot is one city, and the bigger and brighter the dot, the higher that city scores — the score being how well it does on the 12 things you can weigh up for yourself further down this page. Until you change anything, 5 of them count, and count equally: safety, health care, a short commute, clean air and climate. So the bright clusters are simply the places where all 5 of those are in good shape. Turn the globe, zoom in until the names appear, click a dot to see that city's full scorecard — or type a name into the search box and the globe turns to it (press <kbd>/</kbd> anywhere on the page to jump into that box). <b>Everything below the globe cuts these same 303 cities down to the ones you ask for.</b></p>
-    </div>
-    <div class="gsearch">
-      <label class="sr-only" for="gq">Find a city on the globe</label>
-      <input id="gq" type="text" placeholder="Find a city — start typing" autocomplete="off"
-             spellcheck="false" role="combobox" aria-expanded="false" aria-controls="gsug"
-             aria-autocomplete="list">
-      <button type="button" class="gq-clear" id="gqx" aria-label="Clear search" hidden>×</button>
-      <ul class="gsug" id="gsug" role="listbox" aria-label="Matching cities" hidden></ul>
-    </div>
-    <div class="globewrap">
-      <div class="globebox" id="globebox">
-        <div class="gname" id="gname" hidden></div>
-        <div class="zoombar">
-          <button type="button" class="zbtn" id="zin" aria-label="Zoom in">+</button>
-          <button type="button" class="zbtn" id="zout" aria-label="Zoom out" disabled>−</button>
-          <div class="zlevel" id="zlevel">1.0×</div>
-        </div>
-        <div class="ghint"><span class="ghint-mouse">drag to turn · + and − to zoom · click a city</span><span class="ghint-touch">swipe to turn · pinch to zoom · tap a city</span></div>
-      </div>
-      <div class="cardcol" id="card">
-        <p class="plabel">Scorecard</p>
-        <p class="cempty">No city picked yet. Search for one above, click its dot on the globe, or tap any row in the list further down, and this panel fills with that city's scorecard: where it stands among all 303, then a bar for each of the 12 measures showing how it did on that one alone.</p>
-      </div>
-    </div>
-  </div>
-
-  <details class="panel foldpanel" id="controls" open>
-    <summary class="fsummary">
-      <h2>Say what matters to you</h2>
-      <span class="fnote">12 sliders, 6 ready-made sets</span>
-    </summary>
-    <div class="fbody">
-      <p class="fintro">This is where you say how much each of the 12 things is worth to you. Every slider you move rescores all 303 cities at once, so the globe above and the chart, list and table below all redraw the moment you let go. Two more controls live not here but beside the chart itself: which parts of the world to keep, and whether rent is counted as part of the cost of living.</p>
-      <div class="presets">
-        <h3>Start from someone</h3>
-        <p class="subhint">There are 6 ready-made sets of slider settings, each written for a different kind of person — someone working remotely, a family with young children, and so on. Click whichever is closest to you and all 12 sliders jump to that set; from there, move the ones you disagree with. The moment you touch a slider the set stops being highlighted, because the settings have stopped being that person's.</p>
-        <div class="presetrow" id="presets"></div>
-      </div>
-      <p class="subhint whint">One slider per measure, 12 in all, each running from 0 to 3: a measure set to 3 counts 3 times as much as one set to 1, and anything left at <b>0</b> is switched off altogether and takes no part in the score. The sliders come sorted into 5 groups — the basics, city life, money, family, reaching the world — and all 5 start open, so fold away the ones you do not care about.</p>
-      <div class="weights" id="weights"></div>
-    </div>
-  </details>
-
-  <div class="panel chartbox" id="p-chart">
-    <div class="phead">
-      <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link that reopens this page with the settings you have made" aria-label="Copy a link that reopens this page with the settings you have made"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-png title="Copy the chart as a picture, with every slider setting written underneath it" aria-label="Copy the chart as a picture, with every slider setting written underneath it"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.2" y="5" width="17.6" height="14" rx="2.4"/><circle cx="8.6" cy="10" r="1.5"/><path d="m4.4 16.6 4.4-4 3.4 3 3-2.6 4.4 4"/></svg></button><button type="button" class="ibtn" data-png-dl title="Save the chart as a picture file, with every slider setting written underneath it" aria-label="Save the chart as a picture file, with every slider setting written underneath it"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v10.4"/><path d="m7.6 10.6 4.4 4.4 4.4-4.4"/><path d="M4.8 19.2h14.4"/></svg></button><button type="button" class="ibtn" data-print="chart" title="Print the chart" aria-label="Print the chart"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
-      <h2>Your selection: score against cost</h2>
-      <p>Each dot is one of the cities left after your filters. How far to the right it sits is what living there costs; how high it sits is the score it earned from the sliders you set. Good deals therefore gather in the top left — a high score for a low cost — while the top right is where you pay for what you get. Names are printed wherever they fit without covering each other; hover or tap a dot for the ones left unlabelled, and the list below has every city in order.</p>
-    </div>
-    <div class="bar">
-      <div class="legend" id="legend" role="group" aria-label="Filter by region"></div>
-      <div class="toggle">
-        <span>Cost</span>
-        <div class="seg" role="group" aria-label="What counts as cost of living">
-          <button type="button" id="mode-rent" aria-pressed="true">with rent</button>
-          <button type="button" id="mode-norent" aria-pressed="false">without rent</button>
-        </div>
-      </div>
-    </div>
-    <p class="barhint">The 6 coloured buttons are the parts of the world every city is sorted into. Click one to drop that whole group out of the chart, the list and the table; click it again to bring it back. Nothing is rescored when you do — the cities simply stop being drawn. The pair of buttons beside them decides what the left-to-right axis treats as the cost of living: <b>with rent</b> adds what a flat costs to rent each month, <b>without rent</b> prices only groceries, restaurants, transport and utility bills. And the picture icon at the top of this panel copies the whole chart to the clipboard as an image, with all your slider settings written under it, so it can be pasted elsewhere and still make sense. The arrow beside it saves that same picture as a file instead: on a phone or in a private window the clipboard is often unavailable, and this way the picture can still be taken.</p>
-    <p class="note" id="moneynote" hidden>You have given purchasing power a weight above 0, and it is the shakiest number in the whole set — two warnings come with it. First, money is now on both axes at once: a high purchasing power pushes a city up, while the high prices that usually go with it push the same city right, so wealth is counted twice and the very effect this chart was built to avoid creeps back in. Second, the salaries behind the figure are typed in by whoever happens to fill in Numbeo, and in tech hubs that is mostly tech workers: Hyderabad reports 164.7, second of all 303 cities behind Bern and ahead of Zurich, while Mumbai reports 63.1 and Delhi 66.6. No real economy splits fourfold inside one country. Read this measure as what a Numbeo respondent earns, not as what the city pays.</p>
-    <svg id="chart" viewBox="0 0 1000 720" role="img" aria-label="Scatter plot: every city placed left to right by what it costs to live there and up or down by the score your sliders give it"></svg>
-    <div class="tip" id="tip"></div>
-    <div class="quadkey">
-      <div class="qk qk-best"><b>BEST VALUE</b><span>top left — scores better than half of the 303 cities and costs less than half of them: the most for the least</span></div>
-      <div class="qk qk-premium"><b>PREMIUM</b><span>top right — in the better half on score, but also in the dearer half on cost: you get a lot and you pay for it</span></div>
-      <div class="qk qk-budget"><b>BUDGET</b><span>bottom left — cheaper than half the cities, and scoring below half of them too: money saved, something given up</span></div>
-      <div class="qk qk-bad"><b>OVERPRICED</b><span>bottom right — in the dearer half on cost while scoring in the weaker half: paying more and getting less</span></div>
-    </div>
-  </div>
-
-
-  <section class="panel ranklist" id="p-list">
-    <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link that reopens this page with the settings you have made" aria-label="Copy a link that reopens this page with the settings you have made"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-print="list" title="Print the list" aria-label="Print the list"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
-    <h2>Every city in order</h2>
-    <p class="lead">The same cities as the chart above, only ranked as a list. Neither number is a raw value; both are places in a line-up of all 303 cities. <b>Score</b> takes the measures you left switched on, averages them with each one counted as often as its slider says, and turns the result back into a place in that line-up: 100 is the best-scoring city of the 303 on your settings, 50 is the middle one, 0 the last. <b>Cost</b> is the same idea applied to the cost of living, except that here 100 is the most expensive city and 0 the cheapest. Click either heading to sort by it; hover or tap a row to see that city broken down measure by measure — and tapping also loads it into the scorecard beside the globe.</p>
-    <div class="rl-head">
-      <span class="rl-n">#</span>
-      <span class="rl-city">City</span>
-      <button type="button" class="rl-sort" data-sort="score" aria-pressed="true">Score</button>
-      <button type="button" class="rl-sort" data-sort="cost" aria-pressed="false">Cost</button>
-    </div>
-    <div class="rl-rows" id="ranklist"></div>
-    <div class="tip" id="rltip"></div>
-  </section>
-
-  <aside class="sy-strip" aria-label="Speak-Y">
-      <span class="sy-name">Speak-<i>Y</i></span>
-      <p><b>Voice input and meeting recording.</b> One hotkey, any app, 67+ languages.</p>
-      <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free <span aria-hidden="true">→</span></a>
-    </aside>
-
-  <section class="panel notes">
-    <h2>How this works</h2>
-    <p><strong>Every measure is turned into a ranking before anything is averaged.</strong> The raw numbers do not belong on the same scale: museums are counted in hundreds, safety runs from 0 to 100, nonstop destinations run into the hundreds as well — average those as they stand and whichever happens to have the largest numbers drowns out all the rest. So each measure is replaced by the city's place among these 303 cities on that measure alone, from 0 for the lowest to 100 for the highest. Your score is then the average of those places across the measures you left switched on, each counted as many times as its slider says, and that average is itself turned back into a place from 0 to 100 — which keeps the cloud of dots spread across the same range whether you switch on one measure or all 12. Measures where less is better — commute time, pollution, years of income per flat — are turned upside down first, so that everywhere on this page a higher number means a better city.</p>
-    <p><strong>Nothing here is preset except a place to start.</strong> The page opens with 5 sliders up and the other 7 at 0: safety, health care, a short commute, clean air and climate, all counting the same. Numbeo's own quality-of-life index combines much the same things but gives them different importance. Neither arrangement is the right one — which of these things matters, and how much, is exactly what nobody can settle on your behalf, and that is what the sliders are for.</p>
-    <p><strong>Everything counted off the map is counted inside one circle: 10 km around the city centre.</strong> The circle is the same size for every city, 314 km², so a plain count of museums or tram stops is already a count per unit of area, and no population figure has to be brought in to make cities comparable. The other side of that is that a commuter town and a capital are judged on the same patch of ground: the capital's outer districts fall outside the circle, while the small town is measured on a circle that reaches well past its own edges.</p>
-    <p><strong>Where OpenStreetMap can be trusted, and where it cannot.</strong> The map is drawn by volunteers, so a city can look poorly served simply because fewer people have got round to mapping it. To test for that, we counted two things that exist at much the same density everywhere and that mappers always bother to add: bus stops and parks. Across Europe, North America and Asia they come out within 10 % of each other — so the map is not thinner in one part of the world than another, and the differences in everything else can be read as real differences on the ground. And they are large: rail stops and pedestrian streets vary between regions by a factor of 3 to 4. Two candidate measures failed the same test and were thrown out. Kindergartens: Europe came out with 13 times as many as North America, because American mappers hardly use that tag at all. Universities taken from Wikidata: Tallinn came out with none. Universities here are counted from OpenStreetMap instead, and what they really measure is how much ground campuses cover rather than how many institutions a city has — an American campus is one large shape on the map, a European university a scattering of separate buildings — so compare cities on that one within a region rather than across regions.</p>
-    <p><strong>Purchasing power is the weakest number on this page, and it is worth knowing why.</strong> Numbeo works it out from salaries that visitors to the site type in themselves, and the people who bother are nothing like a cross-section of the city: expats and office professionals are heavily overrepresented, and where the site has gathered only a few answers, a handful of people set the figure for a whole city. It shows. Hyderabad comes out at 164.7, second of all 303 cities behind Bern and ahead of Zurich, while Mumbai sits at 63.1 and Delhi at 66.6. A fourfold gap inside one country is an accident of who answered, not a difference between economies. The trap this sets is that a city which is cheap <em>because</em> local wages are low can be rewarded twice over — once for the low prices, and once again for a salary figure that belongs to a narrow slice of its workforce. Push that slider to 3 and you are betting on that slice. The other money numbers — the price basket and the years of income a flat costs — come from the same crowd, but from thousands of separate price entries rather than one salary box, and that is why they hold up better.</p>
-    <p><strong>Only 6 cities show no flights at all, and that is not a hole in the data.</strong> The flights measure counts how many different places you can reach without changing planes, from every airport within 60 km of the city, added together. Kyiv, Kharkiv, Dnipro, Lviv, Odesa and Rostov-on-Don all read 0: those airports have been shut to civilian traffic since 24 February 2022, and were still shut when this was collected in August 2026. It is the one thing on this chart that a crowdsourced safety score does not pick up — and the one number here with a visible expiry date, since Ukraine began preparing a phased reopening of Lviv and the two Kyiv airports in early 2026.</p>
-    
-  </section>
-
-  <details class="panel method">
-    <summary>Where every number comes from</summary>
-    <div class="methodbody">
-
-      <p><strong>Numbeo supplies 9 of the numbers used here: 7 of the 12 sliders, plus the two cost-of-living figures behind the left-to-right axis.</strong> All of them come from the <a href="https://www.numbeo.com/quality-of-life/rankings.jsp?title=2026-mid" target="_blank" rel="noopener">2026 mid-year release</a> — a snapshot fixed on one date rather than the rolling &ldquo;current&rdquo; figures the site shows by default, so this chart does not quietly shift under you between visits. Nearly all of it is what visitors to Numbeo have typed in about the city they live in, not official statistics. Safety, health care and pollution are opinion surveys: each answer is scored from &minus;2 to +2, then the average is stretched onto a 0&ndash;100 scale. The commute is a plain number people report, in minutes. The prices and salaries behind cost of living, purchasing power and the price of a flat are thousands of separate entries. Climate alone is calculated from measured weather rather than from anyone's opinion.</p>
-
-      <dl>
-        <dt>Safety</dt>
-        <dd>Fifteen questions put to site visitors about the city they live in: how safe they feel walking alone by day and by night, and how much they worry about being mugged, having a car stolen, being physically attacked or insulted, property crime, corruption and bribery. Each answer is scored, the 15 are averaged, and the average is stretched onto a 0 to 100 scale. It is Numbeo's Crime Index turned exactly upside down, so that a high number here means a safe city.</dd>
-
-        <dt>Health care</dt>
-        <dd>Site visitors rate the health care they can actually get on 7 counts: how competent the doctors are, how quickly they are seen, how modern the equipment is, how accurate the diagnosis, how courteous the staff, how long the wait, and how much it costs. Cost counts double — as much as any 2 of the other 6.</dd>
-
-        <dt>Short commute</dt>
-        <dd>Not an opinion but a reported number: visitors say how many minutes their own journey to work takes one way, and what they travel by. Numbeo's index rises the longer and more painful the commute is; this page turns it over, so a high number here means the journey people report is a short one.</dd>
-
-        <dt>Clean air</dt>
-        <dd>Numbeo's pollution survey, in which residents rate the air and the drinking water, how well rubbish is dealt with and how clean the streets are, noise and night-time light, and how much green space there is. Air quality dominates the result: it carries a weight of 7 out of the 14.5 that all the parts add up to, so roughly half the figure. Turned over here, so a high number means clean.</dd>
-
-        <dt>Climate</dt>
-        <dd>The one input built from measurements rather than opinions. It is worked out from temperature, dew point and humidex — a comfort figure that combines heat with humidity to say how hot the air actually feels — with points deducted for heat above 31&nbsp;°C, for cold below 8&nbsp;°C, and for humidity high enough to be unpleasant. A mild city with few extremes scores high.</dd>
-
-        <dt>Purchasing power</dt>
-        <dd>The average take-home salary in the city divided by what local prices cost, with New York fixed at 100. A score of 120 means a local salary buys 20&nbsp;% more there than a New York salary buys in New York. The salaries are typed in by site visitors, so wherever the people answering lean towards expats and tech workers the index reads far too high — Hyderabad at 164.7 against Mumbai at 63.1 is the clearest case of it. Treat this as the loosest of the 9 Numbeo numbers.</dd>
-
-        <dt>Affordable to buy</dt>
-        <dd>The price of a middling flat divided by a middling household's yearly income — that is, how many whole years of a family's entire income one flat costs, if they spent nothing on anything else. Middling here means the median: half of them are above the figure and half below. A low number is the good outcome, so this page turns it over, and higher means a flat is more within reach.</dd>
-
-        <dt>Cost (the horizontal axis)</dt>
-        <dd>A basket of groceries, restaurants, transport and utility bills, priced by site visitors, with New York fixed at 100: a city at 41 costs 41&nbsp;% of New York prices for the same basket. The <em>with rent</em> version adds what a flat costs to rent each month to that basket, and that is the only thing the switch above the chart changes.</dd>
-      </dl>
-
-      <p><strong>OpenStreetMap supplies 4 of the 12 sliders, all counted inside that same 10 km circle.</strong> Each is a query that asks the map how many objects carry a given label — an Overpass <code>out count</code> over nodes, ways and relations, run in August 2026. Overpass is the public service for querying OpenStreetMap, and a label, or tag, is what mappers attach to an object to say what it is. Here are the exact tags used, so that anyone can repeat the count or argue with the choice:</p>
-
-      <dl>
-        <dt>Culture &amp; nightlife</dt>
-        <dd><code>tourism=museum</code>, <code>tourism=gallery</code>, <code>amenity=theatre</code>, <code>amenity=arts_centre</code> and <code>amenity=cinema</code> for culture, plus <code>amenity=bar</code>, <code>amenity=pub</code> and <code>amenity=nightclub</code> for nightlife. The two sets are added into a single count, so a city can arrive high here on its museums alone, on its bars alone, or on both.</dd>
-
-        <dt>Car-free living</dt>
-        <dd><code>railway=station</code>, <code>railway=halt</code> and <code>railway=tram_stop</code> for places you can board a train or a tram, plus streets tagged <code>highway=pedestrian</code>, which are streets closed to cars. Metro entrances are left out on purpose: every separate staircase down to a station is its own point on the map, so counting them would hand any city with a subway several hundred free stops. Bus stops are gathered too, but only as a check on the map itself — nearly every city is full of them, so they tell cities apart hardly at all. This is the one measure whose definition changed when the data was rebuilt, so its numbers differ from the first version of this chart by more than ordinary map drift: Kuala Lumpur went from 10 stops to 118.</dd>
-
-        <dt>Kid infrastructure</dt>
-        <dd><code>leisure=playground</code>, <code>leisure=park</code>, <code>amenity=school</code> and <code>amenity=library</code>, added together. One warning goes with it: playgrounds are drawn onto the map far more thoroughly in Russia and Europe than in Asia or Latin America, and nothing in the data tells us how much of that gap is a real difference in what has been built and how much is a difference in mapping habits. Compare cities within a region on this one, not across regions.</dd>
-
-        <dt>University presence</dt>
-        <dd><code>amenity=university</code> plus <code>amenity=college</code>, added together. Two warnings. It measures how much ground campuses cover rather than how many institutions there are: an American campus is one large shape on the map, a European university a scattering of separate buildings. And <code>college</code> means different things in different countries — in France it is the <em>collège</em>, the school for 11- to 15-year-olds, which is why Paris shows 407 of them against 149 universities. French cities come out overstated on this measure.</dd>
-      </dl>
-
-      <p><strong>Nonstop destinations — OurAirports and Wikipedia.</strong> Every airport with scheduled passenger service within 60&nbsp;km of the city centre is taken from <a href="https://ourairports.com/data/" target="_blank" rel="noopener">OurAirports</a>, its table of destinations is read off Wikipedia, and the destinations of all those airports are merged so that a city served by two airports does not have the same place counted twice. The 60&nbsp;km limit is there to stop a satellite town from claiming the nearby capital's hub as its own. Only 6 cities count 0 — Kyiv, Kharkiv, Dnipro, Lviv, Odesa and Rostov-on-Don. All 6 have been closed to civilian traffic since 24&nbsp;February 2022: Ukrainian airspace is shut, and Russia's <a href="https://en.wikipedia.org/wiki/Platov_International_Airport" target="_blank" rel="noopener">Platov</a> airport at Rostov-on-Don has not reopened either. Ukraine started preparing a phased reopening of Lviv and the two Kyiv airports in early 2026, but not one civilian flight had operated by the time this snapshot was taken.</p>
-
-      <p><strong>Every number here was rebuilt from its source on 26 August 2026, and then checked.</strong> All 2&thinsp;727 Numbeo values — 9 measures across 303 cities — were compared line by line against the published mid-year tables, and every single one matched. As a second and independent test, Numbeo's own quality-of-life index was recalculated from our 8 fields and landed within 0.14 points of the published figure for all 303 cities. That test is worth more than it looks: it can only come out right if every value is sitting on the right city, so it also rules out an entire row having slid onto some other city's name.</p>
-
-      <p>The OpenStreetMap layer could not be checked against a published table, because no such table exists — so it was simply collected again from scratch, all 303 cities, using the tags listed above. Universities and colleges came back identical for 298 of the 303 cities, nightlife for 242, pedestrian streets for 285; parks, playgrounds, schools and libraries shifted by around 1&nbsp;%, which is the ordinary drift of a map that people are editing every day. Two cities came back almost empty, and that gave away a real bug: for Cebu and Gdańsk the geocoder had returned the middle of the surrounding administrative region instead of the city centre, which put the 10 km circle in quite the wrong place. Both were corrected by hand and collected again.</p>
-
-      <p>Flights were re-collected for all 303 cities as well, and that pass turned up three faults of its own: airport pages whose titles carry accented letters were failing without saying so, one airport in the OurAirports database links to a LinkedIn profile where its Wikipedia page should be, and an empty result was being written into the cache before the fallback lookup had a chance to run. Prague, Atlanta, Kraków, Minneapolis, Dhaka and Caracas had all been reading 0 because of those. The corrected pass moves a typical city by about 4&nbsp;%, but it repairs outright errors: Charlotte had been listed with 15 nonstop destinations and in fact has 200. Just 6 cities still read 0 — Kyiv, Kharkiv, Dnipro, Lviv, Odesa and Rostov-on-Don — and that one is not a bug: those airports have been closed to civilian traffic since February 2022.</p>
-
-    </div>
-  </details>
-
-  <details class="panel table" id="p-table">
-    <summary>Table: every city, every number<div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link that reopens this page with the settings you have made" aria-label="Copy a link that reopens this page with the settings you have made"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-print="table" title="Print the table" aria-label="Print the table"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div></summary>
-    <div class="tablescroll">
-      <table id="tbl"><thead><tr id="thead"></tr></thead><tbody></tbody></table>
-    </div>
-  </details>
-
-</div>
-</main>
-
-<footer>
-  <span>© 2026 Aleksei Grebenkin</span>
-  <a class="to-top" href="/research/">← back to Research</a>
-</footer>
-
-<script src="../shell.js?v=3"></script>
-<script>
 (function () {
   "use strict";
 
@@ -989,66 +8,66 @@
   DATA.fields.forEach(function (name, i) { F[name] = i; });
 
   var REGIONS = {
-    eu: { label: "Europe", color: "var(--c-eu)" },
-    cis: { label: "CIS & neighbours", color: "var(--c-cis)" },
-    gulf: { label: "Gulf, Israel, Turkey", color: "var(--c-gulf)" },
-    na: { label: "North America", color: "var(--c-na)" },
-    asia: { label: "Asia & Oceania", color: "var(--c-asia)" },
-    lat: { label: "Latin America & Africa", color: "var(--c-lat)" }
+    eu: { label: {{js:regionEU}}, color: "var(--c-eu)" },
+    cis: { label: {{js:regionCIS}}, color: "var(--c-cis)" },
+    gulf: { label: {{js:regionGulf}}, color: "var(--c-gulf)" },
+    na: { label: {{js:regionNA}}, color: "var(--c-na)" },
+    asia: { label: {{js:regionAsia}}, color: "var(--c-asia)" },
+    lat: { label: {{js:regionLat}}, color: "var(--c-lat)" }
   };
 
   // invert: у метрики меньше значит лучше, перцентиль переворачивается.
   var METRICS = [
-    { key: "safety",   group: "basics", label: "Safety",          hint: "what residents report", def: 2,
+    { key: "safety",   group: "basics", label: {{js:mSafety}},          hint: {{js:hintSurvey}}, def: 2,
       get: function (r) { return r[F.safety]; } },
-    { key: "health",   group: "basics", label: "Health care",     hint: "what residents report", def: 2,
+    { key: "health",   group: "basics", label: {{js:mHealth}},     hint: {{js:hintSurvey}}, def: 2,
       get: function (r) { return r[F.health]; } },
-    { key: "commute",  group: "basics", label: "Short commute",   hint: "minutes each way, reported", def: 2, invert: true,
+    { key: "commute",  group: "basics", label: {{js:mCommute}},   hint: {{js:mCommuteHint}}, def: 2, invert: true,
       get: function (r) { return r[F.traffic]; } },
-    { key: "air",      group: "basics", label: "Clean air",       hint: "air, water, noise, litter", def: 2, invert: true,
+    { key: "air",      group: "basics", label: {{js:mAir}},       hint: {{js:mAirHint}}, def: 2, invert: true,
       get: function (r) { return r[F.pollution]; } },
-    { key: "climate",  group: "basics", label: "Climate",         hint: "measured weather", def: 2,
+    { key: "climate",  group: "basics", label: {{js:mClimate}},         hint: {{js:mClimateHint}}, def: 2,
       get: function (r) { return r[F.climate]; } },
 
-    { key: "culture",  group: "city", label: "Culture & nightlife", hint: "museums, theatres, bars — OSM", def: 0,
+    { key: "culture",  group: "city", label: {{js:mCulture}}, hint: {{js:mCultureHint}}, def: 0,
       get: function (r) { return r[F.culture] + r[F.nightlife]; } },
-    { key: "walk",     group: "city", label: "Car-free living",   hint: "rail stops, pedestrian streets — OSM", def: 0,
+    { key: "walk",     group: "city", label: {{js:mWalk}},   hint: {{js:mWalkHint}}, def: 0,
       get: function (r) { return r[F.rail] + r[F.pedestrian]; } },
-    { key: "edu",      group: "city", label: "University presence", hint: "ground covered by campuses — OSM", def: 0,
+    { key: "edu",      group: "city", label: {{js:mEdu}}, hint: {{js:mEduHint}}, def: 0,
       get: function (r) { return r[F.university] + r[F.college]; } },
 
-    { key: "power",    group: "money", label: "Purchasing power", hint: "what a local salary buys", def: 0,
+    { key: "power",    group: "money", label: {{js:mPower}}, hint: {{js:mPowerHint}}, def: 0,
       get: function (r) { return r[F.power]; } },
-    { key: "housing",  group: "money", label: "Affordable to buy", hint: "years of income per flat", def: 0, invert: true,
+    { key: "housing",  group: "money", label: {{js:mHousing}}, hint: {{js:mHousingHint}}, def: 0, invert: true,
       get: function (r) { return r[F.price_to_income]; } },
 
-    { key: "kids",     group: "family", label: "Kid infrastructure", hint: "playgrounds, parks, schools, libraries — OSM", def: 0,
+    { key: "kids",     group: "family", label: {{js:mKids}}, hint: {{js:mKidsHint}}, def: 0,
       get: function (r) { return r[F.playground] + r[F.park] + r[F.school] + r[F.library]; } },
 
-    { key: "flights",  group: "world", label: "Nonstop destinations", hint: "from airports within 60 km", def: 0,
+    { key: "flights",  group: "world", label: {{js:mFlights}}, hint: {{js:mFlightsHint}}, def: 0,
       get: function (r) { return r[F.flights]; } }
   ];
 
   var GROUPS = [
-    { key: "basics", label: "The basics", open: true },
-    { key: "city",   label: "City life",  open: true },
-    { key: "money",  label: "Money",      open: true },
-    { key: "family", label: "Family",     open: true },
-    { key: "world",  label: "Reaching the world", open: true }
+    { key: "basics", label: {{js:gBasics}}, open: true },
+    { key: "city",   label: {{js:gCity}},  open: true },
+    { key: "money",  label: {{js:gMoney}},      open: true },
+    { key: "family", label: {{js:gFamily}},     open: true },
+    { key: "world",  label: {{js:gWorld}}, open: true }
   ];
 
   var PRESETS = [
-    { key: "default", label: "the basics",
+    { key: "default", label: {{js:pDefault}},
       w: { safety: 2, health: 2, commute: 2, air: 2, climate: 2 } },
-    { key: "remote", label: "remote worker",
+    { key: "remote", label: {{js:pRemote}},
       w: { safety: 2, air: 2, climate: 3, culture: 2, walk: 2, flights: 3, housing: 1 } },
-    { key: "family", label: "family with kids",
+    { key: "family", label: {{js:pFamily}},
       w: { safety: 3, health: 3, air: 3, kids: 3, walk: 2, climate: 1, edu: 1 } },
-    { key: "night", label: "culture & nightlife",
+    { key: "night", label: {{js:pNight}},
       w: { culture: 3, walk: 3, flights: 1, safety: 1, climate: 1 } },
-    { key: "quiet", label: "quiet retirement",
+    { key: "quiet", label: {{js:pQuiet}},
       w: { health: 3, air: 3, climate: 3, safety: 2, commute: 1, housing: 2 } },
-    { key: "local", label: "living on a local salary",
+    { key: "local", label: {{js:pLocal}},
       w: { power: 3, housing: 3, safety: 2, health: 2, air: 1 } }
   ];
 
@@ -1200,7 +219,7 @@
     while (svg.firstChild) svg.removeChild(svg.firstChild);
     if (!recomputeScores()) {
       svg.appendChild(el("text", { x: W / 2, y: H / 2, "text-anchor": "middle",
-        class: "axis-title" }, "All 12 sliders are at 0 — turn at least one up to draw the chart"));
+        class: "axis-title" }, {{js:chartEmpty}}));
       rlBox.innerHTML = "";
       fillTable();
       return;
@@ -1231,10 +250,10 @@
       stroke: "var(--ink-3)", "stroke-width": 1, "stroke-dasharray": "5 5" }));
 
     svg.appendChild(el("text", { x: M.l + PW / 2, y: H - 18, "text-anchor": "middle", class: "axis-title" },
-      (mode === "rent" ? "Cost of living with rent" : "Cost of living without rent") + ", place among 303 cities  →  pricier"));
+      (mode === "rent" ? {{js:axisCostRent}} : {{js:axisCostNoRent}}) + {{js:axisXTail}}));
     svg.appendChild(el("text", { x: 0, y: 0, "text-anchor": "middle", class: "axis-title",
       transform: "translate(18," + (M.t + PH / 2) + ") rotate(-90)" },
-      "Your score, place among 303 cities  →  better"));
+      {{js:axisY}}));
 
     var CHW = charWidth();
     var shown = cities.filter(function (c) { return active[c.region]; });
@@ -1359,15 +378,15 @@
         flash(btn, msg);
         setTimeout(function () {
           btn.innerHTML = label;
-          if (icon) btn.title = "Copy a link that reopens this page with the settings you have made";
+          if (icon) btn.title = {{js:copySetup}};
           btn.classList.remove("done");
         }, 2400);
       }
       // Без https и без разрешения буфера остаётся адресная строка — она уже верная.
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url).then(function () { said("Link copied"); },
-          function () { said("It is in the address bar"); });
-      } else { said("It is in the address bar"); }
+        navigator.clipboard.writeText(url).then(function () { said({{js:toastLink}}); },
+          function () { said({{js:toastAddress}}); });
+      } else { said({{js:toastAddress}}); }
     });
   });
 
@@ -1436,8 +455,8 @@
 
   function tipHTML(c) {
     var html = "<b>" + c.city + "</b>, " + c.country +
-      '<div class="r"><span>' + "cost, rank of 303" + '</span><span>' + fmt(xp(c), 0) + "</span></div>" +
-      '<div class="r"><span>' + "your score, rank of 303" + '</span><span>' + fmt(c.yp, 0) + "</span></div>" +
+      '<div class="r"><span>' + {{js:tipCost}} + '</span><span>' + fmt(xp(c), 0) + "</span></div>" +
+      '<div class="r"><span>' + {{js:tipScore}} + '</span><span>' + fmt(c.yp, 0) + "</span></div>" +
       '<div class="sep"></div>';
     METRICS.forEach(function (m) {
       if (weights[m.key] > 0) {
@@ -1504,7 +523,7 @@
       row.innerHTML = "<label>" + m.label + "<span class='hint'>" + m.hint + "</span></label>";
       var inp = document.createElement("input");
       inp.type = "range"; inp.min = 0; inp.max = 3; inp.step = 1; inp.value = weights[m.key];
-      inp.setAttribute("aria-label", m.label + " — how much this counts, 0 to 3");
+      inp.setAttribute("aria-label", m.label + {{js:importanceSuffix}});
       var val = document.createElement("span");
       val.className = "val"; val.textContent = weights[m.key];
       inp.addEventListener("input", function () {
@@ -1547,7 +566,7 @@
     GROUPS.forEach(function (g) {
       var on = METRICS.filter(function (m) { return m.group === g.key && weights[m.key] > 0; }).length;
       var all = METRICS.filter(function (m) { return m.group === g.key; }).length;
-      countEls[g.key].textContent = "{on} of {all} switched on".replace("{on}", on).replace("{all}", all);
+      countEls[g.key].textContent = {{js:groupCount}}.replace("{on}", on).replace("{all}", all);
     });
     Array.prototype.forEach.call(presetsBox.children, function (b) {
       b.setAttribute("aria-pressed", b.dataset.key === activePreset ? "true" : "false");
@@ -1557,8 +576,8 @@
 
   // ---- таблица
   var TCOLS = [
-    { key: "yp", label: "Score" }, { key: "city", label: "City" }, { key: "country", label: "Country" },
-    { key: "xp", label: "Cost rank" }
+    { key: "yp", label: {{js:score}} }, { key: "city", label: {{js:city}} }, { key: "country", label: {{js:country}} },
+    { key: "xp", label: {{js:costPct}} }
   ].concat(METRICS.map(function (m) { return { key: m.key, label: m.label }; }));
   var thead = document.getElementById("thead");
   TCOLS.forEach(function (c) {
@@ -1606,7 +625,7 @@
   var gbox = document.getElementById("globebox");
   var gcv = document.createElement("canvas");
   gcv.setAttribute("tabindex", "0");
-  gcv.setAttribute("aria-label", "Globe of 303 cities. Drag to turn it, scroll to zoom, click a city to see its scorecard.");
+  gcv.setAttribute("aria-label", {{js:globeAlt}});
   gbox.insertBefore(gcv, gbox.firstChild);
   var gctx = gcv.getContext("2d");
   var slowMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1889,11 +908,11 @@
              '</span><span class="track"><i class="fill" style="width:' + val + '%"></i></span>' +
              '<span class="v">' + val + '</span></div>';
     }).join("");
-    cardEl.innerHTML = '<p class="plabel">' + "Scorecard" + '</p><p class="cname">' + c.city + '</p>' +
+    cardEl.innerHTML = '<p class="plabel">' + {{js:scorecard}} + '</p><p class="cname">' + c.city + '</p>' +
       '<p class="cmeta">' + c.country + '</p>' +
       '<p class="cbig"><b>' + (c.yp == null ? "—" : Math.round(c.yp)) +
-      '</b><span>' + "overall, on your settings" + '</span></p>' + rows +
-      '<p class="cmeta" style="margin-top:12px">' + "Faded rows are measures you left at 0: shown for reference, counted for nothing." + '</p>';
+      '</b><span>' + {{js:cardOverall}} + '</span></p>' + rows +
+      '<p class="cmeta" style="margin-top:12px">' + {{js:cardDimmed}} + '</p>';
   }
   function refreshCard() { if (gpick) showCard(gpick); }
 
@@ -1944,13 +963,13 @@
     var regions = REGION_KEYS.filter(function (k) { return active[k]; });
     var shown = cities.filter(function (c) { return active[c.region]; }).length;
     return [
-      ["Sliders", on.map(function (m) { return m.label + " ×" + weights[m.key]; }).join(" · ") +
-                  (off ? "   (" + off + " left at 0)" : "")],
-      ["Cost", mode === "rent" ? "With rent — groceries, restaurants, transport, utilities and apartment rent"
-                               : "Without rent — groceries, restaurants, transport and utilities"],
-      ["Regions", regions.length === REGION_KEYS.length ? "All 6 regions"
+      [{{js:legWeights}}, on.map(function (m) { return m.label + " ×" + weights[m.key]; }).join(" · ") +
+                  (off ? "   (" + off + {{js:legSwitchedOff}} : "")],
+      [{{js:cost}}, mode === "rent" ? {{js:legWithRent}}
+                               : {{js:legWithoutRent}}],
+      [{{js:legRegions}}, regions.length === REGION_KEYS.length ? {{js:legAllRegions}}
                 : regions.map(function (k) { return REGIONS[k].label; }).join(" · ")],
-      ["Cities", "{shown} of {all} on the chart".replace("{shown}", shown).replace("{all}", cities.length)]
+      [{{js:legCities}}, {{js:legCitiesValue}}.replace("{shown}", shown).replace("{all}", cities.length)]
     ];
   }
 
@@ -2000,11 +1019,11 @@
       var y = PAD + 40;
       ctx.fillStyle = gvar("--ink");
       ctx.font = "600 38px " + head;
-      ctx.fillText("Find your city", PAD, y);
+      ctx.fillText({{js:title}}, PAD, y);
       y += 30;
       ctx.fillStyle = gvar("--ink-2");
       ctx.font = "17px " + body;
-      ctx.fillText("Score against cost of living · 303 cities · Numbeo 2026 mid-year", PAD, y);
+      ctx.fillText({{js:pngSub}}, PAD, y);
 
       y += 26;
       ctx.drawImage(img, PAD, y, inner, chartH);
@@ -2040,7 +1059,7 @@
         setTimeout(function () { btn.innerHTML = label; btn.classList.remove("done"); }, 2400);
       }
       buildPNG().then(function (blob) { run(blob, done); },
-        function () { flash(btn, "Could not build the image"); });
+        function () { flash(btn, {{js:toastFailed}}); });
     });
   }
 
@@ -2050,14 +1069,14 @@
     a.download = "find-your-city.png";
     a.click();
     setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
-    done("Saved as PNG");
+    done({{js:toastSaved}});
   }
 
   pngAction(document.querySelector("[data-png]"), function (blob, done) {
     // Без разрешения на буфер картинка просто скачивается — результат тот же.
     if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
       navigator.clipboard.write([new ClipboardItem({ "image/png": blob })])
-        .then(function () { done("Chart copied"); }, function () { savePNG(blob, done); });
+        .then(function () { done({{js:toastCopied}}); }, function () { savePNG(blob, done); });
     } else savePNG(blob, done);
   });
 
@@ -2165,7 +1184,7 @@
   }
   function drawSug() {
     if (!sugList.length) {
-      gsugEl.innerHTML = '<li class="none">' + "Nothing matches — try another spelling" + '</li>';
+      gsugEl.innerHTML = '<li class="none">' + {{js:noMatch}} + '</li>';
     } else {
       gsugEl.innerHTML = sugList.map(function (c, i) {
         return '<li role="option" data-i="' + i + '" aria-selected="' + (i === sugIdx) + '"' +
@@ -2232,7 +1251,3 @@
   window.addEventListener("resize", hideTip);
   window.__cities = cities;
 })();
-</script>
-
-</body>
-</html>

@@ -1,0 +1,760 @@
+{
+ "sources": [
+  {
+   "id": "openai",
+   "name": "OpenAI",
+   "short": "OpenAI",
+   "url": "https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf",
+   "cls": "s-openai"
+  },
+  {
+   "id": "metr",
+   "name": "METR + Redwood Research",
+   "short": "METR",
+   "url": "https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/",
+   "cls": "s-metr"
+  },
+  {
+   "id": "hf",
+   "name": "Hugging Face",
+   "short": "HF",
+   "url": "https://huggingface.co/blog/agent-intrusion-technical-timeline",
+   "cls": "s-hf"
+  }
+ ],
+ "acts": [
+  {
+   "id": "a0",
+   "num": "00"
+  },
+  {
+   "id": "a1",
+   "num": "01"
+  },
+  {
+   "id": "a2",
+   "num": "02"
+  },
+  {
+   "id": "a3",
+   "num": "03"
+  },
+  {
+   "id": "a4",
+   "num": "04"
+  },
+  {
+   "id": "a5",
+   "num": "05"
+  },
+  {
+   "id": "a6",
+   "num": "06"
+  }
+ ],
+ "steps": [
+  {
+   "id": "s01",
+   "act": "a0",
+   "ts": {
+    "d": "2026-04-20",
+    "t": "07:59"
+   },
+   "level": "full",
+   "status": "single",
+   "sources": [
+    "openai"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s02",
+   "act": "a0",
+   "ts": {
+    "d": "2026-05-08"
+   },
+   "level": "full",
+   "status": "single",
+   "sources": [
+    "openai"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s03",
+   "act": "a0",
+   "ts": {
+    "d": "2026-05-12",
+    "t": "17:06"
+   },
+   "level": "basic",
+   "status": "divergent",
+   "sources": [
+    "openai",
+    "metr"
+   ],
+   "versions": [
+    "openai",
+    "metr"
+   ]
+  },
+  {
+   "id": "s04",
+   "act": "a0",
+   "ts": {
+    "d": "2026-05-26",
+    "t": "18:24"
+   },
+   "level": "basic",
+   "status": "single",
+   "sources": [
+    "openai"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s05",
+   "act": "a0",
+   "ts": {
+    "d": "2026-06-26",
+    "t": "20:15"
+   },
+   "level": "full",
+   "status": "single",
+   "sources": [
+    "openai"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s06",
+   "act": "a0",
+   "ts": {
+    "d": "2026-06-27"
+   },
+   "level": "basic",
+   "status": "single",
+   "sources": [
+    "openai"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s07",
+   "act": "a0",
+   "ts": {
+    "d": "2026-07-04",
+    "d2": "2026-07-07"
+   },
+   "level": "basic",
+   "status": "single",
+   "sources": [
+    "openai"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s08",
+   "act": "a1",
+   "ts": {
+    "d": "2026-07-08",
+    "t": "16:01"
+   },
+   "level": "basic",
+   "status": "divergent",
+   "sources": [
+    "openai",
+    "metr"
+   ],
+   "versions": [
+    "openai",
+    "metr"
+   ]
+  },
+  {
+   "id": "s09",
+   "act": "a1",
+   "ts": {
+    "d": "2026-07-09",
+    "t": "08:30"
+   },
+   "level": "basic",
+   "status": "divergent",
+   "sources": [
+    "openai",
+    "hf"
+   ],
+   "versions": [
+    "openai",
+    "hf"
+   ]
+  },
+  {
+   "id": "s10",
+   "act": "a1",
+   "ts": {
+    "d": "2026-07-09"
+   },
+   "level": "full",
+   "status": "single",
+   "sources": [
+    "openai"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s11",
+   "act": "a1",
+   "ts": {
+    "d": "2026-07-09"
+   },
+   "level": "basic",
+   "status": "divergent",
+   "sources": [
+    "metr",
+    "openai"
+   ],
+   "versions": [
+    "metr",
+    "openai"
+   ]
+  },
+  {
+   "id": "s12",
+   "act": "a1",
+   "ts": {
+    "d": "2026-07-10",
+    "t": "09:41"
+   },
+   "level": "basic",
+   "status": "consensus",
+   "sources": [
+    "openai",
+    "metr"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s13",
+   "act": "a1",
+   "ts": {
+    "d": "2026-07-10"
+   },
+   "level": "basic",
+   "status": "divergent",
+   "sources": [
+    "openai",
+    "metr"
+   ],
+   "versions": [
+    "openai",
+    "metr"
+   ]
+  },
+  {
+   "id": "s14",
+   "act": "a2",
+   "ts": {
+    "d": "2026-07-11",
+    "t": "04:38"
+   },
+   "level": "basic",
+   "status": "consensus",
+   "sources": [
+    "openai",
+    "hf"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s15",
+   "act": "a2",
+   "ts": {
+    "d": "2026-07-11",
+    "t": "15:04"
+   },
+   "level": "full",
+   "status": "single",
+   "sources": [
+    "openai"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s16",
+   "act": "a2",
+   "ts": {
+    "d": "2026-07-11",
+    "t": "16:07"
+   },
+   "level": "basic",
+   "status": "consensus",
+   "sources": [
+    "openai",
+    "hf"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s17",
+   "act": "a2",
+   "ts": {
+    "d": "2026-07-11",
+    "w": "evening"
+   },
+   "level": "basic",
+   "status": "consensus",
+   "sources": [
+    "openai",
+    "hf"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s18",
+   "act": "a2",
+   "ts": {
+    "d": "2026-07-11",
+    "t": "19:32",
+    "t2": "23:37"
+   },
+   "level": "basic",
+   "status": "divergent",
+   "sources": [
+    "hf",
+    "openai"
+   ],
+   "versions": [
+    "hf",
+    "openai"
+   ]
+  },
+  {
+   "id": "s19",
+   "act": "a3",
+   "ts": {
+    "d": "2026-07-12",
+    "t": "01:30"
+   },
+   "level": "basic",
+   "status": "unexplained",
+   "sources": [
+    "metr",
+    "openai"
+   ],
+   "versions": [
+    "metr",
+    "openai"
+   ]
+  },
+  {
+   "id": "s20",
+   "act": "a3",
+   "ts": {
+    "d": "2026-07-12",
+    "t": "09:50",
+    "t2": "17:28"
+   },
+   "level": "full",
+   "status": "consensus",
+   "sources": [
+    "openai",
+    "hf"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s21",
+   "act": "a3",
+   "ts": {
+    "d": "2026-07-12",
+    "t": "22:59"
+   },
+   "level": "basic",
+   "status": "consensus",
+   "sources": [
+    "openai",
+    "hf"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s22",
+   "act": "a4",
+   "ts": {
+    "d": "2026-07-13",
+    "t": "00:50"
+   },
+   "level": "basic",
+   "status": "consensus",
+   "sources": [
+    "openai",
+    "hf"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s23",
+   "act": "a4",
+   "ts": {
+    "d": "2026-07-13",
+    "t": "03:06",
+    "t2": "09:16"
+   },
+   "level": "basic",
+   "status": "single",
+   "sources": [
+    "openai"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s24",
+   "act": "a4",
+   "ts": {
+    "d": "2026-07-13",
+    "t": "13:37",
+    "t2": "14:14"
+   },
+   "level": "basic",
+   "status": "divergent",
+   "sources": [
+    "hf",
+    "metr",
+    "openai"
+   ],
+   "versions": [
+    "hf",
+    "metr",
+    "openai"
+   ]
+  },
+  {
+   "id": "s25",
+   "act": "a5",
+   "ts": {
+    "d": "2026-07-16"
+   },
+   "level": "basic",
+   "status": "consensus",
+   "sources": [
+    "hf",
+    "openai"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s26",
+   "act": "a5",
+   "ts": {
+    "d": "2026-07-17"
+   },
+   "level": "basic",
+   "status": "single",
+   "sources": [
+    "openai"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s27",
+   "act": "a5",
+   "ts": {
+    "d": "2026-07-19",
+    "t": "12:03",
+    "t2": "14:43"
+   },
+   "level": "basic",
+   "status": "consensus",
+   "sources": [
+    "openai"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s28",
+   "act": "a5",
+   "ts": {
+    "d": "2026-07-19",
+    "t": "15:59",
+    "t2": "17:00"
+   },
+   "level": "full",
+   "status": "single",
+   "sources": [
+    "openai"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s29",
+   "act": "a5",
+   "ts": {
+    "d": "2026-07-19",
+    "t": "17:34",
+    "t2": "17:37"
+   },
+   "level": "basic",
+   "status": "single",
+   "sources": [
+    "openai"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s30",
+   "act": "a5",
+   "ts": {
+    "d": "2026-07-20"
+   },
+   "level": "basic",
+   "status": "consensus",
+   "sources": [
+    "openai",
+    "hf"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s31",
+   "act": "a5",
+   "ts": {
+    "d": "2026-07-21",
+    "d2": "2026-07-29"
+   },
+   "level": "basic",
+   "status": "consensus",
+   "sources": [
+    "openai"
+   ],
+   "versions": []
+  },
+  {
+   "id": "s32",
+   "act": "a6",
+   "ts": {
+    "d": "2026-08-26"
+   },
+   "level": "basic",
+   "status": "divergent",
+   "sources": [
+    "openai",
+    "metr",
+    "hf"
+   ],
+   "versions": [
+    "openai",
+    "metr",
+    "hf"
+   ]
+  }
+ ],
+ "divergences": [
+  {
+   "id": "d1",
+   "level": "basic",
+   "voices": [
+    "openai",
+    "metr"
+   ]
+  },
+  {
+   "id": "d2",
+   "level": "full",
+   "voices": [
+    "metr",
+    "openai"
+   ]
+  },
+  {
+   "id": "d3",
+   "level": "basic",
+   "voices": [
+    "metr",
+    "openai"
+   ]
+  },
+  {
+   "id": "d4",
+   "level": "basic",
+   "voices": [
+    "hf",
+    "metr",
+    "openai"
+   ]
+  },
+  {
+   "id": "d5",
+   "level": "full",
+   "voices": [
+    "hf",
+    "metr"
+   ]
+  }
+ ],
+ "minor": [
+  {
+   "id": "m1"
+  },
+  {
+   "id": "m2"
+  },
+  {
+   "id": "m3"
+  },
+  {
+   "id": "m4"
+  }
+ ],
+ "facts": [
+  {
+   "id": "f1",
+   "level": "basic",
+   "wide": false
+  },
+  {
+   "id": "f2",
+   "level": "basic",
+   "wide": false
+  },
+  {
+   "id": "f3",
+   "level": "full",
+   "wide": false
+  },
+  {
+   "id": "f4",
+   "level": "basic",
+   "wide": false
+  },
+  {
+   "id": "f5",
+   "level": "full",
+   "wide": false
+  },
+  {
+   "id": "f6",
+   "level": "full",
+   "wide": false
+  },
+  {
+   "id": "f7",
+   "level": "basic",
+   "wide": false
+  },
+  {
+   "id": "f8",
+   "level": "full",
+   "wide": false
+  },
+  {
+   "id": "f9",
+   "level": "basic",
+   "wide": false
+  },
+  {
+   "id": "f10",
+   "level": "full",
+   "wide": false
+  },
+  {
+   "id": "f11",
+   "level": "full",
+   "wide": false
+  },
+  {
+   "id": "f12",
+   "level": "basic",
+   "wide": true
+  }
+ ],
+ "numbers": [
+  {
+   "id": "n1"
+  },
+  {
+   "id": "n2"
+  },
+  {
+   "id": "n3"
+  },
+  {
+   "id": "n4"
+  },
+  {
+   "id": "n5"
+  },
+  {
+   "id": "n6"
+  }
+ ],
+ "sourceList": {
+  "primary": [
+   {
+    "n": 1,
+    "src": "openai",
+    "url": "https://openai.com/index/hugging-face-incident-and-the-road-ahead/"
+   },
+   {
+    "n": 2,
+    "src": "openai",
+    "url": "https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf"
+   },
+   {
+    "n": 3,
+    "src": "openai",
+    "url": "https://openai.com/index/hugging-face-model-evaluation-security-incident/"
+   },
+   {
+    "n": 4,
+    "src": "metr",
+    "url": "https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/"
+   },
+   {
+    "n": 5,
+    "src": "hf",
+    "url": "https://huggingface.co/blog/security-incident-july-2026"
+   },
+   {
+    "n": 6,
+    "src": "hf",
+    "url": "https://huggingface.co/blog/agent-intrusion-technical-timeline"
+   },
+   {
+    "n": 7,
+    "src": "openai",
+    "url": "https://www.youtube.com/watch?v=87DyyMV0kCY"
+   }
+  ],
+  "mirrors": [
+   {
+    "url": "https://metr.org/hugging-face-incident-report-aug-2026.pdf"
+   },
+   {
+    "url": "https://www.redwoodresearch.org/research/hugging-face-incident"
+   }
+  ],
+  "secondary": [
+   {
+    "n": 8,
+    "url": "https://www.dwarkesh.com/p/openai-huggingface"
+   },
+   {
+    "n": 9,
+    "url": "https://simonwillison.net/2026/Aug/7/openai-timeline/"
+   },
+   {
+    "n": 10,
+    "url": "https://www.oneusefulthing.org/p/agency-and-agents"
+   },
+   {
+    "n": 11,
+    "url": "https://fortune.com/2026/08/26/openai-publishes-technical-report-on-how-its-agents-hacked-hugging-face-here-are-the-main-takeaways-and-what-openai-left-out/"
+   },
+   {
+    "n": 12,
+    "url": "https://www.technologyreview.com/2026/08/26/1143013/the-inside-story-on-why-openai-agents-hacked-hugging-face/"
+   }
+  ]
+ }
+}
