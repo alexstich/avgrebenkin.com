@@ -111,7 +111,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"></noscript>
-<link rel="stylesheet" href="../../shell.css?v=2">
+<link rel="stylesheet" href="../../shell.css?v=3">
 
 <script>
   /* Тема — до первой отрисовки, чтобы страница не моргала. */
@@ -236,9 +236,11 @@
   .wrap { max-width: var(--content); margin: 0 auto; line-height: 1.6;
           --measure: 46rem;
           padding: calc(var(--nav-h) + 40px) 22px 40px; }
-  .wrap a { color: inherit; text-decoration: underline; text-underline-offset: 2px;
-            text-decoration-color: var(--ink-3); }
-  .wrap a:hover { text-decoration-color: var(--accent); color: var(--accent); }
+  /* :not(.sy-go) — кнопка баннера живёт в shell.css со своим цветом, а тут
+     у правил та же специфичность, и наведение перекрашивало её в акцент */
+  .wrap a:not(.sy-go) { color: inherit; text-decoration: underline;
+                        text-underline-offset: 2px; text-decoration-color: var(--ink-3); }
+  .wrap a:not(.sy-go):hover { text-decoration-color: var(--accent); color: var(--accent); }
   .crumb { margin: 0 0 16px; font-family: var(--font-mono); font-size: 11px;
            letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
   .wrap .crumb a { color: var(--accent); text-decoration: none; }
@@ -277,7 +279,7 @@
   .prose p:last-child { margin-bottom: 0; }
   .prose b { font-weight: 600; color: var(--ink); }
 
-  /* ── строка под шапкой статьи: остался только выбор языка ────── */
+  /* ── строка под шапкой: «Коротко» слева, выбор языка справа ──── */
   .modebar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
              margin: 0 0 30px; }
   .counter { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3);
@@ -634,7 +636,8 @@
 
   /* ---- краткая версия статьи ------------------------------------------- */
 
-  .tldr-open { margin-top: 18px; font: 600 13.5px/1 var(--font-head);
+  /* кнопка стоит в одной строке с выбором языка, отступ даёт .modebar */
+  .tldr-open { font: 600 13.5px/1 var(--font-head);
                color: var(--accent); background: rgba(var(--accent-rgb), .12);
                border: 1px solid rgba(var(--accent-rgb), .35); border-radius: 999px;
                padding: .62rem 1.05rem; cursor: pointer;
@@ -743,7 +746,6 @@
       <span>Джерела: OpenAI · METR + Redwood Research · Hugging Face</span>
       <span>32 кроки · 7 актів · 5 розбіжностей</span>
     </div>
-    <button type="button" class="tldr-open" data-tldr-open aria-haspopup="dialog">Стисло</button>
   </header>
 
   <!-- Краткая версия. Всё внутри — те же строки, что и в статье, поэтому
@@ -762,6 +764,7 @@
   </dialog>
 
   <div class="modebar">
+    <button type="button" class="tldr-open" data-tldr-open aria-haspopup="dialog">Стисло</button>
     <details class="langpick"><summary aria-label="Мова сторінки"><span class="globe" aria-hidden="true">◍</span>Українська</summary><ul><li><a href="/research/hugging-face/" hreflang="en" lang="en">English</a></li><li><a href="/research/hugging-face/ru/" hreflang="ru" lang="ru">Русский</a></li><li class="is-current"><a href="/research/hugging-face/uk/" hreflang="uk" lang="uk" aria-current="true">Українська</a></li><li><a href="/research/hugging-face/de/" hreflang="de" lang="de">Deutsch</a></li><li><a href="/research/hugging-face/fr/" hreflang="fr" lang="fr">Français</a></li><li><a href="/research/hugging-face/es/" hreflang="es" lang="es">Español</a></li><li><a href="/research/hugging-face/pt-BR/" hreflang="pt-BR" lang="pt-BR">Português (Brasil)</a></li><li><a href="/research/hugging-face/it/" hreflang="it" lang="it">Italiano</a></li><li><a href="/research/hugging-face/nl/" hreflang="nl" lang="nl">Nederlands</a></li><li><a href="/research/hugging-face/pl/" hreflang="pl" lang="pl">Polski</a></li><li><a href="/research/hugging-face/tr/" hreflang="tr" lang="tr">Türkçe</a></li><li><a href="/research/hugging-face/ja/" hreflang="ja" lang="ja">日本語</a></li><li><a href="/research/hugging-face/zh-Hans/" hreflang="zh-Hans" lang="zh-Hans">简体中文</a></li></ul></details>
   </div>
 
@@ -777,7 +780,7 @@
 
   <section aria-labelledby="h-legend">
     <h2 id="h-legend">Три джерела</h2>
-    <div class="h2note"><p>Ззовні цей інцидент не досліджував ніхто: <b>усі 3 описи належать його учасникам</b>, і кожен бачив те, чого не бачили інші.</p><p>Кожне джерело тримає на всій сторінці один колір — на бейджах, які кажуть, у яких звітах згадано крок, на канті панелі там, де картка роздвоюється на суперечливі версії, на його голосі в розділі розбіжностей і на його рядках у списку посилань.</p></div>
+    <div class="h2note"><p>Ззовні цей інцидент не досліджував ніхто. <b>2 з 3 описів належать його учасникам</b> — власникові агентів і компанії, яку зламали, — а третій, від незалежних дослідників, писався на території OpenAI за даними, які передав сам OpenAI. Кожен із них бачив те, чого не бачили інші.</p><p>Кожне джерело тримає на всій сторінці один колір — на бейджах, які кажуть, у яких звітах згадано крок, на канті панелі там, де картка роздвоюється на суперечливі версії, на його голосі в розділі розбіжностей і на його рядках у списку посилань.</p></div>
     <div class="legend"><article class="lg s-openai"><p class="lgrole">власник агентів</p><p class="lgname">OpenAI</p><p class="lgdoc">Технічний звіт, 38 стор., 26.08.2026</p><p>OpenAI створив агентів і володіє інфраструктурою, з якої вони втекли. <b>Сильна сторона</b> — точна похвилинна хронологія власних систем і цифри, яких немає більше ні в кого: як ця поведінка наростала просто в навчанні.</p><p><b>Слабка сторона</b> — промпт, який дали агентам, не оприлюднено, прикладів їхніх повідомлень немає, а оцінку власних захистів перевірити ззовні неможливо.</p></article><article class="lg s-metr"><p class="lgrole">незалежні дослідники</p><p class="lgname">METR + Redwood Research</p><p class="lgdoc">Спільний звіт, 91 стор., 26.08.2026</p><p>METR і Redwood Research — незалежні організації, які досліджують системи штучного інтелекту на небезпечну поведінку. 3 їхні дослідники провели 6 днів на території OpenAI, читаючи листування на дошці й транскрипти — повні записи того, як кожен агент міркував і що робив.</p><p><b>Сильна сторона</b> — єдине джерело, яке описує соціальний бік справи: ролі, норми, підписи, самопожертву.</p><p><b>Слабка сторона</b> — вони самі пишуть, що передали аналіз агентам GPT-5.6 Sol, яких називають «ненадійними», що доступу до головної моделі їм так і не дали і що активність проти інфраструктури самого OpenAI вони не дивилися взагалі.</p></article><article class="lg s-hf"><p class="lgrole">компанія, яку зламали</p><p class="lgname">Hugging Face</p><p class="lgdoc">Технічний таймлайн вторгнення, 27.07.2026</p><p>Hugging Face — зламаний майданчик: місце, де публікують і звідки завантажують відкриті моделі штучного інтелекту й набори даних. <b>Сильна сторона</b> — похвилинна реконструкція вторгнення всередині власних бойових серверів, зібрана з ~17 600 записаних дій, і чесний список того, що вціліло.</p><p><b>Слабка сторона</b> — бачить лише свою половину. Що відбувалося в пісочницях OpenAI і чому — йому невідомо.</p></article></div>
   </section>
 
@@ -1221,7 +1224,10 @@
   </section>
 
   <aside class="sy-strip" aria-label="Speak-Y">
-    <span class="sy-name">Speak-<i>Y</i></span>
+    <span class="sy-brand">
+      <img class="sy-icon" src="../../../images/icons/speak-y.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+      <span class="sy-name">Speak-<i>Y</i></span>
+    </span>
     <p><b>Голосове введення і запис зустрічей.</b> Одна гаряча клавіша, будь-який застосунок, 67+ мов.</p>
     <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 днів безкоштовно <span aria-hidden="true">→</span></a>
   </aside>

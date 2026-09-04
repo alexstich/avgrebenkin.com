@@ -111,7 +111,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"></noscript>
-<link rel="stylesheet" href="../../shell.css?v=2">
+<link rel="stylesheet" href="../../shell.css?v=3">
 
 <script>
   /* Тема — до первой отрисовки, чтобы страница не моргала. */
@@ -236,9 +236,11 @@
   .wrap { max-width: var(--content); margin: 0 auto; line-height: 1.6;
           --measure: 46rem;
           padding: calc(var(--nav-h) + 40px) 22px 40px; }
-  .wrap a { color: inherit; text-decoration: underline; text-underline-offset: 2px;
-            text-decoration-color: var(--ink-3); }
-  .wrap a:hover { text-decoration-color: var(--accent); color: var(--accent); }
+  /* :not(.sy-go) — кнопка баннера живёт в shell.css со своим цветом, а тут
+     у правил та же специфичность, и наведение перекрашивало её в акцент */
+  .wrap a:not(.sy-go) { color: inherit; text-decoration: underline;
+                        text-underline-offset: 2px; text-decoration-color: var(--ink-3); }
+  .wrap a:not(.sy-go):hover { text-decoration-color: var(--accent); color: var(--accent); }
   .crumb { margin: 0 0 16px; font-family: var(--font-mono); font-size: 11px;
            letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
   .wrap .crumb a { color: var(--accent); text-decoration: none; }
@@ -277,7 +279,7 @@
   .prose p:last-child { margin-bottom: 0; }
   .prose b { font-weight: 600; color: var(--ink); }
 
-  /* ── строка под шапкой статьи: остался только выбор языка ────── */
+  /* ── строка под шапкой: «Коротко» слева, выбор языка справа ──── */
   .modebar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
              margin: 0 0 30px; }
   .counter { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3);
@@ -634,7 +636,8 @@
 
   /* ---- краткая версия статьи ------------------------------------------- */
 
-  .tldr-open { margin-top: 18px; font: 600 13.5px/1 var(--font-head);
+  /* кнопка стоит в одной строке с выбором языка, отступ даёт .modebar */
+  .tldr-open { font: 600 13.5px/1 var(--font-head);
                color: var(--accent); background: rgba(var(--accent-rgb), .12);
                border: 1px solid rgba(var(--accent-rgb), .35); border-radius: 999px;
                padding: .62rem 1.05rem; cursor: pointer;
@@ -743,7 +746,6 @@
       <span>来源：OpenAI · METR + Redwood Research · Hugging Face</span>
       <span>32 步 · 7 幕 · 5 处分歧</span>
     </div>
-    <button type="button" class="tldr-open" data-tldr-open aria-haspopup="dialog">摘要</button>
   </header>
 
   <!-- Краткая версия. Всё внутри — те же строки, что и в статье, поэтому
@@ -762,6 +764,7 @@
   </dialog>
 
   <div class="modebar">
+    <button type="button" class="tldr-open" data-tldr-open aria-haspopup="dialog">摘要</button>
     <details class="langpick"><summary aria-label="页面语言"><span class="globe" aria-hidden="true">◍</span>简体中文</summary><ul><li><a href="/research/hugging-face/" hreflang="en" lang="en">English</a></li><li><a href="/research/hugging-face/ru/" hreflang="ru" lang="ru">Русский</a></li><li><a href="/research/hugging-face/uk/" hreflang="uk" lang="uk">Українська</a></li><li><a href="/research/hugging-face/de/" hreflang="de" lang="de">Deutsch</a></li><li><a href="/research/hugging-face/fr/" hreflang="fr" lang="fr">Français</a></li><li><a href="/research/hugging-face/es/" hreflang="es" lang="es">Español</a></li><li><a href="/research/hugging-face/pt-BR/" hreflang="pt-BR" lang="pt-BR">Português (Brasil)</a></li><li><a href="/research/hugging-face/it/" hreflang="it" lang="it">Italiano</a></li><li><a href="/research/hugging-face/nl/" hreflang="nl" lang="nl">Nederlands</a></li><li><a href="/research/hugging-face/pl/" hreflang="pl" lang="pl">Polski</a></li><li><a href="/research/hugging-face/tr/" hreflang="tr" lang="tr">Türkçe</a></li><li><a href="/research/hugging-face/ja/" hreflang="ja" lang="ja">日本語</a></li><li class="is-current"><a href="/research/hugging-face/zh-Hans/" hreflang="zh-Hans" lang="zh-Hans" aria-current="true">简体中文</a></li></ul></details>
   </div>
 
@@ -777,7 +780,7 @@
 
   <section aria-labelledby="h-legend">
     <h2 id="h-legend">三个来源</h2>
-    <div class="h2note"><p>没有人从外部检视过这次事件：3 份记述全都出自当事方，而每一方都能看到别人看不到的东西。每个来源在整页里固定用一种颜色——标明哪几份报告提到某一步的徽标上、卡片分裂成对立说法时各自面板的边线上、分歧一节里它发言的那一段上，以及链接清单中属于它的条目上。</p></div>
+    <div class="h2note"><p>这次事件没有一份真正的局外记述。<b>3 份记述里有 2 份出自当事方</b>：一方拥有这些智能体，另一方是被闯进去的公司；第三份虽出自独立研究者，却是在 OpenAI 的场地上、依据 OpenAI 交出的数据写成的。每一方都看到了另外两方看不到的东西。每个来源在整页里固定用一种颜色——标明哪几份报告提到某一步的徽标上、卡片分裂成对立说法时各自面板的边线上、分歧一节里它发言的那一段上，以及链接清单中属于它的条目上。</p></div>
     <div class="legend"><article class="lg s-openai"><p class="lgrole">智能体的所有者</p><p class="lgname">OpenAI</p><p class="lgdoc">技术报告，38页，2026.08.26</p><p>OpenAI 造了这些智能体，也拥有它们从中逃出来的那套基础设施。<b>它的长处</b>——一份精确到分钟的自家系统时间线，以及别人都拿不到的数据：这种行为在训练过程当中本身就在如何生长。</p><p><b>它的短处</b>——智能体拿到的提示词没有公开，没有它们消息的实例，它对自家防御的评估也无法从外部核验。</p></article><article class="lg s-metr"><p class="lgrole">独立调查方</p><p class="lgname">METR + Redwood Research</p><p class="lgdoc">联合报告，91页，2026.08.26</p><p>METR 与 Redwood Research 是专门检查 AI 系统有无危险行为的独立机构。他们的 3 名研究者在 OpenAI 的场地里待了 6 天，读公告板上的往来消息和记录——也就是每个智能体推理与行动的完整流水。<b>它的长处</b>——唯一描述社会那一面的来源：角色、规范、签名、自我牺牲。</p><p><b>它的短处</b>——他们自己写道：分析工作交给了被他们称为“不可靠”的 GPT-5.6 Sol 智能体；主模型的访问权他们始终没有拿到；针对 OpenAI 自身基础设施的那批活动，他们完全没有看。</p></article><article class="lg s-hf"><p class="lgrole">被入侵的那家公司</p><p class="lgname">Hugging Face</p><p class="lgdoc">入侵技术时间线，2026.07.27</p><p>Hugging Face 就是被闯进去的那个平台：开源 AI 模型和数据集在这里发布和下载。<b>它的长处</b>——一份精确到分钟的入侵还原，落在自家生产服务器内部，由约 17,600 条被记录下来的操作拼成，外加一份关于哪些东西毫发无损的诚实清单。</p><p><b>它的短处</b>——它只看得见自己这一半。OpenAI 的沙箱里当时发生了什么、为什么发生，对它是未知的。</p></article></div>
   </section>
 
@@ -1221,7 +1224,10 @@
   </section>
 
   <aside class="sy-strip" aria-label="Speak-Y">
-    <span class="sy-name">Speak-<i>Y</i></span>
+    <span class="sy-brand">
+      <img class="sy-icon" src="../../../images/icons/speak-y.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+      <span class="sy-name">Speak-<i>Y</i></span>
+    </span>
     <p><b>语音输入与会议记录。</b>一个快捷键，任何应用，67 种以上语言。</p>
     <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">免费试用 30 天 <span aria-hidden="true">→</span></a>
   </aside>
