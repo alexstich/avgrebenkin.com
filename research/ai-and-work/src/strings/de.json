@@ -78,9 +78,15 @@
     "lane5": "Am stärksten exponiert",
     "src1": "Stanford Digital Economy Lab, ausbalanciertes ADP-Lohnpanel[^3].",
     "b": "Jetzt eine einzige Variable dazu. Dieselben Daten, derselbe Monat, dieselben Berufe – aufgeteilt nach Alter.",
-    "fig2": "Beschäftigungsveränderung über zwölf Monate in den *am stärksten exponierten* Berufen nach Altersgruppe. Juli 2026.",
+    "fig2": "Beschäftigungsveränderung über zwölf Monate nach Expositionsgruppe, jeweils eine Altersgruppe. Juli 2026.",
+    "ladAge": "Alter",
+    "ladAria": "Altersgruppe",
     "src2": "Dasselbe Panel, derselbe Monat[^3]. Der Abstand zwischen den Jüngsten und der Gruppe 41–49 beträgt 4,9 Prozentpunkte – innerhalb derselben Berufe.",
     "c": "Der Effekt läuft nicht zwischen den Berufen. Er läuft **in ihnen, nach Alter sortiert**.\n\nÜber das längere Fenster ist der Bruch noch schärfer: Seit Ende 2022 fiel die Beschäftigung der 22- bis 25-Jährigen in den beiden am stärksten exponierten Gruppen um 11 Prozent, während dieselbe Altersgruppe in den drei am wenigsten exponierten um 10 Prozent zulegte[^3].",
+    "doorCap": "Die Breite der Öffnung ist die Beschäftigungsveränderung der 22- bis 25-Jährigen seit Ende 2022.",
+    "doorA": "In den beiden am stärksten exponierten Gruppen",
+    "doorB": "Gleiches Alter, in den drei am wenigsten exponierten",
+    "doorBase": "Der gestrichelte Umriss ist der Stand von Ende 2022; von ihm aus sind beide Öffnungen gemessen[^3].",
     "pull": "Niemand wird entlassen. Es werden weniger hereingelassen.",
     "d": "Dieser Unterschied ist der Befund. Die Abgangsraten exponierter junger Beschäftigter sind nicht gestiegen – **die Einstellungen haben sich verlangsamt**.\n\nDie Tür fiel nicht hinter denen zu, die schon drinnen sind; sie wurde enger für die, die hinein wollen. Gates beschreibt genau das, wenn er über Einstiegspositionen schreibt, und das ist der Teil seines Essays, der die Begegnung mit den Daten am besten übersteht.",
     "note": "**Was die Forschenden selbst anmerken.** Der Effekt halbiert sich, sobald man für Bildung kontrolliert, ein Teil des Rückgangs liegt vor der generativen KI, und in nationalen Erhebungen ist der Abstand kleiner als in diesem Lohnpanel.\n\nDas Panel ist für den US-Arbeitsmarkt nicht repräsentativ, und die Arbeit ist nicht begutachtet. Die Autoren nennen die Ergebnisse deskriptiv, nicht kausal[^3]."
@@ -102,9 +108,8 @@
   "s06": {
     "num": "06 – Die Karte",
     "h": "Ein Fünftel des Marktes, im Detail",
-    "a": "Legt man alle 825 Berufe auf eine Fläche, ist das Bild **ruhiger als die Debatte**. Jede Kachel unten ist ein Beruf, groß nach der Zahl der Beschäftigten, gefärbt nach amtlicher Expositionskategorie. Fahren oder tippen Sie eine an.",
-    "mapLegend": "Fläche ∝ Beschäftigung · die 120 größten Berufe · Kachel antippen, um sie oben nachzuschlagen",
-    "mapHint": "Kachel anfahren oder antippen, um den Beruf zu sehen.",
+    "a": "Trägt man alle 825 Berufe in eine Tabelle ein, ist das Bild **ruhiger als die Debatte**. Nach jeder Spalte sortieren, nach Namen filtern, und die Expositionskategorie steht als Marke neben dem Namen.",
+    "legH": "Wie die Tabelle zu lesen ist",
     "tableLead": "Der Beschäftigungsanteil jeder Kategorie über alle 831 Berufe, die das Bureau projiziert:",
     "th1": "Exposition",
     "th2": "Berufe",
@@ -239,11 +244,44 @@
     "yWhere": "Wo {who} arbeiten",
     "yWhereNote": "der erwerbstätigen {who} arbeiten in Berufen {cat} Exposition – bei {other} sind es {otherShare}[^1][^4]",
     "afterPlot": "Alle Altersgruppen in Berufen dieser Expositionsstufe. Stanford-Lohnpanel, Juli 2026[^3].",
-    "tileAria": "{occ}, Exposition {cat}",
-    "tileLine": "{emp} beschäftigt · Exposition {cat} · Projektion {proj} bis 2035",
-    "tileWomen": " · {pct} Frauen",
-    "groupCount": "{n} von 120 · {emp} beschäftigt",
-    "groupLargest": "Größte: {list}",
+    "ladNote": "Alter {band}. Die Zeilen sind die Expositionskategorien des Berufs.",
+    "tabTh": {
+      "occ": "Beruf",
+      "emp": "Beschäftigte",
+      "proj": "Prognose bis 2035",
+      "wage": "Medianlohn, $",
+      "tasks": "Aufgaben an Modelle"
+    },
+    "tabLeg": {
+      "emp": {
+        "k": "Beschäftigte",
+        "v": "wie viele Menschen den Beruf derzeit ausüben"
+      },
+      "proj": {
+        "k": "Prognose",
+        "v": "die amtliche Prognose des Bureau für 2025–35"
+      },
+      "wage": {
+        "k": "Medianlohn",
+        "v": "mittleres Jahreseinkommen, in Dollar"
+      },
+      "tasks": {
+        "k": "Aufgaben an Modelle",
+        "v": "der gemessene Anteil der Aufgaben, die bereits an Modelle gehen: 0,70 ist fast die ganze Arbeit, 0,00 ist keine"
+      },
+      "color": {
+        "k": "Die Marke",
+        "v": "amtliche Expositionskategorie, von grün niedrig bis rot sehr hoch"
+      },
+      "sort": {
+        "k": "Sortieren",
+        "v": "auf eine Spaltenüberschrift klicken"
+      }
+    },
+    "tabCount": "{shown} von {total}",
+    "tabPlaceholder": "Nach Namen filtern: nurse, sales, teacher…",
+    "tabAria": "Berufe nach Namen filtern",
+    "tabEmpty": "Zum Filter passt nichts.",
     "copied": "Kopiert",
     "copyManual": "⌘C drücken"
   }

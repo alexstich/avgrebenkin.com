@@ -311,18 +311,42 @@
 </div>
 <figure class="col">
   <figcaption>{{s04.fig2}}</figcaption>
-  <div class="plot">
-    <div class="lane hi"><span class="lab">22–25</span><span class="track"><span class="axis"></span><span class="bar dn" style="right:50%;width:46%"></span></span><span class="val">{{pc.−3.0}}</span></div>
-    <div class="lane"><span class="lab">26–30</span><span class="track"><span class="axis"></span><span class="bar dn" style="right:50%;width:32%"></span></span><span class="val">{{pc.−2.1}}</span></div>
-    <div class="lane"><span class="lab">31–34</span><span class="track"><span class="axis"></span><span class="bar dn" style="right:50%;width:25%"></span></span><span class="val">{{pc.−1.6}}</span></div>
-    <div class="lane"><span class="lab">35–40</span><span class="track"><span class="axis"></span><span class="bar" style="left:50%;width:20%"></span></span><span class="val">{{pc.+1.3}}</span></div>
-    <div class="lane hi"><span class="lab">41–49</span><span class="track"><span class="axis"></span><span class="bar" style="left:50%;width:29%"></span></span><span class="val">{{pc.+1.9}}</span></div>
-    <div class="lane"><span class="lab">50+</span><span class="track"><span class="axis"></span><span class="bar" style="left:50%;width:6%"></span></span><span class="val">{{pc.+0.4}}</span></div>
+  <!-- Возраст выбирает читатель, а строки — четыре категории уязвимости.
+       Прежде здесь стояли те же цифры, но развёрнутые наоборот: шесть
+       неподвижных возрастов внутри одной, самой уязвимой категории. Так
+       было видно, что молодым хуже, и не было видно главного — что это
+       происходит на каждой ступени уязвимости, кроме самой низкой. -->
+  <div class="ladhead">
+    <span class="ladlab">{{s04.ladAge}}</span>
+    <div class="chips" id="ladAge" role="group" aria-label="{{a:s04.ladAria}}"></div>
   </div>
+  <div class="plot" id="ladPlot"></div>
+  <p class="plotnote" id="ladNote"></p>
   <p class="fsrc">{{s04.src2}}</p>
 </figure>
 <div class="col">
   {{s04.c|p}}
+</div>
+<figure class="col">
+  <figcaption>{{s04.doorCap}}</figcaption>
+  <!-- Не иллюстрация: ширина проёма — это само число. Проём слева уже
+       контура на 11 %, справа шире на 10 %, и других размеров в рисунке
+       нет. Поэтому картинка одинаково верна на всех тринадцати языках. -->
+  <div class="doors">
+    <div class="door-cell">
+      <span class="door-wrap"><span class="door-base"></span><span class="door dn"></span></span>
+      <p class="door-num dn">{{pc.−11}}</p>
+      <p class="door-lab">{{s04.doorA}}</p>
+    </div>
+    <div class="door-cell">
+      <span class="door-wrap"><span class="door-base"></span><span class="door up"></span></span>
+      <p class="door-num up">{{pc.+10}}</p>
+      <p class="door-lab">{{s04.doorB}}</p>
+    </div>
+  </div>
+  <p class="fsrc">{{s04.doorBase}}</p>
+</figure>
+<div class="col">
   <p class="pull">{{s04.pull}}</p>
   {{s04.d|p}}
   <div class="note">{{s04.note|p}}</div>
@@ -373,11 +397,18 @@
   {{s06.a|p}}
 </div>
 <div class="col">
-  <div id="matrix"></div>
-  <div class="legend">
-    <span style="color:var(--ink-3)">{{s06.mapLegend}}</span>
+  <!-- Здесь была карта-плиткой: 120 прямоугольников, площадь ∝ занятости.
+       Она просила читателя искать свою профессию глазами в мозаике и не
+       утверждала ничего. Таблица отвечает на те же вопросы и ещё на три,
+       которых карта не брала: отсортировать, отфильтровать, сравнить. -->
+  <p class="tlegh">{{s06.legH}}</p>
+  <ul class="tleg" id="tleg"></ul>
+  <div class="tfilter">
+    <input type="search" id="tq" autocomplete="off">
+    <span class="n" id="tn"></span>
   </div>
-  <p id="mout">{{s06.mapHint}}</p>
+  <div class="occbox"><table class="occtable"><thead id="tth"></thead><tbody id="tb"></tbody></table></div>
+  <p class="fsrc">{{s06.src}}</p>
 </div>
 <div class="col">
   {{s06.tableLead|p}}

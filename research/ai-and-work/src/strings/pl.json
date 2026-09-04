@@ -78,9 +78,15 @@
     "lane5": "Najbardziej narażone",
     "src1": "Stanford Digital Economy Lab, zbilansowany panel płacowy ADP[^3].",
     "b": "Teraz dodajcie jedną zmienną. Te same dane, ten sam miesiąc, te same zawody – w podziale na wiek.",
-    "fig2": "Zmiana zatrudnienia w ciągu dwunastu miesięcy w zawodach *najbardziej narażonych*, według grup wieku. Lipiec 2026.",
+    "fig2": "Zmiana zatrudnienia w ciągu dwunastu miesięcy według grup narażenia, po jednej grupie wiekowej. Lipiec 2026.",
+    "ladAge": "Wiek",
+    "ladAria": "Grupa wiekowa",
     "src2": "Ten sam panel, ten sam miesiąc[^3]. Różnica między najmłodszymi a grupą 41–49 to 4,9 punktu procentowego – wewnątrz tych samych zawodów.",
     "c": "Efekt nie przebiega między zawodami. Przebiega **wewnątrz nich, posortowany według wieku**.\n\nW dłuższym oknie pęknięcie jest jeszcze ostrzejsze: od końca 2022 roku zatrudnienie osób w wieku 22–25 lat w dwóch najbardziej narażonych grupach spadło o 11 procent, podczas gdy ta sama grupa wieku w trzech najmniej narażonych wzrosła o 10[^3].",
+    "doorCap": "Szerokość prześwitu to zmiana zatrudnienia osób w wieku 22–25 lat od końca 2022 roku.",
+    "doorA": "W dwóch najbardziej narażonych grupach",
+    "doorB": "Ten sam wiek, w trzech najmniej narażonych",
+    "doorBase": "Kontur kreskowany to poziom z końca 2022 roku; od niego odmierzono oba prześwity[^3].",
     "pull": "Nikogo się nie zwalnia. Wpuszcza się mniej ludzi.",
     "d": "To rozróżnienie jest właśnie odkryciem. Wskaźniki odejść wśród młodych w zawodach narażonych nie wzrosły – **spowolniła rekrutacja**.\n\nDrzwi nie zatrzasnęły się za tymi, którzy już są w środku; zwęziły się dla tych, którzy próbują wejść. Gates opisuje dokładnie to, gdy pisze o stanowiskach wejściowych, i to ta część jego eseju najlepiej znosi zderzenie z danymi.",
     "note": "**Co zastrzegają sami badacze.** Efekt zmniejsza się o połowę po uwzględnieniu wykształcenia, część spadku poprzedza SI generatywną, a różnica jest mniejsza w badaniach ogólnokrajowych niż w tym panelu płacowym.\n\nPanel nie jest reprezentatywny dla amerykańskiego rynku pracy, a praca nie przeszła recenzji naukowej. Autorzy nazywają wyniki opisowymi, nie przyczynowymi[^3]."
@@ -102,9 +108,8 @@
   "s06": {
     "num": "06 – Mapa",
     "h": "Jedna piąta rynku, dokładnie",
-    "a": "Połóżcie wszystkie 825 zawodów na jednej płaszczyźnie, a obraz okaże się **spokojniejszy niż dyskusja wokół**. Każdy kafelek poniżej to zawód, wielkość według liczby zatrudnionych, kolor według oficjalnej kategorii ekspozycji. Najedźcie lub dotknijcie dowolnego.",
-    "mapLegend": "Pole ∝ zatrudnienie · 120 największych zawodów · dotknijcie kafelka, żeby znaleźć go wyżej",
-    "mapHint": "Najedźcie lub dotknijcie kafelka, żeby zobaczyć zawód.",
+    "a": "Zbierzcie wszystkie 825 zawodów w jedną tabelę, a obraz okaże się **spokojniejszy niż dyskusja wokół**. Sortujcie po dowolnej kolumnie, filtrujcie po nazwie, a kategorię ekspozycji odczytacie ze znacznika obok nazwy.",
+    "legH": "Jak czytać tabelę",
     "tableLead": "Udział zatrudnienia w każdej kategorii, dla wszystkich 831 zawodów prognozowanych przez Bureau:",
     "th1": "Ekspozycja",
     "th2": "Zawodów",
@@ -239,11 +244,44 @@
     "yWhere": "Gdzie pracują {who}",
     "yWhereNote": "pracujących {who} zatrudnionych jest w zawodach o {cat} ekspozycji – u {other} jest to {otherShare}[^1][^4]",
     "afterPlot": "Wszystkie grupy wieku w zawodach tego poziomu ekspozycji. Stanfordzki panel płacowy, lipiec 2026[^3].",
-    "tileAria": "{occ}, ekspozycja {cat}",
-    "tileLine": "zatrudnionych {emp} · ekspozycja {cat} · prognoza {proj} do 2035",
-    "tileWomen": " · kobiet {pct}",
-    "groupCount": "{n} ze 120 · zatrudnionych {emp}",
-    "groupLargest": "Największe: {list}",
+    "ladNote": "Wiek {band}. Wiersze to kategorie ekspozycji zawodu.",
+    "tabTh": {
+      "occ": "Zawód",
+      "emp": "Zatrudnieni",
+      "proj": "Prognoza do 2035",
+      "wage": "Mediana płacy, $",
+      "tasks": "Zadań do modeli"
+    },
+    "tabLeg": {
+      "emp": {
+        "k": "Zatrudnieni",
+        "v": "ile osób wykonuje dziś ten zawód"
+      },
+      "proj": {
+        "k": "Prognoza",
+        "v": "oficjalna prognoza Biura na lata 2025-35"
+      },
+      "wage": {
+        "k": "Mediana płacy",
+        "v": "medianowy roczny zarobek, w dolarach"
+      },
+      "tasks": {
+        "k": "Zadań do modeli",
+        "v": "zmierzony udział zadań już przynoszonych modelom: 0,70 to prawie cała praca, 0,00 to nic"
+      },
+      "color": {
+        "k": "Znacznik",
+        "v": "oficjalna kategoria ekspozycji, od zielonej niskiej do czerwonej bardzo wysokiej"
+      },
+      "sort": {
+        "k": "Sortowanie",
+        "v": "kliknijcie nagłówek kolumny"
+      }
+    },
+    "tabCount": "{shown} z {total}",
+    "tabPlaceholder": "Filtr po nazwie: nurse, sales, teacher…",
+    "tabAria": "Filtrowanie zawodów po nazwie",
+    "tabEmpty": "Nic nie pasuje do filtra.",
     "copied": "Skopiowano",
     "copyManual": "Naciśnijcie ⌘C"
   }

@@ -37,7 +37,7 @@ JS_KEYS = [
     'cEmployed', 'cEmployedNote', 'cTasks', 'cTasksNote',
     'cWomen', 'cWomenPlain', 'cWomenMajority', 'cWomenMinority',
     'yAge', 'yAgeNote', 'yWhere', 'yWhereNote', 'afterPlot',
-    'tileAria', 'tileLine', 'tileWomen', 'groupCount', 'groupLargest',
+    'ladNote', 'tabTh', 'tabLeg', 'tabCount', 'tabPlaceholder', 'tabAria', 'tabEmpty',
     'copied', 'copyManual',
 ]
 
