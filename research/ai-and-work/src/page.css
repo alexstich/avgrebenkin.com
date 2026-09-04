@@ -1,0 +1,437 @@
+  /* ── палитра ──────────────────────────────────────────────────────────
+     Своего здесь только то, чего нет в токенах сайта: пара «выросло / упало»,
+     четыре цвета категорий экспозиции и ступень серого ниже --muted.
+     Фон, текст, акцент, рамки и тени берутся из shell.css, поэтому темы
+     переключает шапка сайта. Перерисовывать при переключении нечего: вся
+     графика на странице — это DOM и CSS-переменные, ни холста, ни одного
+     цвета, зашитого в скрипт. */
+  /* --ink-3 — самый бледный текст страницы: подписи под графиками, заголовки
+     таблиц, легенда карты. Оттенки подобраны под контраст 4.5 к самому
+     невыгодному фону каждой темы, а не на глаз: при 11–12 px это требование
+     AA. Мерить надо не по фону страницы, а по фону карточки: на тёмных темах
+     он светлее, и оттенок, дающий 4.63 на странице, внутри карточки падает
+     до 4.44. */
+  :root {
+    --ink-3: #7a7f8f;
+    --firm: rgba(255,255,255,.34);
+    --neg: #e08a7e;
+    --cat-4: #c8574c; --cat-3: #cf8f6b; --cat-2: #6d8ba0; --cat-1: #3d5f75;
+  }
+  :root[data-theme="light"] {
+    --ink-3: #696f80;
+    --firm: rgba(16,18,30,.34);
+    --neg: #a33a2e;
+    --cat-4: #8c3b34; --cat-3: #b3785c; --cat-2: #6d8ba0; --cat-1: #2f4858;
+  }
+  :root[data-theme="cyber"] {
+    --ink-3: #6f7c86;
+    --firm: var(--accent);
+    --neg: #ff2b57;
+    --cat-4: #ff003c; --cat-3: #ff8a00; --cat-2: #00b8c9; --cat-1: #1d5a66;
+  }
+  /* Алиасы: имена, которыми пользуется вёрстка исследования, привязаны
+     к токенам сайта — палитра остаётся одна, а не две. */
+  :root {
+    --paper: var(--bg); --rule: var(--border-soft);
+    --ink: var(--text); --ink-2: var(--muted);
+    --pos: var(--ok); --mark: var(--accent);
+    --sans: var(--font-body); --mono: var(--font-mono);
+    /* Одна мера строки на всю статью, и она в rem, а не в ch: ch считается
+       от кегля самого блока, и подзаголовок 1.2rem обрывался бы позже
+       абзаца 17px — семь разных правых краёв в одной колонке читаются
+       как случайный обрыв. */
+    --measure: 32rem;
+  }
+
+  /* ── страница в оболочке сайта ───────────────────────────────────────
+     main из shell.css уже задаёт ширину и поля, поэтому .wrap только
+     отодвигает содержимое от фиксированной шапки. */
+  .wrap { max-width: none; padding: calc(var(--nav-h) + 30px) 0 0;
+          font-size: 17px; line-height: 1.7; }
+  .col { max-width: var(--measure); margin: 0 auto; }
+  /* Шапка и разделители секций держат ту же колонку, что и текст: иначе
+     линейки идут шире набора и страница читается как две разные сетки. */
+  .wrap > header.hero, .wrap > section, .wrap > .crumb {
+    max-width: var(--measure); margin-left: auto; margin-right: auto; }
+  .crumb { margin: 0 0 26px; font-family: var(--mono); font-size: 11px;
+           letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+  .crumb a { color: var(--accent); }
+  .crumb a:hover { text-decoration: underline; }
+  .wrap p { margin: 0 0 1.15em; }
+  .wrap sup a { font-family: var(--sans); font-size: .62rem; font-weight: 600;
+                text-decoration: none; padding: 0 1px; }
+  .wrap sup a:hover { text-decoration: underline; }
+  .wrap em { font-style: italic; }
+  .wrap strong { font-weight: 600; }
+
+  header.hero { padding: 0 0 40px; border-bottom: 2px solid var(--firm); margin-bottom: 44px; }
+  .eyebrow { font-family: var(--sans); font-size: .7rem; letter-spacing: .16em;
+             text-transform: uppercase; color: var(--ink-3); margin: 0 0 20px; }
+  .wrap h1 { font-size: clamp(2.1rem,6vw,3.4rem); font-weight: 700; line-height: 1.04;
+             letter-spacing: -.03em; margin: 0 0 22px; text-wrap: balance; }
+  .standfirst { font-size: clamp(1.05rem,2vw,1.2rem); line-height: 1.55;
+                color: var(--ink-2); margin: 0 0 26px; }
+  .hero-shot {
+    width: 100%; height: auto; aspect-ratio: 1240/442; margin: 0 0 26px;
+    border: 1px solid var(--rule); border-radius: 12px;
+  }
+  :root[data-theme="cyber"] .hero-shot {
+    border-radius: 0;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  }
+  .byline { font-family: var(--sans); font-size: .78rem; color: var(--ink-3); letter-spacing: .03em; }
+
+  /* ── строка под шапкой: «коротко» слева, выбор языка справа ─────────── */
+  .modebar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
+             margin: 0 0 40px; }
+
+  /* Выбор языка на нативном <details>: открывается и без скрипта, закрывается
+     Esc, и в списке лежат обычные ссылки — их видит и поисковик, и читалка. */
+  .langpick { position: relative; margin-inline-start: auto; }
+  .langpick > summary {
+    display: inline-flex; align-items: center; gap: .4rem; cursor: pointer;
+    list-style: none; padding: .45rem .7rem; border: 1px solid var(--rule);
+    border-radius: 9px; font-family: var(--sans); font-size: .8rem; font-weight: 500;
+    color: var(--ink); transition: color .18s, background .18s;
+  }
+  .langpick > summary::-webkit-details-marker { display: none; }
+  .langpick > summary:hover { color: var(--ink); background: rgba(var(--accent-rgb),.08); }
+  .langpick > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .langpick .globe { font-size: .7rem; color: var(--accent); }
+  .langpick[open] > summary { color: var(--accent); background: rgba(var(--accent-rgb),.12); }
+  .langpick ul {
+    position: absolute; z-index: 30; inset-inline-end: 0; top: calc(100% + 6px);
+    margin: 0; padding: 6px; list-style: none; min-width: 11rem;
+    background: var(--bg-elev); border: 1px solid var(--rule);
+    border-radius: 10px; box-shadow: var(--shadow);
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px;
+  }
+  .langpick li a {
+    display: block; padding: .4rem .55rem; border-radius: 6px;
+    font-family: var(--sans); font-size: .8rem;
+    color: var(--ink-2); text-decoration: none; white-space: nowrap;
+  }
+  .langpick li a:hover { background: rgba(var(--accent-rgb),.10); color: var(--ink); }
+  .langpick li.is-current a { color: var(--accent); background: rgba(var(--accent-rgb),.12); }
+  :root[data-theme="cyber"] .langpick > summary,
+  :root[data-theme="cyber"] .langpick ul,
+  :root[data-theme="cyber"] .langpick li a { border-radius: 0; }
+  /* Примечание переводчика стоит последним в списке источников и отбивается
+     от него: это не источник, а оговорка о самом переводе. */
+  .transnote { margin-top: 18px; border-top: 1px dashed var(--rule); padding-top: 12px; }
+
+  /* ── короткая версия ────────────────────────────────────────────────── */
+  .tldr-open {
+    display: inline-flex; align-items: center; gap: .55rem;
+    padding: 10px 16px; border: 1px solid var(--accent); border-radius: 10px;
+    background: rgba(var(--accent-rgb),.12); color: var(--accent); cursor: pointer;
+    font-family: var(--sans); font-size: .88rem; font-weight: 600; letter-spacing: -.01em;
+    transition: background .18s;
+  }
+  .tldr-open:hover { background: rgba(var(--accent-rgb),.22); }
+  .tldr-open svg { width: 15px; height: 15px; fill: none; stroke: currentColor;
+                   stroke-width: 1.9; stroke-linecap: round; }
+  .tldr-open-sub { color: var(--ink-2); font-weight: 400; }
+  :root[data-theme="cyber"] .tldr-open {
+    border-radius: 0; text-transform: uppercase; letter-spacing: .08em; font-size: .78rem;
+    font-family: var(--mono);
+    clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px));
+  }
+
+  .tldr {
+    width: min(680px, calc(100vw - 32px)); max-height: calc(100vh - 48px);
+    padding: 0; border: 1px solid var(--rule); border-radius: 14px;
+    background: var(--bg-elev); color: var(--ink); overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .tldr::backdrop { background: rgba(0,0,0,.62); backdrop-filter: blur(2px); }
+  :root[data-theme="cyber"] .tldr { border-radius: 0; border-color: var(--accent); }
+  /* Шапка окна не переносится ни при какой длине подписей: три кнопки и крестик
+     всегда в одну строку. Иначе на 375 px подпись внутри кнопки переламывалась
+     надвое и ряд разъезжался по высоте — по-английски «Copy» короткое, а
+     «Kopieren», «Скопировать» и «Kopiëren» уже нет. Ужимаются подписи, а не
+     кнопки: `min-width: 0` разрешает флексу сжаться, многоточие ставит span. */
+  .tldr-bar {
+    display: flex; flex-wrap: nowrap; align-items: center; gap: 8px; padding: 12px 14px;
+    border-bottom: 1px solid var(--rule); background: var(--bg-elev);
+    position: sticky; top: 0; z-index: 2;
+  }
+  .tldr-kicker {
+    flex: 1 1 auto; min-width: 0; margin: 0; font-family: var(--sans); font-size: .7rem;
+    font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .tldr-btn {
+    display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px;
+    flex: 0 1 auto; min-width: 0;
+    border: 1px solid var(--rule); border-radius: 8px; background: var(--paper);
+    color: var(--ink); cursor: pointer; font-family: var(--sans); font-size: .8rem;
+    font-weight: 500; transition: background .18s, color .18s, border-color .18s;
+  }
+  .tldr-btn span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tldr-btn:hover { border-color: var(--accent); }
+  .tldr-btn svg { flex: 0 0 auto; width: 14px; height: 14px; fill: none; stroke: currentColor;
+                  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .tldr-btn.done { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  /* Крестик не ужимается: из четырёх кнопок он единственный, без которого
+     окно не закрыть мышью. */
+  .tldr-x { flex: 0 0 auto; padding: 7px 9px; }
+  :root[data-theme="cyber"] .tldr-btn { border-radius: 0; }
+  /* На узком экране подписи снимаются целиком, а не ужимаются многоточием:
+     «Ско…» вместо «Скопировать» не читается, а четыре иконки в ряд — читаются.
+     Название кнопки при этом никуда не девается, оно в aria-label и title.
+     Порог — 500 px: без «КРАТКО» (его снимает правило на 600 px) самый длинный
+     набор подписей, украинский, требует 478 px, и до этой ширины они читаются
+     целиком. */
+  @media (max-width: 500px) {
+    .tldr-bar { padding: 10px; gap: 6px; }
+    .tldr-btn { padding: 7px 9px; }
+    .tldr-btn span { display: none; }
+  }
+
+  .tldr-doc { padding: 22px 26px 28px; overflow-y: auto;
+              max-height: calc(100vh - 48px - 57px); font-size: .95rem; line-height: 1.6; }
+  .tldr-doc h2 { font-size: 1.5rem; margin: 0 0 8px; letter-spacing: -.02em; }
+  .tldr-sub { font-family: var(--sans); font-size: .9rem; color: var(--ink-2); margin: 0 0 18px; }
+  .tldr-doc ul { margin: 0 0 18px; padding-left: 20px; font-family: var(--sans);
+                 font-size: .88rem; line-height: 1.6; color: var(--ink-2); }
+  .tldr-doc li { margin-bottom: 11px; }
+  .tldr-doc li b { color: var(--ink); font-weight: 600; }
+  /* В окне краткой версии фон светлее страницы, и --ink-3 на нём не добирает
+     до 4.5 — здесь подписи берут --ink-2. */
+  .tldr-src, .tldr-link { font-family: var(--sans); font-size: .78rem;
+                          color: var(--ink-2); margin: 0 0 6px; line-height: 1.5;
+                          overflow-wrap: anywhere; }
+  .byline b { color: var(--ink-2); font-weight: 500; }
+
+  .wrap h2 { font-size: clamp(1.4rem,3vw,1.85rem); font-weight: 600; line-height: 1.2;
+             letter-spacing: -.02em; margin: 0 0 18px; text-wrap: balance; }
+  .wrap h3 { font-family: var(--sans); font-size: 1.02rem; font-weight: 600;
+             margin: 30px 0 10px; letter-spacing: -.005em; }
+  .wrap section { padding: 44px 0; border-bottom: 1px solid var(--rule); }
+  .snum { font-family: var(--mono); font-size: .72rem; color: var(--mark);
+          letter-spacing: .1em; display: block; margin-bottom: 12px; }
+
+  .pull { font-size: 1.3rem; line-height: 1.42; font-style: italic; color: var(--ink);
+          border-left: 3px solid var(--mark); padding-left: 20px; margin: 30px 0; }
+  .note { font-family: var(--sans); font-size: .87rem; line-height: 1.6; color: var(--ink-2);
+          background: var(--card-bg); border: 1px solid var(--rule); border-radius: 12px;
+          padding: 15px 17px; margin: 26px 0; }
+  .note b { color: var(--ink); }
+
+  figure { margin: 32px 0; }
+  figcaption { font-family: var(--sans); font-size: .8rem; font-weight: 600;
+               line-height: 1.45; margin-bottom: 16px; }
+  .fsrc { font-family: var(--sans); font-size: .74rem; color: var(--ink-3);
+          line-height: 1.5; margin: 12px 0 0; }
+  /* Подпись под графиком возраста заполняет скрипт. Без него абзац остаётся
+     пустым и всё равно занимает высоту со своим margin — прячем. */
+  .fsrc:empty { display: none; }
+
+  /* ── столбики: ось посередине, минус влево, плюс вправо ─────────────── */
+  .plot { border-top: 1px solid var(--firm); border-bottom: 1px solid var(--rule);
+          padding: 18px 0 14px; }
+  .lane { display: grid; grid-template-columns: minmax(0, 96px) minmax(0, 1fr) 62px;
+          align-items: center;
+          gap: 12px; height: 28px; font-family: var(--sans); font-size: .81rem; }
+  .lane .lab { text-align: right; color: var(--ink-2); }
+  .lane.hi { background: rgba(var(--accent-rgb),.09); margin: 0 -8px; padding: 0 8px; height: 32px; }
+  .lane.hi .lab { color: var(--ink); font-weight: 600; }
+  .track { position: relative; height: 100%; }
+  .axis { position: absolute; left: 50%; top: 2px; bottom: 2px; width: 1px; background: var(--rule); }
+  .bar { position: absolute; top: 9px; height: 11px; background: var(--pos); transition: width .4s ease; }
+  .lane.hi .bar { top: 11px; height: 12px; }
+  .bar.dn { background: var(--neg); }
+  .val { font-family: var(--sans); font-variant-numeric: tabular-nums; text-align: right; }
+  .lane.hi .val { font-weight: 600; }
+
+  /* ── таблицы ────────────────────────────────────────────────────────
+     На узком экране таблица не переверстывается, а прокручивается внутри
+     .scroll: min-width не даёт колонкам схлопнуться в вертикальную кашу. */
+  .wrap table { width: 100%; border-collapse: collapse; font-family: var(--sans);
+                font-size: .85rem; margin: 8px 0; }
+  .wrap th, .wrap td { text-align: left; padding: 9px 12px 9px 0;
+                       border-bottom: 1px solid var(--rule); }
+  .wrap th { font-size: .7rem; letter-spacing: .07em; text-transform: uppercase;
+             color: var(--ink-3); font-weight: 600; border-bottom-color: var(--firm); }
+  /* Числовые колонки прижаты вправо, поэтому им нужен отступ слева:
+     иначе на прокручиваемой таблице «53.2m» и «31.3%» сливаются. */
+  .wrap td.n, .wrap th.n { text-align: right; font-variant-numeric: tabular-nums;
+                           padding-right: 0; padding-left: 16px; }
+  .wrap td.dn { color: var(--neg); } .wrap td.up { color: var(--pos); }
+  .scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .scroll table { min-width: 520px; }
+
+  /* ── интерактивные блоки ────────────────────────────────────────────── */
+  .tool { background: var(--card-bg); border: 1px solid var(--rule); border-radius: 14px;
+          box-shadow: var(--shadow); padding: 26px; margin: 34px 0; }
+  .tool-h { font-family: var(--sans); font-size: .72rem; letter-spacing: .12em;
+            text-transform: uppercase; color: var(--mark); margin: 0 0 14px; font-weight: 600; }
+  .wrap fieldset { border: 0; margin: 0 0 16px; padding: 0; }
+  .wrap legend { font-family: var(--sans); font-size: .74rem; font-weight: 600;
+                 letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3);
+                 padding: 0; margin-bottom: 8px; }
+  input[type=search] { width: 100%; font-family: var(--sans); font-size: .95rem;
+                       padding: 11px 13px; border: 1px solid var(--rule); border-radius: 9px;
+                       background: var(--paper); color: var(--ink); }
+  input[type=search]:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .hits { list-style: none; margin: 6px 0 0; padding: 0; max-height: 216px; overflow-y: auto;
+          border: 1px solid var(--rule); border-radius: 9px; background: var(--paper); }
+  .hits:empty { display: none; }
+  .hits button { width: 100%; text-align: left; background: none; border: 0;
+                 border-bottom: 1px solid var(--rule); padding: 9px 13px;
+                 font-family: var(--sans); font-size: .86rem; color: var(--ink);
+                 cursor: pointer; display: flex; justify-content: space-between; gap: 12px; }
+  .hits li:last-child button { border-bottom: 0; }
+  .hits button:hover, .hits button:focus-visible { background: rgba(var(--accent-rgb),.1); outline: none; }
+  .hits .n { color: var(--ink-3); font-variant-numeric: tabular-nums; font-size: .78rem; white-space: nowrap; }
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .chip { font-family: var(--sans); font-size: .82rem; padding: 7px 13px;
+          border: 1px solid var(--rule); border-radius: 8px; background: var(--paper);
+          color: var(--ink-2); cursor: pointer; }
+  .chip[aria-pressed=true] { background: var(--accent); border-color: var(--accent);
+                             color: var(--accent-ink); font-weight: 500; }
+  .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  /* Линии рисуют сами карточки, а не фон контейнера: при пяти карточках в ряду
+     из трёх шестая ячейка светилась серым прямоугольником. */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
+           gap: 1px; background: var(--paper); border: 1px solid var(--rule);
+           border-radius: 12px; overflow: hidden; margin: 0 0 18px; }
+  .card { background: var(--paper); padding: 13px 14px; display: flex;
+          flex-direction: column; gap: 4px; box-shadow: 0 0 0 1px var(--rule); }
+  .card .k { font-family: var(--sans); font-size: .66rem; letter-spacing: .07em;
+             text-transform: uppercase; color: var(--ink-3); }
+  .card .v { font-family: var(--sans); font-size: 1.36rem; font-weight: 600;
+             letter-spacing: -.02em; font-variant-numeric: tabular-nums; line-height: 1.1; }
+  .card .v.dn { color: var(--neg); } .card .v.up { color: var(--pos); }
+  .card .c { font-family: var(--sans); font-size: .73rem; color: var(--ink-2); line-height: 1.4; }
+  .res[hidden] { display: none; }
+  /* Результат разделён надвое: слева от читателя факты о профессии, ниже —
+     то, что двигают переключатели возраста и пола. Без этой границы непонятно,
+     на что они вообще влияют: раньше менялась одна подпись под графиком. */
+  .res-h { font-family: var(--sans); font-size: .68rem; font-weight: 600;
+           letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
+           margin: 18px 0 8px; }
+  .res-h:first-child { margin-top: 4px; }
+
+  /* ── карта профессий ────────────────────────────────────────────────
+     Плитки собраны в четыре блока по категориям: так видно объём каждой,
+     а не перемешанная россыпь. Плитка выбранной профессии обведена. */
+  .mgroup { margin: 0 0 14px; }
+  .mgh { font-family: var(--sans); font-size: .74rem; margin: 0 0 6px;
+         color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 4px 8px;
+         align-items: baseline; }
+  .mgh b { color: var(--ink); font-weight: 600; }
+  .mgh .n { color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .mgh .sw { width: 11px; height: 11px; flex: 0 0 auto; align-self: center; }
+  .matrix { display: flex; flex-wrap: wrap; gap: 2px; }
+  .tile.on { outline: 2px solid var(--ink); outline-offset: 1px; z-index: 2; }
+
+  /* ── стоимость проверки ─────────────────────────────────────────────
+     Ползунок убран: кривая между крайними точками монотонная и ничего не
+     открывает, а обе точки — и есть весь вывод раздела. */
+  .cost-h { font-family: var(--sans); font-size: .72rem; letter-spacing: .07em;
+            text-transform: uppercase; color: var(--ink-3); margin: 0 0 10px; }
+  .cost { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 1px; background: var(--rule); border: 1px solid var(--rule);
+          border-radius: 12px; overflow: hidden; }
+  .cost-cell { background: var(--paper); padding: 14px 16px 16px;
+               display: flex; flex-direction: column; gap: 6px; }
+  .cost-cell .k { font-family: var(--sans); font-size: .66rem; letter-spacing: .07em;
+                  text-transform: uppercase; color: var(--ink-3); }
+  .cost-cell .big.dn { color: var(--neg); }
+  .cost-cell .c { font-family: var(--sans); font-size: .8rem; color: var(--ink-2);
+                  line-height: 1.5; }
+  /* Вся полоса — это 474×, красный обрубок слева — те 1,2×, что переживают
+     проверку. Пропорция настоящая, поэтому обрубок и должен быть еле виден. */
+  .cost-scale { height: 10px; margin: 14px 0 0; border-radius: 5px; overflow: hidden;
+                background: rgba(var(--accent-rgb),.22); }
+  .cost-fill { display: block; height: 100%; background: var(--neg); }
+  .cost-foot { font-family: var(--sans); font-size: .8rem; color: var(--ink-3);
+               margin: 8px 0 0; line-height: 1.5; }
+  :root[data-theme="cyber"] .cost,
+  :root[data-theme="cyber"] .cost-scale { border-radius: 0; }
+
+  /* ── карта профессий: плитка = профессия, площадь ∝ занятости ────────── */
+  .tile { position: relative; border: 0; padding: 0; cursor: pointer; }
+  .tile:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; z-index: 2; }
+  .wrap .legend { display: flex; flex-wrap: wrap; gap: 14px; font-family: var(--sans);
+                  font-size: .75rem; color: var(--ink-2); margin-top: 14px; align-items: center; }
+  .swatch { display: inline-block; width: 13px; height: 13px; margin-right: 5px; vertical-align: -2px; }
+  #mout { font-family: var(--sans); font-size: .84rem; color: var(--ink-2);
+          min-height: 2.6em; margin-top: 12px; line-height: 1.5; }
+  #mout b { color: var(--ink); }
+
+  .slider-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
+                font-family: var(--sans); font-size: .88rem; margin: 16px 0; }
+  input[type=range] { flex: 1; min-width: 180px; accent-color: var(--accent); }
+  .big { font-family: var(--sans); font-size: 2.3rem; font-weight: 600; letter-spacing: -.03em;
+         font-variant-numeric: tabular-nums; line-height: 1; }
+
+  .sources { padding: 44px 0 28px; border-bottom: 0; }
+  .wrap .sources h2 { font-family: var(--sans); font-size: .78rem; letter-spacing: .12em;
+                      text-transform: uppercase; color: var(--ink-3); margin-bottom: 16px; }
+  .sources ol { margin: 0; padding-left: 22px; font-family: var(--sans); font-size: .84rem;
+                color: var(--ink-2); line-height: 1.6; }
+  .sources li { margin-bottom: 9px; }
+  .sources a { word-break: break-word; text-decoration: underline; text-underline-offset: 2px; }
+
+  /* Полосе нужна вся ширина main: в колонке набора её строка ломается надвое. */
+  .wrap .sy-strip { margin: 0 0 8px; }
+
+  /* Кибертема сайта срезает углы — блоки исследования следуют за ней. */
+  :root[data-theme="cyber"] .tool,
+  :root[data-theme="cyber"] .note {
+    border-radius: 0;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  }
+  :root[data-theme="cyber"] .chip,
+  :root[data-theme="cyber"] .cards,
+  :root[data-theme="cyber"] .hits,
+  :root[data-theme="cyber"] input[type=search] { border-radius: 0; }
+  :root[data-theme="cyber"] .snum,
+  :root[data-theme="cyber"] .tool-h,
+  :root[data-theme="cyber"] .eyebrow { text-shadow: 0 0 12px rgba(var(--accent-rgb),.45); }
+  :root[data-theme="cyber"] .wrap h1 { letter-spacing: -.02em; }
+
+  /* Печать: на лист уходит одна короткая версия. Диалог живёт в верхнем слое,
+     который печатается непредсказуемо, поэтому перед печатью скрипт переносит
+     её текст в body и возвращает обратно. Лист всегда светлый: тёмный фон на
+     бумаге даёт чёрный прямоугольник. */
+  @media print {
+    :root[data-print="tldr"] body > *:not(#tldrDoc) { display: none !important; }
+    :root[data-print="tldr"] body::before,
+    :root[data-print="tldr"] body::after { display: none !important; }
+    :root[data-print="tldr"] #tldrDoc {
+      display: block !important; max-height: none; overflow: visible;
+      padding: 0; background: #fff; color: #14161f; font-size: 11pt;
+    }
+    :root[data-print="tldr"] #tldrDoc h2 { color: #14161f; }
+    :root[data-print="tldr"] #tldrDoc ul,
+    :root[data-print="tldr"] .tldr-sub { color: #3f4454; }
+    :root[data-print="tldr"] #tldrDoc li b { color: #14161f; }
+    :root[data-print="tldr"] .tldr-src,
+    :root[data-print="tldr"] .tldr-link { color: #5b6172; }
+    :root[data-print="tldr"] #tldrDoc li { break-inside: avoid; }
+  }
+
+  /* Длинный пункт краткой версии дробится на абзацы, как и проза статьи:
+     список остаётся списком, но внутри пункта появляется воздух. */
+  .tldr-doc li > p { margin: 0 0 .5em; }
+  .tldr-doc li > p:last-child { margin-bottom: 0; }
+  .dataset-note { margin-top: 20px; }
+  .dataset-note > p { margin: 0 0 .6em; }
+  .dataset-note > p:last-child { margin-bottom: 0; }
+
+  @media (max-width: 600px) {
+    .wrap { font-size: 16px; }
+    .lane { grid-template-columns: minmax(0, 74px) minmax(0, 1fr) 54px; font-size: .76rem; }
+    .tool { padding: 18px; }
+    /* Заголовок панели ломался на две строки и растил её вдвое; то же самое
+       написано в h2 строкой ниже, поэтому здесь он лишний. */
+    .tldr-kicker { display: none; }
+    .tldr-bar { justify-content: flex-end; }
+    .tldr-doc { padding: 18px 18px 24px; }
+    .wrap section { padding: 34px 0; }
+    .pull { font-size: 1.15rem; padding-left: 14px; }
+  }

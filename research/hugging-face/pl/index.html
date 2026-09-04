@@ -111,7 +111,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"></noscript>
-<link rel="stylesheet" href="../../shell.css?v=3">
+<link rel="stylesheet" href="../../shell.css?v=4">
 
 <script>
   /* Тема — до первой отрисовки, чтобы страница не моргала. */
@@ -677,31 +677,50 @@
   .tldr-src, .tldr-link { margin: 16px 0 0; font-size: 13px; color: var(--muted); }
   .tldr-link a { color: var(--accent); word-break: break-all; }
 
-  .tldr-acts { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 24px 18px;
+  /* Четыре кнопки держатся в одну строку на всех тринадцати языках: подписи
+     у них разной длины, и «Закрыть», отжатая к правому краю через auto,
+     срывалась на второй ряд первой же. Теперь ряд не переносится, а подписи
+     ужимаются многоточием — кнопка остаётся кнопкой и в турецком, и в
+     немецком. */
+  .tldr-acts { display: flex; flex-wrap: nowrap; gap: 8px; padding: 14px 24px 18px;
                border-top: 1px solid var(--border-soft); }
-  .tldr-acts button { font: 600 13px/1 var(--font-head); color: var(--text);
+  .tldr-acts button { flex: 0 1 auto; min-width: 0; overflow: hidden;
+                      text-overflow: ellipsis; white-space: nowrap;
+                      font: 600 13px/1 var(--font-head); color: var(--text);
                       background: var(--surface); border: 1px solid var(--border);
                       border-radius: 9px; padding: .55rem .8rem; cursor: pointer; }
   .tldr-acts button:hover { border-color: var(--accent); }
   .tldr-acts button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .tldr-acts button.done { color: var(--accent); border-color: var(--accent); }
-  .tldr-close { margin-inline-start: auto; }
+  /* «Закрыть» стоит последней и не ужимается: из четырёх кнопок она
+     единственная, которую надо прочитать наверняка. */
+  .tldr-close { flex: 0 0 auto; margin-inline-start: 4px; }
 
   @media (max-width: 420px) {
     .tldr-body { padding: 18px 16px 4px; }
-    .tldr-acts { padding: 12px 16px 14px; }
-    .tldr-close { margin-inline-start: 0; }
+    .tldr-acts { padding: 12px 16px 14px; gap: 6px; }
+    .tldr-acts button { padding: .55rem .6rem; font-size: 12.5px; }
   }
 
-  /* На печать уходит только краткая версия: остальное скрыто видимостью, а не
-     display, иначе диалог в верхнем слое утаскивает за собой всю страницу. */
+  /* На печать уходит только краткая версия. Скрывать статью видимостью нельзя:
+     visibility оставляет высоту, и после одного листа пересказа шли сорок с
+     лишним пустых. Поэтому скрипт вынимает тело окна прямо в body, а всё
+     остальное здесь снимается display'ем. Диалог при этом не трогается: он
+     в верхнем слое, и перенос самого диалога закрыл бы окно. */
   @media print {
-    html[data-printing="tldr"] body * { visibility: hidden; }
-    html[data-printing="tldr"] .tldr, html[data-printing="tldr"] .tldr * { visibility: visible; }
-    html[data-printing="tldr"] .tldr { position: absolute; inset: 0 auto auto 0;
-      width: 100%; max-height: none; border: 0; box-shadow: none; background: #fff; color: #000; }
-    html[data-printing="tldr"] .tldr-body { overflow: visible; padding: 0; }
-    html[data-printing="tldr"] .tldr-acts { display: none; }
+    html[data-printing="tldr"] body > *:not(.tldr-body) { display: none !important; }
+    html[data-printing="tldr"] body::before,
+    html[data-printing="tldr"] body::after { display: none !important; }
+    html[data-printing="tldr"] .tldr-body {
+      display: block !important; max-height: none; overflow: visible;
+      padding: 0; background: #fff; color: #000;
+    }
+    html[data-printing="tldr"] .tldr-body h3,
+    html[data-printing="tldr"] .tldr-body h4,
+    html[data-printing="tldr"] .tldr-nums b { color: #000; }
+    html[data-printing="tldr"] .tldr-link a { color: #333; }
+    html[data-printing="tldr"] .tldr-nums li,
+    html[data-printing="tldr"] .tldr-divs li { break-inside: avoid; }
   }
 
   /* Без скрипта лента актов бессмысленна — её просто нет. */
@@ -1260,7 +1279,7 @@
   <a class="to-top" href="/research/">← wróć do Research</a>
 </footer>
 
-<script src="../../shell.js?v=3"></script>
+<script src="../../shell.js?v=4"></script>
 <script>
 /* Каркас проводника: акты для липкой ленты и шаги для счётчика. Все тексты
    лежат в разметке выше, поэтому здесь только структура — и ни одного запроса. */
@@ -1531,12 +1550,23 @@ var DATA = {"acts":[{"id":"a0","num":"00","title":"Karteczka w pamięci podręcz
       sel.addRange(r);
     }
 
+    /* Печать одного листа: тело окна уезжает прямо в body, иначе его накрывают
+       и overflow диалога, и правила печати самой статьи. Переносится тело, а не
+       диалог: диалог живёт в верхнем слое, и вынуть его из документа значит
+       закрыть окно. */
+    var tbody = tldr.querySelector(".tldr-body"), tbodyHome = tbody.parentNode;
+    function restoreTldr() {
+      if (tbody.parentNode !== tbodyHome) tbodyHome.insertBefore(tbody, tbodyHome.firstChild);
+      root.removeAttribute("data-printing");
+    }
     tldr.querySelector("[data-tldr-print]").addEventListener("click", function () {
+      document.body.appendChild(tbody);
       root.setAttribute("data-printing", "tldr");
       window.print();
+      restoreTldr();
     });
     window.addEventListener("afterprint", function () {
-      root.removeAttribute("data-printing");
+      restoreTldr();
     });
   }
 

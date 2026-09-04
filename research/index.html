@@ -21,7 +21,7 @@
 <meta property="og:site_name" content="Aleksei Grebenkin">
 <meta property="og:locale" content="en_US">
 <meta property="og:title" content="Research — interactive studies by Aleksei Grebenkin">
-<meta property="og:description" content="Questions too big for a note, rebuilt from source data and published as pages you can argue with. First up: 303 cities, twelve metrics, and the weights are yours.">
+<meta property="og:description" content="Questions too big for a note, rebuilt from source data and published as pages you can argue with: what AI is doing to entry-level hiring, and what 303 cities cost for the life they give.">
 <meta property="og:url" content="https://avgrebenkin.com/research/">
 <meta property="og:image" content="https://avgrebenkin.com/images/research/find-your-city.jpg">
 <meta property="og:image:secure_url" content="https://avgrebenkin.com/images/research/find-your-city.jpg">
@@ -38,7 +38,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"></noscript>
-<link rel="stylesheet" href="shell.css?v=3">
+<link rel="stylesheet" href="shell.css?v=4">
 
 <script>
   /* the theme before first paint, so a light reader never sees a dark flash */
@@ -70,17 +70,23 @@
       "mainEntity": {
         "@type": "ItemList",
         "itemListOrder": "https://schema.org/ItemListOrderDescending",
-        "numberOfItems": 2,
+        "numberOfItems": 3,
         "itemListElement": [
           {
             "@type": "ListItem",
             "position": 1,
+            "url": "https://avgrebenkin.com/research/ai-and-work/",
+            "name": "The door didn't close. It narrowed."
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
             "url": "https://avgrebenkin.com/research/hugging-face/",
             "name": "Three reports, one break-in"
           },
           {
             "@type": "ListItem",
-            "position": 2,
+            "position": 3,
             "url": "https://avgrebenkin.com/research/cities/",
             "name": "Find your city"
           }
@@ -192,6 +198,26 @@
     </p>
 
     <div class="rs-grid">
+      <a class="rs-card" href="/research/ai-and-work/">
+        <img class="rs-cover" src="/images/research/ai-and-work.webp"
+             alt="Employment change in the most exposed occupations by age: the 22–25 group down 3.0 per cent, the 41–49 group up 1.9"
+             width="1200" height="630" loading="lazy" decoding="async">
+        <div class="rs-body">
+          <p class="rs-meta">
+            <time datetime="2026-09-03">3 Sep 2026</time>
+            <span class="rs-topic">Work &amp; AI</span>
+            <span class="rs-scale">825 occupations · 14 sources · 13 languages</span>
+          </p>
+          <h3 class="rs-title">The door didn't close. It narrowed.</h3>
+          <p class="rs-dek">
+            Bill Gates says the AI job threshold has been crossed. Checked against the employment data he
+            never cites: the effect is not between occupations but inside them, sorted by age. Look up your
+            own job among 825.
+          </p>
+          <span class="rs-go">Open the study <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+
       <a class="rs-card" href="/research/hugging-face/">
         <img class="rs-cover" src="/images/research/hugging-face-incident.jpg"
              alt="A timeline that forks into three branches, one per investigation, on graph paper"
@@ -232,14 +258,17 @@
     </div>
 
     <p class="research-note">
-      <strong>Two studies so far, each in thirteen languages.</strong> The section is the permanent part — the
-      next one lands as another card here. Every page carries a language picker; English sits on the plain
-      address, the other twelve in a folder under it. If you want to pick a fight with the numbers in any of
-      them, the method section on each page lists every source and every tag it was counted with.
+      <strong>Three studies so far, each in thirteen languages.</strong> The section is the permanent
+      part — the next one lands as another card here. English sits on the plain address and the other twelve
+      in a folder under it, and every page carries the picker. If you want to pick a fight with the numbers
+      in any of them, the method section on each page lists every source and every tag it was counted with.
     </p>
 
     <aside class="sy-strip" aria-label="Speak-Y">
-      <span class="sy-name">Speak-<i>Y</i></span>
+      <span class="sy-brand">
+        <img class="sy-icon" src="/images/icons/speak-y.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+        <span class="sy-name">Speak-<i>Y</i></span>
+      </span>
       <p><b>Voice input and meeting recording.</b> One hotkey, any app, 67+ languages.</p>
       <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free <span aria-hidden="true">→</span></a>
     </aside>
@@ -251,6 +280,6 @@
   <a class="to-top" href="/">← back to avgrebenkin.com</a>
 </footer>
 
-<script src="shell.js?v=3"></script>
+<script src="shell.js?v=4"></script>
 </body>
 </html>

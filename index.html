@@ -1159,20 +1159,30 @@ a.contact-card:hover{border-color:var(--border);transform:translateY(-2px);backg
 :root[data-theme="cyber"]{--sy-rule:rgba(0,240,255,.55)}
 /* Баннер Speak-Y: рамка фирменного синего, одна строка, оранжевая кнопка —
    единственное яркое пятно. Цвета взяты со speak-y.com. */
+/* Слева знак приложения — иконка и имя под ней, — дальше строка оффера и кнопка.
+   Раньше имя стояло в один ряд со строкой и центрировалось по боксу: кегли
+   разные, шрифты тоже, и «Speak-Y» садился на три пиксела ниже строки.
+   Собранное в столбик имя эту разницу снимает и заодно отдаёт строке
+   полсотни пикселов ширины, так что оффер держится в одну строку. */
 .sy-banner{
-  position:relative;z-index:1;display:flex;align-items:center;flex-wrap:wrap;gap:.7rem 1.4rem;
+  position:relative;z-index:1;display:flex;align-items:center;flex-wrap:wrap;gap:.7rem 1.25rem;
   margin-top:3rem;padding:1.15rem 1.4rem;
   border:1.5px solid var(--sy-rule);border-radius:14px;background:transparent;cursor:pointer;
 }
+.sy-brand{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:.3rem}
+.sy-icon{
+  width:52px;height:52px;
+  border-radius:13px;border:1px solid var(--border-soft);background:var(--bg-elev);
+}
 .sy-name{
-  font-family:var(--font-head);font-size:1.25rem;font-weight:700;letter-spacing:-.03em;
-  color:var(--text);white-space:nowrap;
+  font-family:var(--font-head);font-size:.95rem;font-weight:700;
+  letter-spacing:-.03em;line-height:1.2;color:var(--text);white-space:nowrap;
 }
 .sy-name i{font-style:normal;color:var(--sy-orange)}
 .sy-line{flex:1;min-width:16rem;margin:0;color:var(--muted);font-size:.95rem;line-height:1.5}
 .sy-line b{color:var(--text);font-weight:600}
 .sy-cta{
-  display:inline-block;white-space:nowrap;
+  display:inline-block;align-self:center;white-space:nowrap;
   padding:.7rem 1.3rem;border-radius:10px;border:0;
   /* чёрный, а не белый: на оранжевом #FF6700 белый даёт контраст 2.92
      и не проходит AA, чёрный — 7.19 */
@@ -1185,11 +1195,14 @@ a.contact-card:hover{border-color:var(--border);transform:translateY(-2px);backg
 .sy-banner:hover .sy-cta{background:var(--sy-orange-2)}
 @media (max-width:720px){
   .sy-banner{gap:.55rem 1rem;padding:1.05rem 1.15rem}
-  /* На узком экране имя, строка и кнопка встают друг под другом. */
-  .sy-line{flex:1 0 100%;min-width:0}
+  /* На узком экране знак и строка остаются в ряд, кнопка уходит под них.
+     Строка здесь в несколько строк, поэтому знак прижимается к её верху. */
+  .sy-brand{align-self:flex-start}
+  .sy-line{min-width:0}
   .sy-cta{flex:1 0 100%;text-align:center;margin-top:.15rem}
 }
 :root[data-theme="cyber"] .sy-banner{border-radius:0}
+:root[data-theme="cyber"] .sy-icon{border-radius:0;border-color:var(--border)}
 :root[data-theme="cyber"] .sy-cta{
   border-radius:0;text-transform:uppercase;letter-spacing:.08em;font-size:.82rem;
   font-family:var(--font-mono);
@@ -1391,7 +1404,10 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
 
   <!-- ============ SPEAK-Y INVITE ============ -->
   <aside class="sy-banner reveal" aria-label="Speak-Y">
-    <span class="sy-name">Speak-<i>Y</i></span>
+    <span class="sy-brand">
+      <img class="sy-icon" src="images/icons/speak-y.webp" alt="" width="52" height="52" loading="lazy" decoding="async">
+      <span class="sy-name">Speak-<i>Y</i></span>
+    </span>
     <p class="sy-line"><b>Voice input and meeting recording.</b> One hotkey, any app, 67+ languages.</p>
     <a class="sy-cta" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free <span aria-hidden="true">→</span></a>
   </aside>
