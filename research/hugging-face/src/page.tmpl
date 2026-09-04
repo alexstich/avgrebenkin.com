@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{lang}}" dir="{{dir}}" data-theme="dark" data-mode="full" class="no-js">
+<html lang="{{lang}}" dir="{{dir}}" data-theme="dark" class="no-js">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -90,8 +90,7 @@
 <link rel="stylesheet" href="{{up}}shell.css?v=2">
 
 <script>
-  /* Тема и режим чтения — до первой отрисовки, чтобы страница не моргала
-     сначала тёмной, а потом подробной. */
+  /* Тема — до первой отрисовки, чтобы страница не моргала. */
   (function () {
     var r = document.documentElement;
     r.classList.remove('no-js');
@@ -102,10 +101,6 @@
       }
       r.setAttribute('data-theme', t);
     } catch (e) {}
-    var m = /[?&]mode=(simple|full)/.exec(location.search);
-    m = m ? m[1] : null;
-    if (!m) { try { m = localStorage.getItem('hf-mode'); } catch (e) {} }
-    r.setAttribute('data-mode', m === 'full' ? 'full' : 'simple');
   })();
 </script>
 
@@ -233,11 +228,6 @@
   </dialog>
 
   <div class="modebar">
-    <div class="seg" role="group" aria-label="{{modeGroup}}">
-      <button type="button" data-seg="simple" aria-pressed="false">{{modeSimple}}</button>
-      <button type="button" data-seg="full" aria-pressed="true">{{modeFull}}</button>
-    </div>
-    <span class="counter" data-counter aria-live="polite">{{counterFull}}</span>
     {{langpicker}}
   </div>
 
@@ -248,7 +238,6 @@
 
   <section aria-labelledby="h-what">
     <h2 id="h-what">{{hWhat}}</h2>
-    <div class="h2note">{{nWhat}}</div>
     {{intro}}
   </section>
 
@@ -266,11 +255,7 @@
       <div class="exbar">
         <div class="ribbon" id="ribbon" role="group" aria-label="{{actsGroup}}"></div>
         <div class="exbar-foot">
-          <div class="seg" role="group" aria-label="{{modeGroup}}">
-            <button type="button" data-seg="simple" aria-pressed="false">{{modeSimple}}</button>
-            <button type="button" data-seg="full" aria-pressed="true">{{modeFull}}</button>
-          </div>
-          <span class="counter" data-counter>{{counterFull}}</span>
+          <span class="counter">{{counterFull}}</span>
           <span class="exhint">{{utcHint}}</span>
         </div>
         <div class="progress" aria-hidden="true"><i></i></div>
@@ -295,8 +280,8 @@
 
   <aside class="sy-strip" aria-label="Speak-Y">
     <span class="sy-name">Speak-<i>Y</i></span>
-    <p><b>Voice input and meeting recording.</b> One hotkey, any app, 67+ languages.</p>
-    <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free <span aria-hidden="true">→</span></a>
+    <p>{{syText}}</p>
+    <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">{{syCta}} <span aria-hidden="true">→</span></a>
   </aside>
 
   <section aria-labelledby="h-sources">
@@ -320,10 +305,6 @@
 /* Каркас проводника: акты для липкой ленты и шаги для счётчика. Все тексты
    лежат в разметке выше, поэтому здесь только структура — и ни одного запроса. */
 var DATA = {{data}};
-var UI = {
-  counterSimple: {{counterSimpleJS}},
-  counterFull: {{counterFullJS}}
-};
 </script>
 <script>
 {{js}}
