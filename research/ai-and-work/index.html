@@ -453,7 +453,12 @@
 
   /* ── таблицы ────────────────────────────────────────────────────────
      На узком экране таблица не переверстывается, а прокручивается внутри
-     .scroll: min-width не даёт колонкам схлопнуться в вертикальную кашу. */
+     .scroll: min-width не даёт колонкам схлопнуться в вертикальную кашу.
+     Порог — 500 px, а не 520: колонка статьи ровно 512 (--measure), и при
+     520 таблица на десктопе всегда была прокручена на восемь пикселей,
+     обрезая последний столбец, — «+2.0%» читалось как «+2.0». При 500 она
+     сходится по ширине колонки во всех тринадцати языках; платой стала
+     вторая строка в одном-двух заголовках столбцов. */
   .wrap table { width: 100%; border-collapse: collapse; font-family: var(--sans);
                 font-size: .85rem; margin: 8px 0; }
   .wrap th, .wrap td { text-align: left; padding: 9px 12px 9px 0;
@@ -466,7 +471,7 @@
                            padding-right: 0; padding-left: 16px; }
   .wrap td.dn { color: var(--neg); } .wrap td.up { color: var(--pos); }
   .scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .scroll table { min-width: 520px; }
+  .scroll table { min-width: 500px; }
 
   /* ── интерактивные блоки ────────────────────────────────────────────── */
   .tool { background: var(--card-bg); border: 1px solid var(--rule); border-radius: 14px;
