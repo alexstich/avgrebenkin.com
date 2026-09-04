@@ -374,7 +374,7 @@ mid-year 2026: совпали все. Контрольный тест: из на
 | `hugging-face/src/build.py` | Сборка: структура + строки → тринадцать страниц |
 | `hugging-face/src/pack.py` | Каталог строк ↔ плоский TSV для перевода |
 | `hugging-face/src/cover.svg` | Исходник обложки |
-| `hugging-face/src/cover-page.svg` | Исходник обложки для самой страницы — та же графика без единого слова |
+| `hugging-face/src/cover-page.svg` | Исходник обложки для самой страницы — та же графика и те же слова |
 | `../images/research/hugging-face-incident.jpg` | Обложка 1200×630 для карточки и соцсетей: раздвоенная линия времени на миллиметровке |
 | `../images/research/hugging-face-incident-page.webp` | Обложка 1600×560 в шапке самой страницы |
 
