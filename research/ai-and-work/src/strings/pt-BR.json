@@ -78,9 +78,15 @@
     "lane5": "Mais expostas",
     "src1": "Stanford Digital Economy Lab, painel equilibrado de folha de pagamento da ADP[^3].",
     "b": "Agora acrescente uma única variável. Os mesmos dados, o mesmo mês, as mesmas ocupações — separados por idade.",
-    "fig2": "Variação do emprego em doze meses nas ocupações *mais expostas*, por faixa etária. Julho de 2026.",
+    "fig2": "Variação do emprego em doze meses por grupo de exposição, uma faixa etária de cada vez. Julho de 2026.",
+    "ladAge": "Idade",
+    "ladAria": "Faixa etária",
     "src2": "O mesmo painel, o mesmo mês[^3]. A diferença entre os mais jovens e a faixa de 41–49 é de 4,9 pontos percentuais — dentro das mesmas ocupações.",
     "c": "O efeito não passa entre ocupações. Passa **dentro delas, ordenado por idade**. Na janela mais longa a fratura é ainda mais nítida: desde o fim de 2022, o emprego de quem tem 22 a 25 anos nas duas categorias mais expostas caiu 11 por cento, enquanto a mesma faixa etária nas três menos expostas subiu 10[^3].",
+    "doorCap": "A largura do vão é a variação do emprego dos de 22 a 25 anos desde o fim de 2022.",
+    "doorA": "Nos dois grupos mais expostos",
+    "doorB": "A mesma idade, nos três menos expostos",
+    "doorBase": "O contorno tracejado é o nível do fim de 2022; os dois vãos são medidos a partir dele[^3].",
     "pull": "Ninguém está sendo demitido. Está entrando menos gente.",
     "d": "Essa distinção é o achado. As taxas de desligamento dos jovens em ocupações expostas não subiram — **a contratação desacelerou**.\n\nA porta não se fechou atrás de quem já está dentro; ela estreitou para quem tenta entrar. Gates descreve exatamente isso quando escreve sobre as posições de entrada, e é a parte do ensaio dele que melhor resiste ao contato com os dados.",
     "note": "**O que os próprios pesquisadores ressalvam.** O efeito cai pela metade quando se controla por escolaridade, parte da queda antecede a IA generativa, e a diferença é menor nas pesquisas nacionais do que neste painel de folha.\n\nO painel não é representativo do mercado de trabalho americano, e o artigo não passou por revisão por pares. Os autores chamam os resultados de descritivos, não causais[^3]."
@@ -102,9 +108,8 @@
   "s06": {
     "num": "06 — O mapa",
     "h": "Um quinto do mercado, em detalhe",
-    "a": "Coloque as 825 ocupações numa mesma superfície e o quadro é **mais calmo que o debate**. Cada ladrilho abaixo é uma ocupação, dimensionada pelo número de empregados e colorida pela categoria oficial de exposição. Passe o cursor ou toque em qualquer um.",
-    "mapLegend": "Área ∝ emprego · as 120 maiores ocupações · toque num ladrilho para procurá-lo acima",
-    "mapHint": "Passe o cursor ou toque num ladrilho para ver a ocupação.",
+    "a": "Coloque as 825 ocupações numa mesma tabela e o quadro é **mais calmo que o debate**. Ordene por qualquer coluna, filtre por nome e leia a categoria de exposição na marca ao lado.",
+    "legH": "Como ler a tabela",
     "tableLead": "A parcela do emprego em cada categoria, nas 831 ocupações que o Bureau projeta:",
     "th1": "Exposição",
     "th2": "Ocupações",
@@ -239,11 +244,44 @@
     "yWhere": "Onde {who} trabalham",
     "yWhereNote": "das {who} ocupadas estão em ocupações de exposição {cat} — entre {other}, {otherShare}[^1][^4]",
     "afterPlot": "Todas as faixas etárias em ocupações deste nível de exposição. Painel de folha de pagamento de Stanford, julho de 2026[^3].",
-    "tileAria": "{occ}, exposição {cat}",
-    "tileLine": "{emp} empregados · exposição {cat} · projeção {proj} até 2035",
-    "tileWomen": " · {pct} de mulheres",
-    "groupCount": "{n} de 120 · {emp} empregados",
-    "groupLargest": "Maiores: {list}",
+    "ladNote": "Idade {band}. As linhas são as categorias de exposição da ocupação.",
+    "tabTh": {
+      "occ": "Ocupação",
+      "emp": "Empregados",
+      "proj": "Projeção para 2035",
+      "wage": "Salário mediano, $",
+      "tasks": "Tarefas aos modelos"
+    },
+    "tabLeg": {
+      "emp": {
+        "k": "Empregados",
+        "v": "quantas pessoas trabalham hoje na ocupação"
+      },
+      "proj": {
+        "k": "Projeção",
+        "v": "a projeção oficial do Bureau para 2025-35"
+      },
+      "wage": {
+        "k": "Salário mediano",
+        "v": "rendimento anual mediano, em dólares"
+      },
+      "tasks": {
+        "k": "Tarefas aos modelos",
+        "v": "a parcela medida das tarefas já levadas aos modelos: 0,70 é quase todo o trabalho, 0,00 não é nada"
+      },
+      "color": {
+        "k": "A marca",
+        "v": "categoria oficial de exposição, do verde baixa ao vermelho muito alta"
+      },
+      "sort": {
+        "k": "Ordenação",
+        "v": "clique no cabeçalho de uma coluna"
+      }
+    },
+    "tabCount": "{shown} de {total}",
+    "tabPlaceholder": "Filtrar por nome: nurse, sales, teacher…",
+    "tabAria": "Filtrar ocupações por nome",
+    "tabEmpty": "Nada corresponde ao filtro.",
     "copied": "Copiado",
     "copyManual": "Pressione ⌘C"
   }

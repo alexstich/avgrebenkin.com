@@ -78,9 +78,15 @@
     "lane5": "Zwaarst blootgesteld",
     "src1": "Stanford Digital Economy Lab, gebalanceerd ADP-loonpanel[^3].",
     "b": "Voeg nu één variabele toe. Dezelfde data, dezelfde maand, dezelfde beroepen – gesplitst naar leeftijd.",
-    "fig2": "Verandering van de werkgelegenheid over twaalf maanden in de *zwaarst blootgestelde* beroepen, per leeftijdsgroep. Juli 2026.",
+    "fig2": "Werkgelegenheidsverandering over twaalf maanden per blootstellingsgroep, één leeftijdsgroep tegelijk. Juli 2026.",
+    "ladAge": "Leeftijd",
+    "ladAria": "Leeftijdsgroep",
     "src2": "Hetzelfde panel, dezelfde maand[^3]. Het gat tussen de jongsten en de groep 41–49 bedraagt 4,9 procentpunt – binnen dezelfde beroepen.",
     "c": "Het effect loopt niet tussen de beroepen. Het loopt **erbinnen, gesorteerd op leeftijd**.\n\nOver het langere venster is de breuk nog scherper: sinds eind 2022 daalde de werkgelegenheid van 22- tot 25-jarigen in de twee zwaarst blootgestelde groepen met 11 procent, terwijl dezelfde leeftijdsgroep in de drie minst blootgestelde met 10 procent steeg[^3].",
+    "doorCap": "De breedte van de opening is de verandering in werkgelegenheid van 22- tot 25-jarigen sinds eind 2022.",
+    "doorA": "In de twee zwaarst blootgestelde groepen",
+    "doorB": "Dezelfde leeftijd, in de drie minst blootgestelde",
+    "doorBase": "De stippellijn is het niveau van eind 2022; beide openingen worden daarvandaan gemeten[^3].",
     "pull": "Niemand wordt ontslagen. Er worden er minder binnengelaten.",
     "d": "Dat onderscheid is de bevinding. Het uitstroompercentage van blootgestelde jonge werknemers steeg niet – **de aanname vertraagde**.\n\nDe deur viel niet dicht achter wie al binnen was; hij werd smaller voor wie naar binnen wil. Gates beschrijft precies dit wanneer hij over instapfuncties schrijft, en het is het deel van zijn essay dat de confrontatie met de cijfers het best doorstaat.",
     "note": "**Wat de onderzoekers zelf aantekenen.** Het effect halveert zodra je voor opleiding controleert, een deel van de daling ligt vóór generatieve AI, en het gat is kleiner in landelijke enquêtes dan in dit loonpanel.\n\nHet panel is niet representatief voor de Amerikaanse arbeidsmarkt, en het artikel is niet peer-reviewed. De auteurs noemen de resultaten beschrijvend, niet causaal[^3]."
@@ -102,9 +108,8 @@
   "s06": {
     "num": "06 – De kaart",
     "h": "Een vijfde van de markt, grondig",
-    "a": "Leg alle 825 beroepen op één vlak en het beeld is **rustiger dan het debat**. Elke tegel hieronder is een beroep, geschaald naar het aantal werkenden en gekleurd naar officiële blootstellingscategorie. Ga er met de muis overheen of tik er een aan.",
-    "mapLegend": "Oppervlak ∝ werkgelegenheid · de 120 grootste beroepen · tik een tegel aan om hem hierboven op te zoeken",
-    "mapHint": "Ga over een tegel of tik erop om het beroep te zien.",
+    "a": "Zet alle 825 beroepen in één tabel en het beeld is **rustiger dan het debat**. Sorteer op elke kolom, filter op naam, en de blootstellingscategorie staat als merkteken naast de naam.",
+    "legH": "Hoe de tabel te lezen is",
     "tableLead": "Het aandeel werkgelegenheid per categorie, over alle 831 beroepen die het Bureau projecteert:",
     "th1": "Blootstelling",
     "th2": "Beroepen",
@@ -239,11 +244,44 @@
     "yWhere": "Waar {who} werken",
     "yWhereNote": "van de werkende {who} zit in beroepen met {cat} blootstelling – bij {other} is dat {otherShare}[^1][^4]",
     "afterPlot": "Alle leeftijdsgroepen in beroepen van dit blootstellingsniveau. Stanford-loonpanel, juli 2026[^3].",
-    "tileAria": "{occ}, blootstelling {cat}",
-    "tileLine": "{emp} werkzaam · blootstelling {cat} · projectie {proj} tot 2035",
-    "tileWomen": " · {pct} vrouwen",
-    "groupCount": "{n} van de 120 · {emp} werkzaam",
-    "groupLargest": "Grootste: {list}",
+    "ladNote": "Leeftijd {band}. De rijen zijn de blootstellingscategorieën van het beroep.",
+    "tabTh": {
+      "occ": "Beroep",
+      "emp": "Werkenden",
+      "proj": "Prognose tot 2035",
+      "wage": "Mediaan loon, $",
+      "tasks": "Taken naar modellen"
+    },
+    "tabLeg": {
+      "emp": {
+        "k": "Werkenden",
+        "v": "hoeveel mensen het beroep nu uitoefenen"
+      },
+      "proj": {
+        "k": "Prognose",
+        "v": "de officiële prognose van het Bureau voor 2025-35"
+      },
+      "wage": {
+        "k": "Mediaan loon",
+        "v": "mediaan jaarinkomen, in dollars"
+      },
+      "tasks": {
+        "k": "Taken naar modellen",
+        "v": "het gemeten aandeel taken dat al naar modellen gaat: 0,70 is bijna al het werk, 0,00 is niets"
+      },
+      "color": {
+        "k": "Het merkteken",
+        "v": "officiële blootstellingscategorie, van groen laag tot rood zeer hoog"
+      },
+      "sort": {
+        "k": "Sorteren",
+        "v": "klik op een kolomkop"
+      }
+    },
+    "tabCount": "{shown} van {total}",
+    "tabPlaceholder": "Filter op naam: nurse, sales, teacher…",
+    "tabAria": "Beroepen op naam filteren",
+    "tabEmpty": "Niets komt overeen met het filter.",
     "copied": "Gekopieerd",
     "copyManual": "Druk op ⌘C"
   }

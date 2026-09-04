@@ -39,7 +39,7 @@ var SEXSHARE=(function(){
 function num(n){return n.toLocaleString(T.numLocale);}
 function dec(s){return String(s).replace('.',T.decimal);}
 function pct(v){return fill(T.percent,{n:dec(v)});}
-function signed(v){return (v>0?'+':'−')+pct(Math.abs(v).toFixed(1));}
+function signed(v){return (v>0?'+':v<0?'−':'')+pct(Math.abs(v).toFixed(1));}
 function thousands(n){return fill(T.thousands,{n:num(Math.round(n/1000))});}
 function millions(n){return fill(T.millions,{n:dec((n/1e6).toFixed(1))});}
 
@@ -112,60 +112,120 @@ function show(){
     return '<div class="lane'+(i===st.age?' hi':'')+'"><span class="lab">'+AGES[i]+'</span><span class="track"><span class="axis"></span><span class="bar'+(neg?' dn':'')+'" style="'+(neg?'right:50%':'left:50%')+';width:'+wd+'%"></span></span><span class="val">'+signed(v)+'</span></div>';
   }).join('');
   document.getElementById('afterPlot').innerHTML=T.afterPlot;
-  paintMatrix();
+  paintRow();
 }
 
-/* map */
-/* Не `top`: на верхнем уровне классического скрипта это имя занято
-   неперезаписываемым window.top, и присваивание молча не срабатывает. */
-var biggest=DATA.slice().sort(function(a,b){return b[2]-a[2];}).slice(0,120);
-var maxE=biggest[0][2], mt=document.getElementById('matrix'), mout=document.getElementById('mout');
-
-/* Плитки собраны в четыре блока по категориям: россыпь вперемешку не отвечала
-   ни на один вопрос, а так сразу виден объём каждой категории и кто в ней
-   крупнейший. Клик по плитке уводит в поиск наверху — карта перестаёт быть
-   тыканьем наугад и становится входом в персональный ответ. */
-function tile(o){
-  var side=Math.max(13,Math.round(Math.sqrt(o[2]/maxE)*74));
-  return '<button class="tile" type="button" style="width:'+side+'px;height:'+side
-       +'px;background:'+(CATCOL[o[5]]||'var(--ink-3)')+'" data-i="'+DATA.indexOf(o)
-       +'" aria-label="'+fill(T.tileAria,{occ:o[0],cat:CATNAME[o[5]]||T.na})+'"></button>';
-}
-mt.innerHTML=[4,3,2,1].map(function(cat){
-  var occ=biggest.filter(function(o){return o[5]===cat;});
-  if(!occ.length)return '';
-  var emp=occ.reduce(function(a,o){return a+o[2];},0);
-  return '<div class="mgroup"><p class="mgh">'
-    +'<i class="swatch sw" style="background:'+CATCOL[cat]+'"></i>'
-    +'<b>'+T.catsHead[cat]+'</b>'
-    +'<span class="n">'+fill(T.groupCount,{n:occ.length,emp:millions(emp)})+'</span>'
-    +'<span class="n">'+fill(T.groupLargest,{list:occ.slice(0,3).map(function(o){return o[0];}).join(', ')})+'</span>'
-    +'</p><div class="matrix">'+occ.map(tile).join('')+'</div></div>';
-}).join('');
-
-/* Профессия, выбранная в поиске, обводится на карте — иначе её там не найти. */
-function paintMatrix(){
-  var i=st.occ?String(DATA.indexOf(st.occ)):null;
-  [].forEach.call(mt.querySelectorAll('.tile'),function(t){
-    t.classList.toggle('on',t.dataset.i===i);
+/* ── лестница возрастов, раздел 04 ──────────────────────────────────
+   Возраст выбирает читатель, строки — четыре категории уязвимости. Цвет
+   полосы берётся из категории, а не из знака: направление от оси и так
+   говорит, вверх это или вниз, а краска должна отвечать на другой вопрос —
+   насколько профессия уязвима. Синего в шкале нет ни в одной теме. */
+(function(){
+  var box=document.getElementById('ladAge'), plot=document.getElementById('ladPlot'),
+      note=document.getElementById('ladNote'), cur=0;
+  /* 4.4 — чуть больше самого длинного значения панели (4,2). Общий предел
+     на все шесть возрастов: пересчитывать его под выбранный возраст нельзя,
+     иначе полосы прыгали бы в длине при неизменных числах. */
+  var MAX=4.4;
+  function draw(){
+    plot.innerHTML=[4,3,2,1].map(function(c){
+      var v=SDEL[c][cur], neg=v<0, wd=Math.abs(v)/MAX*46;
+      return '<div class="lane"><span class="lab">'+T.catsHead[c]+'</span>'
+        +'<span class="track"><span class="axis"></span><span class="bar'+(neg?' dn':'')
+        +'" style="'+(neg?'right:50%':'left:50%')+';width:'+wd+'%;background:'+CATCOL[c]+'"></span></span>'
+        +'<span class="val'+(v<0?' dn':v>0?' up':'')+'">'+signed(v)+'</span></div>';
+    }).join('');
+    note.innerHTML=fill(T.ladNote,{band:AGES[cur]});
+  }
+  AGES.forEach(function(a,i){
+    var b=document.createElement('button');
+    b.type='button'; b.className='chip'; b.textContent=a;
+    b.setAttribute('aria-pressed',String(i===0));
+    b.onclick=function(){
+      [].forEach.call(box.children,function(c){c.setAttribute('aria-pressed','false');});
+      b.setAttribute('aria-pressed','true'); cur=i; draw();
+    };
+    box.appendChild(b);
   });
-}
-function tileInfo(e){
-  var t=e.target.closest('.tile'); if(!t)return;
-  var o=DATA[+t.dataset.i];
-  mout.innerHTML='<b>'+o[0]+'</b> — '+fill(T.tileLine,{
-    emp:thousands(o[2]),cat:CATNAME[o[5]]||T.na,proj:signed(o[3])})
-    +(o[7]>=0?fill(T.tileWomen,{pct:pct(o[7].toFixed(0))}):'');
-}
-mt.addEventListener('mouseover',tileInfo);
-mt.addEventListener('focusin',tileInfo);
-mt.addEventListener('click',function(e){
-  var t=e.target.closest('.tile'); if(!t)return;
-  tileInfo(e);
-  var o=DATA[+t.dataset.i];
-  st.occ=o; q.value=o[0]; hits.innerHTML=''; show();
-  document.getElementById('res').scrollIntoView({block:'center'});
-});
+  draw();
+})();
+
+/* ── таблица профессий, раздел 06 ───────────────────────────────────
+   Все 825 профессий, а не 120 крупнейших, как было на карте. Сортировка
+   по любой колонке, фильтр по названию, категория уязвимости — цветной
+   меткой у имени. Профессия, выбранная поиском в разделе 05, подсвечивается
+   строкой и подтягивается в видимую часть: связь карты с поиском была
+   единственным, что стоило из неё сохранить. */
+var paintRow;
+(function(){
+  var q2=document.getElementById('tq'), tn=document.getElementById('tn'),
+      tb=document.getElementById('tb'), tth=document.getElementById('tth'),
+      leg=document.getElementById('tleg'), box=document.querySelector('.occbox');
+  var COLS=[['occ',0],['emp',2],['proj',3],['wage',4],['tasks',6]];
+  var key=2, dir=-1, flt='', rows=[];
+
+  q2.placeholder=T.tabPlaceholder;
+  q2.setAttribute('aria-label',T.tabAria);
+
+  leg.innerHTML=['emp','proj','wage','tasks','color','sort'].map(function(k){
+    return '<li><b>'+T.tabLeg[k].k+'</b><span>'+T.tabLeg[k].v+'</span></li>';
+  }).join('');
+
+  function head(){
+    tth.innerHTML='<tr>'+COLS.map(function(c,i){
+      var on=c[1]===key;
+      return '<th'+(i?' class="n"':'')+(on?' aria-sort="'+(dir<0?'descending':'ascending')+'"':'')
+        +'><button type="button" class="sortb" data-k="'+c[1]+'">'+T.tabTh[c[0]]
+        +'<i aria-hidden="true">'+(on?(dir<0?'\u2193':'\u2191'):'')+'</i></button></th>';
+    }).join('')+'</tr>';
+    [].forEach.call(tth.querySelectorAll('.sortb'),function(b){
+      b.onclick=function(){
+        var k=+b.dataset.k;
+        dir=(k===key)?-dir:(k===0?1:-1); key=k; draw();
+      };
+    });
+  }
+
+  function draw(){
+    rows=DATA.filter(function(o){return !flt||o[0].toLowerCase().indexOf(flt)>-1;});
+    rows.sort(function(a,b){
+      if(key===0)return dir*(a[0]<b[0]?-1:a[0]>b[0]?1:0);
+      /* «нет данных» — это −1, и при сортировке по возрастанию такие строки
+         вылезали бы вперёд настоящих нулей. Отправляем их всегда в конец. */
+      var x=a[key],y=b[key];
+      if(x<0&&y<0)return 0; if(x<0)return 1; if(y<0)return -1;
+      return dir*(x-y);
+    });
+    tb.innerHTML=rows.length?rows.map(function(o){
+      return '<tr data-i="'+DATA.indexOf(o)+'"><td class="nm">'
+        +'<i class="swatch sw" style="background:'+(CATCOL[o[5]]||'var(--ink-3)')+'"></i>'
+        +'<span>'+o[0]+'</span></td>'
+        +'<td class="n">'+thousands(o[2])+'</td>'
+        +'<td class="n '+(o[3]<0?'dn':o[3]>0?'up':'')+'">'+signed(o[3])+'</td>'
+        +'<td class="n">'+num(o[4])+'</td>'
+        +'<td class="n">'+(o[6]>=0?dec(o[6].toFixed(2)):T.na)+'</td></tr>';
+    }).join(''):'<tr><td class="empty" colspan="5">'+T.tabEmpty+'</td></tr>';
+    tn.textContent=fill(T.tabCount,{shown:num(rows.length),total:num(DATA.length)});
+    head(); paintRow();
+  }
+
+  paintRow=function(){
+    var i=st.occ?String(DATA.indexOf(st.occ)):null, hit=null;
+    [].forEach.call(tb.querySelectorAll('tr'),function(t){
+      var on=t.dataset.i===i;
+      t.classList.toggle('on',on); if(on)hit=t;
+    });
+    /* Не scrollIntoView: он тянет за собой всю страницу к разделу 06,
+       а читатель в этот момент смотрит на карточки раздела 05. Двигаем
+       только внутренний скролл таблицы. */
+    if(hit)box.scrollTop=hit.offsetTop-box.clientHeight/2+hit.offsetHeight/2;
+  };
+
+  q2.addEventListener('input',function(){
+    flt=q2.value.trim().toLowerCase(); draw();
+  });
+  draw();
+})();
 
 /* Полоса под двумя числами: 1,2× от 474× — это 0,3 % шкалы, столько она и
    показывает. Ширина берётся из самих чисел, чтобы они не разошлись. */
