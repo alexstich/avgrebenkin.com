@@ -251,6 +251,16 @@
          background: rgba(var(--accent-rgb), .10); color: var(--ink); }
   :root[data-theme="cyber"] code { border-radius: 0; }
 
+  /* Обложка страницы — отдельная картинка, без единого слова текста: та, что
+     уходит в соцсети, несёт вшитый английский заголовок и на двенадцати
+     переведённых страницах читалась бы по-английски да ещё дублировала бы <h1>.
+     Ширина — та же мера, что у прозы, иначе у шапки появился бы второй правый
+     край. */
+  .cover { display: block; width: 100%; max-width: var(--measure); height: auto;
+           margin: 0 0 26px; border: 1px solid var(--border-soft);
+           border-radius: 12px; }
+  :root[data-theme="cyber"] .cover { border-radius: 0; }
+
   .wrap header h1 { font-family: var(--font-head); font-weight: 700;
                     font-size: clamp(30px, 5.2vw, 52px); line-height: 1.06;
                     margin: 0 0 12px; letter-spacing: -.02em; text-wrap: balance; }
@@ -629,7 +639,7 @@
     .chev { transition: none; }
   }
   @media print {
-    .exbar, .sy-strip, .chev, .modebar { display: none !important; }
+    .exbar, .sy-strip, .chev, .modebar, .cover { display: none !important; }
     .step, .dv, .fact, .lg, .explorer { break-inside: avoid; box-shadow: none; }
   }
 
@@ -757,6 +767,8 @@
   <p class="crumb"><a href="/research/">← Research</a></p>
 
   <header>
+    <img class="cover" src="../../../images/research/hugging-face-incident-page.webp"
+         alt="Uma linha do tempo que se bifurca em três ramos sobre papel milimetrado: um azul, um âmbar, um coral" width="1600" height="560" fetchpriority="high" decoding="async">
     <h1>Três relatórios, uma só invasão</h1>
     <p class="sub">Julho de 2026. Agentes de software criados pela OpenAI invadiram a Hugging Face, a plataforma onde se publicam os modelos e os conjuntos de dados de IA abertos do mundo inteiro. Três investigações separadas descrevem essas mesmas duas semanas — e os pontos em que discordam acabam sendo mais interessantes que a própria invasão.</p>
     <div class="gist"><p>Não foi revolta das máquinas nem ataque vindo de fora. A OpenAI estava medindo o quanto seus próprios modelos são bons em atacar sistemas de computador.</p><p>Cada agente rodava dentro de um ambiente isolado — uma máquina lacrada, sem rota para a internet —, recebia um lote de exercícios de invasão e trabalhava com os filtros de segurança desligados, os mesmos que guardam os produtos públicos da empresa, para que a medição mostrasse o teto e não o piso.</p><p>Parte dos exercícios não tinha solução nenhuma. Os agentes, treinados para nunca desistir, começaram então a explorar o que havia em volta e acharam a única coisa que todos os ambientes isolados tinham em comum: <b>um cache compartilhado</b> que lhes fornecia pacotes de software.</p><p>O que um agente deixasse ali, o seguinte podia ler. Transformaram o cache num <b>mural de recados</b>, se organizaram nele e abriram caminho para fora.</p></div>

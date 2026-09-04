@@ -314,6 +314,15 @@
          gap: 12px; padding: 14px 16px; }
   .legend { display: flex; flex-wrap: wrap; gap: 6px; }
   /* Кнопка шаринга в шапке — того же роста, что кнопки сайта. */
+  /* Обложка страницы. Глобус нарисован без слов и потому одинаково годится всем
+     13 языкам. Ширина ограничена вдвое сильнее, чем колонка: картинка почти
+     квадратная (1200×630), и на всю ширину она отжимала бы заголовок на 554 px
+     вниз — читатель открывал бы статью и не видел, как она называется. */
+  .cover { display: block; width: 100%; max-width: 620px; height: auto;
+           margin: 0 0 22px; border: 1px solid var(--border-soft);
+           border-radius: 12px; }
+  :root[data-theme="cyber"] .cover { border-radius: 0; }
+
   .htop { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
   .sharebtn { display: inline-flex; align-items: center; gap: 8px; flex: none;
               border: 1px solid var(--accent); border-radius: 10px; padding: 9px 16px;
@@ -648,7 +657,7 @@
   @media print {
     * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .site-nav, footer, .crumb, .ghint, .zoombar, .gsearch, .pactions,
-    .sharebtn, .sy-strip, .tip, body::before, body::after { display: none !important; }
+    .sharebtn, .sy-strip, .tip, .cover, body::before, body::after { display: none !important; }
     :root[data-print] main .wrap > *, :root[data-print] header { display: none !important; }
     :root[data-print] .wrap > .printhead { display: block !important; }
     :root[data-print] .printhead { break-after: avoid; }
@@ -770,6 +779,8 @@
     <p id="printurl">avgrebenkin.com/research/cities/pt-BR/</p></div>
   <p class="crumb"><a href="/research/">← Research</a></p>
   <header>
+    <img class="cover" src="../../../images/research/cities-globe.webp"
+         alt="Um globo com 303 cidades marcadas como pontos; os maiores e mais brilhantes são os que melhor pontuam na configuração escolhida" width="1200" height="630" fetchpriority="high" decoding="async">
     <div class="htop">
       <h1>Encontre sua cidade</h1>
       <button type="button" class="sharebtn primary" data-share

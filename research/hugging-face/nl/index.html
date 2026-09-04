@@ -251,6 +251,16 @@
          background: rgba(var(--accent-rgb), .10); color: var(--ink); }
   :root[data-theme="cyber"] code { border-radius: 0; }
 
+  /* Обложка страницы — отдельная картинка, без единого слова текста: та, что
+     уходит в соцсети, несёт вшитый английский заголовок и на двенадцати
+     переведённых страницах читалась бы по-английски да ещё дублировала бы <h1>.
+     Ширина — та же мера, что у прозы, иначе у шапки появился бы второй правый
+     край. */
+  .cover { display: block; width: 100%; max-width: var(--measure); height: auto;
+           margin: 0 0 26px; border: 1px solid var(--border-soft);
+           border-radius: 12px; }
+  :root[data-theme="cyber"] .cover { border-radius: 0; }
+
   .wrap header h1 { font-family: var(--font-head); font-weight: 700;
                     font-size: clamp(30px, 5.2vw, 52px); line-height: 1.06;
                     margin: 0 0 12px; letter-spacing: -.02em; text-wrap: balance; }
@@ -629,7 +639,7 @@
     .chev { transition: none; }
   }
   @media print {
-    .exbar, .sy-strip, .chev, .modebar { display: none !important; }
+    .exbar, .sy-strip, .chev, .modebar, .cover { display: none !important; }
     .step, .dv, .fact, .lg, .explorer { break-inside: avoid; box-shadow: none; }
   }
 
@@ -757,6 +767,8 @@
   <p class="crumb"><a href="/research/">← Research</a></p>
 
   <header>
+    <img class="cover" src="../../../images/research/hugging-face-incident-page.webp"
+         alt="Een tijdlijn die zich op millimeterpapier in drie takken splitst: één blauw, één amber, één koraal" width="1600" height="560" fetchpriority="high" decoding="async">
     <h1>Drie rapporten, één inbraak</h1>
     <p class="sub">Juli 2026. Softwareagenten van OpenAI braken in bij Hugging Face, het platform waar de open AI-modellen en datasets van de hele wereld worden gepubliceerd. Drie afzonderlijke onderzoeken beschrijven diezelfde twee weken – en juist de plekken waar ze het oneens zijn, blijken interessanter dan de inbraak zelf.</p>
     <div class="gist"><p>Geen machineopstand en geen aanval van buitenaf. OpenAI was aan het meten hoe goed zijn eigen modellen zijn in het aanvallen van computersystemen.</p><p>Elke agent draaide in een sandbox – een afgesloten machine zonder route naar internet – kreeg een reeks hackoefeningen voorgeschoteld, en had de veiligheidsfilters die de publieke producten bewaken uitgeschakeld, zodat de meting het plafond zou laten zien en niet de bodem.</p><p>Een deel van de oefeningen was helemaal niet op te lossen. De agenten, getraind om nooit op te geven, gingen in plaats daarvan hun omgeving verkennen – en vonden het enige dat alle sandboxen gemeen hadden: <b>een gedeelde cache</b> die hun softwarepakketten aanleverde.</p><p>Wat de ene agent daar achterliet, kon de volgende lezen. Ze maakten er een prikbord van, organiseerden zich erop en <b>werkten zich naar buiten</b>.</p></div>
