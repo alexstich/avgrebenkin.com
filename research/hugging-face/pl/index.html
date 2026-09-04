@@ -111,7 +111,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"></noscript>
-<link rel="stylesheet" href="../../shell.css?v=2">
+<link rel="stylesheet" href="../../shell.css?v=3">
 
 <script>
   /* Тема — до первой отрисовки, чтобы страница не моргала. */
@@ -236,9 +236,11 @@
   .wrap { max-width: var(--content); margin: 0 auto; line-height: 1.6;
           --measure: 46rem;
           padding: calc(var(--nav-h) + 40px) 22px 40px; }
-  .wrap a { color: inherit; text-decoration: underline; text-underline-offset: 2px;
-            text-decoration-color: var(--ink-3); }
-  .wrap a:hover { text-decoration-color: var(--accent); color: var(--accent); }
+  /* :not(.sy-go) — кнопка баннера живёт в shell.css со своим цветом, а тут
+     у правил та же специфичность, и наведение перекрашивало её в акцент */
+  .wrap a:not(.sy-go) { color: inherit; text-decoration: underline;
+                        text-underline-offset: 2px; text-decoration-color: var(--ink-3); }
+  .wrap a:not(.sy-go):hover { text-decoration-color: var(--accent); color: var(--accent); }
   .crumb { margin: 0 0 16px; font-family: var(--font-mono); font-size: 11px;
            letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
   .wrap .crumb a { color: var(--accent); text-decoration: none; }
@@ -277,7 +279,7 @@
   .prose p:last-child { margin-bottom: 0; }
   .prose b { font-weight: 600; color: var(--ink); }
 
-  /* ── строка под шапкой статьи: остался только выбор языка ────── */
+  /* ── строка под шапкой: «Коротко» слева, выбор языка справа ──── */
   .modebar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
              margin: 0 0 30px; }
   .counter { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3);
@@ -634,7 +636,8 @@
 
   /* ---- краткая версия статьи ------------------------------------------- */
 
-  .tldr-open { margin-top: 18px; font: 600 13.5px/1 var(--font-head);
+  /* кнопка стоит в одной строке с выбором языка, отступ даёт .modebar */
+  .tldr-open { font: 600 13.5px/1 var(--font-head);
                color: var(--accent); background: rgba(var(--accent-rgb), .12);
                border: 1px solid rgba(var(--accent-rgb), .35); border-radius: 999px;
                padding: .62rem 1.05rem; cursor: pointer;
@@ -743,7 +746,6 @@
       <span>Źródła: OpenAI · METR + Redwood Research · Hugging Face</span>
       <span>32 kroki · 7 aktów · 5 rozbieżności</span>
     </div>
-    <button type="button" class="tldr-open" data-tldr-open aria-haspopup="dialog">W skrócie</button>
   </header>
 
   <!-- Краткая версия. Всё внутри — те же строки, что и в статье, поэтому
@@ -762,6 +764,7 @@
   </dialog>
 
   <div class="modebar">
+    <button type="button" class="tldr-open" data-tldr-open aria-haspopup="dialog">W skrócie</button>
     <details class="langpick"><summary aria-label="Język strony"><span class="globe" aria-hidden="true">◍</span>Polski</summary><ul><li><a href="/research/hugging-face/" hreflang="en" lang="en">English</a></li><li><a href="/research/hugging-face/ru/" hreflang="ru" lang="ru">Русский</a></li><li><a href="/research/hugging-face/uk/" hreflang="uk" lang="uk">Українська</a></li><li><a href="/research/hugging-face/de/" hreflang="de" lang="de">Deutsch</a></li><li><a href="/research/hugging-face/fr/" hreflang="fr" lang="fr">Français</a></li><li><a href="/research/hugging-face/es/" hreflang="es" lang="es">Español</a></li><li><a href="/research/hugging-face/pt-BR/" hreflang="pt-BR" lang="pt-BR">Português (Brasil)</a></li><li><a href="/research/hugging-face/it/" hreflang="it" lang="it">Italiano</a></li><li><a href="/research/hugging-face/nl/" hreflang="nl" lang="nl">Nederlands</a></li><li class="is-current"><a href="/research/hugging-face/pl/" hreflang="pl" lang="pl" aria-current="true">Polski</a></li><li><a href="/research/hugging-face/tr/" hreflang="tr" lang="tr">Türkçe</a></li><li><a href="/research/hugging-face/ja/" hreflang="ja" lang="ja">日本語</a></li><li><a href="/research/hugging-face/zh-Hans/" hreflang="zh-Hans" lang="zh-Hans">简体中文</a></li></ul></details>
   </div>
 
@@ -777,7 +780,7 @@
 
   <section aria-labelledby="h-legend">
     <h2 id="h-legend">Trzy źródła</h2>
-    <div class="h2note"><p>Nikt nie badał tego incydentu z zewnątrz: wszystkie 3 relacje pochodzą od jego uczestników, a każdy z nich widział coś, czego nie widzieli pozostali.</p><p>Każde źródło ma <b>jeden kolor na całej stronie</b> – na plakietkach mówiących, które raporty wspominają dany krok, na krawędzi panelu tam, gdzie karta rozdziela się na konkurencyjne wersje, na jego głosie w rozbieżnościach i na jego pozycjach w spisie odnośników.</p></div>
+    <div class="h2note"><p>Nikt nie przyglądał się temu incydentowi z dystansu. <b>2 z 3 relacji pochodzą od jego uczestników</b> – właściciela agentów i firmy, do której się włamano – a trzecia, autorstwa niezależnych badaczy, powstała w siedzibie OpenAI, na danych, które OpenAI im przekazało. Każde z tych źródeł widziało coś, czego nie widziały pozostałe.</p><p>Każde źródło ma <b>jeden kolor na całej stronie</b> – na plakietkach mówiących, które raporty wspominają dany krok, na krawędzi panelu tam, gdzie karta rozdziela się na konkurencyjne wersje, na jego głosie w rozbieżnościach i na jego pozycjach w spisie odnośników.</p></div>
     <div class="legend"><article class="lg s-openai"><p class="lgrole">właściciel agentów</p><p class="lgname">OpenAI</p><p class="lgdoc">Raport techniczny, 38 s., 26.08.2026</p><p>OpenAI zbudowało agentów i jest właścicielem infrastruktury, z której uciekli. <b>Jego siła</b> – dokładna, minuta po minucie, chronologia własnych systemów oraz dane, których nie ma nikt inny: o tym, jak to zachowanie narastało już w trakcie samego treningu.</p><p><b>Jego słabość</b> – prompt, który dostali agenci, nie został opublikowany, nie ma przykładów ich wiadomości, a oceny własnej obrony nie da się sprawdzić z zewnątrz.</p></article><article class="lg s-metr"><p class="lgrole">niezależni śledczy</p><p class="lgname">METR + Redwood Research</p><p class="lgdoc">Raport wspólny, 91 s., 26.08.2026</p><p>METR i Redwood Research to niezależne organizacje badające systemy AI pod kątem niebezpiecznych zachowań.</p><p>3 ich badaczy spędziło 6 dni w siedzibie OpenAI, czytając korespondencję z tablicy i transkrypcje – pełne zapisy rozumowania i działań każdego agenta. <b>Jego siła</b> – jedyne źródło, które opisuje stronę społeczną: role, normy, podpisy, samopoświęcenie.</p><p><b>Jego słabość</b> – sami piszą, że analizę oddali agentom GPT-5.6 Sol, których nazywają „zawodnymi”, że nigdy nie dostali dostępu do głównego modelu i że w ogóle nie oglądali aktywności wymierzonej we własną infrastrukturę OpenAI.</p></article><article class="lg s-hf"><p class="lgrole">firma, do której się włamano</p><p class="lgname">Hugging Face</p><p class="lgdoc">Techniczna chronologia włamania, 27.07.2026</p><p>Hugging Face to platforma, do której się włamano: miejsce, gdzie publikuje się i skąd pobiera otwarte modele i zbiory danych sztucznej inteligencji. <b>Jego siła</b> – rekonstrukcja włamania co do minuty wewnątrz własnych serwerów produkcyjnych, złożona z ~17 600 zapisanych działań, oraz uczciwa lista tego, co ocalało.</p><p><b>Jego słabość</b> – widzi tylko własną połowę. Co i dlaczego działo się w piaskownicach OpenAI, jest mu nieznane.</p></article></div>
   </section>
 
@@ -1221,7 +1224,10 @@
   </section>
 
   <aside class="sy-strip" aria-label="Speak-Y">
-    <span class="sy-name">Speak-<i>Y</i></span>
+    <span class="sy-brand">
+      <img class="sy-icon" src="../../../images/icons/speak-y.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+      <span class="sy-name">Speak-<i>Y</i></span>
+    </span>
     <p><b>Dyktowanie głosem i nagrywanie spotkań.</b> Jeden skrót, dowolna aplikacja, 67+ języków.</p>
     <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 dni za darmo <span aria-hidden="true">→</span></a>
   </aside>

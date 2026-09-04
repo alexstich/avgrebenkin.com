@@ -111,7 +111,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"></noscript>
-<link rel="stylesheet" href="../../shell.css?v=2">
+<link rel="stylesheet" href="../../shell.css?v=3">
 
 <script>
   /* Тема — до первой отрисовки, чтобы страница не моргала. */
@@ -236,9 +236,11 @@
   .wrap { max-width: var(--content); margin: 0 auto; line-height: 1.6;
           --measure: 46rem;
           padding: calc(var(--nav-h) + 40px) 22px 40px; }
-  .wrap a { color: inherit; text-decoration: underline; text-underline-offset: 2px;
-            text-decoration-color: var(--ink-3); }
-  .wrap a:hover { text-decoration-color: var(--accent); color: var(--accent); }
+  /* :not(.sy-go) — кнопка баннера живёт в shell.css со своим цветом, а тут
+     у правил та же специфичность, и наведение перекрашивало её в акцент */
+  .wrap a:not(.sy-go) { color: inherit; text-decoration: underline;
+                        text-underline-offset: 2px; text-decoration-color: var(--ink-3); }
+  .wrap a:not(.sy-go):hover { text-decoration-color: var(--accent); color: var(--accent); }
   .crumb { margin: 0 0 16px; font-family: var(--font-mono); font-size: 11px;
            letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
   .wrap .crumb a { color: var(--accent); text-decoration: none; }
@@ -277,7 +279,7 @@
   .prose p:last-child { margin-bottom: 0; }
   .prose b { font-weight: 600; color: var(--ink); }
 
-  /* ── строка под шапкой статьи: остался только выбор языка ────── */
+  /* ── строка под шапкой: «Коротко» слева, выбор языка справа ──── */
   .modebar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
              margin: 0 0 30px; }
   .counter { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3);
@@ -634,7 +636,8 @@
 
   /* ---- краткая версия статьи ------------------------------------------- */
 
-  .tldr-open { margin-top: 18px; font: 600 13.5px/1 var(--font-head);
+  /* кнопка стоит в одной строке с выбором языка, отступ даёт .modebar */
+  .tldr-open { font: 600 13.5px/1 var(--font-head);
                color: var(--accent); background: rgba(var(--accent-rgb), .12);
                border: 1px solid rgba(var(--accent-rgb), .35); border-radius: 999px;
                padding: .62rem 1.05rem; cursor: pointer;
@@ -743,7 +746,6 @@
       <span>出典：OpenAI · METR + Redwood Research · Hugging Face</span>
       <span>32ステップ · 7幕 · 5つの食い違い</span>
     </div>
-    <button type="button" class="tldr-open" data-tldr-open aria-haspopup="dialog">まとめ</button>
   </header>
 
   <!-- Краткая версия. Всё внутри — те же строки, что и в статье, поэтому
@@ -762,6 +764,7 @@
   </dialog>
 
   <div class="modebar">
+    <button type="button" class="tldr-open" data-tldr-open aria-haspopup="dialog">まとめ</button>
     <details class="langpick"><summary aria-label="ページの言語"><span class="globe" aria-hidden="true">◍</span>日本語</summary><ul><li><a href="/research/hugging-face/" hreflang="en" lang="en">English</a></li><li><a href="/research/hugging-face/ru/" hreflang="ru" lang="ru">Русский</a></li><li><a href="/research/hugging-face/uk/" hreflang="uk" lang="uk">Українська</a></li><li><a href="/research/hugging-face/de/" hreflang="de" lang="de">Deutsch</a></li><li><a href="/research/hugging-face/fr/" hreflang="fr" lang="fr">Français</a></li><li><a href="/research/hugging-face/es/" hreflang="es" lang="es">Español</a></li><li><a href="/research/hugging-face/pt-BR/" hreflang="pt-BR" lang="pt-BR">Português (Brasil)</a></li><li><a href="/research/hugging-face/it/" hreflang="it" lang="it">Italiano</a></li><li><a href="/research/hugging-face/nl/" hreflang="nl" lang="nl">Nederlands</a></li><li><a href="/research/hugging-face/pl/" hreflang="pl" lang="pl">Polski</a></li><li><a href="/research/hugging-face/tr/" hreflang="tr" lang="tr">Türkçe</a></li><li class="is-current"><a href="/research/hugging-face/ja/" hreflang="ja" lang="ja" aria-current="true">日本語</a></li><li><a href="/research/hugging-face/zh-Hans/" hreflang="zh-Hans" lang="zh-Hans">简体中文</a></li></ul></details>
   </div>
 
@@ -777,7 +780,7 @@
 
   <section aria-labelledby="h-legend">
     <h2 id="h-legend">三つの出典</h2>
-    <div class="h2note"><p>このインシデントを外から調べた者はいない。3つの記述はいずれも当事者のものであり、それぞれに他の2者には見えなかったものが見えている。出典ごとの色はページの最後まで変わらない。どの報告書がそのステップに触れているかを示す印にも、カードが対立する版に割れたときのパネルの縁にも、食い違いの節での発言にも、リンク一覧の項目にも、同じ色を使っている。</p></div>
+    <div class="h2note"><p>このインシデントを外から調べた者はいない。<b>3つの記述のうち2つは当事者のもの</b>である——エージェントの持ち主と、侵入された会社。残る1つは独立した研究者が書いたものだが、それも OpenAI の施設で、OpenAI から渡されたデータをもとにしている。それぞれに、他の2者には見えなかったものが見えている。出典ごとの色はページの最後まで変わらない。どの報告書がそのステップに触れているかを示す印にも、カードが対立する版に割れたときのパネルの縁にも、食い違いの節での発言にも、リンク一覧の項目にも、同じ色を使っている。</p></div>
     <div class="legend"><article class="lg s-openai"><p class="lgrole">エージェントの所有者</p><p class="lgname">OpenAI</p><p class="lgdoc">技術報告書、38ページ、2026年8月26日</p><p>OpenAI はエージェントを作った側であり、そこから脱出されたインフラの持ち主でもある。<b>強み</b>——自社システムの分単位の正確な年表と、訓練そのものの最中に振る舞いがどう育ったかについての、ほかの誰も持っていない数字。</p><p><b>弱み</b>——エージェントに与えられたプロンプトは公開されておらず、そのメッセージの実例もない。自社の防御についての評価は、外から確かめようがない。</p></article><article class="lg s-metr"><p class="lgrole">独立した調査者</p><p class="lgname">METR + Redwood Research</p><p class="lgdoc">共同報告書、91ページ、2026年8月26日</p><p>METR と Redwood Research は、AI システムに危険な振る舞いがないかを調べる独立組織である。その研究者3人が OpenAI の施設で6日間を過ごし、掲示板のやり取りとトランスクリプト——各エージェントの推論と行動の完全な記録——を読み込んだ。<b>強み</b>——社会的な側面を書いている唯一の出典である。役割、規範、署名、自己犠牲。</p><p><b>弱み</b>——分析を、自ら「信頼できない」と呼ぶ GPT-5.6 Sol のエージェントに任せたこと。主要なモデルには一度も触れさせてもらえなかったこと。OpenAI 自身のインフラに対する活動をまったく見ていないこと。いずれも自分たちで書いている。</p></article><article class="lg s-hf"><p class="lgrole">侵入された会社</p><p class="lgname">Hugging Face</p><p class="lgdoc">侵入の技術年表、2026年7月27日</p><p>Hugging Face は侵入されたプラットフォームである。オープンな AI モデルとデータセットが公開され、ダウンロードされる場所だ。<b>強み</b>——自社本番サーバーの内側で起きた侵入を分単位で組み直した再構成。記録に残る約17,600件の操作から起こしたものである。そして、無傷で残ったものの正直な一覧。</p><p><b>弱み</b>——見えているのは自分の側の半分だけ。OpenAI のサンドボックスの中で何が、なぜ起きていたのかは分からない。</p></article></div>
   </section>
 
@@ -1221,7 +1224,10 @@
   </section>
 
   <aside class="sy-strip" aria-label="Speak-Y">
-    <span class="sy-name">Speak-<i>Y</i></span>
+    <span class="sy-brand">
+      <img class="sy-icon" src="../../../images/icons/speak-y.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+      <span class="sy-name">Speak-<i>Y</i></span>
+    </span>
     <p><b>音声入力と会議の記録。</b>ホットキー一つ、どのアプリでも、67以上の言語に対応。</p>
     <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30日間無料 <span aria-hidden="true">→</span></a>
   </aside>

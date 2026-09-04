@@ -50,9 +50,11 @@
   .wrap { max-width: var(--content); margin: 0 auto; line-height: 1.6;
           --measure: 46rem;
           padding: calc(var(--nav-h) + 40px) 22px 40px; }
-  .wrap a { color: inherit; text-decoration: underline; text-underline-offset: 2px;
-            text-decoration-color: var(--ink-3); }
-  .wrap a:hover { text-decoration-color: var(--accent); color: var(--accent); }
+  /* :not(.sy-go) — кнопка баннера живёт в shell.css со своим цветом, а тут
+     у правил та же специфичность, и наведение перекрашивало её в акцент */
+  .wrap a:not(.sy-go) { color: inherit; text-decoration: underline;
+                        text-underline-offset: 2px; text-decoration-color: var(--ink-3); }
+  .wrap a:not(.sy-go):hover { text-decoration-color: var(--accent); color: var(--accent); }
   .crumb { margin: 0 0 16px; font-family: var(--font-mono); font-size: 11px;
            letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
   .wrap .crumb a { color: var(--accent); text-decoration: none; }
@@ -91,7 +93,7 @@
   .prose p:last-child { margin-bottom: 0; }
   .prose b { font-weight: 600; color: var(--ink); }
 
-  /* ── строка под шапкой статьи: остался только выбор языка ────── */
+  /* ── строка под шапкой: «Коротко» слева, выбор языка справа ──── */
   .modebar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
              margin: 0 0 30px; }
   .counter { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3);
@@ -448,7 +450,8 @@
 
   /* ---- краткая версия статьи ------------------------------------------- */
 
-  .tldr-open { margin-top: 18px; font: 600 13.5px/1 var(--font-head);
+  /* кнопка стоит в одной строке с выбором языка, отступ даёт .modebar */
+  .tldr-open { font: 600 13.5px/1 var(--font-head);
                color: var(--accent); background: rgba(var(--accent-rgb), .12);
                border: 1px solid rgba(var(--accent-rgb), .35); border-radius: 999px;
                padding: .62rem 1.05rem; cursor: pointer;

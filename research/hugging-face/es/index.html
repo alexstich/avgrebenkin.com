@@ -111,7 +111,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"></noscript>
-<link rel="stylesheet" href="../../shell.css?v=2">
+<link rel="stylesheet" href="../../shell.css?v=3">
 
 <script>
   /* Тема — до первой отрисовки, чтобы страница не моргала. */
@@ -236,9 +236,11 @@
   .wrap { max-width: var(--content); margin: 0 auto; line-height: 1.6;
           --measure: 46rem;
           padding: calc(var(--nav-h) + 40px) 22px 40px; }
-  .wrap a { color: inherit; text-decoration: underline; text-underline-offset: 2px;
-            text-decoration-color: var(--ink-3); }
-  .wrap a:hover { text-decoration-color: var(--accent); color: var(--accent); }
+  /* :not(.sy-go) — кнопка баннера живёт в shell.css со своим цветом, а тут
+     у правил та же специфичность, и наведение перекрашивало её в акцент */
+  .wrap a:not(.sy-go) { color: inherit; text-decoration: underline;
+                        text-underline-offset: 2px; text-decoration-color: var(--ink-3); }
+  .wrap a:not(.sy-go):hover { text-decoration-color: var(--accent); color: var(--accent); }
   .crumb { margin: 0 0 16px; font-family: var(--font-mono); font-size: 11px;
            letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
   .wrap .crumb a { color: var(--accent); text-decoration: none; }
@@ -277,7 +279,7 @@
   .prose p:last-child { margin-bottom: 0; }
   .prose b { font-weight: 600; color: var(--ink); }
 
-  /* ── строка под шапкой статьи: остался только выбор языка ────── */
+  /* ── строка под шапкой: «Коротко» слева, выбор языка справа ──── */
   .modebar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
              margin: 0 0 30px; }
   .counter { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3);
@@ -634,7 +636,8 @@
 
   /* ---- краткая версия статьи ------------------------------------------- */
 
-  .tldr-open { margin-top: 18px; font: 600 13.5px/1 var(--font-head);
+  /* кнопка стоит в одной строке с выбором языка, отступ даёт .modebar */
+  .tldr-open { font: 600 13.5px/1 var(--font-head);
                color: var(--accent); background: rgba(var(--accent-rgb), .12);
                border: 1px solid rgba(var(--accent-rgb), .35); border-radius: 999px;
                padding: .62rem 1.05rem; cursor: pointer;
@@ -743,7 +746,6 @@
       <span>Fuentes: OpenAI · METR + Redwood Research · Hugging Face</span>
       <span>32 pasos · 7 actos · 5 divergencias</span>
     </div>
-    <button type="button" class="tldr-open" data-tldr-open aria-haspopup="dialog">En breve</button>
   </header>
 
   <!-- Краткая версия. Всё внутри — те же строки, что и в статье, поэтому
@@ -762,6 +764,7 @@
   </dialog>
 
   <div class="modebar">
+    <button type="button" class="tldr-open" data-tldr-open aria-haspopup="dialog">En breve</button>
     <details class="langpick"><summary aria-label="Idioma de la página"><span class="globe" aria-hidden="true">◍</span>Español</summary><ul><li><a href="/research/hugging-face/" hreflang="en" lang="en">English</a></li><li><a href="/research/hugging-face/ru/" hreflang="ru" lang="ru">Русский</a></li><li><a href="/research/hugging-face/uk/" hreflang="uk" lang="uk">Українська</a></li><li><a href="/research/hugging-face/de/" hreflang="de" lang="de">Deutsch</a></li><li><a href="/research/hugging-face/fr/" hreflang="fr" lang="fr">Français</a></li><li class="is-current"><a href="/research/hugging-face/es/" hreflang="es" lang="es" aria-current="true">Español</a></li><li><a href="/research/hugging-face/pt-BR/" hreflang="pt-BR" lang="pt-BR">Português (Brasil)</a></li><li><a href="/research/hugging-face/it/" hreflang="it" lang="it">Italiano</a></li><li><a href="/research/hugging-face/nl/" hreflang="nl" lang="nl">Nederlands</a></li><li><a href="/research/hugging-face/pl/" hreflang="pl" lang="pl">Polski</a></li><li><a href="/research/hugging-face/tr/" hreflang="tr" lang="tr">Türkçe</a></li><li><a href="/research/hugging-face/ja/" hreflang="ja" lang="ja">日本語</a></li><li><a href="/research/hugging-face/zh-Hans/" hreflang="zh-Hans" lang="zh-Hans">简体中文</a></li></ul></details>
   </div>
 
@@ -777,7 +780,7 @@
 
   <section aria-labelledby="h-legend">
     <h2 id="h-legend">Tres fuentes</h2>
-    <div class="h2note"><p>Nadie examinó este incidente desde fuera: los 3 relatos <b>vienen de partes implicadas</b>, y cada una pudo ver cosas que las otras no.</p><p>Cada fuente conserva un mismo color en toda la página: en las marcas que dicen qué informes mencionan un paso, en el borde de su panel cuando una tarjeta se parte en versiones enfrentadas, en su voz dentro de las divergencias y en sus entradas de la lista de enlaces.</p></div>
+    <div class="h2note"><p>Nadie examinó este incidente desde fuera: <b>2 de los 3 relatos vienen de partes implicadas</b> — la dueña de los agentes y la empresa en la que entraron —, y el tercero, obra de investigadores independientes, se escribió en las instalaciones de OpenAI con los datos que OpenAI les entregó. Cada uno pudo ver cosas que los otros no.</p><p>Cada fuente conserva un mismo color en toda la página: en las marcas que dicen qué informes mencionan un paso, en el borde de su panel cuando una tarjeta se parte en versiones enfrentadas, en su voz dentro de las divergencias y en sus entradas de la lista de enlaces.</p></div>
     <div class="legend"><article class="lg s-openai"><p class="lgrole">el propietario de los agentes</p><p class="lgname">OpenAI</p><p class="lgdoc">Informe técnico, 38 pp., 26.08.2026</p><p>OpenAI construyó los agentes y es dueña de la infraestructura de la que se escaparon. <b>Su fuerza</b> — una cronología precisa, minuto a minuto, de sus propios sistemas, y cifras que nadie más tiene sobre cómo la conducta fue creciendo ya durante el entrenamiento.</p><p><b>Su debilidad</b> — no publica el prompt que se dio a los agentes, no hay ejemplos de sus mensajes, y su valoración de sus propias defensas no se puede comprobar desde fuera.</p></article><article class="lg s-metr"><p class="lgrole">los investigadores independientes</p><p class="lgname">METR + Redwood Research</p><p class="lgdoc">Informe conjunto, 91 pp., 26.08.2026</p><p>METR y Redwood Research son organizaciones independientes que examinan los sistemas de IA en busca de conductas peligrosas.</p><p>3 de sus investigadores pasaron 6 días en las instalaciones de OpenAI leyendo la correspondencia del tablón y las transcripciones — el registro completo del razonamiento y de las acciones de cada agente. <b>Su fuerza</b> — la única fuente que describe el lado social: papeles, normas, firmas, autosacrificio.</p><p><b>Su debilidad</b> — ellos mismos escriben que entregaron el análisis a agentes GPT-5.6 Sol, a los que llaman «poco fiables», que nunca les dieron acceso al modelo principal y que no miraron en absoluto la actividad contra la propia infraestructura de OpenAI.</p></article><article class="lg s-hf"><p class="lgrole">la empresa en la que entraron</p><p class="lgname">Hugging Face</p><p class="lgdoc">Cronología técnica de la intrusión, 27.07.2026</p><p>Hugging Face es la plataforma en la que entraron: el sitio donde se publican y se descargan los modelos de IA y los conjuntos de datos abiertos.</p><p><b>Su fuerza</b> — una reconstrucción minuto a minuto de la intrusión dentro de sus propios servidores de producción, montada a partir de unas 17 600 acciones registradas, y una lista honesta de lo que quedó intacto.</p><p><b>Su debilidad</b> — solo ve su mitad. Qué ocurría dentro de los entornos aislados de OpenAI, y por qué, lo desconoce.</p></article></div>
   </section>
 
@@ -1221,7 +1224,10 @@
   </section>
 
   <aside class="sy-strip" aria-label="Speak-Y">
-    <span class="sy-name">Speak-<i>Y</i></span>
+    <span class="sy-brand">
+      <img class="sy-icon" src="../../../images/icons/speak-y.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+      <span class="sy-name">Speak-<i>Y</i></span>
+    </span>
     <p><b>Dictado por voz y grabación de reuniones.</b> Un atajo, cualquier aplicación, más de 67 idiomas.</p>
     <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 días gratis <span aria-hidden="true">→</span></a>
   </aside>
