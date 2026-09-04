@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Обложка светлая намеренно. Тёмная с сеткой уже стоит у исследования про
+       взлом, и в размере карточки на индексе две обложки читались как одна
+       картинка: тот же почти чёрный фон, тот же белый заголовок слева, тот же
+       адрес в левом нижнем углу. Здесь работают числа, а не композиция.
+       Краски — токены светлой темы сайта из shell.css. -->
+  <defs>
+    <linearGradient id="tint" x1="100%" y1="0%" x2="30%" y2="100%">
+      <stop offset="0%" stop-color="#5b4fd6" stop-opacity=".10"/>
+      <stop offset="100%" stop-color="#5b4fd6" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#f5f6f9"/>
+  <rect width="1200" height="630" fill="url(#tint)"/>
+
+  <g font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+    <text x="72" y="88" font-family="Menlo, monospace" font-size="19"
+          letter-spacing="4" fill="#5b4fd6">RESEARCH · NO. 3</text>
+
+    <text x="72" y="172" font-size="52" font-weight="700" fill="#14161f">Bill Gates’s job essay,</text>
+    <text x="72" y="232" font-size="52" font-weight="700" fill="#14161f">checked against the data</text>
+
+    <rect x="72" y="266" width="64" height="3" fill="#5b4fd6"/>
+
+    <!-- Две цифры и есть вывод: одни и те же профессии, разный возраст. -->
+    <g>
+      <text x="72" y="336" font-family="Menlo, monospace" font-size="21"
+            letter-spacing="2" fill="#5b6172">AGE 22–25</text>
+      <text x="72" y="432" font-size="92" font-weight="700" fill="#a33a2e">−3.0%</text>
+      <rect x="72" y="452" width="300" height="13" fill="#a33a2e"/>
+    </g>
+    <g>
+      <text x="636" y="336" font-family="Menlo, monospace" font-size="21"
+            letter-spacing="2" fill="#5b6172">AGE 41–49</text>
+      <text x="636" y="432" font-size="92" font-weight="700" fill="#15803d">+1.9%</text>
+      <rect x="636" y="452" width="190" height="13" fill="#15803d"/>
+    </g>
+
+    <text x="72" y="528" font-size="27" font-weight="600" fill="#14161f">Same occupations. Different age.</text>
+    <text x="72" y="562" font-size="20" fill="#5b6172">Employment change over 12 months, most exposed occupations · Stanford Digital Economy Lab · July 2026</text>
+
+    <text x="72" y="602" font-family="Menlo, monospace" font-size="18"
+          letter-spacing="1" fill="#8a90a0">avgrebenkin.com/research</text>
+  </g>
+</svg>
