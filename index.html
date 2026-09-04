@@ -1184,15 +1184,19 @@ a.contact-card:hover{border-color:var(--border);transform:translateY(-2px);backg
 .sy-cta{
   display:inline-block;align-self:center;white-space:nowrap;
   padding:.7rem 1.3rem;border-radius:10px;border:0;
-  /* чёрный, а не белый: на оранжевом #FF6700 белый даёт контраст 2.92
-     и не проходит AA, чёрный — 7.19 */
-  background:var(--sy-orange);color:#111;
+  background:var(--sy-orange);color:#fff;
   font-family:var(--font-head);font-size:.95rem;font-weight:600;letter-spacing:-.01em;
-  transition:background .18s;
+  transition:background .18s,color .18s;
 }
 /* Кликается весь баннер, а не только кнопка. */
 .sy-cta::after{content:"";position:absolute;inset:0;z-index:2}
-.sy-banner:hover .sy-cta{background:var(--sy-orange-2)}
+/* В покое надпись белая — так кнопка нарисована у самого Speak-Y. Под курсором и
+   под клавиатурным фокусом фон уходит в тёмно-оранжевый, а надпись переворачивается
+   в чёрную: два признака вместо одного, и контраст на этот момент поднимается
+   с 2.92 до 5.06. */
+.sy-banner:hover .sy-cta,
+.sy-cta:focus-visible{background:var(--sy-orange-2);color:#111}
+.sy-cta:focus-visible{outline:2px solid var(--sy-rule);outline-offset:3px}
 @media (max-width:720px){
   .sy-banner{gap:.55rem 1rem;padding:1.05rem 1.15rem}
   /* На узком экране знак и строка остаются в ряд, кнопка уходит под них.
