@@ -41,8 +41,14 @@
   .s-hf     { --src: var(--src-hf);     --src-rgb: var(--src-hf-rgb); }
 
   /* ── страница в оболочке сайта ───────────────────────────────── */
-  main { max-width: 980px; padding: 0; }
-  .wrap { max-width: 980px; margin: 0 auto; line-height: 1.6;
+  main { max-width: var(--content); padding: 0; }
+  /* --measure: одна мера строки на всю статью. До этого проза обрывалась на
+     семи разных ширинах (548, 567, 584, 622, 626, 666, 743 px в одной
+     колонке), и правый край читался как случайный обрыв. Мера в rem, а не в
+     ch: ch считается от кегля самого блока, и подпись 14px обрывалась бы
+     раньше абзаца 16px. */
+  .wrap { max-width: var(--content); margin: 0 auto; line-height: 1.6;
+          --measure: 46rem;
           padding: calc(var(--nav-h) + 40px) 22px 40px; }
   .wrap a { color: inherit; text-decoration: underline; text-underline-offset: 2px;
             text-decoration-color: var(--ink-3); }
@@ -61,11 +67,14 @@
                     font-size: clamp(30px, 5.2vw, 52px); line-height: 1.06;
                     margin: 0 0 12px; letter-spacing: -.02em; text-wrap: balance; }
   .sub { margin: 0 0 18px; color: var(--ink-2); font-size: clamp(16px, 2.2vw, 19px);
-         max-width: 62ch; }
+         max-width: var(--measure); }
   .sub em { color: var(--ink); font-style: normal; }
-  .gist { margin: 0 0 20px; max-width: 62ch; font-size: 16px;
+  .gist { margin: 0 0 20px; max-width: var(--measure); font-size: 16px;
           border-left: 3px solid var(--accent); padding-left: 14px; }
   .gist b { font-weight: 600; }
+  /* gist и h2note теперь контейнеры: длинный текст приходит из строки
+     несколькими абзацами, а не одним куском на десять строк. */
+  .gist > p:last-child { margin-bottom: 0; }
   .meta { margin: 0 0 26px; font-family: var(--font-mono); font-size: 12px;
           letter-spacing: .02em; color: var(--ink-3);
           display: flex; flex-wrap: wrap; gap: 6px 18px; }
@@ -73,9 +82,12 @@
   section { margin: 54px 0 0; }
   .wrap h2 { font-family: var(--font-head); font-size: clamp(21px, 3vw, 27px);
              letter-spacing: -.015em; margin: 0 0 6px; }
-  .h2note { margin: 0 0 20px; color: var(--ink-3); font-size: 14px; max-width: 62ch; }
+  .h2note { margin: 0 0 20px; color: var(--ink-3); font-size: 14px;
+           max-width: var(--measure); }
+  .h2note > p { margin: 0 0 9px; }
+  .h2note > p:last-child { margin-bottom: 0; }
   .wrap p { margin: 0 0 14px; }
-  .prose { max-width: 66ch; }
+  .prose { max-width: var(--measure); }
   .prose p:last-child { margin-bottom: 0; }
   .prose b { font-weight: 600; color: var(--ink); }
 
@@ -217,7 +229,8 @@
                  letter-spacing: -.015em; margin: 2px 0 0; }
   .act-dates { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-3);
                margin: 3px 0 0; }
-  .act-lede { margin: 8px 0 0; max-width: 62ch; color: var(--ink-2); font-size: 14.5px; }
+  .act-lede { margin: 8px 0 0; max-width: var(--measure);
+              color: var(--ink-2); font-size: 14.5px; }
 
   /* ── карточка шага ───────────────────────────────────────────── */
   .step { position: relative; margin: 8px 0; border: 1px solid var(--hair);
@@ -297,7 +310,7 @@
   .step-body { overflow: hidden; }
   .step-inner { padding: 2px 16px 16px 17px; border-top: 1px dashed var(--hair);
                 margin-top: 2px; }
-  .step-inner > p { margin: 12px 0 0; font-size: 14.5px; max-width: 68ch; }
+  .step-inner > p { margin: 12px 0 0; font-size: 14.5px; max-width: var(--measure); }
   .step-inner > p b { font-weight: 600; color: var(--ink); }
   .step-inner q { font-style: italic; }
 
@@ -321,6 +334,7 @@
                      letter-spacing: -.01em; margin-bottom: 5px; }
   .versions[data-n="3"] .vlabel { font-size: 13.5px; }
   .version p { margin: 0; font-size: 13.5px; color: var(--ink-2); }
+  .version p + p { margin-top: 9px; }
   .versions[data-n="3"] p { font-size: 13px; }
   .version p b { color: var(--ink); font-weight: 600; }
 
@@ -338,6 +352,7 @@
                 letter-spacing: .12em; text-transform: uppercase; color: var(--src);
                 margin-bottom: 3px; }
   .voice p { margin: 0; font-size: 14.5px; }
+  .voice p + p { margin-top: 9px; }
   .why { margin: 16px 0 0; padding: 12px 14px; border-radius: 8px;
          background: rgba(var(--accent-rgb), .07); font-size: 14.5px; }
   :root[data-theme="cyber"] .why { border-radius: 0; }
@@ -373,7 +388,7 @@
 
   /* ── дисклеймер и источники ──────────────────────────────────── */
   .disclaimer { margin-top: 40px; font-size: 12.5px; color: var(--ink-3);
-                max-width: 74ch; line-height: 1.6; }
+                max-width: var(--measure); line-height: 1.6; }
   .srclist { display: grid; gap: 8px; margin: 0 0 22px; padding: 0; list-style: none;
              counter-reset: none; }
   .srchead { font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em;

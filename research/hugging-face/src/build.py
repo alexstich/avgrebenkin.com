@@ -41,6 +41,20 @@ def rich(s):
     return s
 
 
+def chunks(s):
+    """Строка, разбитая пустыми строками, — это несколько абзацев.
+
+    Переводы — плоские строки JSON, и длинный текст приходил одним абзацем на
+    десять строк. Теперь автор ставит внутри строки пустую строку там, где
+    мысль кончается, и место разрыва остаётся за каждым языком.
+    """
+    return [x.strip() for x in re.split(r'\n\s*\n', s.strip()) if x.strip()]
+
+
+def paras(s):
+    return ''.join('<p>%s</p>' % rich(x) for x in chunks(s))
+
+
 def walk(node, path=''):
     """Все строки каталога с их путями, в порядке объявления."""
     if isinstance(node, str):
@@ -114,7 +128,10 @@ def modal(node, tag='p', cls=''):
         if not node.get(mode):
             continue
         c = ' class="%s"' % cls if cls else ''
-        out.append('<%s%s data-when="%s">%s</%s>' % (tag, c, mode, rich(node[mode]), tag))
+        # абзацем может быть только абзац: у step-sum тег span, внутрь <p> не лезет
+        parts = chunks(node[mode]) if tag == 'p' else [node[mode]]
+        out.append(''.join('<%s%s data-when="%s">%s</%s>' % (tag, c, mode, rich(x), tag)
+                           for x in parts))
     return ''.join(out)
 
 
@@ -267,8 +284,9 @@ def render_numbers(L):
 
 
 def render_intro(L):
-    simple = ''.join('<p>%s</p>' % rich(p) for p in L.at('intro.simple'))
-    full = ''.join('<p><b>%s</b> %s</p>' % (rich(x['h']), rich(x['t'])) for x in L.at('intro.full'))
+    simple = ''.join(paras(p) for p in L.at('intro.simple'))
+    full = ''.join(paras(x['t']).replace('<p>', '<p><b>%s</b> ' % rich(x['h']), 1)
+                   for x in L.at('intro.full'))
     return ('<div class="prose" data-when="simple">%s</div>'
             '<div class="prose" data-when="full">%s</div>' % (simple, full))
 
@@ -282,7 +300,7 @@ def render_legend(L):
             '<p class="lgdoc">%s</p>%s</article>'
             % (s['cls'], rich(L.at('sourceRoles.' + sid)), html.escape(s['name'], quote=False),
                rich(L.at('sourceDocs.' + sid)),
-               ''.join('<p>%s</p>' % rich(x) for x in L.at('legend.%s.lines' % sid))))
+               ''.join(paras(x) for x in L.at('legend.%s.lines' % sid))))
     return '<div class="legend">%s</div>' % ''.join(cards)
 
 
@@ -291,8 +309,8 @@ def render_divergences(L):
     for i, d in enumerate(S['divergences'], 1):
         T = L.at('divergences.' + d['id'])
         voices = ''.join(
-            '<div class="voice %s"><span class="who">%s</span><p>%s</p></div>'
-            % (SRC[sid]['cls'], rich(L.at('sourceNames.' + sid)), rich(txt))
+            '<div class="voice %s"><span class="who">%s</span>%s</div>'
+            % (SRC[sid]['cls'], rich(L.at('sourceNames.' + sid)), paras(txt))
             for sid, txt in zip(d['voices'], T['voices']))
         blocks.append(
             '<article class="dv" data-level="%s"><span class="dvnum">%02d</span>'
@@ -313,9 +331,9 @@ def render_facts(L):
         T = L.at('facts.' + f['id'])
         cards.append(
             '<article class="fact%s" data-level="%s"><p class="hook">%s</p><h3>%s</h3>'
-            '<p>%s</p><p class="fwhy">%s %s</p></article>'
+            '%s<p class="fwhy">%s %s</p></article>'
             % (' wide' if f['wide'] else '', f['level'], rich(T['hook']), rich(T['title']),
-               rich(T['text']), rich(L.at('ui.factWhyPrefix')), rich(T['why'])))
+               paras(T['text']), rich(L.at('ui.factWhyPrefix')), rich(T['why'])))
     return '<div class="facts">%s</div>' % ''.join(cards)
 
 
@@ -435,7 +453,7 @@ def build(code, langs):
         'backToResearch': rich(L.at('ui.backToResearch')),
         'title': rich(L.at('page.title')),
         'subtitle': rich(L.at('page.subtitle')),
-        'gist': rich(L.at('page.gist')),
+        'gist': paras(L.at('page.gist')),
         'date': rich(L.at('page.date')),
         'sourcesLine': rich(L.at('page.sourcesLine')),
         'scaleLine': rich(L.at('page.scaleLine')),
@@ -448,14 +466,14 @@ def build(code, langs):
         'counterFullJS': json.dumps(L.at('ui.counterFull'), ensure_ascii=False),
         'actsGroup': html.escape(L.at('ui.actsGroup')),
         'hNumbers': rich(L.at('sections.numbers.h')),
-        'hWhat': rich(L.at('sections.what.h')), 'nWhat': rich(L.at('sections.what.note')),
-        'hLegend': rich(L.at('sections.legend.h')), 'nLegend': rich(L.at('sections.legend.note')),
+        'hWhat': rich(L.at('sections.what.h')), 'nWhat': paras(L.at('sections.what.note')),
+        'hLegend': rich(L.at('sections.legend.h')), 'nLegend': paras(L.at('sections.legend.note')),
         'hExplorer': rich(L.at('sections.explorer.h')),
-        'nExplorer': fill(rich(L.at('sections.explorer.note')).replace('&lt;', '<').replace('&gt;', '>'),
+        'nExplorer': fill(paras(L.at('sections.explorer.note')).replace('&lt;', '<').replace('&gt;', '>'),
                           keys=L.at('sections.explorer.keys')),
-        'hDiv': rich(L.at('sections.divergences.h')), 'nDiv': rich(L.at('sections.divergences.note')),
-        'hFacts': rich(L.at('sections.facts.h')), 'nFacts': rich(L.at('sections.facts.note')),
-        'hSources': rich(L.at('sections.sources.h')), 'nSources': rich(L.at('sections.sources.note')),
+        'hDiv': rich(L.at('sections.divergences.h')), 'nDiv': paras(L.at('sections.divergences.note')),
+        'hFacts': rich(L.at('sections.facts.h')), 'nFacts': paras(L.at('sections.facts.note')),
+        'hSources': rich(L.at('sections.sources.h')), 'nSources': paras(L.at('sections.sources.note')),
         'disclaimer': rich(L.at('disclaimer')),
         'translationNote': ('<p class="disclaimer transnote">%s</p>' % rich(L.at('ui.translationNote'))
                             if L.at('ui.translationNote') else ''),
