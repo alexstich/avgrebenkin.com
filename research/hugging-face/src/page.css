@@ -91,25 +91,11 @@
   .prose p:last-child { margin-bottom: 0; }
   .prose b { font-weight: 600; color: var(--ink); }
 
-  /* ── тумблер режима ──────────────────────────────────────────── */
+  /* ── строка под шапкой статьи: остался только выбор языка ────── */
   .modebar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
              margin: 0 0 30px; }
-  /* Активная половина подсвечивается заливкой акцента, а не «поднятой» плашкой:
-     на тёмной теме плашка цвета панели сливалась с фоном и читалась наоборот. */
-  .seg { display: inline-flex; padding: 3px; gap: 2px; border-radius: 9px;
-         background: transparent; border: 1px solid var(--border); }
-  .seg button { font: 600 13px/1 var(--font-body); letter-spacing: -.01em;
-                padding: .55rem .95rem; border: 0; border-radius: 6px; cursor: pointer;
-                background: transparent; color: var(--ink-2);
-                transition: background .18s, color .18s; }
-  .seg button:hover { color: var(--ink); }
-  .seg button[aria-pressed="true"] { background: rgba(var(--accent-rgb), .16);
-                                     color: var(--accent); }
-  .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
   .counter { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3);
              letter-spacing: .02em; }
-  :root[data-theme="cyber"] .seg,
-  :root[data-theme="cyber"] .seg button { border-radius: 0; }
 
   /* ── выбор языка ─────────────────────────────────────────────── */
   /* На нативном <details>: открывается и без скрипта, закрывается Esc,
@@ -206,7 +192,6 @@
   :root[data-theme="cyber"] .ribbon button { border-radius: 0; }
   .exbar-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px;
                 padding: 0 12px 10px; }
-  .exbar-foot .seg button { padding: .4rem .8rem; font-size: 12px; }
   .exhint { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3);
             margin-left: auto; }
   .progress { height: 2px; background: var(--hair); }
@@ -404,18 +389,6 @@
 
   .sy-strip { margin-top: 44px; }
 
-  /* ── режимы «Просто» и «Подробно» ────────────────────────────── */
-  [data-mode="simple"] [data-when="full"],
-  [data-mode="full"]   [data-when="simple"] { display: none; }
-  [data-mode="simple"] .step[data-level="full"],
-  [data-mode="simple"] .dv[data-level="full"],
-  [data-mode="simple"] .fact[data-level="full"],
-  [data-mode="simple"] .minor { display: none; }
-  /* смена текста — только прозрачностью, без «печатания» */
-  .fading .step-inner, .fading .step-sum, .fading .prose,
-  .fading .act-lede, .fading .version p { opacity: .001; }
-  .step-inner, .step-sum, .prose, .act-lede, .version p { transition: opacity .12s linear; }
-
   /* ── адаптив ─────────────────────────────────────────────────── */
   @media (max-width: 860px) {
     .legend { grid-template-columns: 1fr; }
@@ -446,7 +419,6 @@
     .ribbon .rtitle { font-size: 12px; }
     .ribbon .rdate { display: none; }
     .exbar-foot { padding: 0 10px 8px; gap: 6px 10px; flex-wrap: nowrap; }
-    .exbar-foot .seg button { padding: .35rem .6rem; font-size: 11.5px; }
     .counter { font-size: 11px; }
     .exhint { display: none; }
     /* метка времени держится в одну строку, пока хватает места, но на
@@ -533,6 +505,6 @@
     html[data-printing="tldr"] .tldr-acts { display: none; }
   }
 
-  /* Без скрипта тумблер и лента актов бессмысленны — их просто нет. */
-  .no-js .seg, .no-js .exhint, .no-js .progress, .no-js .ribbon { display: none; }
+  /* Без скрипта лента актов бессмысленна — её просто нет. */
+  .no-js .exhint, .no-js .progress, .no-js .ribbon { display: none; }
   .no-js .exbar { position: static; }

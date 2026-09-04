@@ -121,18 +121,16 @@ def fmt_ts(L, ts):
 # ── куски страницы ──────────────────────────────────────────────────────────
 
 def modal(node, tag='p', cls=''):
-    """Один и тот же кусок в двух режимах: оба лежат в разметке, лишний
-    убирает CSS по data-mode на корне."""
-    out = []
-    for mode in ('simple', 'full'):
-        if not node.get(mode):
-            continue
-        c = ' class="%s"' % cls if cls else ''
-        # абзацем может быть только абзац: у step-sum тег span, внутрь <p> не лезет
-        parts = chunks(node[mode]) if tag == 'p' else [node[mode]]
-        out.append(''.join('<%s%s data-when="%s">%s</%s>' % (tag, c, mode, rich(x), tag)
-                           for x in parts))
-    return ''.join(out)
+    """Текст куска. Тумблера «просто / подробно» больше нет, страница всегда
+    подробная, поэтому берётся полная версия; краткая осталась в каталоге как
+    написанный текст, но в разметку не попадает."""
+    text = node.get('full') or node.get('simple') or ''
+    if not text:
+        return ''
+    c = ' class="%s"' % cls if cls else ''
+    # абзацем может быть только абзац: у step-sum тег span, внутрь <p> не лезет
+    parts = chunks(text) if tag == 'p' else [text]
+    return ''.join('<%s%s>%s</%s>' % (tag, c, rich(x), tag) for x in parts)
 
 
 def fork_svg(ids):
@@ -189,7 +187,7 @@ def render_step(L, st):
         body.append('<div class="versions" data-n="%d">%s</div>' % (len(vers), ''.join(cards)))
 
     return (
-        '<details class="%s" id="%s" data-level="%s" data-status="%s"%s open>\n'
+        '<details class="%s" id="%s" data-status="%s"%s open>\n'
         '  <summary class="step-head">\n'
         '    <span class="step-ts">%s</span>\n'
         '    <span class="stamp-wrap">%s</span>\n'
@@ -200,7 +198,7 @@ def render_step(L, st):
         '  </summary>\n'
         '  <div class="step-body"><div class="step-inner">%s</div></div>\n'
         '</details>\n'
-    ) % (' '.join(cls), st['id'], st['level'], status,
+    ) % (' '.join(cls), st['id'], status,
          (' style="%s"' % ';'.join(style)) if style else '',
          rich(fmt_ts(L, st['ts'])), stamp, rich(T['title']),
          modal(T['summary'], tag='span', cls='step-sum'), badges, ''.join(body))
@@ -246,12 +244,12 @@ def tldr_parts(L, url):
     hn, hd = L.at('sections.numbers.h'), L.at('sections.divergences.h')
 
     html_out = (
-        '<h3>%s</h3><p class="tldr-sub">%s</p><p>%s</p>'
+        '<h3>%s</h3><p class="tldr-sub">%s</p>%s'
         '<h4>%s</h4><ul class="tldr-nums">%s</ul>'
         '<h4>%s</h4><ol class="tldr-divs">%s</ol>'
         '<p class="tldr-src">%s</p>'
         '<p class="tldr-link">%s <a href="%s">%s</a></p>'
-        % (rich(head[0]), rich(head[1]), rich(head[2]),
+        % (rich(head[0]), rich(head[1]), paras(head[2]),
            rich(hn), ''.join('<li><b>%s</b> %s</li>' % (rich(v), rich(c)) for v, c in nums),
            rich(hd), ''.join('<li>%s</li>' % rich(t) for t in divs),
            rich(L.at('page.sourcesLine')),
@@ -284,11 +282,9 @@ def render_numbers(L):
 
 
 def render_intro(L):
-    simple = ''.join(paras(p) for p in L.at('intro.simple'))
     full = ''.join(paras(x['t']).replace('<p>', '<p><b>%s</b> ' % rich(x['h']), 1)
                    for x in L.at('intro.full'))
-    return ('<div class="prose" data-when="simple">%s</div>'
-            '<div class="prose" data-when="full">%s</div>' % (simple, full))
+    return '<div class="prose">%s</div>' % full
 
 
 def render_legend(L):
@@ -313,9 +309,9 @@ def render_divergences(L):
             % (SRC[sid]['cls'], rich(L.at('sourceNames.' + sid)), paras(txt))
             for sid, txt in zip(d['voices'], T['voices']))
         blocks.append(
-            '<article class="dv" data-level="%s"><span class="dvnum">%02d</span>'
+            '<article class="dv"><span class="dvnum">%02d</span>'
             '<h3>%s</h3>%s<div class="why"><p><b class="lbl">%s</b> %s</p></div></article>'
-            % (d['level'], i, rich(T['title']), voices,
+            % (i, rich(T['title']), voices,
                rich(L.at('ui.whyLabel')), rich(T['why'])))
     minor = ('<div class="minor"><p class="minor-head">%s</p>%s</div>'
              % (rich(L.at('ui.minorHead')),
@@ -330,9 +326,9 @@ def render_facts(L):
     for f in S['facts']:
         T = L.at('facts.' + f['id'])
         cards.append(
-            '<article class="fact%s" data-level="%s"><p class="hook">%s</p><h3>%s</h3>'
+            '<article class="fact%s"><p class="hook">%s</p><h3>%s</h3>'
             '%s<p class="fwhy">%s %s</p></article>'
-            % (' wide' if f['wide'] else '', f['level'], rich(T['hook']), rich(T['title']),
+            % (' wide' if f['wide'] else '', rich(T['hook']), rich(T['title']),
                paras(T['text']), rich(L.at('ui.factWhyPrefix')), rich(T['why'])))
     return '<div class="facts">%s</div>' % ''.join(cards)
 
@@ -424,11 +420,9 @@ def build(code, langs):
     js = open(os.path.join(HERE, 'page.js'), encoding='utf-8').read()
 
     total = len(S['steps'])
-    basic = sum(1 for s in S['steps'] if s['level'] == 'basic')
     index = {'acts': [{'id': a['id'], 'num': a['num'],
                        'title': L.at('acts.%s.title' % a['id']),
-                       'dates': L.at('acts.%s.dates' % a['id'])} for a in S['acts']],
-             'steps': [{'id': s['id'], 'act': s['act'], 'level': s['level']} for s in S['steps']]}
+                       'dates': L.at('acts.%s.dates' % a['id'])} for a in S['acts']]}
 
     up = '../' if code == DEFAULT else '../../'
     tldr_html, tldr_text, tldr_md = tldr_parts(L, SITE + path_for(code))
@@ -450,6 +444,7 @@ def build(code, langs):
         'ldDescription': json.dumps(L.at('page.ldDescription'), ensure_ascii=False)[1:-1],
         'ldName': json.dumps(L.at('page.title'), ensure_ascii=False)[1:-1],
         'crumb': rich(L.at('ui.crumb')),
+        'syText': rich(L.at('ui.syText')), 'syCta': rich(L.at('ui.syCta')),
         'backToResearch': rich(L.at('ui.backToResearch')),
         'title': rich(L.at('page.title')),
         'subtitle': rich(L.at('page.subtitle')),
@@ -457,16 +452,11 @@ def build(code, langs):
         'date': rich(L.at('page.date')),
         'sourcesLine': rich(L.at('page.sourcesLine')),
         'scaleLine': rich(L.at('page.scaleLine')),
-        'modeGroup': html.escape(L.at('ui.modeGroup')),
-        'modeSimple': rich(L.at('ui.modeSimple')),
-        'modeFull': rich(L.at('ui.modeFull')),
-        'counterFull': rich(fill(L.at('ui.counterFull'), total=total, shown=basic)),
+        'counterFull': rich(fill(L.at('ui.counterFull'), total=total)),
         'utcHint': rich(L.at('ui.utcHint')),
-        'counterSimpleJS': json.dumps(L.at('ui.counterSimple'), ensure_ascii=False),
-        'counterFullJS': json.dumps(L.at('ui.counterFull'), ensure_ascii=False),
         'actsGroup': html.escape(L.at('ui.actsGroup')),
         'hNumbers': rich(L.at('sections.numbers.h')),
-        'hWhat': rich(L.at('sections.what.h')), 'nWhat': paras(L.at('sections.what.note')),
+        'hWhat': rich(L.at('sections.what.h')),
         'hLegend': rich(L.at('sections.legend.h')), 'nLegend': paras(L.at('sections.legend.note')),
         'hExplorer': rich(L.at('sections.explorer.h')),
         'nExplorer': fill(paras(L.at('sections.explorer.note')).replace('&lt;', '<').replace('&gt;', '>'),
@@ -494,13 +484,9 @@ def build(code, langs):
     if left:
         raise SystemExit('%s: не подставлено %s' % (code, sorted(set(left))))
 
-    # счётчики собирает скрипт, но текст обязан знать про числа
-    for name, need in (('counterSimple', ('{shown}', '{total}')),
-                       ('counterFull', ('{total}',))):
-        tpl = L.at('ui.' + name)
-        miss = [p for p in need if p not in tpl]
-        if miss:
-            raise SystemExit('%s: в %s нет %s' % (code, name, ' '.join(miss)))
+    # число шагов подставляется в текст языка, и место под него обязано быть
+    if '{total}' not in L.at('ui.counterFull'):
+        raise SystemExit('%s: в counterFull нет {total}' % code)
 
     d = OUTDIR if code == DEFAULT else os.path.join(OUTDIR, code)
     os.makedirs(d, exist_ok=True)

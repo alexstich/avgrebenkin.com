@@ -14,81 +14,12 @@
   var timeline = document.getElementById("timeline");
   var barEl = document.querySelector(".exbar");
 
-  /* ── режим «Просто / Подробно» ─────────────────────────────── */
-
-  var segs = Array.prototype.slice.call(page.querySelectorAll("[data-seg]"));
-  var counters = Array.prototype.slice.call(page.querySelectorAll("[data-counter]"));
-  var total = DATA.steps.length;
-  var basic = DATA.steps.filter(function (s) { return s.level === "basic"; }).length;
-
-  /* Формулировки счётчика приходят из строк языка: во множественном числе
-     каждый язык согласуется по-своему, и в скрипте этому не место. */
-  function fill(t) {
-    return String(t).replace("{shown}", basic).replace("{total}", total);
-  }
-
-  function currentMode() { return root.getAttribute("data-mode") === "full" ? "full" : "simple"; }
-
-  function paintMode() {
-    var m = currentMode();
-    segs.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.seg === m)); });
-    var text = fill(m === "simple" ? UI.counterSimple : UI.counterFull);
-    counters.forEach(function (c) { c.textContent = text; });
-  }
-
   /* Липкая панель проводника стоит под шапкой сайта: всё, что целится
      «под панель», обязано вычесть обе высоты. */
   function stickyOffset() {
     var nav = parseFloat(getComputedStyle(root).getPropertyValue("--nav-h")) || 60;
     return nav + (barEl ? barEl.getBoundingClientRect().height : 0) + 14;
   }
-
-  /* Опора для прокрутки: раскрытый шаг, иначе первый видимый под липкой панелью. */
-  function anchorStep() {
-    var open = page.querySelector(".step[open]");
-    if (open && open.offsetParent) return open;
-    var edge = stickyOffset();
-    for (var i = 0; i < steps.length; i++) {
-      if (!steps[i].offsetParent) continue;
-      if (steps[i].getBoundingClientRect().bottom > edge) return steps[i];
-    }
-    return null;
-  }
-
-  function nearestVisible(step) {
-    if (!step) return null;
-    var i = steps.indexOf(step), j;
-    for (j = i; j >= 0; j--) if (steps[j].offsetParent) return steps[j];
-    for (j = i; j < steps.length; j++) if (steps[j].offsetParent) return steps[j];
-    return null;
-  }
-
-  function setMode(m, remember) {
-    if (m === currentMode()) return;
-    var ref = anchorStep();
-    var before = ref ? ref.getBoundingClientRect().top : 0;
-
-    if (!reduced) {
-      page.classList.add("fading");
-      setTimeout(function () { page.classList.remove("fading"); }, 130);
-    }
-    root.setAttribute("data-mode", m);
-    paintMode();
-
-    /* Шаг мог исчезнуть вместе с режимом — держимся за ближайший видимый. */
-    var after = nearestVisible(ref);
-    /* Прокрутку правим мгновенно: у сайта html{scroll-behavior:smooth},
-       и плавная доводка здесь читалась бы как самопроизвольный отъезд страницы. */
-    if (after) window.scrollBy({ top: after.getBoundingClientRect().top - before,
-                                 behavior: "instant" });
-    if (remember !== false) { try { localStorage.setItem("hf-mode", m); } catch (e) {} }
-    syncURL();
-    onScroll();
-  }
-
-  segs.forEach(function (b) {
-    b.addEventListener("click", function () { setMode(b.dataset.seg, true); });
-  });
 
   /* ── аккордеон ─────────────────────────────────────────────── */
 
@@ -149,9 +80,8 @@
   var hash = "";
   function writeHash(id) { hash = id ? "#" + id : ""; syncURL(); }
   function syncURL() {
-    var q = currentMode() === "full" ? "?mode=full" : "";
     try {
-      history.replaceState(null, "", location.pathname + q + hash);
+      history.replaceState(null, "", location.pathname + hash);
     } catch (e) {}
   }
 
@@ -258,12 +188,10 @@
   /* В разметке всё раскрыто — так страница читается и без скрипта.
      Скрипт складывает карточки и дальше управляет ими сам. */
   steps.forEach(collapseNow);
-  paintMode();
 
   var want = location.hash.replace("#", "");
   var target = want && document.getElementById(want);
   if (target && target.classList.contains("step")) {
-    if (target.dataset.level === "full") setMode("full", false);
     hash = "#" + want;
     target.open = true;
     /* Второй проход — после того как шрифты встали и высоты устоялись. */
@@ -275,15 +203,11 @@
   syncURL();
   onScroll();
 
-  /* На бумаге нет тумблера и аккордеона — печатаем всё и подробно. */
-  var printMode = null;
+  /* На бумаге нет аккордеона — печатаем все шаги раскрытыми. */
   window.addEventListener("beforeprint", function () {
-    printMode = currentMode();
-    root.setAttribute("data-mode", "full");
     steps.forEach(function (s) { s.open = true; });
   });
   window.addEventListener("afterprint", function () {
-    if (printMode) root.setAttribute("data-mode", printMode);
     steps.forEach(function (s) { s.open = false; });
     var h = location.hash.replace("#", "");
     var t = h && document.getElementById(h);
