@@ -1,9 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420">
-  <!-- Обложка для самой страницы: та же графика, что в cover.svg, но без единого
-       слова текста. Карточка для соцсетей несёт вшитый английский заголовок, и на
-       двенадцати переведённых страницах он оказался бы английским, да ещё
-       продублировал бы <h1>. Названия трёх источников — имена собственные, они во
-       всех языках одинаковы, поэтому остаются. -->
+  <!-- Обложка для самой страницы: та же графика, что в cover.svg, и с теми же
+       словами. Сначала она была без единого слова — из соображения, что вшитый
+       английский заголовок окажется английским и на двенадцати переведённых
+       страницах. Автор сравнил её с карточкой раздела и решил иначе: со словами
+       смотрится лучше, пусть везде будет английский. Так же устроена и шапка
+       исследования про рынок труда — там подписи графика по-английски на всех
+       языках. Названия трёх источников — имена собственные, они и так одинаковы. -->
   <defs>
     <pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse">
       <path d="M16 0H0V16" fill="none" stroke="#ffffff" stroke-opacity=".045" stroke-width="1"/>
@@ -19,41 +21,51 @@
   <rect width="1200" height="420" fill="url(#glow)"/>
 
   <!-- линия времени и точки шагов -->
-  <line x1="88" y1="52" x2="88" y2="196" stroke="#8b7cff" stroke-opacity=".38" stroke-width="2"/>
-  <circle cx="88" cy="90" r="6" fill="#6f7484"/>
-  <circle cx="88" cy="126" r="6" fill="#6f7484"/>
-  <circle cx="88" cy="162" r="6" fill="#6f7484"/>
+  <line x1="88" y1="40" x2="88" y2="150" stroke="#8b7cff" stroke-opacity=".38" stroke-width="2"/>
+  <circle cx="88" cy="68" r="6" fill="#6f7484"/>
+  <circle cx="88" cy="98" r="6" fill="#6f7484"/>
+  <circle cx="88" cy="128" r="6" fill="#6f7484"/>
+
+  <!-- заголовок: те же слова, что на карточке раздела -->
+  <text x="140" y="92" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-weight="700" font-size="44" letter-spacing="-1.1" fill="#e9eaf0">Three reports,</text>
+  <text x="140" y="140" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-weight="700" font-size="44" letter-spacing="-1.1" fill="#e9eaf0">one break-in</text>
+  <text x="140" y="176" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-size="19" fill="#9298a8">The Hugging Face incident, July 2026</text>
+  <text x="140" y="204" font-family="Menlo, monospace" font-size="13"
+        letter-spacing="1.6" fill="#6f7484">32 STEPS · 3 SOURCES · 5 DISAGREEMENTS</text>
 
   <!-- точка расхождения и вилка на три версии -->
-  <circle cx="88" cy="196" r="9" fill="#f97362"/>
-  <path d="M88 205V258" fill="none" stroke="#9298a8" stroke-width="2.5"/>
-  <path d="M88 228H965V290" fill="none" stroke="#f97362" stroke-width="2.5"/>
-  <path d="M88 243H600V290" fill="none" stroke="#6ea8fe" stroke-width="2.5"/>
-  <path d="M88 258H235V290" fill="none" stroke="#e0a33e" stroke-width="2.5"/>
+  <circle cx="88" cy="150" r="9" fill="#f97362"/>
+  <path d="M88 159V250" fill="none" stroke="#9298a8" stroke-width="2.5"/>
+  <path d="M88 222H965V262" fill="none" stroke="#f97362" stroke-width="2.5"/>
+  <path d="M88 236H600V262" fill="none" stroke="#6ea8fe" stroke-width="2.5"/>
+  <path d="M88 250H235V262" fill="none" stroke="#e0a33e" stroke-width="2.5"/>
 
   <!-- три карточки версий -->
   <g>
-    <rect x="70" y="290" width="330" height="108" fill="#12141c" stroke="#ffffff" stroke-opacity=".10"/>
-    <rect x="70" y="290" width="330" height="4" fill="#e0a33e"/>
-    <text x="92" y="324" font-family="Menlo, monospace" font-size="15" letter-spacing="2.4" fill="#e0a33e">METR</text>
-    <rect x="92" y="344" width="240" height="9" fill="#ffffff" fill-opacity=".16"/>
-    <rect x="92" y="363" width="286" height="9" fill="#ffffff" fill-opacity=".10"/>
-    <rect x="92" y="382" width="180" height="9" fill="#ffffff" fill-opacity=".10"/>
+    <rect x="70" y="262" width="330" height="126" fill="#12141c" stroke="#ffffff" stroke-opacity=".10"/>
+    <rect x="70" y="262" width="330" height="4" fill="#e0a33e"/>
+    <text x="92" y="296" font-family="Menlo, monospace" font-size="15" letter-spacing="2.4" fill="#e0a33e">METR</text>
+    <rect x="92" y="316" width="240" height="9" fill="#ffffff" fill-opacity=".16"/>
+    <rect x="92" y="335" width="286" height="9" fill="#ffffff" fill-opacity=".10"/>
+    <rect x="92" y="354" width="180" height="9" fill="#ffffff" fill-opacity=".10"/>
   </g>
   <g>
-    <rect x="435" y="290" width="330" height="108" fill="#12141c" stroke="#ffffff" stroke-opacity=".10"/>
-    <rect x="435" y="290" width="330" height="4" fill="#6ea8fe"/>
-    <text x="457" y="324" font-family="Menlo, monospace" font-size="15" letter-spacing="2.4" fill="#6ea8fe">OPENAI</text>
-    <rect x="457" y="344" width="200" height="9" fill="#ffffff" fill-opacity=".16"/>
-    <rect x="457" y="363" width="286" height="9" fill="#ffffff" fill-opacity=".10"/>
-    <rect x="457" y="382" width="150" height="9" fill="#ffffff" fill-opacity=".10"/>
+    <rect x="435" y="262" width="330" height="126" fill="#12141c" stroke="#ffffff" stroke-opacity=".10"/>
+    <rect x="435" y="262" width="330" height="4" fill="#6ea8fe"/>
+    <text x="457" y="296" font-family="Menlo, monospace" font-size="15" letter-spacing="2.4" fill="#6ea8fe">OPENAI</text>
+    <rect x="457" y="316" width="200" height="9" fill="#ffffff" fill-opacity=".16"/>
+    <rect x="457" y="335" width="286" height="9" fill="#ffffff" fill-opacity=".10"/>
+    <rect x="457" y="354" width="150" height="9" fill="#ffffff" fill-opacity=".10"/>
   </g>
   <g>
-    <rect x="800" y="290" width="330" height="108" fill="#12141c" stroke="#ffffff" stroke-opacity=".10"/>
-    <rect x="800" y="290" width="330" height="4" fill="#f97362"/>
-    <text x="822" y="324" font-family="Menlo, monospace" font-size="15" letter-spacing="2.4" fill="#f97362">HUGGING FACE</text>
-    <rect x="822" y="344" width="260" height="9" fill="#ffffff" fill-opacity=".16"/>
-    <rect x="822" y="363" width="200" height="9" fill="#ffffff" fill-opacity=".10"/>
-    <rect x="822" y="382" width="240" height="9" fill="#ffffff" fill-opacity=".10"/>
+    <rect x="800" y="262" width="330" height="126" fill="#12141c" stroke="#ffffff" stroke-opacity=".10"/>
+    <rect x="800" y="262" width="330" height="4" fill="#f97362"/>
+    <text x="822" y="296" font-family="Menlo, monospace" font-size="15" letter-spacing="2.4" fill="#f97362">HUGGING FACE</text>
+    <rect x="822" y="316" width="260" height="9" fill="#ffffff" fill-opacity=".16"/>
+    <rect x="822" y="335" width="200" height="9" fill="#ffffff" fill-opacity=".10"/>
+    <rect x="822" y="354" width="240" height="9" fill="#ffffff" fill-opacity=".10"/>
   </g>
 </svg>
