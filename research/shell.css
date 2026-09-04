@@ -181,15 +181,20 @@ main{position:relative;z-index:1;max-width:var(--content);margin:0 auto;padding:
 .sy-strip b{color:var(--text);font-weight:600}
 .sy-strip a.sy-go{
   white-space:nowrap;padding:.55rem 1.1rem;border-radius:10px;
-  /* чёрный, а не белый: на оранжевом #FF6700 белый даёт контраст 2.92
-     и не проходит AA, чёрный — 7.19 */
-  background:var(--sy-orange);border:0;color:#111;text-decoration:none;
+  background:var(--sy-orange);border:0;color:#fff;text-decoration:none;
   font-family:var(--font-head);font-size:.88rem;font-weight:600;letter-spacing:-.01em;
-  transition:background .18s;
+  transition:background .18s,color .18s;
 }
 /* Кликается вся полоса, а не только кнопка. */
 .sy-strip a.sy-go::after{content:"";position:absolute;inset:0;z-index:2}
-.sy-strip:hover a.sy-go{background:var(--sy-orange-2);text-decoration:none}
+/* В покое надпись белая — так кнопка нарисована у самого Speak-Y. Под курсором и
+   под клавиатурным фокусом фон уходит в тёмно-оранжевый, а надпись переворачивается
+   в чёрную: два признака вместо одного, и заодно контраст на этот момент
+   поднимается с 2.92 до 5.06. Фокус ведёт себя как наведение и добавляет обводку —
+   до этого у кнопки не было никакого фокусного вида, кроме браузерного. */
+.sy-strip:hover a.sy-go,
+.sy-strip a.sy-go:focus-visible{background:var(--sy-orange-2);color:#111;text-decoration:none}
+.sy-strip a.sy-go:focus-visible{outline:2px solid var(--sy-rule);outline-offset:3px}
 @media (max-width:620px){
   /* На узком экране знак и строка остаются в ряд, кнопка уходит под них.
      Строка здесь в несколько строк, поэтому знак прижимается к её верху. */
