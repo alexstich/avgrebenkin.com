@@ -262,12 +262,23 @@
       sel.addRange(r);
     }
 
+    /* Печать одного листа: тело окна уезжает прямо в body, иначе его накрывают
+       и overflow диалога, и правила печати самой статьи. Переносится тело, а не
+       диалог: диалог живёт в верхнем слое, и вынуть его из документа значит
+       закрыть окно. */
+    var tbody = tldr.querySelector(".tldr-body"), tbodyHome = tbody.parentNode;
+    function restoreTldr() {
+      if (tbody.parentNode !== tbodyHome) tbodyHome.insertBefore(tbody, tbodyHome.firstChild);
+      root.removeAttribute("data-printing");
+    }
     tldr.querySelector("[data-tldr-print]").addEventListener("click", function () {
+      document.body.appendChild(tbody);
       root.setAttribute("data-printing", "tldr");
       window.print();
+      restoreTldr();
     });
     window.addEventListener("afterprint", function () {
-      root.removeAttribute("data-printing");
+      restoreTldr();
     });
   }
 
