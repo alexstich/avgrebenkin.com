@@ -63,19 +63,31 @@ Interactive studies published as their own pages, one per folder under
 https://avgrebenkin.com/research/. Each one is built from data collected and rebuilt
 from source, with the method and its weak spots written down on the page.
 
-- [Find your city](https://avgrebenkin.com/research/cities/) — 303 cities scored on
-  twelve things people actually move for: safety, health care, commute, clean air, climate,
-  culture and nightlife, car-free living, university presence, purchasing power, housing
-  affordability, kid infrastructure and nonstop flight destinations. The reader sets the
-  weight of each metric with sliders; a globe and a score-against-cost chart redraw on the
-  same weights, every city is listed in order below them, and any city can be found by name
-  in a search box that turns the globe to it. A share button puts the whole setup into the
-  URL, so a link reopens someone else's exact weights, regions and selected city.
-  Sources: Numbeo mid-year 2026 release (nine numbers — seven of the twelve metrics plus the
-  two cost-of-living indices behind the horizontal axis), OpenStreetMap counts inside a 10 km
-  disk around each city centre (four metrics), OurAirports plus Wikipedia (nonstop
-  destinations). Every number was rebuilt from source on 26 August 2026. Published in thirteen languages.
-  Raw dataset: https://avgrebenkin.com/research/data/cities-303.json (2026-08-26)
+- [The door didn't close. It narrowed.](https://avgrebenkin.com/research/ai-and-work/) — Bill
+  Gates's August 2026 essay on AI and work, section by section, checked against the employment
+  data the essay never cites. The finding: at the whole-market level every exposure group moves
+  within a percentage point of every other, but inside the most exposed occupations employment
+  splits by age — 22-to-25-year-olds down 3.0 % over twelve months against +1.9 % for the 41–49
+  group, a 4.9-point gap inside the same jobs. The mechanism is slowed hiring, not layoffs:
+  separation rates for exposed young workers did not rise. Two interactives and one scale, all
+  working off one embedded dataset of 825 occupations: a search that returns your own occupation's official
+  AI exposure category, projected employment to 2035, measured share of tasks brought to models
+  and gender composition, then — separately, as the part your own answers move — the employment
+  change for your age band and the share of your gender's employment sitting in that exposure
+  category (41.5 per cent of working women against 31.9 per cent of men in the highest one);
+  a tile map of the 120 largest occupations sized by employment, grouped into the four exposure
+  categories and wired to the search in both directions; and the cost of checking stated as two
+  numbers side by side — a 474× cost advantage with no human in the loop against 1.2× once
+  expert verification is priced in. A button at the top opens a seven-point short version of
+  the whole study that can be copied as plain text or printed on its own sheet. The page also carries the
+  disagreement — five research teams that find no AI footprint in the labour market — and the
+  limit that no 2026 forecast can yet be tested against occupational employment, since the
+  official series runs only through May 2025. Sources: US Bureau of Labor Statistics AI exposure
+  categories and 2025–35 projections, Anthropic Economic Index, Stanford Digital Economy Lab
+  (ADP payroll panel through July 2026), Current Population Survey, OpenAI's GDPval, ILO Working
+  Paper 140 and IMF SDN/2024/001. Published in English only, unlike the other two studies
+  (2026-09-03)
+
 
 - [Three reports, one break-in](https://avgrebenkin.com/research/hugging-face/) — a reconstruction of
   the July 2026 incident in which OpenAI's agents, running an internal cyber-capability evaluation with
@@ -102,6 +114,21 @@ https://avgrebenkin.com/research/cities/de/ and https://avgrebenkin.com/research
 German cities study and the Japanese incident study. Every page carries hreflang links for all thirteen
 plus x-default pointing at English, and a language picker in its header. City and country names stay in
 Latin script in every version, because they come from the sources that way.
+
+- [Find your city](https://avgrebenkin.com/research/cities/) — 303 cities scored on
+  twelve things people actually move for: safety, health care, commute, clean air, climate,
+  culture and nightlife, car-free living, university presence, purchasing power, housing
+  affordability, kid infrastructure and nonstop flight destinations. The reader sets the
+  weight of each metric with sliders; a globe and a score-against-cost chart redraw on the
+  same weights, every city is listed in order below them, and any city can be found by name
+  in a search box that turns the globe to it. A share button puts the whole setup into the
+  URL, so a link reopens someone else's exact weights, regions and selected city.
+  Sources: Numbeo mid-year 2026 release (nine numbers — seven of the twelve metrics plus the
+  two cost-of-living indices behind the horizontal axis), OpenStreetMap counts inside a 10 km
+  disk around each city centre (four metrics), OurAirports plus Wikipedia (nonstop
+  destinations). Every number was rebuilt from source on 26 August 2026. Published in thirteen languages.
+  Raw dataset: https://avgrebenkin.com/research/data/cities-303.json (2026-08-26)
+
 
 ## Speaking
 
