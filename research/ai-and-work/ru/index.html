@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr" data-theme="dark" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Дверь не закрылась. Она сузилась. — ИИ и рынок труда, сверенные с данными</title>
+<meta name="description" content="Билл Гейтс говорит, что порог ИИ на рынке труда перейдён. Я сверил его утверждения с данными о занятости, на которые он не ссылается: 825 профессий с официальной категорией экспозиции и возрастной разлом внутри уязвимых — самые молодые теряют 3,0 процента, а группа 41–49 прибавляет 1,9.">
+<link rel="canonical" href="https://avgrebenkin.com/research/ai-and-work/ru/">
+<link rel="alternate" hreflang="en" href="https://avgrebenkin.com/research/ai-and-work/">
+<link rel="alternate" hreflang="ru" href="https://avgrebenkin.com/research/ai-and-work/ru/">
+<link rel="alternate" hreflang="uk" href="https://avgrebenkin.com/research/ai-and-work/uk/">
+<link rel="alternate" hreflang="de" href="https://avgrebenkin.com/research/ai-and-work/de/">
+<link rel="alternate" hreflang="fr" href="https://avgrebenkin.com/research/ai-and-work/fr/">
+<link rel="alternate" hreflang="es" href="https://avgrebenkin.com/research/ai-and-work/es/">
+<link rel="alternate" hreflang="pt-BR" href="https://avgrebenkin.com/research/ai-and-work/pt-BR/">
+<link rel="alternate" hreflang="it" href="https://avgrebenkin.com/research/ai-and-work/it/">
+<link rel="alternate" hreflang="nl" href="https://avgrebenkin.com/research/ai-and-work/nl/">
+<link rel="alternate" hreflang="pl" href="https://avgrebenkin.com/research/ai-and-work/pl/">
+<link rel="alternate" hreflang="tr" href="https://avgrebenkin.com/research/ai-and-work/tr/">
+<link rel="alternate" hreflang="ja" href="https://avgrebenkin.com/research/ai-and-work/ja/">
+<link rel="alternate" hreflang="zh-Hans" href="https://avgrebenkin.com/research/ai-and-work/zh-Hans/">
+<link rel="alternate" hreflang="x-default" href="https://avgrebenkin.com/research/ai-and-work/">
+
+<script>
+  /* Язык читателя — до первой отрисовки. Голый адрес /research/ai-and-work/
+     нейтральный, и браузер, просящий один из опубликованных языков, уезжает
+     на него. Адрес с /xx/ — чей-то осознанный выбор, присланная ссылка, — и
+     остаётся где стоит. Список альтернатив выше и есть весь каталог, поэтому
+     руками его здесь держать не приходится. */
+  (function () {
+    if (location.protocol !== 'http:' && location.protocol !== 'https:') return;
+    var links = document.querySelectorAll('link[rel="alternate"][hreflang]');
+    var have = {}, neutral = '';
+    for (var i = 0; i < links.length; i++) {
+      var path = new URL(links[i].href).pathname;
+      if (links[i].hreflang === 'x-default') neutral = path;
+      else have[links[i].hreflang.toLowerCase()] = path;
+    }
+    if (!neutral || location.pathname !== neutral) return;
+
+    function match(tag) {
+      tag = String(tag).toLowerCase();
+      if (have[tag]) return tag;
+      var base = tag.split('-')[0];
+      /* опубликован только упрощённый китайский, поэтому нужен явный признак:
+         zh-Hans или регион, который так пишет. Голое 'zh' не говорит ничего,
+         zh-TW и zh-HK читают традиционный — и те и другие проваливаются
+         дальше по списку читателя, в конце концов к английскому. */
+      if (base === 'zh') return /hans|^zh-(cn|sg|my)$/.test(tag) ? 'zh-hans' : '';
+      if (have[base]) return base;
+      for (var k in have) if (k.split('-')[0] === base) return k;   /* pt → pt-br */
+      return '';
+    }
+
+    var want = '';
+    try { want = (localStorage.getItem('lang') || '').toLowerCase(); } catch (e) {}
+    if (!have[want]) {
+      var prefs = navigator.languages || [navigator.language || ''];
+      for (var j = 0; j < prefs.length && !have[want]; j++) want = match(prefs[j]);
+    }
+    /* английский живёт на нейтральном адресе, выбрать его — остаться на месте */
+    var to = have[want];
+    if (to && to !== neutral) location.replace(to + location.search + location.hash);
+  })();
+</script>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Aleksei Grebenkin">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0b0c11" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f6f9" media="(prefers-color-scheme: light)">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%235b4fd6'/%3E%3Cg fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M16 8v8'/%3E%3Cpath d='M11 12v4'/%3E%3Cpath d='M21 12v4'/%3E%3Cpath d='M16 20v4'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Aleksei Grebenkin">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="uk_UA">
+<meta property="og:locale:alternate" content="de_DE">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta property="og:locale:alternate" content="es_ES">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta property="og:locale:alternate" content="it_IT">
+<meta property="og:locale:alternate" content="nl_NL">
+<meta property="og:locale:alternate" content="pl_PL">
+<meta property="og:locale:alternate" content="tr_TR">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta property="og:title" content="Дверь не закрылась. Она сузилась.">
+<meta property="og:description" content="Билл Гейтс говорит, что порог ИИ на рынке труда перейдён. Я сверил это с данными о занятости, на которые он не ссылается. Эффект проходит не между профессиями — он внутри них, по возрасту.">
+<meta property="og:url" content="https://avgrebenkin.com/research/ai-and-work/ru/">
+<meta property="og:image" content="https://avgrebenkin.com/images/research/ai-and-work.jpg">
+<meta property="og:image:secure_url" content="https://avgrebenkin.com/images/research/ai-and-work.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Изменение занятости за двенадцать месяцев в самых уязвимых профессиях по возрасту: группа 22–25 лет теряет 3,0 процента, группа 41–49 прибавляет 1,9">
+<meta property="article:published_time" content="2026-09-03">
+<meta property="article:modified_time" content="2026-09-04">
+<meta property="article:author" content="https://avgrebenkin.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Дверь не закрылась. Она сузилась.">
+<meta name="twitter:description" content="Билл Гейтс об ИИ и работе, сверенный с данными о занятости, на которые он не ссылается. Никого не увольняют — просто впускают меньше.">
+<meta name="twitter:image" content="https://avgrebenkin.com/images/research/ai-and-work.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"></noscript>
+<link rel="stylesheet" href="../../shell.css?v=4">
+
+<script>
+  /* Тема — до первой отрисовки, чтобы страница не моргала. */
+  (function () {
+    var r = document.documentElement;
+    r.classList.remove('no-js');
+    try {
+      var t = localStorage.getItem('theme');
+      if (['dark', 'light', 'cyber'].indexOf(t) === -1) {
+        t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      r.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://avgrebenkin.com/research/ai-and-work/ru/#webpage",
+      "url": "https://avgrebenkin.com/research/ai-and-work/ru/",
+      "name": "Дверь не закрылась. Она сузилась. — ИИ и рынок труда, сверенные с данными",
+      "description": "Билл Гейтс говорит, что порог ИИ на рынке труда перейдён. Я сверил его утверждения с данными о занятости, на которые он не ссылается: 825 профессий с официальной категорией экспозиции и возрастной разлом внутри уязвимых — самые молодые теряют 3,0 процента, а группа 41–49 прибавляет 1,9.",
+      "isPartOf": { "@id": "https://avgrebenkin.com/#website" },
+      "author": { "@id": "https://avgrebenkin.com/#person" },
+      "datePublished": "2026-09-03",
+      "dateModified": "2026-09-04",
+      "inLanguage": "ru",
+      "breadcrumb": { "@id": "https://avgrebenkin.com/research/ai-and-work/ru/#breadcrumb" },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://avgrebenkin.com/images/research/ai-and-work.jpg",
+        "width": 1200,
+        "height": 630
+      },
+      "mainEntity": { "@id": "https://avgrebenkin.com/research/ai-and-work/ru/#article" }
+    },
+    {
+      "@type": "Article",
+      "@id": "https://avgrebenkin.com/research/ai-and-work/ru/#article",
+      "url": "https://avgrebenkin.com/research/ai-and-work/ru/",
+      "headline": "Дверь не закрылась. Она сузилась.",
+      "description": "Билл Гейтс говорит, что порог на рынке труда перейдён. Его диагноз выдерживает встречу с данными о занятости; форма ущерба не совпадает с той картиной, которую носит в голове большинство. Эффект проходит не между профессиями, а внутри них, по возрасту, и механизм — замедленный наём, а не увольнения.",
+      "articleSection": "Labour market and AI",
+      "isPartOf": { "@id": "https://avgrebenkin.com/#website" },
+      "author": { "@id": "https://avgrebenkin.com/#person" },
+      "publisher": { "@id": "https://avgrebenkin.com/#person" },
+      "datePublished": "2026-09-03",
+      "dateModified": "2026-09-04",
+      "inLanguage": "ru",
+      "translationOfWork": { "@type": "Article", "@id": "https://avgrebenkin.com/research/ai-and-work/#article", "inLanguage": "en" },
+      "isAccessibleForFree": true,
+      "image": "https://avgrebenkin.com/images/research/ai-and-work.jpg",
+      "keywords": ["AI and employment", "labour market", "entry-level hiring", "AI exposure", "Bill Gates", "occupational projections"],
+      "citation": [
+        "https://www.bls.gov/emp/publications/ai-exposure-categories.htm",
+        "https://digitaleconomy.stanford.edu/publications/canaries-in-the-coal-mine/",
+        "https://huggingface.co/datasets/Anthropic/EconomicIndex",
+        "https://www.bls.gov/cps/cpsaat11.htm",
+        "https://www.ilo.org/sites/default/files/2025-05/WP140_web.pdf",
+        "https://arxiv.org/abs/2510.04374"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://avgrebenkin.com/research/ai-and-work/ru/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://avgrebenkin.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Research", "item": "https://avgrebenkin.com/research/" },
+        { "@type": "ListItem", "position": 3, "name": "Дверь не закрылась. Она сузилась.", "item": "https://avgrebenkin.com/research/ai-and-work/ru/" }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+  /* ── палитра ──────────────────────────────────────────────────────────
+     Своего здесь только то, чего нет в токенах сайта: пара «выросло / упало»,
+     четыре цвета категорий экспозиции и ступень серого ниже --muted.
+     Фон, текст, акцент, рамки и тени берутся из shell.css, поэтому темы
+     переключает шапка сайта. Перерисовывать при переключении нечего: вся
+     графика на странице — это DOM и CSS-переменные, ни холста, ни одного
+     цвета, зашитого в скрипт. */
+  /* --ink-3 — самый бледный текст страницы: подписи под графиками, заголовки
+     таблиц, легенда карты. Оттенки подобраны под контраст 4.5 к самому
+     невыгодному фону каждой темы, а не на глаз: при 11–12 px это требование
+     AA. Мерить надо не по фону страницы, а по фону карточки: на тёмных темах
+     он светлее, и оттенок, дающий 4.63 на странице, внутри карточки падает
+     до 4.44. */
+  :root {
+    --ink-3: #7a7f8f;
+    --firm: rgba(255,255,255,.34);
+    --neg: #e08a7e;
+    --cat-4: #c8574c; --cat-3: #cf8f6b; --cat-2: #6d8ba0; --cat-1: #3d5f75;
+  }
+  :root[data-theme="light"] {
+    --ink-3: #696f80;
+    --firm: rgba(16,18,30,.34);
+    --neg: #a33a2e;
+    --cat-4: #8c3b34; --cat-3: #b3785c; --cat-2: #6d8ba0; --cat-1: #2f4858;
+  }
+  :root[data-theme="cyber"] {
+    --ink-3: #6f7c86;
+    --firm: var(--accent);
+    --neg: #ff2b57;
+    --cat-4: #ff003c; --cat-3: #ff8a00; --cat-2: #00b8c9; --cat-1: #1d5a66;
+  }
+  /* Алиасы: имена, которыми пользуется вёрстка исследования, привязаны
+     к токенам сайта — палитра остаётся одна, а не две. */
+  :root {
+    --paper: var(--bg); --rule: var(--border-soft);
+    --ink: var(--text); --ink-2: var(--muted);
+    --pos: var(--ok); --mark: var(--accent);
+    --sans: var(--font-body); --mono: var(--font-mono);
+    /* Одна мера строки на всю статью, и она в rem, а не в ch: ch считается
+       от кегля самого блока, и подзаголовок 1.2rem обрывался бы позже
+       абзаца 17px — семь разных правых краёв в одной колонке читаются
+       как случайный обрыв. */
+    --measure: 32rem;
+  }
+
+  /* ── страница в оболочке сайта ───────────────────────────────────────
+     main из shell.css уже задаёт ширину и поля, поэтому .wrap только
+     отодвигает содержимое от фиксированной шапки. */
+  .wrap { max-width: none; padding: calc(var(--nav-h) + 30px) 0 0;
+          font-size: 17px; line-height: 1.7; }
+  .col { max-width: var(--measure); margin: 0 auto; }
+  /* Шапка и разделители секций держат ту же колонку, что и текст: иначе
+     линейки идут шире набора и страница читается как две разные сетки. */
+  .wrap > header.hero, .wrap > section, .wrap > .crumb {
+    max-width: var(--measure); margin-left: auto; margin-right: auto; }
+  .crumb { margin: 0 0 26px; font-family: var(--mono); font-size: 11px;
+           letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+  .crumb a { color: var(--accent); }
+  .crumb a:hover { text-decoration: underline; }
+  .wrap p { margin: 0 0 1.15em; }
+  .wrap sup a { font-family: var(--sans); font-size: .62rem; font-weight: 600;
+                text-decoration: none; padding: 0 1px; }
+  .wrap sup a:hover { text-decoration: underline; }
+  .wrap em { font-style: italic; }
+  .wrap strong { font-weight: 600; }
+
+  header.hero { padding: 0 0 40px; border-bottom: 2px solid var(--firm); margin-bottom: 44px; }
+  .eyebrow { font-family: var(--sans); font-size: .7rem; letter-spacing: .16em;
+             text-transform: uppercase; color: var(--ink-3); margin: 0 0 20px; }
+  .wrap h1 { font-size: clamp(2.1rem,6vw,3.4rem); font-weight: 700; line-height: 1.04;
+             letter-spacing: -.03em; margin: 0 0 22px; text-wrap: balance; }
+  .standfirst { font-size: clamp(1.05rem,2vw,1.2rem); line-height: 1.55;
+                color: var(--ink-2); margin: 0 0 26px; }
+  .hero-shot {
+    width: 100%; height: auto; aspect-ratio: 1240/442; margin: 0 0 26px;
+    border: 1px solid var(--rule); border-radius: 12px;
+  }
+  :root[data-theme="cyber"] .hero-shot {
+    border-radius: 0;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  }
+  .byline { font-family: var(--sans); font-size: .78rem; color: var(--ink-3); letter-spacing: .03em; }
+
+  /* ── строка под шапкой: «коротко» слева, выбор языка справа ─────────── */
+  .modebar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
+             margin: 0 0 40px; }
+
+  /* Выбор языка на нативном <details>: открывается и без скрипта, закрывается
+     Esc, и в списке лежат обычные ссылки — их видит и поисковик, и читалка. */
+  .langpick { position: relative; margin-inline-start: auto; }
+  .langpick > summary {
+    display: inline-flex; align-items: center; gap: .4rem; cursor: pointer;
+    list-style: none; padding: .45rem .7rem; border: 1px solid var(--rule);
+    border-radius: 9px; font-family: var(--sans); font-size: .8rem; font-weight: 500;
+    color: var(--ink); transition: color .18s, background .18s;
+  }
+  .langpick > summary::-webkit-details-marker { display: none; }
+  .langpick > summary:hover { color: var(--ink); background: rgba(var(--accent-rgb),.08); }
+  .langpick > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .langpick .globe { font-size: .7rem; color: var(--accent); }
+  .langpick[open] > summary { color: var(--accent); background: rgba(var(--accent-rgb),.12); }
+  .langpick ul {
+    position: absolute; z-index: 30; inset-inline-end: 0; top: calc(100% + 6px);
+    margin: 0; padding: 6px; list-style: none; min-width: 11rem;
+    background: var(--bg-elev); border: 1px solid var(--rule);
+    border-radius: 10px; box-shadow: var(--shadow);
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px;
+  }
+  .langpick li a {
+    display: block; padding: .4rem .55rem; border-radius: 6px;
+    font-family: var(--sans); font-size: .8rem;
+    color: var(--ink-2); text-decoration: none; white-space: nowrap;
+  }
+  .langpick li a:hover { background: rgba(var(--accent-rgb),.10); color: var(--ink); }
+  .langpick li.is-current a { color: var(--accent); background: rgba(var(--accent-rgb),.12); }
+  :root[data-theme="cyber"] .langpick > summary,
+  :root[data-theme="cyber"] .langpick ul,
+  :root[data-theme="cyber"] .langpick li a { border-radius: 0; }
+  /* Примечание переводчика стоит последним в списке источников и отбивается
+     от него: это не источник, а оговорка о самом переводе. */
+  .transnote { margin-top: 18px; border-top: 1px dashed var(--rule); padding-top: 12px; }
+
+  /* ── короткая версия ────────────────────────────────────────────────── */
+  .tldr-open {
+    display: inline-flex; align-items: center; gap: .55rem;
+    padding: 10px 16px; border: 1px solid var(--accent); border-radius: 10px;
+    background: rgba(var(--accent-rgb),.12); color: var(--accent); cursor: pointer;
+    font-family: var(--sans); font-size: .88rem; font-weight: 600; letter-spacing: -.01em;
+    transition: background .18s;
+  }
+  .tldr-open:hover { background: rgba(var(--accent-rgb),.22); }
+  .tldr-open svg { width: 15px; height: 15px; fill: none; stroke: currentColor;
+                   stroke-width: 1.9; stroke-linecap: round; }
+  .tldr-open-sub { color: var(--ink-2); font-weight: 400; }
+  :root[data-theme="cyber"] .tldr-open {
+    border-radius: 0; text-transform: uppercase; letter-spacing: .08em; font-size: .78rem;
+    font-family: var(--mono);
+    clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px));
+  }
+
+  .tldr {
+    width: min(680px, calc(100vw - 32px)); max-height: calc(100vh - 48px);
+    padding: 0; border: 1px solid var(--rule); border-radius: 14px;
+    background: var(--bg-elev); color: var(--ink); overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .tldr::backdrop { background: rgba(0,0,0,.62); backdrop-filter: blur(2px); }
+  :root[data-theme="cyber"] .tldr { border-radius: 0; border-color: var(--accent); }
+  /* Шапка окна не переносится ни при какой длине подписей: три кнопки и крестик
+     всегда в одну строку. Иначе на 375 px подпись внутри кнопки переламывалась
+     надвое и ряд разъезжался по высоте — по-английски «Copy» короткое, а
+     «Kopieren», «Скопировать» и «Kopiëren» уже нет. Ужимаются подписи, а не
+     кнопки: `min-width: 0` разрешает флексу сжаться, многоточие ставит span. */
+  .tldr-bar {
+    display: flex; flex-wrap: nowrap; align-items: center; gap: 8px; padding: 12px 14px;
+    border-bottom: 1px solid var(--rule); background: var(--bg-elev);
+    position: sticky; top: 0; z-index: 2;
+  }
+  .tldr-kicker {
+    flex: 1 1 auto; min-width: 0; margin: 0; font-family: var(--sans); font-size: .7rem;
+    font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .tldr-btn {
+    display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px;
+    flex: 0 1 auto; min-width: 0;
+    border: 1px solid var(--rule); border-radius: 8px; background: var(--paper);
+    color: var(--ink); cursor: pointer; font-family: var(--sans); font-size: .8rem;
+    font-weight: 500; transition: background .18s, color .18s, border-color .18s;
+  }
+  .tldr-btn span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tldr-btn:hover { border-color: var(--accent); }
+  .tldr-btn svg { flex: 0 0 auto; width: 14px; height: 14px; fill: none; stroke: currentColor;
+                  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .tldr-btn.done { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  /* Крестик не ужимается: из четырёх кнопок он единственный, без которого
+     окно не закрыть мышью. */
+  .tldr-x { flex: 0 0 auto; padding: 7px 9px; }
+  :root[data-theme="cyber"] .tldr-btn { border-radius: 0; }
+  /* На узком экране подписи снимаются целиком, а не ужимаются многоточием:
+     «Ско…» вместо «Скопировать» не читается, а четыре иконки в ряд — читаются.
+     Название кнопки при этом никуда не девается, оно в aria-label и title.
+     Порог — 500 px: без «КРАТКО» (его снимает правило на 600 px) самый длинный
+     набор подписей, украинский, требует 478 px, и до этой ширины они читаются
+     целиком. */
+  @media (max-width: 500px) {
+    .tldr-bar { padding: 10px; gap: 6px; }
+    .tldr-btn { padding: 7px 9px; }
+    .tldr-btn span { display: none; }
+  }
+
+  .tldr-doc { padding: 22px 26px 28px; overflow-y: auto;
+              max-height: calc(100vh - 48px - 57px); font-size: .95rem; line-height: 1.6; }
+  .tldr-doc h2 { font-size: 1.5rem; margin: 0 0 8px; letter-spacing: -.02em; }
+  .tldr-sub { font-family: var(--sans); font-size: .9rem; color: var(--ink-2); margin: 0 0 18px; }
+  .tldr-doc ul { margin: 0 0 18px; padding-left: 20px; font-family: var(--sans);
+                 font-size: .88rem; line-height: 1.6; color: var(--ink-2); }
+  .tldr-doc li { margin-bottom: 11px; }
+  .tldr-doc li b { color: var(--ink); font-weight: 600; }
+  /* В окне краткой версии фон светлее страницы, и --ink-3 на нём не добирает
+     до 4.5 — здесь подписи берут --ink-2. */
+  .tldr-src, .tldr-link { font-family: var(--sans); font-size: .78rem;
+                          color: var(--ink-2); margin: 0 0 6px; line-height: 1.5;
+                          overflow-wrap: anywhere; }
+  .byline b { color: var(--ink-2); font-weight: 500; }
+
+  .wrap h2 { font-size: clamp(1.4rem,3vw,1.85rem); font-weight: 600; line-height: 1.2;
+             letter-spacing: -.02em; margin: 0 0 18px; text-wrap: balance; }
+  .wrap h3 { font-family: var(--sans); font-size: 1.02rem; font-weight: 600;
+             margin: 30px 0 10px; letter-spacing: -.005em; }
+  .wrap section { padding: 44px 0; border-bottom: 1px solid var(--rule); }
+  .snum { font-family: var(--mono); font-size: .72rem; color: var(--mark);
+          letter-spacing: .1em; display: block; margin-bottom: 12px; }
+
+  .pull { font-size: 1.3rem; line-height: 1.42; font-style: italic; color: var(--ink);
+          border-left: 3px solid var(--mark); padding-left: 20px; margin: 30px 0; }
+  .note { font-family: var(--sans); font-size: .87rem; line-height: 1.6; color: var(--ink-2);
+          background: var(--card-bg); border: 1px solid var(--rule); border-radius: 12px;
+          padding: 15px 17px; margin: 26px 0; }
+  .note b { color: var(--ink); }
+
+  figure { margin: 32px 0; }
+  figcaption { font-family: var(--sans); font-size: .8rem; font-weight: 600;
+               line-height: 1.45; margin-bottom: 16px; }
+  .fsrc { font-family: var(--sans); font-size: .74rem; color: var(--ink-3);
+          line-height: 1.5; margin: 12px 0 0; }
+  /* Подпись под графиком возраста заполняет скрипт. Без него абзац остаётся
+     пустым и всё равно занимает высоту со своим margin — прячем. */
+  .fsrc:empty { display: none; }
+
+  /* ── столбики: ось посередине, минус влево, плюс вправо ─────────────── */
+  .plot { border-top: 1px solid var(--firm); border-bottom: 1px solid var(--rule);
+          padding: 18px 0 14px; }
+  .lane { display: grid; grid-template-columns: minmax(0, 96px) minmax(0, 1fr) 62px;
+          align-items: center;
+          gap: 12px; height: 28px; font-family: var(--sans); font-size: .81rem; }
+  .lane .lab { text-align: right; color: var(--ink-2); }
+  .lane.hi { background: rgba(var(--accent-rgb),.09); margin: 0 -8px; padding: 0 8px; height: 32px; }
+  .lane.hi .lab { color: var(--ink); font-weight: 600; }
+  .track { position: relative; height: 100%; }
+  .axis { position: absolute; left: 50%; top: 2px; bottom: 2px; width: 1px; background: var(--rule); }
+  .bar { position: absolute; top: 9px; height: 11px; background: var(--pos); transition: width .4s ease; }
+  .lane.hi .bar { top: 11px; height: 12px; }
+  .bar.dn { background: var(--neg); }
+  .val { font-family: var(--sans); font-variant-numeric: tabular-nums; text-align: right; }
+  .lane.hi .val { font-weight: 600; }
+
+  /* ── таблицы ────────────────────────────────────────────────────────
+     На узком экране таблица не переверстывается, а прокручивается внутри
+     .scroll: min-width не даёт колонкам схлопнуться в вертикальную кашу. */
+  .wrap table { width: 100%; border-collapse: collapse; font-family: var(--sans);
+                font-size: .85rem; margin: 8px 0; }
+  .wrap th, .wrap td { text-align: left; padding: 9px 12px 9px 0;
+                       border-bottom: 1px solid var(--rule); }
+  .wrap th { font-size: .7rem; letter-spacing: .07em; text-transform: uppercase;
+             color: var(--ink-3); font-weight: 600; border-bottom-color: var(--firm); }
+  /* Числовые колонки прижаты вправо, поэтому им нужен отступ слева:
+     иначе на прокручиваемой таблице «53.2m» и «31.3%» сливаются. */
+  .wrap td.n, .wrap th.n { text-align: right; font-variant-numeric: tabular-nums;
+                           padding-right: 0; padding-left: 16px; }
+  .wrap td.dn { color: var(--neg); } .wrap td.up { color: var(--pos); }
+  .scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .scroll table { min-width: 520px; }
+
+  /* ── интерактивные блоки ────────────────────────────────────────────── */
+  .tool { background: var(--card-bg); border: 1px solid var(--rule); border-radius: 14px;
+          box-shadow: var(--shadow); padding: 26px; margin: 34px 0; }
+  .tool-h { font-family: var(--sans); font-size: .72rem; letter-spacing: .12em;
+            text-transform: uppercase; color: var(--mark); margin: 0 0 14px; font-weight: 600; }
+  .wrap fieldset { border: 0; margin: 0 0 16px; padding: 0; }
+  .wrap legend { font-family: var(--sans); font-size: .74rem; font-weight: 600;
+                 letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3);
+                 padding: 0; margin-bottom: 8px; }
+  input[type=search] { width: 100%; font-family: var(--sans); font-size: .95rem;
+                       padding: 11px 13px; border: 1px solid var(--rule); border-radius: 9px;
+                       background: var(--paper); color: var(--ink); }
+  input[type=search]:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .hits { list-style: none; margin: 6px 0 0; padding: 0; max-height: 216px; overflow-y: auto;
+          border: 1px solid var(--rule); border-radius: 9px; background: var(--paper); }
+  .hits:empty { display: none; }
+  .hits button { width: 100%; text-align: left; background: none; border: 0;
+                 border-bottom: 1px solid var(--rule); padding: 9px 13px;
+                 font-family: var(--sans); font-size: .86rem; color: var(--ink);
+                 cursor: pointer; display: flex; justify-content: space-between; gap: 12px; }
+  .hits li:last-child button { border-bottom: 0; }
+  .hits button:hover, .hits button:focus-visible { background: rgba(var(--accent-rgb),.1); outline: none; }
+  .hits .n { color: var(--ink-3); font-variant-numeric: tabular-nums; font-size: .78rem; white-space: nowrap; }
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .chip { font-family: var(--sans); font-size: .82rem; padding: 7px 13px;
+          border: 1px solid var(--rule); border-radius: 8px; background: var(--paper);
+          color: var(--ink-2); cursor: pointer; }
+  .chip[aria-pressed=true] { background: var(--accent); border-color: var(--accent);
+                             color: var(--accent-ink); font-weight: 500; }
+  .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  /* Линии рисуют сами карточки, а не фон контейнера: при пяти карточках в ряду
+     из трёх шестая ячейка светилась серым прямоугольником. */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
+           gap: 1px; background: var(--paper); border: 1px solid var(--rule);
+           border-radius: 12px; overflow: hidden; margin: 0 0 18px; }
+  .card { background: var(--paper); padding: 13px 14px; display: flex;
+          flex-direction: column; gap: 4px; box-shadow: 0 0 0 1px var(--rule); }
+  .card .k { font-family: var(--sans); font-size: .66rem; letter-spacing: .07em;
+             text-transform: uppercase; color: var(--ink-3); }
+  .card .v { font-family: var(--sans); font-size: 1.36rem; font-weight: 600;
+             letter-spacing: -.02em; font-variant-numeric: tabular-nums; line-height: 1.1; }
+  .card .v.dn { color: var(--neg); } .card .v.up { color: var(--pos); }
+  .card .c { font-family: var(--sans); font-size: .73rem; color: var(--ink-2); line-height: 1.4; }
+  .res[hidden] { display: none; }
+  /* Результат разделён надвое: слева от читателя факты о профессии, ниже —
+     то, что двигают переключатели возраста и пола. Без этой границы непонятно,
+     на что они вообще влияют: раньше менялась одна подпись под графиком. */
+  .res-h { font-family: var(--sans); font-size: .68rem; font-weight: 600;
+           letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
+           margin: 18px 0 8px; }
+  .res-h:first-child { margin-top: 4px; }
+
+  /* ── карта профессий ────────────────────────────────────────────────
+     Плитки собраны в четыре блока по категориям: так видно объём каждой,
+     а не перемешанная россыпь. Плитка выбранной профессии обведена. */
+  .mgroup { margin: 0 0 14px; }
+  .mgh { font-family: var(--sans); font-size: .74rem; margin: 0 0 6px;
+         color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 4px 8px;
+         align-items: baseline; }
+  .mgh b { color: var(--ink); font-weight: 600; }
+  .mgh .n { color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .mgh .sw { width: 11px; height: 11px; flex: 0 0 auto; align-self: center; }
+  .matrix { display: flex; flex-wrap: wrap; gap: 2px; }
+  .tile.on { outline: 2px solid var(--ink); outline-offset: 1px; z-index: 2; }
+
+  /* ── стоимость проверки ─────────────────────────────────────────────
+     Ползунок убран: кривая между крайними точками монотонная и ничего не
+     открывает, а обе точки — и есть весь вывод раздела. */
+  .cost-h { font-family: var(--sans); font-size: .72rem; letter-spacing: .07em;
+            text-transform: uppercase; color: var(--ink-3); margin: 0 0 10px; }
+  .cost { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 1px; background: var(--rule); border: 1px solid var(--rule);
+          border-radius: 12px; overflow: hidden; }
+  .cost-cell { background: var(--paper); padding: 14px 16px 16px;
+               display: flex; flex-direction: column; gap: 6px; }
+  .cost-cell .k { font-family: var(--sans); font-size: .66rem; letter-spacing: .07em;
+                  text-transform: uppercase; color: var(--ink-3); }
+  .cost-cell .big.dn { color: var(--neg); }
+  .cost-cell .c { font-family: var(--sans); font-size: .8rem; color: var(--ink-2);
+                  line-height: 1.5; }
+  /* Вся полоса — это 474×, красный обрубок слева — те 1,2×, что переживают
+     проверку. Пропорция настоящая, поэтому обрубок и должен быть еле виден. */
+  .cost-scale { height: 10px; margin: 14px 0 0; border-radius: 5px; overflow: hidden;
+                background: rgba(var(--accent-rgb),.22); }
+  .cost-fill { display: block; height: 100%; background: var(--neg); }
+  .cost-foot { font-family: var(--sans); font-size: .8rem; color: var(--ink-3);
+               margin: 8px 0 0; line-height: 1.5; }
+  :root[data-theme="cyber"] .cost,
+  :root[data-theme="cyber"] .cost-scale { border-radius: 0; }
+
+  /* ── карта профессий: плитка = профессия, площадь ∝ занятости ────────── */
+  .tile { position: relative; border: 0; padding: 0; cursor: pointer; }
+  .tile:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; z-index: 2; }
+  .wrap .legend { display: flex; flex-wrap: wrap; gap: 14px; font-family: var(--sans);
+                  font-size: .75rem; color: var(--ink-2); margin-top: 14px; align-items: center; }
+  .swatch { display: inline-block; width: 13px; height: 13px; margin-right: 5px; vertical-align: -2px; }
+  #mout { font-family: var(--sans); font-size: .84rem; color: var(--ink-2);
+          min-height: 2.6em; margin-top: 12px; line-height: 1.5; }
+  #mout b { color: var(--ink); }
+
+  .slider-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
+                font-family: var(--sans); font-size: .88rem; margin: 16px 0; }
+  input[type=range] { flex: 1; min-width: 180px; accent-color: var(--accent); }
+  .big { font-family: var(--sans); font-size: 2.3rem; font-weight: 600; letter-spacing: -.03em;
+         font-variant-numeric: tabular-nums; line-height: 1; }
+
+  .sources { padding: 44px 0 28px; border-bottom: 0; }
+  .wrap .sources h2 { font-family: var(--sans); font-size: .78rem; letter-spacing: .12em;
+                      text-transform: uppercase; color: var(--ink-3); margin-bottom: 16px; }
+  .sources ol { margin: 0; padding-left: 22px; font-family: var(--sans); font-size: .84rem;
+                color: var(--ink-2); line-height: 1.6; }
+  .sources li { margin-bottom: 9px; }
+  .sources a { word-break: break-word; text-decoration: underline; text-underline-offset: 2px; }
+
+  /* Полосе нужна вся ширина main: в колонке набора её строка ломается надвое. */
+  .wrap .sy-strip { margin: 0 0 8px; }
+
+  /* Кибертема сайта срезает углы — блоки исследования следуют за ней. */
+  :root[data-theme="cyber"] .tool,
+  :root[data-theme="cyber"] .note {
+    border-radius: 0;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  }
+  :root[data-theme="cyber"] .chip,
+  :root[data-theme="cyber"] .cards,
+  :root[data-theme="cyber"] .hits,
+  :root[data-theme="cyber"] input[type=search] { border-radius: 0; }
+  :root[data-theme="cyber"] .snum,
+  :root[data-theme="cyber"] .tool-h,
+  :root[data-theme="cyber"] .eyebrow { text-shadow: 0 0 12px rgba(var(--accent-rgb),.45); }
+  :root[data-theme="cyber"] .wrap h1 { letter-spacing: -.02em; }
+
+  /* Печать: на лист уходит одна короткая версия. Диалог живёт в верхнем слое,
+     который печатается непредсказуемо, поэтому перед печатью скрипт переносит
+     её текст в body и возвращает обратно. Лист всегда светлый: тёмный фон на
+     бумаге даёт чёрный прямоугольник. */
+  @media print {
+    :root[data-print="tldr"] body > *:not(#tldrDoc) { display: none !important; }
+    :root[data-print="tldr"] body::before,
+    :root[data-print="tldr"] body::after { display: none !important; }
+    :root[data-print="tldr"] #tldrDoc {
+      display: block !important; max-height: none; overflow: visible;
+      padding: 0; background: #fff; color: #14161f; font-size: 11pt;
+    }
+    :root[data-print="tldr"] #tldrDoc h2 { color: #14161f; }
+    :root[data-print="tldr"] #tldrDoc ul,
+    :root[data-print="tldr"] .tldr-sub { color: #3f4454; }
+    :root[data-print="tldr"] #tldrDoc li b { color: #14161f; }
+    :root[data-print="tldr"] .tldr-src,
+    :root[data-print="tldr"] .tldr-link { color: #5b6172; }
+    :root[data-print="tldr"] #tldrDoc li { break-inside: avoid; }
+  }
+
+  /* Длинный пункт краткой версии дробится на абзацы, как и проза статьи:
+     список остаётся списком, но внутри пункта появляется воздух. */
+  .tldr-doc li > p { margin: 0 0 .5em; }
+  .tldr-doc li > p:last-child { margin-bottom: 0; }
+  .dataset-note { margin-top: 20px; }
+  .dataset-note > p { margin: 0 0 .6em; }
+  .dataset-note > p:last-child { margin-bottom: 0; }
+
+  @media (max-width: 600px) {
+    .wrap { font-size: 16px; }
+    .lane { grid-template-columns: minmax(0, 74px) minmax(0, 1fr) 54px; font-size: .76rem; }
+    .tool { padding: 18px; }
+    /* Заголовок панели ломался на две строки и растил её вдвое; то же самое
+       написано в h2 строкой ниже, поэтому здесь он лишний. */
+    .tldr-kicker { display: none; }
+    .tldr-bar { justify-content: flex-end; }
+    .tldr-doc { padding: 18px 18px 24px; }
+    .wrap section { padding: 34px 0; }
+    .pull { font-size: 1.15rem; padding-left: 14px; }
+  }
+
+</style>
+</head>
+<body>
+
+<nav class="site-nav" id="site-nav">
+  <a href="/" class="nav-name">Aleksei Grebenkin</a>
+  <div class="nav-links" id="nav-links">
+    <a href="/#projects" class="nav-link">Projects</a>
+    <a href="/#notes" class="nav-link">Notes</a>
+    <a href="/research/" class="nav-link nav-link-active" aria-current="page">Research</a>
+    <a href="/#speaking" class="nav-link">Speaking</a>
+    <a href="/#certifications" class="nav-link">Certifications</a>
+    <a href="/#journey" class="nav-link">Journey</a>
+    <a href="/#contacts" class="nav-link">Contacts</a>
+  </div>
+  <div class="nav-controls">
+    <div class="theme-switcher" id="theme-switcher" role="radiogroup" aria-label="Color theme">
+      <button type="button" class="theme-btn" data-theme="dark" role="radio" aria-label="Dark theme" aria-checked="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button type="button" class="theme-btn" data-theme="light" role="radio" aria-label="Light theme" aria-checked="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button type="button" class="theme-btn" data-theme="cyber" role="radio" aria-label="Cyberpunk theme" aria-checked="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+      </button>
+    </div>
+    <button type="button" class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+      <span class="nav-burger-line"></span>
+      <span class="nav-burger-line"></span>
+      <span class="nav-burger-line"></span>
+    </button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+<p class="crumb"><a href="/research/">← Research</a></p>
+
+<header class="hero">
+  <p class="eyebrow">Исследование · № 3 · сентябрь 2026</p>
+  <h1>Дверь не закрылась. Она сузилась.</h1>
+  <p class="standfirst">Билл Гейтс говорит, что порог на рынке труда мы уже перешли. Я прочитал эссе, а потом неделю сверял его с данными о занятости, на которые он не ссылается ни разу. Диагноз выдерживает проверку. Форма ущерба — не та, которую представляет себе большинство.</p>
+  <img class="hero-shot" id="heroShot" src="../../../images/research/ai-and-work-hero.webp"
+       alt="Изменение занятости за двенадцать месяцев в самых уязвимых профессиях по возрастным группам: 22–25 лет — минус 3,0 процента, 26–30 — минус 2,1, 31–34 — минус 1,6, 35–40 — плюс 1,3, 41–49 — плюс 1,9, 50 и старше — плюс 0,4."
+       width="1240" height="442" fetchpriority="high" decoding="async">
+  <p class="byline"><b>Алексей Гребенкин</b> · Данные: Бюро статистики труда США, Anthropic Economic Index, Stanford Digital Economy Lab, Международная организация труда</p>
+</header>
+
+<div class="modebar">
+  <button type="button" class="tldr-open" id="tldrOpen" aria-haspopup="dialog">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h16M4 11h16M4 16h9"/></svg>
+    Коротко
+    <span class="tldr-open-sub">2 минуты · скопировать или напечатать</span>
+  </button>
+  <details class="langpick"><summary aria-label="Язык страницы"><span class="globe" aria-hidden="true">◍</span>Русский</summary><ul><li><a href="/research/ai-and-work/" hreflang="en" lang="en">English</a></li><li class="is-current"><a href="/research/ai-and-work/ru/" hreflang="ru" lang="ru" aria-current="true">Русский</a></li><li><a href="/research/ai-and-work/uk/" hreflang="uk" lang="uk">Українська</a></li><li><a href="/research/ai-and-work/de/" hreflang="de" lang="de">Deutsch</a></li><li><a href="/research/ai-and-work/fr/" hreflang="fr" lang="fr">Français</a></li><li><a href="/research/ai-and-work/es/" hreflang="es" lang="es">Español</a></li><li><a href="/research/ai-and-work/pt-BR/" hreflang="pt-BR" lang="pt-BR">Português (Brasil)</a></li><li><a href="/research/ai-and-work/it/" hreflang="it" lang="it">Italiano</a></li><li><a href="/research/ai-and-work/nl/" hreflang="nl" lang="nl">Nederlands</a></li><li><a href="/research/ai-and-work/pl/" hreflang="pl" lang="pl">Polski</a></li><li><a href="/research/ai-and-work/tr/" hreflang="tr" lang="tr">Türkçe</a></li><li><a href="/research/ai-and-work/ja/" hreflang="ja" lang="ja">日本語</a></li><li><a href="/research/ai-and-work/zh-Hans/" hreflang="zh-Hans" lang="zh-Hans">简体中文</a></li></ul></details>
+</div>
+
+<!-- Короткая версия для тех, кто не будет читать целиком, и для тех, кто хочет
+     унести её к себе. Собрана из фраз и цифр самой статьи — ничего нового здесь
+     не утверждается. Копируется текстом или Markdown и печатается отдельным
+     листом, всегда со ссылкой на исходную страницу. -->
+<dialog class="tldr" id="tldr" aria-labelledby="tldrTitle">
+  <div class="tldr-bar">
+    <p class="tldr-kicker">Кратко о главном</p>
+    <button type="button" class="tldr-btn" data-tldr-copy="text" title="Скопировать" aria-label="Скопировать">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
+      <span>Скопировать</span>
+    </button>
+    <button type="button" class="tldr-btn" data-tldr-copy="md" title="Markdown" aria-label="Markdown">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 15V9l2.5 3L12 9v6M16 9v4.5M16 13.5l2 2 2-2"/></svg>
+      <span>Markdown</span>
+    </button>
+    <button type="button" class="tldr-btn" id="tldrPrint" title="Напечатать" aria-label="Напечатать">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg>
+      <span>Напечатать</span>
+    </button>
+    <button type="button" class="tldr-btn tldr-x" id="tldrClose" title="Закрыть" aria-label="Закрыть">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+
+  <div class="tldr-doc" id="tldrDoc">
+    <h2 id="tldrTitle">Дверь не закрылась. Она сузилась.</h2>
+    <p class="tldr-sub">Билл Гейтс об ИИ и работе, сверенный с данными о занятости, на которые он не ссылается.</p>
+    <ul>
+      <li><p><b>На уровне рынка в целом смотреть почти не на что.</b> Если сгруппировать профессии по тому, насколько они уязвимы, за двенадцать месяцев все группы разошлись меньше чем на процентный пункт — от +0,1 % до +2,2 %.</p></li>
+      <li><p><b>Разделите те же профессии по возрасту, и картина меняется.</b> В самых уязвимых занятость людей 22–25 лет упала на 3,0 %, а группа 41–49 прибавила 1,9 %: разрыв 4,9 пункта внутри одних и тех же профессий.</p>
+  <p>С конца 2022 года самые молодые в двух самых уязвимых группах потеряли 11 %, тогда как их ровесники в трёх наименее уязвимых прибавили 10 %.</p></li>
+      <li><p><b>Никого не увольняют. Просто впускают меньше.</b> Частота увольнений среди молодых в уязвимых профессиях не выросла — замедлился наём. Дверь не захлопнулась за теми, кто уже внутри; она сузилась для тех, кто пытается войти.</p></li>
+      <li><p><b>Официальные прогнозы всё равно растут.</b> Самая уязвимая треть рынка растёт медленнее прочих — и всё-таки растёт, +2,0 % к 2035 году. Разброс внутри верхней категории шире, чем разброс между категориями: офисные служащие −6,0 %, специалисты по данным +34,6 %.</p></li>
+      <li><p><b>Вся экономика вопроса держится на шаге проверки.</b> Модель дешевле человека-эксперта в 474 раза, если её никто не проверяет, и в 1,2 раза, если проверяет эксперт. Выигрыш появляется ровно в тот момент, когда проверку убирают.</p></li>
+      <li><p><b>Экспозиция распределена неравномерно.</b> С поправкой на занятость в высшей категории 57,5 % женщин против 36,9 % в низшей.</p></li>
+      <li><p><b>Вопрос не решён.</b> Несколько исследовательских групп вообще не находят следа ИИ на рынке труда, и ни один прогноз 2026 года нельзя проверить по занятости в разрезе профессий, пока официальный ряд не догонит его в 2027-м.</p></li>
+    </ul>
+    <p class="tldr-src">Источники: Бюро статистики труда США · Stanford Digital Economy Lab · Anthropic Economic Index · Current Population Survey · GDPval · МОТ · МВФ</p>
+    <p class="tldr-link">Полное исследование, с интерактивами и всеми источниками: https://avgrebenkin.com/research/ai-and-work/ru/</p>
+  </div>
+</dialog>
+
+<section class="col">
+  <span class="snum">01 — Зачем я за это взялся</span>
+  <h2>Прогноз, который стоит разобрать</h2>
+  <p>Я не слежу за Биллом Гейтсом. Августовское эссе я прочитал потому, что мне его положили перед носом, и оно меня остановило — не тем, что пугает, а тем, что не пугает. Это текст человека, который внимательно посмотрел на систему и перечисляет, что в ней, по его мнению, ломается, честно оговаривая, чего он починить не может.</p>
+  <p>Такое сочетание встречается достаточно редко, чтобы потратить на него вечер. Дальше — его аргумент, раздел за разделом, с цифрами, которые он опускает.</p>
+  <p>Каждая цифра здесь ведёт к своему источнику. Там, где эссе и интервью того же дня говорят разное, я помечаю, что откуда, — и это различие оказывается важным: самые цитируемые числа живут в интервью, а не в эссе.</p>
+  <p class="pull">Интересный вопрос никогда не был в том, прав ли он. Интересно, что данные делают с формой его утверждения.</p>
+</section>
+
+<section class="col">
+  <span class="snum">02 — Аналогия</span>
+  <h2>Почему привычное сравнение не работает</h2>
+  <p>Думая об этом переходе, большинство хватается за аналогию «от поля к офису». Гейтс утверждает, что она ломается в двух местах, и оба стоит проговорить прямо.</p>
+  <p>Первое — сроки. Тот сдвиг растянулся на поколения. Этот, по его оценке, ложится на юриспруденцию, поддержку клиентов, медицину, разработку и производство внутри десятилетия.</p>
+  <p>Второе, и более важное: переход от поля к офису создавал работу, которая требовала человеческого мышления. Эта технология замещает само мышление. Очевидной следующей ступеньки того же рода не видно.</p>
+  <p>Он добавляет деталь, объясняющую скорость. Персональному компьютеру потребовалось двадцать лет, чтобы изменить труд: кто-то должен был написать софт, сбить цену и обучить работников. Эта технология работает на железе, которое у людей уже есть, и говорит обычным языком. Она подстраивается под нас, а не наоборот.</p>
+</section>
+
+<section class="col">
+  <span class="snum">03 — Пороги</span>
+  <h2>Что, по его словам, уже перейдено</h2>
+  <p>В интервью того же дня Гейтс называет пять порогов, которые считает пройденными: биологические возможности, кибервозможности, психосоциальная зависимость, слом рынка труда и ранние признаки потери контроля<sup><a href="#s6">6</a></sup>.</p>
+  <p>Его мысль не в том, что какой-то из них наступил. Она в том, что индустрия годами обещала притормозить, когда они появятся на горизонте, — и прошла мимо без публичного разговора.</p>
+  <div class="note"><p><b>Оговорка об источнике.</b> Списка из пяти порогов в эссе нет. В эссе названы три риска — исчезающая работа, усилившиеся злоумышленники и вред детям и человеческим связям — и прямо сказано, что плана перехода не существует<sup><a href="#s5">5</a></sup>. Более резкая формулировка прозвучала в интервью. Большинство пересказов эти два источника смешивает.</p></div>
+  <p>Слово «порог» здесь не риторика. Ведущие лаборатории публикуют рамочные документы по безопасности, где уровни возможностей названы заранее — помощь в создании биологического оружия, автономные кибероперации, самораспространение, — и обещают на них остановиться. Именно это обещание Гейтс и меряет.</p>
+</section>
+
+<section>
+<div class="col">
+  <span class="snum">04 — Свидетельства</span>
+  <h2>Где эффект виден на самом деле</h2>
+  <p>Здесь его эссе замолкает. Он пишет, что занятость среди молодых работников в уязвимых профессиях упала, тогда как у их старших коллег осталась на месте, и не приводит ни одной цифры. Цифра существует, и она интереснее самой фразы.</p>
+  <p>Посмотрите сначала на рынок целиком — смотреть почти не на что.</p>
+  <p>Данные о зарплатных ведомостях, покрывающие миллионы работников, сгруппированные по уязвимости профессии, показывают, что все группы разошлись меньше чем на процентный пункт<sup><a href="#s3">3</a></sup>. Поэтому несколько исследовательских групп и сообщают, что следа ИИ на рынке труда не находят вовсе.</p>
+</div>
+<figure class="col">
+  <figcaption>Изменение занятости за двенадцать месяцев по группам уязвимости профессий. Июль 2026 года.</figcaption>
+  <div class="plot">
+    <div class="lane"><span class="lab">Наименее уязвимые</span><span class="track"><span class="axis"></span><span class="bar" style="left:50%;width:17%"></span></span><span class="val">+1,1 %</span></div>
+    <div class="lane"><span class="lab">Вторая</span><span class="track"><span class="axis"></span><span class="bar" style="left:50%;width:8%"></span></span><span class="val">+0,5 %</span></div>
+    <div class="lane"><span class="lab">Третья</span><span class="track"><span class="axis"></span><span class="bar" style="left:50%;width:34%"></span></span><span class="val">+2,2 %</span></div>
+    <div class="lane"><span class="lab">Четвёртая</span><span class="track"><span class="axis"></span><span class="bar" style="left:50%;width:12%"></span></span><span class="val">+0,8 %</span></div>
+    <div class="lane"><span class="lab">Самые уязвимые</span><span class="track"><span class="axis"></span><span class="bar" style="left:50%;width:2%"></span></span><span class="val">+0,1 %</span></div>
+  </div>
+  <p class="fsrc">Stanford Digital Economy Lab, сбалансированная панель зарплатных ведомостей ADP<sup><a href="#s3">3</a></sup>.</p>
+</figure>
+<div class="col">
+  <p>Теперь добавьте одну переменную. Те же данные, тот же месяц, те же профессии — с разбивкой по возрасту.</p>
+</div>
+<figure class="col">
+  <figcaption>Изменение занятости за двенадцать месяцев в <em>самых уязвимых</em> профессиях по возрастным группам. Июль 2026 года.</figcaption>
+  <div class="plot">
+    <div class="lane hi"><span class="lab">22–25</span><span class="track"><span class="axis"></span><span class="bar dn" style="right:50%;width:46%"></span></span><span class="val">−3,0 %</span></div>
+    <div class="lane"><span class="lab">26–30</span><span class="track"><span class="axis"></span><span class="bar dn" style="right:50%;width:32%"></span></span><span class="val">−2,1 %</span></div>
+    <div class="lane"><span class="lab">31–34</span><span class="track"><span class="axis"></span><span class="bar dn" style="right:50%;width:25%"></span></span><span class="val">−1,6 %</span></div>
+    <div class="lane"><span class="lab">35–40</span><span class="track"><span class="axis"></span><span class="bar" style="left:50%;width:20%"></span></span><span class="val">+1,3 %</span></div>
+    <div class="lane hi"><span class="lab">41–49</span><span class="track"><span class="axis"></span><span class="bar" style="left:50%;width:29%"></span></span><span class="val">+1,9 %</span></div>
+    <div class="lane"><span class="lab">50+</span><span class="track"><span class="axis"></span><span class="bar" style="left:50%;width:6%"></span></span><span class="val">+0,4 %</span></div>
+  </div>
+  <p class="fsrc">Та же панель, тот же месяц<sup><a href="#s3">3</a></sup>. Разрыв между самыми молодыми и группой 41–49 — 4,9 процентного пункта, и это внутри одних и тех же профессий.</p>
+</figure>
+<div class="col">
+  <p>Эффект проходит не между профессиями. Он внутри них, отсортированный по возрасту. На более длинном окне разлом ещё резче: с конца 2022 года занятость людей 22–25 лет в двух самых уязвимых группах упала на 11 процентов, тогда как у их ровесников в трёх наименее уязвимых выросла на 10<sup><a href="#s3">3</a></sup>.</p>
+  <p class="pull">Никого не увольняют. Просто впускают меньше.</p>
+  <p>Это различие и есть находка. Частота увольнений среди молодых в уязвимых профессиях не выросла — замедлился наём.</p>
+  <p>Дверь не захлопнулась за теми, кто уже внутри; она сузилась для тех, кто пытается войти. Гейтс описывает ровно это, когда пишет о начальных позициях, и именно эта часть его эссе лучше всего выдерживает встречу с данными.</p>
+  <div class="note"><p><b>Что оговаривают сами исследователи.</b> Эффект уменьшается вдвое, если учесть образование; часть спада началась до генеративного ИИ; в национальных обследованиях разрыв меньше, чем в этой панели.</p>
+  <p>Панель не репрезентативна для рынка труда США, а работа не прошла рецензирование. Авторы называют результаты описательными, а не причинно-следственными<sup><a href="#s3">3</a></sup>.</p></div>
+</div>
+</section>
+
+<section>
+<div class="col">
+  <span class="snum">05 — Ваша профессия</span>
+  <h2>Проверьте собственную работу</h2>
+  <p>Гейтс называет профессии по наблюдению: продажи и поддержка, разработка, работа помощника юриста, дальше — оценка кредитов, анализ данных, сортировка пациентов. Теперь есть официальная мера, по которой его можно проверить.</p>
+  <p>В августе Бюро статистики труда опубликовало первую классификацию профессий по уязвимости к ИИ, построенную на пяти независимых мерах — трёх теоретических и двух из наблюдаемого реального использования, — вместе с прогнозами занятости до 2035 года<sup><a href="#s1">1</a></sup>.</p>
+  <p>Введите профессию ниже. Всё, что вернётся, взято из источников в конце страницы, и у каждой цифры стоит сноска на тот источник, откуда она пришла.</p>
+</div>
+<div class="col">
+  <div class="tool">
+    <p class="tool-h">Интерактив · 825 профессий</p>
+    <fieldset>
+      <legend>Профессия</legend>
+      <input type="search" id="q" placeholder="Например: software, accountant, nurse, teacher…" aria-label="Поиск по профессиям" autocomplete="off">
+      <ul class="hits" id="hits"></ul>
+    </fieldset>
+    <fieldset>
+      <legend>Ваш возраст</legend>
+      <div class="chips" id="age"></div>
+    </fieldset>
+    <fieldset>
+      <legend>Пол — меняет только контекст, но никогда цифры самой профессии</legend>
+      <div class="chips" id="sex"></div>
+    </fieldset>
+    <div class="res" id="res" hidden>
+      <p class="res-h">Профессия</p>
+      <div class="cards" id="cards"></div>
+      <p class="res-h">И вы в ней</p>
+      <div class="cards" id="youCards"></div>
+      <div class="plot" id="agePlot"></div>
+      <p class="fsrc" id="afterPlot"></p>
+    </div>
+  </div>
+</div>
+<div class="col">
+  <div class="note" id="disc"><p><b>Это не предсказание о вас.</b> Здесь показано, где ваша профессия стоит среди других и что произошло с занятостью людей вашего возраста в профессиях со схожей уязвимостью.</p>
+  <p>Уязвимость означает, что модель применима к задачам, — Бюро прямо оговаривает, что из неё не следует ни потеря работы, ни автоматизация, ни влияние на зарплату<sup><a href="#s1">1</a></sup>.</p></div>
+</div>
+</section>
+
+<section>
+<div class="col">
+  <span class="snum">06 — Карта</span>
+  <h2>Пятая часть рынка, подробно</h2>
+  <p>Выложите все 825 профессий на одну поверхность — картина спокойнее, чем разговоры вокруг. Каждая плитка ниже — профессия, размер по числу занятых, цвет по официальной категории уязвимости. Наведите или нажмите на любую.</p>
+</div>
+<div class="col">
+  <div id="matrix"></div>
+  <div class="legend">
+    <span style="color:var(--ink-3)">Площадь ∝ занятости · 120 крупнейших профессий · нажмите плитку, чтобы найти её выше</span>
+  </div>
+  <p id="mout">Наведите или нажмите плитку, чтобы увидеть профессию.</p>
+</div>
+<div class="col">
+  <p>Доля занятости в каждой категории по всем 831 профессии, для которых Бюро строит прогноз:</p>
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Уязвимость</th><th class="n">Профессий</th><th class="n">Занято, 2025</th><th class="n">Доля</th><th class="n">Прогноз 2025–35</th></tr></thead>
+    <tbody>
+      <tr><td>Очень высокая</td><td class="n">206</td><td class="n">53,2 млн</td><td class="n">31,3 %</td><td class="n">+2,0 %</td></tr>
+      <tr><td>Высокая</td><td class="n">206</td><td class="n">42,1 млн</td><td class="n">24,8 %</td><td class="n">+3,1 %</td></tr>
+      <tr><td>Умеренная</td><td class="n">206</td><td class="n">44,7 млн</td><td class="n">26,2 %</td><td class="n">+6,2 %</td></tr>
+      <tr><td>Низкая</td><td class="n">213</td><td class="n">30,3 млн</td><td class="n">17,8 %</td><td class="n">+2,5 %</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="fsrc">Бюро статистики труда, категории уязвимости к ИИ и прогнозы занятости на 2025–35<sup><a href="#s1">1</a></sup>.</p>
+  <p>Самая уязвимая треть рынка растёт медленнее прочих — и всё-таки растёт. Это официальный прогноз, а не мнение. При этом разброс <em>внутри</em> верхней категории шире, чем разброс между категориями:</p>
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Очень высокая уязвимость</th><th class="n">Занято</th><th class="n">Прогноз к 2035</th></tr></thead>
+    <tbody>
+      <tr><td>Office clerks, general</td><td class="n">2,60 млн</td><td class="n dn">−6,0 %</td></tr>
+      <tr><td>Secretaries and administrative assistants</td><td class="n">1,89 млн</td><td class="n dn">−6,0 %</td></tr>
+      <tr><td>Bookkeeping and auditing clerks</td><td class="n">1,53 млн</td><td class="n dn">−5,6 %</td></tr>
+      <tr><td>Customer service representatives</td><td class="n">2,67 млн</td><td class="n dn">−5,3 %</td></tr>
+      <tr><td>Computer and information systems managers</td><td class="n">0,69 млн</td><td class="n up">+15,8 %</td></tr>
+      <tr><td>Logisticians</td><td class="n">0,26 млн</td><td class="n up">+17,6 %</td></tr>
+      <tr><td>Data scientists</td><td class="n">0,28 млн</td><td class="n up">+34,6 %</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Одна категория уязвимости, противоположные траектории. Гейтс говорит об этом один раз, в придаточном, которое выпало из большинства пересказов: в разработке падение издержек породит новый спрос, поэтому чистые потери там будут меньше, чем в других местах. Прогнозы с ним согласны.</p>
+</div>
+</section>
+
+<section class="col">
+  <span class="snum">07 — Точка слома</span>
+  <h2>Сдвиг наступает, когда проверять перестают</h2>
+  <p>Самая недооценённая строчка эссе — не про профессии. Гейтс пишет, что главный сдвиг для работников наступит, когда технология станет почти безошибочной: именно тогда её можно будет запускать без человека-проверяющего, и все экономические стимулы указывают в эту сторону.</p>
+  <p>Есть бенчмарк, который переводит это в числа.</p>
+  <p>GDPval от OpenAI сравнивает модели с опытными профессионалами на 1320 настоящих рабочих продуктах из 44 профессий, каждый примерно на семь часов работы<sup><a href="#s7">7</a></sup>. Громкий вывод: передовая модель сравнивается с экспертом или обходит его примерно на половине задач. А в той же статье закопана таблица, которую почти никто не цитирует.</p>
+  <div class="tool">
+    <p class="tool-h">Стоимость проверки</p>
+    <p class="cost-h">Преимущество модели перед экспертом</p>
+    <div class="cost">
+      <div class="cost-cell">
+        <span class="k">Без проверки человеком</span>
+        <span class="big">474×</span>
+        <span class="c">Если человека в цепочке нет, наивное преимущество по стоимости — 474×. Именно это число ходит по рукам, и оно предполагает, что работу никто не проверяет.</span>
+      </div>
+      <div class="cost-cell">
+        <span class="k">Полная проверка экспертом</span>
+        <span class="big dn">1.2×</span>
+        <span class="c">Если результат полностью проверяет эксперт, преимущество по стоимости — 1,2×. Почти вся экономия уходит на верификацию.</span>
+      </div>
+    </div>
+    <div class="cost-scale" aria-hidden="true"><span class="cost-fill"></span></div>
+    <p class="cost-foot">Всё, что между этими двумя числами, — вопрос о том, сколько проверки вы оставляете<sup><a href="#s7">7</a></sup>.</p>
+  </div>
+  <p>В наивном измерении модель примерно в 90 раз быстрее и в несколько сотен раз дешевле. Как только в цену входит экспертная проверка, преимущество сжимается примерно до 1,1–1,4× по времени и 1,2–1,6× по стоимости<sup><a href="#s7">7</a></sup>.</p>
+  <p>Значит, вся экономика вопроса держится на шаге проверки. Пока человек ещё проверяет, выигрыш незначителен. Весь приз появляется в тот момент, когда проверку убирают, — и именно поэтому её уберут, и именно поэтому Гейтс прав, называя настоящим порогом это, а не какую-то отдельную способность.</p>
+</section>
+
+<section class="col">
+  <span class="snum">08 — Кто уязвим</span>
+  <h2>То, что эссе обходит стороной</h2>
+  <p>Гейтс строит весь текст вокруг справедливости: эта технология станет либо величайшим уравнителем, либо худшим источником несправедливости. И ни разу не спрашивает, кто на самом деле работает в уязвимых профессиях.</p>
+  <p>Я сопоставил классификацию уязвимости с обследованием занятости. С поправкой на то, сколько людей в них работает, профессии высшей категории уязвимости на <b>57,5 процента</b> женские.</p>
+  <p>В низшей категории — на <b>36,9 процента</b><sup><a href="#s1">1</a></sup><sup><a href="#s4">4</a></sup>. Разрыв в двадцать пунктов, и причина не тонкая: канцелярская, административная и вспомогательная работа одновременно самая уязвимая и почти повсюду самая женская.</p>
+  <p>Международная организация труда получает то же самое в мировом масштабе, причём методом на международных классификациях, а не на американских: в высшем ярусе уязвимости оказываются 4,7 процента женской занятости против 2,4 процента мужской, а в странах с высоким доходом — 9,6 против 3,5<sup><a href="#s8">8</a></sup>.</p>
+  <p>Та же работа МОТ полезна и как проверка масштаба. Она оценивает мировую уязвимость в 24 процента занятости, тогда как МВФ — почти в 40<sup><a href="#s9">9</a></sup>. Два авторитетных института, одно явление, разница почти вдвое. Кто уверенно называет одну мировую цифру, тот выбрал одну и спрятал другую.</p>
+</section>
+
+<section class="col">
+  <span class="snum">09 — Предложения</span>
+  <h2>Заповедники, токены и четыре вопроса без ответа</h2>
+  <h3>Human Reserved</h3>
+  <p>Гейтс предлагает отложить часть работы для людей — не потому, что машины не справятся, а потому, что общество решает: потеря была бы слишком велика. Он заимствует язык природных заповедников. Личный источник — последние годы его отца и те, кто за ним ухаживал и понимал этого человека, когда он уже не мог себя объяснить.</p>
+  <p>Он приводит два основания. Экономическое: пятидесятипятилетнего, отдавшего карьеру стройке, нельзя просто перенаправить в уход за пожилыми. И человеческое: робот, сообщающий смертельный диагноз, технически возможен и не должен случаться.</p>
+  <p>Дальше он сам, в собственном тексте, перечисляет четыре вопроса, на которые ответить не может. Кто решает, что заповедовать. По каким критериям. Как не дать компаниям жульничать. Что будет с торговлей, если одна страна разрешит роботам строить, а другая нет.</p>
+  <div class="note"><p>Стоит сверить с данными: уход за пожилыми, его центральный пример, уже испытывает нехватку работников.</p>
+  <p>Заповедовать профессию, которая не может закрыть свои вакансии, — значит защищать её от давления, которого она ещё не чувствует. Часть этого он предвидит: он ждёт, что Япония, где молодых слишком мало, встретит робота-сиделку с радостью.</p></div>
+  <h3>Налог на токены и роботов</h3>
+  <p>Асимметрия, которую он хочет убрать, реальна и редко проговаривается так прямо. Наняли человека — работодатель платит зарплатные налоги. Купили машину — компания списывает её на расходы. Налоговый кодекс сегодня субсидирует замещение.</p>
+  <p>Его решение — адресный сбор с токенов ИИ и роботов, из которого финансируются переобучение и более прочная система социальной защиты; применения, удешевляющие медицину и образование, он хочет пощадить.</p>
+  <p>Он признаёт, что мера экономически неэффективна, и считает это приемлемой ценой. Ставки в эссе нет; широко цитируемая цифра пришла из интервью и названа возможным вариантом, а не расчётом<sup><a href="#s6">6</a></sup>.</p>
+  <p>Самое сильное возражение механическое, а не идеологическое: налог на токены измеряет вычисления, а не вытеснение. Цена токенов упала на порядки, то есть база сжимается по мере роста проблемы, а вывод моделей уезжает на локальные устройства и в другие юрисдикции.</p>
+</section>
+
+<section class="col">
+  <span class="snum">10 — Спор</span>
+  <h2>О чём честные люди всё ещё спорят</h2>
+  <p>Легко было бы закончить, объявив дело доказанным. Оно не доказано, и сам спор стоит больше, чем вердикт.</p>
+  <div class="scroll">
+  <table>
+    <thead><tr><th>Находка</th><th>Источник</th></tr></thead>
+    <tbody>
+      <tr><td>После конца 2022 года рост занятости в разработке замедлился примерно на 3 пункта в год; около 500 000 рабочих мест не создано</td><td>Федеральный резерв<sup><a href="#s10">10</a></sup></td></tr>
+      <tr><td>Связи между использованием ИИ и изменениями занятости нет, данные по июль 2026 года</td><td>Budget Lab, Йель<sup><a href="#s11">11</a></sup></td></tr>
+      <tr><td>Экономится 2,8–3 % рабочих часов, ровно нулевой эффект на заработки и часы</td><td>Административные данные Дании<sup><a href="#s12">12</a></sup></td></tr>
+      <tr><td>Спад вакансий в уязвимых профессиях начался в марте 2022 года — до ChatGPT — и следует за циклом ставок</td><td>238 млн вакансий<sup><a href="#s13">13</a></sup></td></tr>
+      <tr><td>Безработица выросла сильнее в <em>наименее</em> уязвимом квинтиле, чем в самом уязвимом</td><td>Economic Innovation Group<sup><a href="#s14">14</a></sup></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Три вещи, с которыми согласны все эти команды, — и это самые надёжные выводы, доступные сегодня: массового вытеснения на макроуровне нет; механизм — замедленный наём, а не увольнения; и с молодыми работниками в уязвимых профессиях что-то происходит.</p>
+  <p>Сюда же относится ещё одно ограничение. Ни один прогноз 2026 года пока нельзя проверить по фактической занятости в разрезе профессий: официальный ряд доходит только до мая 2025 года, а следующий выпуск, покрывающий этот период, выйдет не раньше 2027-го. Кто показывает вам такую проверку сегодня, показывает шум.</p>
+</section>
+
+<section class="col">
+  <span class="snum">11 — В заключение</span>
+  <h2>Что меняют цифры</h2>
+  <p>Диагноз Гейтса устоял. Механизм назван верно, отрасли названы верно, а упор на начальные позиции — та часть, которую данные поддерживают напрямую.</p>
+  <p>Цифры меняют форму. Это не волна, катящаяся по профессиям и забирающая их по одной. Это фильтр, работающий внутри профессий и сортирующий по тому, как давно ты в них. Он отбирает против тех, у кого меньше всего запаса и больше всего лет впереди.</p>
+  <p>Своё эссе он заканчивает четырьмя вопросами без ответов. Мой вопрос уже и ответить на него проще, чем на любой из них: если механизм — это замедление найма на входе, то мишень политики не в том, какие профессии огородить, а в том, кому достаётся первая ступенька. Заповедники защищают тех, кто уже стоит на лестнице.</p>
+</section>
+
+<section class="sources col" id="sources">
+  <h2>Источники</h2>
+  <ol>
+    <li id="s1">US Bureau of Labor Statistics. <em>AI exposure categories and employment projections, 2025–35</em>, опубликовано 27 августа 2026 года. Категории построены на пяти независимых мерах. <a href="https://www.bls.gov/emp/publications/ai-exposure-categories.htm">bls.gov/emp/publications/ai-exposure-categories.htm</a></li>
+    <li id="s2">Anthropic Economic Index, набор данных <em>labor market impacts</em> — измеренная доля задач профессии, приносимых модели. <a href="https://huggingface.co/datasets/Anthropic/EconomicIndex">huggingface.co/datasets/Anthropic/EconomicIndex</a></li>
+    <li id="s3">Brynjolfsson, Chandar, Chen. <em>Canaries in the Coal Mine?</em> Stanford Digital Economy Lab, редакция августа 2026 года; панель зарплатных ведомостей ADP по июль 2026 года. <a href="https://digitaleconomy.stanford.edu/publications/canaries-in-the-coal-mine/">digitaleconomy.stanford.edu/publications/canaries-in-the-coal-mine</a></li>
+    <li id="s4">US Bureau of Labor Statistics, Current Population Survey, таблица 11: занятые по детальным профессиям и полу, среднегодовые значения 2025 года. <a href="https://www.bls.gov/cps/cpsaat11.htm">bls.gov/cps/cpsaat11.htm</a></li>
+    <li id="s5">Bill Gates. <em>The turbulent AI era is here. The choices we make now are critical.</em> GatesNotes, 26 августа 2026 года. <a href="https://www.gatesnotes.com/work/make-ai-work-for-everyone/reader/a-turbulent-ai-era-and-critical-choices-to-make">gatesnotes.com</a></li>
+    <li id="s6">Интервью MIT Technology Review с Биллом Гейтсом, 26 августа 2026 года — источник пяти порогов и цитируемых ставок. <a href="https://www.technologyreview.com/2026/08/26/1142946/bill-gates-ai-danger-threshold/">technologyreview.com</a></li>
+    <li id="s7">GDPval, OpenAI — 1320 настоящих рабочих продуктов из 44 профессий; цифры с поправкой на верификацию — в таблице стоимости. <a href="https://arxiv.org/abs/2510.04374">arxiv.org/abs/2510.04374</a></li>
+    <li id="s8">International Labour Organization. <em>Generative AI and Jobs: A Refined Global Index of Occupational Exposure</em>, рабочий документ 140, май 2025 года. <a href="https://www.ilo.org/sites/default/files/2025-05/WP140_web.pdf">ilo.org</a></li>
+    <li id="s9">International Monetary Fund. <em>Gen-AI: Artificial Intelligence and the Future of Work</em>, SDN/2024/001, январь 2024 года. <a href="https://www.imf.org/en/Publications/Staff-Discussion-Notes/Issues/2024/01/14/Gen-AI-Artificial-Intelligence-and-the-Future-of-Work-542379">imf.org</a></li>
+    <li id="s10">Crane and Soto, Federal Reserve Board, FEDS 2026-018, март 2026 года.</li>
+    <li id="s11">Budget Lab at Yale, <em>Tracking the impact of AI on the labor market</em>, обновлено 19 августа 2026 года. <a href="https://budgetlab.yale.edu/research/tracking-impact-ai-labor-market">budgetlab.yale.edu</a></li>
+    <li id="s12">Humlum and Vestergaard, NBER Working Paper 33777, редакция марта 2026 года.</li>
+    <li id="s13">Iscenko and Curto Millet, январь 2026 года — 238 миллионов вакансий.</li>
+    <li id="s14">Eckhardt and Goldschlag, Economic Innovation Group, <em>AI and Jobs</em>, август 2025 года. <a href="https://eig.org/wp-content/uploads/2025/08/EIG-AI-and-Jobs.pdf">eig.org</a></li>
+  </ol>
+  <div class="fsrc dataset-note"><p>Сводный набор данных за интерактивами: 825 профессий с занятостью, прогнозом, медианной оплатой, официальной категорией экспозиции, измеренной долей задач, уходящих к моделям, и составом по полу. Собран в сентябре 2026 года из источников 1, 2, 4 и выпуска Occupational Employment and Wage Statistics за май 2025 года.</p></div>
+  <p class="fsrc transnote">Переведено с английского оригинала. Названия профессий оставлены по-английски: это официальные наименования классификатора SOC, и в поиске работает именно они. Там, где важна точная формулировка источника, сверяйтесь с документами по ссылкам выше.</p>
+</section>
+
+<aside class="sy-strip" aria-label="Speak-Y">
+  <span class="sy-brand">
+    <img class="sy-icon" src="../../../images/icons/speak-y.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+    <span class="sy-name">Speak-<i>Y</i></span>
+  </span>
+  <p><b>Голосовой ввод и запись встреч.</b> Одна горячая клавиша, любое приложение, 67+ языков.</p>
+  <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 дней бесплатно <span aria-hidden="true">→</span></a>
+</aside>
+
+</div>
+</main>
+
+<footer>
+  <span>© 2026 Aleksei Grebenkin</span>
+  <a class="to-top" href="/">← назад на avgrebenkin.com</a>
+</footer>
+
+<script src="../../shell.js?v=4"></script>
+<script>
+var DATA = [["Home health and personal care aides","31-1120",4677100,18.1,35800,2,-1,-1],["Retail salespersons","41-2031",3998100,-0.3,35410,4,0.3222,47.0],["Fast food and counter workers","35-3023",3855900,5.8,31200,2,0.0,65.7],["General and operations managers","11-1021",3599000,5.0,105770,3,0.1378,34.4],["Registered nurses","29-1141",3465400,5.6,97550,3,0.0595,87.3],["Cashiers","41-2011",3106300,-6.5,32880,3,0.0846,68.5],["Laborers and freight, stock, and material movers, hand","53-7062",2940300,1.8,40240,1,0.0,24.6],["Stockers and order fillers","53-7065",2804300,8.9,37330,2,0.0,35.7],["Customer service representatives","43-4051",2666000,-5.3,44770,4,0.7011,64.8],["Office clerks, general","43-9061",2600000,-6.0,45010,4,0.4504,80.5],["Janitors and cleaners, except maids and housekeeping cleaners","37-2011",2432600,2.2,36840,1,0.0,-1],["Waiters and waitresses","35-3031",2284400,2.0,35230,2,0.0,69.8],["Heavy and tractor-trailer truck drivers","53-3032",2221200,3.8,58640,2,0.0,-1],["Secretaries and administrative assistants, except legal, medical, and executive","43-6014",1889800,-6.0,47540,4,0.4528,91.9],["Software developers","15-1252",1717800,10.2,135980,4,0.288,20.3],["Maintenance and repair workers, general","49-9071",1621800,4.2,49590,1,0.0,5.2],["Accountants and auditors","13-2011",1595200,5.0,83680,4,0.3478,59.1],["Bookkeeping, accounting, and auditing clerks","43-3031",1532400,-5.6,50670,4,0.3104,82.7],["First-line supervisors of office and administrative support workers","43-1011",1506100,0.1,69500,4,0.1856,68.6],["Nursing assistants","31-1131",1505900,2.6,42260,1,0.0,86.9],["Construction laborers","47-2061",1489300,7.3,47120,1,0.0281,4.7],["Teaching assistants, except postsecondary","25-9045",1463000,-0.3,36780,3,-1,-1],["First-line supervisors of retail sales workers","41-1011",1419800,-3.7,48520,3,0.2627,43.9],["Elementary school teachers, except special education","25-2021",1419300,-0.4,63970,3,0.103,-1],["Cooks, restaurant","35-2014",1417500,12.1,37390,2,0.0116,-1],["Miscellaneous assemblers and fabricators","51-2090",1403500,1.1,44650,2,-1,-1],["Managers, all other","11-9199",1338800,4.9,141900,3,0.0686,37.7],["Maids and housekeeping cleaners","37-2012",1332100,0.6,35510,1,0.0,86.4],["Security guards","33-9032",1294300,0.9,38020,2,0.0,-1],["Sales representatives, wholesale and manufacturing, except technical and scientific products","41-4012",1279400,-0.9,72080,4,0.6279,-1],["Sales representatives of services, except advertising, insurance, financial services, and travel","41-3091",1272700,2.7,69990,4,-1,30.2],["First-line supervisors of food preparation and serving workers","35-1012",1236400,5.4,44080,3,0.0564,58.2],["Landscaping and groundskeeping workers","37-3011",1188600,4.7,39150,1,0.0,7.9],["Business operations specialists, all other","13-1199",1157600,3.9,83050,4,0.1846,61.6],["Project management specialists","13-1082",1094300,6.7,102320,4,-1,43.7],["Secondary school teachers, except special and career/technical education","25-2031",1087500,-0.2,72040,3,0.2901,-1],["Management analysts","13-1111",1077100,10.1,101860,4,0.2435,40.7],["Light truck drivers","53-3033",1068500,6.3,44860,2,0.0,-1],["Childcare workers","39-9011",1010300,-2.0,34980,2,0.0122,93.2],["Medical secretaries and administrative assistants","43-6013",979000,4.8,45930,4,0.3623,98.4],["Market research analysts and marketing specialists","13-1161",952700,7.0,78760,4,0.6483,62.3],["Receptionists and information clerks","43-4171",947500,-1.7,38010,4,0.4338,89.6],["Human resources specialists","13-1071",939700,6.4,75940,4,0.4034,-1],["First-line supervisors of construction trades and extraction workers","47-1011",913300,5.0,79920,2,0.0296,3.7],["Food preparation workers","35-2021",908500,-3.0,35320,1,0.0,56.8],["Carpenters","47-2031",889700,3.9,60580,1,0.0,3.1],["Financial managers","11-3031",879700,9.7,166570,4,0.3907,53.7],["Lawyers","23-1011",863700,4.7,159670,4,0.1673,42.9],["Medical assistants","31-9092",833900,12.9,45690,2,0.0476,90.8],["Shipping, receiving, and inventory clerks","43-5071",827700,-7.6,45260,3,0.0,33.7],["Automotive service technicians and mechanics","49-3023",825800,5.0,50620,2,0.0,1.8],["Electricians","47-2111",821000,9.2,63190,2,0.0,3.5],["Farmers, ranchers, and other agricultural managers","11-9013",788700,-3.4,89900,2,0.0,25.7],["Industrial truck and tractor operators","53-7051",765200,1.5,46420,1,0.0,8.1],["Bartenders","35-3011",762600,5.0,34340,2,0.0,57.2],["Computer user support specialists","15-1232",750600,-3.5,61860,4,0.4685,-1],["Police and sheriff's patrol officers","33-3051",693200,3.5,76210,3,0.1234,-1],["Computer and information systems managers","11-3021",685800,15.8,175140,4,0.1559,25.1],["First-line supervisors of production and operating workers","51-1011",679900,1.8,74450,3,0.0,20.2],["Licensed practical and licensed vocational nurses","29-2061",666900,3.0,64400,1,0.0,89.9],["Sales managers","11-2022",650100,4.5,148270,3,0.0433,33.2],["Cooks, fast food","35-2011",640500,0.6,30890,2,0.0,-1],["Medical and health services managers","11-9111",640400,24.2,123860,3,0.0659,75.3],["Middle school teachers, except special and career/technical education","25-2022",630100,-0.4,64370,3,0.2972,-1],["First-line supervisors of mechanics, installers, and repairers","49-1011",629000,4.1,79860,3,0.1015,6.1],["First-line supervisors of transportation and material moving workers, except aircraft cargo handling supervisors","53-1047",621500,3.0,62890,3,-1,-1],["Construction managers","11-9021",609100,9.1,114990,3,0.1186,8.5],["Inspectors, testers, sorters, samplers, and weighers","51-9061",602000,2.5,48570,2,0.0324,35.8],["Hairdressers, hairstylists, and cosmetologists","39-5012",595000,7.7,35790,2,0.0304,92.0],["Preschool teachers, except special education","25-2011",583200,4.5,38140,2,0.0,-1],["Insurance sales agents","41-3021",572600,3.3,62280,4,0.3188,52.4],["Substitute teachers, short-term","25-3031",556100,2.0,41670,3,-1,-1],["Packers and packagers, hand","53-7064",555500,-5.0,36280,1,0.0,53.5],["Farmworkers and laborers, crop, nursery, and greenhouse","45-2092",546800,-2.4,35660,1,0.0203,-1],["Dining room and cafeteria attendants and bartender helpers","35-9011",546600,5.3,33980,1,0.0,44.9],["Computer systems analysts","15-1211",544400,7.9,105850,4,0.2763,44.0],["Substance abuse, behavioral disorder, and mental health counselors","21-1018",533400,18.4,59350,3,-1,-1],["Securities, commodities, and financial services sales agents","41-3031",531000,1.4,78660,4,0.4413,21.8],["Buyers and purchasing agents","13-1020",516100,6.0,77710,4,-1,-1],["Plumbers, pipefitters, and steamfitters","47-2152",510600,6.8,63800,2,0.0116,3.1],["Operating engineers and other construction equipment operators","47-2073",489500,4.6,59850,1,0.0,-1],["Executive secretaries and executive administrative assistants","43-6011",489300,0.0,76590,4,0.2336,93.5],["Dishwashers","35-9021",480400,-1.0,34810,1,0.0,23.0],["Training and development specialists","13-1151",472500,10.8,69280,4,0.2793,54.4],["Computer occupations, all other","15-1299",471200,5.1,116580,4,0.3106,26.0],["Pharmacy technicians","29-2052",471200,6.4,45750,3,0.0735,76.8],["Social and human service assistants","21-1093",463400,7.4,45930,3,0.0,75.2],["Property, real estate, and community association managers","11-9141",460400,3.7,69990,3,0.1653,50.6],["Cooks, institution and cafeteria","35-2012",454000,2.8,37450,1,0.0,-1],["Industrial machinery mechanics","49-9041",446900,17.8,64520,2,0.0239,-1],["Hosts and hostesses, restaurant, lounge, and coffee shop","35-9031",444200,3.4,31200,3,0.0734,83.7],["Driver/sales workers","53-3031",442900,7.9,38770,2,0.0281,-1],["Heating, air conditioning, and refrigeration mechanics and installers","49-9021",440900,10.9,61010,2,0.0191,2.7],["Welders, cutters, solderers, and brazers","51-4121",437700,2.4,53750,1,0.0,-1],["Compliance officers","13-1041",436400,3.8,80730,4,0.1211,52.7],["Real estate sales agents","41-9022",427000,1.7,52830,4,0.2828,-1],["Marketing managers","11-2021",421600,6.9,166790,4,0.3195,59.4],["Cleaners of vehicles and equipment","53-7061",419500,3.9,35830,1,0.0,20.7],["Self-enrichment teachers","25-3021",419100,3.5,46800,3,0.0662,-1],["Billing and posting clerks","43-3021",418000,-0.1,48500,4,0.1924,84.5],["Counter and rental clerks","41-2021",409400,3.0,41300,4,0.2048,42.7],["Amusement and recreation attendants","39-3091",408400,3.7,32150,3,0.0619,-1],["Child, family, and school social workers","21-1021",405100,4.4,59550,3,0.0074,81.3],["Paralegals and legal assistants","23-2011",404900,-0.3,62890,3,0.2927,82.4],["Correctional officers and jailers","33-3012",397800,-7.4,58940,2,0.0,25.8],["Bus drivers, school","53-3051",396800,0.7,47920,2,0.0,51.8],["Production, planning, and expediting clerks","43-5061",392100,-1.3,59650,4,0.0934,45.4],["Educational, guidance, and career counselors and advisors","21-1012",389500,2.9,64330,4,0.1182,77.0],["Dental assistants","31-9091",388600,7.4,48070,1,0.0,91.8],["Exercise trainers and group fitness instructors","39-9031",388400,7.3,47160,2,0.0,66.1],["Civil engineers","17-2051",380600,6.4,100840,3,0.0081,21.8],["Packaging and filling machine operators and tenders","51-9111",377700,4.1,43220,1,0.0,56.4],["Financial and investment analysts","13-2051",377200,7.2,102740,4,0.5716,41.8],["Claims adjusters, examiners, and investigators","13-1031",376100,-5.5,78000,4,0.0818,-1],["Physicians, all other","29-1229",367400,3.4,265930,3,0.0297,-1],["Animal caretakers","39-2021",365300,12.1,35360,2,0.0,77.8],["Industrial engineers","17-2112",365100,12.4,102440,4,0.0367,-1],["Firefighters","33-2011",355300,3.7,59280,1,0.0,5.1],["Recreation workers","39-9032",346900,4.3,36560,2,0.0,67.3],["Food service managers","11-9051",344300,5.8,69390,2,0.0,48.8],["Education administrators, kindergarten through secondary","11-9032",343800,-0.3,105870,3,0.0525,-1],["Clinical laboratory technologists and technicians","29-2010",343000,2.7,62930,2,-1,67.2],["Tellers","43-3071",339200,-13.2,43030,3,0.0231,76.6],["Nurse practitioners","29-1171",336300,41.0,132300,3,0.0944,90.5],["Painters, construction and maintenance","47-2141",326900,3.0,49400,1,0.0,-1],["Pharmacists","29-1051",325200,5.2,140910,3,0.0896,62.7],["Network and computer systems administrators","15-1244",323600,-4.1,99130,4,0.3373,18.2],["Postal service mail carriers","43-5052",316400,-0.3,60550,2,0.0,35.8],["Bus and truck mechanics and diesel engine specialists","49-3031",316000,3.6,61770,1,0.0,1.8],["Public relations specialists","27-3031",314500,1.8,74750,4,0.453,65.9],["First-line supervisors of non-retail sales workers","41-1012",311900,0.5,87520,4,0.2295,33.6],["Personal financial advisors","13-2052",299400,1.4,105070,4,0.3504,32.8],["Coaches and scouts","27-2022",298800,6.1,47320,2,0.0,47.4],["Mechanical engineers","17-2141",298500,11.2,104110,4,0.0813,11.2],["Food servers, nonrestaurant","35-3041",296300,4.5,35360,2,0.0,75.7],["Sales representatives, wholesale and manufacturing, technical and scientific products","41-4011",292000,1.2,104920,4,0.2706,-1],["Chief executives","11-1011",291600,3.2,213990,4,0.0333,33.0],["Machinists","51-4041",288300,1.0,58750,2,0.0,5.8],["Physical therapists","29-1123",283700,11.9,102760,3,0.0174,66.9],["Loan officers","13-2072",283000,1.1,76690,4,0.1857,-1],["Administrative services managers","11-3012",279000,5.2,114130,2,0.0,69.3],["Health specialties teachers, postsecondary","25-1071",278400,17.9,107310,4,0.3045,-1],["Production workers, all other","51-9199",275700,0.8,40110,2,-1,-1],["Data scientists","15-2051",275600,34.6,120230,4,0.4605,-1],["Parts salespersons","41-2022",273300,3.0,38630,3,0.0,16.2],["First-line supervisors of housekeeping and janitorial workers","37-1011",265200,3.2,49100,3,0.0436,48.5],["Hotel, motel, and resort desk clerks","43-4081",264600,1.8,35070,4,0.1725,75.8],["Bakers","51-3011",262400,5.5,37160,2,0.0,62.5],["Special education teachers, kindergarten and elementary school","25-2052",259100,-0.4,65120,3,-1,-1],["Logisticians","13-1081",255100,17.6,82320,4,0.1571,36.7],["Graphic designers","27-1024",253100,-1.7,62960,4,0.3672,54.2],["Industrial production managers","11-3051",252100,2.6,126060,3,0.0132,22.8],["Shuttle drivers and chauffeurs","53-3053",251500,7.1,37290,2,0.0,29.4],["Instructional coordinators","25-9031",248700,1.6,77440,4,0.3043,-1],["Electrical, electronic, and electromechanical assemblers, except coil winders, tapers, and finishers","51-2028",246300,5.0,45850,2,-1,-1],["First-line supervisors of landscaping, lawn service, and groundskeeping workers","37-1012",243300,4.0,58430,3,0.1083,9.4],["Clergy","21-2011",242000,2.4,60810,3,0.1116,23.7],["Insurance claims and policy processing clerks","43-9041",239100,-1.9,49230,4,0.1467,79.4],["Radiologic technologists and technicians","29-2034",234200,5.0,80110,2,0.0,65.7],["Education administrators, postsecondary","11-9033",231800,1.8,104590,3,0.0644,-1],["Office and administrative support workers, all other","43-9199",231100,-7.3,45670,4,-1,73.7],["Social and community service managers","11-9151",231000,7.2,80390,4,0.1808,73.9],["Couriers and messengers","43-5021",228900,8.0,39200,2,0.0412,28.7],["Transportation, storage, and distribution managers","11-3071",228100,6.1,107230,4,0.0956,16.3],["Cost estimators","13-1051",226400,-3.1,78740,3,0.0,20.5],["Dental hygienists","29-1292",225300,8.0,98100,1,0.0,95.0],["Human resources managers","11-3121",224900,5.5,149280,3,0.0,79.6],["Architectural and engineering managers","11-9041",220900,5.5,171270,3,0.0306,10.8],["Chefs and head cooks","35-1011",220300,6.6,62470,2,0.0,26.4],["Tutors","25-3041",208400,-0.2,43350,4,0.4077,73.5],["Teaching assistants, postsecondary","25-9044",205500,2.7,42910,4,0.1002,-1],["Installation, maintenance, and repair workers, all other","49-9099",205200,2.6,49230,2,0.0,-1],["Laundry and dry-cleaning workers","51-6011",204900,4.3,34890,1,0.0,69.8],["Cement masons and concrete finishers","47-2051",204800,1.6,57020,1,0.0,-1],["Taxi drivers","53-3054",204200,11.5,42100,2,0.0,13.9],["Dispatchers, except police, fire, and ambulance","43-5032",203500,-0.7,50340,4,0.2258,61.7],["Farmworkers, farm, ranch, and aquacultural animals","45-2093",202100,-3.2,36670,2,0.0,-1],["Manicurists and pedicurists","39-5092",201800,9.2,35760,1,0.0,85.2],["Medical records specialists","29-2072",200700,7.8,51140,4,0.6674,92.3],["Electrical engineers","17-2071",199700,9.9,120630,3,0.059,-1],["Healthcare social workers","21-1022",194800,8.5,67880,3,0.0916,81.5],["Speech-language pathologists","29-1127",193400,16.6,97870,3,0.0,97.3],["Information security analysts","15-1212",192900,21.0,129180,4,0.4859,15.9],["Software quality assurance analysts and testers","15-1253",187600,5.7,104300,4,0.5195,50.6],["Court, municipal, and license clerks","43-4031",187000,3.4,48700,4,0.102,82.7],["Health technologists and technicians, all other","29-2099",185600,5.9,50290,3,0.0445,62.6],["Postsecondary teachers, all other","25-1199",183200,2.0,77640,4,-1,52.3],["Emergency medical technicians","29-2042",181900,5.8,44470,1,0.0,40.9],["Computer network architects","15-1241",181800,7.7,134050,4,0.1987,8.0],["Medical scientists, except epidemiologists","19-1042",181000,12.6,103410,4,0.0381,-1],["Producers and directors","27-2012",181000,4.0,90360,3,0.092,43.6],["Mobile heavy equipment mechanics, except engines","49-3042",180300,6.7,65510,1,0.0,-1],["Food batchmakers","51-3092",176800,6.5,42290,2,0.0,67.0],["Meeting, convention, and event planners","13-1121",172100,5.8,61160,3,0.1023,73.4],["Cutting, punching, and press machine setters, operators, and tenders, metal and plastic","51-4031",171000,-10.5,46330,1,0.0,10.8],["Computer numerically controlled tool operators","51-9161",170000,-9.4,50690,3,0.0215,-1],["Occupational therapists","29-1122",169600,14.8,100330,3,0.008,92.4],["Loan interviewers and clerks","43-4131",169100,-2.4,50020,4,0.2022,76.3],["Physician assistants","29-1071",168900,21.1,135880,1,0.0,77.5],["Helpers--production workers","51-9198",167400,-8.2,39070,1,0.0393,49.5],["Roofers","47-2181",166900,5.3,55440,1,0.0157,0.9],["Engineers, all other","17-2199",166700,3.7,122930,4,0.0659,17.9],["Bus drivers, transit and intercity","53-3052",166400,4.1,59050,2,0.0,36.7],["Facilities managers","11-3013",165900,4.6,106660,3,0.1345,18.9],["Special education teachers, secondary school","25-2058",164800,-0.2,74260,3,0.0989,-1],["Merchandise displayers and window trimmers","27-1026",164800,2.7,39390,2,0.0,-1],["Coating, painting, and spraying machine setters, operators, and tenders","51-9124",164800,2.5,48250,1,0.0,-1],["Automotive body and related repairers","49-3021",163200,3.7,54890,1,0.0,4.2],["Eligibility interviewers, government programs","43-4061",162800,1.6,54210,4,0.0597,74.3],["Lifeguards, ski patrol, and other recreational protective service workers","33-9092",162000,5.5,33580,1,0.0,-1],["Highway maintenance workers","47-4051",161800,3.4,50260,1,0.0,6.4],["Psychiatric technicians","29-2053",161500,22.3,45130,2,0.0,76.8],["First-line supervisors of police and detectives","33-1012",160200,3.3,106040,2,0.0,16.6],["Bill and account collectors","43-3011",160200,-10.4,47030,4,0.2989,67.0],["Payroll and timekeeping clerks","43-3051",159600,-15.9,58260,4,0.0487,82.2],["Legal secretaries and administrative assistants","43-6012",157600,-5.2,55570,4,0.0,-1],["Refuse and recyclable material collectors","53-7081",156400,2.1,49690,1,0.0,12.7],["Massage therapists","31-9011",155400,15.3,58450,1,0.0,76.5],["Construction and building inspectors","47-4011",153900,0.0,74690,3,0.0481,12.6],["Interviewers, except eligibility and loan","43-4111",153600,-10.4,45920,4,0.3851,81.8],["Computer network support specialists","15-1231",152500,1.2,76220,4,0.2867,-1],["Molding, coremaking, and casting machine setters, operators, and tenders, metal and plastic","51-4072",150000,-3.4,44350,1,0.0,-1],["Meat, poultry, and fish cutters and trimmers","51-3022",149800,5.7,38300,2,0.0,-1],["Photographers","27-4021",145000,-0.7,44660,3,0.195,50.7],["Printing press operators","51-5112",144000,-8.7,45780,2,0.0,20.0],["Phlebotomists","31-9097",143900,6.8,45230,1,0.0,88.2],["Occupational health and safety specialists","19-5011",143100,18.5,90150,3,0.0,-1],["Information and record clerks, all other","43-4199",143100,0.8,49500,4,-1,67.7],["Telecommunications equipment installers and repairers, except line installers","49-2022",143100,-3.3,63890,3,0.0333,-1],["Librarians and media collections specialists","25-4022",142300,2.6,68270,4,0.2032,84.9],["Respiratory therapists","29-1126",142000,8.5,82280,1,0.0,65.2],["Directors, religious activities and education","21-2021",141900,3.3,52100,4,0.153,65.0],["Dentists, general","29-1021",141900,5.7,170950,2,0.0309,-1],["Fundraisers","13-1131",140900,5.5,72550,3,0.0466,70.7],["Chemical equipment operators and tenders","51-9011",140800,3.6,58040,2,0.0,-1],["Writers and authors","27-3043",140300,-0.3,76910,4,0.2462,66.8],["Art directors","27-1011",140200,4.2,114850,4,0.2098,-1],["Aircraft mechanics and service technicians","49-3011",140000,5.4,79870,1,0.0,8.1],["Parking attendants","53-6021",139200,2.0,35150,2,0.0,20.7],["Mental health and substance abuse social workers","21-1023",138900,10.3,60280,2,0.0,-1],["Cooks, short order","35-2015",138700,-5.2,35880,1,0.0,-1],["Teachers and instructors, all other","25-3099",138600,-0.2,66140,3,-1,-1],["Butchers and meat cutters","51-3021",138400,2.4,40140,2,0.0,-1],["Financial specialists, all other","13-2099",137800,4.1,81100,4,0.2202,-1],["Educational instruction and library workers, all other","25-9099",136800,1.8,50890,3,-1,-1],["Flight attendants","53-2031",133700,8.8,63580,3,0.0913,74.1],["Web and digital interface designers","15-1255",132700,6.0,104000,4,0.249,57.0],["Veterinary assistants and laboratory animal caretakers","31-9096",132100,9.1,38150,2,0.0179,81.9],["Electrical power-line installers and repairers","49-9051",131900,10.3,95320,1,0.0,3.8],["Data entry keyers","43-9021",131800,-25.5,41340,4,0.6707,70.4],["Veterinary technologists and technicians","29-2056",131400,9.4,47380,2,0.0,87.2],["Sheet metal workers","47-2211",131100,2.5,61800,1,0.0,4.9],["Water and wastewater treatment plant and system operators","51-8031",131000,-5.7,60020,1,0.0,8.3],["Multiple machine tool setters, operators, and tenders, metal and plastic","51-4081",127100,0.6,47180,2,0.0,-1],["Insurance underwriters","13-2053",125600,-3.8,81370,4,0.0625,59.3],["Architects, except landscape and naval","17-1011",124600,4.3,99280,3,0.0784,29.8],["Ushers, lobby attendants, and ticket takers","39-3031",124500,0.9,32910,2,0.0,-1],["Career/technical education teachers, postsecondary","25-1194",123100,-0.3,63820,4,0.1563,-1],["First-line supervisors of personal service workers","39-1022",122500,6.3,48590,3,0.0407,-1],["Detectives and criminal investigators","33-3021",120500,0.2,93790,3,0.0374,31.6],["Reservation and transportation ticket agents and travel clerks","43-4181",120100,2.5,44390,4,0.2467,44.8],["Community and social service specialists, all other","21-1099",118600,5.5,56730,3,-1,-1],["Surgical technologists","29-2055",118400,5.0,64650,1,0.0,77.3],["Compensation, benefits, and job analysis specialists","13-1141",118100,6.0,78210,4,0.0649,61.4],["Sewing machine operators","51-6031",117200,-15.1,36670,1,0.0,73.9],["Art, drama, and music teachers, postsecondary","25-1121",116900,2.2,78620,4,0.2142,-1],["Sales and related workers, all other","41-9099",115300,1.1,48280,4,-1,47.3],["Family medicine physicians","29-1215",114300,3.3,244180,3,0.0,-1],["Physical therapist assistants","31-2021",114100,23.0,68380,1,0.0,-1],["Healthcare support workers, all other","31-9099",113900,4.8,48430,2,0.0,-1],["Religious workers, all other","21-2099",113300,1.5,45280,3,-1,61.6],["Operations research analysts","15-2031",113100,11.9,88940,4,0.4288,53.9],["Natural sciences managers","11-9121",112200,8.2,167220,3,0.0613,-1],["Tire repairers and changers","49-3093",112200,3.4,37710,1,0.0,-1],["Kindergarten teachers, except special education","25-2012",111200,-0.3,62680,2,0.0,-1],["Computer programmers","15-1251",110800,-7.3,100390,4,0.7451,18.5],["Career/technical education teachers, secondary school","25-2032",110500,-0.4,66270,3,0.0,-1],["First-line supervisors of entertainment and recreation workers, except gambling services","39-1014",109300,5.3,48560,3,0.0443,-1],["Pest control workers","37-2021",108700,5.5,45250,2,0.046,8.8],["Public safety telecommunicators","43-5031",105600,3.7,53040,4,0.0465,71.3],["Editors","27-3041",105000,-1.1,77920,4,0.246,63.2],["Airline pilots, copilots, and flight engineers","53-2011",104600,8.3,232140,2,0.0,-1],["Skincare specialists","39-5094",104200,8.8,45330,2,0.0,100.0],["Architectural and civil drafters","17-3011",104100,5.2,66150,3,0.0,-1],["Business teachers, postsecondary","25-1011",103600,5.9,99080,4,0.3072,-1],["Real estate brokers","41-9021",103500,0.8,73220,4,0.2609,-1],["Telecommunications line installers and repairers","49-9052",103400,-3.4,74330,2,0.0,9.6],["Automotive and watercraft service attendants","53-6031",102400,3.8,35670,1,0.0,-1],["Paramedics","29-2043",102200,5.7,60600,1,0.0,28.5],["Drywall and ceiling tile installers","47-2081",102200,2.5,58930,1,0.0,-1],["First-line supervisors of firefighting and prevention workers","33-1021",101600,3.7,93530,1,0.0,1.3],["Postal service mail sorters, processors, and processing machine operators","43-5053",101200,-5.3,58470,1,0.0,63.2],["Cargo and freight agents","43-5011",100300,6.2,52260,4,0.0165,-1],["Advertising sales agents","41-3011",99300,-7.2,64820,4,0.1482,44.0],["Electronics engineers, except computer","17-2072",98200,3.7,130220,4,0.0999,-1],["Mixing and blending machine setters, operators, and tenders","51-9023",97300,-6.1,48990,1,0.0,-1],["Interior designers","27-1025",97100,2.7,67190,3,0.0,82.8],["Helpers--installation, maintenance, and repair workers","49-9098",97100,5.3,39630,1,0.0,-1],["Electrical and electronic engineering technologists and technicians","17-3023",96900,2.4,78190,3,0.0202,7.4],["Rehabilitation counselors","21-1015",96900,2.2,46850,3,0.0,-1],["Human resources assistants, except payroll and timekeeping","43-4161",96500,-6.2,50610,4,0.4046,79.7],["Nursing instructors and teachers, postsecondary","25-1072",96100,17.1,80250,4,0.1909,-1],["Paper goods machine setters, operators, and tenders","51-9196",96100,-3.6,50270,1,0.0,-1],["Tax preparers","13-2082",95800,4.7,54920,4,0.1283,57.3],["Special education teachers, middle school","25-2057",94800,-0.4,66810,3,0.134,-1],["Crossing guards and flaggers","33-9091",94800,3.5,38100,2,0.0,37.4],["Personal care and service workers, all other","39-9099",94600,5.9,41600,2,-1,62.7],["Residential advisors","39-9041",94100,3.5,42240,3,0.067,-1],["Probation officers and correctional treatment specialists","21-1092",93700,3.0,66270,3,0.0,43.6],["Environmental scientists and specialists, including health","19-2041",93400,6.1,82220,4,0.0548,46.1],["Diagnostic medical sonographers","29-2032",92200,13.9,96590,2,0.0,80.6],["Education and childcare administrators, preschool and daycare","11-9031",91900,-3.1,59300,3,0.0395,-1],["Veterinarians","29-1131",91100,9.4,130100,3,0.0926,70.9],["Life, physical, and social science technicians, all other","19-4099",89500,4.4,62280,4,0.0955,-1],["Library assistants, clerical","43-4121",89500,-6.4,36910,3,0.0978,84.0],["Gambling dealers","39-3011",88900,3.4,34320,2,0.0,-1],["Purchasing managers","11-3061",88300,4.0,148080,4,0.2004,46.8],["Audio and video technicians","27-4011",87600,3.9,58100,3,0.0173,-1],["Web developers","15-1254",87400,3.8,92650,4,0.4802,36.8],["Dietitians and nutritionists","29-1031",86300,7.7,76400,4,0.1328,91.7],["Security and fire alarm systems installers","49-2098",86300,6.8,60070,2,0.0303,1.2],["Food preparation and serving related workers, all other","35-9099",85100,5.5,35840,2,-1,-1],["Chemists","19-2031",84900,6.4,91240,4,0.2614,-1],["First-line supervisors of security workers","33-1091",82700,3.7,55940,2,-1,28.0],["Protective service workers, all other","33-9099",82100,3.0,42540,2,0.0571,-1],["Cabinetmakers and bench carpenters","51-7011",81800,-2.9,46680,1,0.0,-1],["Clinical and counseling psychologists","19-3033",81300,11.7,100580,3,0.0591,-1],["Public relations managers","11-2032",80800,5.7,146910,4,0.2315,-1],["Medical equipment preparers","31-9093",79900,10.8,47700,1,0.0,-1],["Order clerks","43-4151",78900,-17.5,46170,4,0.0748,58.3],["Social workers, all other","21-1029",77400,2.3,71900,3,-1,84.4],["Education teachers, postsecondary","25-1081",77200,2.5,75350,4,0.2621,-1],["Industrial engineering technologists and technicians","17-3026",76700,3.1,66120,3,0.0,-1],["School bus monitors","33-9094",76700,-1.9,35100,3,-1,-1],["Marriage and family therapists","21-1013",76300,13.5,66940,3,0.0,-1],["File clerks","43-4071",76200,-15.8,43600,4,0.1568,73.3],["Computer hardware engineers","17-2061",76100,9.1,161740,4,0.1453,22.5],["Barbers","39-5011",75800,3.3,38210,2,0.0,17.7],["Database administrators","15-1242",75000,-0.1,104620,4,0.3315,-1],["Biological technicians","19-4021",74400,7.4,57510,3,0.0599,-1],["Opticians, dispensing","29-2081",74300,4.2,47260,2,0.0,73.6],["Interpreters and translators","27-3091",73900,2.0,60170,4,0.4304,66.9],["General internal medicine physicians","29-1216",73100,4.0,256560,3,0.084,-1],["Library technicians","25-4031",72800,-6.4,44580,4,0.054,-1],["Ophthalmic medical technicians","29-2057",72500,21.4,45570,1,0.0,-1],["Computer, automated teller, and office machine repairers","49-2011",72100,-3.0,47810,3,0.1067,13.7],["Medical equipment repairers","49-9062",71800,12.6,61660,2,0.0,-1],["Slaughterers and meat packers","51-3023",71200,2.0,40130,1,0.0,-1],["Civil engineering technologists and technicians","17-3022",70900,3.2,64950,4,0.0776,-1],["Postal service clerks","43-5051",70900,-0.3,62130,3,0.0,57.5],["Tree trimmers and pruners","37-3013",70600,4.2,50960,1,0.0,5.2],["Health education specialists","21-1091",70400,5.6,64070,4,0.1376,-1],["Demonstrators and product promoters","41-9011",70400,0.2,39320,3,0.0788,-1],["Financial examiners","13-2061",70000,9.3,94160,4,0.0428,-1],["Database architects","15-1243",69500,9.4,139500,4,0.5787,-1],["English language and literature teachers, postsecondary","25-1123",69300,0.0,78760,4,0.3618,-1],["Aerospace engineers","17-2011",68700,8.3,134960,4,0.0753,10.9],["Grinding, lapping, polishing, and buffing machine tool setters, operators, and tenders, metal and plastic","51-4033",68500,-10.8,46550,1,0.0,-1],["Property appraisers and assessors","13-2020",68400,3.5,67960,4,-1,39.2],["Structural iron and steel workers","47-2221",68300,3.1,62780,1,0.0491,-1],["Food processing workers, all other","51-3099",67400,5.5,39680,2,-1,33.3],["Agricultural equipment operators","45-2091",66900,8.6,41730,1,0.0,-1],["Labor relations specialists","13-1075",66300,2.1,95420,3,0.0,-1],["Financial risk specialists","13-2054",66000,7.4,117330,4,0.2649,-1],["Electrical and electronics repairers, commercial and industrial equipment","49-2094",65500,0.3,74090,2,0.0,-1],["Helpers--electricians","47-3013",65000,0.6,42670,1,0.0,-1],["Credit analysts","13-2041",64700,-4.3,83510,4,0.1685,-1],["Community health workers","21-1094",64700,12.7,51850,3,0.0,-1],["Cardiovascular technologists and technicians","29-2031",64500,3.7,74310,2,0.0,70.7],["School psychologists","19-3034",64000,0.8,95990,4,0.0467,-1],["Engineering technologists and technicians, except drafters, all other","17-3029",62400,2.8,78350,3,0.0,-1],["Brickmasons and blockmasons","47-2021",62400,1.1,62120,1,0.0,-1],["Tour and travel guides","39-7010",62200,6.3,38120,3,-1,43.6],["Education administrators, all other","11-9039",62000,1.6,95200,3,-1,-1],["Biological science teachers, postsecondary","25-1042",62000,7.3,84620,4,0.2914,-1],["Chiropractors","29-1011",61700,8.7,79200,2,0.0,31.1],["Travel agents","41-3041",61500,0.2,50160,4,0.4054,86.2],["Separating, filtering, clarifying, precipitating, and still machine setters, operators, and tenders","51-9012",61400,-5.7,51610,2,0.0,-1],["Telemarketers","41-9041",60900,-21.4,35450,4,0.2852,-1],["Extruding and drawing machine setters, operators, and tenders, metal and plastic","51-4021",60900,0.7,47720,2,0.0,-1],["Woodworking machine setters, operators, and tenders, except sawing","51-7042",60900,-2.5,43380,1,0.0,-1],["Tax examiners and collectors, and revenue agents","13-2081",60100,-1.0,62370,4,0.0275,55.3],["Psychologists, all other","19-3039",60000,2.3,110840,3,0.0,-1],["Chemical technicians","19-4031",60000,4.9,60390,3,0.3148,36.0],["Title examiners, abstractors, and searchers","23-2093",59800,2.1,58650,3,0.0216,76.3],["Maintenance workers, machinery","49-9043",59700,-1.9,60850,2,0.0,0.6],["Biological scientists, all other","19-1029",59600,4.7,98920,4,0.2452,47.8],["Glaziers","47-2121",59200,1.9,57080,1,0.0,-1],["Surveying and mapping technicians","17-3031",58800,5.8,54240,3,0.0,12.2],["Extruding, forming, pressing, and compacting machine setters, operators, and tenders","51-9041",58300,1.5,45760,1,0.0,-1],["Mail clerks and mail machine operators, except postal service","43-9051",57800,-7.2,39280,2,0.0,48.5],["First-line supervisors of farming, fishing, and forestry workers","45-1011",57600,3.8,59320,1,0.0,18.1],["Mathematical science teachers, postsecondary","25-1022",57100,1.7,79940,4,0.4305,-1],["Procurement clerks","43-3061",56900,-8.1,50580,4,0.2436,-1],["Tool and die makers","51-4111",56700,-9.2,64050,2,0.0,-1],["First-line supervisors of correctional officers","33-1011",56300,-2.5,77970,2,0.0315,21.5],["Therapists, all other","29-1129",56100,12.6,77930,3,0.0402,78.1],["Lodging managers","11-9081",54800,3.8,69250,3,0.1215,52.5],["Nurse anesthetists","29-1151",54500,9.7,236590,1,0.0,-1],["Motor vehicle operators, all other","53-3099",54500,2.8,37180,2,-1,18.2],["Weighers, measurers, checkers, and samplers, recordkeeping","43-5111",53600,-4.8,46380,2,0.0,53.9],["Transportation security screeners","33-9093",53500,-4.2,66770,2,0.0,32.8],["Orderlies","31-1132",52800,4.0,38290,1,0.0,-1],["Hazardous materials removal workers","47-4041",52700,1.5,49450,1,0.0,-1],["Psychology teachers, postsecondary","25-1066",52300,4.0,80340,4,0.3219,-1],["Structural metal fabricators and fitters","51-2041",52300,-6.2,51330,1,0.0,-1],["Occupational therapy assistants","31-2011",52200,21.5,72300,2,0.0,-1],["Surveyors","17-1022",52000,5.8,75440,3,0.0022,-1],["Special effects artists and animators","27-1014",51900,-0.3,102030,3,0.3571,-1],["Sales engineers","41-9031",51600,2.8,124900,4,0.3224,15.2],["Music directors and composers","27-2041",51100,1.2,73710,3,0.0368,28.5],["Engineering teachers, postsecondary","25-1032",50900,7.8,109270,4,0.3589,-1],["Door-to-door sales workers, news and street vendors, and related workers","41-9091",50900,-10.4,41380,4,0.1758,49.9],["Budget analysts","13-2031",50400,1.9,91640,4,0.0672,60.3],["Control and valve installers and repairers, except mechanical door","49-9012",50400,4.3,74340,2,0.0,-1],["Commercial pilots","53-2012",50400,5.2,123220,2,0.0,-1],["Training and development managers","11-3131",50200,6.4,133000,4,0.3777,56.2],["Legal support workers, all other","23-2099",50200,-0.3,72110,4,-1,56.7],["Concierges","39-6012",50200,2.6,38950,4,0.1875,-1],["Counselors, all other","21-1019",49800,5.9,50860,3,-1,74.5],["Physical therapist aides","31-2022",49000,4.0,35240,1,0.0,-1],["Fundraising managers","11-2033",48800,5.4,125470,3,-1,-1],["Animal trainers","39-2011",47800,4.2,39990,1,0.0,75.8],["News analysts, reporters, and journalists","27-3023",47100,-5.9,62200,4,0.2098,41.1],["Technical writers","27-3042",46400,0.8,90390,4,0.4747,46.9],["Cutting and slicing machine setters, operators, and tenders","51-9032",45900,-0.9,46570,2,0.0321,-1],["Urban and regional planners","19-3051",45800,3.9,89320,4,0.0959,-1],["Roustabouts, oil and gas","47-5071",45500,3.6,46960,1,0.0,-1],["Graders and sorters, agricultural products","45-2041",45400,-3.4,35730,1,0.0,61.0],["Helpers--pipelayers, plumbers, pipefitters, and steamfitters","47-3015",45300,2.4,42360,1,0.0,-1],["Floral designers","27-1023",45200,-5.6,37360,2,0.0,-1],["Tile and stone setters","47-2044",45200,9.8,55690,1,0.0,-1],["Optometrists","29-1041",45100,9.5,136570,1,0.0,-1],["Insulation workers, floor, ceiling, and wall","47-2131",45100,2.4,49120,1,0.0,-1],["Entertainment and recreation managers, except gambling","11-9072",43900,6.0,79520,4,-1,-1],["Computer science teachers, postsecondary","25-1021",43900,4.9,96980,4,0.2414,-1],["Magnetic resonance imaging technologists","29-2035",43900,7.7,95480,2,0.039,65.2],["Service unit operators, oil and gas","47-5013",43800,1.1,58160,1,0.0,-1],["Molders, shapers, and casters, except metal and plastic","51-9195",43000,5.8,46170,1,0.0,-1],["Crane and tower operators","53-7021",42900,3.8,68080,1,0.0,4.5],["Paving, surfacing, and tamping equipment operators","47-2071",42300,-0.9,53340,1,0.0,-1],["Pediatricians, general","29-1221",42200,1.5,210040,3,0.0,-1],["Mechanical drafters","17-3013",42100,-6.0,71550,3,0.0,-1],["Health information technologists and medical registrars","29-9021",42000,15.9,68020,4,0.3063,-1],["Medical transcriptionists","31-9094",42000,-4.4,40410,3,0.6365,-1],["Farm equipment mechanics and service technicians","49-3041",41900,10.7,56550,2,0.0,-1],["Machine feeders and offbearers","53-7063",41800,-13.1,41220,1,0.0,-1],["Social scientists and related workers, all other","19-3099",41500,-0.2,101110,4,0.0327,-1],["Anesthesiologists","29-1211",41500,3.6,391490,1,0.0,-1],["Captains, mates, and pilots of water vessels","53-5021",41300,4.0,92460,2,0.0,-1],["Sawing machine setters, operators, and tenders, wood","51-7041",41200,-1.0,42770,1,0.0,-1],["Adult basic education, adult secondary education, and english as a second language instructors","25-3011",41100,-13.9,61540,4,0.0636,-1],["Millwrights","49-9044",40700,0.9,65700,1,0.0,-1],["Home appliance repairers","49-9031",40500,1.9,50990,2,0.0,6.9],["Word processors and typists","43-9022",40400,-34.4,49280,4,0.2385,86.9],["Healthcare diagnosing or treating practitioners, all other","29-1299",39600,5.5,115210,3,0.0222,-1],["Private detectives and investigators","33-9021",39500,5.5,51220,3,0.0,44.5],["Film and video editors","27-4032",39400,3.7,75420,3,0.2234,-1],["Pharmacy aides","31-9095",39200,-0.7,37680,2,0.022,-1],["Environmental engineers","17-2081",39100,6.3,107110,4,0.0358,-1],["Healthcare practitioners and technical workers, all other","29-9099",39100,5.1,65790,2,0.0,-1],["Railroad conductors and yardmasters","53-4031",38900,0.9,78000,2,0.0,5.5],["Computer and information research scientists","15-1221",38600,21.8,140300,4,0.3404,-1],["Financial clerks, all other","43-3099",38500,0.0,53830,4,-1,41.9],["Social science research assistants","19-4061",38400,5.0,61990,4,0.4393,-1],["Outdoor power equipment and other small engine mechanics","49-3053",38300,2.3,47880,1,0.0,-1],["New accounts clerks","43-4141",37900,-6.5,47670,3,0.0,-1],["Mechanical engineering technologists and technicians","17-3027",36900,1.3,74510,3,0.0683,-1],["Psychiatric aides","31-1133",36900,1.9,44910,1,0.0,-1],["Brokerage clerks","43-4011",36900,-7.6,65750,4,0.1744,-1],["Environmental science and protection technicians, including health","19-4042",36400,6.9,55090,3,0.1444,-1],["Communications teachers, postsecondary","25-1122",35800,2.1,78580,4,0.2111,-1],["Commercial and industrial designers","27-1021",35400,2.4,83910,3,0.0437,-1],["Cooks, private household","35-2013",35400,5.1,47940,2,0.0,-1],["Switchboard operators, including answering service","43-2011",35400,-26.0,38630,4,0.3863,-1],["Biochemists and biophysicists","19-1021",35200,12.3,127410,4,0.0756,-1],["Athletic trainers","29-9091",35200,12.7,62520,2,0.0531,-1],["Emergency medicine physicians","29-1214",34900,3.2,335550,3,-1,-1],["Funeral home managers","11-9171",34800,4.1,78790,3,0.0108,-1],["Special education teachers, all other","25-2059",34800,1.9,76580,3,0.0257,84.7],["Excavating and loading machine and dragline operators, surface mining","47-5022",34700,1.0,57430,1,0.0,-1],["Coin, vending, and amusement machine servicers and repairers","49-9091",34700,-3.4,47450,2,0.0,-1],["Aircraft structure, surfaces, rigging, and systems assemblers","51-2011",34400,-5.6,65380,2,0.0494,-1],["Dental laboratory technicians","51-9081",34400,-5.9,49610,1,0.0,-1],["Engine and other machine assemblers","51-2031",33500,-17.0,53710,1,0.0,-1],["Plating machine setters, operators, and tenders, metal and plastic","51-4193",33300,-9.7,43960,1,0.0,-1],["Advertising and promotions managers","11-2011",33200,-3.7,133660,4,0.1731,53.7],["Pipelayers","47-2151",33200,-3.1,49000,1,0.0,-1],["Tailors, dressmakers, and custom sewers","51-6052",33200,-8.8,41640,2,0.0342,-1],["Sailors and marine oilers","53-5011",33000,3.2,51520,1,0.0,-1],["Welding, soldering, and brazing machine setters, operators, and tenders","51-4122",32900,-8.9,47920,1,0.0,-1],["Petroleum pump system operators, refinery operators, and gaugers","51-8093",32900,-1.9,96710,2,0.0405,-1],["Forest and conservation technicians","19-4071",32800,-2.1,54560,2,0.0221,-1],["Jewelers and precious stone and metal workers","51-9071",32800,-3.2,52540,2,0.0,-1],["Fashion designers","27-1022",32700,0.1,80960,3,0.0568,-1],["Camera operators, television, video, and film","27-4031",32600,1.3,74990,3,0.1651,-1],["Print binding and finishing workers","51-5113",32300,-17.5,42290,1,0.0,-1],["Dietetic technicians","29-2051",32100,2.7,37640,3,0.2446,-1],["Septic tank servicers and sewer pipe cleaners","47-4071",31900,7.8,49880,1,0.0,-1],["Set and exhibit designers","27-1027",31600,1.4,75240,3,0.0,-1],["Statisticians","15-2041",31300,11.0,105650,4,0.2107,32.8],["Funeral attendants","39-4021",31300,2.6,35680,2,0.0,-1],["Credit counselors","13-2071",31200,3.3,52230,4,0.2341,-1],["Actuaries","15-2011",31200,9.2,130000,4,0.0539,-1],["Occupational health and safety technicians","19-5012",31200,19.4,61560,2,0.0,-1],["Food cooking machine operators and tenders","51-3093",31200,-0.3,41590,1,0.0,-1],["Stationary engineers and boiler operators","51-8021",31200,3.1,78620,2,0.0,4.1],["Semiconductor processing technicians","51-9141",31200,8.2,51430,2,0.0,-1],["Aircraft service attendants","53-6032",31200,5.6,40450,1,-1,-1],["Solar photovoltaic installers","47-2231",31100,36.5,53140,2,0.0,-1],["Fence erectors","47-4031",30600,5.6,47980,1,0.0,-1],["Special education teachers, preschool","25-2051",30500,2.4,64830,3,0.0058,-1],["Psychiatrists","29-1223",30000,7.2,281870,3,0.0,-1],["Floor layers, except carpet, wood, and hard tiles","47-2042",29800,9.0,56460,1,0.0,-1],["Power plant operators","51-8013",29800,-5.1,102040,2,0.0257,-1],["Designers, all other","27-1029",29500,1.2,64950,3,-1,-1],["Miscellaneous construction and related workers","47-4090",29500,3.9,49910,2,-1,-1],["Logging equipment operators","45-4022",29300,-3.8,49740,1,0.0,-1],["Baggage porters and bellhops","39-6011",29200,-3.0,37080,2,0.073,-1],["Conveyor operators and tenders","53-7011",29000,-2.6,42420,1,0.0,-1],["Fine artists, including painters, sculptors, and illustrators","27-1013",28900,-2.9,55490,3,0.3565,-1],["Radiologists","29-1224",28700,3.4,420860,3,0.199,-1],["Computer numerically controlled tool programmers","51-9162",28600,5.9,68120,4,0.1207,-1],["Mechanical door repairers","49-9011",28400,6.4,55720,1,0.0,-1],["Material moving workers, all other","53-7199",27800,2.7,41800,1,-1,-1],["Conservation scientists","19-1031",27700,5.3,73010,3,0.0,-1],["Surgeons, all other","29-1249",27500,4.0,414010,2,-1,25.9],["Locomotive engineers","53-4011",27400,0.5,81410,2,0.0,-1],["First-line supervisors of gambling services workers","39-1013",27200,3.5,63820,3,0.0,-1],["Passenger attendants","53-6061",27200,6.0,37720,3,0.1169,-1],["Agents and business managers of artists, performers, and athletes","13-1011",26900,9.7,82890,4,0.118,51.7],["Philosophy and religion teachers, postsecondary","25-1126",26800,2.0,80260,4,0.2197,-1],["Morticians, undertakers, and funeral arrangers","39-4031",26700,3.0,55010,2,0.0,-1],["Insulation workers, mechanical","47-2132",26700,5.1,58340,2,0.0439,-1],["Physical scientists, all other","19-2099",26600,2.1,122570,3,0.0379,42.6],["Crushing, grinding, and polishing machine setters, operators, and tenders","51-9021",26600,-1.7,48540,2,0.0425,-1],["Pressers, textile, garment, and related materials","51-6021",26300,-15.7,35060,1,0.0,-1],["Law teachers, postsecondary","25-1112",25800,2.6,128500,3,0.0,-1],["Office machine operators, except computer","43-9071",25800,-14.9,40960,3,0.0239,-1],["Pesticide handlers, sprayers, and applicators, vegetation","37-3012",25700,3.9,46340,1,0.0,-1],["Personal service managers, all other","11-9179",25500,6.2,69770,3,0.1244,64.3],["Media and communication workers, all other","27-3099",25500,3.9,73620,4,-1,-1],["Geoscientists, except hydrologists and geographers","19-2042",25400,5.1,101920,3,0.043,-1],["Judges, magistrate judges, and magistrates","23-1023",25300,2.8,153990,3,0.3109,-1],["Rolling machine setters, operators, and tenders, metal and plastic","51-4023",25300,-8.3,50140,2,0.0,-1],["Helpers, construction trades, all other","47-3019",25200,-1.0,42670,1,-1,6.5],["Transportation inspectors","53-6051",25100,2.2,92100,2,0.0,-1],["Motorboat mechanics and service technicians","49-3051",25000,4.9,57550,1,0.0,-1],["Chemistry teachers, postsecondary","25-1052",24900,2.3,93250,4,0.2185,-1],["Elevator and escalator installers and repairers","47-4021",24700,5.7,109910,1,0.0,-1],["Prepress technicians and workers","51-5111",24700,-15.3,48690,3,0.1018,-1],["Foreign language and literature teachers, postsecondary","25-1124",24600,0.2,79350,4,0.2403,-1],["Surgical assistants","29-9093",24400,6.1,66800,1,0.0,-1],["Broadcast technicians","27-4012",24100,-3.1,59570,3,0.0197,-1],["Air traffic controllers","53-2021",24000,1.7,148080,2,0.0,-1],["Bioengineers and biomedical engineers","17-2031",23800,7.6,109370,4,0.1328,-1],["Materials engineers","17-2131",23800,7.5,112860,3,0.0,19.8],["Compensation and benefits managers","11-3111",23700,1.1,149230,3,0.0,-1],["Landscape architects","17-1012",23500,4.4,79870,3,0.0,-1],["Textile winding, twisting, and drawing out machine setters, operators, and tenders","51-6064",23500,-10.3,38670,1,0.0,-1],["Physicists","19-2012",23200,7.2,172250,4,0.2727,-1],["History teachers, postsecondary","25-1125",23200,0.0,83820,4,0.0994,-1],["Athletes and sports competitors","27-2021",22900,5.5,66710,2,0.0,-1],["Plasterers and stucco masons","47-2161",22900,2.8,57660,1,0.0,-1],["Obstetricians and gynecologists","29-1218",22800,1.7,292910,3,0.0685,-1],["Upholsterers","51-6093",22700,-2.3,46340,1,0.0,-1],["Automotive glass installers and repairers","49-3022",22600,5.7,47630,1,0.0,-1],["Riggers","49-9096",22500,3.9,62640,2,0.0,-1],["Audiovisual equipment installers and repairers","49-2097",22400,4.8,52600,2,0.0,-1],["Health and safety engineers, except mining safety engineers and inspectors","17-2111",22300,5.4,115160,3,0.0,-1],["Gambling change persons and booth cashiers","41-2012",22000,-1.9,36220,2,0.0,-1],["Chemical engineers","17-2041",21900,4.7,125040,3,0.0,24.9],["Helpers--carpenters","47-3012",21900,-1.7,43780,1,0.0,-1],["Broadcast announcers and radio disc jockeys","27-3011",21800,-7.6,47340,4,0.0634,-1],["First-line supervisors of protective service workers, all other","33-1099",21600,1.9,76400,3,-1,-1],["Food and tobacco roasting, baking, and drying machine operators and tenders","51-3091",21600,0.4,44810,1,0.0,-1],["Political science teachers, postsecondary","25-1065",21500,2.5,98070,3,0.0,-1],["Exercise physiologists","29-1128",21200,12.8,59460,2,0.0,-1],["Electrical and electronics repairers, powerhouse, substation, and relay","49-2095",20900,9.7,103020,2,0.0,-1],["Food science technicians","19-4013",20800,4.8,52130,3,0.2038,-1],["Tire builders","51-9197",20300,0.8,57390,1,0.0,-1],["Microbiologists","19-1022",20100,6.2,87990,3,0.0969,-1],["Forensic science technicians","19-4092",20100,13.3,72060,3,0.0,-1],["Rail car repairers","49-3043",20100,2.6,67530,1,0.0,-1],["Soil and plant scientists","19-1013",19900,6.7,78850,4,0.0513,-1],["Court reporters and simultaneous captioners","27-3092",19900,-0.1,72420,4,0.3431,-1],["Avionics technicians","49-2091",19800,9.4,82280,2,0.0,-1],["Cooks, all other","35-2019",19700,5.2,37690,2,-1,43.7],["Meter readers, utilities","43-5041",19700,-10.5,48150,2,0.0,-1],["Social sciences teachers, postsecondary, all other","25-1069",19600,1.6,72990,3,-1,-1],["Zoologists and wildlife biologists","19-1023",19500,3.6,76780,3,0.0606,-1],["Agricultural technicians","19-4012",19500,5.4,49630,3,0.0058,-1],["Earth drillers, except oil and gas","47-5023",19500,3.6,60190,1,0.0,-1],["Electrical and electronics drafters","17-3012",18900,-3.4,76870,4,0.0889,-1],["Locksmiths and safe repairers","49-9094",18700,-11.7,51320,1,0.0,-1],["Economists","19-3011",18600,4.7,124720,4,0.2418,-1],["Building cleaning workers, all other","37-2019",18600,2.0,44040,1,-1,-1],["Ophthalmic laboratory technicians","51-9083",18600,2.2,39460,1,0.0,-1],["Petroleum engineers","17-2171",18500,2.0,144910,3,0.0,-1],["Cardiologists","29-1212",18500,4.8,496010,3,-1,-1],["Wellhead pumpers","53-7073",18400,-2.0,69960,1,0.0,-1],["Umpires, referees, and other sports officials","27-2023",18200,5.2,40710,2,0.0,-1],["Gas plant operators","51-8092",18200,-6.0,87820,2,0.0723,-1],["Bailiffs","33-3011",18000,-1.9,56600,2,0.0,-1],["Agricultural inspectors","45-2011",17800,2.3,49940,2,0.0,-1],["Recreational vehicle service technicians","49-3092",17500,9.7,52000,2,0.0,-1],["Administrative law judges, adjudicators, and hearing officers","23-1021",17400,0.0,117860,4,0.3048,-1],["Radiation therapists","29-1124",17400,2.8,105310,2,0.0,-1],["Nuclear medicine technologists","29-2033",17400,4.4,101370,3,0.0513,-1],["Carpet installers","47-2041",17400,-16.4,50340,1,0.0,-1],["Rail-track laying and maintenance equipment operators","47-4061",17400,1.5,70070,1,0.0,-1],["Calibration technologists and technicians","17-3028",17000,4.8,67820,3,-1,-1],["Metal-refining furnace operators and tenders","51-4051",16800,-2.9,54430,1,0.0,-1],["Lathe and turning machine tool setters, operators, and tenders, metal and plastic","51-4034",16700,-11.3,50620,2,0.0,-1],["Chemical plant and system operators","51-8091",16700,-5.2,78120,1,0.0,-1],["Nuclear engineers","17-2161",16600,0.4,133970,3,0.0,-1],["Career/technical education teachers, middle school","25-2023",16600,-0.5,65030,3,0.0,-1],["Reinforcing iron and rebar workers","47-2171",16600,-5.3,58970,1,0.0,-1],["Physics teachers, postsecondary","25-1054",16400,2.4,100310,3,0.0,-1],["Fiberglass laminators and fabricators","51-2051",16300,4.6,46880,1,0.0,-1],["Metal workers and plastic workers, all other","51-4199",16300,-7.1,45950,2,-1,-1],["Cleaning, washing, and metal pickling equipment operators and tenders","51-9192",16200,3.4,43530,1,0.0,-1],["Electric motor, power tool, and related repairers","49-2092",16100,4.4,56210,1,0.0,-1],["Social work teachers, postsecondary","25-1113",16000,2.6,77570,3,0.0,-1],["Locker room, coatroom, and dressing room attendants","39-3093",16000,6.4,36300,2,0.0,-1],["Furniture finishers","51-7021",15900,-3.5,44540,1,0.0,-1],["Tapers","47-2082",15800,-1.6,68270,1,0.0,-1],["Electro-mechanical and mechatronics technologists and technicians","17-3024",15700,2.6,73900,2,0.0,-1],["Criminal justice and law enforcement teachers, postsecondary","25-1111",15700,1.5,76590,3,0.0,-1],["Recreational therapists","29-1125",15600,4.8,61960,2,0.0,-1],["Orthopedic surgeons, except pediatric","29-1242",15500,4.0,358550,2,0.0,-1],["Shampooers","39-5093",15400,5.6,32600,1,0.0,-1],["Woodworkers, all other","51-7099",15400,-2.3,44530,1,-1,-1],["Gambling service workers, all other","39-3019",15300,4.2,36310,2,-1,-1],["Airfield operations specialists","53-2022",15300,7.8,56850,3,0.0476,-1],["Drafters, all other","17-3019",15200,-7.3,63520,4,-1,-1],["Recreation and fitness studies teachers, postsecondary","25-1193",15200,2.2,77270,4,0.1138,-1],["Sound engineering technicians","27-4014",15000,-3.1,73130,2,0.0,-1],["Gambling cage workers","43-3041",15000,-3.1,37580,3,0.0653,-1],["Acupuncturists","29-1291",14800,8.6,76040,2,0.0,-1],["Cartographers and photogrammetrists","17-1021",14700,7.4,81390,3,0.08,-1],["Fire inspectors and investigators","33-2021",14700,4.2,75920,2,0.0,-1],["Forest and conservation workers","45-4011",14700,-1.5,43680,1,0.0,-1],["Economics teachers, postsecondary","25-1063",14600,2.4,123920,3,0.0,-1],["Sociology teachers, postsecondary","25-1067",14600,2.2,84290,3,0.0,-1],["Furnace, kiln, oven, drier, and kettle operators and tenders","51-9051",14500,2.6,48040,2,0.0,-1],["Heat treating equipment setters, operators, and tenders, metal and plastic","51-4191",14400,-9.5,48750,2,0.0,-1],["Area, ethnic, and cultural studies teachers, postsecondary","25-1062",14300,2.7,85020,3,0.0,-1],["Plant and system operators, all other","51-8099",14300,2.3,62470,1,0.0,-1],["Ambulance drivers and attendants, except emergency medical technicians","53-3011",14300,-1.3,35450,1,0.0,-1],["Curators","25-4012",14200,4.9,63420,4,0.4123,-1],["Audiologists","29-1181",14200,11.0,95780,3,0.0,-1],["Grounds maintenance workers, all other","37-3019",14200,3.7,46860,1,-1,-1],["Motorcycle mechanics","49-3052",14200,2.1,48580,1,0.0,-1],["Food scientists and technologists","19-1012",14100,6.2,88720,3,0.0,-1],["Helpers--brickmasons, blockmasons, stonemasons, and tile and marble setters","47-3011",14100,-11.7,47550,1,0.0,-1],["Textile, apparel, and furnishings workers, all other","51-6099",14100,-13.4,37280,1,-1,-1],["Emergency management directors","11-9161",14000,3.9,93330,3,0.0,-1],["Judicial law clerks","23-1012",14000,2.8,64920,3,0.1704,-1],["Museum technicians and conservators","25-4013",14000,3.6,51440,2,0.0,-1],["Media and communication equipment workers, all other","27-4099",14000,1.6,70720,2,-1,-1],["Continuous mining machine operators","47-5041",14000,3.2,61810,1,0.0,-1],["Textile knitting and weaving machine setters, operators, and tenders","51-6063",13900,-13.7,39530,2,0.032,-1],["Animal control workers","33-9011",13800,4.0,45660,2,0.0,-1],["Transportation workers, all other","53-6099",13700,4.0,45650,2,-1,-1],["Insurance appraisers, auto damage","13-1032",13500,-8.7,78240,3,0.0,-1],["Extruding and forming machine setters, operators, and tenders, synthetic and glass fibers","51-6091",13500,-3.3,46350,1,0.0,-1],["Postmasters and mail superintendents","11-9131",13300,-0.3,96660,3,0.0,-1],["Foresters","19-1032",13200,2.2,76400,2,0.0,-1],["Artists and related workers, all other","27-1019",13000,2.0,71240,3,-1,59.9],["Coil winders, tapers, and finishers","51-2021",12900,-4.0,48220,1,0.0,-1],["Epidemiologists","19-1041",12800,18.7,87220,3,0.0,-1],["Tank car, truck, and ship loaders","53-7121",12800,2.8,58870,1,0.0,-1],["Rotary drill operators, oil and gas","47-5012",12700,0.8,67890,1,0.0,-1],["Foundry mold and coremakers","51-4071",12700,-23.0,48110,1,0.0,-1],["Environmental engineering technologists and technicians","17-3025",12500,3.1,59920,3,0.1029,-1],["Milling and planing machine setters, operators, and tenders, metal and plastic","51-4035",12400,-13.2,52800,2,0.0,-1],["Dermatologists","29-1213",12200,6.8,328730,2,0.0,-1],["Credit authorizers, checkers, and clerks","43-4041",12200,-7.4,50080,4,0.1296,-1],["Bicycle repairers","49-3091",12200,-5.7,42780,2,0.0,-1],["Adhesive bonding machine operators and tenders","51-9191",12100,1.3,46460,1,0.0,-1],["Atmospheric, earth, marine, and space sciences teachers, postsecondary","25-1051",12000,2.4,103170,4,0.0396,-1],["Physicians, pathologists","29-1222",11800,4.8,312400,3,0.1577,-1],["Wind turbine service technicians","49-9081",11800,29.5,64120,2,0.0,-1],["Aerospace engineering and operations technologists and technicians","17-3021",11600,11.9,82890,3,0.0,-1],["Craft artists","27-1012",11500,2.0,46080,3,0.0539,-1],["Neurologists","29-1217",11400,6.4,248560,3,0.0,-1],["Radio, cellular, and tower equipment installers and repairers","49-2021",11300,1.2,63520,2,0.0,-1],["Medical appliance technicians","51-9082",11300,3.5,48030,1,0.0,-1],["Hearing aid specialists","29-2092",11200,19.4,65160,2,0.0,-1],["Agricultural sciences teachers, postsecondary","25-1041",10900,2.9,98700,3,0.0,-1],["Grinding and polishing workers, hand","51-9022",10800,-19.2,42660,1,0.0,-1],["Atmospheric and space scientists","19-2021",10700,2.6,99070,4,0.038,-1],["Derrick operators, oil and gas","47-5011",10700,1.6,58620,1,0.0,-1],["Railroad brake, signal, and switch operators and locomotive firers","53-4022",10700,0.8,68840,1,0.0,-1],["Arbitrators, mediators, and conciliators","23-1022",10500,4.7,75530,4,0.2426,-1],["Subway and streetcar operators","53-4041",10500,3.7,86380,2,0.0,-1],["Archivists","25-4011",10300,3.4,64550,4,0.1348,-1],["Shoe and leather workers and repairers","51-6041",10300,-6.5,37800,1,0.0,-1],["Anthropologists and archeologists","19-3091",10200,6.0,70770,4,0.1354,-1],["Boilermakers","47-2011",10200,-1.8,76410,1,0.0,-1],["Precision instrument and equipment repairers, all other","49-9069",10200,2.5,68990,2,-1,16.0],["Podiatrists","29-1081",10000,2.0,160300,2,0.0,-1],["Lighting technicians","27-4015",9900,-4.8,68060,2,-1,-1],["Survey researchers","19-3022",9800,-4.8,69460,4,0.4316,-1],["Gambling surveillance officers and gambling investigators","33-9031",9800,-1.8,43370,3,0.0,-1],["Pump operators, except wellhead pumpers","53-7072",9800,4.3,61770,2,0.0,-1],["Architecture teachers, postsecondary","25-1031",9700,2.6,96870,3,0.0,-1],["Farm and home management educators","25-9021",9700,-3.2,60220,3,0.0,-1],["Ophthalmologists, except pediatric","29-1241",9700,4.5,300080,2,0.0,-1],["Aircraft cargo handling supervisors","53-1041",9700,9.2,58170,1,0.0,-1],["Gambling and sports book writers and runners","39-3012",9600,1.8,34980,3,0.0,-1],["Orthotists and prosthetists","29-2091",9500,12.9,81110,1,0.0,-1],["Parking enforcement workers","33-3041",9400,-1.1,46730,2,0.0,-1],["Textile cutting machine setters, operators, and tenders","51-6062",9400,-13.6,38760,2,0.0152,-1],["Agricultural workers, all other","45-2099",9300,3.8,39850,1,-1,27.0],["Stonemasons","47-2022",9300,-5.4,57390,1,0.0,-1],["Forging machine setters, operators, and tenders, metal and plastic","51-4022",8900,-17.2,49030,1,0.0,-1],["Etchers and engravers","51-9194",8900,-0.7,43310,1,0.0,-1],["Ship engineers","53-5031",8800,2.7,109530,1,0.0,-1],["Signal and track switch repairers","49-9097",8700,1.8,92460,1,0.0,-1],["Materials scientists","19-2032",8600,8.3,117790,4,0.1843,-1],["Electronic equipment installers and repairers, motor vehicles","49-2096",8600,-14.5,48420,2,0.0,-1],["Power distributors and dispatchers","51-8012",8600,1.2,106730,2,0.0,-1],["Proofreaders and copy markers","43-9081",8500,-0.9,51120,4,0.1781,-1],["Marine engineers and naval architects","17-2121",8400,6.7,112230,3,0.0358,-1],["Environmental science teachers, postsecondary","25-1053",8400,2.7,94980,4,0.0232,-1],["Nurse midwives","29-1161",8200,11.5,134040,3,0.052,-1],["Painting, coating, and decorating workers","51-9123",8200,1.3,41600,1,0.0,-1],["Traffic technicians","53-6041",8100,4.0,59090,3,0.0,-1],["Life scientists, all other","19-1099",8000,6.3,93750,4,-1,-1],["Cooling and freezing equipment operators and tenders","51-9193",7700,5.9,41330,1,0.0,-1],["Helpers--painters, paperhangers, plasterers, and stucco masons","47-3014",7600,1.5,40470,1,0.0,-1],["Geological technicians, except hydrologic technicians","19-4043",7300,3.6,53350,3,0.229,-1],["Entertainment attendants and related workers, all other","39-3099",7200,4.0,32640,3,-1,-1],["Orthodontists","29-1023",7100,6.0,289140,2,0.0,-1],["Helpers--extraction workers","47-5081",7100,1.7,47730,1,0.0,-1],["Animal breeders","45-2021",6900,3.0,51130,2,0.0,-1],["Nuclear technicians","19-4051",6700,1.1,110240,2,0.0,-1],["Costume attendants","39-3092",6600,5.9,50400,2,0.0,-1],["Electrical and electronics installers and repairers, transportation equipment","49-2093",6600,5.4,84890,2,0.0,-1],["Anthropology and archeology teachers, postsecondary","25-1061",6500,2.6,99650,4,0.0236,-1],["Hydrologists","19-2043",6300,1.5,96600,3,0.0748,-1],["Mining and geological engineers, including mining safety engineers","17-2151",6200,3.8,106220,3,0.0,-1],["Fish and game wardens","33-3031",6200,-5.7,74060,2,0.0,-1],["Layout workers, metal and plastic","51-4192",6200,-3.4,63870,1,0.0,-1],["Political scientists","19-3094",6100,-2.0,142080,4,0.452,-1],["Helpers--roofers","47-3016",6100,-0.1,44160,1,0.0,-1],["Musical instrument repairers and tuners","49-9063",6000,1.9,46420,1,0.0,-1],["Loading and moving machine operators, underground mining","47-5044",5900,-15.8,74500,1,0.0,-1],["Extraction workers, all other","47-5099",5900,3.4,57010,1,-1,-1],["Cutters and trimmers, hand","51-9031",5900,-18.9,38020,1,0.0,-1],["Dentists, all other specialists","29-1029",5800,1.3,224990,2,-1,-1],["Tool grinders, filers, and sharpeners","51-4194",5800,-6.8,50060,1,0.0,-1],["Textile bleaching and dyeing machine operators and tenders","51-6061",5700,-12.5,38180,2,0.0211,-1],["Gambling managers","11-9071",5600,3.6,93220,3,0.0,-1],["Oral and maxillofacial surgeons","29-1022",5600,5.6,352220,1,0.0,-1],["Sewers, hand","51-6051",5300,-12.0,36480,1,0.0,-1],["Photographic process workers and processing machine operators","51-9151",5300,-5.6,40610,2,0.0108,-1],["Explosives workers, ordnance handling experts, and blasters","47-5032",5200,0.0,61390,1,0.0,-1],["Nuclear power reactor operators","51-8011",5200,-5.9,122890,2,0.0,-1],["Statistical assistants","43-9111",5100,-1.8,50330,4,0.5099,-1],["Correspondence clerks","43-4021",4800,-5.6,46800,4,0.2786,-1],["Choreographers","27-2032",4700,3.1,55310,2,0.0801,-1],["Floor sanders and finishers","47-2043",4700,1.4,50440,1,0.0,-1],["Drilling and boring machine tool setters, operators, and tenders, metal and plastic","51-4032",4700,-9.5,49080,1,0.0,-1],["Desktop publishers","43-9031",4600,-14.5,55290,4,0.464,-1],["Pourers and casters, metal","51-4052",4600,-5.0,51810,1,0.0,-1],["Shoe machine operators and tenders","51-6042",4600,-6.9,35650,1,0.0,-1],["Library science teachers, postsecondary","25-1082",4500,2.7,80340,4,0.018,-1],["Occupational therapy aides","31-2012",4400,3.6,39160,2,0.0661,-1],["Transit and railroad police","33-3052",4400,3.2,90230,2,0.0,-1],["Log graders and scalers","45-4023",4400,-2.2,46330,1,0.0,-1],["Makeup artists, theatrical and performance","39-5091",4300,6.1,97150,2,0.0,-1],["Fallers","45-4021",4300,-9.9,52100,1,0.0,-1],["Genetic counselors","29-9092",4200,10.4,100040,4,0.0123,-1],["Models","41-9012",4200,-2.1,48470,3,0.0,-1],["Geography teachers, postsecondary","25-1064",4100,2.7,97590,3,0.0,-1],["Mathematical science occupations, all other","15-2099",4000,7.1,81490,4,0.4793,-1],["Industrial-organizational psychologists","19-3032",4000,6.5,193950,4,0.1577,-1],["Commercial divers","49-9092",4000,4.8,72990,1,0.0,-1],["Embalmers","39-4011",3900,0.7,58780,1,0.0,-1],["Historians","19-3093",3800,3.0,76750,4,0.028,-1],["Medical dosimetrists","29-2036",3500,5.0,147470,3,-1,-1],["Telephone operators","43-2021",3500,-27.6,41740,3,0.0,-1],["Rock splitters, quarry","47-5051",3500,5.8,48740,1,0.0,-1],["Manufactured building and mobile home installers","49-9095",3500,5.8,45990,2,0.0,-1],["Rail yard engineers, dinkey operators, and hostlers","53-4013",3500,0.8,60600,2,0.0,-1],["Gas compressor and gas pumping station operators","53-7071",3500,2.1,77320,1,0.0,-1],["Animal scientists","19-1011",3400,5.8,68940,3,0.0,-1],["Family and consumer sciences teachers, postsecondary","25-1192",3400,2.4,75870,3,0.0,-1],["Underground mining machine operators, all other","47-5049",3200,-1.0,70130,1,-1,-1],["Hoist and winch operators","53-7041",3200,0.2,56450,1,0.0,-1],["Bridge and lock tenders","53-6011",3100,-2.3,57700,1,0.0,-1],["Hydrologic technicians","19-4044",3000,-1.3,64790,4,-1,-1],["Forest fire inspectors and prevention specialists","33-2022",3000,13.1,56870,2,0.0,-1],["Crematory operators","39-4012",3000,3.1,43650,2,-1,-1],["Fabric and apparel patternmakers","51-6092",3000,-15.0,62750,2,0.0,-1],["Motorboat operators","53-5022",2800,4.9,47520,1,0.0,-1],["Sociologists","19-3041",2700,3.8,106030,4,0.3833,-1],["Model makers, metal and plastic","51-4061",2600,-17.3,63340,1,0.0,-1],["Astronomers","19-2011",2400,7.8,128820,4,0.3849,-1],["Logging workers, all other","45-4029",2400,-7.6,50840,1,-1,-1],["Pile driver operators","47-2072",2300,-5.7,73300,1,0.0,-1],["Paperhangers","47-2142",2300,4.3,52140,1,0.0,-1],["Mathematicians","15-2021",2200,0.6,126710,4,0.4241,-1],["Roof bolters, mining","47-5043",2200,-18.9,78540,1,0.0,-1],["Farm labor contractors","13-1074",1900,7.4,58460,1,0.0,-1],["Forestry and conservation science teachers, postsecondary","25-1043",1800,2.8,101420,4,0.0206,-1],["Camera and photographic equipment repairers","49-9061",1800,-15.5,52720,2,0.0412,-1],["Agricultural engineers","17-2021",1500,6.9,98590,3,0.0,-1],["Geographers","19-3092",1500,-2.1,102040,4,0.1096,-1],["Motion picture projectionists","39-3021",1500,-6.2,38270,1,0.0,-1],["Patternmakers, metal and plastic","51-4062",1500,-22.8,58000,2,0.0,-1],["Watch and clock repairers","49-9064",1400,-0.3,67230,2,0.0,-1],["Pediatric surgeons","29-1243",1300,2.0,559030,2,0.0,-1],["Dredge operators","53-7031",1300,0.7,49640,1,0.0,-1],["Communications equipment operators, all other","43-2099",1200,1.0,54680,4,-1,-1],["Terrazzo workers and finishers","47-2053",1200,-13.0,76170,1,0.0,-1],["Refractory materials repairers, except brickmasons","49-9045",1100,-13.7,61290,1,0.0,-1],["Rail transportation workers, all other","53-4099",1100,4.4,56360,2,-1,-1],["Prosthodontists","29-1024",1000,5.8,311180,1,0.0,-1],["Model makers, wood","51-7031",700,-3.3,56550,2,0.0,-1],["Patternmakers, wood","51-7032",600,-2.0,49630,2,0.0301,-1],["Timing device assemblers and adjusters","51-2061",200,-6.1,62620,2,0.0392,-1]];
+var T = {"ages":["22–25","26–30","31–34","35–40","41–49","50+"],"cats":{"4":"очень высокая","3":"высокая","2":"умеренная","1":"низкая"},"catsGen":{"4":"очень высокой","3":"высокой","2":"умеренной","1":"низкой"},"catsHead":{"4":"Очень высокая","3":"Высокая","2":"Умеренная","1":"Низкая"},"na":"нет данных","numLocale":"ru-RU","thousands":"{n} тыс.","millions":"{n} млн","wordWomen":"женщин","wordWomenNom":"женщины","wordMen":"мужчин","wordMenNom":"мужчины","sexAny":"не указывать","sexWoman":"женщина","sexMan":"мужчина","cExposure":"Уязвимость к ИИ","cExposureNote":"Официальная категория<sup><a href=\"#s1\">1</a></sup> · SOC {soc}","cProjected":"Прогноз к 2035","cProjectedNote":"Прогноз Бюро<sup><a href=\"#s1\">1</a></sup>","cEmployed":"Занято сейчас","cEmployedNote":"Медиана ${wage} в год","cTasks":"Задач уходит к моделям","cTasksNote":"Измеренное использование<sup><a href=\"#s2\">2</a></sup>","cWomen":"Женщин в профессии","cWomenPlain":"доля в этой профессии","cWomenMajority":"вы в большинстве","cWomenMinority":"вы в меньшинстве","yAge":"Ваша возрастная группа","yAgeNote":"{band}, изменение занятости за двенадцать месяцев на этом уровне уязвимости<sup><a href=\"#s3\">3</a></sup>","yWhere":"Где работают {who}","yWhereNote":"работающих {who} заняты в профессиях {cat} уязвимости — у {other} это {otherShare}<sup><a href=\"#s1\">1</a></sup><sup><a href=\"#s4\">4</a></sup>","afterPlot":"Все возрастные группы в профессиях этого уровня уязвимости. Стэнфордская панель зарплатных ведомостей, июль 2026 года<sup><a href=\"#s3\">3</a></sup>.","tileAria":"{occ}, {cat} уязвимость","tileLine":"занято {emp} · {cat} уязвимость · прогноз {proj} к 2035","tileWomen":" · женщин {pct}","groupCount":"{n} из 120 · занято {emp}","groupLargest":"Крупнейшие: {list}","copied":"Скопировано","copyManual":"Нажмите ⌘C","decimal":",","percent":"{n} %","up":"../../","tldrText":"Дверь не закрылась. Она сузилась.\n\nБилл Гейтс об ИИ и работе, сверенный с данными о занятости, на которые он не ссылается.\n\n— На уровне рынка в целом смотреть почти не на что. Если сгруппировать профессии по тому, насколько они уязвимы, за двенадцать месяцев все группы разошлись меньше чем на процентный пункт — от +0,1 % до +2,2 %.\n\n— Разделите те же профессии по возрасту, и картина меняется. В самых уязвимых занятость людей 22–25 лет упала на 3,0 %, а группа 41–49 прибавила 1,9 %: разрыв 4,9 пункта внутри одних и тех же профессий.\n\nС конца 2022 года самые молодые в двух самых уязвимых группах потеряли 11 %, тогда как их ровесники в трёх наименее уязвимых прибавили 10 %.\n\n— Никого не увольняют. Просто впускают меньше. Частота увольнений среди молодых в уязвимых профессиях не выросла — замедлился наём. Дверь не захлопнулась за теми, кто уже внутри; она сузилась для тех, кто пытается войти.\n\n— Официальные прогнозы всё равно растут. Самая уязвимая треть рынка растёт медленнее прочих — и всё-таки растёт, +2,0 % к 2035 году. Разброс внутри верхней категории шире, чем разброс между категориями: офисные служащие −6,0 %, специалисты по данным +34,6 %.\n\n— Вся экономика вопроса держится на шаге проверки. Модель дешевле человека-эксперта в 474 раза, если её никто не проверяет, и в 1,2 раза, если проверяет эксперт. Выигрыш появляется ровно в тот момент, когда проверку убирают.\n\n— Экспозиция распределена неравномерно. С поправкой на занятость в высшей категории 57,5 % женщин против 36,9 % в низшей.\n\n— Вопрос не решён. Несколько исследовательских групп вообще не находят следа ИИ на рынке труда, и ни один прогноз 2026 года нельзя проверить по занятости в разрезе профессий, пока официальный ряд не догонит его в 2027-м.\n\nИсточники: Бюро статистики труда США · Stanford Digital Economy Lab · Anthropic Economic Index · Current Population Survey · GDPval · МОТ · МВФ\n\nПолное исследование, с интерактивами и всеми источниками: https://avgrebenkin.com/research/ai-and-work/ru/","tldrMd":"# Дверь не закрылась. Она сузилась.\n\n*Билл Гейтс об ИИ и работе, сверенный с данными о занятости, на которые он не ссылается.*\n\n- **На уровне рынка в целом смотреть почти не на что.** Если сгруппировать профессии по тому, насколько они уязвимы, за двенадцать месяцев все группы разошлись меньше чем на процентный пункт — от +0,1 % до +2,2 %.\n- **Разделите те же профессии по возрасту, и картина меняется.** В самых уязвимых занятость людей 22–25 лет упала на 3,0 %, а группа 41–49 прибавила 1,9 %: разрыв 4,9 пункта внутри одних и тех же профессий.\n\nС конца 2022 года самые молодые в двух самых уязвимых группах потеряли 11 %, тогда как их ровесники в трёх наименее уязвимых прибавили 10 %.\n- **Никого не увольняют. Просто впускают меньше.** Частота увольнений среди молодых в уязвимых профессиях не выросла — замедлился наём. Дверь не захлопнулась за теми, кто уже внутри; она сузилась для тех, кто пытается войти.\n- **Официальные прогнозы всё равно растут.** Самая уязвимая треть рынка растёт медленнее прочих — и всё-таки растёт, +2,0 % к 2035 году. Разброс внутри верхней категории шире, чем разброс между категориями: офисные служащие −6,0 %, специалисты по данным +34,6 %.\n- **Вся экономика вопроса держится на шаге проверки.** Модель дешевле человека-эксперта в 474 раза, если её никто не проверяет, и в 1,2 раза, если проверяет эксперт. Выигрыш появляется ровно в тот момент, когда проверку убирают.\n- **Экспозиция распределена неравномерно.** С поправкой на занятость в высшей категории 57,5 % женщин против 36,9 % в низшей.\n- **Вопрос не решён.** Несколько исследовательских групп вообще не находят следа ИИ на рынке труда, и ни один прогноз 2026 года нельзя проверить по занятости в разрезе профессий, пока официальный ряд не догонит его в 2027-м.\n\nИсточники: Бюро статистики труда США · Stanford Digital Economy Lab · Anthropic Economic Index · Current Population Survey · GDPval · МОТ · МВФ\n\nПолное исследование, с интерактивами и всеми источниками: <https://avgrebenkin.com/research/ai-and-work/ru/>"};
+</script>
+<script>
+/* Поведение страницы. Ни одной английской строки: всё, что видит читатель,
+   приходит в T из strings/<язык>.json, а числа и профессии — в DATA. */
+
+var SDEL={1:[0.0,1.8,-0.2,2.7,1.4,0.6],2:[2.3,3.1,0.7,4.2,3.2,1.0],3:[-3.0,-2.4,-1.3,1.6,2.7,1.3],4:[-3.0,-2.1,-1.6,1.3,1.9,0.4]};
+var CATCOL={4:'var(--cat-4)',3:'var(--cat-3)',2:'var(--cat-2)',1:'var(--cat-1)'};
+var AGES=T.ages;
+var CATNAME=T.cats;      /* именительный: «очень высокая» */
+/* Отдельный падеж для оборота «в профессиях ... уязвимости»: в русском,
+   немецком и польском согласование внутри фразы одной формой не обходится. */
+var st={occ:null,age:0,sex:'n'};
+
+/* Подстановка {имя} в переведённую строку: у языков разный порядок слов,
+   и склеивать куски конкатенацией нельзя — фраза должна приходить целой. */
+function fill(s,vals){
+  return s.replace(/\{(\w+)\}/g,function(_,k){return k in vals?vals[k]:'{'+k+'}';});
+}
+
+/* Доля занятости каждого пола, приходящаяся на категорию экспозиции. Считается
+   из того же вшитого датасета по профессиям, где обследование даёт состав по
+   полу — 282 из 825, но 117 из 170 миллионов занятых. Сходится с цифрой
+   раздела 08: в высшей категории выходит 57,5 % женщин. */
+var SEXSHARE=(function(){
+  var f={1:0,2:0,3:0,4:0},m={1:0,2:0,3:0,4:0},tf=0,tm=0;
+  DATA.forEach(function(o){
+    if(o[7]<0||!f.hasOwnProperty(o[5]))return;
+    var w=o[2]*o[7]/100;
+    f[o[5]]+=w; tf+=w; m[o[5]]+=o[2]-w; tm+=o[2]-w;
+  });
+  function sh(src,total){var r={};for(var k in src)r[k]=src[k]/total*100;return r;}
+  var women={word:T.wordWomen,nom:T.wordWomenNom,share:sh(f,tf)},
+      men={word:T.wordMen,nom:T.wordMenNom,share:sh(m,tm)};
+  women.other=men; men.other=women;
+  return {f:women,m:men,n:null};
+})();
+
+/* Числа языка: разделитель разрядов даёт toLocaleString, десятичную запятую
+   и пробел перед знаком процента — каталог. Знак минуса везде U+2212, как
+   в наборе статьи, а не дефис. */
+function num(n){return n.toLocaleString(T.numLocale);}
+function dec(s){return String(s).replace('.',T.decimal);}
+function pct(v){return fill(T.percent,{n:dec(v)});}
+function signed(v){return (v>0?'+':'−')+pct(Math.abs(v).toFixed(1));}
+function thousands(n){return fill(T.thousands,{n:num(Math.round(n/1000))});}
+function millions(n){return fill(T.millions,{n:dec((n/1e6).toFixed(1))});}
+
+var q=document.getElementById('q'), hits=document.getElementById('hits');
+function list(a){
+  hits.innerHTML='';
+  a.slice(0,7).forEach(function(o){
+    var li=document.createElement('li'),b=document.createElement('button');
+    b.type='button';
+    b.innerHTML='<span>'+o[0]+'</span><span class="n">'+thousands(o[2])+'</span>';
+    b.onclick=function(){st.occ=o;q.value=o[0];hits.innerHTML='';show();};
+    li.appendChild(b);hits.appendChild(li);
+  });
+}
+q.addEventListener('input',function(){
+  var v=q.value.trim().toLowerCase();
+  if(v.length<2){hits.innerHTML='';return;}
+  list(DATA.filter(function(o){return o[0].toLowerCase().indexOf(v)>-1;}));
+});
+function chips(el,items,key){
+  items.forEach(function(t,i){
+    var b=document.createElement('button');
+    b.type='button';b.className='chip';b.textContent=t.l;
+    b.setAttribute('aria-pressed',String(key==='age'?i===0:t.v==='n'));
+    b.onclick=function(){
+      [].forEach.call(el.children,function(c){c.setAttribute('aria-pressed','false');});
+      b.setAttribute('aria-pressed','true');st[key]=t.v;show();
+    };
+    el.appendChild(b);
+  });
+}
+chips(document.getElementById('age'),AGES.map(function(a,i){return{l:a,v:i};}),'age');
+chips(document.getElementById('sex'),[{l:T.sexAny,v:'n'},{l:T.sexWoman,v:'f'},{l:T.sexMan,v:'m'}],'sex');
+
+function card(x){
+  return '<div class="card"><span class="k">'+x.k+'</span><span class="v '+(x.cls||'')+'">'
+       + x.v+'</span><span class="c">'+x.c+'</span></div>';
+}
+function show(){
+  var o=st.occ; if(!o) return;
+  document.getElementById('res').hidden=false;
+  var cat=o[5],aei=o[6],w=o[7],chg=o[3];
+  var c=[
+    {k:T.cExposure,v:CATNAME[cat]||T.na,c:fill(T.cExposureNote,{soc:o[1]})},
+    {k:T.cProjected,v:signed(chg),cls:chg<0?'dn':'up',c:T.cProjectedNote},
+    {k:T.cEmployed,v:thousands(o[2]),c:fill(T.cEmployedNote,{wage:num(o[4])})}
+  ];
+  if(aei>=0)c.push({k:T.cTasks,v:pct((aei*100).toFixed(1)),c:T.cTasksNote});
+  if(w>=0){
+    var g=st.sex==='n'?T.cWomenPlain:((w>=50)===(st.sex==='f')?T.cWomenMajority:T.cWomenMinority);
+    c.push({k:T.cWomen,v:pct(w.toFixed(0)),c:g+'<sup><a href="#s4">4</a></sup>'});
+  }
+  document.getElementById('cards').innerHTML=c.map(card).join('');
+
+  /* Вторая сетка — единственная, которую двигают переключатели. Возраст берёт
+     свою строку из той же панели, что и график ниже; пол — свою долю занятости
+     в этой категории экспозиции, посчитанную из вшитого датасета. */
+  var mine=(SDEL[cat]||SDEL[1])[st.age];
+  var you=[{k:T.yAge,v:signed(mine),cls:mine<0?'dn':'up',
+            c:fill(T.yAgeNote,{band:AGES[st.age]})}];
+  var g=SEXSHARE[st.sex];
+  if(g)you.push({k:fill(T.yWhere,{who:g.nom}),v:pct(g.share[cat].toFixed(1)),
+    c:fill(T.yWhereNote,{who:g.word,cat:T.catsGen[cat],other:g.other.word,
+                         otherShare:pct(g.other.share[cat].toFixed(1))})});
+  document.getElementById('youCards').innerHTML=you.map(card).join('');
+
+  var s=SDEL[cat]||SDEL[1],max=3.2;
+  document.getElementById('agePlot').innerHTML=s.map(function(v,i){
+    var wd=Math.abs(v)/max*46,neg=v<0;
+    return '<div class="lane'+(i===st.age?' hi':'')+'"><span class="lab">'+AGES[i]+'</span><span class="track"><span class="axis"></span><span class="bar'+(neg?' dn':'')+'" style="'+(neg?'right:50%':'left:50%')+';width:'+wd+'%"></span></span><span class="val">'+signed(v)+'</span></div>';
+  }).join('');
+  document.getElementById('afterPlot').innerHTML=T.afterPlot;
+  paintMatrix();
+}
+
+/* map */
+/* Не `top`: на верхнем уровне классического скрипта это имя занято
+   неперезаписываемым window.top, и присваивание молча не срабатывает. */
+var biggest=DATA.slice().sort(function(a,b){return b[2]-a[2];}).slice(0,120);
+var maxE=biggest[0][2], mt=document.getElementById('matrix'), mout=document.getElementById('mout');
+
+/* Плитки собраны в четыре блока по категориям: россыпь вперемешку не отвечала
+   ни на один вопрос, а так сразу виден объём каждой категории и кто в ней
+   крупнейший. Клик по плитке уводит в поиск наверху — карта перестаёт быть
+   тыканьем наугад и становится входом в персональный ответ. */
+function tile(o){
+  var side=Math.max(13,Math.round(Math.sqrt(o[2]/maxE)*74));
+  return '<button class="tile" type="button" style="width:'+side+'px;height:'+side
+       +'px;background:'+(CATCOL[o[5]]||'var(--ink-3)')+'" data-i="'+DATA.indexOf(o)
+       +'" aria-label="'+fill(T.tileAria,{occ:o[0],cat:CATNAME[o[5]]||T.na})+'"></button>';
+}
+mt.innerHTML=[4,3,2,1].map(function(cat){
+  var occ=biggest.filter(function(o){return o[5]===cat;});
+  if(!occ.length)return '';
+  var emp=occ.reduce(function(a,o){return a+o[2];},0);
+  return '<div class="mgroup"><p class="mgh">'
+    +'<i class="swatch sw" style="background:'+CATCOL[cat]+'"></i>'
+    +'<b>'+T.catsHead[cat]+'</b>'
+    +'<span class="n">'+fill(T.groupCount,{n:occ.length,emp:millions(emp)})+'</span>'
+    +'<span class="n">'+fill(T.groupLargest,{list:occ.slice(0,3).map(function(o){return o[0];}).join(', ')})+'</span>'
+    +'</p><div class="matrix">'+occ.map(tile).join('')+'</div></div>';
+}).join('');
+
+/* Профессия, выбранная в поиске, обводится на карте — иначе её там не найти. */
+function paintMatrix(){
+  var i=st.occ?String(DATA.indexOf(st.occ)):null;
+  [].forEach.call(mt.querySelectorAll('.tile'),function(t){
+    t.classList.toggle('on',t.dataset.i===i);
+  });
+}
+function tileInfo(e){
+  var t=e.target.closest('.tile'); if(!t)return;
+  var o=DATA[+t.dataset.i];
+  mout.innerHTML='<b>'+o[0]+'</b> — '+fill(T.tileLine,{
+    emp:thousands(o[2]),cat:CATNAME[o[5]]||T.na,proj:signed(o[3])})
+    +(o[7]>=0?fill(T.tileWomen,{pct:pct(o[7].toFixed(0))}):'');
+}
+mt.addEventListener('mouseover',tileInfo);
+mt.addEventListener('focusin',tileInfo);
+mt.addEventListener('click',function(e){
+  var t=e.target.closest('.tile'); if(!t)return;
+  tileInfo(e);
+  var o=DATA[+t.dataset.i];
+  st.occ=o; q.value=o[0]; hits.innerHTML=''; show();
+  document.getElementById('res').scrollIntoView({block:'center'});
+});
+
+/* Полоса под двумя числами: 1,2× от 474× — это 0,3 % шкалы, столько она и
+   показывает. Ширина берётся из самих чисел, чтобы они не разошлись. */
+(function(){
+  var big=document.querySelectorAll('.cost-cell .big');
+  var hi=parseFloat(big[0].textContent), lo=parseFloat(big[1].textContent);
+  document.querySelector('.cost-fill').style.width=Math.max(lo/hi*100,0.4).toFixed(2)+'%';
+})();
+
+/* Короткая версия. Простой текст и Markdown собраны сборкой из тех же строк,
+   что стоят в окне, — второй копии, которая разъедется с первой, здесь нет. */
+(function(){
+  var dlg=document.getElementById('tldr');
+  var openBtn=document.getElementById('tldrOpen');
+  var timer;
+
+  openBtn.addEventListener('click',function(){ dlg.showModal(); });
+  document.getElementById('tldrClose').addEventListener('click',function(){ dlg.close(); });
+  /* Клик мимо карточки закрывает: у модального диалога фон — это сам dialog. */
+  dlg.addEventListener('click',function(e){ if(e.target===dlg) dlg.close(); });
+
+  function flash(btn,text){
+    var label=btn.querySelector('span');
+    var was=label.textContent;
+    btn.classList.add('done'); label.textContent=text;
+    clearTimeout(timer);
+    timer=setTimeout(function(){ btn.classList.remove('done'); label.textContent=was; },1800);
+  }
+  function copy(btn,text){
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){flash(btn,T.copied);},fallback);
+    } else fallback();
+    function fallback(){
+      var ta=document.createElement('textarea');
+      ta.value=text; ta.setAttribute('readonly','');
+      ta.style.cssText='position:fixed;top:-1000px';
+      document.body.appendChild(ta); ta.select();
+      var ok=false; try{ ok=document.execCommand('copy'); }catch(e){}
+      ta.remove(); flash(btn,ok?T.copied:T.copyManual);
+      if(!ok){ var r=document.createRange(); r.selectNodeContents(document.getElementById('tldrDoc'));
+        var sel=getSelection(); sel.removeAllRanges(); sel.addRange(r); }
+    }
+  }
+  [].forEach.call(document.querySelectorAll('[data-tldr-copy]'),function(btn){
+    btn.addEventListener('click',function(){
+      copy(btn, btn.dataset.tldrCopy==='md'?T.tldrMd:T.tldrText);
+    });
+  });
+
+  /* Печать одного листа: узел уезжает прямо в body, иначе его накрывают
+     `overflow` диалога и правила печати всей статьи. */
+  var doc=document.getElementById('tldrDoc'), home=doc.parentNode, root=document.documentElement;
+  function restore(){
+    if(doc.parentNode!==home) home.appendChild(doc);
+    root.removeAttribute('data-print');
+  }
+  document.getElementById('tldrPrint').addEventListener('click',function(){
+    document.body.appendChild(doc);
+    root.setAttribute('data-print','tldr');
+    window.print();
+    restore();
+  });
+  window.addEventListener('afterprint',restore);
+})();
+
+/* Обложка вверху — единственная растровая графика на странице, и цвета в ней
+   запечены. Всё остальное здесь живёт на CSS-переменных и переключается само,
+   а этой нужен второй файл, поэтому страница и слушает themechange. Кибертема
+   берёт тёмный вариант: у неё фон почти чёрный. */
+var heroShot=document.getElementById('heroShot');
+function heroSrc(){
+  var light=document.documentElement.getAttribute('data-theme')==='light';
+  var want=T.up+'../images/research/ai-and-work-hero'+(light?'-light':'')+'.webp';
+  if(heroShot.getAttribute('src')!==want) heroShot.setAttribute('src',want);
+}
+document.addEventListener('themechange',heroSrc);
+heroSrc();
+
+</script>
+</body>
+</html>
