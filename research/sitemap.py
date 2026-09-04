@@ -5,11 +5,13 @@
     python3 research/sitemap.py
 
 У каждого исследования 13 языков, и у каждого адреса должен стоять полный
-набор alternate-ссылок на остальные 12 плюс x-default — 26 записей по 14 ссылок.
-Руками это не живёт: любой новый язык надо было бы дописать в 26 местах.
+набор alternate-ссылок на остальные 12 плюс x-default — 39 записей по 14 ссылок.
+Руками это не живёт: любой новый язык надо было бы дописать в 39 местах.
 
-Трогается только блок от первой страницы городов до последней страницы взлома.
-Всё остальное в файле — главная, Speak-Y, /research/ — остаётся как есть.
+Трогается один непрерывный блок: от первого адреса первого исследования из
+STUDIES до последнего адреса последнего. Всё остальное в файле — главная,
+Speak-Y, /research/ — остаётся как есть. Порядок STUDIES должен совпадать с
+порядком блоков в sitemap.xml, иначе вырезанный кусок захватит чужие записи.
 """
 import datetime, json, os, re, sys
 
@@ -19,6 +21,9 @@ ORDER = ['en', 'ru', 'uk', 'de', 'fr', 'es', 'pt-BR', 'it', 'nl', 'pl', 'tr', 'j
 DEFAULT = 'en'
 
 STUDIES = [
+    dict(base='/research/ai-and-work/', dirname='ai-and-work',
+         image='/images/research/ai-and-work.jpg',
+         title=lambda L: L['page']['htmlTitle']),
     dict(base='/research/cities/', dirname='cities',
          image='/images/research/find-your-city.jpg', title=lambda L: L['htmlTitle']),
     dict(base='/research/hugging-face/', dirname='hugging-face',
@@ -76,7 +81,10 @@ def main():
                       '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n'
                       '        xmlns:xhtml="http://www.w3.org/1999/xhtml"', 1)
 
-    first = s.index('<url>', s.index('<loc>%s/research/cities/</loc>' % SITE) - 400)
+    # Начало блока ищется от <loc> назад, а не вперёд от точки «минус столько-то
+    # символов»: у записей разная длина, и фиксированный отступ рано или поздно
+    # промахнётся мимо своего <url>.
+    first = s.rindex('<url>', 0, s.index('<loc>%s</loc>' % url_for(STUDIES[0]['base'], DEFAULT)))
     last_loc = url_for(STUDIES[-1]['base'], ORDER[-1])
     last = s.index('</url>', s.index('<loc>%s</loc>' % last_loc)) + len('</url>')
 
