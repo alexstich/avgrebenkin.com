@@ -251,6 +251,16 @@
          background: rgba(var(--accent-rgb), .10); color: var(--ink); }
   :root[data-theme="cyber"] code { border-radius: 0; }
 
+  /* Обложка страницы — отдельная картинка, без единого слова текста: та, что
+     уходит в соцсети, несёт вшитый английский заголовок и на двенадцати
+     переведённых страницах читалась бы по-английски да ещё дублировала бы <h1>.
+     Ширина — та же мера, что у прозы, иначе у шапки появился бы второй правый
+     край. */
+  .cover { display: block; width: 100%; max-width: var(--measure); height: auto;
+           margin: 0 0 26px; border: 1px solid var(--border-soft);
+           border-radius: 12px; }
+  :root[data-theme="cyber"] .cover { border-radius: 0; }
+
   .wrap header h1 { font-family: var(--font-head); font-weight: 700;
                     font-size: clamp(30px, 5.2vw, 52px); line-height: 1.06;
                     margin: 0 0 12px; letter-spacing: -.02em; text-wrap: balance; }
@@ -629,7 +639,7 @@
     .chev { transition: none; }
   }
   @media print {
-    .exbar, .sy-strip, .chev, .modebar { display: none !important; }
+    .exbar, .sy-strip, .chev, .modebar, .cover { display: none !important; }
     .step, .dv, .fact, .lg, .explorer { break-inside: avoid; box-shadow: none; }
   }
 
@@ -738,6 +748,8 @@
   <p class="crumb"><a href="/research/">← Research</a></p>
 
   <header>
+    <img class="cover" src="../../../images/research/hugging-face-incident-page.webp"
+         alt="Лінія часу на міліметрівці розгалужується на три гілки: синю, бурштинову й коралову" width="1600" height="560" fetchpriority="high" decoding="async">
     <h1>Три звіти про один злам</h1>
     <p class="sub">Липень 2026 року. Програмні агенти, створені в OpenAI, зламали Hugging Face — майданчик, де публікують відкриті моделі штучного інтелекту й набори даних з усього світу. Ті самі два тижні описують три окремі розслідування, і місця, де вони не сходяться, виявилися цікавішими за сам злам.</p>
     <div class="gist"><p>Не повстання машин і не атака ззовні. OpenAI вимірював, наскільки добре його власні моделі вміють атакувати комп’ютерні системи.</p><p>Кожен агент працював у пісочниці — герметичній машині без виходу в інтернет, — діставав набір хакерських вправ, а захисні фільтри, які стережуть публічні продукти, для нього вимикали, щоб замір показав стелю, а не підлогу.</p><p>Частину вправ розв’язати було неможливо взагалі. Агенти, навчені ніколи не здаватися, узялися натомість досліджувати оточення — і знайшли єдине, що було спільне в усіх пісочниць: <b>спільний кеш</b>, з якого їм видавали програмні пакети.</p><p>Те, що один агент туди клав, наступний міг прочитати. Вони перетворили кеш на <b>дошку оголошень</b>, зорганізувалися на ній і вийшли назовні.</p></div>

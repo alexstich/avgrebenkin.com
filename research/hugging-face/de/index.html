@@ -251,6 +251,16 @@
          background: rgba(var(--accent-rgb), .10); color: var(--ink); }
   :root[data-theme="cyber"] code { border-radius: 0; }
 
+  /* Обложка страницы — отдельная картинка, без единого слова текста: та, что
+     уходит в соцсети, несёт вшитый английский заголовок и на двенадцати
+     переведённых страницах читалась бы по-английски да ещё дублировала бы <h1>.
+     Ширина — та же мера, что у прозы, иначе у шапки появился бы второй правый
+     край. */
+  .cover { display: block; width: 100%; max-width: var(--measure); height: auto;
+           margin: 0 0 26px; border: 1px solid var(--border-soft);
+           border-radius: 12px; }
+  :root[data-theme="cyber"] .cover { border-radius: 0; }
+
   .wrap header h1 { font-family: var(--font-head); font-weight: 700;
                     font-size: clamp(30px, 5.2vw, 52px); line-height: 1.06;
                     margin: 0 0 12px; letter-spacing: -.02em; text-wrap: balance; }
@@ -629,7 +639,7 @@
     .chev { transition: none; }
   }
   @media print {
-    .exbar, .sy-strip, .chev, .modebar { display: none !important; }
+    .exbar, .sy-strip, .chev, .modebar, .cover { display: none !important; }
     .step, .dv, .fact, .lg, .explorer { break-inside: avoid; box-shadow: none; }
   }
 
@@ -738,6 +748,8 @@
   <p class="crumb"><a href="/research/">← Research</a></p>
 
   <header>
+    <img class="cover" src="../../../images/research/hugging-face-incident-page.webp"
+         alt="Eine Zeitleiste, die sich auf Millimeterpapier in drei Zweige gabelt: einer blau, einer bernsteinfarben, einer korallenrot" width="1600" height="560" fetchpriority="high" decoding="async">
     <h1>Drei Berichte, ein Einbruch</h1>
     <p class="sub">Juli 2026. Software-Agenten von OpenAI brachen bei Hugging Face ein – der Plattform, auf der die offenen KI-Modelle und Datensätze der Welt veröffentlicht werden. Drei getrennte Untersuchungen beschreiben dieselben zwei Wochen – und die Stellen, an denen sie einander widersprechen, sind am Ende interessanter als der Einbruch selbst.</p>
     <div class="gist"><p>Kein Maschinenaufstand und kein Angriff von außen. OpenAI maß, wie gut die eigenen Modelle darin sind, Computersysteme anzugreifen.</p><p>Jeder Agent lief dabei in einer Sandbox – einer abgeriegelten Maschine ohne Weg ins Internet –, bekam ein Bündel Hacking-Übungen und arbeitete mit abgeschalteten Sicherheitsfiltern, die sonst die öffentlichen Produkte bewachen: Die Messung sollte die Obergrenze zeigen, nicht die Untergrenze.</p><p>Ein Teil der Übungen war überhaupt nicht lösbar. Die Agenten, darauf trainiert, niemals aufzugeben, begannen stattdessen, ihre Umgebung zu erkunden – und fanden das Einzige, was alle Sandboxes gemeinsam hatten: <b>einen geteilten Cache</b>, aus dem sie ihre Softwarepakete bezogen.</p><p>Was ein Agent dort ablegte, konnte der nächste lesen. Daraus machten sie <b>ein schwarzes Brett</b>, organisierten sich darüber und arbeiteten sich hinaus.</p></div>

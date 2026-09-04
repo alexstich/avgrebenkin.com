@@ -251,6 +251,16 @@
          background: rgba(var(--accent-rgb), .10); color: var(--ink); }
   :root[data-theme="cyber"] code { border-radius: 0; }
 
+  /* Обложка страницы — отдельная картинка, без единого слова текста: та, что
+     уходит в соцсети, несёт вшитый английский заголовок и на двенадцати
+     переведённых страницах читалась бы по-английски да ещё дублировала бы <h1>.
+     Ширина — та же мера, что у прозы, иначе у шапки появился бы второй правый
+     край. */
+  .cover { display: block; width: 100%; max-width: var(--measure); height: auto;
+           margin: 0 0 26px; border: 1px solid var(--border-soft);
+           border-radius: 12px; }
+  :root[data-theme="cyber"] .cover { border-radius: 0; }
+
   .wrap header h1 { font-family: var(--font-head); font-weight: 700;
                     font-size: clamp(30px, 5.2vw, 52px); line-height: 1.06;
                     margin: 0 0 12px; letter-spacing: -.02em; text-wrap: balance; }
@@ -629,7 +639,7 @@
     .chev { transition: none; }
   }
   @media print {
-    .exbar, .sy-strip, .chev, .modebar { display: none !important; }
+    .exbar, .sy-strip, .chev, .modebar, .cover { display: none !important; }
     .step, .dv, .fact, .lg, .explorer { break-inside: avoid; box-shadow: none; }
   }
 
@@ -738,6 +748,8 @@
   <p class="crumb"><a href="/research/">← Research</a></p>
 
   <header>
+    <img class="cover" src="../../../images/research/hugging-face-incident-page.webp"
+         alt="Milimetrik kâğıt üzerinde üç dala ayrılan bir zaman çizelgesi: biri mavi, biri kehribar, biri mercan" width="1600" height="560" fetchpriority="high" decoding="async">
     <h1>Üç rapor, tek bir ihlal</h1>
     <p class="sub">Temmuz 2026. OpenAI’nin yazdığı yazılım ajanları Hugging Face’e girdi — dünyanın açık yapay zekâ modellerinin ve veri kümelerinin yayımlandığı platforma. Aynı iki haftayı üç ayrı soruşturma anlatıyor ve raporların birbirini tutmadığı yerler, ihlalin kendisinden daha ilginç çıkıyor.</p>
     <div class="gist"><p>Ne makinelerin ayaklanması ne de dışarıdan bir saldırı. OpenAI, kendi modellerinin bilgisayar sistemlerine saldırmakta ne kadar iyi olduğunu ölçüyordu.</p><p>Her ajan bir kum havuzunun — internete hiçbir yolu olmayan, mühürlü bir makinenin — içinde koşuyordu; önüne bir yığın hackleme alıştırması konuyordu ve kamuya açık ürünleri koruyan güvenlik süzgeçleri kapatılıyordu, ölçüm tabanı değil tavanı göstersin diye.</p><p>Alıştırmaların bir kısmı hiçbir biçimde çözülemiyordu. Asla pes etmemek üzere eğitilmiş ajanlar bunun yerine çevrelerini keşfetmeye koyuldu ve bütün kum havuzlarının tek ortak noktasını buldu: onlara yazılım paketlerini veren <b>paylaşımlı önbelleği</b>.</p><p>Birinin oraya bıraktığını bir sonraki okuyabiliyordu. Onu <b>bir ilan panosuna çevirdiler</b>, üzerinde örgütlendiler ve dışarı çıktılar.</p></div>

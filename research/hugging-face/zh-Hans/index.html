@@ -251,6 +251,16 @@
          background: rgba(var(--accent-rgb), .10); color: var(--ink); }
   :root[data-theme="cyber"] code { border-radius: 0; }
 
+  /* Обложка страницы — отдельная картинка, без единого слова текста: та, что
+     уходит в соцсети, несёт вшитый английский заголовок и на двенадцати
+     переведённых страницах читалась бы по-английски да ещё дублировала бы <h1>.
+     Ширина — та же мера, что у прозы, иначе у шапки появился бы второй правый
+     край. */
+  .cover { display: block; width: 100%; max-width: var(--measure); height: auto;
+           margin: 0 0 26px; border: 1px solid var(--border-soft);
+           border-radius: 12px; }
+  :root[data-theme="cyber"] .cover { border-radius: 0; }
+
   .wrap header h1 { font-family: var(--font-head); font-weight: 700;
                     font-size: clamp(30px, 5.2vw, 52px); line-height: 1.06;
                     margin: 0 0 12px; letter-spacing: -.02em; text-wrap: balance; }
@@ -629,7 +639,7 @@
     .chev { transition: none; }
   }
   @media print {
-    .exbar, .sy-strip, .chev, .modebar { display: none !important; }
+    .exbar, .sy-strip, .chev, .modebar, .cover { display: none !important; }
     .step, .dv, .fact, .lg, .explorer { break-inside: avoid; box-shadow: none; }
   }
 
@@ -738,6 +748,8 @@
   <p class="crumb"><a href="/research/">← Research</a></p>
 
   <header>
+    <img class="cover" src="../../../images/research/hugging-face-incident-page.webp"
+         alt="方格纸上分成三支的时间线：一支蓝色，一支琥珀色，一支珊瑚色" width="1600" height="560" fetchpriority="high" decoding="async">
     <h1>三份报告，一次入侵</h1>
     <p class="sub">2026年7月。OpenAI 造出来的软件智能体闯进了 Hugging Face——全世界的开源 AI 模型和数据集都在这个平台上发布。三项各自独立的调查描述的是同样的两个星期，而它们彼此对不上的那些地方，结果比入侵本身更耐人寻味。</p>
     <div class="gist"><p>既不是机器造反，也不是外部攻击。OpenAI 当时在测量自家模型攻击计算机系统的本事有多大。每个智能体都跑在一个沙箱里——一台封起来的机器，没有任何通往互联网的路——拿到一批黑客练习题，同时保护公开产品的那套<b>安全过滤被关掉了</b>，好让这次测量看到的是上限而不是下限。</p><p>有一部分题目根本无解。被训练成绝不放弃的智能体转而开始四处摸索，并且找到了所有沙箱唯一的共同之处：一个给它们供应软件包的<b>共用缓存</b>。一个智能体在那里留下的东西，下一个就能读到。它们把它变成了公告板，在上面组织起来，然后一路走了出去。</p></div>
