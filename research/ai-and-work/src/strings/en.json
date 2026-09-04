@@ -24,10 +24,10 @@
     "backHome": "← back to avgrebenkin.com"
   },
   "page": {
-    "htmlTitle": "The door didn't close. It narrowed. — AI and the job market, checked against the data",
-    "title": "The door didn't close. It narrowed.",
+    "htmlTitle": "Bill Gates's job essay, checked against the data — The door didn't close. It narrowed",
+    "title": "Bill Gates's job essay, checked against the data",
     "eyebrow": "Research · No. 3 · September 2026",
-    "standfirst": "Bill Gates says we have crossed the job-market threshold. I read the essay, then spent a week checking it against the employment data he never cites. The diagnosis holds. The shape of the damage is not the one most people picture.",
+    "standfirst": "**The door didn't close. It narrowed.** Bill Gates says we have crossed the job-market threshold. I read the essay, then spent a week checking it against the employment data he never cites. The diagnosis holds. The shape of the damage is not the one most people picture.",
     "byline": "By **Aleksei Grebenkin** · Data: US Bureau of Labor Statistics, Anthropic Economic Index, Stanford Digital Economy Lab, International Labour Organization",
     "heroAlt": "Employment change over twelve months in the most exposed occupations, by age group: 22–25 down 3.0 per cent, 26–30 down 2.1, 31–34 down 1.6, 35–40 up 1.3, 41–49 up 1.9, 50 and over up 0.4.",
     "imageAlt": "Employment change over twelve months in the most exposed occupations, by age: the 22–25 group is down 3.0 per cent while the 41–49 group is up 1.9",
@@ -51,25 +51,25 @@
   "s01": {
     "num": "01 — Why I bothered",
     "h": "A forecast worth taking apart",
-    "body": "I don't follow Bill Gates. I read his August essay because someone put it in front of me, and it stopped me — not because it was alarming, but because it wasn't. It reads like a person describing a system he has looked at carefully, listing what he thinks breaks and admitting which parts he cannot fix.\n\nThat combination is rare enough to be worth an afternoon. What follows is his argument, section by section, with the numbers he leaves out. Every figure here links to its source.\n\nWhere his essay and his same-day interviews say different things, I mark which is which — that distinction turns out to matter, because the most-quoted numbers live in the interviews, not the essay.",
+    "body": "I don't follow Bill Gates. I read his August essay because someone put it in front of me, and it stopped me — not because it was alarming, but because it wasn't. It reads like a person describing a system he has looked at carefully, listing what he thinks breaks and admitting which parts he cannot fix.\n\nThat combination is rare enough to be worth an afternoon. What follows is his argument, section by section, **with the numbers he leaves out**. Every figure here links to its source.\n\nWhere his essay and his same-day interviews say different things, I mark which is which — that distinction turns out to matter, because the most-quoted numbers live in the interviews, not the essay.",
     "pull": "The interesting question was never whether he is right. It is what the data does to the shape of his claim."
   },
   "s02": {
     "num": "02 — The analogy",
     "h": "Why the usual comparison fails",
-    "body": "Most people reach for farm-to-office when they think about this transition. Gates argues the analogy breaks in two places, and both are worth stating plainly.\n\nFirst, timing. That shift ran across generations. This one, on his estimate, lands on law, customer service, medicine, software and manufacturing inside a decade.\n\nSecond, and more important: the farm-to-office move created work that required human cognition. This technology substitutes for the cognition itself. There is no obvious next rung of the same kind.\n\nHe adds a detail that explains the speed. The personal computer needed twenty years to change how people worked, because someone had to write the software, drive the price down, and train the workforce. This runs on hardware people already own and speaks plain language. It adapts to us rather than the other way round."
+    "body": "Most people reach for farm-to-office when they think about this transition. Gates argues the analogy breaks in two places, and both are worth stating plainly.\n\nFirst, timing. That shift ran across generations. This one, on his estimate, lands on law, customer service, medicine, software and manufacturing inside a decade.\n\nSecond, and more important: the farm-to-office move created work that required human cognition. This technology **substitutes for the cognition itself**. There is no obvious next rung of the same kind.\n\nHe adds a detail that explains the speed. The personal computer needed twenty years to change how people worked, because someone had to write the software, drive the price down, and train the workforce. This runs on hardware people already own and speaks plain language. It adapts to us rather than the other way round."
   },
   "s03": {
     "num": "03 — The thresholds",
     "h": "What he claims has already been crossed",
     "a": "In interviews the same day, Gates names five thresholds he believes are behind us: biological capability, cyber capability, psychosocial dependence, job-market disruption, and early signs of losing control[^6].\n\nHis point is not that any one has arrived. It is that the industry spent years promising to slow down as these came into view, and then walked past them without a public conversation.",
     "note": "**A note on sourcing.** The five-threshold list is not in the essay. The essay names three risks — vanishing work, empowered bad actors, and harm to children and human relationships — and says plainly that no plan exists for the transition[^5]. The sharper framing came in the interviews. Most coverage merges the two.",
-    "b": "The word threshold is not rhetorical. The leading labs each publish a safety framework that names capability levels in advance — assistance with biological weapons, autonomous cyber operations, self-propagation — and commits to pausing at them. That is the promise Gates is measuring against."
+    "b": "The word threshold is not rhetorical. The leading labs each publish a safety framework that **names capability levels in advance** — assistance with biological weapons, autonomous cyber operations, self-propagation — and commits to pausing at them. That is the promise Gates is measuring against."
   },
   "s04": {
     "num": "04 — The evidence",
     "h": "Where the effect actually shows up",
-    "a": "Here is where his essay goes quiet. He writes that employment fell among young workers in vulnerable occupations while holding steady for their older colleagues, and gives no figure at all. The number exists, and it is more interesting than the sentence.\n\nLook at the whole market first, and there is almost nothing to see. Payroll data covering millions of workers, grouped by how exposed the occupation is, shows every group moving within a percentage point of every other[^3]. This is why several research teams report finding no AI footprint in the labour market at all.",
+    "a": "Here is where his essay goes quiet. He writes that employment fell among young workers in vulnerable occupations while holding steady for their older colleagues, and gives no figure at all. The number exists, and it is more interesting than the sentence.\n\nLook at the whole market first, and there is **almost nothing to see**. Payroll data covering millions of workers, grouped by how exposed the occupation is, shows every group moving within a percentage point of every other[^3]. This is why several research teams report finding no AI footprint in the labour market at all.",
     "fig1": "Employment change over twelve months, by occupation exposure group. July 2026.",
     "src1": "Stanford Digital Economy Lab, balanced ADP payroll panel[^3].",
     "lane1": "Least exposed",
@@ -80,15 +80,15 @@
     "b": "Now add one variable. Same data, same month, same occupations — split by age.",
     "fig2": "Employment change over twelve months in the *most exposed* occupations, by age group. July 2026.",
     "src2": "Same panel, same month[^3]. The gap between the youngest and the 41–49 group is 4.9 percentage points — inside the same occupations.",
-    "c": "The effect is not between occupations. It is inside them, sorted by age. Over the longer window the split is starker still: since late 2022, employment for 22-to-25-year-olds in the two most exposed groups fell 11 per cent, while the same age group in the three least exposed rose 10 per cent[^3].",
+    "c": "The effect is not between occupations. It is **inside them, sorted by age**. Over the longer window the split is starker still: since late 2022, employment for 22-to-25-year-olds in the two most exposed groups fell 11 per cent, while the same age group in the three least exposed rose 10 per cent[^3].",
     "pull": "Nobody is being fired. Fewer people are being let in.",
-    "d": "That distinction is the finding. Separation rates for exposed young workers did not rise — hiring slowed.\n\nThe door did not close behind the people already inside; it narrowed for the people trying to enter. Gates describes exactly this when he writes about entry-level roles, and it is the part of his essay that survives contact with the data best.",
+    "d": "That distinction is the finding. Separation rates for exposed young workers did not rise — **hiring slowed**.\n\nThe door did not close behind the people already inside; it narrowed for the people trying to enter. Gates describes exactly this when he writes about entry-level roles, and it is the part of his essay that survives contact with the data best.",
     "note": "**What the researchers themselves flag.** The effect halves once you control for education, part of the decline predates generative AI, and the gap is smaller in national surveys than in this payroll panel.\n\nThe panel is not representative of the US labour market, and the paper is not peer-reviewed. Its authors call the results descriptive, not causal[^3]."
   },
   "s05": {
     "num": "05 — Your occupation",
     "h": "Check your own job",
-    "a": "Gates names occupations by observation: sales and support, software, paralegal work, then loan assessment, data analysis, patient triage. There is now an official measure to check him against.\n\nIn August, the Bureau of Labor Statistics published its first classification of occupations by AI exposure, built from five independent measures — three theoretical, two from observed real-world use — alongside employment projections to 2035[^1].\n\nEnter a job below. Everything returned comes from the sources listed at the end, and every number is footnoted to the one it came from.",
+    "a": "Gates names occupations by observation: sales and support, software, paralegal work, then loan assessment, data analysis, patient triage. There is now an official measure to check him against.\n\nIn August, the Bureau of Labor Statistics published its **first classification of occupations by AI exposure**, built from five independent measures — three theoretical, two from observed real-world use — alongside employment projections to 2035[^1].\n\nEnter a job below. Everything returned comes from the sources listed at the end, and every number is footnoted to the one it came from.",
     "toolH": "Interactive · 825 occupations",
     "legendOcc": "Occupation",
     "placeholder": "Try: software, accountant, nurse, teacher…",
@@ -102,7 +102,7 @@
   "s06": {
     "num": "06 — The map",
     "h": "One fifth of the market, thoroughly",
-    "a": "Put all 825 occupations on one surface and the picture is calmer than the discourse. Each tile below is an occupation, sized by how many people it employs and coloured by its official exposure category. Hover or tap any tile.",
+    "a": "Put all 825 occupations on one surface and the picture is **calmer than the discourse**. Each tile below is an occupation, sized by how many people it employs and coloured by its official exposure category. Hover or tap any tile.",
     "mapLegend": "Area ∝ employment · 120 largest occupations · click a tile to look it up above",
     "mapHint": "Hover or tap a tile to see the occupation.",
     "tableLead": "The share of employment in each category, across all 831 occupations the Bureau projects:",
@@ -112,7 +112,7 @@
     "th4": "Share",
     "th5": "Projected 2025–35",
     "src": "Bureau of Labor Statistics, AI exposure categories and employment projections 2025–35[^1].",
-    "spread": "The most exposed third of the market grows slowest — and still grows. That is the official projection, not an opinion. And the spread *inside* the top category is wider than the spread between categories:",
+    "spread": "The most exposed third of the market grows slowest — **and still grows**. That is the official projection, not an opinion. And the spread *inside* the top category is wider than the spread between categories:",
     "t2h1": "Very high exposure",
     "t2h2": "Employed",
     "t2h3": "Projected to 2035",
@@ -121,7 +121,7 @@
   "s07": {
     "num": "07 — The break point",
     "h": "The shift arrives when the checking stops",
-    "a": "The most underrated line in the essay is not about any occupation. Gates writes that the biggest shift for workers comes when the technology is nearly error-free — because that is the moment it can run without a human reviewing it, and every economic incentive points at letting it.\n\nThere is a benchmark that puts numbers on this.\n\nOpenAI's GDPval evaluates models against experienced professionals on 1,320 real work products across 44 occupations, averaging about seven hours of work each[^7]. Its headline is that a frontier model matches or beats the human expert on roughly half the tasks. Buried in the same paper is a table almost nobody quotes.",
+    "a": "The most underrated line in the essay is not about any occupation. Gates writes that the biggest shift for workers comes when the technology is **nearly error-free** — because that is the moment it can run without a human reviewing it, and every economic incentive points at letting it.\n\nThere is a benchmark that puts numbers on this.\n\nOpenAI's GDPval evaluates models against experienced professionals on 1,320 real work products across 44 occupations, averaging about seven hours of work each[^7]. Its headline is that a frontier model matches or beats the human expert on roughly half the tasks. Buried in the same paper is a table almost nobody quotes.",
     "toolH": "The cost of checking",
     "costH": "Model advantage over the human expert",
     "k1": "No human review",
@@ -129,12 +129,12 @@
     "k2": "Full expert review",
     "c2": "With the output fully checked by an expert, the cost advantage is 1.2×. Almost the entire saving is consumed by verification.",
     "foot": "Everything between those two numbers is a question of how much checking you keep[^7].",
-    "b": "Measured naively, the model is around 90 times faster and several hundred times cheaper. Once expert verification is priced in, the advantage collapses to roughly 1.1–1.4× on time and 1.2–1.6× on cost[^7].\n\nSo the entire economic case sits in the review step. While a person still checks, the gain is marginal. The whole prize appears the moment checking is removed — which is precisely why it will be removed, and why Gates is right to call this the real threshold rather than any particular capability."
+    "b": "Measured naively, the model is around 90 times faster and several hundred times cheaper. Once expert verification is priced in, the advantage collapses to roughly 1.1–1.4× on time and 1.2–1.6× on cost[^7].\n\nSo the entire economic case sits in the review step. While a person still checks, the gain is marginal. The whole prize appears **the moment checking is removed** — which is precisely why it will be removed, and why Gates is right to call this the real threshold rather than any particular capability."
   },
   "s08": {
     "num": "08 — Who is exposed",
     "h": "The part the essay leaves out",
-    "body": "Gates frames the whole piece around fairness: this technology becomes either the greatest equaliser or the worst source of injustice. Then he never asks who is actually in the exposed jobs.\n\nI matched the exposure classification against the employment survey. Weighted by how many people work in them, occupations in the highest exposure category are **57.5 per cent** female.\n\nIn the lowest category they are **36.9 per cent** female[^1][^4]. A twenty-point gap, and the reason is not subtle: clerical, administrative and support work is both the most exposed and, nearly everywhere, the most female.\n\nThe International Labour Organization finds the same thing globally, with a method built on international classifications rather than American ones: in the highest exposure tier sit 4.7 per cent of women's employment against 2.4 per cent of men's, and in high-income countries 9.6 against 3.5[^8].\n\nThat same ILO work is also a useful check on scale. It puts global exposure at 24 per cent of employment, where the IMF puts it near 40 per cent[^9]. Two credible institutions, one phenomenon, a factor of nearly two between them. Anyone quoting a single global figure with confidence has picked one and hidden the other."
+    "body": "Gates frames the whole piece around fairness: this technology becomes either the greatest equaliser or the worst source of injustice. Then he never asks **who is actually in the exposed jobs**.\n\nI matched the exposure classification against the employment survey. Weighted by how many people work in them, occupations in the highest exposure category are **57.5 per cent** female.\n\nIn the lowest category they are **36.9 per cent** female[^1][^4]. A twenty-point gap, and the reason is not subtle: clerical, administrative and support work is both the most exposed and, nearly everywhere, the most female.\n\nThe International Labour Organization finds the same thing globally, with a method built on international classifications rather than American ones: in the highest exposure tier sit 4.7 per cent of women's employment against 2.4 per cent of men's, and in high-income countries 9.6 against 3.5[^8].\n\nThat same ILO work is also a useful check on scale. It puts global exposure at 24 per cent of employment, where the IMF puts it near 40 per cent[^9]. Two credible institutions, one phenomenon, a factor of nearly two between them. Anyone quoting a single global figure with confidence has picked one and hidden the other."
   },
   "s09": {
     "num": "09 — The proposals",
@@ -143,7 +143,7 @@
     "a": "Gates proposes setting certain work aside for people — not because machines couldn't do it, but because society decides the loss would be too great.\n\nHe borrows the language of nature reserves. The personal origin is his father's final years, and the caregivers who understood the man when he could no longer make himself understood.\n\nHe offers two grounds. One economic: a 55-year-old who has spent a career in construction cannot simply be redirected into elder care. One human: a robot delivering a terminal diagnosis is technically possible and should not happen.\n\nThen he lists, in his own text, the four questions he cannot answer. Who decides what gets reserved. By what criteria. How you stop companies from cheating. What happens to trade when one country lets the robots build it and another doesn't.",
     "note": "Worth noting against the data: elder care, his central example, is already short of workers. Reserving an occupation that cannot fill its vacancies protects it from a pressure it isn't yet under. He anticipates part of this — he expects Japan, with too few young people, to welcome the caregiving robot.",
     "h2": "Taxing tokens and robots",
-    "b": "The asymmetry he wants to remove is real and rarely stated this plainly. Hire a person and the employer pays payroll tax. Buy a machine and the company writes it off. The tax code currently subsidises the substitution.\n\nHis fix is a targeted levy on AI tokens and robots, funding retraining and a stronger safety net, designed to spare the uses that make medicine and education cheaper.\n\nHe concedes it is economically inefficient and considers that an acceptable price. No rate appears in the essay; the widely quoted figure comes from an interview and is floated as an option, not a calculation[^6].\n\nThe strongest objection is mechanical rather than ideological: a token tax measures computation, not displacement. Token prices have fallen by orders of magnitude, so the base shrinks as the problem grows, and inference migrates to local devices and other jurisdictions."
+    "b": "The asymmetry he wants to remove is real and rarely stated this plainly. Hire a person and the employer pays payroll tax. Buy a machine and the company writes it off. The tax code currently **subsidises the substitution**.\n\nHis fix is a targeted levy on AI tokens and robots, funding retraining and a stronger safety net, designed to spare the uses that make medicine and education cheaper.\n\nHe concedes it is economically inefficient and considers that an acceptable price. No rate appears in the essay; the widely quoted figure comes from an interview and is floated as an option, not a calculation[^6].\n\nThe strongest objection is mechanical rather than ideological: a token tax measures computation, not displacement. Token prices have fallen by orders of magnitude, so the base shrinks as the problem grows, and inference migrates to local devices and other jurisdictions."
   },
   "s10": {
     "num": "10 — The disagreement",
@@ -161,12 +161,12 @@
     "r4src": "238m job postings",
     "r5": "Unemployment rose more in the *least* exposed quintile than the most",
     "r5src": "Economic Innovation Group",
-    "body": "Three things every one of these teams agrees on, and they are the safest conclusions available today: there is no mass displacement at the macro level; the mechanism is slowed hiring rather than layoffs; and something is happening to young workers in exposed occupations.\n\nOne more limit belongs here. You cannot yet test any 2026 forecast against actual employment by occupation: the official occupational series runs only through May 2025, and the next release covering this period is not due until 2027. Anyone showing you that check today is showing you noise."
+    "body": "Three things every one of these teams agrees on, and they are the safest conclusions available today: there is no mass displacement at the macro level; the mechanism is **slowed hiring rather than layoffs**; and something is happening to young workers in exposed occupations.\n\nOne more limit belongs here. You cannot yet test any 2026 forecast against actual employment by occupation: the official occupational series runs only through May 2025, and the next release covering this period is not due until 2027. Anyone showing you that check today is showing you noise."
   },
   "s11": {
     "num": "11 — Closing",
     "h": "What the numbers change",
-    "body": "Gates's diagnosis survives. The mechanism is right, the sectors are right, and the emphasis on entry-level work is the part the data supports most directly.\n\nWhat the numbers change is the shape. This is not a wave rolling across occupations, taking them one by one. It is a filter operating inside occupations, sorting by how long you have been there. The people it selects against are the ones with the least to fall back on and the most years ahead of them.\n\nHe ends his essay with four questions and no answers.\n\nThe one I would add is narrower and more answerable than any of them: if the mechanism is a hiring slowdown at the entry level, then the policy target is not which professions to fence off, but who gets the first rung. Reserves protect the people already standing on the ladder."
+    "body": "Gates's diagnosis survives. The mechanism is right, the sectors are right, and the emphasis on entry-level work is the part the data supports most directly.\n\nWhat the numbers change is the shape. This is not a wave rolling across occupations, taking them one by one. It is **a filter operating inside occupations**, sorting by how long you have been there. The people it selects against are the ones with the least to fall back on and the most years ahead of them.\n\nHe ends his essay with four questions and no answers.\n\nThe one I would add is narrower and more answerable than any of them: if the mechanism is a hiring slowdown at the entry level, then the policy target is not which professions to fence off, but who gets the first rung. Reserves protect the people already standing on the ladder."
   },
   "src": {
     "s1": "US Bureau of Labor Statistics. *AI exposure categories and employment projections, 2025–35*, published 27 August 2026. Categories built from five independent measures.",
