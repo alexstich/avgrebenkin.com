@@ -78,9 +78,15 @@
     "lane5": "En çok maruz kalanlar",
     "src1": "Stanford Digital Economy Lab, dengelenmiş ADP bordro paneli[^3].",
     "b": "Şimdi tek bir değişken ekleyin. Aynı veriler, aynı ay, aynı meslekler — yaşa göre ayrılmış.",
-    "fig2": "*En çok maruz kalan* mesleklerde on iki aylık istihdam değişimi, yaş grubuna göre. Temmuz 2026.",
+    "fig2": "On iki aylık istihdam değişimi, maruziyet grubuna göre, her seferinde tek bir yaş aralığı. Temmuz 2026.",
+    "ladAge": "Yaş",
+    "ladAria": "Yaş grubu",
     "src2": "Aynı panel, aynı ay[^3]. En gençlerle 41–49 grubu arasındaki fark 4,9 puan — hem de aynı mesleklerin içinde.",
     "c": "Etki meslekler arasında işlemiyor. **Mesleklerin içinde, yaşa göre sıralanarak** işliyor. Daha uzun pencerede kırılma daha da keskin: 2022 sonundan bu yana en çok maruz kalan iki gruptaki 22–25 yaş istihdamı yüzde 11 düştü, en az maruz kalan üç gruptaki aynı yaş grubu ise yüzde 10 arttı[^3].",
+    "doorCap": "Açıklığın genişliği, 22-25 yaş arasındakilerin 2022 sonundan bu yana istihdam değişimidir.",
+    "doorA": "En çok maruz kalan iki grupta",
+    "doorB": "Aynı yaş, en az maruz kalan üç grupta",
+    "doorBase": "Kesik çizgili kontur 2022 sonundaki düzeydir; iki açıklık da oradan ölçülür[^3].",
     "pull": "Kimse işten çıkarılmıyor. İçeri daha az insan alınıyor.",
     "d": "Bulgu tam da bu ayrım. Maruz kalan genç çalışanların ayrılma oranları yükselmedi — **işe alım yavaşladı**. Kapı içeridekilerin ardından kapanmadı; girmeye çalışanlar için daraldı. Gates giriş seviyesi rollerden söz ederken tam bunu anlatıyor ve denemesinin verilerle karşılaşmaya en iyi dayanan kısmı bu.",
     "note": "**Araştırmacıların kendi çekinceleri.** Eğitim düzeyi kontrol edildiğinde etki yarıya iniyor, düşüşün bir kısmı üretken yapay zekâdan önceye uzanıyor ve fark ulusal anketlerde bu bordro panelindekinden küçük.\n\nPanel ABD işgücü piyasasını temsil etmiyor ve makale hakem denetiminden geçmedi. Yazarlar sonuçları nedensel değil betimleyici sayıyor[^3]."
@@ -102,9 +108,8 @@
   "s06": {
     "num": "06 — Harita",
     "h": "Piyasanın beşte biri, ayrıntısıyla",
-    "a": "825 mesleğin tamamını tek bir yüzeye koyun; tablo, **etrafındaki tartışmadan daha sakin**. Aşağıdaki her karo bir meslek: boyutu çalışan sayısına, rengi resmî maruziyet kategorisine göre. Üzerine gelin ya da dokunun.",
-    "mapLegend": "Alan ∝ istihdam · en büyük 120 meslek · yukarıda aramak için bir karoya dokunun",
-    "mapHint": "Mesleği görmek için bir karonun üzerine gelin veya dokunun.",
+    "a": "825 mesleğin tamamını tek bir tabloya koyun; tablo, **etrafındaki tartışmadan daha sakin**. İstediğiniz sütuna göre sıralayın, ada göre süzün; maruziyet kategorisini adın yanındaki işaretten okuyun.",
+    "legH": "Tablo nasıl okunur",
     "tableLead": "Bureau’nun projeksiyon yaptığı 831 mesleğin tamamında, her kategorinin istihdam payı:",
     "th1": "Maruziyet",
     "th2": "Meslek",
@@ -239,11 +244,44 @@
     "yWhere": "{who} çalıştığı yer",
     "yWhereNote": "çalışan {who} bu oranı {cat} maruziyetli mesleklerde — {other} için {otherShare}[^1][^4]",
     "afterPlot": "Bu maruziyet düzeyindeki mesleklerde bütün yaş grupları. Stanford bordro paneli, Temmuz 2026[^3].",
-    "tileAria": "{occ}, {cat} maruziyet",
-    "tileLine": "{emp} çalışan · {cat} maruziyet · 2035 projeksiyonu {proj}",
-    "tileWomen": " · {pct} kadın",
-    "groupCount": "120 içinden {n} · {emp} çalışan",
-    "groupLargest": "En büyükleri: {list}",
+    "ladNote": "Yaş {band}. Satırlar mesleğin maruziyet kategorileridir.",
+    "tabTh": {
+      "occ": "Meslek",
+      "emp": "Çalışan",
+      "proj": "2035 öngörüsü",
+      "wage": "Medyan ücret, $",
+      "tasks": "Modellere giden işler"
+    },
+    "tabLeg": {
+      "emp": {
+        "k": "Çalışan",
+        "v": "meslekte şu anda kaç kişi çalışıyor"
+      },
+      "proj": {
+        "k": "Öngörü",
+        "v": "Büro’nun 2025-35 için resmî öngörüsü"
+      },
+      "wage": {
+        "k": "Medyan ücret",
+        "v": "medyan yıllık kazanç, dolar olarak"
+      },
+      "tasks": {
+        "k": "Modellere giden işler",
+        "v": "mesleğin modellere hâlihazırda giden işlerinin ölçülmüş payı: 0,70 neredeyse bütün iş, 0,00 hiçbiri"
+      },
+      "color": {
+        "k": "İşaret",
+        "v": "resmî maruziyet kategorisi, yeşil düşükten kırmızı çok yükseğe"
+      },
+      "sort": {
+        "k": "Sıralama",
+        "v": "bir sütun başlığına tıklayın"
+      }
+    },
+    "tabCount": "{total} içinden {shown}",
+    "tabPlaceholder": "Ada göre süz: nurse, sales, teacher…",
+    "tabAria": "Meslekleri ada göre süz",
+    "tabEmpty": "Süzgece uyan bir şey yok.",
     "copied": "Kopyalandı",
     "copyManual": "⌘C tuşlayın"
   }

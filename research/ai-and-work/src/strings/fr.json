@@ -78,9 +78,15 @@
     "lane5": "Les plus exposées",
     "src1": "Stanford Digital Economy Lab, panel de paie ADP équilibré[^3].",
     "b": "Ajoutez maintenant une seule variable. Mêmes données, même mois, mêmes professions — découpées par âge.",
-    "fig2": "Variation de l’emploi sur douze mois dans les professions *les plus exposées*, par tranche d’âge. Juillet 2026.",
+    "fig2": "Variation de l’emploi sur douze mois par groupe d’exposition, une tranche d’âge à la fois. Juillet 2026.",
+    "ladAge": "Âge",
+    "ladAria": "Tranche d’âge",
     "src2": "Même panel, même mois[^3]. L’écart entre les plus jeunes et la tranche 41–49 atteint 4,9 points de pourcentage — à l’intérieur des mêmes professions.",
     "c": "L’effet ne passe pas entre les professions. Il passe **à l’intérieur, trié par âge**.\n\nSur une fenêtre plus longue, la fracture est plus nette encore : depuis fin 2022, l’emploi des 22–25 ans dans les deux catégories les plus exposées a chuté de 11 %, tandis que la même tranche d’âge dans les trois moins exposées a progressé de 10 %[^3].",
+    "doorCap": "La largeur de l’ouverture est la variation de l’emploi des 22-25 ans depuis fin 2022.",
+    "doorA": "Dans les deux groupes les plus exposés",
+    "doorB": "Même âge, dans les trois moins exposés",
+    "doorBase": "Le contour en pointillé est le niveau de fin 2022 ; les deux ouvertures s’y mesurent[^3].",
     "pull": "Personne n’est licencié. On laisse entrer moins de monde.",
     "d": "Cette distinction est le résultat. Les taux de départ des jeunes travailleurs exposés n’ont pas augmenté — **les embauches ont ralenti**.\n\nLa porte ne s’est pas refermée derrière ceux qui sont déjà dedans ; elle s’est rétrécie pour ceux qui cherchent à entrer. Gates décrit exactement cela quand il parle des postes d’entrée, et c’est la partie de son essai qui résiste le mieux au contact des données.",
     "note": "**Ce que les chercheurs signalent eux-mêmes.** L’effet est divisé par deux dès qu’on contrôle le niveau d’études, une partie du recul précède l’IA générative, et l’écart est plus faible dans les enquêtes nationales que dans ce panel de paie.\n\nLe panel n’est pas représentatif du marché du travail américain, et l’article n’est pas relu par les pairs. Ses auteurs qualifient les résultats de descriptifs, non de causaux[^3]."
@@ -102,9 +108,8 @@
   "s06": {
     "num": "06 — La carte",
     "h": "Un cinquième du marché, en détail",
-    "a": "Posez les 825 professions sur une même surface et le tableau est **plus calme que le débat**. Chaque tuile ci-dessous est une profession, dimensionnée par le nombre d’emplois et colorée par sa catégorie officielle d’exposition. Survolez ou touchez n’importe laquelle.",
-    "mapLegend": "Surface ∝ emploi · les 120 plus grandes professions · touchez une tuile pour la retrouver ci-dessus",
-    "mapHint": "Survolez ou touchez une tuile pour voir la profession.",
+    "a": "Mettez les 825 professions dans un même tableau et le tableau est **plus calme que le débat**. Triez par n’importe quelle colonne, filtrez par nom, et lisez la catégorie d’exposition sur la marque placée à côté.",
+    "legH": "Comment lire le tableau",
     "tableLead": "La part de l’emploi dans chaque catégorie, sur les 831 professions que le Bureau projette :",
     "th1": "Exposition",
     "th2": "Professions",
@@ -239,11 +244,44 @@
     "yWhere": "Où travaillent {who}",
     "yWhereNote": "des {who} en emploi occupent des professions à exposition {cat} — chez les {other}, {otherShare}[^1][^4]",
     "afterPlot": "Toutes les tranches d’âge dans les professions de ce niveau d’exposition. Panel de paie de Stanford, juillet 2026[^3].",
-    "tileAria": "{occ}, exposition {cat}",
-    "tileLine": "{emp} en emploi · exposition {cat} · projection {proj} à 2035",
-    "tileWomen": " · {pct} de femmes",
-    "groupCount": "{n} sur 120 · {emp} en emploi",
-    "groupLargest": "Les plus grandes : {list}",
+    "ladNote": "Âge {band}. Les lignes sont les catégories d’exposition de la profession.",
+    "tabTh": {
+      "occ": "Profession",
+      "emp": "Emplois",
+      "proj": "Prévision à 2035",
+      "wage": "Salaire médian, $",
+      "tasks": "Tâches aux modèles"
+    },
+    "tabLeg": {
+      "emp": {
+        "k": "Emplois",
+        "v": "combien de personnes exercent la profession aujourd’hui"
+      },
+      "proj": {
+        "k": "Prévision",
+        "v": "la prévision officielle du Bureau pour 2025-35"
+      },
+      "wage": {
+        "k": "Salaire médian",
+        "v": "revenu annuel médian, en dollars"
+      },
+      "tasks": {
+        "k": "Tâches aux modèles",
+        "v": "la part mesurée des tâches déjà confiées aux modèles : 0,70, c’est presque tout le travail, 0,00, c’est rien"
+      },
+      "color": {
+        "k": "La marque",
+        "v": "catégorie officielle d’exposition, du vert faible au rouge très élevé"
+      },
+      "sort": {
+        "k": "Tri",
+        "v": "cliquez sur l’en-tête d’une colonne"
+      }
+    },
+    "tabCount": "{shown} sur {total}",
+    "tabPlaceholder": "Filtrer par nom : nurse, sales, teacher…",
+    "tabAria": "Filtrer les professions par nom",
+    "tabEmpty": "Rien ne correspond au filtre.",
     "copied": "Copié",
     "copyManual": "Appuyez sur ⌘C"
   }

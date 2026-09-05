@@ -78,9 +78,15 @@
     "lane4": "Fourth",
     "lane5": "Most exposed",
     "b": "Now add one variable. Same data, same month, same occupations — split by age.",
-    "fig2": "Employment change over twelve months in the *most exposed* occupations, by age group. July 2026.",
+    "fig2": "Employment change over twelve months by exposure group, one age band at a time. July 2026.",
+    "ladAge": "Age",
+    "ladAria": "Age group",
     "src2": "Same panel, same month[^3]. The gap between the youngest and the 41–49 group is 4.9 percentage points — inside the same occupations.",
     "c": "The effect is not between occupations. It is **inside them, sorted by age**. Over the longer window the split is starker still: since late 2022, employment for 22-to-25-year-olds in the two most exposed groups fell 11 per cent, while the same age group in the three least exposed rose 10 per cent[^3].",
+    "doorCap": "The width of each opening is the change in employment for 22-to-25-year-olds since late 2022.",
+    "doorA": "In the two most exposed groups",
+    "doorB": "Same age, in the three least exposed",
+    "doorBase": "The dashed outline is the level at the end of 2022; both openings are measured from it[^3].",
     "pull": "Nobody is being fired. Fewer people are being let in.",
     "d": "That distinction is the finding. Separation rates for exposed young workers did not rise — **hiring slowed**.\n\nThe door did not close behind the people already inside; it narrowed for the people trying to enter. Gates describes exactly this when he writes about entry-level roles, and it is the part of his essay that survives contact with the data best.",
     "note": "**What the researchers themselves flag.** The effect halves once you control for education, part of the decline predates generative AI, and the gap is smaller in national surveys than in this payroll panel.\n\nThe panel is not representative of the US labour market, and the paper is not peer-reviewed. Its authors call the results descriptive, not causal[^3]."
@@ -102,9 +108,8 @@
   "s06": {
     "num": "06 — The map",
     "h": "One fifth of the market, thoroughly",
-    "a": "Put all 825 occupations on one surface and the picture is **calmer than the discourse**. Each tile below is an occupation, sized by how many people it employs and coloured by its official exposure category. Hover or tap any tile.",
-    "mapLegend": "Area ∝ employment · 120 largest occupations · click a tile to look it up above",
-    "mapHint": "Hover or tap a tile to see the occupation.",
+    "a": "Put all 825 occupations in one table and the picture is **calmer than the discourse**. Sort by any column, filter by name, and read the exposure category off the marker beside it.",
+    "legH": "How to read the table",
     "tableLead": "The share of employment in each category, across all 831 occupations the Bureau projects:",
     "th1": "Exposure",
     "th2": "Occupations",
@@ -231,11 +236,44 @@
     "yWhere": "Where {who} work",
     "yWhereNote": "of {who} in work are in {cat}-exposure occupations — {other}, {otherShare}[^1][^4]",
     "afterPlot": "Every age band in occupations of this exposure level. Stanford payroll panel, July 2026[^3].",
-    "tileAria": "{occ}, {cat} exposure",
-    "tileLine": "{emp} employed · {cat} exposure · projected {proj} to 2035",
-    "tileWomen": " · {pct} women",
-    "groupCount": "{n} of the 120 · {emp} employed",
-    "groupLargest": "Largest: {list}",
+    "ladNote": "Ages {band}. Rows are the occupation’s exposure category.",
+    "tabTh": {
+      "occ": "Occupation",
+      "emp": "Employed",
+      "proj": "Projected to 2035",
+      "wage": "Median pay, $",
+      "tasks": "Tasks to models"
+    },
+    "tabLeg": {
+      "emp": {
+        "k": "Employed",
+        "v": "how many people work in the occupation now"
+      },
+      "proj": {
+        "k": "Projected",
+        "v": "the Bureau’s official projection for 2025–35"
+      },
+      "wage": {
+        "k": "Median pay",
+        "v": "median annual earnings, in dollars"
+      },
+      "tasks": {
+        "k": "Tasks to models",
+        "v": "the measured share of the occupation’s tasks already brought to models: 0.70 is almost all the work, 0.00 is none"
+      },
+      "color": {
+        "k": "The marker",
+        "v": "official exposure category, from green low to red very high"
+      },
+      "sort": {
+        "k": "Sorting",
+        "v": "click a column heading"
+      }
+    },
+    "tabCount": "{shown} of {total}",
+    "tabPlaceholder": "Filter by name: nurse, sales, teacher…",
+    "tabAria": "Filter occupations by name",
+    "tabEmpty": "Nothing matches that filter.",
     "copied": "Copied",
     "copyManual": "Press ⌘C",
     "catsGen": {
