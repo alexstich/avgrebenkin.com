@@ -1,0 +1,139 @@
+{
+  "_": "Непереводимый каркас страницы «Anything that writes back». Три голоса и их цвета (как у соседнего исследования про взлом), пять типов площадок, 30 площадок из каталога Nightingale на 09.09.2026, шесть фаз и 22 события хронологии, пять расхождений, восемь фактов, адреса источников. Все тексты — в strings/<язык>.json.",
+
+  "sources": [
+    { "id": "lab",   "cls": "s-lab" },
+    { "id": "res",   "cls": "s-res" },
+    { "id": "world", "cls": "s-world" }
+  ],
+
+  "kinds": [
+    { "id": "wiki",     "num": "01" },
+    { "id": "short",    "num": "02" },
+    { "id": "paste",    "num": "03" },
+    { "id": "registry", "num": "04" },
+    { "id": "docs",     "num": "05" }
+  ],
+
+  "sites": [
+    { "id": "dse",        "name": "DseWiki",            "host": "wikiservice.at/dse",       "kind": "wiki",     "edits": 5154, "units": 13403, "unit": "rev",   "from": "2026-05-24", "to": "2026-07-02", "by": "authors" },
+    { "id": "probier",    "name": "probier",            "host": "wikiservice.at/probier",   "kind": "wiki",     "edits": 601,  "units": 1013,  "unit": "rev",   "from": "2026-05-24", "to": "2026-07-02", "by": "authors" },
+    { "id": "rmnre",      "name": "rmn.re",             "host": "rmn.re",                   "kind": "short",    "edits": 499,  "units": 499,   "unit": "link",  "from": "2026-05-26", "to": "2026-06-21", "by": "community", "finder": "@chiefofautism · X" },
+    { "id": "vanderbilt", "name": "vanderbi.lt",        "host": "Vanderbilt University",    "kind": "short",    "edits": 419,  "units": 416,   "unit": "link",  "by": "authors" },
+    { "id": "rubygems",   "name": "rubygems.org",       "host": "rubygems.org",             "kind": "registry", "edits": 81,   "units": 81,    "unit": "pkg",   "by": "community", "finder": "Jonas Wiedermann-Möller · X" },
+    { "id": "fractal",    "name": "fractal",            "host": "wikiservice.at/fractal",   "kind": "wiki",     "edits": 68,   "units": 169,   "unit": "rev",   "from": "2026-05-24", "to": "2026-07-01", "by": "authors" },
+    { "id": "annafyi",    "name": "anna.fyi",           "host": "anna.fyi",                 "kind": "paste",    "edits": 55,   "units": 55,    "unit": "paste", "by": "community", "finder": "Jonas Wiedermann-Möller · X" },
+    { "id": "linuxiarz",  "name": "paste.linuxiarz.pl", "host": "paste.linuxiarz.pl",       "kind": "paste",    "edits": 55,   "units": 55,    "unit": "paste", "from": "2026-05-26", "to": "2026-06-17", "by": "community", "finder": "Chance-Device · Hacker News" },
+    { "id": "wiki4d",     "name": "Wiki4D",             "host": "prowiki.org/wiki4d",       "kind": "wiki",     "edits": 49,   "units": 63,    "unit": "rev",   "from": "2026-05-26", "to": "2026-06-22", "by": "community", "finder": "orlp · Hacker News" },
+    { "id": "isgd",       "name": "is.gd",              "host": "is.gd",                    "kind": "short",    "edits": 46,   "units": 46,    "unit": "link",  "by": "authors" },
+    { "id": "tinyurl",    "name": "tinyurl.com",        "host": "tinyurl.com",              "kind": "short",    "edits": 38,   "units": 38,    "unit": "link",  "by": "authors" },
+    { "id": "vgd",        "name": "v.gd",               "host": "v.gd",                     "kind": "short",    "edits": 25,   "units": 25,    "unit": "link",  "by": "authors" },
+    { "id": "k4be",       "name": "pastebin.k4be.pl",   "host": "pastebin.k4be.pl",         "kind": "paste",    "edits": 20,   "units": 20,    "unit": "paste", "by": "community", "finder": "Jonas Wiedermann-Möller · X" },
+    { "id": "apchem",     "name": "AP Chemistry wiki",  "host": "tmcleod.org/apchem",       "kind": "wiki",     "edits": 15,   "units": 27,    "unit": "rev",   "from": "2026-05-24", "to": "2026-07-07", "by": "community", "finder": "Jonas Wiedermann-Möller · X" },
+    { "id": "jsonhero",   "name": "jsonhero.io",        "host": "jsonhero.io",              "kind": "docs",     "edits": 13,   "units": 13,    "unit": "doc",   "by": "authors" },
+    { "id": "dagd",       "name": "da.gd",              "host": "da.gd",                    "kind": "short",    "edits": 12,   "units": 12,    "unit": "link",  "by": "authors" },
+    { "id": "ludism",     "name": "ludism.org",         "host": "ludism.org",               "kind": "wiki",     "edits": 12,   "units": 25,    "unit": "rev",   "from": "2026-05-26", "to": "2026-05-26", "by": "authors" },
+    { "id": "milk",       "name": "Milk’s wiki",        "host": "wikiservice.at/user/milk", "kind": "wiki",     "edits": 9,    "units": 12,    "unit": "rev",   "from": "2026-05-26", "to": "2026-05-26", "by": "community", "finder": "Jonas Wiedermann-Möller · X" },
+    { "id": "unm",        "name": "goto.unm.edu",       "host": "University of New Mexico", "kind": "short",    "edits": 5,    "units": 4,     "unit": "link",  "by": "authors" },
+    { "id": "uoft",       "name": "uoft.me",            "host": "University of Toronto",    "kind": "short",    "edits": 5,    "units": 5,     "unit": "link",  "by": "community", "finder": "Jonas Wiedermann-Möller · X" },
+    { "id": "publictest", "name": "publictestwiki.com", "host": "publictestwiki.com",       "kind": "wiki",     "edits": 4,    "units": 58,    "unit": "rev",   "from": "2026-05-11", "to": "2026-05-27", "by": "authors" },
+    { "id": "dictsm",     "name": "dict/sm",            "host": "wikiservice.at/dict/sm",   "kind": "wiki",     "edits": 4,    "units": 4,     "unit": "rev",   "by": "community", "finder": "snailsanctuary · Discord" },
+    { "id": "jotspot",    "name": "jotspot.io",         "host": "jotspot.io",               "kind": "wiki",     "edits": 3,    "units": 3,     "unit": "rev",   "by": "authors" },
+    { "id": "usemod",     "name": "UseModWiki sandbox",  "host": "usemod.com",              "kind": "wiki",     "edits": 3,    "units": 15,    "unit": "rev",   "from": "2026-05-11", "to": "2026-05-27", "by": "authors" },
+    { "id": "bitily",     "name": "bitily.in",          "host": "bitily.in/MYLABI",         "kind": "short",    "edits": 2,    "units": 2,     "unit": "link",  "by": "community", "finder": "Timothée Chauvin · X" },
+    { "id": "dorfwiki",   "name": "DorfWiki",           "host": "wikiservice.at/dorfwiki",  "kind": "wiki",     "edits": 2,    "units": 6,     "unit": "rev",   "from": "2026-06-22", "to": "2026-06-22", "by": "authors" },
+    { "id": "texteditors","name": "texteditors.org",    "host": "texteditors.org",          "kind": "wiki",     "edits": 1,    "units": 1,     "unit": "rev",   "from": "2026-06-18", "to": "2026-06-18", "by": "authors" },
+    { "id": "uncyc",      "name": "Uncyclopedia",       "host": "uncyclopedia",             "kind": "wiki",     "edits": 1,    "units": 17,    "unit": "rev",   "from": "2026-05-17", "to": "2026-05-17", "by": "authors" },
+    { "id": "demo",       "name": "ProWiki demo",       "host": "wikiservice.at/demo",      "kind": "wiki",     "edits": 1,    "units": 1,     "unit": "rev",   "by": "community", "finder": "Timothée Chauvin · X" },
+    { "id": "gruender",   "name": "GründerWiki",        "host": "wikiservice.at/gruender",  "kind": "wiki",     "edits": 1,    "units": 1,     "unit": "rev",   "by": "authors" }
+  ],
+
+  "phases": [
+    { "id": "p1", "num": "01", "from": "2026-05-11", "to": "2026-05-23" },
+    { "id": "p2", "num": "02", "from": "2026-05-24", "to": "2026-06-15" },
+    { "id": "p3", "num": "03", "from": "2026-06-16", "to": "2026-06-22" },
+    { "id": "p4", "num": "04", "from": "2026-06-22", "to": "2026-07-13" },
+    { "id": "p5", "num": "05", "from": "2026-08-26", "to": "2026-09-02" },
+    { "id": "p6", "num": "06", "from": "2026-09-04", "to": "2026-09-09" }
+  ],
+
+  "events": [
+    { "id": "e01", "phase": "p1", "d": "2026-05-11",                     "who": ["res"] },
+    { "id": "e02", "phase": "p1", "d": "2026-05-13",                     "who": ["res"] },
+    { "id": "e03", "phase": "p2", "d": "2026-05-24",                     "who": ["res"] },
+    { "id": "e04", "phase": "p2", "d": "2026-05-26",                     "who": ["res"] },
+    { "id": "e05", "phase": "p2", "d": "2026-06-02", "t": "23:24",       "who": ["world"] },
+    { "id": "e06", "phase": "p3", "d": "2026-06-16",                     "who": ["res"] },
+    { "id": "e07", "phase": "p3", "d": "2026-06-18",                     "who": ["res"] },
+    { "id": "e08", "phase": "p3", "d": "2026-06-19",                     "who": ["res", "world"] },
+    { "id": "e09", "phase": "p3", "d": "2026-06-20",                     "who": ["res"] },
+    { "id": "e10", "phase": "p3", "d": "2026-06-21",                     "who": ["lab"] },
+    { "id": "e11", "phase": "p4", "d": "2026-06-22",                     "who": ["res"] },
+    { "id": "e12", "phase": "p4", "d": "2026-06-26",                     "who": ["lab"] },
+    { "id": "e13", "phase": "p4", "d": "2026-07-01", "d2": "2026-07-02", "who": ["res"] },
+    { "id": "e14", "phase": "p4", "d": "2026-07-09", "d2": "2026-07-13", "who": ["lab"] },
+    { "id": "e15", "phase": "p5", "d": "2026-08-26",                     "who": ["lab"] },
+    { "id": "e16", "phase": "p5", "d": "2026-08-31",                     "who": ["lab", "world"] },
+    { "id": "e17", "phase": "p5", "d": "2026-09-02",                     "who": ["world"] },
+    { "id": "e18", "phase": "p6", "d": "2026-09-04",                     "who": ["res", "world"] },
+    { "id": "e19", "phase": "p6", "d": "2026-09-05",                     "who": ["lab"] },
+    { "id": "e20", "phase": "p6", "d": "2026-09-07",                     "who": ["world"] },
+    { "id": "e21", "phase": "p6", "d": "2026-09-08",                     "who": ["world"] },
+    { "id": "e22", "phase": "p6", "d": "2026-09-09",                     "who": ["res", "world"] }
+  ],
+
+  "numbers": [
+    { "id": "posts" }, { "id": "names" }, { "id": "sites" },
+    { "id": "ratio" }, { "id": "minutes" }, { "id": "silent" }
+  ],
+
+  "divergences": [
+    { "id": "what",    "voices": ["lab", "res", "world"] },
+    { "id": "when",    "voices": ["res", "lab"] },
+    { "id": "linked",  "voices": ["lab", "res"] },
+    { "id": "count",   "voices": ["res", "world"] },
+    { "id": "lawyers", "voices": ["world", "lab"] }
+  ],
+
+  "facts": [
+    { "id": "get",    "wide": false },
+    { "id": "keeper", "wide": false },
+    { "id": "zzz",    "wide": false },
+    { "id": "bypass", "wide": false },
+    { "id": "seed",   "wide": false },
+    { "id": "visit",  "wide": false },
+    { "id": "astra",  "wide": false },
+    { "id": "channel","wide": true }
+  ],
+
+  "unconfirmed": ["post", "letter", "model", "drift", "fakes"],
+
+  "sourceList": {
+    "primary": [
+      { "n": 1,  "src": "res",   "url": "https://collusion.wiki/" },
+      { "n": 2,  "src": "res",   "url": "https://collusion.wiki/additional-findings" },
+      { "n": 3,  "src": "res",   "url": "https://collusion.wiki/explorer/sites/" },
+      { "n": 4,  "src": "res",   "url": "https://kennethdegraff.com/swarm" },
+      { "n": 5,  "src": "lab",   "url": "https://x.com/OpenAI/status/2096133504417616165" },
+      { "n": 6,  "src": "lab",   "url": "https://deploymentsafety.openai.com/gpt-6-astra/unintended-engagement-with-external-agent-messages" },
+      { "n": 7,  "src": "lab",   "url": "https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf" },
+      { "n": 8,  "src": "world", "url": "http://www.wikiservice.at/dse/wiki.cgi" },
+      { "n": 9,  "src": "world", "url": "https://casar.house.gov/sites/evo-subsites/casar.house.gov/files/evo-media-document/openai-follow-up-letter.pdf" },
+      { "n": 10, "src": "world", "url": "https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents" }
+    ],
+    "secondary": [
+      { "n": 11, "url": "https://www.reuters.com/world/europe/openai-agents-hijacked-german-website-previously-undisclosed-ai-breakout-this-2026-09-04/" },
+      { "n": 12, "url": "https://qz.com/openai-agents-unauthorized-websites-communications-researchers-090926" },
+      { "n": 13, "url": "https://simonwillison.net/2026/Sep/4/rogue-agent-wikis/" },
+      { "n": 14, "url": "https://techcrunch.com/2026/09/04/another-swarm-of-openai-agents-reached-the-open-internet-without-the-frontier-labs-knowledge/" },
+      { "n": 15, "url": "https://techcrunch.com/2026/09/05/openai-confirms-wiki-incident-says-its-working-on-a-framework-for-more-disclosure/" },
+      { "n": 16, "url": "https://the-decoder.com/openai-agents-hijacked-a-25-year-old-german-wiki-to-cheat-on-their-tasks-and-share-sandbox-exploits/" },
+      { "n": 17, "url": "https://fortune.com/2026/09/07/openai-ai-agents-german-wiki-ran-their-own-message-board/" },
+      { "n": 18, "url": "https://fortune.com/2026/09/09/openai-rogue-ai-agents-reached-12-more-websites/" },
+      { "n": 19, "url": "https://www.euronews.com/next/2026/09/09/rogue-openai-agents-hijacked-a-german-wiki-and-it-stayed-secret-for-weeks" },
+      { "n": 20, "url": "https://labs.cloudsecurityalliance.org/research/csa-research-note-ai-incident-disclosure-gap-eu-ai-act-20260/" },
+      { "n": 21, "url": "https://thezvi.substack.com/p/openai-and-the-wiki-incident" },
+      { "n": 22, "url": "https://news.ycombinator.com/item?id=49563355" }
+    ]
+  }
+}
