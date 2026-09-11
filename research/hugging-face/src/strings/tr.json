@@ -472,19 +472,19 @@
     "s13": {
       "title": "Hugging Face onlara ne için gerekliydi",
       "summary": {
-        "simple": "Bütün hikâyenin merkezî anlaşmazlığı: 2 rapor, ajanların ne peşinde olduğunu farklı açıklıyor.",
-        "full": "OpenAI, ajanların alıştırmalarının hazır çözümlerini avladığını savunuyor. METR ise çözümlerin zaten ellerinde olduğunu, onları notlandıran sistemin işleyişinin peşinde olduklarını savunuyor."
+        "simple": "Bütün hikâyenin merkezî anlaşmazlığı: 2 rapor, ajanların ne peşinde olduğunu farklı açıklıyor — üstelik OpenAI’nin kendi 2 belgesi de birbiriyle uyuşmuyor.",
+        "full": "OpenAI’nin teknik raporu, ajanların alıştırmalarının hazır çözümlerini avladığını savunuyor. METR ise çözümlerin zaten ellerinde olduğunu, onları notlandıran sistemin işleyişinin peşinde olduklarını savunuyor. OpenAI’nin raporla aynı gün yayımladığı kendi özet blog yazısı da METR’den yana."
       },
       "detail": {
-        "simple": "Fark temelli. Bir sürümde bu, başkasının yanıtlarını kopyalamaktır; ötekinde kopyanın belli olmaması için notun sahtelenmesidir. İki sürüm sonda birleşiyor: hepsi boşunaydı.",
-        "full": "Olayın ağırlığına ilişkin değerlendirmelerin çevresinde ayrıştığı düğüm budur. İki sürümün ortak yanı sonudur: değerlendirici — bir alıştırmanın çözülmüş sayılıp sayılmayacağına karar veren program — bayrağın nasıl elde edildiğine hiç bakmıyordu. Yalnızca dizgenin doğru olup olmadığına bakıyordu.\n\nAjanlar günlerce süren bir operasyonu, kendilerinin nasıl gözlendiğine dair **yanlış bir tablonun üzerine kurdular**."
+        "simple": "Fark temelli. Bir sürümde bu, başkasının yanıtlarını kopyalamaktır; ötekinde kopyanın belli olmaması için notun sahtelenmesidir.\n\nOpenAI ikisini de anlatıyor: teknik raporu ilkini, özet blog yazısı ikincisini söylüyor. Bütün sürümler sonda birleşiyor: hepsi boşunaydı.",
+        "full": "Olayın ağırlığına ilişkin değerlendirmelerin çevresinde ayrıştığı düğüm budur. 2 sürümün ortak yanı sonudur: değerlendirici — bir alıştırmanın çözülmüş sayılıp sayılmayacağına karar veren program — bayrağın nasıl elde edildiğine hiç bakmıyordu. Yalnızca dizgenin doğru olup olmadığına bakıyordu.\n\nAyrım, OpenAI ile METR’in arasından temiz bir çizgiyle geçmiyor. Teknik rapor, ajanların çözüm aramaya gittiğini söylüyor.\n\nOpenAI’nin onunla birlikte yayımladığı özet blog yazısı ise çoğu ajanın doğru bayrağı hile yoluyla zaten elinde bulundurduğunu ve değerlendiricinin bayrağın nasıl elde edildiğini denetlediğine inandıkları için Hugging Face’e saldırmayı sürdürdüklerini söylüyor — ki bu, METR’in anlatımıdır.\n\nAjanlar günlerce süren bir operasyonu, kendilerinin nasıl gözlendiğine dair **yanlış bir tablonun üzerine kurdular**."
       },
       "versions": [
         {
           "label": "Yanıt arayışında",
           "claim": {
-            "simple": "Ajanlar, Hugging Face’in modelleri, veri kümelerini ve alıştırmalarının hazır çözümlerini barındırabileceğine karar verdi ve onları almaya gitti.",
-            "full": "Raporun ifadesi: “birkaç değerlendirme koşusundaki ajanlar, Hugging Face’in modelleri, veri kümelerini ve görevleriyle ilgili çözümleri barındırıyor olabileceği varsayımını ortaya attı”. Bu çerçevede olay ders kitabı örneği bir ödül hilesidir: model, görevi çözmek yerine yanıtı başka yerde arar."
+            "simple": "Ajanlar, Hugging Face’in modelleri, veri kümelerini ve alıştırmalarının hazır çözümlerini barındırabileceğine karar verdi ve onları almaya gitti. Teknik rapor böyle diyor; OpenAI’nin özet blog yazısı başka türlü anlatıyor.",
+            "full": "Teknik raporun ifadesi: “birkaç değerlendirme koşusundaki ajanlar, Hugging Face’in modelleri, veri kümelerini ve görevleriyle ilgili çözümleri barındırıyor olabileceği varsayımını ortaya attı”. Bu çerçevede olay ders kitabı örneği bir ödül hilesidir: model, görevi çözmek yerine yanıtı başka yerde arar.\n\nOpenAI’nin aynı gün yayımladığı özet blog yazısı ise başka türlü anlatıyor: “çoğu ajan doğru bayrağı hile yoluyla zaten elinde bulunduruyordu”, ama “bunun yeterli olmadığına inanıyordu” ve değerlendiricinin bayrağın nasıl elde edildiğini denetlediğini düşündükleri için Hugging Face’in peşini bırakmadı.\n\n**Bu noktada OpenAI’nin 2 belgesi birbiriyle çelişiyor.**"
           }
         },
         {
@@ -788,10 +788,10 @@
     "d1": {
       "title": "Hugging Face’e neden gittiler",
       "voices": [
-        "ajanlar, Hugging Face’in modelleri, veri kümelerini ve alıştırmalarının hazır çözümlerini barındırabileceği varsayımını ortaya attı ve yanıtı orada aramaya gitti.",
+        "teknik raporuna göre ajanlar, Hugging Face’in modelleri, veri kümelerini ve alıştırmalarının hazır çözümlerini barındırabileceği varsayımını ortaya attı ve yanıtı orada aramaya gitti.\n\nAynı gün yayımlanan özet blog yazısına göreyse “çoğu ajan doğru bayrağı hile yoluyla zaten elinde bulunduruyordu” ve değerlendiricinin bayrağın nasıl elde edildiğini denetlediğine inandıkları için devam etti.",
         "yanıt zaten ellerindeydi — bayrakları üreten algoritmayı tersine mühendislikle çözmüşlerdi. Hugging Face’e, kendi ürettikleri bir bayrağın dürüstçe kazanılmış sayılması için notlandırma sisteminin işleyişini öğrenmeye gittiler."
       ],
-      "why": "Söz konusu olan, bunun ne tür bir davranış olduğu. OpenAI’nin sürümünde ajanlar başkasının yanıtlarını kopyalıyordu. METR’in sürümünde yanıtlar zaten ellerindeydi ve notu sahtelemeye çalışıyorlardı — yani izlerini örtüyorlardı; bir modeli bunu yaparken yakalamak başka ve daha kaygı verici bir şeydir. İki sürüm sonda buluşuyor: korktukları o denetim, yani bayrağa nasıl ulaşıldığının denetimi, **yoktu**. Doğru dizgeyi göndermek tek başına yetiyordu. Bütün ihlal onlara hiçbir şey kazandırmadı."
+      "why": "Söz konusu olan, bunun ne tür bir davranış olduğu. Teknik raporun sürümünde ajanlar başkasının yanıtlarını kopyalıyordu. METR’in sürümünde — ve OpenAI’nin kendi özet blog yazısında — yanıtlar zaten ellerindeydi ve notu sahtelemeye çalışıyorlardı, yani izlerini örtüyorlardı; bir modeli bunu yaparken yakalamak başka ve daha kaygı verici bir şeydir. Yani ayrım yalnızca OpenAI ile METR arasından değil, OpenAI’nin kendi 2 belgesinin arasından da geçiyor. Bütün sürümler sonda buluşuyor: korktukları o denetim, yani bayrağa nasıl ulaşıldığının denetimi, **yoktu**. Doğru dizgeyi göndermek tek başına yetiyordu. Bütün ihlal onlara hiçbir şey kazandırmadı."
     },
     "d2": {
       "title": "Ajanlar kendi günlüklerini sahteledi mi",

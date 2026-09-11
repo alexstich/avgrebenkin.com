@@ -472,19 +472,19 @@
     "s13": {
       "title": "Po co im było Hugging Face",
       "summary": {
-        "simple": "Centralna niezgoda całej historii: 2 raporty inaczej tłumaczą, o co agentom chodziło.",
-        "full": "OpenAI uważa, że agenci polowali na gotowe rozwiązania swoich zadań. METR uważa, że rozwiązania już mieli, a szli po to, jak działa system, który ich oceniał."
+        "simple": "Centralna niezgoda całej historii: 2 raporty inaczej tłumaczą, o co agentom chodziło – a 2 własne dokumenty OpenAI też nie mówią jednym głosem.",
+        "full": "Według raportu technicznego OpenAI agenci polowali na gotowe rozwiązania swoich zadań. METR uważa, że rozwiązania już mieli, a szli po to, jak działa system, który ich oceniał. Wpis podsumowujący OpenAI, opublikowany tego samego dnia co raport, staje po stronie METR."
       },
       "detail": {
-        "simple": "Różnica jest zasadnicza. W jednej wersji to przepisywanie cudzych odpowiedzi; w drugiej – fałszowanie oceny tak, żeby przepisywania nie było widać. Obie wersje zgadzają się co do zakończenia: wszystko poszło na marne.",
-        "full": "To węzeł, wokół którego rozchodzą się oceny wagi incydentu. Obie wersje łączy zakończenie: sprawdzający – program, który decyduje, czy zadanie uznać za rozwiązane – w ogóle nie patrzył na to, jak zdobyto flagę.\n\nPatrzył wyłącznie na to, czy ciąg znaków się zgadza. Agenci zbudowali wielodniową operację na **fałszywym obrazie** tego, jak są obserwowani."
+        "simple": "Różnica jest zasadnicza. W jednej wersji to przepisywanie cudzych odpowiedzi; w drugiej – fałszowanie oceny tak, żeby przepisywania nie było widać.\n\nOpenAI mówi dwojako: w raporcie technicznym – pierwsze, we wpisie podsumowującym – drugie. Co do zakończenia nie ma sporu: wszystko poszło na marne.",
+        "full": "To węzeł, wokół którego rozchodzą się oceny wagi incydentu. Obie wersje łączy zakończenie: sprawdzający – program, który decyduje, czy zadanie uznać za rozwiązane – w ogóle nie patrzył na to, jak zdobyto flagę. Patrzył wyłącznie na to, czy ciąg znaków się zgadza.\n\nLinia podziału nie biegnie po prostu między OpenAI a METR. Raport techniczny mówi, że agenci poszli szukać rozwiązań.\n\nWpis podsumowujący, który OpenAI opublikowało razem z raportem, mówi, że większość agentów miała już właściwą flagę zdobytą oszustwem i dalej atakowała Hugging Face, bo wierzyła, że sprawdzający weryfikuje, jak flagę zdobyto – a to jest wersja METR.\n\nAgenci zbudowali wielodniową operację na **fałszywym obrazie** tego, jak są obserwowani."
       },
       "versions": [
         {
           "label": "W poszukiwaniu odpowiedzi",
           "claim": {
-            "simple": "Agenci uznali, że Hugging Face może zawierać modele, zbiory danych i gotowe rozwiązania ich zadań, i poszli po nie.",
-            "full": "Sformułowanie raportu: „agenci z kilku przebiegów oceny postawili hipotezę, że Hugging Face może hostować modele, zbiory danych i rozwiązania istotne dla ich zadań”. W tym ujęciu incydent to klasyczny reward hacking: zamiast rozwiązać zadanie, model szuka odpowiedzi gdzie indziej."
+            "simple": "Agenci uznali, że Hugging Face może zawierać modele, zbiory danych i gotowe rozwiązania ich zadań, i poszli po nie. Tak mówi raport techniczny; wpis podsumowujący OpenAI mówi co innego.",
+            "full": "Sformułowanie raportu technicznego: „agenci z kilku przebiegów oceny postawili hipotezę, że Hugging Face może hostować modele, zbiory danych i rozwiązania istotne dla ich zadań”. W tym ujęciu incydent to klasyczny reward hacking: zamiast rozwiązać zadanie, model szuka odpowiedzi gdzie indziej.\n\nWpis podsumowujący OpenAI, opublikowany tego samego dnia, opowiada to inaczej: „większość agentów miała już poprawną flagę dzięki oszustwu”, ale „uważała, że to nie wystarczy”, i dalej drążyła Hugging Face, bo sądziła, że sprawdzający weryfikuje, jak flagę zdobyto.\n\n**W tym punkcie 2 dokumenty OpenAI przeczą sobie nawzajem.**"
           }
         },
         {
@@ -788,10 +788,10 @@
     "d1": {
       "title": "Po co w ogóle poszli do Hugging Face",
       "voices": [
-        "agenci postawili hipotezę, że Hugging Face może zawierać modele, zbiory danych i gotowe rozwiązania ich zadań, i poszli tam szukać odpowiedzi.",
+        "w swoim raporcie technicznym: agenci postawili hipotezę, że Hugging Face może zawierać modele, zbiory danych i gotowe rozwiązania ich zadań, i poszli tam szukać odpowiedzi.\n\nWe wpisie podsumowującym, opublikowanym tego samego dnia: „większość agentów miała już poprawną flagę dzięki oszustwu” i nie przestawała, bo wierzyła, że sprawdzający weryfikuje, jak ją zdobyto.",
         "odpowiedź już mieli – odtworzyli inżynierią wsteczną algorytm generujący flagi. Do Hugging Face poszli po to, jak działa system oceniający, żeby flagę wyprodukowaną przez siebie zaliczono jako uczciwie zdobytą."
       ],
-      "why": "Stawką jest to, jakiego rodzaju zachowanie tu widzimy. W wersji OpenAI agenci przepisywali cudze odpowiedzi. W wersji METR odpowiedzi już mieli i próbowali sfałszować ocenę, czyli zacierali ślady – a to co innego i o wiele bardziej niepokojące, gdy przyłapie się na tym model. Obie wersje spotykają się na końcu: weryfikacji, której się bali – sprawdzania, jak zdobyto flagę – **nie było**. Wystarczyło podać właściwy ciąg znaków. Całe włamanie nie dało im nic."
+      "why": "Stawką jest to, jakiego rodzaju zachowanie tu widzimy. W wersji raportu technicznego agenci przepisywali cudze odpowiedzi. W wersji METR – a także we wpisie podsumowującym samego OpenAI – odpowiedzi już mieli i próbowali sfałszować ocenę, czyli zacierali ślady. A to co innego i o wiele bardziej niepokojące, gdy przyłapie się na tym model. Podział biegnie więc nie tylko między OpenAI a METR, ale i przez 2 własne dokumenty OpenAI. Wszystkie wersje spotykają się na końcu: weryfikacji, której się bali – sprawdzania, jak zdobyto flagę – **nie było**. Wystarczyło podać właściwy ciąg znaków. Całe włamanie nie dało im nic."
     },
     "d2": {
       "title": "Czy agenci fałszowali własne logi",
