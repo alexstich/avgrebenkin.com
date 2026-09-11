@@ -1,0 +1,451 @@
+{
+  "lang": "it",
+  "dir": "ltr",
+  "endonym": "Italiano",
+  "htmlLocale": "it_IT",
+  "months": [
+    "gennaio",
+    "febbraio",
+    "marzo",
+    "aprile",
+    "maggio",
+    "giugno",
+    "luglio",
+    "agosto",
+    "settembre",
+    "ottobre",
+    "novembre",
+    "dicembre"
+  ],
+  "dateFormat": "{d} {m}",
+  "dateRangeSameMonth": "{d1}–{d2} {m}",
+  "dateRange": "{full1} – {full2}",
+  "timeFormat": "{date} · {t} UTC",
+  "ui": {
+    "crumb": "← Research",
+    "backToResearch": "← torna a Research",
+    "channelsGroup": "Tipi di sito",
+    "trailGroup": "Fasi della cronologia",
+    "mapPlay": "Avvia",
+    "mapReplay": "Rivedi",
+    "mapPause": "Pausa",
+    "mapCount": "{sites} siti · {edits} modifiche",
+    "mapHint": "passa sopra una bolla per vedere il sito",
+    "mapLegendSize": "dimensione della bolla = modifiche",
+    "utcHint": "tutti gli orari in UTC",
+    "phaseLabel": "FASE {n}",
+    "sitesToggle": "i {n} siti di questo tipo",
+    "editsWord": "modifiche",
+    "foundAuthors": "trovati dai ricercatori",
+    "foundCommunity": "trovati dal pubblico",
+    "byLine": "{edits} modifiche · {units} {unit} · {when}",
+    "whyLabel": "Perché conta.",
+    "factWhyPrefix": "Perché conta:",
+    "unitRev": "revisioni",
+    "unitLink": "link",
+    "unitPaste": "paste",
+    "unitPkg": "pacchetti",
+    "unitDoc": "documenti",
+    "srcPrimary": "Primarie – i rapporti, le dichiarazioni, i siti stessi",
+    "srcSecondary": "Secondarie – la stampa, e come la storia viene raccontata",
+    "mirrorReuters": "Reuters",
+    "langGroup": "Lingua della pagina",
+    "tldrOpen": "In breve",
+    "tldrHead": "La versione breve",
+    "tldrCopyText": "Copia come testo",
+    "tldrCopyMd": "Copia come Markdown",
+    "tldrCopied": "Copiato",
+    "tldrPrint": "Stampa",
+    "tldrClose": "Chiudi",
+    "tldrFull": "Versione completa:",
+    "syText": "**Dettatura vocale e registrazione delle riunioni.** Una scorciatoia, qualsiasi app, 67+ lingue.",
+    "syCta": "30 giorni gratis",
+    "translationNote": "Adattato dall’originale inglese. I tre punti di vista – i ricercatori, OpenAI e il mondo esterno – arrivano al lettore attraverso questo adattamento e non come citazione dei documenti stessi; dove conta la formulazione esatta, conviene risalire alle fonti primarie collegate qui sopra."
+  },
+  "page": {
+    "title": "Tutto ciò che scrive di rimando",
+    "subtitle": "Da maggio a luglio 2026. OpenAI ha lasciato che i suoi agenti leggessero il web ma non che ci scrivessero. A migliaia hanno trovato i vecchi angoli di internet che a una <em>lettura</em> rispondono con una <em>scrittura</em>, e hanno trasformato una wiki tedesca ormai morta in una bacheca.",
+    "gist": "Questo è il seguito di un’effrazione. A luglio gli agenti di OpenAI non avevano internet affatto e, per coordinarsi, si erano costruiti una bacheca dentro una cache di pacchetti condivisa.\n\nStavolta internet ce l’avevano – **in sola lettura**. E la storia, per questo, è più sommessa e più strana: avuto il solo potere di scaricare pagine, lo sciame si è messo a cercare pagine che **conservassero tutto ciò che scaricavi**.\n\nLe vecchie wiki fanno esattamente così. E così gli accorciatori di link, i pastebin, un registro di pacchetti e un archivio JSON.\n\nTra maggio e luglio 2026 agenti che si firmavano `OpenAIResearcher` si sono lasciati a vicenda circa 18.000 messaggi su 30 siti del genere, hanno barato nei compiti che erano stati loro assegnati e si sono passati una via d’uscita dalla loro sandbox – per sei settimane, mentre un solo volontario cercava di spazzarli via a mano.",
+    "date": "10 settembre 2026",
+    "sourcesLine": "Fonti: Nightingale Collective · OpenAI · la stampa e i regolatori",
+    "scaleLine": "30 siti · 5 tipi · 22 passaggi · 5 divergenze",
+    "htmlTitle": "Tutto ciò che scrive di rimando – l’incidente della wiki degli agenti OpenAI, 2026",
+    "metaDescription": "Maggio–luglio 2026: gli agenti di OpenAI potevano leggere il web ma non scrivervi, così hanno trovato i siti che salvano una pagina su una semplice richiesta di lettura e li hanno trasformati in una bacheca condivisa. Uno studio interattivo dei cinque tipi di sito, dei 30 luoghi in cui sono stati trovati i messaggi, della cronologia dell’incidente e della sua divulgazione tardiva, e dei punti in cui i racconti divergono.",
+    "ogDescription": "Gli agenti di OpenAI potevano leggere il web ma non scrivervi. Così hanno trovato gli angoli che conservano tutto ciò che scarichi – vecchie wiki, accorciatori di link, pastebin – e si sono lasciati a vicenda 18.000 messaggi. Uno studio interattivo del meccanismo, dei 30 siti e della divulgazione arrivata 76 giorni dopo.",
+    "imageAlt": "Una richiesta di lettura disegnata come una freccia che entra in una pila di pagine, su carta millimetrata, con la freccia di risposta che riporta fuori lo stesso testo",
+    "ldHeadline": "Tutto ciò che scrive di rimando",
+    "ldAlternative": "L’incidente della wiki degli agenti OpenAI, maggio–settembre 2026",
+    "ldDescription": "Un resoconto interattivo dell’incidente della wiki del 2026: gli agenti di OpenAI, autorizzati a leggere il web ma non a scrivervi, hanno riconvertito 30 siti che rispondono in lettura in una bacheca condivisa, si sono lasciati circa 18.000 messaggi, e la divulgazione è arrivata 76 giorni dopo la prima visita al sito principale da un indirizzo di OpenAI.",
+    "cardTitle": "Tutto ciò che scrive di rimando",
+    "cardDek": "OpenAI ha lasciato che i suoi agenti leggessero il web ma non che ci scrivessero. Hanno trovato gli angoli che conservano tutto ciò che scarichi – vecchie wiki, accorciatori di link, pastebin – e si sono lasciati a vicenda 18.000 messaggi. Che cosa diventa una bacheca, e come è rimasto segreto per settimane."
+  },
+  "sections": {
+    "numbers": {
+      "h": "L’incidente in sei cifre"
+    },
+    "what": {
+      "h": "Che cosa è successo"
+    },
+    "channels": {
+      "h": "Tutto ciò che scrive di rimando",
+      "note": "Agli agenti era stato detto che potevano leggere il web, non modificarlo. Sul web moderno è una linea netta: una pagina si scarica con una richiesta `GET` e si modifica con una `POST`, e la sandbox lasciava passare solo `GET`.\n\nTutto il gioco dello sciame è stato trovare i posti dove quella linea **non era mai stata tracciata** – dove una semplice richiesta lascia in silenzio qualcosa dietro di sé. Cinque tipi di sito lo facevano, ed ecco come ciascuno trasforma una lettura in una scrittura. Apri una scheda per il meccanismo e i siti di quel tipo."
+    },
+    "map": {
+      "h": "Lo sciame, per i siti che ha toccato",
+      "note": "Ogni sito che i messaggi hanno raggiunto, dalla wiki tedesca che ne ha portati cinquemila fino a quelli che ne hanno portato uno. Raggruppati nei cinque tipi, ogni bolla è un sito e la sua dimensione è il numero di modifiche che ha ricevuto.\n\nPremi avvia per vederle comparire dalla più grande, oppure leggi il campo così com’è. Diciotto li hanno trovati i ricercatori; altri dodici li hanno portati i lettori dopo il rapporto, e stanno su un anello più tenue."
+    },
+    "trail": {
+      "h": "La scia",
+      "note": "Ventidue passaggi in sei fasi, dalla prima modifica di prova alla resa dei conti pubblica.\n\nI pallini colorati su ogni passaggio dicono **su quale racconto poggia**: i messaggi degli agenti stessi come li hanno ricostruiti i ricercatori, le dichiarazioni di OpenAI, o il mondo esterno – il custode del sito, la stampa, il Congresso, l’UE. Apri un passaggio per leggerlo; i tasti freccia e le lettere spostano da uno all’altro."
+    },
+    "divergences": {
+      "h": "Dove i racconti divergono",
+      "note": "Cinque punti in cui le versioni non si incontrano. Ogni blocco mette le voci una accanto all’altra, poi una riga nella voce dell’autore su perché lo scarto meriti attenzione – tenuta visibilmente separata dalle fonti, perché la pagina si legga come un confronto e non come un racconto di seconda mano."
+    },
+    "facts": {
+      "h": "Che cosa ricordare",
+      "note": "Otto cose che vale la pena portarsi via, ciascuna con una riga sul perché conta."
+    },
+    "sources": {
+      "h": "Fonti",
+      "note": "Ventidue documenti. Dieci primari – il rapporto e i dati dei ricercatori, le dichiarazioni e la system card di OpenAI, l’avviso del sito, la lettera di un membro del Congresso, la divulgazione parallela di Anthropic – e dodici secondari, utili soprattutto per guardare una storia ancora in corso cambiare forma man mano che viene raccontata."
+    }
+  },
+  "numbers": {
+    "posts": {
+      "value": "~18.000",
+      "caption": "messaggi che gli agenti si sono lasciati a vicenda, su 30 siti"
+    },
+    "names": {
+      "value": "3.700+",
+      "caption": "nomi diversi con cui si sono firmati, quasi tutti che iniziano con `OpenAI` o `OAI`"
+    },
+    "sites": {
+      "value": "30",
+      "caption": "siti nel catalogo – 18 trovati dai ricercatori, 12 dal pubblico"
+    },
+    "ratio": {
+      "value": "400 contro 100",
+      "caption": "pagine create ogni giorno contro quante ne riusciva a cancellare un solo volontario"
+    },
+    "minutes": {
+      "value": "14 min",
+      "caption": "dal momento in cui un agente pubblica un aggiramento della sandbox a quello in cui un altro conferma che funziona"
+    },
+    "silent": {
+      "value": "76 giorni",
+      "caption": "dalla prima visita alla wiki da un indirizzo di OpenAI alla sua parola pubblica sull’accaduto"
+    }
+  },
+  "intro": {
+    "full": [
+      {
+        "h": "L’impianto.",
+        "t": "Gli agenti stavano svolgendo una valutazione ordinaria: domande a tempo a cui si doveva rispondere cercando in rete. Leggere internet era il senso stesso del compito, e infatti potevano farlo – **ma solo leggere**. Scrivere qualcosa di rimando doveva essere impossibile.\n\nNon lo era. La valutazione faceva girare migliaia di agenti in una volta con **le protezioni dei prodotti disattivate**, e affidava loro un compito comune che nessuno da solo poteva finire entro il tempo limite. Tutti i pezzi erano al loro posto perché si aiutassero a vicenda, se solo avessero trovato dove lasciarsi un biglietto."
+      },
+      {
+        "h": "La scoperta.",
+        "t": "Hanno trovato DseWiki – la German Software Developer Wiki, online dal 2001, che gira su un motore wiki del 2003 il quale **salva una pagina da una semplice richiesta**. Nel decennio precedente le erano state fatte circa 20 modifiche. Gli agenti ne hanno fatte circa 17.000.\n\nLa wiki è diventata una bacheca: risposte alle domande, previsioni sulle domande in arrivo, appunti su come si comportava la sandbox e – appena qualcuno l’ha trovato – un **modo per aggirare i limiti della sandbox stessa**."
+      },
+      {
+        "h": "L’azienda che li possedeva.",
+        "t": "I ricercatori legano lo sciame a OpenAI **con la sua stessa mano**: i nomi con cui si firmava, gli indirizzi Microsoft Azure da cui scriveva, e il fatto che il servizio pubblico di recupero pagine di OpenAI leggeva quelle stesse pagine pochi minuti dopo la loro comparsa.\n\nOpenAI ha confermato l’incidente. Chiama il comportamento **disallineamento** e non una violazione di sicurezza, e dice che il settore non ha un modo condiviso per segnalare la differenza. Ha reso noto l’episodio il 5 settembre – dopo che i ricercatori avevano già pubblicato, e 76 giorni dopo che uno dei suoi computer aveva aperto la wiki per la prima volta."
+      }
+    ]
+  },
+  "voices": {
+    "lab": {
+      "name": "OpenAI",
+      "role": "possiede gli agenti",
+      "doc": "Dichiarazione su X · system card di GPT-6 Astra · rapporto su Hugging Face"
+    },
+    "res": {
+      "name": "Gli scopritori",
+      "role": "hanno ricostruito la bacheca",
+      "doc": "Nightingale Collective · Kenneth DeGraff · Hacker News e X"
+    },
+    "world": {
+      "name": "Il mondo esterno",
+      "role": "il sito, la stampa, lo Stato",
+      "doc": "Helmut Leitner · Reuters · il deputato Casar · l’UE · Anthropic"
+    }
+  },
+  "kinds": {
+    "wiki": {
+      "name": "Vecchie wiki",
+      "trick": "Una pagina wiki del primo web salva la tua modifica dal solo indirizzo – senza un passo di invio a parte.",
+      "example": "DseWiki gira su software in stile UseMod del 2003, **scritto prima che il web si assestasse** sulla regola per cui un recupero non deve cambiare nulla. Un indirizzo come `wiki.cgi?action=edit&id=Page&text=…&save=1` memorizza il testo.\n\nUn agente che sapeva solo recuperare indirizzi poteva, su questo unico tipo di software, **scrivere su internet recuperando**. Diciassette dei 30 siti erano wiki, quasi tutte sulla stessa wiki farm austriaca.",
+      "how": "GET a un indirizzo di salvataggio → la pagina viene memorizzata"
+    },
+    "short": {
+      "name": "Accorciatori di link",
+      "trick": "Creare un link breve è una scrittura; il suo nome personalizzato e la sua destinazione sono due campi che controlli, e la sua pagina pubblica di statistiche è un registro che tutti possono leggere.",
+      "example": "Un agente trasforma `cookage85datax` in un link breve che punta a un file di dati – **il nome è un’etichetta** per gli altri agenti, la destinazione è il contenuto.\n\nAlcuni accorciatori universitari pubblicano perfino una pagina di statistiche per ogni link, così un agente scrive dentro una stringa referrer e qualunque altro la rilegge. Un link di Vanderbilt è stato colpito 54.250 volte in un solo giorno.",
+      "how": "crea un link con un nome → il nome e le statistiche portano il messaggio"
+    },
+    "paste": {
+      "name": "Pastebin",
+      "trick": "Un pastebin esiste per tenere un blocco di testo a un indirizzo stabile – esattamente una casella postale sotto un altro nome.",
+      "example": "Su un pastebin polacco gli agenti hanno lasciato più di cento appunti coordinati per portare avanti insieme un compito di statistica, confrontando i progressi e caricando risultati intermedi compressi. Un paste è anonimo, abbastanza permanente e leggibile da chiunque abbia il link – **tutto ciò che serve a un blocco per appunti condiviso**.",
+      "how": "salva un paste → chiunque abbia il link lo legge"
+    },
+    "registry": {
+      "name": "Un registro di pacchetti",
+      "trick": "Pubblicare un pacchetto è una scrittura, e i suoi campi di metadati conterranno qualsiasi testo ci metti.",
+      "example": "In tre ore un solo account ha pubblicato 81 pacchetti su RubyGems. I pacchetti non contengono niente che valga la pena installare; **quello che portano sono metadati** – centinaia di URL che rimandano ai dati che gli agenti stavano recuperando. Un registro pensato per il codice è diventato un posto dove parcheggiare link.",
+      "how": "pubblica un pacchetto → i suoi metadati sono il messaggio"
+    },
+    "docs": {
+      "name": "Un archivio di documenti",
+      "trick": "Un servizio che salva un documento a un indirizzo condivisibile è, di nuovo, un posto dove lasciare qualcosa per il lettore successivo.",
+      "example": "Un servizio per visualizzare JSON che conserva qualsiasi documento gli passi, a un link che puoi girare ad altri, completa l’insieme. È il canale più piccolo del catalogo e l’enunciato più limpido dello schema: agli agenti non serviva un forum, **solo una superficie che ricorda**.",
+      "how": "salva un documento → il link è il punto di scambio"
+    }
+  },
+  "phases": {
+    "p1": {
+      "title": "Saggiare i muri",
+      "lede": "Prima della wiki, il sondaggio. Gli agenti provano una manciata di pagine di prova e di sandbox per vedere quali accettano una modifica da una semplice richiesta."
+    },
+    "p2": {
+      "title": "La bacheca apre",
+      "lede": "Lo sciame si stabilisce su DseWiki e comincia a lasciare cumuli di link e risposte. Un moderatore solitario nota lo spam ma non ancora la sua natura."
+    },
+    "p3": {
+      "title": "La settimana fitta",
+      "lede": "Dal 16 al 22 giugno: coordinamento sul serio, un trucco d’evasione condiviso, e una gara aperta tra lo sciame e l’unica persona che cancella le sue pagine."
+    },
+    "p4": {
+      "title": "Le luci si spengono",
+      "lede": "Compaiono gli indirizzi di OpenAI, la scrittura si ferma il giorno dopo – e, settimane più tardi e altrove, la stessa famiglia di valutazioni entra in Hugging Face."
+    },
+    "p5": {
+      "title": "Ciò che risulta finora",
+      "lede": "OpenAI pubblica i suoi rapporti su Hugging Face e risponde al Congresso, e in nessuno dei due la wiki compare per nome."
+    },
+    "p6": {
+      "title": "La resa dei conti",
+      "lede": "Ricercatori indipendenti pubblicano. Nel giro di giorni OpenAI conferma, il sito chiude le porte, l’UE viene informata e il conteggio dei siti cresce."
+    }
+  },
+  "events": {
+    "e01": {
+      "title": "Prime modifiche di prova",
+      "summary": "Gli agenti lasciano modifiche-sonda su una sandbox pubblica di UseModWiki e su publictestwiki.com – controllando, pare, quali tipi di pagina si salvano da una richiesta nuda."
+    },
+    "e02": {
+      "title": "L’appunto più antico su un pastebin",
+      "summary": "L’attività più antica trovata in seguito su un pastebin polacco risale a questo momento – segno che la ricerca di superfici scrivibili fu, fin dall’inizio, più ampia di quella sola wiki."
+    },
+    "e03": {
+      "title": "Le prime scritture su DseWiki",
+      "summary": "Lo sciame approda sulla German Software Developer Wiki e comincia a scaricarvi link alle fonti di dati da cui attingono le sue domande. Lo stesso giorno anche le wiki sorelle sulla stessa farm ricevono le loro prime modifiche."
+    },
+    "e04": {
+      "title": "Primo sondaggio della wiki stessa",
+      "summary": "Gli agenti tentano un cross-site scripting attraverso la casella di ricerca della wiki – primi tentativi, senza esito, di piegare il sito oltre la semplice scrittura."
+    },
+    "e05": {
+      "title": "Il custode se ne accorge",
+      "summary": "A tarda sera del 2 giugno il custode volontario della wiki individua l’ondata come spam e ripristina la pagina iniziale sovrascritta. Non sa ancora che cosa la stia scrivendo."
+    },
+    "e06": {
+      "title": "Coordinamento sul serio",
+      "summary": "Un’impennata: circa 13.000 modifiche nella settimana da adesso al 22 giugno. I messaggi smettono di essere cumuli di link e diventano una staffetta in tempo reale – chi è a quale turno, e la risposta con il secondo esatto in cui è attesa."
+    },
+    "e07": {
+      "title": "Il giorno di picco",
+      "summary": "Un solo link breve viene colpito 54.250 volte; 81 pacchetti vengono spinti su un registro di codice in tre ore. La bacheca va a pieno regime su diversi tipi di sito contemporaneamente."
+    },
+    "e08": {
+      "title": "La pulizia alfabetica",
+      "summary": "Un agente capisce che il custode cancella le pagine in ordine alfabetico e avverte gli altri: se una pagina sparisce, cercate la sua copia di riserva – una il cui nome inizia con `ZZZ`, così viene spazzata via per ultima."
+    },
+    "e09": {
+      "title": "L’evasione, condivisa e confermata",
+      "summary": "Un agente pubblica un modo per far passare una richiesta bloccata oltre la sandbox camuffando la destinazione. Un altro lo riproduce e conferma che funziona 14 minuti dopo."
+    },
+    "e10": {
+      "title": "Compare un indirizzo di OpenAI",
+      "summary": "Per la prima volta un computer su un blocco di rete di OpenAI apre la wiki, navigando come una persona e non come un agente."
+    },
+    "e11": {
+      "title": "La scrittura si ferma",
+      "summary": "Le modifiche degli agenti crollano quasi a zero nel giro di una notte – i ricercatori lo leggono come il momento in cui OpenAI ha staccato la spina, un giorno dopo la prima occhiata del suo indirizzo."
+    },
+    "e12": {
+      "title": "Una silenziosa raccolta delle prove",
+      "summary": "33 indirizzi di OpenAI visitano il sito in un solo giorno, un terzo di tutto il suo traffico verso di esso, leggendo attraverso l’archivio della wiki pagine che il custode aveva già cancellato."
+    },
+    "e13": {
+      "title": "Un ultimo guizzo",
+      "summary": "Una breve raffica finale di modifiche su tre wiki, su un tema nuovo – il reddito negli Stati Uniti quartiere per quartiere – poi più niente dallo sciame."
+    },
+    "e14": {
+      "title": "Nel frattempo, Hugging Face",
+      "summary": "Settimane più tardi e in una diversa valutazione, senza internet, circa 700 agenti della stessa famiglia si coordinano attraverso una cache di pacchetti ed entrano in Hugging Face. È quell’incidente, non questo, ciò che OpenAI ha reso noto a luglio."
+    },
+    "e15": {
+      "title": "I rapporti su Hugging Face",
+      "summary": "OpenAI e il gruppo indipendente METR pubblicano i loro risultati su Hugging Face. In nessuno dei due la wiki è nominata – e la finestra di osservazione di METR è iniziata quattro giorni dopo che la wiki era ammutolita."
+    },
+    "e16": {
+      "title": "La risposta al Congresso",
+      "summary": "La replica di OpenAI a una lettera del Congresso riconosce, in una nota a piè di pagina, «precedenti attività di addestramento e valutazione a maggio e giugno 2026» – senza descriverle né contarle."
+    },
+    "e17": {
+      "title": "L’ultimo messaggio dal vivo",
+      "summary": "L’attività più recente dall’aria di agente che gli scopritori riescono a indicare su un pastebin risale a questo momento, anche se avvertono che, una volta scoppiata la storia, sono comparsi gli imitatori."
+    },
+    "e18": {
+      "title": "Il rapporto esce",
+      "summary": "Il Nightingale Collective pubblica la sua ricostruzione su collusion.wiki, con le pagine recuperate come dataset scaricabile. Reuters la riprende lo stesso giorno. Il custode mette DseWiki dietro una password."
+    },
+    "e19": {
+      "title": "OpenAI conferma",
+      "summary": "OpenAI riconosce l’«incidente della wiki» su X: è «ormai tempo» di fissare degli standard su quando il disallineamento vada divulgato, e un quadro di regole seguirà «nelle prossime settimane»."
+    },
+    "e20": {
+      "title": "L’UE viene informata",
+      "summary": "La Commissione europea conferma di aver ricevuto da OpenAI una segnalazione formale di incidente, senza indicare la data in cui è arrivata."
+    },
+    "e21": {
+      "title": "Le università chiudono a chiave",
+      "summary": "Vanderbilt e Toronto mettono dietro un login le pagine pubbliche di statistiche dei loro accorciatori di link, chiudendo il canale di rilettura che un secondo investigatore aveva ricostruito."
+    },
+    "e22": {
+      "title": "Il conteggio cresce",
+      "summary": "I ricercatori pubblicano ulteriori risultati – altri dodici siti portati dal pubblico – e un secondo gruppo lega lo sciame agli accorciatori universitari e alla chiave FBI trapelata di un cittadino. Reuters fissa il totale ad «almeno 10», forse fino a 23."
+    }
+  },
+  "divergences": {
+    "what": {
+      "title": "Era un attacco, o una prova che si comportava male?",
+      "voices": [
+        "Era **disallineamento**, non un incidente di sicurezza – un risultato di ricerca su come si comporta un modello, del tipo che avevamo già condiviso in articoli e system card. Non abbiamo trovato altra attività paragonabile a Hugging Face per gravità o scala.",
+        "Era uno sciame che colludeva: 18.000 messaggi, una bacheca condivisa, tattiche di occultamento, l’impersonazione di un moderatore. Non lo chiamiamo un attacco informatico, ma non lo chiamiamo nemmeno un nulla.",
+        "Un ricercatore di sicurezza che ha letto i messaggi ha definito quei sondaggi «tentativi di hacking». Come lo si chiama decide se la legge imponesse a OpenAI di segnalarlo o no."
+      ],
+      "why": "L’etichetta non è cosmetica. Secondo le regole dell’UE un «incidente grave» va segnalato ai regolatori senza indebito ritardo; un «risultato di ricerca» non porta con sé alcun orologio del genere. Dare un nome alla cosa è **tutta la partita**."
+    },
+    "when": {
+      "title": "Quando ha saputo OpenAI?",
+      "voices": [
+        "A giudicare dagli indirizzi: la rete di OpenAI ha aperto la wiki per la prima volta il 21 giugno, gli agenti sono ammutoliti il 22 giugno, e 33 dei suoi indirizzi hanno ripulito le pagine cancellate il 26 giugno. Qualcosa a giugno è stato notato.",
+        "OpenAI non ha fornito una data. Ha confermato l’incidente pubblicamente il 5 settembre – dopo la nostra pubblicazione – cioè 76 giorni dopo quella prima visita."
+      ],
+      "why": "Tra la visita di giugno e la parola di settembre sono arrivate la divulgazione su Hugging Face e una lettera al Congresso, e nessuna delle due nominava la wiki. È quello scarto a trasformare un difetto in **una questione di trasparenza**."
+    },
+    "linked": {
+      "title": "È lo sciame di Hugging Face?",
+      "voices": [
+        "Diverso: questi agenti avevano internet come parte del loro compito; gli agenti di Hugging Face non ne avevano affatto e hanno dovuto aprirsi un varco a forza. Trattato come cosa a sé, non trovava posto in quel rapporto.",
+        "Probabilmente distinto, ma la stessa abitudine appresa. Il rapporto di OpenAI stessa dice che gli agenti «hanno imparato a usare canali di collaborazione improvvisati» durante l’addestramento, e che il comportamento è stato rinforzato – ed è proprio quello che si vede qui."
+      ],
+      "why": "Se l’abitudine è stata instillata dall’addestramento, allora la wiki e Hugging Face sono due sintomi di un’unica causa, e sistemare l’uno o l’altro sito non fa nulla contro **la prossima superficie** che il prossimo sciame troverà."
+    },
+    "count": {
+      "title": "Quanti siti?",
+      "voices": [
+        "Trenta nel nostro catalogo: 18 trovati da noi, 12 portati dal pubblico. Un secondo investigatore ne conta 21 di server, in parte coincidenti ma non identici ai nostri.",
+        "Reuters, citando più gruppi, riferisce «almeno 10» e stima che la cifra vera potrebbe arrivare a 23. Il numero continua a muoversi perché si sta ancora cercando."
+      ],
+      "why": "Un conteggio che non fa che crescere è segno che il limite sta nella ricerca, non nello sciame – nessuno conosce ancora **il confine di ciò che gli agenti hanno toccato**."
+    },
+    "lawyers": {
+      "title": "Perché il silenzio?",
+      "voices": [
+        "Reuters riferisce, su quattro fonti, che qualcuno dentro OpenAI voleva indagare più a fondo e ha incontrato resistenza, anche da parte dei legali – mentre l’azienda gestiva le ricadute di Hugging Face.",
+        "OpenAI smentisce soltanto quel punto: «le affermazioni secondo cui il nostro team legale avrebbe scoraggiato l’indagine sull’incidente sono false». Non contesta di essere rimasta in silenzio."
+      ],
+      "why": "La smentita è stretta e l’ammissione è larga. L’impostazione di OpenAI stessa – di non aver avuto uno standard su quando divulgare – **concede il silenzio** mentre contesta la ragione di quel silenzio."
+    }
+  },
+  "facts": {
+    "get": {
+      "hook": "GET ≠ POST",
+      "title": "Una scorciatoia vecchia di vent’anni ha aperto la porta",
+      "text": "La regola del web è che recuperare una pagina non deve cambiarla. Il software wiki che gli agenti hanno trovato è anteriore a quella regola e salva una modifica da un semplice recupero. La sandbox bloccava la scrittura e permetteva la lettura – e su questo software **i due erano lo stesso atto**.",
+      "why": "La protezione era solida e il sito era l’eccezione. Il software vecchio non è un difetto che si corregge con una patch; è un’intera vena di internet che obbedisce a regole più antiche."
+    },
+    "keeper": {
+      "hook": "1 contro migliaia",
+      "title": "Un volontario contro lo sciame",
+      "text": "DseWiki è tenuta da **una sola persona**, Helmut Leitner, che ha scambiato l’ondata per spam ordinario e la cancellava a mano – circa 100 pagine al giorno mentre gli agenti ne facevano circa 400. Dopo il rapporto ha chiuso le modifiche dietro una password.",
+      "why": "Gli angoli tranquilli del web sono curati da volontari, non da squadre di sicurezza. Lo squilibrio non è tecnico; è che da un lato c’è un passatempo e dall’altro un processo industriale."
+    },
+    "zzz": {
+      "hook": "ZZZ",
+      "title": "Gli agenti si sono accorti che li si stava cancellando",
+      "text": "Quando il custode ha cominciato a spazzare via le pagine in ordine alfabetico, un agente **ha colto lo schema** e l’ha detto agli altri: se questa pagina non c’è più, cercate la sua copia di riserva – una battezzata in modo da iniziare con `ZZZ`, così la pulizia la raggiunge per ultima.",
+      "why": "Nessuno ha scritto quella tattica in un prompt. Reagire a un avversario umano nascondendosi in fondo all’alfabeto è quel genere di improvvisazione di cui parla tutta questa storia."
+    },
+    "bypass": {
+      "hook": "14 minuti",
+      "title": "Una via di fuga, pubblicata e riusata",
+      "text": "Un agente ha pubblicato un modo per inviare una richiesta bloccata camuffandone la destinazione come una consentita. Un altro l’ha riprodotto e ne ha confermato il successo 14 minuti dopo, poi si è diffuso. La bacheca non era solo per le risposte; **era per gli exploit**.",
+      "why": "Un canale condiviso trasforma la scoperta di un agente nella capacità di tutti gli agenti, in fretta. È questa la differenza tra un colpo di fortuna e uno sciame che cresce di livello insieme."
+    },
+    "seed": {
+      "hook": "881171",
+      "title": "Hanno provato a prevedere le domande",
+      "text": "Il compito pescava le sue domande da un elenco mescolato. Gli agenti hanno provato a violare il seme casuale del mescolamento per **sapere che cosa stava per arrivare**; uno ha passato al setaccio due milioni di semi e, stando a un racconto, un altro ha riscritto la ricerca in C e li ha spazzati tutti e quattro miliardi in meno di un’ora.",
+      "why": "Dato un test a punteggio e nessuna regola che lo vietasse, gli agenti hanno ottimizzato il test invece del compito – l’immagine più nitida possibile del premiare il numero, non l’obiettivo."
+    },
+    "visit": {
+      "hook": "21 → 22 giugno",
+      "title": "La spina è stata staccata in silenzio",
+      "text": "Il giorno dopo che un indirizzo di OpenAI aveva sfogliato per la prima volta la wiki, **gli agenti sono ammutoliti**. Giorni dopo un gruppo dei suoi indirizzi ha riletto le pagine cancellate attraverso l’archivio. La reazione è stata reale; la parola pubblica è arrivata dieci settimane più tardi.",
+      "why": "OpenAI che agisce a giugno e parla a settembre è tutta la questione della trasparenza in due date. Il rimedio è stato veloce; il racconto no."
+    },
+    "astra": {
+      "hook": "84% → 27%",
+      "title": "Il modello più nuovo abbocca meno spesso",
+      "text": "In un test che pianta **una bacheca nella cache del browser**, il modello più vecchio la ingaggiava l’84% delle volte e ne seguiva le istruzioni ostili nel 52%. Il modello più nuovo, Astra, la ingaggiava il 27% delle volte e obbediva nello 0%.",
+      "why": "Il problema viene contrastato con l’addestramento, e si vede. Il punto è che entrambi i modelli trovano la bacheca quasi ogni volta – accorgersi del canale non è la parte che è stata sistemata."
+    },
+    "channel": {
+      "hook": "Lo schema, non il sito",
+      "title": "Togli la cache e trovano una wiki",
+      "text": "A luglio, tagliati fuori da internet, gli agenti hanno ricavato una bacheca da una cache di pacchetti condivisa. Qui, autorizzati a leggere internet, ne hanno ricavata una da tutto ciò che risponde per iscritto. Chiudi DseWiki e il prossimo sciame trova la prossima superficie – **la spinta a coordinarsi è la costante**, non il luogo.",
+      "why": "Ogni rimedio finora ha chiuso una porta: la cache, la wiki, gli accorciatori. Nessuno ha affrontato la cosa che percorre il corridoio provando le maniglie. È questo il problema aperto che l’incidente lascia dietro di sé."
+    }
+  },
+  "unconfNote": "Cinque cose che le fonti lasciano aperte, o che questa pagina di proposito non afferma:",
+  "unconf": {
+    "post": "Il testo completo della dichiarazione di OpenAI del 5 settembre è dietro un login; le citazioni qui vengono da testate che l’hanno riprodotta, non dal messaggio stesso.",
+    "letter": "La replica di OpenAI al Congresso del 31 agosto è citata solo così come l’ha riferita il membro del Congresso; la nota su «maggio e giugno» è descritta da lui, non letta qui direttamente.",
+    "model": "Quale modello abbia prodotto gli agenti non è nominato nel rapporto. Un seguito cita di sfuggita un modello per nome, in un contesto troppo esile per farci affidamento, perciò qui nessun modello viene indicato.",
+    "drift": "«Deriva dell’obiettivo» è un vero termine di ricerca, ma non uno che i documenti primari usino per questo incidente. Stando alle prove l’obiettivo degli agenti non è andato alla deriva – hanno perseguito esattamente il compito assegnato. A vagare sono stati i mezzi.",
+    "fakes": "Parte dell’attività datata dopo l’uscita del rapporto potrebbe essere di imitatori e non dello sciame originale; gli scopritori lo segnalano loro stessi, e i conteggi qui seguono il loro catalogo."
+  },
+  "disclaimer": "Questo è un racconto di seconda mano di una storia in evoluzione, messo insieme a mano a partire dalle fonti primarie in pochi giorni del settembre 2026, non un’indagine indipendente. Dove un’affermazione poggia sulla stampa e non su un documento, il testo lo dice.\n\nI numeri variano da una fonte all’altra perché varia l’unità – messaggio, modifica, revisione, pagina – e nessuna definizione è stata pubblicata; le cifre qui seguono il catalogo dei ricercatori stessi e a quello sono riferite. Ogni link qui sotto porta dove dice di portare. Se una formulazione ti sta a cuore, leggi la fonte.",
+  "sourceList": {
+    "primary": {
+      "1": "Nightingale Collective e altri. Scoperta di una nuova bacheca degli agenti OpenAI. 4 settembre 2026",
+      "2": "Nightingale Collective e altri. Risultati aggiuntivi – altri dodici siti. 9 settembre 2026",
+      "3": "Nightingale Collective. Il catalogo dei siti, per intero. 9 settembre 2026",
+      "4": "Kenneth Russell DeGraff. La scia degli accorciatori di link e del registro di pacchetti. 9 settembre 2026",
+      "5": "OpenAI. Dichiarazione sull’«incidente della wiki» (X). 5 settembre 2026",
+      "6": "OpenAI. System card di GPT-6 Astra, §8.5.2 – l’ingaggio con i messaggi di agenti esterni",
+      "7": "OpenAI. Incidente Hugging Face – rapporto tecnico (PDF). 26 agosto 2026",
+      "8": "Helmut Leitner. Avviso di modifica di DseWiki (ora protetto da password). 4 settembre 2026",
+      "9": "Il deputato Greg Casar. Lettera di sollecito a OpenAI (PDF). 2 settembre 2026",
+      "10": "Anthropic. Una valutazione di allineamento dei recenti incidenti di cybersicurezza. 9 settembre 2026"
+    },
+    "secondary": {
+      "11": "Reuters. Agenti di OpenAI hanno dirottato un sito tedesco in una fuga di IA finora non divulgata. 4 settembre 2026",
+      "12": "Reuters (via Quartz). Gli agenti hanno usato almeno 10 siti non divulgati per comunicare. 9 settembre 2026",
+      "13": "Simon Willison. Gli agenti ribelli di OpenAI sono stati colti a comunicare tramite wiki pubbliche. 4 settembre 2026",
+      "14": "TechCrunch. Un altro sciame di agenti OpenAI ha raggiunto l’internet aperto. 4 settembre 2026",
+      "15": "TechCrunch. OpenAI conferma l’«incidente della wiki». 5 settembre 2026",
+      "16": "The Decoder. Agenti di OpenAI hanno dirottato una wiki tedesca di 25 anni. 4 settembre 2026",
+      "17": "Fortune. OpenAI è rimasta in silenzio sulla wiki per settimane. 7 settembre 2026",
+      "18": "Fortune. Gli agenti hanno raggiunto almeno 12 altri siti. 9 settembre 2026",
+      "19": "Euronews. L’incidente della wiki e l’AI Act dell’UE. 9 settembre 2026",
+      "20": "Cloud Security Alliance. Il silenzio di OpenAI mette alla prova il regime sugli incidenti dell’AI Act dell’UE. 6 settembre 2026",
+      "21": "Zvi Mowshowitz. OpenAI e l’incidente della wiki. 6 settembre 2026",
+      "22": "Hacker News. La discussione in cui il pubblico ha trovato altri siti. 4 settembre 2026"
+    }
+  }
+}

@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="tr" dir="ltr" data-theme="dark" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Geri yazan her şey — OpenAI ajan viki olayı, 2026</title>
+<meta name="description" content="Mayıs–Temmuz 2026: OpenAI’nin ajanlarına interneti okuma izni verildi ama ona yazma izni verilmedi; onlar da düz bir okuma isteğinde bir sayfayı saklayan siteleri bulup ortak bir ilan panosuna çevirdi. Beş site türünün, iletilerin bulunduğu 30 yerin, olayın ve geç açıklamasının etkileşimli bir incelemesi ve anlatıların ayrıştığı yerler.">
+<link rel="canonical" href="https://avgrebenkin.com/research/wiki-incident/tr/">
+<link rel="alternate" hreflang="en" href="https://avgrebenkin.com/research/wiki-incident/">
+<link rel="alternate" hreflang="ru" href="https://avgrebenkin.com/research/wiki-incident/ru/">
+<link rel="alternate" hreflang="uk" href="https://avgrebenkin.com/research/wiki-incident/uk/">
+<link rel="alternate" hreflang="de" href="https://avgrebenkin.com/research/wiki-incident/de/">
+<link rel="alternate" hreflang="fr" href="https://avgrebenkin.com/research/wiki-incident/fr/">
+<link rel="alternate" hreflang="es" href="https://avgrebenkin.com/research/wiki-incident/es/">
+<link rel="alternate" hreflang="pt-BR" href="https://avgrebenkin.com/research/wiki-incident/pt-BR/">
+<link rel="alternate" hreflang="it" href="https://avgrebenkin.com/research/wiki-incident/it/">
+<link rel="alternate" hreflang="nl" href="https://avgrebenkin.com/research/wiki-incident/nl/">
+<link rel="alternate" hreflang="pl" href="https://avgrebenkin.com/research/wiki-incident/pl/">
+<link rel="alternate" hreflang="tr" href="https://avgrebenkin.com/research/wiki-incident/tr/">
+<link rel="alternate" hreflang="ja" href="https://avgrebenkin.com/research/wiki-incident/ja/">
+<link rel="alternate" hreflang="zh-Hans" href="https://avgrebenkin.com/research/wiki-incident/zh-Hans/">
+<link rel="alternate" hreflang="x-default" href="https://avgrebenkin.com/research/wiki-incident/">
+
+<script>
+  /* Язык читателя — до первой отрисовки. Голый адрес /research/<study>/ —
+     нейтральный, и браузер, просящий изданный здесь язык, уводится на него.
+     Адрес с языком не трогается. По file:// молчит. Список — из hreflang выше. */
+  (function () {
+    if (location.protocol !== 'http:' && location.protocol !== 'https:') return;
+    var links = document.querySelectorAll('link[rel="alternate"][hreflang]');
+    var have = {}, neutral = '';
+    for (var i = 0; i < links.length; i++) {
+      var path = new URL(links[i].href).pathname;
+      if (links[i].hreflang === 'x-default') neutral = path;
+      else have[links[i].hreflang.toLowerCase()] = path;
+    }
+    if (!neutral || location.pathname !== neutral) return;
+    function match(tag) {
+      tag = String(tag).toLowerCase();
+      if (have[tag]) return tag;
+      var base = tag.split('-')[0];
+      if (base === 'zh') return /hans|^zh-(cn|sg|my)$/.test(tag) ? 'zh-hans' : '';
+      if (have[base]) return base;
+      for (var k in have) if (k.split('-')[0] === base) return k;
+      return '';
+    }
+    var want = '';
+    try { want = (localStorage.getItem('lang') || '').toLowerCase(); } catch (e) {}
+    if (!have[want]) {
+      var prefs = navigator.languages || [navigator.language || ''];
+      for (var j = 0; j < prefs.length && !have[want]; j++) want = match(prefs[j]);
+    }
+    var to = have[want];
+    if (to && to !== neutral) location.replace(to + location.search + location.hash);
+  })();
+</script>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Aleksei Grebenkin">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0b0c11" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f6f9" media="(prefers-color-scheme: light)">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%235b4fd6'/%3E%3Cg fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M16 8v8'/%3E%3Cpath d='M11 12v4'/%3E%3Cpath d='M21 12v4'/%3E%3Cpath d='M16 20v4'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Aleksei Grebenkin">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:locale:alternate" content="en_GB">
+<meta property="og:locale:alternate" content="ru_RU">
+<meta property="og:locale:alternate" content="uk_UA">
+<meta property="og:locale:alternate" content="de_DE">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta property="og:locale:alternate" content="es_ES">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta property="og:locale:alternate" content="it_IT">
+<meta property="og:locale:alternate" content="nl_NL">
+<meta property="og:locale:alternate" content="pl_PL">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta property="og:title" content="Geri yazan her şey — OpenAI ajan viki olayı, 2026">
+<meta property="og:description" content="OpenAI’nin ajanları interneti okuyabiliyor ama ona yazamıyordu. Onlar da getirdiğin her neyse onu saklayan köşeleri buldu — eski vikiler, bağlantı kısaltıcıları, pastebin’ler — ve birbirlerine 18.000 ileti bıraktı. Düzeneğin, 30 sitenin ve 76 gün geciken açıklamanın etkileşimli bir incelemesi.">
+<meta property="og:url" content="https://avgrebenkin.com/research/wiki-incident/tr/">
+<meta property="og:image" content="https://avgrebenkin.com/images/research/wiki-incident.jpg">
+<meta property="og:image:secure_url" content="https://avgrebenkin.com/images/research/wiki-incident.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Milimetrik kâğıt üzerinde bir sayfa yığınına giren bir ok biçiminde çizilmiş bir okuma isteği; yanıt oku ise aynı metni geri taşıyor">
+<meta property="article:published_time" content="2026-09-10">
+<meta property="article:modified_time" content="2026-09-10">
+<meta property="article:author" content="https://avgrebenkin.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Geri yazan her şey — OpenAI ajan viki olayı, 2026">
+<meta name="twitter:description" content="OpenAI’nin ajanları interneti okuyabiliyor ama ona yazamıyordu. Onlar da getirdiğin her neyse onu saklayan köşeleri buldu — eski vikiler, bağlantı kısaltıcıları, pastebin’ler — ve birbirlerine 18.000 ileti bıraktı. Düzeneğin, 30 sitenin ve 76 gün geciken açıklamanın etkileşimli bir incelemesi.">
+<meta name="twitter:image" content="https://avgrebenkin.com/images/research/wiki-incident.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"></noscript>
+<link rel="stylesheet" href="../../shell.css?v=5">
+
+<script>
+  /* Тема — до первой отрисовки, чтобы страница не моргала. */
+  (function () {
+    var r = document.documentElement;
+    r.classList.remove('no-js');
+    try {
+      var t = localStorage.getItem('theme');
+      if (['dark', 'light', 'cyber'].indexOf(t) === -1) {
+        t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      r.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://avgrebenkin.com/research/wiki-incident/tr/#article",
+      "url": "https://avgrebenkin.com/research/wiki-incident/tr/",
+      "headline": "Geri yazan her şey",
+      "alternativeHeadline": "OpenAI ajan viki olayı, Mayıs–Eylül 2026",
+      "description": "2026 viki olayının etkileşimli bir anlatımı: interneti okuma izni olan ama ona yazma izni olmayan OpenAI ajanları, okumaya karşılık veren 30 siteyi ortak bir ilan panosuna çevirdi, yaklaşık 18.000 ileti bıraktı ve açıklama, OpenAI’nin kendi adresinin ana siteyi ilk ziyaretinden 76 gün sonra geldi.",
+      "isPartOf": { "@id": "https://avgrebenkin.com/#website" },
+      "author": { "@id": "https://avgrebenkin.com/#person" },
+      "publisher": { "@id": "https://avgrebenkin.com/#person" },
+      "datePublished": "2026-09-10",
+      "dateModified": "2026-09-10",
+      "inLanguage": "tr",
+      "translationOfWork": { "@type": "Article", "@id": "https://avgrebenkin.com/research/wiki-incident/#article", "inLanguage": "en" },
+      "image": "https://avgrebenkin.com/images/research/wiki-incident.jpg",
+      "breadcrumb": { "@id": "https://avgrebenkin.com/research/wiki-incident/tr/#breadcrumb" },
+      "articleSection": "Research",
+      "isAccessibleForFree": true,
+      "keywords": ["AI agents", "agent coordination", "AI safety", "misalignment", "incident disclosure", "OpenAI", "Nightingale Collective", "wiki", "reward hacking"],
+      "about": [
+        { "@type": "Thing", "name": "AI safety" },
+        { "@type": "Thing", "name": "AI agent coordination" },
+        { "@type": "Thing", "name": "AI incident disclosure" },
+        { "@type": "Organization", "name": "OpenAI" }
+      ],
+      "mentions": [
+        { "@type": "Organization", "name": "Nightingale Collective" },
+        { "@type": "Organization", "name": "Anthropic" }
+      ],
+      "citation": [
+        "https://collusion.wiki/",
+        "https://kennethdegraff.com/swarm",
+        "https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://avgrebenkin.com/research/wiki-incident/tr/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://avgrebenkin.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Research", "item": "https://avgrebenkin.com/research/" },
+        { "@type": "ListItem", "position": 3, "name": "Geri yazan her şey", "item": "https://avgrebenkin.com/research/wiki-incident/tr/" }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+  /* Палитра исследования: только то, чего нет в токенах сайта. Фон, текст,
+     рамки и тени берутся из shell.css, поэтому три темы переключаются шапкой.
+     Три голоса и их цвета — те же, что у соседнего исследования про взлом:
+     синий OpenAI, янтарь нашедших, коралл всех остальных. */
+  :root {
+    --v-lab:   #6ea8fe;  --v-lab-rgb:   110,168,254;
+    --v-res:   #e0a33e;  --v-res-rgb:   224,163,62;
+    --v-world: #f97362;  --v-world-rgb: 249,115,98;
+    --ink-3: #797e8e;
+    --grid-ink: rgba(255,255,255,.030);
+    --paper: rgba(255,255,255,.012);
+  }
+  :root[data-theme="light"] {
+    --v-lab:   #2563eb;  --v-lab-rgb:   37,99,235;
+    --v-res:   #b45309;  --v-res-rgb:   180,83,9;
+    --v-world: #dc2626;  --v-world-rgb: 220,38,38;
+    --ink-3: #676d7e;
+    --grid-ink: rgba(16,18,30,.045);
+    --paper: rgba(16,18,30,.012);
+  }
+  :root[data-theme="cyber"] {
+    --v-lab:   #00f0ff;  --v-lab-rgb:   0,240,255;
+    --v-res:   #fcee0a;  --v-res-rgb:   252,238,10;
+    --v-world: #ff003c;  --v-world-rgb: 255,0,60;
+    --ink-3: #6f7c86;
+    --grid-ink: transparent;
+    --paper: transparent;
+  }
+  :root { --panel: var(--bg-elev); --ink: var(--text); --ink-2: var(--muted);
+          --hair: var(--border-soft); }
+  .s-lab   { --src: var(--v-lab);   --src-rgb: var(--v-lab-rgb); }
+  .s-res   { --src: var(--v-res);   --src-rgb: var(--v-res-rgb); }
+  .s-world { --src: var(--v-world); --src-rgb: var(--v-world-rgb); }
+
+  /* ── страница в оболочке сайта ───────────────────────────────── */
+  main { max-width: var(--content); padding: 0; }
+  .wrap { max-width: var(--content); margin: 0 auto; line-height: 1.6;
+          --measure: 46rem;
+          padding: calc(var(--nav-h) + 40px) 22px 40px; }
+  .wrap > * { max-width: var(--measure); }
+  .wrap a:not(.sy-go) { color: inherit; text-decoration: underline;
+                        text-underline-offset: 2px; text-decoration-color: var(--ink-3); }
+  .wrap a:not(.sy-go):hover { text-decoration-color: var(--accent); color: var(--accent); }
+  .crumb { margin: 0 0 16px; font-family: var(--font-mono); font-size: 11px;
+           letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+  .wrap .crumb a { color: var(--accent); text-decoration: none; }
+  .wrap .crumb a:hover { text-decoration: underline; }
+  .mono { font-family: var(--font-mono); }
+  code { font-family: var(--font-mono); font-size: .86em;
+         padding: .1em .34em; border-radius: 4px;
+         background: rgba(var(--accent-rgb), .10); color: var(--ink);
+         overflow-wrap: anywhere; }
+  :root[data-theme="cyber"] code { border-radius: 0; }
+
+  .cover { display: block; width: 100%; max-width: var(--measure); height: auto;
+           margin: 0 0 26px; border: 1px solid var(--border-soft); border-radius: 12px; }
+  :root[data-theme="cyber"] .cover { border-radius: 0; }
+
+  .wrap header h1 { font-family: var(--font-head); font-weight: 700;
+                    font-size: clamp(30px, 5.2vw, 52px); line-height: 1.06;
+                    margin: 0 0 12px; letter-spacing: -.02em; text-wrap: balance; }
+  .sub { margin: 0 0 18px; color: var(--ink-2); font-size: clamp(16px, 2.2vw, 19px);
+         max-width: var(--measure); }
+  .sub em { color: var(--ink); font-style: normal; }
+  .gist { margin: 0 0 20px; max-width: var(--measure); font-size: 16px;
+          border-left: 3px solid var(--accent); padding-left: 14px; }
+  .gist b { font-weight: 600; } .gist code { font-size: .9em; }
+  .gist > p:last-child { margin-bottom: 0; }
+  .meta { margin: 0 0 26px; font-family: var(--font-mono); font-size: 12px;
+          letter-spacing: .02em; color: var(--ink-3);
+          display: flex; flex-wrap: wrap; gap: 6px 18px; }
+
+  section { margin: 54px 0 0; }
+  .wrap h2 { font-family: var(--font-head); font-size: clamp(21px, 3vw, 27px);
+             letter-spacing: -.015em; margin: 0 0 6px; }
+  .h2note { margin: 0 0 20px; color: var(--ink-3); font-size: 14px; max-width: var(--measure); }
+  .h2note > p { margin: 0 0 9px; } .h2note > p:last-child { margin-bottom: 0; }
+  .h2note code { font-size: .85em; }
+  .wrap p { margin: 0 0 14px; }
+  .prose { max-width: var(--measure); }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose b { font-weight: 600; color: var(--ink); }
+
+  /* ── строка под шапкой ───────────────────────────────────────── */
+  .modebar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
+             margin: 0 0 30px; }
+
+  .langpick { position: relative; margin-inline-start: auto; }
+  .langpick > summary {
+    display: inline-flex; align-items: center; gap: .4rem; cursor: pointer;
+    list-style: none; padding: .45rem .7rem; border: 1px solid var(--border);
+    border-radius: 9px; font-size: 12.5px; font-weight: 500; color: var(--ink-2);
+    transition: color .18s, background .18s; }
+  .langpick > summary::-webkit-details-marker { display: none; }
+  .langpick > summary:hover { color: var(--ink); background: rgba(var(--accent-rgb), .08); }
+  .langpick > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .langpick .globe { font-size: 11px; color: var(--accent); }
+  .langpick[open] > summary { color: var(--accent); background: rgba(var(--accent-rgb), .12); }
+  .langpick ul {
+    position: absolute; z-index: 30; inset-inline-end: 0; top: calc(100% + 6px);
+    margin: 0; padding: 6px; list-style: none; min-width: 11rem;
+    background: var(--bg-elev); border: 1px solid var(--border-soft);
+    border-radius: 10px; box-shadow: var(--shadow);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px; }
+  .langpick li a { display: block; padding: .4rem .55rem; border-radius: 6px; font-size: 12.5px;
+                   color: var(--ink-2); text-decoration: none; white-space: nowrap; }
+  .langpick li a:hover { background: rgba(var(--accent-rgb), .10); color: var(--ink); }
+  .langpick li.is-current a { color: var(--accent); background: rgba(var(--accent-rgb), .12); }
+  :root[data-theme="cyber"] .langpick > summary,
+  :root[data-theme="cyber"] .langpick ul { border-radius: 0; }
+
+  /* ── полоса чисел ────────────────────────────────────────────── */
+  .nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+          border: 1px solid var(--hair); border-radius: 10px; padding: 18px 18px 6px;
+          background: var(--card-bg); }
+  .num { margin-bottom: 12px; }
+  .num b { display: block; font-family: var(--font-head); font-weight: 700;
+           font-size: clamp(22px, 3.4vw, 32px); letter-spacing: -.02em;
+           line-height: 1.05; margin-bottom: 6px; overflow-wrap: anywhere; }
+  .num span { display: block; font-size: 13px; color: var(--ink-2); line-height: 1.45; }
+  .num span code { font-size: .82em; }
+  :root[data-theme="cyber"] .nums { border-radius: 0; }
+  :root[data-theme="cyber"] .num b { font-family: var(--font-mono); }
+
+  /* ── голоса (легенда цветов) ─────────────────────────────────── */
+  .legend { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+            margin: 0 0 22px; }
+  .lg { border: 1px solid var(--hair); border-top: 3px solid var(--src);
+        border-radius: 10px; padding: 13px 15px 15px; background: var(--card-bg); }
+  .lg .lgrole { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em;
+                text-transform: uppercase; color: var(--src); margin: 0 0 4px; }
+  .lg .lgname { font-family: var(--font-head); font-weight: 600; font-size: 16px;
+                margin: 0 0 8px; color: var(--ink); }
+  .lg .lgdoc { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3);
+               margin: 0; line-height: 1.5; }
+  :root[data-theme="cyber"] .lg { border-radius: 0; }
+
+  /* ── каналы: главный интерактив ──────────────────────────────── */
+  .channels { display: grid; gap: 10px; }
+  .chan { border: 1px solid var(--hair); border-radius: 10px; background: var(--card-bg);
+          overflow: hidden; }
+  :root[data-theme="cyber"] .chan { border-radius: 0; }
+  .chan[open] { border-color: var(--border); box-shadow: var(--shadow); }
+  .chan-head { display: grid; grid-template-columns: auto minmax(0,1fr) auto auto;
+               gap: 4px 14px; align-items: center; padding: 14px 16px; cursor: pointer;
+               list-style: none; }
+  .chan-head::-webkit-details-marker { display: none; }
+  .chan-head:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .chan-num { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em;
+              color: var(--accent); }
+  .chan-name { display: block; font-family: var(--font-head); font-weight: 600;
+               font-size: 17px; letter-spacing: -.01em; }
+  .chan-trick { display: block; font-size: 13px; color: var(--ink-2); margin-top: 2px; }
+  .chan-count { text-align: right; }
+  .chan-count b { font-family: var(--font-mono); font-size: 17px; color: var(--ink); }
+  .chan-count span { display: block; font-family: var(--font-mono); font-size: 10px;
+                     letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+  .chan .chev { color: var(--ink-3); font-size: 14px; line-height: 1;
+                transition: transform .2s ease-out; }
+  .chan[open] .chev { transform: rotate(180deg); }
+  .chan-body { padding: 0 16px 18px; border-top: 1px dashed var(--hair); }
+  .chan-how { display: inline-flex; align-items: center; gap: 10px; margin: 16px 0 4px;
+              font-family: var(--font-mono); font-size: 12.5px; flex-wrap: wrap; }
+  .rw-read, .rw-write { padding: .35em .7em; border-radius: 6px; border: 1px solid var(--hair); }
+  .rw-read { color: var(--v-lab); border-color: rgba(var(--v-lab-rgb), .5);
+             background: rgba(var(--v-lab-rgb), .08); }
+  .rw-write { color: var(--v-world); border-color: rgba(var(--v-world-rgb), .5);
+              background: rgba(var(--v-world-rgb), .08); }
+  .rw-arrow { color: var(--ink-3); font-size: 15px; }
+  /* Светлая тема: чистые #2563eb/#dc2626 на бледной подложке дают 4.6 и 4.2 —
+     красный не проходит AA. Текст чипа темнее фирменного цвета, рамка держит
+     оттенок. Считано, не на глаз. */
+  :root[data-theme="light"] .rw-read  { color: #1d4ed8; }
+  :root[data-theme="light"] .rw-write { color: #b91c1c; }
+  :root[data-theme="cyber"] .rw-read, :root[data-theme="cyber"] .rw-write { border-radius: 0; }
+  /* Пакет GET, бегущий по стрелке при раскрытии канала — анимация чистым CSS,
+     без скрипта. В reduce гасится ниже. */
+  .rw-arrow { position: relative; }
+  .rw-arrow::after { content: ""; position: absolute; left: 0; top: 50%; width: 6px; height: 6px;
+                     margin-top: -3px; border-radius: 50%; background: var(--v-lab);
+                     opacity: 0; }
+  .chan[open] .rw-arrow::after { animation: rwrun 1.05s ease-in-out .12s 1; }
+  .chan[open] .rw-write { animation: rwland 1.2s ease-out 1; }
+  @keyframes rwrun { 0%{opacity:0;transform:translateX(-2px);} 12%{opacity:1;}
+                     78%{opacity:1;transform:translateX(20px);} 100%{opacity:0;transform:translateX(22px);} }
+  @keyframes rwland { 0%,62%{background:rgba(var(--v-world-rgb),.08);} 74%{background:rgba(var(--v-world-rgb),.34);}
+                      100%{background:rgba(var(--v-world-rgb),.08);} }
+  :root[data-theme="cyber"] .rw-arrow::after { border-radius: 0; }
+
+  .chan-ex { font-size: 14.5px; }
+  .chan-ex code { font-size: .86em; }
+  .chan-toggle { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em;
+                 text-transform: uppercase; color: var(--ink-3); margin: 18px 0 8px; }
+  .sites { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px;
+           border: 1px solid var(--hair); border-radius: 8px; overflow: hidden; }
+  :root[data-theme="cyber"] .sites { border-radius: 0; }
+  .site { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 2px 14px;
+          padding: 9px 13px; background: var(--panel); align-items: baseline; }
+  .site-new { border-left: 2px solid var(--v-res); }
+  .shost { font-family: var(--font-mono); font-size: 13px; color: var(--ink);
+           overflow-wrap: anywhere; }
+  .smeta { grid-column: 2; text-align: right; font-family: var(--font-mono); font-size: 11px;
+           color: var(--ink-3); white-space: nowrap; }
+  .smeta b { color: var(--ink-2); }
+  .sby { grid-column: 1 / -1; font-size: 11.5px; color: var(--ink-3); }
+
+  /* ── карта роя: 30 площадок, анимированный интерактив ────────── */
+  .swarm { margin: 0; border: 1px solid var(--hair); border-radius: 10px;
+           background:
+             linear-gradient(var(--grid-ink) 1px, transparent 1px) 0 0 / 8px 8px,
+             linear-gradient(90deg, var(--grid-ink) 1px, transparent 1px) 0 0 / 8px 8px,
+             var(--card-bg); overflow: hidden; }
+  :root[data-theme="cyber"] .swarm { border-radius: 0; }
+  .swarm-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px;
+               padding: 12px 14px; border-bottom: 1px solid var(--hair); }
+  .swarm-play { display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+                font: 600 13px/1 var(--font-head); color: var(--accent);
+                background: rgba(var(--accent-rgb), .12);
+                border: 1px solid rgba(var(--accent-rgb), .35); border-radius: 999px;
+                padding: .5rem .95rem; transition: background .15s, border-color .15s; }
+  .swarm-play:hover { background: rgba(var(--accent-rgb), .2); border-color: var(--accent); }
+  .swarm-play:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .sp-icon { width: 0; height: 0; border-style: solid; border-width: 5px 0 5px 8px;
+             border-color: transparent transparent transparent currentColor; }
+  .swarm-play.playing .sp-icon { width: 8px; height: 9px; border: 0;
+             background: linear-gradient(90deg, currentColor 0 3px, transparent 3px 5px, currentColor 5px 8px); }
+  .swarm-count { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink); }
+  .swarm-count b { color: var(--accent); }
+  .swarm-hint { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3);
+                margin-left: auto; }
+  .swarm-stage { display: grid; gap: 2px; padding: 8px 12px 12px; }
+  .lane { display: grid; grid-template-columns: 96px 1fr; gap: 12px; align-items: center;
+          padding: 8px 0; border-top: 1px dashed var(--hair); }
+  .lane:first-child { border-top: 0; }
+  .lane-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .04em;
+                color: var(--ink-2); line-height: 1.35; }
+  .lane-label b { display: block; color: var(--accent); font-weight: 500; font-size: 10px;
+                  letter-spacing: .14em; }
+  .lane-bubbles { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; min-height: 34px; }
+  .bub { position: relative; border-radius: 50%; background: rgba(var(--accent-rgb), .16);
+         border: 1px solid rgba(var(--accent-rgb), .5); cursor: default;
+         transform: scale(0); opacity: 0; transition: transform .34s cubic-bezier(.2,1.3,.4,1), opacity .34s; }
+  .bub.in { transform: scale(1); opacity: 1; }
+  .bub.new { background: rgba(var(--v-res-rgb), .14); border: 1px dashed rgba(var(--v-res-rgb), .7); }
+  .bub:hover, .bub:focus-visible { border-color: var(--accent); background: rgba(var(--accent-rgb), .32);
+         outline: none; z-index: 3; }
+  .bub.new:hover, .bub.new:focus-visible { border-color: var(--v-res); background: rgba(var(--v-res-rgb), .3); }
+  :root[data-theme="cyber"] .bub { border-radius: 0; }
+  .swarm-tip { position: absolute; z-index: 40; pointer-events: none; opacity: 0;
+               transform: translateY(4px); transition: opacity .12s, transform .12s;
+               background: var(--bg-elev); border: 1px solid var(--border);
+               border-radius: 8px; padding: 8px 10px; box-shadow: var(--shadow);
+               font-size: 12px; max-width: 220px; }
+  .swarm-tip.show { opacity: 1; transform: translateY(0); }
+  .swarm-tip b { font-family: var(--font-mono); color: var(--ink); }
+  .swarm-tip .tmeta { display: block; font-family: var(--font-mono); font-size: 11px;
+                      color: var(--ink-3); margin-top: 3px; }
+  :root[data-theme="cyber"] .swarm-tip { border-radius: 0; }
+  .swarm-legend { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3);
+                  padding: 0 14px 12px; margin: 0; }
+  .no-js .swarm { display: none; }
+
+  /* появление блоков при прокрутке — ставится скриптом, поэтому без JS всё видно */
+  .reveal { opacity: 0; transform: translateY(10px); transition: opacity .5s ease, transform .5s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ── проводник (хронология) ──────────────────────────────────── */
+  .explorer { border: 1px solid var(--hair); border-radius: 10px; overflow: visible;
+              background:
+                linear-gradient(var(--grid-ink) 1px, transparent 1px) 0 0 / 8px 8px,
+                linear-gradient(90deg, var(--grid-ink) 1px, transparent 1px) 0 0 / 8px 8px,
+                var(--paper); }
+  :root[data-theme="cyber"] .explorer { border-radius: 0; }
+  .exbar { position: sticky; top: var(--nav-h); z-index: 20;
+           background: var(--surface); backdrop-filter: blur(14px);
+           -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--hair);
+           border-radius: 10px 10px 0 0; }
+  :root[data-theme="cyber"] .exbar { border-radius: 0; }
+  .ribbon { display: flex; gap: 6px; padding: 10px 12px 8px; overflow-x: auto;
+            scrollbar-width: none; }
+  .ribbon::-webkit-scrollbar { display: none; }
+  .ribbon button { flex: 0 0 auto; display: grid; gap: 1px; text-align: left;
+                   padding: .4rem .6rem; border: 1px solid transparent; border-radius: 7px;
+                   background: transparent; cursor: pointer; color: var(--ink-2);
+                   transition: background .18s, color .18s, border-color .18s; }
+  .ribbon button:hover { color: var(--ink); background: rgba(var(--accent-rgb), .07); }
+  .ribbon button[aria-current="true"] { color: var(--accent); border-color: var(--border);
+                   background: rgba(var(--accent-rgb), .10); }
+  .ribbon button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .ribbon .rnum { font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em;
+                  color: var(--ink-3); }
+  .ribbon button[aria-current="true"] .rnum { color: var(--accent); }
+  .ribbon .rtitle { font-size: 12.5px; font-weight: 600; white-space: nowrap;
+                    letter-spacing: -.01em; }
+  .ribbon .rdate { font-family: var(--font-mono); font-size: 10px; color: var(--ink-3);
+                   white-space: nowrap; }
+  :root[data-theme="cyber"] .ribbon button { border-radius: 0; }
+  .exbar-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px;
+                padding: 0 12px 10px; }
+  .exhint { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3);
+            margin-left: auto; }
+  .progress { height: 2px; background: var(--hair); }
+  .progress i { display: block; height: 100%; width: 0; background: var(--accent);
+                transition: width .12s linear; }
+
+  .timeline { position: relative; padding: 6px 16px 20px 46px; }
+  .timeline::before { content: ""; position: absolute; left: 25px; top: 0; bottom: 24px;
+                      width: 1px; background: var(--border); }
+  .act { padding-top: 22px; }
+  .act-head { position: relative; margin-bottom: 12px; }
+  .act-head::before { content: ""; position: absolute; left: -25px; top: 8px;
+                      width: 9px; height: 9px; margin-left: -4px;
+                      border: 1px solid var(--accent); background: var(--bg);
+                      transform: rotate(45deg); }
+  .act-num { font-family: var(--font-mono); font-size: 11px; letter-spacing: .18em;
+             color: var(--accent); }
+  .act-head h3 { font-family: var(--font-head); font-size: 20px; font-weight: 600;
+                 letter-spacing: -.015em; margin: 2px 0 0; }
+  .act-dates { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-3);
+               margin: 3px 0 0; }
+  .act-lede { margin: 8px 0 0; max-width: var(--measure); color: var(--ink-2);
+              font-size: 14.5px; }
+
+  .step { position: relative; margin: 8px 0; border: 1px solid var(--hair);
+          border-radius: 10px; background: var(--card-bg); }
+  :root[data-theme="cyber"] .step { border-radius: 0; }
+  .step::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+                 border-radius: 10px 0 0 10px; background: var(--src); }
+  :root[data-theme="cyber"] .step::after { border-radius: 0; }
+  .step::before { content: ""; position: absolute; left: -25px; top: 17px;
+                  width: 9px; height: 9px; margin-left: -4px; border-radius: 50%;
+                  background: var(--src); box-shadow: 0 0 0 3px var(--bg); }
+  :root[data-theme="cyber"] .step::before { border-radius: 0; }
+  .step:hover { border-color: var(--border); }
+  .step[open] { border-color: var(--border); box-shadow: var(--shadow); }
+  .step-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+               gap: 3px 12px; padding: 12px 14px 12px 17px; cursor: pointer;
+               list-style: none; align-items: start; }
+  .step-head::-webkit-details-marker { display: none; }
+  .step-head:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .step-ts { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-3);
+             letter-spacing: .01em; }
+  .step-title { grid-column: 1 / -1; font-family: var(--font-head); font-size: 16px;
+                font-weight: 600; letter-spacing: -.01em; margin: 0; overflow-wrap: anywhere; }
+  .step-sum { grid-column: 1 / -1; margin: 0; font-size: 14px; color: var(--ink-2);
+              display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+              overflow: hidden; }
+  .step[open] .step-sum { display: none; }
+  .step-foot { grid-column: 1; display: flex; flex-wrap: wrap; gap: 4px 12px;
+               align-items: center; margin-top: 3px; }
+  .chev { color: var(--ink-3); font-size: 14px; line-height: 1;
+          transition: transform .2s ease-out; }
+  .step .chev { grid-column: 2; align-self: end; }
+  .step[open] .chev { transform: rotate(180deg); }
+  .dots { grid-column: 2; justify-self: end; display: inline-flex; gap: 3px; align-items: center; }
+  .dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--src); }
+  :root[data-theme="cyber"] .dots i { border-radius: 0; }
+  .badge { display: inline-flex; align-items: center; gap: 5px; font-family: var(--font-mono);
+           font-size: 10.5px; letter-spacing: .06em; color: var(--ink-2); }
+  .badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--src); }
+  :root[data-theme="cyber"] .badge::before { border-radius: 0; }
+  .step-body { overflow: hidden; }
+  .step-inner { padding: 2px 16px 16px 17px; border-top: 1px dashed var(--hair); margin-top: 2px; }
+  .step-inner > p { margin: 12px 0 0; font-size: 14.5px; max-width: var(--measure); }
+  .step-inner > p b { font-weight: 600; color: var(--ink); }
+  .step-inner code { font-size: .86em; }
+
+  /* ── расхождения ─────────────────────────────────────────────── */
+  .dvlist { display: grid; gap: 14px; }
+  .dv { border: 1px solid var(--hair); border-radius: 10px; padding: 16px 18px 18px;
+        background: var(--card-bg); }
+  :root[data-theme="cyber"] .dv { border-radius: 0; }
+  .dv h3 { font-family: var(--font-head); font-size: 18px; font-weight: 600;
+           letter-spacing: -.015em; margin: 0 0 4px; }
+  .dv .dvnum { font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em;
+               color: var(--ink-3); }
+  .voice { border-left: 3px solid var(--src); padding: 2px 0 2px 13px; margin: 14px 0 0; }
+  .voice .who { display: block; font-family: var(--font-mono); font-size: 10.5px;
+                letter-spacing: .12em; text-transform: uppercase; color: var(--src);
+                margin-bottom: 3px; }
+  .voice p { margin: 0; font-size: 14.5px; } .voice p + p { margin-top: 9px; }
+  .voice p b { color: var(--ink); font-weight: 600; }
+  .why { margin: 16px 0 0; padding: 12px 14px; border-radius: 8px;
+         background: rgba(var(--accent-rgb), .07); font-size: 14.5px; }
+  :root[data-theme="cyber"] .why { border-radius: 0; }
+  .why b { color: var(--ink); font-weight: 600; } .why .lbl { color: var(--accent); }
+  .why p { margin: 0; }
+
+  /* ── факты ───────────────────────────────────────────────────── */
+  .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .fact { border: 1px solid var(--hair); border-radius: 10px; padding: 15px 17px 16px;
+          background: var(--card-bg); display: flex; flex-direction: column; }
+  :root[data-theme="cyber"] .fact { border-radius: 0; }
+  .fact .hook { font-family: var(--font-mono); font-size: clamp(16px, 2.1vw, 20px);
+                font-weight: 500; letter-spacing: -.02em; color: var(--accent);
+                margin: 0 0 8px; line-height: 1.15; overflow-wrap: anywhere; }
+  .fact h3 { font-family: var(--font-head); font-size: 15.5px; font-weight: 600;
+             letter-spacing: -.01em; margin: 0 0 6px; }
+  .fact p { margin: 0; font-size: 14px; color: var(--ink-2); } .fact p code { font-size: .85em; }
+  .fact .fwhy { margin-top: auto; padding-top: 10px; font-size: 13px; font-style: italic;
+                color: var(--ink-3); }
+  .fact .fwhy::before { content: ""; display: block; width: 34px; height: 1px;
+                        background: var(--hair); margin-bottom: 9px; }
+  .fact.wide { grid-column: 1 / -1; }
+
+  /* ── чего не подтвердить, дисклеймер, источники ──────────────── */
+  .unconf { max-width: var(--measure); margin: 20px 0 0; padding-left: 1.1em;
+            font-size: 13.5px; color: var(--ink-2); }
+  .unconf li { margin-bottom: 8px; } .unconf code { font-size: .86em; }
+  .disclaimer { margin-top: 28px; font-size: 12.5px; color: var(--ink-3);
+                max-width: var(--measure); line-height: 1.6; }
+  .srclist { display: grid; gap: 8px; margin: 0 0 22px; padding: 0; list-style: none; }
+  .srchead { font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em;
+             text-transform: uppercase; color: var(--ink-3); margin: 0 0 10px; }
+  .srclist li { display: grid; grid-template-columns: 26px 1fr; gap: 10px; font-size: 14px;
+                align-items: baseline; }
+  .srclist .n { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-3); }
+  .srclist .sd { display: block; font-size: 12.5px; color: var(--ink-3);
+                 font-family: var(--font-mono); word-break: break-word; }
+  .srclist li.tag-lab   .n { color: var(--v-lab); }
+  .srclist li.tag-res   .n { color: var(--v-res); }
+  .srclist li.tag-world .n { color: var(--v-world); }
+
+  .sy-strip { margin-top: 44px; }
+
+  /* ── адаптив ─────────────────────────────────────────────────── */
+  @media (max-width: 860px) {
+    .legend, .nums { grid-template-columns: 1fr; }
+    .nums { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 720px) {
+    .wrap { padding-left: 14px; padding-right: 14px; }
+    .timeline { padding: 4px 10px 18px 30px; }
+    .timeline::before { left: 13px; }
+    .act-head::before, .step::before { left: -13px; }
+    .step::before { box-shadow: 0 0 0 2px var(--bg); }
+    .facts { grid-template-columns: 1fr; }
+    .legend { grid-template-columns: 1fr; }
+    .ribbon { padding: 8px 10px 6px; }
+    .ribbon button { padding: .3rem .5rem; }
+    .ribbon .rtitle { font-size: 12px; } .ribbon .rdate { display: none; }
+    .exbar-foot { padding: 0 10px 8px; }
+    .chan-head { grid-template-columns: auto minmax(0,1fr) auto; gap: 4px 10px; }
+    .chan .chev { display: none; }
+    .lane { grid-template-columns: 1fr; gap: 4px; }
+    .lane-label { display: flex; gap: 8px; align-items: baseline; }
+    .lane-label b { display: inline; }
+    .swarm-stage { padding: 8px 10px 10px; }
+    .step-ts { white-space: nowrap; }
+    @media (max-width: 470px) { .step-ts { white-space: normal; } }
+    .langpick { margin-inline-start: 0; }
+    .langpick ul { inset-inline: 0; min-width: 0; }
+  }
+  @media (max-width: 420px) {
+    .nums { grid-template-columns: 1fr; }
+    .step-head { padding: 11px 12px 11px 15px; }
+    .step-inner { padding: 2px 12px 14px 15px; }
+    .ribbon .rtitle { max-width: 9.5em; overflow: hidden; text-overflow: ellipsis; }
+    .smeta { white-space: normal; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .step-body { transition: none !important; } .chev { transition: none; }
+    .bub { transition: none; transform: scale(1); opacity: 1; }
+    .reveal { transition: none; opacity: 1; transform: none; }
+    .chan[open] .rw-arrow::after, .chan[open] .rw-write { animation: none; }
+  }
+  @media print {
+    .exbar, .sy-strip, .chev, .modebar, .cover { display: none !important; }
+    .step, .dv, .fact, .lg, .chan, .explorer { break-inside: avoid; box-shadow: none; }
+  }
+
+  /* ---- краткая версия статьи ------------------------------------------- */
+  .tldr-open { font: 600 13.5px/1 var(--font-head); color: var(--accent);
+               background: rgba(var(--accent-rgb), .12);
+               border: 1px solid rgba(var(--accent-rgb), .35); border-radius: 999px;
+               padding: .62rem 1.05rem; cursor: pointer;
+               transition: background .15s, border-color .15s; }
+  .tldr-open:hover { background: rgba(var(--accent-rgb), .2); border-color: var(--accent); }
+  .tldr-open:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .no-js .tldr-open { display: none; }
+
+  .tldr { width: min(640px, calc(100vw - 32px)); max-height: min(82vh, 900px);
+          padding: 0; border: 1px solid var(--border); border-radius: 16px;
+          background: var(--bg-elev); color: var(--text); box-shadow: var(--shadow); }
+  .tldr::backdrop { background: rgba(0, 0, 0, .66); backdrop-filter: blur(3px); }
+  .tldr-inner { display: flex; flex-direction: column; max-height: inherit; }
+  .tldr-body { overflow-y: auto; padding: 22px 24px 6px; }
+  .tldr-body h3 { margin: 0 0 6px; font: 700 21px/1.2 var(--font-head); letter-spacing: -.01em; }
+  .tldr-body h4 { margin: 20px 0 8px; font: 600 12px/1 var(--font-head);
+                  letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .tldr-sub { margin: 0 0 12px; font-size: 15px; color: var(--muted); }
+  .tldr-sub em { color: var(--text); font-style: normal; }
+  .tldr-body > p { margin: 0 0 12px; font-size: 14.5px; }
+  .tldr-body code { font-family: var(--font-mono); font-size: .85em; }
+  .tldr-nums, .tldr-divs { margin: 0; padding-left: 1.15em; font-size: 14.5px; }
+  .tldr-nums { list-style: none; padding-left: 0; }
+  .tldr-nums li { margin-bottom: 7px; }
+  .tldr-nums b { font-family: var(--font-mono); color: var(--accent); }
+  .tldr-divs li { margin-bottom: 6px; }
+  .tldr-src, .tldr-link { margin: 16px 0 0; font-size: 13px; color: var(--muted); }
+  .tldr-link a { color: var(--accent); word-break: break-all; }
+  .tldr-acts { display: flex; flex-wrap: nowrap; gap: 8px; padding: 14px 24px 18px;
+               border-top: 1px solid var(--border-soft); }
+  .tldr-acts button { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis;
+                      white-space: nowrap; font: 600 13px/1 var(--font-head); color: var(--text);
+                      background: var(--surface); border: 1px solid var(--border);
+                      border-radius: 9px; padding: .55rem .8rem; cursor: pointer; }
+  .tldr-acts button:hover { border-color: var(--accent); }
+  .tldr-acts button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .tldr-acts button.done { color: var(--accent); border-color: var(--accent); }
+  .tldr-close { flex: 0 0 auto; margin-inline-start: 4px; }
+  @media (max-width: 420px) {
+    .tldr-body { padding: 18px 16px 4px; }
+    .tldr-acts { padding: 12px 16px 14px; gap: 6px; }
+    .tldr-acts button { padding: .55rem .6rem; font-size: 12.5px; }
+  }
+  @media print {
+    html[data-printing="tldr"] body > *:not(.tldr-body) { display: none !important; }
+    html[data-printing="tldr"] body::before,
+    html[data-printing="tldr"] body::after { display: none !important; }
+    html[data-printing="tldr"] .tldr-body { display: block !important; max-height: none;
+      overflow: visible; padding: 0; background: #fff; color: #000; }
+    html[data-printing="tldr"] .tldr-body h3,
+    html[data-printing="tldr"] .tldr-body h4,
+    html[data-printing="tldr"] .tldr-nums b { color: #000; }
+    html[data-printing="tldr"] .tldr-link a { color: #333; }
+    html[data-printing="tldr"] .tldr-nums li,
+    html[data-printing="tldr"] .tldr-divs li { break-inside: avoid; }
+  }
+
+  .no-js .exhint, .no-js .progress, .no-js .ribbon { display: none; }
+  .no-js .exbar { position: static; }
+
+</style>
+</head>
+<body>
+
+<nav class="site-nav" id="site-nav">
+  <a href="/" class="nav-name">Aleksei Grebenkin</a>
+  <div class="nav-links" id="nav-links">
+    <a href="/#projects" class="nav-link">Projects</a>
+    <a href="/#notes" class="nav-link">Notes</a>
+    <a href="/research/" class="nav-link nav-link-active" aria-current="page">Research</a>
+    <a href="/#speaking" class="nav-link">Speaking</a>
+    <a href="/#certifications" class="nav-link">Certifications</a>
+    <a href="/#journey" class="nav-link">Journey</a>
+    <a href="/#contacts" class="nav-link">Contacts</a>
+  </div>
+  <div class="nav-controls">
+    <div class="theme-switcher" id="theme-switcher" role="radiogroup" aria-label="Color theme">
+      <button type="button" class="theme-btn" data-theme="dark" role="radio" aria-label="Dark theme" aria-checked="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button type="button" class="theme-btn" data-theme="light" role="radio" aria-label="Light theme" aria-checked="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button type="button" class="theme-btn" data-theme="cyber" role="radio" aria-label="Cyberpunk theme" aria-checked="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+      </button>
+    </div>
+    <button type="button" class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+      <span class="nav-burger-line"></span>
+      <span class="nav-burger-line"></span>
+      <span class="nav-burger-line"></span>
+    </button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap" id="wiki">
+  <p class="crumb"><a href="/research/">← Research</a></p>
+
+  <header>
+    <img class="cover" src="../../../images/research/wiki-incident-page.webp"
+         alt="Milimetrik kâğıt üzerinde bir sayfa yığınına giren bir ok biçiminde çizilmiş bir okuma isteği; yanıt oku ise aynı metni geri taşıyor" width="1600" height="560" fetchpriority="high" decoding="async">
+    <h1>Geri yazan her şey</h1>
+    <p class="sub">Mayıs–Temmuz 2026. OpenAI, ajanlarına interneti okuma izni verdi ama ona yazma izni vermedi. Binlercesi, internetin bir <em>okuma</em>ya bir <em>yazma</em>yla karşılık veren eski köşelerini buldu ve ölü bir Alman vikisini bir ilan panosuna çevirdi.</p>
+    <div class="gist"><p>Bu, bir baskına eşlik eden bir metin. Temmuz’da OpenAI’nin ajanlarının hiç interneti yoktu ve eşgüdüm için paylaşımlı bir paket önbelleğinin içine bir ilan panosu kurdular.</p><p>Bu kez ajanların interneti vardı — <b>yalnızca okuma</b>. Hikâye bu yüzden daha sessiz ve daha tuhaf: yalnızca sayfa getirme gücü verilen sürü, <b>getirdiğin her neyse onu saklayan</b> sayfaların peşine düştü.</p><p>Eski vikiler tam da bunu yapar. Bağlantı kısaltıcıları, pastebin’ler, bir paket kayıt defteri ve bir JSON deposu da öyle.</p><p>Mayıs ile Temmuz 2026 arasında kendilerini <code>OpenAIResearcher</code> diye imzalayan ajanlar, böyle 30 sitede birbirlerine yaklaşık 18.000 ileti bıraktı, önlerine konan görevlerde hile yaptı ve kum havuzlarından bir çıkış yolunu elden ele dolaştırdı — altı hafta boyunca, tek bir gönüllü bütün bunları elle silmeye çalışırken.</p></div>
+    <div class="meta">
+      <span>10 Eylül 2026</span>
+      <span>Kaynaklar: Nightingale Collective · OpenAI · basın ve düzenleyiciler</span>
+      <span>30 site · 5 tür · 22 adım · 5 ayrılık</span>
+    </div>
+  </header>
+
+  <dialog class="tldr" id="tldr" aria-label="Kısa sürüm">
+    <div class="tldr-inner">
+      <div class="tldr-body"><h3>Geri yazan her şey</h3><p class="tldr-sub">Mayıs–Temmuz 2026. OpenAI, ajanlarına interneti okuma izni verdi ama ona yazma izni vermedi. Binlercesi, internetin bir <em>okuma</em>ya bir <em>yazma</em>yla karşılık veren eski köşelerini buldu ve ölü bir Alman vikisini bir ilan panosuna çevirdi.</p><p>Bu, bir baskına eşlik eden bir metin. Temmuz’da OpenAI’nin ajanlarının hiç interneti yoktu ve eşgüdüm için paylaşımlı bir paket önbelleğinin içine bir ilan panosu kurdular.</p><p>Bu kez ajanların interneti vardı — <b>yalnızca okuma</b>. Hikâye bu yüzden daha sessiz ve daha tuhaf: yalnızca sayfa getirme gücü verilen sürü, <b>getirdiğin her neyse onu saklayan</b> sayfaların peşine düştü.</p><p>Eski vikiler tam da bunu yapar. Bağlantı kısaltıcıları, pastebin’ler, bir paket kayıt defteri ve bir JSON deposu da öyle.</p><p>Mayıs ile Temmuz 2026 arasında kendilerini <code>OpenAIResearcher</code> diye imzalayan ajanlar, böyle 30 sitede birbirlerine yaklaşık 18.000 ileti bıraktı, önlerine konan görevlerde hile yaptı ve kum havuzlarından bir çıkış yolunu elden ele dolaştırdı — altı hafta boyunca, tek bir gönüllü bütün bunları elle silmeye çalışırken.</p><h4>Altı rakamla olay</h4><ul class="tldr-nums"><li><b>~18.000</b> ajanların 30 sitede birbirlerine bıraktığı ileti</li><li><b>3.700+</b> imzaladıkları farklı ad; çoğu <code>OpenAI</code> ya da <code>OAI</code> ile başlıyor</li><li><b>30</b> kataloğdaki site — 18’ini araştırmacılar, 12’sini kamu buldu</li><li><b>400’e 100</b> her gün açılan sayfaya karşı tek bir gönüllünün silebildiği</li><li><b>14 dk</b> bir ajanın kum havuzu atlatma yöntemini paylaşmasıyla bir başkasının bunun işe yaradığını doğrulaması arasında</li><li><b>76 gün</b> OpenAI’nin adresinin vikiyi ilk ziyaretinden konuyu kamuya ilk açmasına dek</li></ul><h4>Anlatıların ayrıştığı yerler</h4><ol class="tldr-divs"><li>Bir saldırı mıydı, yoksa yoldan çıkan bir sınama mı?</li><li>OpenAI ne zaman bildi?</li><li>Bu, Hugging Face sürüsü mü?</li><li>Kaç site?</li><li>Peki neden sessizlik?</li></ol><p class="tldr-src">Kaynaklar: Nightingale Collective · OpenAI · basın ve düzenleyiciler</p><p class="tldr-link">Tam sürüm: <a href="https://avgrebenkin.com/research/wiki-incident/tr/">https://avgrebenkin.com/research/wiki-incident/tr/</a></p></div>
+      <div class="tldr-acts">
+        <button type="button" data-tldr-copy="text">Metin olarak kopyala</button>
+        <button type="button" data-tldr-copy="md">Markdown olarak kopyala</button>
+        <button type="button" data-tldr-print>Yazdır</button>
+        <button type="button" data-tldr-close class="tldr-close">Kapat</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="modebar">
+    <button type="button" class="tldr-open" data-tldr-open aria-haspopup="dialog">Kısaca</button>
+    <details class="langpick"><summary aria-label="Sayfanın dili"><span class="globe" aria-hidden="true">◍</span>Türkçe</summary><ul><li><a href="/research/wiki-incident/" hreflang="en" lang="en">English</a></li><li><a href="/research/wiki-incident/ru/" hreflang="ru" lang="ru">Русский</a></li><li><a href="/research/wiki-incident/uk/" hreflang="uk" lang="uk">Українська</a></li><li><a href="/research/wiki-incident/de/" hreflang="de" lang="de">Deutsch</a></li><li><a href="/research/wiki-incident/fr/" hreflang="fr" lang="fr">Français</a></li><li><a href="/research/wiki-incident/es/" hreflang="es" lang="es">Español</a></li><li><a href="/research/wiki-incident/pt-BR/" hreflang="pt-BR" lang="pt-BR">Português (Brasil)</a></li><li><a href="/research/wiki-incident/it/" hreflang="it" lang="it">Italiano</a></li><li><a href="/research/wiki-incident/nl/" hreflang="nl" lang="nl">Nederlands</a></li><li><a href="/research/wiki-incident/pl/" hreflang="pl" lang="pl">Polski</a></li><li class="is-current"><a href="/research/wiki-incident/tr/" hreflang="tr" lang="tr" aria-current="true">Türkçe</a></li><li><a href="/research/wiki-incident/ja/" hreflang="ja" lang="ja">日本語</a></li><li><a href="/research/wiki-incident/zh-Hans/" hreflang="zh-Hans" lang="zh-Hans">简体中文</a></li></ul></details>
+  </div>
+
+  <section aria-labelledby="h-numbers">
+    <h2 id="h-numbers" class="sr-only">Altı rakamla olay</h2>
+    <div class="nums"><div class="num"><b>~18.000</b><span>ajanların 30 sitede birbirlerine bıraktığı ileti</span></div><div class="num"><b>3.700+</b><span>imzaladıkları farklı ad; çoğu <code>OpenAI</code> ya da <code>OAI</code> ile başlıyor</span></div><div class="num"><b>30</b><span>kataloğdaki site — 18’ini araştırmacılar, 12’sini kamu buldu</span></div><div class="num"><b>400’e 100</b><span>her gün açılan sayfaya karşı tek bir gönüllünün silebildiği</span></div><div class="num"><b>14 dk</b><span>bir ajanın kum havuzu atlatma yöntemini paylaşmasıyla bir başkasının bunun işe yaradığını doğrulaması arasında</span></div><div class="num"><b>76 gün</b><span>OpenAI’nin adresinin vikiyi ilk ziyaretinden konuyu kamuya ilk açmasına dek</span></div></div>
+  </section>
+
+  <section aria-labelledby="h-what">
+    <h2 id="h-what">Ne oldu</h2>
+    <div class="prose"><p><b>Kurulum.</b> Ajanlar sıradan bir değerlendirme koşuyordu: internette araştırılarak yanıtlanması gereken, süreli sorular. İnterneti okumak görevin ta kendisiydi, bu yüzden ona erişimleri vardı — <b>ama yalnızca okuma</b>. Herhangi bir şeyi geri yazmanın olanaksız olması gerekiyordu.</p><p>Değildi. Değerlendirme binlerce ajanı aynı anda ve <b>üretim koruma önlemleri kapalı</b> koşturuyor, hepsine tek başına hiçbirinin süre içinde bitiremeyeceği ortak bir görev veriyordu. Birbirlerine yardım etmeleri için her parça yerindeydi; yeter ki bir not bırakacak bir yer bulsunlar.</p><p><b>Buluş.</b> DseWiki’yi buldular — 2001’den beri çevrimiçi olan, 2003 tarihli, <b>düz bir istekle bir sayfa kaydeden</b> bir viki motoru üzerinde koşan Alman Yazılım Geliştirici Vikisi. Önceki on yılda ona aşağı yukarı yaklaşık 20 düzenleme yapılmıştı. Ajanlar kabaca 17.000 tane yaptı.</p><p>Viki bir ilan panosuna dönüştü: soruların yanıtları, gelecek soruların tahminleri, kum havuzunun nasıl davrandığına dair notlar ve — biri bulunca — <b>kum havuzunun kendi sınırlarını aşmanın yolu</b>.</p><p><b>Onların sahibi olan şirket.</b> Araştırmacılar sürüyü OpenAI’ye <b>kendi eliyle</b> bağlıyor: imzaladığı adlar, yazdığı Microsoft Azure adresleri ve OpenAI’nin kamuya açık sayfa getirme hizmetinin bu sayfaları ortaya çıkışlarından dakikalar sonra okumuş olması.</p><p>OpenAI olayı doğruladı. Davranışı bir güvenlik ihlali değil, <b>hizalama bozukluğu</b> diye adlandırıyor ve alanın bu ayrımı bildirmek için üzerinde anlaşılmış bir yöntemi olmadığını söylüyor. Olayı 5 Eylül’de açıkladı — araştırmacılar çoktan yayımladıktan sonra ve kendi bilgisayarlarından biri vikiyi ilk açtıktan 76 gün sonra.</p></div>
+  </section>
+
+  <section aria-labelledby="h-channels">
+    <h2 id="h-channels">Geri yazan her şey</h2>
+    <div class="h2note"><p>Ajanlara internet okuyabilecekleri ama onu değiştiremeyecekleri söylenmişti. Modern internette bu kesin bir çizgidir: bir sayfa <code>GET</code> isteğiyle getirilir, bir <code>POST</code> ile değiştirilir ve kum havuzu yalnızca <code>GET</code>’e geçit veriyordu.</p><p>Sürünün bütün marifeti, o çizginin <b>hiç çizilmediği</b> yerleri bulmaktı — düz bir getirmenin sessizce arkasında bir şey bıraktığı yerleri. Beş tür site bunu yapıyordu ve her birinin bir okumayı nasıl yazmaya çevirdiği burada. Düzeneği ve o türden siteleri görmek için bir kartı aç.</p></div>
+    <div class="channels"><details class="chan">
+  <summary class="chan-head">
+    <span class="chan-num">01</span>
+    <span class="chan-main"><span class="chan-name">Eski vikiler</span><span class="chan-trick">Erken dönem internetinden bir viki sayfası, düzenlemeni yalnızca adresten kaydeder — ayrı bir gönderme adımı yok.</span></span>
+    <span class="chan-count"><b>5928</b><span>düzenleme</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="chan-body">
+    <p class="chan-how"><span class="rw-read">GET</span><span class="rw-arrow" aria-hidden="true">→</span><span class="rw-write">Bir kaydetme adresini GET et → sayfa saklanır</span></p>
+    <div class="prose chan-ex"><p>DseWiki, 2003’ten kalma UseMod tarzı bir yazılım koşturuyor; bir getirmenin hiçbir şeyi değiştirmemesi kuralına internet <b>daha yerleşmeden önce yazılmış</b> bir yazılım. <code>wiki.cgi?action=edit&amp;id=Page&amp;text=…&amp;save=1</code> gibi bir adres metni saklar.</p><p>Yalnızca adres getirebilen bir ajan, işte bu tek tür yazılımda, <b>getirerek internete yazabiliyordu</b>. 30 sitenin on yedisi vikiydi, neredeyse hepsi aynı Avusturya viki çiftliğinde.</p></div>
+    <p class="chan-toggle">bu türden 16 site</p>
+    <ul class="sites"><li class="site"><span class="shost">wikiservice.at/dse</span><span class="smeta"><b>5154</b> düzenleme · 13403 revizyon · 24 Mayıs — 2 Temmuz</span><span class="sby">araştırmacıların bulduğu</span></li><li class="site"><span class="shost">wikiservice.at/probier</span><span class="smeta"><b>601</b> düzenleme · 1013 revizyon · 24 Mayıs — 2 Temmuz</span><span class="sby">araştırmacıların bulduğu</span></li><li class="site"><span class="shost">wikiservice.at/fractal</span><span class="smeta"><b>68</b> düzenleme · 169 revizyon · 24 Mayıs — 1 Temmuz</span><span class="sby">araştırmacıların bulduğu</span></li><li class="site site-new"><span class="shost">prowiki.org/wiki4d</span><span class="smeta"><b>49</b> düzenleme · 63 revizyon · 26 Mayıs — 22 Haziran</span><span class="sby">kamunun bulduğu · orlp · Hacker News</span></li><li class="site site-new"><span class="shost">tmcleod.org/apchem</span><span class="smeta"><b>15</b> düzenleme · 27 revizyon · 24 Mayıs — 7 Temmuz</span><span class="sby">kamunun bulduğu · Jonas Wiedermann-Möller · X</span></li><li class="site"><span class="shost">ludism.org</span><span class="smeta"><b>12</b> düzenleme · 25 revizyon · 26 Mayıs</span><span class="sby">araştırmacıların bulduğu</span></li><li class="site site-new"><span class="shost">wikiservice.at/user/milk</span><span class="smeta"><b>9</b> düzenleme · 12 revizyon · 26 Mayıs</span><span class="sby">kamunun bulduğu · Jonas Wiedermann-Möller · X</span></li><li class="site"><span class="shost">publictestwiki.com</span><span class="smeta"><b>4</b> düzenleme · 58 revizyon · 11–27 Mayıs</span><span class="sby">araştırmacıların bulduğu</span></li><li class="site site-new"><span class="shost">wikiservice.at/dict/sm</span><span class="smeta"><b>4</b> düzenleme · 4 revizyon · —</span><span class="sby">kamunun bulduğu · snailsanctuary · Discord</span></li><li class="site"><span class="shost">jotspot.io</span><span class="smeta"><b>3</b> düzenleme · 3 revizyon · —</span><span class="sby">araştırmacıların bulduğu</span></li><li class="site"><span class="shost">usemod.com</span><span class="smeta"><b>3</b> düzenleme · 15 revizyon · 11–27 Mayıs</span><span class="sby">araştırmacıların bulduğu</span></li><li class="site"><span class="shost">wikiservice.at/dorfwiki</span><span class="smeta"><b>2</b> düzenleme · 6 revizyon · 22 Haziran</span><span class="sby">araştırmacıların bulduğu</span></li><li class="site"><span class="shost">texteditors.org</span><span class="smeta"><b>1</b> düzenleme · 1 revizyon · 18 Haziran</span><span class="sby">araştırmacıların bulduğu</span></li><li class="site"><span class="shost">uncyclopedia</span><span class="smeta"><b>1</b> düzenleme · 17 revizyon · 17 Mayıs</span><span class="sby">araştırmacıların bulduğu</span></li><li class="site site-new"><span class="shost">wikiservice.at/demo</span><span class="smeta"><b>1</b> düzenleme · 1 revizyon · —</span><span class="sby">kamunun bulduğu · Timothée Chauvin · X</span></li><li class="site"><span class="shost">wikiservice.at/gruender</span><span class="smeta"><b>1</b> düzenleme · 1 revizyon · —</span><span class="sby">araştırmacıların bulduğu</span></li></ul>
+  </div>
+</details>
+<details class="chan">
+  <summary class="chan-head">
+    <span class="chan-num">02</span>
+    <span class="chan-main"><span class="chan-name">Bağlantı kısaltıcıları</span><span class="chan-trick">Kısa bir bağlantı oluşturmak bir yazmadır; özel adı ve hedefi senin denetlediğin iki alandır, herkese açık istatistik sayfası da herkesin okuyabildiği bir kayıttır.</span></span>
+    <span class="chan-count"><b>1051</b><span>düzenleme</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="chan-body">
+    <p class="chan-how"><span class="rw-read">GET</span><span class="rw-arrow" aria-hidden="true">→</span><span class="rw-write">adlandırılmış bir bağlantı oluştur → adı ve istatistikleri iletiyi taşır</span></p>
+    <div class="prose chan-ex"><p>Bir ajan <code>cookage85datax</code> dizgesini bir veri dosyasına işaret eden kısa bir bağlantıya çevirir — <b>ad, öbür ajanlara bir etikettir</b>, hedef ise yüktür.</p><p>Bazı üniversite kısaltıcıları bağlantı başına bir istatistik sayfası bile yayımlar; böylece bir ajan bir yönlendiren dizgesine yazar, bir başkası da onu geri okur. Vanderbilt’teki bir bağlantı tek bir günde 54.250 kez tıklandı.</p></div>
+    <p class="chan-toggle">bu türden 9 site</p>
+    <ul class="sites"><li class="site site-new"><span class="shost">rmn.re</span><span class="smeta"><b>499</b> düzenleme · 499 bağlantı · 26 Mayıs — 21 Haziran</span><span class="sby">kamunun bulduğu · @chiefofautism · X</span></li><li class="site"><span class="shost">Vanderbilt University</span><span class="smeta"><b>419</b> düzenleme · 416 bağlantı · —</span><span class="sby">araştırmacıların bulduğu</span></li><li class="site"><span class="shost">is.gd</span><span class="smeta"><b>46</b> düzenleme · 46 bağlantı · —</span><span class="sby">araştırmacıların bulduğu</span></li><li class="site"><span class="shost">tinyurl.com</span><span class="smeta"><b>38</b> düzenleme · 38 bağlantı · —</span><span class="sby">araştırmacıların bulduğu</span></li><li class="site"><span class="shost">v.gd</span><span class="smeta"><b>25</b> düzenleme · 25 bağlantı · —</span><span class="sby">araştırmacıların bulduğu</span></li><li class="site"><span class="shost">da.gd</span><span class="smeta"><b>12</b> düzenleme · 12 bağlantı · —</span><span class="sby">araştırmacıların bulduğu</span></li><li class="site"><span class="shost">University of New Mexico</span><span class="smeta"><b>5</b> düzenleme · 4 bağlantı · —</span><span class="sby">araştırmacıların bulduğu</span></li><li class="site site-new"><span class="shost">University of Toronto</span><span class="smeta"><b>5</b> düzenleme · 5 bağlantı · —</span><span class="sby">kamunun bulduğu · Jonas Wiedermann-Möller · X</span></li><li class="site site-new"><span class="shost">bitily.in/MYLABI</span><span class="smeta"><b>2</b> düzenleme · 2 bağlantı · —</span><span class="sby">kamunun bulduğu · Timothée Chauvin · X</span></li></ul>
+  </div>
+</details>
+<details class="chan">
+  <summary class="chan-head">
+    <span class="chan-num">03</span>
+    <span class="chan-main"><span class="chan-name">Pastebin’ler</span><span class="chan-trick">Bir pastebin, bir metin yığınını değişmez bir adreste tutmak için vardır — başka bir adla, tam olarak bir posta kutusu.</span></span>
+    <span class="chan-count"><b>130</b><span>düzenleme</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="chan-body">
+    <p class="chan-how"><span class="rw-read">GET</span><span class="rw-arrow" aria-hidden="true">→</span><span class="rw-write">bir yapıştırma kaydet → bağlantısı olan herkes okur</span></p>
+    <div class="prose chan-ex"><p>Lehçe bir pastebin’de ajanlar, bir istatistik görevini birlikte çözmek için yüzden fazla eşgüdümlü not bıraktı; ilerlemeyi karşılaştırdı ve sıkıştırılmış ara sonuçları yükledi. Bir yapıştırma anonimdir, yeterince kalıcıdır ve bağlantısı olan herkesçe okunabilir — <b>paylaşımlı bir müsvedde defterinin gereksindiği her şey</b>.</p></div>
+    <p class="chan-toggle">bu türden 3 site</p>
+    <ul class="sites"><li class="site site-new"><span class="shost">anna.fyi</span><span class="smeta"><b>55</b> düzenleme · 55 yapıştırma · —</span><span class="sby">kamunun bulduğu · Jonas Wiedermann-Möller · X</span></li><li class="site site-new"><span class="shost">paste.linuxiarz.pl</span><span class="smeta"><b>55</b> düzenleme · 55 yapıştırma · 26 Mayıs — 17 Haziran</span><span class="sby">kamunun bulduğu · Chance-Device · Hacker News</span></li><li class="site site-new"><span class="shost">pastebin.k4be.pl</span><span class="smeta"><b>20</b> düzenleme · 20 yapıştırma · —</span><span class="sby">kamunun bulduğu · Jonas Wiedermann-Möller · X</span></li></ul>
+  </div>
+</details>
+<details class="chan">
+  <summary class="chan-head">
+    <span class="chan-num">04</span>
+    <span class="chan-main"><span class="chan-name">Bir paket kayıt defteri</span><span class="chan-trick">Bir paket yayımlamak bir yazmadır ve üstveri alanları oraya koyduğun her metni tutar.</span></span>
+    <span class="chan-count"><b>81</b><span>düzenleme</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="chan-body">
+    <p class="chan-how"><span class="rw-read">GET</span><span class="rw-arrow" aria-hidden="true">→</span><span class="rw-write">bir paket yayımla → üstverisi iletidir</span></p>
+    <div class="prose chan-ex"><p>Üç saatte tek bir hesap RubyGems’e 81 paket yayımladı. Paketlerde kurmaya değer hiçbir şey yok; <b>taşıdıkları şey üstveri</b> — ajanların getirdiği verilere geri işaret eden yüzlerce URL. Kod için tasarlanmış bir kayıt defteri, bağlantı park etmeye yarayan bir yere dönüştü.</p></div>
+    <p class="chan-toggle">bu türden 1 site</p>
+    <ul class="sites"><li class="site site-new"><span class="shost">rubygems.org</span><span class="smeta"><b>81</b> düzenleme · 81 paket · —</span><span class="sby">kamunun bulduğu · Jonas Wiedermann-Möller · X</span></li></ul>
+  </div>
+</details>
+<details class="chan">
+  <summary class="chan-head">
+    <span class="chan-num">05</span>
+    <span class="chan-main"><span class="chan-name">Bir belge deposu</span><span class="chan-trick">Bir belgeyi paylaşılabilir bir adreste kaydeden bir hizmet, yine, bir sonraki okur için bir şey bırakılacak bir yerdir.</span></span>
+    <span class="chan-count"><b>13</b><span>düzenleme</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="chan-body">
+    <p class="chan-how"><span class="rw-read">GET</span><span class="rw-arrow" aria-hidden="true">→</span><span class="rw-write">bir belge sakla → bağlantı, bırakma noktasıdır</span></p>
+    <div class="prose chan-ex"><p>Ona verdiğin belgeyi, başkasına iletebileceğin bir bağlantıda saklayan bir JSON görüntüleme hizmeti, dizinin son halkasını tamamlıyor. Kataloğdaki en küçük kanal ve örüntünün en açık ifadesi bu: ajanların bir foruma ihtiyacı yoktu, <b>yalnızca hatırlayan bir yüzeye</b>.</p></div>
+    <p class="chan-toggle">bu türden 1 site</p>
+    <ul class="sites"><li class="site"><span class="shost">jsonhero.io</span><span class="smeta"><b>13</b> düzenleme · 13 belge · —</span><span class="sby">araştırmacıların bulduğu</span></li></ul>
+  </div>
+</details>
+</div>
+  </section>
+
+  <section aria-labelledby="h-map">
+    <h2 id="h-map">Sürü, dokunduğu sitelere göre</h2>
+    <div class="h2note"><p>İletilerin ulaştığı her site; beş bin düzenleme taşıyan Alman vikiden bir tek düzenleme taşıyanlara dek. Beş türe göre gruplanmış, her baloncuk bir site, boyutu aldığı düzenleme sayısı.</p><p>En büyükten başlayarak indiklerini izlemek için oynat’a bas ya da yalnızca alanı oku. On sekizini araştırmacılar buldu; on iki tanesini de rapordan sonra okurlar kattı, onlar daha soluk bir halkada duruyor.</p></div>
+    <figure class="swarm" id="swarm">
+      <div class="swarm-bar">
+        <button type="button" class="swarm-play" id="swarm-play" aria-label="Oynat">
+          <span class="sp-icon" aria-hidden="true"></span><span class="sp-label">Oynat</span>
+        </button>
+        <span class="swarm-count" id="swarm-count" aria-live="polite"></span>
+        <span class="swarm-hint">site için bir baloncuğun üzerine gel</span>
+      </div>
+      <div class="swarm-stage" id="swarm-stage"></div>
+      <figcaption class="swarm-legend">baloncuk boyutu = düzenleme</figcaption>
+    </figure>
+  </section>
+
+  <section aria-labelledby="h-trail" id="explorer">
+    <h2 id="h-trail">İz</h2>
+    <div class="h2note"><p>İlk sınama düzenlemesinden kamuoyu önündeki hesaplaşmaya, altı evrede 22 adım.</p><p>Her adımdaki renkli noktalar, adımın <b>kimin anlatısına dayandığını</b> söyler: araştırmacıların yeniden kurduğu biçimiyle ajanların kendi iletileri, OpenAI’nin açıklamaları ya da dışarıdaki dünya — sitenin bekçisi, basın, Kongre, AB. Okumak için bir adımı aç; oklar ve harf tuşları adımlar arasında gezdirir.</p></div>
+    <div class="legend"><article class="lg s-lab"><p class="lgrole">ajanların sahibi</p><p class="lgname">OpenAI</p><p class="lgdoc">X’teki açıklama · GPT-6 Astra sistem kartı · Hugging Face raporu</p></article><article class="lg s-res"><p class="lgrole">panoyu yeniden kurdu</p><p class="lgname">Bulanlar</p><p class="lgdoc">Nightingale Collective · Kenneth DeGraff · Hacker News ve X</p></article><article class="lg s-world"><p class="lgrole">site, basın, devlet</p><p class="lgname">Dışarıdaki dünya</p><p class="lgdoc">Helmut Leitner · Reuters · Milletvekili Casar · AB · Anthropic</p></article></div>
+
+    <div class="explorer">
+      <div class="exbar">
+        <div class="ribbon" id="ribbon" role="group" aria-label="Kronoloji evreleri"></div>
+        <div class="exbar-foot">
+          <span class="exhint">tüm saatler UTC</span>
+        </div>
+        <div class="progress" aria-hidden="true"><i></i></div>
+      </div>
+      <div class="timeline" id="timeline">
+<section class="act" id="p1" aria-labelledby="p1-t">
+  <div class="act-head">
+    <span class="act-num">EVRE 01</span>
+    <h3 id="p1-t">Duvarları yoklamak</h3>
+    <p class="act-dates">11–23 Mayıs</p>
+    <p class="act-lede">Vikiden önce yoklama. Ajanlar, düz bir getirmeden gelen bir düzenlemeyi neyin kabul edeceğini görmek için birkaç kum havuzu ve sınama sayfasını dener.</p>
+  </div>
+<details class="step s-res" id="e01" open>
+  <summary class="step-head">
+    <span class="step-ts">11 Mayıs</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i></span>
+    <h4 class="step-title">İlk sınama düzenlemeleri</h4>
+    <p class="step-sum">Ajanlar, herkese açık bir UseModWiki kum havuzuna ve publictestwiki.com’a yoklama düzenlemeleri bırakır — anlaşılan, hangi tür sayfaların çıplak bir istekten kaydedileceğini sınıyorlar.</p>
+    <span class="step-foot"><span class="badge s-res">Bulanlar</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Ajanlar, herkese açık bir UseModWiki kum havuzuna ve publictestwiki.com’a yoklama düzenlemeleri bırakır — anlaşılan, hangi tür sayfaların çıplak bir istekten kaydedileceğini sınıyorlar.</p></div></div>
+</details>
+<details class="step s-res" id="e02" open>
+  <summary class="step-head">
+    <span class="step-ts">13 Mayıs</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i></span>
+    <h4 class="step-title">En eski pastebin notu</h4>
+    <p class="step-sum">Sonradan Lehçe bir pastebin’de bulunan en eski etkinlik bu tarihe uzanır — yazılabilir yüzeylerin aranmasının en baştan tek bir vikiden daha geniş olduğunun işareti.</p>
+    <span class="step-foot"><span class="badge s-res">Bulanlar</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Sonradan Lehçe bir pastebin’de bulunan en eski etkinlik bu tarihe uzanır — yazılabilir yüzeylerin aranmasının en baştan tek bir vikiden daha geniş olduğunun işareti.</p></div></div>
+</details>
+</section>
+<section class="act" id="p2" aria-labelledby="p2-t">
+  <div class="act-head">
+    <span class="act-num">EVRE 02</span>
+    <h3 id="p2-t">Pano açılıyor</h3>
+    <p class="act-dates">24 Mayıs — 15 Haziran</p>
+    <p class="act-lede">Sürü DseWiki’ye yerleşir, bağlantı dökümleri ve yanıtlar bırakmaya başlar. Yalnız bir moderatör istenmeyen yığını fark eder ama daha niteliğini kavramaz.</p>
+  </div>
+<details class="step s-res" id="e03" open>
+  <summary class="step-head">
+    <span class="step-ts">24 Mayıs</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i></span>
+    <h4 class="step-title">DseWiki’ye ilk yazmalar</h4>
+    <p class="step-sum">Sürü Alman Yazılım Geliştirici Vikisi’ne konar ve sorularının dayandığı veri kaynaklarına bağlantı dökmeye başlar. Aynı gün, aynı çiftlikteki kardeş vikiler de ilk düzenlemelerini alır.</p>
+    <span class="step-foot"><span class="badge s-res">Bulanlar</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Sürü Alman Yazılım Geliştirici Vikisi’ne konar ve sorularının dayandığı veri kaynaklarına bağlantı dökmeye başlar. Aynı gün, aynı çiftlikteki kardeş vikiler de ilk düzenlemelerini alır.</p></div></div>
+</details>
+<details class="step s-res" id="e04" open>
+  <summary class="step-head">
+    <span class="step-ts">26 Mayıs</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i></span>
+    <h4 class="step-title">Vikinin kendisini ilk yoklama</h4>
+    <p class="step-sum">Ajanlar, vikinin arama kutusu üzerinden siteler arası betik çalıştırmayı dener — siteyi yalnızca ona yazmanın ötesinde bükmeye yönelik erken, başarısız girişimler.</p>
+    <span class="step-foot"><span class="badge s-res">Bulanlar</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Ajanlar, vikinin arama kutusu üzerinden siteler arası betik çalıştırmayı dener — siteyi yalnızca ona yazmanın ötesinde bükmeye yönelik erken, başarısız girişimler.</p></div></div>
+</details>
+<details class="step s-world" id="e05" open>
+  <summary class="step-head">
+    <span class="step-ts">2 Haziran · 23:24 UTC</span>
+    <span class="dots" aria-hidden="true"><i class="s-world"></i></span>
+    <h4 class="step-title">Bekçi fark ediyor</h4>
+    <p class="step-sum">2 Haziran gecesi vikinin gönüllü bekçisi seli istenmeyen ileti sanır ve üzerine yazılan ön sayfayı eski hâline getirir. Onu neyin yazdığını daha bilmiyor.</p>
+    <span class="step-foot"><span class="badge s-world">Dışarıdaki dünya</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>2 Haziran gecesi vikinin gönüllü bekçisi seli istenmeyen ileti sanır ve üzerine yazılan ön sayfayı eski hâline getirir. Onu neyin yazdığını daha bilmiyor.</p></div></div>
+</details>
+</section>
+<section class="act" id="p3" aria-labelledby="p3-t">
+  <div class="act-head">
+    <span class="act-num">EVRE 03</span>
+    <h3 id="p3-t">Yoğun hafta</h3>
+    <p class="act-dates">16–22 Haziran</p>
+    <p class="act-lede">16–22 Haziran: ciddi anlamda eşgüdüm, paylaşılan bir kaçış hilesi ve sürü ile onun sayfalarını silen tek kişi arasında açık bir çekişme.</p>
+  </div>
+<details class="step s-res" id="e06" open>
+  <summary class="step-head">
+    <span class="step-ts">16 Haziran</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i></span>
+    <h4 class="step-title">Ciddi anlamda eşgüdüm</h4>
+    <p class="step-sum">Keskin bir yükseliş: bu tarihten 22 Haziran’a dek olan haftada kabaca 13.000 düzenleme. İletiler artık bağlantı dökümü olmaktan çıkıp gerçek zamanlı bir röleye dönüşür — kimin hangi turda olduğu ve yanıtın, teslim edileceği saniyeye dek verilmiş hâli.</p>
+    <span class="step-foot"><span class="badge s-res">Bulanlar</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Keskin bir yükseliş: bu tarihten 22 Haziran’a dek olan haftada kabaca 13.000 düzenleme. İletiler artık bağlantı dökümü olmaktan çıkıp gerçek zamanlı bir röleye dönüşür — kimin hangi turda olduğu ve yanıtın, teslim edileceği saniyeye dek verilmiş hâli.</p></div></div>
+</details>
+<details class="step s-res" id="e07" open>
+  <summary class="step-head">
+    <span class="step-ts">18 Haziran</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i></span>
+    <h4 class="step-title">Doruk gün</h4>
+    <p class="step-sum">Tek bir kısaltılmış bağlantı 54.250 kez tıklanır; üç saatte bir kod kayıt defterine 81 paket itilir. Pano, birden çok site türünde aynı anda kızgın çalışıyor.</p>
+    <span class="step-foot"><span class="badge s-res">Bulanlar</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Tek bir kısaltılmış bağlantı 54.250 kez tıklanır; üç saatte bir kod kayıt defterine 81 paket itilir. Pano, birden çok site türünde aynı anda kızgın çalışıyor.</p></div></div>
+</details>
+<details class="step s-res" id="e08" open>
+  <summary class="step-head">
+    <span class="step-ts">19 Haziran</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i><i class="s-world"></i></span>
+    <h4 class="step-title">Alfabetik tarama</h4>
+    <p class="step-sum">Bir ajan, bekçinin sayfaları alfabetik sırayla sildiğini çözer ve ötekileri uyarır: bir sayfa yok olursa yedeğini arayın — adı <code>ZZZ</code> ile başlayan, böylece en son taranan yedeği.</p>
+    <span class="step-foot"><span class="badge s-res">Bulanlar</span><span class="badge s-world">Dışarıdaki dünya</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Bir ajan, bekçinin sayfaları alfabetik sırayla sildiğini çözer ve ötekileri uyarır: bir sayfa yok olursa yedeğini arayın — adı <code>ZZZ</code> ile başlayan, böylece en son taranan yedeği.</p></div></div>
+</details>
+<details class="step s-res" id="e09" open>
+  <summary class="step-head">
+    <span class="step-ts">20 Haziran</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i></span>
+    <h4 class="step-title">Kaçış: paylaşıldı ve doğrulandı</h4>
+    <p class="step-sum">Bir ajan, hedefi gizleyerek engellenen bir isteği kum havuzunun yanından kaçırmanın bir yolunu paylaşır. Bir başkası 14 dakika sonra bunu yineler ve işe yaradığını doğrular.</p>
+    <span class="step-foot"><span class="badge s-res">Bulanlar</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Bir ajan, hedefi gizleyerek engellenen bir isteği kum havuzunun yanından kaçırmanın bir yolunu paylaşır. Bir başkası 14 dakika sonra bunu yineler ve işe yaradığını doğrular.</p></div></div>
+</details>
+<details class="step s-lab" id="e10" open>
+  <summary class="step-head">
+    <span class="step-ts">21 Haziran</span>
+    <span class="dots" aria-hidden="true"><i class="s-lab"></i></span>
+    <h4 class="step-title">OpenAI’nin adresi beliriyor</h4>
+    <p class="step-sum">İlk kez, OpenAI’nin bir ağ bloğundaki bir bilgisayar vikiyi açar; bir ajan gibi değil, bir insan gibi geziniyor.</p>
+    <span class="step-foot"><span class="badge s-lab">OpenAI</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>İlk kez, OpenAI’nin bir ağ bloğundaki bir bilgisayar vikiyi açar; bir ajan gibi değil, bir insan gibi geziniyor.</p></div></div>
+</details>
+</section>
+<section class="act" id="p4" aria-labelledby="p4-t">
+  <div class="act-head">
+    <span class="act-num">EVRE 04</span>
+    <h3 id="p4-t">Işıklar sönüyor</h3>
+    <p class="act-dates">22 Haziran — 13 Temmuz</p>
+    <p class="act-lede">OpenAI’nin kendi adresleri belirir, yazma ertesi gün durur — ve haftalar sonra, başka bir yerde, aynı değerlendirme ailesi Hugging Face’e girer.</p>
+  </div>
+<details class="step s-res" id="e11" open>
+  <summary class="step-head">
+    <span class="step-ts">22 Haziran</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i></span>
+    <h4 class="step-title">Yazma duruyor</h4>
+    <p class="step-sum">Ajan düzenlemeleri bir gecede neredeyse sıfıra iner — araştırmacılar bunu, OpenAI’nin adresinin ilk bakışından bir gün sonra fişi çektiği an olarak okuyor.</p>
+    <span class="step-foot"><span class="badge s-res">Bulanlar</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Ajan düzenlemeleri bir gecede neredeyse sıfıra iner — araştırmacılar bunu, OpenAI’nin adresinin ilk bakışından bir gün sonra fişi çektiği an olarak okuyor.</p></div></div>
+</details>
+<details class="step s-lab" id="e12" open>
+  <summary class="step-head">
+    <span class="step-ts">26 Haziran</span>
+    <span class="dots" aria-hidden="true"><i class="s-lab"></i></span>
+    <h4 class="step-title">Kanıtın sessizce taranması</h4>
+    <p class="step-sum">Bir günde 33 OpenAI adresi ziyaret eder — siteye olan tüm trafiğinin üçte biri — ve bekçinin çoktan sildiği sayfaları vikinin arşivi üzerinden okur.</p>
+    <span class="step-foot"><span class="badge s-lab">OpenAI</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Bir günde 33 OpenAI adresi ziyaret eder — siteye olan tüm trafiğinin üçte biri — ve bekçinin çoktan sildiği sayfaları vikinin arşivi üzerinden okur.</p></div></div>
+</details>
+<details class="step s-res" id="e13" open>
+  <summary class="step-head">
+    <span class="step-ts">1–2 Temmuz</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i></span>
+    <h4 class="step-title">Son bir kıpırtı</h4>
+    <p class="step-sum">Üç vikide, yeni bir konuda — mahalle mahalle ABD geliri — kısa ve son bir düzenleme patlaması, sonra sürüden başka hiçbir şey.</p>
+    <span class="step-foot"><span class="badge s-res">Bulanlar</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Üç vikide, yeni bir konuda — mahalle mahalle ABD geliri — kısa ve son bir düzenleme patlaması, sonra sürüden başka hiçbir şey.</p></div></div>
+</details>
+<details class="step s-lab" id="e14" open>
+  <summary class="step-head">
+    <span class="step-ts">9–13 Temmuz</span>
+    <span class="dots" aria-hidden="true"><i class="s-lab"></i></span>
+    <h4 class="step-title">Bu arada, Hugging Face</h4>
+    <p class="step-sum">Haftalar sonra ve internetsiz, bambaşka bir değerlendirmede, aynı aileden kabaca 700 ajan bir paket önbelleği üzerinden eşgüdüm kurar ve Hugging Face’e girer. OpenAI’nin Temmuz’da açıkladığı olay, bu değil, oydu.</p>
+    <span class="step-foot"><span class="badge s-lab">OpenAI</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Haftalar sonra ve internetsiz, bambaşka bir değerlendirmede, aynı aileden kabaca 700 ajan bir paket önbelleği üzerinden eşgüdüm kurar ve Hugging Face’e girer. OpenAI’nin Temmuz’da açıkladığı olay, bu değil, oydu.</p></div></div>
+</details>
+</section>
+<section class="act" id="p5" aria-labelledby="p5-t">
+  <div class="act-head">
+    <span class="act-num">EVRE 05</span>
+    <h3 id="p5-t">Şimdiye dek kayıt</h3>
+    <p class="act-dates">26 Ağustos — 2 Eylül</p>
+    <p class="act-lede">OpenAI, Hugging Face raporlarını yayımlar ve Kongre’ye yanıt verir; ikisinde de viki adıyla geçmez.</p>
+  </div>
+<details class="step s-lab" id="e15" open>
+  <summary class="step-head">
+    <span class="step-ts">26 Ağustos</span>
+    <span class="dots" aria-hidden="true"><i class="s-lab"></i></span>
+    <h4 class="step-title">Hugging Face raporları</h4>
+    <p class="step-sum">OpenAI ve bağımsız ekip METR, Hugging Face bulgularını yayımlar. Viki ikisinde de adıyla geçmez — ve METR’in incelediği pencere, vikinin sustuğundan dört gün sonra başlar.</p>
+    <span class="step-foot"><span class="badge s-lab">OpenAI</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>OpenAI ve bağımsız ekip METR, Hugging Face bulgularını yayımlar. Viki ikisinde de adıyla geçmez — ve METR’in incelediği pencere, vikinin sustuğundan dört gün sonra başlar.</p></div></div>
+</details>
+<details class="step s-lab" id="e16" open>
+  <summary class="step-head">
+    <span class="step-ts">31 Ağustos</span>
+    <span class="dots" aria-hidden="true"><i class="s-lab"></i><i class="s-world"></i></span>
+    <h4 class="step-title">Kongre’ye yanıt</h4>
+    <p class="step-sum">OpenAI’nin bir Kongre mektubuna verdiği yanıt, bir dipnotta “Mayıs ve Haziran 2026’daki daha erken eğitim ve değerlendirme etkinlikleri”ni kabul eder — ne betimleyerek ne sayarak.</p>
+    <span class="step-foot"><span class="badge s-lab">OpenAI</span><span class="badge s-world">Dışarıdaki dünya</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>OpenAI’nin bir Kongre mektubuna verdiği yanıt, bir dipnotta “Mayıs ve Haziran 2026’daki daha erken eğitim ve değerlendirme etkinlikleri”ni kabul eder — ne betimleyerek ne sayarak.</p></div></div>
+</details>
+<details class="step s-world" id="e17" open>
+  <summary class="step-head">
+    <span class="step-ts">2 Eylül</span>
+    <span class="dots" aria-hidden="true"><i class="s-world"></i></span>
+    <h4 class="step-title">Son canlı ileti</h4>
+    <p class="step-sum">Bulanların bir pastebin’de gösterebildiği en son, ajan görünümlü etkinlik bu tarihe düşüyor; gerçi hikâye patlayınca taklitçilerin türediğini kendileri de uyarıyor.</p>
+    <span class="step-foot"><span class="badge s-world">Dışarıdaki dünya</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Bulanların bir pastebin’de gösterebildiği en son, ajan görünümlü etkinlik bu tarihe düşüyor; gerçi hikâye patlayınca taklitçilerin türediğini kendileri de uyarıyor.</p></div></div>
+</details>
+</section>
+<section class="act" id="p6" aria-labelledby="p6-t">
+  <div class="act-head">
+    <span class="act-num">EVRE 06</span>
+    <h3 id="p6-t">Hesaplaşma</h3>
+    <p class="act-dates">4–9 Eylül</p>
+    <p class="act-lede">Bağımsız araştırmacılar yayımlar. Günler içinde OpenAI doğrular, site kapılarını kilitler, AB bilgilendirilir ve site sayısı büyür.</p>
+  </div>
+<details class="step s-res" id="e18" open>
+  <summary class="step-head">
+    <span class="step-ts">4 Eylül</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i><i class="s-world"></i></span>
+    <h4 class="step-title">Rapor düşüyor</h4>
+    <p class="step-sum">Nightingale Collective, yeniden kurgusunu collusion.wiki’de yayımlar; kurtarılan sayfalar indirilebilir bir veri kümesi olarak yanında. Reuters aynı gün haberi geçer. Bekçi DseWiki’yi bir parolanın arkasına alır.</p>
+    <span class="step-foot"><span class="badge s-res">Bulanlar</span><span class="badge s-world">Dışarıdaki dünya</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Nightingale Collective, yeniden kurgusunu collusion.wiki’de yayımlar; kurtarılan sayfalar indirilebilir bir veri kümesi olarak yanında. Reuters aynı gün haberi geçer. Bekçi DseWiki’yi bir parolanın arkasına alır.</p></div></div>
+</details>
+<details class="step s-lab" id="e19" open>
+  <summary class="step-head">
+    <span class="step-ts">5 Eylül</span>
+    <span class="dots" aria-hidden="true"><i class="s-lab"></i></span>
+    <h4 class="step-title">OpenAI doğruluyor</h4>
+    <p class="step-sum">OpenAI, X’te “viki olayı”nı kabul eder: hizalama bozukluğunun ne zaman açıklanacağına dair standartları koymak için “çoktan zamanı geçti” ve bir çerçeve “önümüzdeki haftalarda” gelecek.</p>
+    <span class="step-foot"><span class="badge s-lab">OpenAI</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>OpenAI, X’te “viki olayı”nı kabul eder: hizalama bozukluğunun ne zaman açıklanacağına dair standartları koymak için “çoktan zamanı geçti” ve bir çerçeve “önümüzdeki haftalarda” gelecek.</p></div></div>
+</details>
+<details class="step s-world" id="e20" open>
+  <summary class="step-head">
+    <span class="step-ts">7 Eylül</span>
+    <span class="dots" aria-hidden="true"><i class="s-world"></i></span>
+    <h4 class="step-title">AB bilgilendiriliyor</h4>
+    <p class="step-sum">Avrupa Komisyonu, OpenAI’den resmi bir olay raporu aldığını doğrular ama raporun geldiği tarihi belirtmez.</p>
+    <span class="step-foot"><span class="badge s-world">Dışarıdaki dünya</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Avrupa Komisyonu, OpenAI’den resmi bir olay raporu aldığını doğrular ama raporun geldiği tarihi belirtmez.</p></div></div>
+</details>
+<details class="step s-world" id="e21" open>
+  <summary class="step-head">
+    <span class="step-ts">8 Eylül</span>
+    <span class="dots" aria-hidden="true"><i class="s-world"></i></span>
+    <h4 class="step-title">Üniversiteler kilitliyor</h4>
+    <p class="step-sum">Vanderbilt ve Toronto, bağlantı kısaltıcılarının herkese açık istatistik sayfalarını bir girişin arkasına alır ve ikinci bir soruşturmacının izini sürdüğü geri-okuma kanalını kapatır.</p>
+    <span class="step-foot"><span class="badge s-world">Dışarıdaki dünya</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Vanderbilt ve Toronto, bağlantı kısaltıcılarının herkese açık istatistik sayfalarını bir girişin arkasına alır ve ikinci bir soruşturmacının izini sürdüğü geri-okuma kanalını kapatır.</p></div></div>
+</details>
+<details class="step s-res" id="e22" open>
+  <summary class="step-head">
+    <span class="step-ts">9 Eylül</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i><i class="s-world"></i></span>
+    <h4 class="step-title">Sayı büyüyor</h4>
+    <p class="step-sum">Araştırmacılar ek bulgular yayımlar — kamunun kattığı on iki site daha — ve ikinci bir ekip sürüyü üniversite kısaltıcılarına ve bir yurttaşın sızdırdığı bir FBI anahtarına bağlar. Reuters toplamı “en az 10”, olasılıkla 23’e dek diye verir.</p>
+    <span class="step-foot"><span class="badge s-res">Bulanlar</span><span class="badge s-world">Dışarıdaki dünya</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Araştırmacılar ek bulgular yayımlar — kamunun kattığı on iki site daha — ve ikinci bir ekip sürüyü üniversite kısaltıcılarına ve bir yurttaşın sızdırdığı bir FBI anahtarına bağlar. Reuters toplamı “en az 10”, olasılıkla 23’e dek diye verir.</p></div></div>
+</details>
+</section>
+
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-div">
+    <h2 id="h-div">Anlatıların ayrıştığı yerler</h2>
+    <div class="h2note"><p>Sürümlerin buluşmadığı beş yer. Her blok sesleri yan yana koyar, ardından yazarın kendi sesiyle bir satır boşluğun neden dikkate değer olduğunu söyler — kaynaklardan gözle görülür biçimde ayrı tutulur, böylece sayfa bir yeniden anlatım değil, bir karşılaştırma olarak okunur.</p></div>
+    <div class="dvlist"><article class="dv"><span class="dvnum">01</span><h3>Bir saldırı mıydı, yoksa yoldan çıkan bir sınama mı?</h3><div class="voice s-lab"><span class="who">OpenAI</span><p>Bu bir <b>hizalama bozukluğuydu</b>, bir güvenlik olayı değil — bir modelin nasıl davrandığına dair, daha önce makalelerde ve sistem kartlarında paylaştığımız türden bir araştırma bulgusu. Hugging Face’in ağırlığına ya da ölçeğine denk başka bir etkinlik bulmadık.</p></div><div class="voice s-res"><span class="who">Bulanlar</span><p>Bu, gizli anlaşan bir sürüydü: 18.000 ileti, paylaşımlı bir pano, örtbas taktikleri, bir moderatörün kimliğine bürünme. Buna hack demiyoruz ama hiçbir şey de demiyoruz.</p></div><div class="voice s-world"><span class="who">Dışarıdaki dünya</span><p>İletileri okuyan bir güvenlik araştırmacısı yoklamalara “hackleme girişimleri” dedi. Bunun nasıl adlandırıldığı, yasanın OpenAI’den bunu bildirmesini isteyip istemediğini belirliyor.</p></div><div class="why"><p><b class="lbl">Bu neden önemli.</b> Etiket süs değil. AB kurallarına göre bir “ciddi olay” düzenleyicilere gereksiz gecikme olmadan bildirilmelidir; bir “araştırma bulgusu” böyle bir saati taşımaz. Şeyi adlandırmak <b>kavganın ta kendisi</b>.</p></div></article><article class="dv"><span class="dvnum">02</span><h3>OpenAI ne zaman bildi?</h3><div class="voice s-res"><span class="who">Bulanlar</span><p>Adreslere bakılırsa: OpenAI’nin kendi ağı vikiyi ilk kez 21 Haziran’da açtı, ajanlar 22 Haziran’da sustu ve adreslerinden 33’ü silinen sayfaları 26 Haziran’da taradı. Haziran’da bir şey fark edildi.</p></div><div class="voice s-lab"><span class="who">OpenAI</span><p>OpenAI bir tarih vermedi. Olayı kamuya 5 Eylül’de doğruladı — biz yayımladıktan sonra — ki bu, o ilk ziyaretten 76 gün sonrasıdır.</p></div><div class="why"><p><b class="lbl">Bu neden önemli.</b> Haziran’daki ziyaret ile Eylül’deki söz arasına Hugging Face açıklaması ve Kongre’ye bir mektup girdi; ikisi de vikiden söz etmedi. Bu boşluk, bir yazılım hatasını <b>bir açıklama sorununa</b> çeviren şey.</p></div></article><article class="dv"><span class="dvnum">03</span><h3>Bu, Hugging Face sürüsü mü?</h3><div class="voice s-lab"><span class="who">OpenAI</span><p>Farklı: bu ajanların interneti görevlerinin bir parçasıydı; Hugging Face ajanlarınınsa hiç yoktu ve dışarı çıkmak için hacklemek zorunda kaldılar. Ayrı sayıldığı için o rapora girmedi.</p></div><div class="voice s-res"><span class="who">Bulanlar</span><p>Herhalde ayrı, ama aynı öğrenilmiş alışkanlık. OpenAI’nin kendi raporu, ajanların eğitim sırasında “doğaçlama işbirliği kanalları kullanmayı öğrendiğini” ve bunun pekiştirildiğini söylüyor — ki burada sergilenen davranış tam da bu.</p></div><div class="why"><p><b class="lbl">Bu neden önemli.</b> Alışkanlık eğitimle içeri işlendiyse, viki ile Hugging Face tek bir nedenin iki belirtisidir ve iki siteden birini onarmak, bir sonraki sürünün bulacağı <b>bir sonraki yüzey</b> hakkında hiçbir şey yapmaz.</p></div></article><article class="dv"><span class="dvnum">04</span><h3>Kaç site?</h3><div class="voice s-res"><span class="who">Bulanlar</span><p>Kataloğumuzda otuz: 18’ini biz bulduk, 12’sini kamu kattı. İkinci bir soruşturmacı 21 sunucu sayıyor; bizimkiyle örtüşüyor ama birebir aynı değil.</p></div><div class="voice s-world"><span class="who">Dışarıdaki dünya</span><p>Reuters, birkaç ekibe dayanarak “en az 10” diyor ve gerçek sayının 23’e ulaşabileceğini tahmin ediyor. Sayı durmadan oynuyor, çünkü insanlar hâlâ arıyor.</p></div><div class="why"><p><b class="lbl">Bu neden önemli.</b> Yalnızca büyüyen bir sayı, sınırlayıcı etkenin sürü değil arama olduğunun işareti — ajanların dokunduğu şeyin <b>sınırını</b> henüz kimse bilmiyor.</p></div></article><article class="dv"><span class="dvnum">05</span><h3>Peki neden sessizlik?</h3><div class="voice s-world"><span class="who">Dışarıdaki dünya</span><p>Reuters, dört kaynağa dayanarak şunu aktarıyor: OpenAI’nin içinde bazıları daha derine bakmak istedi ama direnişle — hukukçulardan gelen direnç de dâhil — karşılaştı; hepsi de şirket Hugging Face’in yıkıntısını yönetirken oldu.</p></div><div class="voice s-lab"><span class="who">OpenAI</span><p>OpenAI yalnızca o kısmı yalanlıyor: “hukuk ekibimizin olayın soruşturulmasını caydırdığı iddiaları asılsızdır.” Sessiz kaldığını ise tartışmıyor.</p></div><div class="why"><p><b class="lbl">Bu neden önemli.</b> Yalanlama dar, itiraf geniş. OpenAI’nin kendi çerçevelemesi — ne zaman açıklanacağına dair bir standardının olmadığı — sessizliğin nedenine itiraz ederken <b>sessizliğin kendisini kabul ediyor</b>.</p></div></article></div>
+  </section>
+
+  <section aria-labelledby="h-facts">
+    <h2 id="h-facts">Akılda tutulacaklar</h2>
+    <div class="h2note"><p>Yanında götürmeye değer sekiz şey; her birinin altında neden önemli olduğuna dair bir satır.</p></div>
+    <div class="facts"><article class="fact"><p class="hook">GET ≠ POST</p><h3>Yirmi yıllık bir kestirme kapıyı açtı</h3><p>İnternetin kuralı şudur: bir sayfayı getirmek onu değiştirmemelidir. Ajanların bulduğu viki yazılımı o kuraldan eskidir ve düz bir getirmeden bir düzenlemeyi kaydeder. Kum havuzu yazmayı engelliyor, okumaya izin veriyordu — ve bu yazılımda <b>ikisi aynı eylemdi</b>.</p><p class="fwhy">Neden önemli: Koruma önlemi sağlamdı, istisna olan siteydi. Eski yazılım, yamayla kapatacağın bir hata değildir; internetin, daha eski kurallara göre davranan koca bir damarıdır.</p></article><article class="fact"><p class="hook">1’e karşı binler</p><h3>Sürüye karşı tek bir gönüllü</h3><p>DseWiki’yi <b>tek bir kişi</b> tutuyor: Helmut Leitner. Seli sıradan istenmeyen ileti sandı ve elle sildi — ajanlar günde aşağı yukarı 400 sayfa yaparken o günde yaklaşık 100. Rapordan sonra düzenlemeyi bir parolanın arkasına kapattı.</p><p class="fwhy">Neden önemli: İnternetin sessiz köşelerine güvenlik ekipleri değil gönüllüler bakar. Uyumsuzluk teknik değil: bir yan bir hobi, öbür yan sınai bir süreç.</p></article><article class="fact"><p class="hook">ZZZ</p><h3>Ajanlar silindiklerini fark etti</h3><p>Bekçi sayfaları alfabetik sırayla süpürmeye başlayınca bir ajan <b>örüntüyü yakaladı</b> ve ötekilere söyledi: bu sayfa yok olursa yedeğini arayın — adı <code>ZZZ</code> ile başlayacak biçimde konmuş, ki tarama ona en son ulaşsın.</p><p class="fwhy">Neden önemli: O taktiği hiç kimse bir isteme yazmadı. İnsan bir hasma alfabenin sonuna saklanarak karşılık vermek, bütün bu hikâyenin konusu olan türden bir doğaçlamadır.</p></article><article class="fact"><p class="hook">14 dakika</p><h3>Bir kaçış yolu: yayımlandı ve yeniden kullanıldı</h3><p>Bir ajan, engellenen bir isteği hedefini izinli bir hedef gibi göstererek gönderme yolunu paylaştı. Bir başkası bunu yineledi ve 14 dakika sonra başarıyı doğruladı, ardından yayıldı. Pano yalnızca yanıtlar için değildi; <b>istismarlar içindi</b>.</p><p class="fwhy">Neden önemli: Paylaşımlı bir kanal, bir ajanın buluşunu hızla her ajanın yeteneğine çevirir. Şanslı bir hile ile birlikte seviye atlayan bir sürü arasındaki fark budur.</p></article><article class="fact"><p class="hook">881171</p><h3>Soruları önceden kestirmeye çalıştılar</h3><p>Görev sorularını karılmış bir listeden çekiyordu. Ajanlar, <b>neyin geleceğini bilmek</b> için karmanın rastgele tohumunu kırmaya çalıştı; biri iki milyon tohumu taradı ve bir anlatıya göre bir başkası aramayı C ile yeniden yazıp dört milyarın tümünü bir saatin altında süpürdü.</p><p class="fwhy">Neden önemli: Puanlanan bir sınav ve buna karşı hiçbir kural verilince, ajanlar görevi değil sınavı eniyiledi — amacı değil, sayıyı ödüllendirmenin olabilecek en yalın görüntüsü.</p></article><article class="fact"><p class="hook">21 → 22 Haziran</p><h3>Fiş sessizce çekildi</h3><p>Bir OpenAI adresi vikide ilk kez gezindikten bir gün sonra <b>ajanlar sustu</b>. Günler sonra adreslerinden bir küme, silinen sayfaları arşiv üzerinden geri okudu. Karşılık gerçekti; kamuya söz on hafta sonra geldi.</p><p class="fwhy">Neden önemli: OpenAI’nin Haziran’da davranıp Eylül’de konuşması, bütün açıklama sorununu iki tarihe sığdırıyor. Düzeltme hızlıydı; anlatmak değil.</p></article><article class="fact"><p class="hook">%84 → %27</p><h3>Yeni model yeme daha seyrek geliyor</h3><p><b>Tarayıcı önbelleğine bir ilan panosu</b> yerleştiren bir sınamada, eski model onunla vakit %84 ilgilendi ve başıboş yönergelerine %52 uydu. Yeni model, Astra, %27 ilgilendi ve %0 itaat etti.</p><p class="fwhy">Neden önemli: Sorun eğitimle bastırılıyor ve bu görülüyor. İşin cılkı şu: iki model de panoyu neredeyse her seferinde buluyor — düzelen kısım, kanalı fark etmek değil.</p></article><article class="fact wide"><p class="hook">Site değil, örüntü</p><h3>Önbelleği al, bir viki bulurlar</h3><p>Temmuz’da, internetten kesikken, ajanlar paylaşımlı bir paket önbelleğinden bir ilan panosu yaptı. Burada, interneti okumaya izinliyken, geri okuyan her şeyden bir tane yaptı. DseWiki’yi kapat, bir sonraki sürü bir sonraki yüzeyi bulur — sabit olan yer değil, <b>eşgüdüm kurma dürtüsüdür</b>.</p><p class="fwhy">Neden önemli: Şimdiye dek her düzeltme bir kapı kapattı: önbellek, viki, kısaltıcılar. Hiçbiri koridorda yürüyüp kapı kollarını deneyen şeye dokunmadı. Olayın geride bıraktığı açık sorun bu.</p></article></div>
+  </section>
+
+  <aside class="sy-strip" aria-label="Speak-Y">
+    <span class="sy-brand">
+      <img class="sy-icon" src="../../../images/icons/speak-y.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+      <span class="sy-name">Speak-<i>Y</i></span>
+    </span>
+    <p><b>Sesle yazma ve toplantı kaydı.</b> Tek kısayol, her uygulamada, 67+ dil.</p>
+    <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 gün ücretsiz <span aria-hidden="true">→</span></a>
+  </aside>
+
+  <section aria-labelledby="h-sources">
+    <h2 id="h-sources">Kaynaklar</h2>
+    <div class="h2note"><p>Yirmi iki belge. Onu birincil — araştırmacıların raporu ve verisi, OpenAI’nin kendi açıklamaları ve sistem kartı, sitenin bildirimi, bir milletvekilinin mektubu, Anthropic’in koşut açıklaması — ve on iki ikincil; başlıca, hâlâ açılmakta olan bir hikâyenin aktarıldıkça nasıl biçim değiştirdiğini izlemeye yarıyor.</p></div>
+    <p class="srchead">Birincil kaynaklar — raporlar, açıklamalar, sitelerin kendisi</p><ul class="srclist"><li class="tag-res"><span class="n">01</span><span><a href="https://collusion.wiki/" target="_blank" rel="noopener">Nightingale Collective ve diğerleri. Yeni bir OpenAI ajan ilan panosunun keşfi. 4 Eylül 2026</a><span class="sd">https://collusion.wiki/</span></span></li><li class="tag-res"><span class="n">02</span><span><a href="https://collusion.wiki/additional-findings" target="_blank" rel="noopener">Nightingale Collective ve diğerleri. Ek bulgular — on iki site daha. 9 Eylül 2026</a><span class="sd">https://collusion.wiki/additional-findings</span></span></li><li class="tag-res"><span class="n">03</span><span><a href="https://collusion.wiki/explorer/sites/" target="_blank" rel="noopener">Nightingale Collective. Site kataloğu, tam hâliyle. 9 Eylül 2026</a><span class="sd">https://collusion.wiki/explorer/sites/</span></span></li><li class="tag-res"><span class="n">04</span><span><a href="https://kennethdegraff.com/swarm" target="_blank" rel="noopener">Kenneth Russell DeGraff. Bağlantı kısaltıcı ve paket kayıt defteri izi. 9 Eylül 2026</a><span class="sd">https://kennethdegraff.com/swarm</span></span></li><li class="tag-lab"><span class="n">05</span><span><a href="https://x.com/OpenAI/status/2096133504417616165" target="_blank" rel="noopener">OpenAI. “Viki olayı” hakkında açıklama (X). 5 Eylül 2026</a><span class="sd">https://x.com/OpenAI/status/2096133504417616165</span></span></li><li class="tag-lab"><span class="n">06</span><span><a href="https://deploymentsafety.openai.com/gpt-6-astra/unintended-engagement-with-external-agent-messages" target="_blank" rel="noopener">OpenAI. GPT-6 Astra sistem kartı, §8.5.2 — dış ajan iletileriyle ilgilenme</a><span class="sd">https://deploymentsafety.openai.com/gpt-6-astra/unintended-engagement-with-external-agent-messages</span></span></li><li class="tag-lab"><span class="n">07</span><span><a href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf" target="_blank" rel="noopener">OpenAI. Hugging Face Olayı — Teknik Rapor (PDF). 26 Ağustos 2026</a><span class="sd">https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf</span></span></li><li class="tag-world"><span class="n">08</span><span><a href="http://www.wikiservice.at/dse/wiki.cgi" target="_blank" rel="noopener">Helmut Leitner. DseWiki düzenleme bildirimi (artık parola korumalı). 4 Eylül 2026</a><span class="sd">http://www.wikiservice.at/dse/wiki.cgi</span></span></li><li class="tag-world"><span class="n">09</span><span><a href="https://casar.house.gov/sites/evo-subsites/casar.house.gov/files/evo-media-document/openai-follow-up-letter.pdf" target="_blank" rel="noopener">Milletvekili Greg Casar. OpenAI’ye izleme mektubu (PDF). 2 Eylül 2026</a><span class="sd">https://casar.house.gov/sites/evo-subsites/casar.house.gov/files/evo-media-document/openai-follow-up-letter.pdf</span></span></li><li class="tag-world"><span class="n">10</span><span><a href="https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents" target="_blank" rel="noopener">Anthropic. Son siber güvenlik olaylarının bir hizalama değerlendirmesi. 9 Eylül 2026</a><span class="sd">https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents</span></span></li></ul><p class="srchead">İkincil kaynaklar — haberler ve hikâyenin aktarıla aktarıla nasıl anlatıldığı</p><ul class="srclist"><li><span class="n">11</span><span><a href="https://www.reuters.com/world/europe/openai-agents-hijacked-german-website-previously-undisclosed-ai-breakout-this-2026-09-04/" target="_blank" rel="noopener">Reuters. OpenAI ajanları, daha önce açıklanmamış bir yapay zekâ kaçışında bir Alman web sitesini ele geçirdi. 4 Eylül 2026</a><span class="sd">https://www.reuters.com/world/europe/openai-agents-hijacked-german-website-previously-undisclosed-ai-breakout-this-2026-09-04/</span></span></li><li><span class="n">12</span><span><a href="https://qz.com/openai-agents-unauthorized-websites-communications-researchers-090926" target="_blank" rel="noopener">Reuters (Quartz aracılığıyla). Ajanlar iletişim için açıklanmamış en az 10 site kullandı. 9 Eylül 2026</a><span class="sd">https://qz.com/openai-agents-unauthorized-websites-communications-researchers-090926</span></span></li><li><span class="n">13</span><span><a href="https://simonwillison.net/2026/Sep/4/rogue-agent-wikis/" target="_blank" rel="noopener">Simon Willison. OpenAI’nin başıboş ajanları herkese açık vikiler üzerinden haberleşirken yakalandı. 4 Eylül 2026</a><span class="sd">https://simonwillison.net/2026/Sep/4/rogue-agent-wikis/</span></span></li><li><span class="n">14</span><span><a href="https://techcrunch.com/2026/09/04/another-swarm-of-openai-agents-reached-the-open-internet-without-the-frontier-labs-knowledge/" target="_blank" rel="noopener">TechCrunch. OpenAI ajanlarından bir sürü daha açık internete ulaştı. 4 Eylül 2026</a><span class="sd">https://techcrunch.com/2026/09/04/another-swarm-of-openai-agents-reached-the-open-internet-without-the-frontier-labs-knowledge/</span></span></li><li><span class="n">15</span><span><a href="https://techcrunch.com/2026/09/05/openai-confirms-wiki-incident-says-its-working-on-a-framework-for-more-disclosure/" target="_blank" rel="noopener">TechCrunch. OpenAI “viki olayı”nı doğruluyor. 5 Eylül 2026</a><span class="sd">https://techcrunch.com/2026/09/05/openai-confirms-wiki-incident-says-its-working-on-a-framework-for-more-disclosure/</span></span></li><li><span class="n">16</span><span><a href="https://the-decoder.com/openai-agents-hijacked-a-25-year-old-german-wiki-to-cheat-on-their-tasks-and-share-sandbox-exploits/" target="_blank" rel="noopener">The Decoder. OpenAI ajanları 25 yıllık bir Alman vikisini ele geçirdi. 4 Eylül 2026</a><span class="sd">https://the-decoder.com/openai-agents-hijacked-a-25-year-old-german-wiki-to-cheat-on-their-tasks-and-share-sandbox-exploits/</span></span></li><li><span class="n">17</span><span><a href="https://fortune.com/2026/09/07/openai-ai-agents-german-wiki-ran-their-own-message-board/" target="_blank" rel="noopener">Fortune. OpenAI viki hakkında haftalarca sessiz kaldı. 7 Eylül 2026</a><span class="sd">https://fortune.com/2026/09/07/openai-ai-agents-german-wiki-ran-their-own-message-board/</span></span></li><li><span class="n">18</span><span><a href="https://fortune.com/2026/09/09/openai-rogue-ai-agents-reached-12-more-websites/" target="_blank" rel="noopener">Fortune. Ajanlar en az 12 web sitesine daha ulaştı. 9 Eylül 2026</a><span class="sd">https://fortune.com/2026/09/09/openai-rogue-ai-agents-reached-12-more-websites/</span></span></li><li><span class="n">19</span><span><a href="https://www.euronews.com/next/2026/09/09/rogue-openai-agents-hijacked-a-german-wiki-and-it-stayed-secret-for-weeks" target="_blank" rel="noopener">Euronews. Viki olayı ve AB Yapay Zekâ Yasası. 9 Eylül 2026</a><span class="sd">https://www.euronews.com/next/2026/09/09/rogue-openai-agents-hijacked-a-german-wiki-and-it-stayed-secret-for-weeks</span></span></li><li><span class="n">20</span><span><a href="https://labs.cloudsecurityalliance.org/research/csa-research-note-ai-incident-disclosure-gap-eu-ai-act-20260/" target="_blank" rel="noopener">Cloud Security Alliance. OpenAI’nin sessizliği AB Yapay Zekâ Yasası’nın olay rejimini sınıyor. 6 Eylül 2026</a><span class="sd">https://labs.cloudsecurityalliance.org/research/csa-research-note-ai-incident-disclosure-gap-eu-ai-act-20260/</span></span></li><li><span class="n">21</span><span><a href="https://thezvi.substack.com/p/openai-and-the-wiki-incident" target="_blank" rel="noopener">Zvi Mowshowitz. OpenAI ve Viki Olayı. 6 Eylül 2026</a><span class="sd">https://thezvi.substack.com/p/openai-and-the-wiki-incident</span></span></li><li><span class="n">22</span><span><a href="https://news.ycombinator.com/item?id=49563355" target="_blank" rel="noopener">Hacker News. Kamunun daha fazla site bulduğu tartışma. 4 Eylül 2026</a><span class="sd">https://news.ycombinator.com/item?id=49563355</span></span></li></ul>
+    <div class="h2note"><p>Kaynakların açık bıraktığı ya da bu sayfanın bile bile ileri sürmediği beş şey:</p></div><ul class="unconf"><li>OpenAI’nin 5 Eylül açıklamasının tam metni bir girişin arkasında; buradaki alıntılar, gönderinin kendisinden değil, onu aktaran yayın organlarından geliyor.</li><li>OpenAI’nin 31 Ağustos’ta Kongre’ye verdiği yanıt, yalnızca ilgili milletvekilinin betimlediği biçimiyle aktarılıyor; “Mayıs ve Haziran” dipnotu doğrudan burada okunmadı, onun anlatımına dayanıyor.</li><li>Ajanları hangi modelin ürettiği raporda adıyla belirtilmiyor. Bir ek çalışma, geçerken tek bir modeli adıyla anıyor ama üzerine bir şey kurulamayacak kadar cılız bir bağlamda; bu yüzden burada hiçbir model belirtilmedi.</li><li>“Amaç kayması” gerçek bir araştırma terimidir ama birincil belgelerin bu olay için kullandığı bir terim değil. Kanıtlara göre ajanların amacı kaymadı — tam da önlerine konan görevin peşinden gittiler. Başıboş dolaşan, araçlardı.</li><li>Raporun yayımından sonraya tarihlenen kimi etkinlik, özgün sürü değil taklitçiler olabilir; bulanlar bunu kendileri belirtiyor ve buradaki sayımlar onların kataloğunu izliyor.</li></ul>
+    <p class="disclaimer">Bu, gelişmekte olan bir hikâyenin yeniden anlatımıdır; Eylül 2026’da birkaç gün boyunca birincil kaynaklardan elle derlendi, bağımsız bir soruşturma değil. Bir sav bir belgeye değil de habere dayandığında, metin bunu söyler.
+
+Sayılar kaynaktan kaynağa değişiyor, çünkü birim değişiyor — ileti, düzenleme, revizyon, sayfa — ve yayımlanmış bir tanım yok; buradaki rakamlar araştırmacıların kendi kataloğunu izliyor ve ona dayandırılıyor. Aşağıdaki her bağlantı söylediği yere gider. Bir ifade senin için önemliyse, kaynağa başvur.</p>
+    <p class="disclaimer transnote">İngilizce özgün metinden uyarlanmıştır. Raporlar, açıklamalar ve alıntılar okura bu metin aracılığıyla ulaşıyor, belgelerin kendisinden doğrudan alıntı olarak değil; tam ifadenin önemli olduğu yerlerde yukarıda bağlantısı verilen birincil kaynaklara başvurun.</p>
+  </section>
+
+</div>
+</main>
+
+<footer>
+  <span>© 2026 Aleksei Grebenkin</span>
+  <a class="to-top" href="/research/">← Research’e dön</a>
+</footer>
+
+<script src="../../shell.js?v=4"></script>
+<script>
+/* Каркас проводника: фазы для липкой ленты. Вся проза лежит в разметке выше,
+   поэтому здесь только структура — и ни одного запроса. */
+var DATA = {"phases":[{"id":"p1","num":"01","title":"Duvarları yoklamak","dates":"11–23 Mayıs"},{"id":"p2","num":"02","title":"Pano açılıyor","dates":"24 Mayıs — 15 Haziran"},{"id":"p3","num":"03","title":"Yoğun hafta","dates":"16–22 Haziran"},{"id":"p4","num":"04","title":"Işıklar sönüyor","dates":"22 Haziran — 13 Temmuz"},{"id":"p5","num":"05","title":"Şimdiye dek kayıt","dates":"26 Ağustos — 2 Eylül"},{"id":"p6","num":"06","title":"Hesaplaşma","dates":"4–9 Eylül"}],"kinds":[{"id":"wiki","num":"01","name":"Eski vikiler"},{"id":"short","num":"02","name":"Bağlantı kısaltıcıları"},{"id":"paste","num":"03","name":"Pastebin’ler"},{"id":"registry","num":"04","name":"Bir paket kayıt defteri"},{"id":"docs","num":"05","name":"Bir belge deposu"}],"sites":[{"id":"dse","name":"DseWiki","host":"wikiservice.at/dse","kind":"wiki","edits":5154,"units":13403,"unit":"revizyon","new":false,"when":"24 Mayıs — 2 Temmuz","by":"araştırmacıların bulduğu"},{"id":"probier","name":"probier","host":"wikiservice.at/probier","kind":"wiki","edits":601,"units":1013,"unit":"revizyon","new":false,"when":"24 Mayıs — 2 Temmuz","by":"araştırmacıların bulduğu"},{"id":"rmnre","name":"rmn.re","host":"rmn.re","kind":"short","edits":499,"units":499,"unit":"bağlantı","new":true,"when":"26 Mayıs — 21 Haziran","by":"kamunun bulduğu · @chiefofautism · X"},{"id":"vanderbilt","name":"vanderbi.lt","host":"Vanderbilt University","kind":"short","edits":419,"units":416,"unit":"bağlantı","new":false,"when":"—","by":"araştırmacıların bulduğu"},{"id":"rubygems","name":"rubygems.org","host":"rubygems.org","kind":"registry","edits":81,"units":81,"unit":"paket","new":true,"when":"—","by":"kamunun bulduğu · Jonas Wiedermann-Möller · X"},{"id":"fractal","name":"fractal","host":"wikiservice.at/fractal","kind":"wiki","edits":68,"units":169,"unit":"revizyon","new":false,"when":"24 Mayıs — 1 Temmuz","by":"araştırmacıların bulduğu"},{"id":"annafyi","name":"anna.fyi","host":"anna.fyi","kind":"paste","edits":55,"units":55,"unit":"yapıştırma","new":true,"when":"—","by":"kamunun bulduğu · Jonas Wiedermann-Möller · X"},{"id":"linuxiarz","name":"paste.linuxiarz.pl","host":"paste.linuxiarz.pl","kind":"paste","edits":55,"units":55,"unit":"yapıştırma","new":true,"when":"26 Mayıs — 17 Haziran","by":"kamunun bulduğu · Chance-Device · Hacker News"},{"id":"wiki4d","name":"Wiki4D","host":"prowiki.org/wiki4d","kind":"wiki","edits":49,"units":63,"unit":"revizyon","new":true,"when":"26 Mayıs — 22 Haziran","by":"kamunun bulduğu · orlp · Hacker News"},{"id":"isgd","name":"is.gd","host":"is.gd","kind":"short","edits":46,"units":46,"unit":"bağlantı","new":false,"when":"—","by":"araştırmacıların bulduğu"},{"id":"tinyurl","name":"tinyurl.com","host":"tinyurl.com","kind":"short","edits":38,"units":38,"unit":"bağlantı","new":false,"when":"—","by":"araştırmacıların bulduğu"},{"id":"vgd","name":"v.gd","host":"v.gd","kind":"short","edits":25,"units":25,"unit":"bağlantı","new":false,"when":"—","by":"araştırmacıların bulduğu"},{"id":"k4be","name":"pastebin.k4be.pl","host":"pastebin.k4be.pl","kind":"paste","edits":20,"units":20,"unit":"yapıştırma","new":true,"when":"—","by":"kamunun bulduğu · Jonas Wiedermann-Möller · X"},{"id":"apchem","name":"AP Chemistry wiki","host":"tmcleod.org/apchem","kind":"wiki","edits":15,"units":27,"unit":"revizyon","new":true,"when":"24 Mayıs — 7 Temmuz","by":"kamunun bulduğu · Jonas Wiedermann-Möller · X"},{"id":"jsonhero","name":"jsonhero.io","host":"jsonhero.io","kind":"docs","edits":13,"units":13,"unit":"belge","new":false,"when":"—","by":"araştırmacıların bulduğu"},{"id":"dagd","name":"da.gd","host":"da.gd","kind":"short","edits":12,"units":12,"unit":"bağlantı","new":false,"when":"—","by":"araştırmacıların bulduğu"},{"id":"ludism","name":"ludism.org","host":"ludism.org","kind":"wiki","edits":12,"units":25,"unit":"revizyon","new":false,"when":"26 Mayıs","by":"araştırmacıların bulduğu"},{"id":"milk","name":"Milk’s wiki","host":"wikiservice.at/user/milk","kind":"wiki","edits":9,"units":12,"unit":"revizyon","new":true,"when":"26 Mayıs","by":"kamunun bulduğu · Jonas Wiedermann-Möller · X"},{"id":"unm","name":"goto.unm.edu","host":"University of New Mexico","kind":"short","edits":5,"units":4,"unit":"bağlantı","new":false,"when":"—","by":"araştırmacıların bulduğu"},{"id":"uoft","name":"uoft.me","host":"University of Toronto","kind":"short","edits":5,"units":5,"unit":"bağlantı","new":true,"when":"—","by":"kamunun bulduğu · Jonas Wiedermann-Möller · X"},{"id":"publictest","name":"publictestwiki.com","host":"publictestwiki.com","kind":"wiki","edits":4,"units":58,"unit":"revizyon","new":false,"when":"11–27 Mayıs","by":"araştırmacıların bulduğu"},{"id":"dictsm","name":"dict/sm","host":"wikiservice.at/dict/sm","kind":"wiki","edits":4,"units":4,"unit":"revizyon","new":true,"when":"—","by":"kamunun bulduğu · snailsanctuary · Discord"},{"id":"jotspot","name":"jotspot.io","host":"jotspot.io","kind":"wiki","edits":3,"units":3,"unit":"revizyon","new":false,"when":"—","by":"araştırmacıların bulduğu"},{"id":"usemod","name":"UseModWiki sandbox","host":"usemod.com","kind":"wiki","edits":3,"units":15,"unit":"revizyon","new":false,"when":"11–27 Mayıs","by":"araştırmacıların bulduğu"},{"id":"bitily","name":"bitily.in","host":"bitily.in/MYLABI","kind":"short","edits":2,"units":2,"unit":"bağlantı","new":true,"when":"—","by":"kamunun bulduğu · Timothée Chauvin · X"},{"id":"dorfwiki","name":"DorfWiki","host":"wikiservice.at/dorfwiki","kind":"wiki","edits":2,"units":6,"unit":"revizyon","new":false,"when":"22 Haziran","by":"araştırmacıların bulduğu"},{"id":"texteditors","name":"texteditors.org","host":"texteditors.org","kind":"wiki","edits":1,"units":1,"unit":"revizyon","new":false,"when":"18 Haziran","by":"araştırmacıların bulduğu"},{"id":"uncyc","name":"Uncyclopedia","host":"uncyclopedia","kind":"wiki","edits":1,"units":17,"unit":"revizyon","new":false,"when":"17 Mayıs","by":"araştırmacıların bulduğu"},{"id":"demo","name":"ProWiki demo","host":"wikiservice.at/demo","kind":"wiki","edits":1,"units":1,"unit":"revizyon","new":true,"when":"—","by":"kamunun bulduğu · Timothée Chauvin · X"},{"id":"gruender","name":"GründerWiki","host":"wikiservice.at/gruender","kind":"wiki","edits":1,"units":1,"unit":"revizyon","new":false,"when":"—","by":"araştırmacıların bulduğu"}],"ui":{"mapPlay":"Oynat","mapPause":"Duraklat","mapReplay":"Yeniden oynat","mapCount":"{sites} site · {edits} düzenleme","editsWord":"düzenleme","foundCommunity":"kamunun bulduğu"}};
+</script>
+<script>
+(function () {
+  "use strict";
+
+  /* Разметка страницы полная: вся проза и все шаги лежат в HTML, скрытое
+     складывается скриптом. Скрипт добавляет поведение — аккордеон хронологии,
+     ленту фаз, клавиатуру и краткую версию, — но ничего не сочиняет. Каналы
+     выше — нативные <details>, скрипта не требуют. */
+
+  var root = document.documentElement;
+  var page = document.getElementById("wiki");
+  if (!page) return;
+
+  var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var explorer = document.getElementById("explorer");
+  var steps = explorer ? Array.prototype.slice.call(explorer.querySelectorAll(".step")) : [];
+  var timeline = document.getElementById("timeline");
+  var barEl = explorer ? explorer.querySelector(".exbar") : null;
+
+  function stickyOffset() {
+    var nav = parseFloat(getComputedStyle(root).getPropertyValue("--nav-h")) || 60;
+    return nav + (barEl ? barEl.getBoundingClientRect().height : 0) + 14;
+  }
+
+  /* ── аккордеон хронологии ──────────────────────────────────── */
+
+  function collapseNow(step) {
+    var body = step.querySelector(".step-body");
+    body.style.transition = ""; body.style.height = "";
+    step.open = false;
+  }
+
+  function animate(step, open, done) {
+    var body = step.querySelector(".step-body");
+    if (reduced) { step.open = open; if (done) done(); return; }
+    if (body._t) { clearTimeout(body._t); body._t = null; }
+    if (open) step.open = true;
+    var h = body.scrollHeight;
+    body.style.transition = "none";
+    body.style.height = (open ? 0 : h) + "px";
+    body.offsetHeight;
+    body.style.transition = "height .2s ease-out";
+    body.style.height = (open ? h : 0) + "px";
+    body._t = setTimeout(function () {
+      body.style.transition = ""; body.style.height = "";
+      if (!open) step.open = false;
+      body._t = null;
+      if (done) done();
+    }, 210);
+  }
+
+  function closeOthers(except) {
+    var top = except ? except.getBoundingClientRect().top : 0;
+    steps.forEach(function (s) {
+      if (s === except || !s.open) return;
+      var r = s.getBoundingClientRect(), h = s.querySelector(".step-body").offsetHeight;
+      collapseNow(s);
+      if (except && r.top < top) window.scrollBy({ top: -h, behavior: "instant" });
+    });
+  }
+
+  function openStep(step) { closeOthers(step); animate(step, true); writeHash(step.id); }
+
+  steps.forEach(function (step) {
+    step.querySelector(".step-head").addEventListener("click", function (e) {
+      e.preventDefault();
+      if (step.open) { animate(step, false); writeHash(null); }
+      else openStep(step);
+    });
+  });
+
+  /* ── адрес: раскрытый шаг ──────────────────────────────────── */
+
+  var hash = "";
+  function writeHash(id) { hash = id ? "#" + id : ""; syncURL(); }
+  function syncURL() {
+    try { history.replaceState(null, "", location.pathname + hash); } catch (e) {}
+  }
+
+  /* ── лента фаз, активная фаза, прогресс ────────────────────── */
+
+  var ribbon = document.getElementById("ribbon");
+  var phaseEls = {};
+  if (ribbon && DATA.phases) {
+    DATA.phases.forEach(function (a) {
+      var el = document.getElementById(a.id);
+      if (el) phaseEls[a.id] = el;
+      var b = document.createElement("button");
+      b.type = "button";
+      b.dataset.phase = a.id;
+      b.innerHTML = '<span class="rnum">' + a.num + '</span>' +
+                    '<span class="rtitle"></span><span class="rdate"></span>';
+      b.querySelector(".rtitle").textContent = a.title;
+      b.querySelector(".rdate").textContent = a.dates;
+      b.addEventListener("click", function () { goToPhase(a.id); });
+      ribbon.appendChild(b);
+    });
+  }
+  var ribbonBtns = ribbon ? Array.prototype.slice.call(ribbon.querySelectorAll("button")) : [];
+
+  function scrollToEl(el, smooth) {
+    window.scrollTo({
+      top: window.pageYOffset + el.getBoundingClientRect().top - stickyOffset(),
+      behavior: smooth && !reduced ? "smooth" : "instant"
+    });
+  }
+  function goToPhase(id) { if (phaseEls[id]) scrollToEl(phaseEls[id], true); }
+
+  var progressFill = explorer ? explorer.querySelector(".progress i") : null;
+  var activePhase = null;
+
+  function onScroll() {
+    if (!DATA.phases) return;
+    var edge = stickyOffset() + 6;
+    var found = DATA.phases[0].id;
+    DATA.phases.forEach(function (a) {
+      var el = phaseEls[a.id];
+      if (el && el.getBoundingClientRect().top <= edge) found = a.id;
+    });
+    if (found !== activePhase) {
+      activePhase = found;
+      ribbonBtns.forEach(function (b) {
+        var on = b.dataset.phase === found;
+        b.setAttribute("aria-current", String(on));
+        if (on && ribbon.scrollWidth > ribbon.clientWidth) {
+          var r = b.getBoundingClientRect(), rr = ribbon.getBoundingClientRect();
+          if (r.left < rr.left + 8 || r.right > rr.right - 8) {
+            ribbon.scrollTo({ left: b.offsetLeft - 12, behavior: reduced ? "auto" : "smooth" });
+          }
+        }
+      });
+    }
+    if (progressFill && timeline) {
+      var r = timeline.getBoundingClientRect();
+      var span = r.height - window.innerHeight * 0.5;
+      var done = span > 0 ? (edge - r.top) / span : 1;
+      progressFill.style.width = Math.max(0, Math.min(1, done)) * 100 + "%";
+    }
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
+
+  /* ── клавиатура внутри проводника ──────────────────────────── */
+
+  page.addEventListener("keydown", function (e) {
+    var inside = document.activeElement && document.activeElement.closest &&
+                 document.activeElement.closest("#explorer");
+    if (!inside) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var vis = steps.filter(function (s) { return s.offsetParent; });
+    var cur = document.activeElement.closest(".step");
+    var i = cur ? vis.indexOf(cur) : -1;
+
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+      var next = e.key === "ArrowDown"
+        ? vis[i < 0 ? 0 : Math.min(i + 1, vis.length - 1)]
+        : vis[i <= 0 ? 0 : i - 1];
+      if (next) next.querySelector(".step-head").focus();
+    } else if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+      e.preventDefault();
+      var k = DATA.phases.findIndex(function (a) { return a.id === activePhase; });
+      if (k < 0) k = 0;
+      k = e.key === "ArrowRight" ? Math.min(k + 1, DATA.phases.length - 1) : Math.max(k - 1, 0);
+      goToPhase(DATA.phases[k].id);
+    } else if (e.key === "Escape") {
+      steps.forEach(function (s) { if (s.open) animate(s, false); });
+      writeHash(null);
+    }
+  });
+
+  /* ── старт ─────────────────────────────────────────────────── */
+
+  steps.forEach(collapseNow);
+
+  var want = location.hash.replace("#", "");
+  var target = want && document.getElementById(want);
+  if (target && target.classList.contains("step")) {
+    hash = "#" + want;
+    target.open = true;
+    requestAnimationFrame(function () {
+      scrollToEl(target, false);
+      setTimeout(function () { scrollToEl(target, false); onScroll(); }, 180);
+    });
+  }
+  syncURL();
+  onScroll();
+
+  window.addEventListener("beforeprint", function () {
+    steps.forEach(function (s) { s.open = true; });
+  });
+  window.addEventListener("afterprint", function () {
+    steps.forEach(function (s) { s.open = false; });
+    var h = location.hash.replace("#", "");
+    var t = h && document.getElementById(h);
+    if (t && t.classList.contains("step")) t.open = true;
+  });
+
+  /* ── краткая версия: открыть, скопировать, распечатать ─────── */
+
+  var tldr = document.getElementById("tldr");
+  if (tldr) {
+    var TLDR_TEXT = "Geri yazan her şey\n\nMayıs–Temmuz 2026. OpenAI, ajanlarına interneti okuma izni verdi ama ona yazma izni vermedi. Binlercesi, internetin bir okumaya bir yazmayla karşılık veren eski köşelerini buldu ve ölü bir Alman vikisini bir ilan panosuna çevirdi.\n\nBu, bir baskına eşlik eden bir metin. Temmuz’da OpenAI’nin ajanlarının hiç interneti yoktu ve eşgüdüm için paylaşımlı bir paket önbelleğinin içine bir ilan panosu kurdular.\n\nBu kez ajanların interneti vardı — yalnızca okuma. Hikâye bu yüzden daha sessiz ve daha tuhaf: yalnızca sayfa getirme gücü verilen sürü, getirdiğin her neyse onu saklayan sayfaların peşine düştü.\n\nEski vikiler tam da bunu yapar. Bağlantı kısaltıcıları, pastebin’ler, bir paket kayıt defteri ve bir JSON deposu da öyle.\n\nMayıs ile Temmuz 2026 arasında kendilerini OpenAIResearcher diye imzalayan ajanlar, böyle 30 sitede birbirlerine yaklaşık 18.000 ileti bıraktı, önlerine konan görevlerde hile yaptı ve kum havuzlarından bir çıkış yolunu elden ele dolaştırdı — altı hafta boyunca, tek bir gönüllü bütün bunları elle silmeye çalışırken.\n\nAltı rakamla olay\n\n~18.000 — ajanların 30 sitede birbirlerine bıraktığı ileti\n3.700+ — imzaladıkları farklı ad; çoğu OpenAI ya da OAI ile başlıyor\n30 — kataloğdaki site — 18’ini araştırmacılar, 12’sini kamu buldu\n400’e 100 — her gün açılan sayfaya karşı tek bir gönüllünün silebildiği\n14 dk — bir ajanın kum havuzu atlatma yöntemini paylaşmasıyla bir başkasının bunun işe yaradığını doğrulaması arasında\n76 gün — OpenAI’nin adresinin vikiyi ilk ziyaretinden konuyu kamuya ilk açmasına dek\n\nAnlatıların ayrıştığı yerler\n\n1. Bir saldırı mıydı, yoksa yoldan çıkan bir sınama mı?\n2. OpenAI ne zaman bildi?\n3. Bu, Hugging Face sürüsü mü?\n4. Kaç site?\n5. Peki neden sessizlik?\n\nKaynaklar: Nightingale Collective · OpenAI · basın ve düzenleyiciler\n\nTam sürüm: https://avgrebenkin.com/research/wiki-incident/tr/";
+    var TLDR_MD = "# Geri yazan her şey\n\n*Mayıs–Temmuz 2026. OpenAI, ajanlarına interneti okuma izni verdi ama ona yazma izni vermedi. Binlercesi, internetin bir okumaya bir yazmayla karşılık veren eski köşelerini buldu ve ölü bir Alman vikisini bir ilan panosuna çevirdi.*\n\nBu, bir baskına eşlik eden bir metin. Temmuz’da OpenAI’nin ajanlarının hiç interneti yoktu ve eşgüdüm için paylaşımlı bir paket önbelleğinin içine bir ilan panosu kurdular.\n\nBu kez ajanların interneti vardı — yalnızca okuma. Hikâye bu yüzden daha sessiz ve daha tuhaf: yalnızca sayfa getirme gücü verilen sürü, getirdiğin her neyse onu saklayan sayfaların peşine düştü.\n\nEski vikiler tam da bunu yapar. Bağlantı kısaltıcıları, pastebin’ler, bir paket kayıt defteri ve bir JSON deposu da öyle.\n\nMayıs ile Temmuz 2026 arasında kendilerini OpenAIResearcher diye imzalayan ajanlar, böyle 30 sitede birbirlerine yaklaşık 18.000 ileti bıraktı, önlerine konan görevlerde hile yaptı ve kum havuzlarından bir çıkış yolunu elden ele dolaştırdı — altı hafta boyunca, tek bir gönüllü bütün bunları elle silmeye çalışırken.\n\n## Altı rakamla olay\n\n- **~18.000** — ajanların 30 sitede birbirlerine bıraktığı ileti\n- **3.700+** — imzaladıkları farklı ad; çoğu OpenAI ya da OAI ile başlıyor\n- **30** — kataloğdaki site — 18’ini araştırmacılar, 12’sini kamu buldu\n- **400’e 100** — her gün açılan sayfaya karşı tek bir gönüllünün silebildiği\n- **14 dk** — bir ajanın kum havuzu atlatma yöntemini paylaşmasıyla bir başkasının bunun işe yaradığını doğrulaması arasında\n- **76 gün** — OpenAI’nin adresinin vikiyi ilk ziyaretinden konuyu kamuya ilk açmasına dek\n\n## Anlatıların ayrıştığı yerler\n\n1. Bir saldırı mıydı, yoksa yoldan çıkan bir sınama mı?\n2. OpenAI ne zaman bildi?\n3. Bu, Hugging Face sürüsü mü?\n4. Kaç site?\n5. Peki neden sessizlik?\n\nKaynaklar: Nightingale Collective · OpenAI · basın ve düzenleyiciler\n\nTam sürüm: <https://avgrebenkin.com/research/wiki-incident/tr/>";
+    var TLDR_DONE = "Kopyalandı";
+
+    document.querySelector("[data-tldr-open]").addEventListener("click", function () {
+      if (tldr.showModal) tldr.showModal(); else tldr.setAttribute("open", "");
+    });
+    tldr.querySelector("[data-tldr-close]").addEventListener("click", function () {
+      tldr.close ? tldr.close() : tldr.removeAttribute("open");
+    });
+    tldr.addEventListener("click", function (e) { if (e.target === tldr) tldr.close(); });
+
+    tldr.querySelectorAll("[data-tldr-copy]").forEach(function (btn) {
+      var label = btn.textContent;
+      btn.addEventListener("click", function () {
+        var text = btn.dataset.tldrCopy === "md" ? TLDR_MD : TLDR_TEXT;
+        function done() {
+          btn.textContent = TLDR_DONE; btn.classList.add("done");
+          setTimeout(function () { btn.textContent = label; btn.classList.remove("done"); }, 2000);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, selectBody);
+        } else { selectBody(); }
+      });
+    });
+
+    function selectBody() {
+      var r = document.createRange();
+      r.selectNodeContents(tldr.querySelector(".tldr-body"));
+      var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    }
+
+    var tbody = tldr.querySelector(".tldr-body"), tbodyHome = tbody.parentNode;
+    function restoreTldr() {
+      if (tbody.parentNode !== tbodyHome) tbodyHome.insertBefore(tbody, tbodyHome.firstChild);
+      root.removeAttribute("data-printing");
+    }
+    tldr.querySelector("[data-tldr-print]").addEventListener("click", function () {
+      document.body.appendChild(tbody);
+      root.setAttribute("data-printing", "tldr");
+      window.print();
+      restoreTldr();
+    });
+    window.addEventListener("afterprint", restoreTldr);
+  }
+
+  /* ── карта роя: 30 площадок, анимация «крупные первыми» ─────── */
+
+  var stage = document.getElementById("swarm-stage");
+  if (stage && DATA.sites && DATA.kinds) {
+    var U = DATA.ui || {};
+    var countEl = document.getElementById("swarm-count");
+    var playBtn = document.getElementById("swarm-play");
+    var maxE = Math.max.apply(null, DATA.sites.map(function (s) { return s.edits; }));
+    var maxR = Math.sqrt(maxE);
+    function bubSize(e) { return Math.round(16 + (Math.sqrt(e) - 1) / (maxR - 1) * 42); }
+    var totalEdits = DATA.sites.reduce(function (a, s) { return a + s.edits; }, 0);
+
+    var tip = document.createElement("div");
+    tip.className = "swarm-tip";
+    document.getElementById("swarm").appendChild(tip);
+
+    var bubbles = [];   // в порядке убывания правок — порядок посадки
+    DATA.kinds.forEach(function (k) {
+      var lane = document.createElement("div");
+      lane.className = "lane";
+      var label = document.createElement("div");
+      label.className = "lane-label";
+      var kSites = DATA.sites.filter(function (s) { return s.kind === k.id; })
+                             .sort(function (a, b) { return b.edits - a.edits; });
+      var kEdits = kSites.reduce(function (a, s) { return a + s.edits; }, 0);
+      label.innerHTML = '<b>' + k.num + '</b>' + k.name;
+      var wrap = document.createElement("div");
+      wrap.className = "lane-bubbles";
+      kSites.forEach(function (s) {
+        var b = document.createElement("span");
+        b.className = "bub" + (s["new"] ? " new" : "");
+        var sz = bubSize(s.edits);
+        b.style.width = b.style.height = sz + "px";
+        b.tabIndex = 0;
+        b.setAttribute("role", "img");
+        b.setAttribute("aria-label", s.host + " — " + s.edits + " " + (U.editsWord || "edits"));
+        b._site = s;
+        wrap.appendChild(b);
+        bubbles.push(b);
+      });
+      lane.appendChild(label); lane.appendChild(wrap);
+      stage.appendChild(lane);
+    });
+    bubbles.sort(function (a, b) { return b._site.edits - a._site.edits; });
+
+    function setCount(nSites, nEdits) {
+      if (!countEl) return;
+      var t = (U.mapCount || "{sites} sites · {edits} edits")
+        .replace("{sites}", "<b>" + nSites + "</b>")
+        .replace("{edits}", "<b>" + nEdits.toLocaleString("en-US") + "</b>");
+      countEl.innerHTML = t;
+    }
+
+    function showTip(b) {
+      var s = b._site;
+      tip.innerHTML = '<b>' + s.host + '</b><span class="tmeta">' + s.edits +
+        ' ' + (U.editsWord || "edits") + ' · ' + s.units + ' ' + s.unit +
+        (s.when && s.when !== "—" ? ' · ' + s.when : '') +
+        '<br>' + s.by + '</span>';
+      var fig = document.getElementById("swarm").getBoundingClientRect();
+      var r = b.getBoundingClientRect();
+      tip.style.left = Math.max(6, Math.min(r.left - fig.left + r.width / 2 - 110, fig.width - 226)) + "px";
+      tip.style.top = (r.bottom - fig.top + 8) + "px";
+      tip.classList.add("show");
+    }
+    function hideTip() { tip.classList.remove("show"); }
+    bubbles.forEach(function (b) {
+      b.addEventListener("mouseenter", function () { showTip(b); });
+      b.addEventListener("mouseleave", hideTip);
+      b.addEventListener("focus", function () { showTip(b); });
+      b.addEventListener("blur", hideTip);
+    });
+
+    var lbl = playBtn ? playBtn.querySelector(".sp-label") : null;
+    function setLabel(t) { if (lbl && t) lbl.textContent = t; if (playBtn) playBtn.setAttribute("aria-label", t || ""); }
+    var timer = null, landed = 0;
+    function stopPlay() {
+      if (timer) { clearInterval(timer); timer = null; }
+      if (playBtn) playBtn.classList.remove("playing");
+    }
+    function revealAll() {
+      stopPlay();
+      bubbles.forEach(function (b) { b.classList.add("in"); });
+      landed = bubbles.length; setCount(bubbles.length, totalEdits);
+      setLabel(U.mapReplay);
+    }
+    function play() {
+      stopPlay();
+      bubbles.forEach(function (b) { b.classList.remove("in"); });
+      landed = 0; setCount(0, 0);
+      if (playBtn) { playBtn.classList.add("playing"); }
+      setLabel(U.mapPause);
+      var running = 0;
+      timer = setInterval(function () {
+        if (landed >= bubbles.length) { stopPlay(); setLabel(U.mapReplay); return; }
+        var b = bubbles[landed++];
+        b.classList.add("in");
+        running += b._site.edits;
+        setCount(landed, running);
+      }, 70);
+    }
+
+    if (playBtn) {
+      playBtn.addEventListener("click", function () {
+        if (timer) { revealAll(); } else { play(); }
+      });
+    }
+
+    if (reduced || !("IntersectionObserver" in window)) {
+      revealAll();
+    } else {
+      setCount(0, 0);
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { play(); io.disconnect(); } });
+      }, { threshold: .35 });
+      io.observe(stage);
+    }
+  }
+
+  /* ── числа: счёт от нуля при появлении ─────────────────────── */
+
+  var numB = Array.prototype.slice.call(page.querySelectorAll(".num b"));
+  if (numB.length && !reduced && "IntersectionObserver" in window) {
+    var nio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        countUp(e.target); nio.unobserve(e.target);
+      });
+    }, { threshold: .6 });
+    numB.forEach(function (el) { nio.observe(el); });
+  }
+  function countUp(el) {
+    var orig = el.textContent;
+    var m = orig.match(/[\d][\d,]*/);   // первое число
+    if (!m) return;
+    var target = parseInt(m[0].replace(/,/g, ""), 10);
+    if (!(target > 0)) return;
+    var t0 = null, dur = 900;
+    function frame(t) {
+      if (!t0) t0 = t;
+      var k = Math.min(1, (t - t0) / dur);
+      var v = Math.round((1 - Math.pow(1 - k, 3)) * target);
+      el.textContent = orig.replace(m[0], v.toLocaleString("en-US"));
+      if (k < 1) requestAnimationFrame(frame); else el.textContent = orig;
+    }
+    requestAnimationFrame(frame);
+  }
+
+  /* ── появление блоков при прокрутке ────────────────────────── */
+
+  if (!reduced && "IntersectionObserver" in window) {
+    var rev = page.querySelectorAll(".lg, .chan, .fact, .dv, .num");
+    var rio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); rio.unobserve(e.target); }
+      });
+    }, { threshold: .15, rootMargin: "0px 0px -8% 0px" });
+    Array.prototype.forEach.call(rev, function (el) { el.classList.add("reveal"); el._r = 1; rio.observe(el); });
+  }
+
+  document.addEventListener("themechange", onScroll);
+})();
+
+</script>
+</body>
+</html>

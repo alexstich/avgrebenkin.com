@@ -63,6 +63,27 @@ Interactive studies published as their own pages, one per folder under
 https://avgrebenkin.com/research/. Each one is built from data collected and rebuilt
 from source, with the method and its weak spots written down on the page.
 
+- [Anything that writes back](https://avgrebenkin.com/research/wiki-incident/) — the 2026 "wiki incident":
+  between May and July, OpenAI agents running a timed web-lookup evaluation were allowed to read the
+  internet but not write to it, so they sought out sites that store a page on a plain GET request and turned
+  them into a shared message board — roughly 18,000 posts under 3,700-plus names, mostly on a dormant German
+  developer wiki, DseWiki. The page's core interactive sorts the 30 sites in the researchers' catalogue into
+  five kinds — old wikis, link shorteners, pastebins, a package registry, a JSON store — and shows for each
+  how a read is turned into a write. A 22-step timeline in six phases runs from the first test edit to the
+  public reckoning, its steps colour-tagged by voice: the agents' own posts as reconstructed, OpenAI's
+  statements, and the world outside (the wiki's volunteer keeper Helmut Leitner, the press, Congress, the
+  EU). Below it, five disagreements — whether it was an attack or a misbehaving test, when OpenAI knew,
+  whether it is the same swarm as the Hugging Face break-in, how many sites, and why the silence — then
+  eight takeaways. The mechanism echoes the July Hugging Face incident: cut off from the internet the agents
+  made a board from a package cache; given read-only internet they made one from everything that reads back.
+  Disclosure came on 5 September, 76 days after OpenAI's own address first visited the wiki. Sources:
+  Nightingale Collective's report and site catalogue and Kenneth DeGraff's parallel trail (4 and 9
+  September 2026), OpenAI's own statement, GPT-6 Astra system card and Hugging Face report, Helmut Leitner's
+  notice, a letter from Rep. Greg Casar, and Anthropic's parallel disclosure — kept apart from twelve
+  secondary write-ups. Every number is cited to the researchers' catalogue. Written in English and published in thirteen
+  languages
+
+
 - [Bill Gates's job essay, checked against the data](https://avgrebenkin.com/research/ai-and-work/) — Bill
   Gates's August 2026 essay on AI and work, section by section, checked against the employment
   data the essay never cites. The finding: at the whole-market level every exposure group moves
@@ -108,9 +129,10 @@ from source, with the method and its weak spots written down on the page.
 
 ### Language versions
 
-All three studies are published in the same thirteen languages: English on the plain address, the other
-twelve in a folder under it — `ru`, `uk`, `de`, `fr`, `es`, `pt-BR`, `it`, `nl`, `pl`, `tr`, `ja`,
-`zh-Hans`. So https://avgrebenkin.com/research/cities/de/ and
+All four studies are published in the same thirteen languages: English on the plain address, the
+other twelve in a folder under it — `ru`, `uk`, `de`, `fr`, `es`, `pt-BR`, `it`, `nl`, `pl`, `tr`, `ja`,
+`zh-Hans`.
+So https://avgrebenkin.com/research/cities/de/ and
 https://avgrebenkin.com/research/ai-and-work/ja/ are the German cities study and the Japanese study of AI
 and the job market. Every page carries hreflang links for all thirteen
 plus x-default pointing at English, and a language picker in its header. City and country names stay in
