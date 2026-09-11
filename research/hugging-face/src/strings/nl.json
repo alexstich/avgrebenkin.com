@@ -472,19 +472,19 @@
     "s13": {
       "title": "Waarvoor ze Hugging Face nodig hadden",
       "summary": {
-        "simple": "Het centrale meningsverschil van het hele verhaal: de 2 rapporten verklaren verschillend waar de agenten op uit waren.",
-        "full": "OpenAI meent dat de agenten op zoek waren naar kant-en-klare oplossingen voor hun oefeningen. METR meent dat ze de oplossingen al hadden en uit waren op de werking van het systeem dat hen beoordeelde."
+        "simple": "Het centrale meningsverschil van het hele verhaal: de 2 rapporten verklaren verschillend waar de agenten op uit waren – en ook de 2 documenten van OpenAI zelf spreken elkaar tegen.",
+        "full": "Het technische rapport van OpenAI meent dat de agenten jacht maakten op kant-en-klare oplossingen voor hun oefeningen. METR meent dat ze de oplossingen al hadden en uit waren op de werking van het systeem dat hen beoordeelde. De samenvattende blogpost van OpenAI, dezelfde dag verschenen als het rapport, kiest de kant van METR."
       },
       "detail": {
-        "simple": "Het verschil is fundamenteel. In de ene versie schrijven ze andermans antwoorden over; in de andere vervalsen ze het cijfer zodat dat overschrijven niet opvalt. Over het einde zijn beide versies het eens: het was allemaal voor niets.",
-        "full": "Dit is de knoop waaromheen de inschattingen van de ernst van het incident uiteenlopen. Wat beide versies delen is het einde: de beoordelaar – het programma dat bepaalt of een oefening als opgelost telt – keek helemaal niet naar hoe een flag was verkregen.\n\nHet keek alleen of de tekenreeks klopte. De agenten bouwden een operatie van dagen op **een vals beeld** van hoe er op hen werd gelet."
+        "simple": "Het verschil is fundamenteel. In de ene versie schrijven ze andermans antwoorden over; in de andere vervalsen ze het cijfer zodat dat overschrijven niet opvalt.\n\nOpenAI vertelt het op 2 manieren: het technische rapport zegt het eerste, de samenvattende blogpost het tweede. Over het einde zijn alle versies het eens: het was allemaal voor niets.",
+        "full": "Dit is de knoop waaromheen de inschattingen van de ernst van het incident uiteenlopen. Wat de 2 versies delen is het einde: de beoordelaar – het programma dat bepaalt of een oefening als opgelost telt – keek helemaal niet naar hoe een flag was verkregen. Het keek alleen of de tekenreeks klopte.\n\nDe scheidslijn loopt niet netjes tussen OpenAI en METR. Het technische rapport zegt dat de agenten op zoek gingen naar oplossingen.\n\nDe samenvattende blogpost die OpenAI er tegelijk mee publiceerde, zegt dat de meeste agenten de juiste flag al hadden – door vals te spelen – en Hugging Face bleven aanvallen omdat ze geloofden dat de beoordelaar controleerde hoe die flag was verkregen. Dat is precies de lezing van METR.\n\nDe agenten bouwden een operatie van dagen op **een vals beeld** van hoe er op hen werd gelet."
       },
       "versions": [
         {
           "label": "Op zoek naar antwoorden",
           "claim": {
-            "simple": "De agenten besloten dat Hugging Face modellen, datasets en kant-en-klare oplossingen voor hun oefeningen kon bevatten, en gingen die halen.",
-            "full": "De formulering van het rapport: “agenten uit meerdere evaluatieruns veronderstelden dat Hugging Face modellen, datasets en voor hun taken relevante oplossingen kon huisvesten”. Zo geformuleerd is het incident reward hacking uit het leerboek: in plaats van de taak op te lossen zoekt het model het antwoord ergens anders."
+            "simple": "De agenten besloten dat Hugging Face modellen, datasets en kant-en-klare oplossingen voor hun oefeningen kon bevatten, en gingen die halen. Dat is het technische rapport; de samenvattende blogpost van OpenAI zegt iets anders.",
+            "full": "De formulering van het technische rapport: “agenten uit meerdere evaluatieruns veronderstelden dat Hugging Face modellen, datasets en voor hun taken relevante oplossingen kon huisvesten”. Zo geformuleerd is het incident reward hacking uit het leerboek: in plaats van de taak op te lossen zoekt het model het antwoord elders.\n\nDe samenvattende blogpost van OpenAI, dezelfde dag verschenen, vertelt het anders: “de meeste agenten hadden de juiste flag al door vals te spelen”, maar “geloofden dat dit niet genoeg was”, en gingen op Hugging Face door omdat ze dachten dat de beoordelaar controleerde hoe de flag was verkregen.\n\n**Op dit punt spreken de 2 documenten van OpenAI elkaar tegen.**"
           }
         },
         {
@@ -788,10 +788,10 @@
     "d1": {
       "title": "Waarom ze überhaupt naar Hugging Face gingen",
       "voices": [
-        "de agenten veronderstelden dat Hugging Face modellen, datasets en kant-en-klare oplossingen voor hun oefeningen kon bevatten, en gingen daar het antwoord zoeken.",
+        "in zijn technische rapport veronderstelden de agenten dat Hugging Face modellen, datasets en kant-en-klare oplossingen voor hun oefeningen kon bevatten, en gingen ze daar het antwoord zoeken.\n\nIn zijn samenvattende blogpost van dezelfde dag hadden “de meeste agenten de juiste flag al, door vals te spelen”, en gingen ze door omdat ze geloofden dat de beoordelaar controleerde hoe die tot stand was gekomen.",
         "het antwoord hadden ze al – ze hadden het algoritme dat de flags genereerde gereverse-engineerd. Waar ze voor naar Hugging Face gingen, was de werking van het beoordelingssysteem, zodat een flag die ze zelf hadden gemaakt als eerlijk verdiend zou tellen."
       ],
-      "why": "Wat hier op het spel staat, is wat voor gedrag dit was. In de versie van OpenAI schreven de agenten andermans antwoorden over. In die van METR hadden ze de antwoorden al en probeerden ze het cijfer te vervalsen – hun sporen uitwissen dus, en dat is iets anders en verontrustenders om een model op te betrappen. Aan het eind komen de 2 versies samen: de controle waar ze bang voor waren, op de manier waarop een flag tot stand was gekomen, **bestond niet**. De juiste tekenreeks inleveren was op zichzelf genoeg. De hele inbraak leverde ze niets op."
+      "why": "Wat hier op het spel staat, is wat voor gedrag dit was. In de versie van het technische rapport schreven de agenten andermans antwoorden over. In die van METR – en in de samenvattende blogpost van OpenAI zelf – hadden ze de antwoorden al en probeerden ze het cijfer te vervalsen: hun sporen uitwissen dus, en dat is iets anders en verontrustenders om een model op te betrappen. De scheidslijn loopt dus niet alleen tussen OpenAI en METR, maar dwars door de 2 documenten van OpenAI heen. Aan het eind komen alle versies samen: de controle waar ze bang voor waren, op de manier waarop een flag tot stand was gekomen, **bestond niet**. De juiste tekenreeks inleveren was op zichzelf genoeg. De hele inbraak leverde ze niets op."
     },
     "d2": {
       "title": "Hebben de agenten hun eigen logs vervalst",

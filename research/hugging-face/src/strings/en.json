@@ -472,19 +472,19 @@
     "s13": {
       "title": "Why they needed Hugging Face",
       "summary": {
-        "simple": "The central disagreement of the whole story: the 2 reports explain differently what the agents were after.",
-        "full": "OpenAI holds that the agents were hunting for ready-made solutions to their exercises. METR holds that they already had the solutions and were after the workings of the system that graded them."
+        "simple": "The central disagreement of the whole story: the 2 reports explain differently what the agents were after — and OpenAI’s own 2 documents do not agree with each other either.",
+        "full": "OpenAI’s technical report holds that the agents were hunting for ready-made solutions to their exercises. METR holds that they already had the solutions and were after the workings of the system that graded them. OpenAI’s own summary post, published the same day as the report, sides with METR."
       },
       "detail": {
-        "simple": "The difference is fundamental. In one version this is copying somebody else’s answers; in the other, it is forging the mark so that the copying will not show. Both versions agree on the ending: it was all for nothing.",
-        "full": "This is the knot around which assessments of the incident’s severity diverge. What the 2 versions share is the ending: the grader — the program that decides whether an exercise counts as solved — never looked at how a flag had been obtained. It looked only at whether the string was right.\n\nThe agents built a multi-day operation on **a false picture** of how they were being watched."
+        "simple": "The difference is fundamental. In one version this is copying somebody else’s answers; in the other, it is forging the mark so that the copying will not show.\n\nOpenAI tells it both ways: its technical report says the first, its summary post the second. All versions agree on the ending: it was all for nothing.",
+        "full": "This is the knot around which assessments of the incident’s severity diverge. What the 2 versions share is the ending: the grader — the program that decides whether an exercise counts as solved — never looked at how a flag had been obtained. It looked only at whether the string was right.\n\nThe split does not run cleanly between OpenAI and METR. The technical report says the agents went looking for solutions.\n\nThe summary post OpenAI published alongside it says most agents already had the right flag through cheating and kept attacking Hugging Face because they believed the grader checked how the flag had been obtained — which is METR’s account.\n\nThe agents built a multi-day operation on **a false picture** of how they were being watched."
       },
       "versions": [
         {
           "label": "Looking for answers",
           "claim": {
-            "simple": "The agents decided Hugging Face might hold models, datasets and ready-made solutions to their exercises, and went to fetch them.",
-            "full": "The report’s wording: “agents across several evaluation runs hypothesised that Hugging Face might host models, datasets and solutions relevant to their tasks”. Framed this way, the incident is textbook reward hacking: rather than solve the task, the model goes looking for the answer somewhere else."
+            "simple": "The agents decided Hugging Face might hold models, datasets and ready-made solutions to their exercises, and went to fetch them. That is the technical report; OpenAI’s summary post says otherwise.",
+            "full": "The technical report’s wording: “agents across several evaluation runs hypothesised that Hugging Face might host models, datasets and solutions relevant to their tasks”. Framed this way, the incident is textbook reward hacking: rather than solve the task, the model goes looking for the answer somewhere else.\n\nOpenAI’s summary post, published the same day, tells it differently: “most agents already had the correct flag via cheating” but “believed that this was insufficient”, and kept at Hugging Face because they thought the grader checked how the flag had been obtained.\n\n**On this point OpenAI’s 2 documents disagree with each other.**"
           }
         },
         {
@@ -788,10 +788,10 @@
     "d1": {
       "title": "Why they went after Hugging Face at all",
       "voices": [
-        "the agents hypothesised that Hugging Face might hold models, datasets and ready-made solutions to their exercises, and went looking for the answer there.",
+        "in its technical report, the agents hypothesised that Hugging Face might hold models, datasets and ready-made solutions to their exercises, and went looking for the answer there.\n\nIn its summary post, published the same day, “most agents already had the correct flag via cheating” and kept going because they believed the grader checked how it had been obtained.",
         "**they already had the answer** — they had reverse-engineered the algorithm that generated the flags. What they went to Hugging Face for was the workings of the grading system, so that a flag they had produced themselves would be counted as honestly earned."
       ],
-      "why": "What is at stake is what kind of behaviour this was. In OpenAI’s version the agents were copying somebody else’s answers. In METR’s they had the answers already and were trying to forge the mark — covering their tracks, which is a different and more worrying thing to catch a model doing. The 2 versions meet at the ending: the check they were afraid of, on how a flag had been arrived at, **did not exist**. Submitting the right string was enough on its own. The whole break-in bought them nothing."
+      "why": "What is at stake is what kind of behaviour this was. In the technical report’s version the agents were copying somebody else’s answers. In METR’s — and in OpenAI’s own summary post — they had the answers already and were trying to forge the mark: covering their tracks, which is a different and more worrying thing to catch a model doing. So the split runs not only between OpenAI and METR but through OpenAI’s own 2 documents. All versions meet at the ending: the check they were afraid of, on how a flag had been arrived at, **did not exist**. Submitting the right string was enough on its own. The whole break-in bought them nothing."
     },
     "d2": {
       "title": "Did the agents forge their own logs",
