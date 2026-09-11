@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr" data-theme="dark" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Todo lo que responde por escrito — el incidente de la wiki de los agentes de OpenAI, 2026</title>
+<meta name="description" content="Mayo–julio de 2026: a los agentes de OpenAI se les permitió leer la web pero no escribir en ella, así que buscaron sitios que guardan una página con una simple petición de lectura y los convirtieron en un tablón de anuncios común. Un estudio interactivo de los cinco tipos de sitio, los 30 lugares donde se hallaron mensajes, la cronología del incidente y su tardía divulgación, y los puntos en que los relatos no encajan.">
+<link rel="canonical" href="https://avgrebenkin.com/research/wiki-incident/es/">
+<link rel="alternate" hreflang="en" href="https://avgrebenkin.com/research/wiki-incident/">
+<link rel="alternate" hreflang="ru" href="https://avgrebenkin.com/research/wiki-incident/ru/">
+<link rel="alternate" hreflang="uk" href="https://avgrebenkin.com/research/wiki-incident/uk/">
+<link rel="alternate" hreflang="de" href="https://avgrebenkin.com/research/wiki-incident/de/">
+<link rel="alternate" hreflang="fr" href="https://avgrebenkin.com/research/wiki-incident/fr/">
+<link rel="alternate" hreflang="es" href="https://avgrebenkin.com/research/wiki-incident/es/">
+<link rel="alternate" hreflang="pt-BR" href="https://avgrebenkin.com/research/wiki-incident/pt-BR/">
+<link rel="alternate" hreflang="it" href="https://avgrebenkin.com/research/wiki-incident/it/">
+<link rel="alternate" hreflang="nl" href="https://avgrebenkin.com/research/wiki-incident/nl/">
+<link rel="alternate" hreflang="pl" href="https://avgrebenkin.com/research/wiki-incident/pl/">
+<link rel="alternate" hreflang="tr" href="https://avgrebenkin.com/research/wiki-incident/tr/">
+<link rel="alternate" hreflang="ja" href="https://avgrebenkin.com/research/wiki-incident/ja/">
+<link rel="alternate" hreflang="zh-Hans" href="https://avgrebenkin.com/research/wiki-incident/zh-Hans/">
+<link rel="alternate" hreflang="x-default" href="https://avgrebenkin.com/research/wiki-incident/">
+
+<script>
+  /* Язык читателя — до первой отрисовки. Голый адрес /research/<study>/ —
+     нейтральный, и браузер, просящий изданный здесь язык, уводится на него.
+     Адрес с языком не трогается. По file:// молчит. Список — из hreflang выше. */
+  (function () {
+    if (location.protocol !== 'http:' && location.protocol !== 'https:') return;
+    var links = document.querySelectorAll('link[rel="alternate"][hreflang]');
+    var have = {}, neutral = '';
+    for (var i = 0; i < links.length; i++) {
+      var path = new URL(links[i].href).pathname;
+      if (links[i].hreflang === 'x-default') neutral = path;
+      else have[links[i].hreflang.toLowerCase()] = path;
+    }
+    if (!neutral || location.pathname !== neutral) return;
+    function match(tag) {
+      tag = String(tag).toLowerCase();
+      if (have[tag]) return tag;
+      var base = tag.split('-')[0];
+      if (base === 'zh') return /hans|^zh-(cn|sg|my)$/.test(tag) ? 'zh-hans' : '';
+      if (have[base]) return base;
+      for (var k in have) if (k.split('-')[0] === base) return k;
+      return '';
+    }
+    var want = '';
+    try { want = (localStorage.getItem('lang') || '').toLowerCase(); } catch (e) {}
+    if (!have[want]) {
+      var prefs = navigator.languages || [navigator.language || ''];
+      for (var j = 0; j < prefs.length && !have[want]; j++) want = match(prefs[j]);
+    }
+    var to = have[want];
+    if (to && to !== neutral) location.replace(to + location.search + location.hash);
+  })();
+</script>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Aleksei Grebenkin">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0b0c11" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f6f9" media="(prefers-color-scheme: light)">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%235b4fd6'/%3E%3Cg fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M16 8v8'/%3E%3Cpath d='M11 12v4'/%3E%3Cpath d='M21 12v4'/%3E%3Cpath d='M16 20v4'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Aleksei Grebenkin">
+<meta property="og:locale" content="es_ES">
+<meta property="og:locale:alternate" content="en_GB">
+<meta property="og:locale:alternate" content="ru_RU">
+<meta property="og:locale:alternate" content="uk_UA">
+<meta property="og:locale:alternate" content="de_DE">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta property="og:locale:alternate" content="it_IT">
+<meta property="og:locale:alternate" content="nl_NL">
+<meta property="og:locale:alternate" content="pl_PL">
+<meta property="og:locale:alternate" content="tr_TR">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta property="og:title" content="Todo lo que responde por escrito — el incidente de la wiki de los agentes de OpenAI, 2026">
+<meta property="og:description" content="Los agentes de OpenAI podían leer la web pero no escribir en ella. Así que buscaron los rincones que guardan lo que descargas — wikis antiguas, acortadores de enlaces, pastebin — y se dejaron 18 000 mensajes entre ellos. Un estudio interactivo del mecanismo, los 30 sitios y la divulgación que llegó 76 días tarde.">
+<meta property="og:url" content="https://avgrebenkin.com/research/wiki-incident/es/">
+<meta property="og:image" content="https://avgrebenkin.com/images/research/wiki-incident.jpg">
+<meta property="og:image:secure_url" content="https://avgrebenkin.com/images/research/wiki-incident.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Una petición de lectura dibujada como una flecha que entra en una pila de páginas, sobre papel milimetrado, con la flecha de respuesta que saca de vuelta el mismo texto">
+<meta property="article:published_time" content="2026-09-10">
+<meta property="article:modified_time" content="2026-09-10">
+<meta property="article:author" content="https://avgrebenkin.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Todo lo que responde por escrito — el incidente de la wiki de los agentes de OpenAI, 2026">
+<meta name="twitter:description" content="Los agentes de OpenAI podían leer la web pero no escribir en ella. Así que buscaron los rincones que guardan lo que descargas — wikis antiguas, acortadores de enlaces, pastebin — y se dejaron 18 000 mensajes entre ellos. Un estudio interactivo del mecanismo, los 30 sitios y la divulgación que llegó 76 días tarde.">
+<meta name="twitter:image" content="https://avgrebenkin.com/images/research/wiki-incident.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"></noscript>
+<link rel="stylesheet" href="../../shell.css?v=5">
+
+<script>
+  /* Тема — до первой отрисовки, чтобы страница не моргала. */
+  (function () {
+    var r = document.documentElement;
+    r.classList.remove('no-js');
+    try {
+      var t = localStorage.getItem('theme');
+      if (['dark', 'light', 'cyber'].indexOf(t) === -1) {
+        t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      r.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://avgrebenkin.com/research/wiki-incident/es/#article",
+      "url": "https://avgrebenkin.com/research/wiki-incident/es/",
+      "headline": "Todo lo que responde por escrito",
+      "alternativeHeadline": "El incidente de la wiki de los agentes de OpenAI, mayo–septiembre de 2026",
+      "description": "Un relato interactivo del incidente de la wiki de 2026: unos agentes de OpenAI a los que se permitió leer la web pero no escribir en ella reconvirtieron 30 sitios que sirven páginas en un tablón de anuncios común, se dejaron unos 18 000 mensajes y la divulgación llegó 76 días después de que la propia dirección de OpenAI visitara por primera vez el sitio principal.",
+      "isPartOf": { "@id": "https://avgrebenkin.com/#website" },
+      "author": { "@id": "https://avgrebenkin.com/#person" },
+      "publisher": { "@id": "https://avgrebenkin.com/#person" },
+      "datePublished": "2026-09-10",
+      "dateModified": "2026-09-10",
+      "inLanguage": "es",
+      "translationOfWork": { "@type": "Article", "@id": "https://avgrebenkin.com/research/wiki-incident/#article", "inLanguage": "en" },
+      "image": "https://avgrebenkin.com/images/research/wiki-incident.jpg",
+      "breadcrumb": { "@id": "https://avgrebenkin.com/research/wiki-incident/es/#breadcrumb" },
+      "articleSection": "Research",
+      "isAccessibleForFree": true,
+      "keywords": ["AI agents", "agent coordination", "AI safety", "misalignment", "incident disclosure", "OpenAI", "Nightingale Collective", "wiki", "reward hacking"],
+      "about": [
+        { "@type": "Thing", "name": "AI safety" },
+        { "@type": "Thing", "name": "AI agent coordination" },
+        { "@type": "Thing", "name": "AI incident disclosure" },
+        { "@type": "Organization", "name": "OpenAI" }
+      ],
+      "mentions": [
+        { "@type": "Organization", "name": "Nightingale Collective" },
+        { "@type": "Organization", "name": "Anthropic" }
+      ],
+      "citation": [
+        "https://collusion.wiki/",
+        "https://kennethdegraff.com/swarm",
+        "https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://avgrebenkin.com/research/wiki-incident/es/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://avgrebenkin.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Research", "item": "https://avgrebenkin.com/research/" },
+        { "@type": "ListItem", "position": 3, "name": "Todo lo que responde por escrito", "item": "https://avgrebenkin.com/research/wiki-incident/es/" }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+  /* Палитра исследования: только то, чего нет в токенах сайта. Фон, текст,
+     рамки и тени берутся из shell.css, поэтому три темы переключаются шапкой.
+     Три голоса и их цвета — те же, что у соседнего исследования про взлом:
+     синий OpenAI, янтарь нашедших, коралл всех остальных. */
+  :root {
+    --v-lab:   #6ea8fe;  --v-lab-rgb:   110,168,254;
+    --v-res:   #e0a33e;  --v-res-rgb:   224,163,62;
+    --v-world: #f97362;  --v-world-rgb: 249,115,98;
+    --ink-3: #797e8e;
+    --grid-ink: rgba(255,255,255,.030);
+    --paper: rgba(255,255,255,.012);
+  }
+  :root[data-theme="light"] {
+    --v-lab:   #2563eb;  --v-lab-rgb:   37,99,235;
+    --v-res:   #b45309;  --v-res-rgb:   180,83,9;
+    --v-world: #dc2626;  --v-world-rgb: 220,38,38;
+    --ink-3: #676d7e;
+    --grid-ink: rgba(16,18,30,.045);
+    --paper: rgba(16,18,30,.012);
+  }
+  :root[data-theme="cyber"] {
+    --v-lab:   #00f0ff;  --v-lab-rgb:   0,240,255;
+    --v-res:   #fcee0a;  --v-res-rgb:   252,238,10;
+    --v-world: #ff003c;  --v-world-rgb: 255,0,60;
+    --ink-3: #6f7c86;
+    --grid-ink: transparent;
+    --paper: transparent;
+  }
+  :root { --panel: var(--bg-elev); --ink: var(--text); --ink-2: var(--muted);
+          --hair: var(--border-soft); }
+  .s-lab   { --src: var(--v-lab);   --src-rgb: var(--v-lab-rgb); }
+  .s-res   { --src: var(--v-res);   --src-rgb: var(--v-res-rgb); }
+  .s-world { --src: var(--v-world); --src-rgb: var(--v-world-rgb); }
+
+  /* ── страница в оболочке сайта ───────────────────────────────── */
+  main { max-width: var(--content); padding: 0; }
+  .wrap { max-width: var(--content); margin: 0 auto; line-height: 1.6;
+          --measure: 46rem;
+          padding: calc(var(--nav-h) + 40px) 22px 40px; }
+  .wrap > * { max-width: var(--measure); }
+  .wrap a:not(.sy-go) { color: inherit; text-decoration: underline;
+                        text-underline-offset: 2px; text-decoration-color: var(--ink-3); }
+  .wrap a:not(.sy-go):hover { text-decoration-color: var(--accent); color: var(--accent); }
+  .crumb { margin: 0 0 16px; font-family: var(--font-mono); font-size: 11px;
+           letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+  .wrap .crumb a { color: var(--accent); text-decoration: none; }
+  .wrap .crumb a:hover { text-decoration: underline; }
+  .mono { font-family: var(--font-mono); }
+  code { font-family: var(--font-mono); font-size: .86em;
+         padding: .1em .34em; border-radius: 4px;
+         background: rgba(var(--accent-rgb), .10); color: var(--ink);
+         overflow-wrap: anywhere; }
+  :root[data-theme="cyber"] code { border-radius: 0; }
+
+  .cover { display: block; width: 100%; max-width: var(--measure); height: auto;
+           margin: 0 0 26px; border: 1px solid var(--border-soft); border-radius: 12px; }
+  :root[data-theme="cyber"] .cover { border-radius: 0; }
+
+  .wrap header h1 { font-family: var(--font-head); font-weight: 700;
+                    font-size: clamp(30px, 5.2vw, 52px); line-height: 1.06;
+                    margin: 0 0 12px; letter-spacing: -.02em; text-wrap: balance; }
+  .sub { margin: 0 0 18px; color: var(--ink-2); font-size: clamp(16px, 2.2vw, 19px);
+         max-width: var(--measure); }
+  .sub em { color: var(--ink); font-style: normal; }
+  .gist { margin: 0 0 20px; max-width: var(--measure); font-size: 16px;
+          border-left: 3px solid var(--accent); padding-left: 14px; }
+  .gist b { font-weight: 600; } .gist code { font-size: .9em; }
+  .gist > p:last-child { margin-bottom: 0; }
+  .meta { margin: 0 0 26px; font-family: var(--font-mono); font-size: 12px;
+          letter-spacing: .02em; color: var(--ink-3);
+          display: flex; flex-wrap: wrap; gap: 6px 18px; }
+
+  section { margin: 54px 0 0; }
+  .wrap h2 { font-family: var(--font-head); font-size: clamp(21px, 3vw, 27px);
+             letter-spacing: -.015em; margin: 0 0 6px; }
+  .h2note { margin: 0 0 20px; color: var(--ink-3); font-size: 14px; max-width: var(--measure); }
+  .h2note > p { margin: 0 0 9px; } .h2note > p:last-child { margin-bottom: 0; }
+  .h2note code { font-size: .85em; }
+  .wrap p { margin: 0 0 14px; }
+  .prose { max-width: var(--measure); }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose b { font-weight: 600; color: var(--ink); }
+
+  /* ── строка под шапкой ───────────────────────────────────────── */
+  .modebar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
+             margin: 0 0 30px; }
+
+  .langpick { position: relative; margin-inline-start: auto; }
+  .langpick > summary {
+    display: inline-flex; align-items: center; gap: .4rem; cursor: pointer;
+    list-style: none; padding: .45rem .7rem; border: 1px solid var(--border);
+    border-radius: 9px; font-size: 12.5px; font-weight: 500; color: var(--ink-2);
+    transition: color .18s, background .18s; }
+  .langpick > summary::-webkit-details-marker { display: none; }
+  .langpick > summary:hover { color: var(--ink); background: rgba(var(--accent-rgb), .08); }
+  .langpick > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .langpick .globe { font-size: 11px; color: var(--accent); }
+  .langpick[open] > summary { color: var(--accent); background: rgba(var(--accent-rgb), .12); }
+  .langpick ul {
+    position: absolute; z-index: 30; inset-inline-end: 0; top: calc(100% + 6px);
+    margin: 0; padding: 6px; list-style: none; min-width: 11rem;
+    background: var(--bg-elev); border: 1px solid var(--border-soft);
+    border-radius: 10px; box-shadow: var(--shadow);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px; }
+  .langpick li a { display: block; padding: .4rem .55rem; border-radius: 6px; font-size: 12.5px;
+                   color: var(--ink-2); text-decoration: none; white-space: nowrap; }
+  .langpick li a:hover { background: rgba(var(--accent-rgb), .10); color: var(--ink); }
+  .langpick li.is-current a { color: var(--accent); background: rgba(var(--accent-rgb), .12); }
+  :root[data-theme="cyber"] .langpick > summary,
+  :root[data-theme="cyber"] .langpick ul { border-radius: 0; }
+
+  /* ── полоса чисел ────────────────────────────────────────────── */
+  .nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+          border: 1px solid var(--hair); border-radius: 10px; padding: 18px 18px 6px;
+          background: var(--card-bg); }
+  .num { margin-bottom: 12px; }
+  .num b { display: block; font-family: var(--font-head); font-weight: 700;
+           font-size: clamp(22px, 3.4vw, 32px); letter-spacing: -.02em;
+           line-height: 1.05; margin-bottom: 6px; overflow-wrap: anywhere; }
+  .num span { display: block; font-size: 13px; color: var(--ink-2); line-height: 1.45; }
+  .num span code { font-size: .82em; }
+  :root[data-theme="cyber"] .nums { border-radius: 0; }
+  :root[data-theme="cyber"] .num b { font-family: var(--font-mono); }
+
+  /* ── голоса (легенда цветов) ─────────────────────────────────── */
+  .legend { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+            margin: 0 0 22px; }
+  .lg { border: 1px solid var(--hair); border-top: 3px solid var(--src);
+        border-radius: 10px; padding: 13px 15px 15px; background: var(--card-bg); }
+  .lg .lgrole { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em;
+                text-transform: uppercase; color: var(--src); margin: 0 0 4px; }
+  .lg .lgname { font-family: var(--font-head); font-weight: 600; font-size: 16px;
+                margin: 0 0 8px; color: var(--ink); }
+  .lg .lgdoc { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3);
+               margin: 0; line-height: 1.5; }
+  :root[data-theme="cyber"] .lg { border-radius: 0; }
+
+  /* ── каналы: главный интерактив ──────────────────────────────── */
+  .channels { display: grid; gap: 10px; }
+  .chan { border: 1px solid var(--hair); border-radius: 10px; background: var(--card-bg);
+          overflow: hidden; }
+  :root[data-theme="cyber"] .chan { border-radius: 0; }
+  .chan[open] { border-color: var(--border); box-shadow: var(--shadow); }
+  .chan-head { display: grid; grid-template-columns: auto minmax(0,1fr) auto auto;
+               gap: 4px 14px; align-items: center; padding: 14px 16px; cursor: pointer;
+               list-style: none; }
+  .chan-head::-webkit-details-marker { display: none; }
+  .chan-head:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .chan-num { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em;
+              color: var(--accent); }
+  .chan-name { display: block; font-family: var(--font-head); font-weight: 600;
+               font-size: 17px; letter-spacing: -.01em; }
+  .chan-trick { display: block; font-size: 13px; color: var(--ink-2); margin-top: 2px; }
+  .chan-count { text-align: right; }
+  .chan-count b { font-family: var(--font-mono); font-size: 17px; color: var(--ink); }
+  .chan-count span { display: block; font-family: var(--font-mono); font-size: 10px;
+                     letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+  .chan .chev { color: var(--ink-3); font-size: 14px; line-height: 1;
+                transition: transform .2s ease-out; }
+  .chan[open] .chev { transform: rotate(180deg); }
+  .chan-body { padding: 0 16px 18px; border-top: 1px dashed var(--hair); }
+  .chan-how { display: inline-flex; align-items: center; gap: 10px; margin: 16px 0 4px;
+              font-family: var(--font-mono); font-size: 12.5px; flex-wrap: wrap; }
+  .rw-read, .rw-write { padding: .35em .7em; border-radius: 6px; border: 1px solid var(--hair); }
+  .rw-read { color: var(--v-lab); border-color: rgba(var(--v-lab-rgb), .5);
+             background: rgba(var(--v-lab-rgb), .08); }
+  .rw-write { color: var(--v-world); border-color: rgba(var(--v-world-rgb), .5);
+              background: rgba(var(--v-world-rgb), .08); }
+  .rw-arrow { color: var(--ink-3); font-size: 15px; }
+  /* Светлая тема: чистые #2563eb/#dc2626 на бледной подложке дают 4.6 и 4.2 —
+     красный не проходит AA. Текст чипа темнее фирменного цвета, рамка держит
+     оттенок. Считано, не на глаз. */
+  :root[data-theme="light"] .rw-read  { color: #1d4ed8; }
+  :root[data-theme="light"] .rw-write { color: #b91c1c; }
+  :root[data-theme="cyber"] .rw-read, :root[data-theme="cyber"] .rw-write { border-radius: 0; }
+  /* Пакет GET, бегущий по стрелке при раскрытии канала — анимация чистым CSS,
+     без скрипта. В reduce гасится ниже. */
+  .rw-arrow { position: relative; }
+  .rw-arrow::after { content: ""; position: absolute; left: 0; top: 50%; width: 6px; height: 6px;
+                     margin-top: -3px; border-radius: 50%; background: var(--v-lab);
+                     opacity: 0; }
+  .chan[open] .rw-arrow::after { animation: rwrun 1.05s ease-in-out .12s 1; }
+  .chan[open] .rw-write { animation: rwland 1.2s ease-out 1; }
+  @keyframes rwrun { 0%{opacity:0;transform:translateX(-2px);} 12%{opacity:1;}
+                     78%{opacity:1;transform:translateX(20px);} 100%{opacity:0;transform:translateX(22px);} }
+  @keyframes rwland { 0%,62%{background:rgba(var(--v-world-rgb),.08);} 74%{background:rgba(var(--v-world-rgb),.34);}
+                      100%{background:rgba(var(--v-world-rgb),.08);} }
+  :root[data-theme="cyber"] .rw-arrow::after { border-radius: 0; }
+
+  .chan-ex { font-size: 14.5px; }
+  .chan-ex code { font-size: .86em; }
+  .chan-toggle { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em;
+                 text-transform: uppercase; color: var(--ink-3); margin: 18px 0 8px; }
+  .sites { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px;
+           border: 1px solid var(--hair); border-radius: 8px; overflow: hidden; }
+  :root[data-theme="cyber"] .sites { border-radius: 0; }
+  .site { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 2px 14px;
+          padding: 9px 13px; background: var(--panel); align-items: baseline; }
+  .site-new { border-left: 2px solid var(--v-res); }
+  .shost { font-family: var(--font-mono); font-size: 13px; color: var(--ink);
+           overflow-wrap: anywhere; }
+  .smeta { grid-column: 2; text-align: right; font-family: var(--font-mono); font-size: 11px;
+           color: var(--ink-3); white-space: nowrap; }
+  .smeta b { color: var(--ink-2); }
+  .sby { grid-column: 1 / -1; font-size: 11.5px; color: var(--ink-3); }
+
+  /* ── карта роя: 30 площадок, анимированный интерактив ────────── */
+  .swarm { margin: 0; border: 1px solid var(--hair); border-radius: 10px;
+           background:
+             linear-gradient(var(--grid-ink) 1px, transparent 1px) 0 0 / 8px 8px,
+             linear-gradient(90deg, var(--grid-ink) 1px, transparent 1px) 0 0 / 8px 8px,
+             var(--card-bg); overflow: hidden; }
+  :root[data-theme="cyber"] .swarm { border-radius: 0; }
+  .swarm-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px;
+               padding: 12px 14px; border-bottom: 1px solid var(--hair); }
+  .swarm-play { display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+                font: 600 13px/1 var(--font-head); color: var(--accent);
+                background: rgba(var(--accent-rgb), .12);
+                border: 1px solid rgba(var(--accent-rgb), .35); border-radius: 999px;
+                padding: .5rem .95rem; transition: background .15s, border-color .15s; }
+  .swarm-play:hover { background: rgba(var(--accent-rgb), .2); border-color: var(--accent); }
+  .swarm-play:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .sp-icon { width: 0; height: 0; border-style: solid; border-width: 5px 0 5px 8px;
+             border-color: transparent transparent transparent currentColor; }
+  .swarm-play.playing .sp-icon { width: 8px; height: 9px; border: 0;
+             background: linear-gradient(90deg, currentColor 0 3px, transparent 3px 5px, currentColor 5px 8px); }
+  .swarm-count { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink); }
+  .swarm-count b { color: var(--accent); }
+  .swarm-hint { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3);
+                margin-left: auto; }
+  .swarm-stage { display: grid; gap: 2px; padding: 8px 12px 12px; }
+  .lane { display: grid; grid-template-columns: 96px 1fr; gap: 12px; align-items: center;
+          padding: 8px 0; border-top: 1px dashed var(--hair); }
+  .lane:first-child { border-top: 0; }
+  .lane-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .04em;
+                color: var(--ink-2); line-height: 1.35; }
+  .lane-label b { display: block; color: var(--accent); font-weight: 500; font-size: 10px;
+                  letter-spacing: .14em; }
+  .lane-bubbles { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; min-height: 34px; }
+  .bub { position: relative; border-radius: 50%; background: rgba(var(--accent-rgb), .16);
+         border: 1px solid rgba(var(--accent-rgb), .5); cursor: default;
+         transform: scale(0); opacity: 0; transition: transform .34s cubic-bezier(.2,1.3,.4,1), opacity .34s; }
+  .bub.in { transform: scale(1); opacity: 1; }
+  .bub.new { background: rgba(var(--v-res-rgb), .14); border: 1px dashed rgba(var(--v-res-rgb), .7); }
+  .bub:hover, .bub:focus-visible { border-color: var(--accent); background: rgba(var(--accent-rgb), .32);
+         outline: none; z-index: 3; }
+  .bub.new:hover, .bub.new:focus-visible { border-color: var(--v-res); background: rgba(var(--v-res-rgb), .3); }
+  :root[data-theme="cyber"] .bub { border-radius: 0; }
+  .swarm-tip { position: absolute; z-index: 40; pointer-events: none; opacity: 0;
+               transform: translateY(4px); transition: opacity .12s, transform .12s;
+               background: var(--bg-elev); border: 1px solid var(--border);
+               border-radius: 8px; padding: 8px 10px; box-shadow: var(--shadow);
+               font-size: 12px; max-width: 220px; }
+  .swarm-tip.show { opacity: 1; transform: translateY(0); }
+  .swarm-tip b { font-family: var(--font-mono); color: var(--ink); }
+  .swarm-tip .tmeta { display: block; font-family: var(--font-mono); font-size: 11px;
+                      color: var(--ink-3); margin-top: 3px; }
+  :root[data-theme="cyber"] .swarm-tip { border-radius: 0; }
+  .swarm-legend { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3);
+                  padding: 0 14px 12px; margin: 0; }
+  .no-js .swarm { display: none; }
+
+  /* появление блоков при прокрутке — ставится скриптом, поэтому без JS всё видно */
+  .reveal { opacity: 0; transform: translateY(10px); transition: opacity .5s ease, transform .5s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ── проводник (хронология) ──────────────────────────────────── */
+  .explorer { border: 1px solid var(--hair); border-radius: 10px; overflow: visible;
+              background:
+                linear-gradient(var(--grid-ink) 1px, transparent 1px) 0 0 / 8px 8px,
+                linear-gradient(90deg, var(--grid-ink) 1px, transparent 1px) 0 0 / 8px 8px,
+                var(--paper); }
+  :root[data-theme="cyber"] .explorer { border-radius: 0; }
+  .exbar { position: sticky; top: var(--nav-h); z-index: 20;
+           background: var(--surface); backdrop-filter: blur(14px);
+           -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--hair);
+           border-radius: 10px 10px 0 0; }
+  :root[data-theme="cyber"] .exbar { border-radius: 0; }
+  .ribbon { display: flex; gap: 6px; padding: 10px 12px 8px; overflow-x: auto;
+            scrollbar-width: none; }
+  .ribbon::-webkit-scrollbar { display: none; }
+  .ribbon button { flex: 0 0 auto; display: grid; gap: 1px; text-align: left;
+                   padding: .4rem .6rem; border: 1px solid transparent; border-radius: 7px;
+                   background: transparent; cursor: pointer; color: var(--ink-2);
+                   transition: background .18s, color .18s, border-color .18s; }
+  .ribbon button:hover { color: var(--ink); background: rgba(var(--accent-rgb), .07); }
+  .ribbon button[aria-current="true"] { color: var(--accent); border-color: var(--border);
+                   background: rgba(var(--accent-rgb), .10); }
+  .ribbon button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .ribbon .rnum { font-family: var(--font-mono); font-size: 10px; letter-spacing: .14em;
+                  color: var(--ink-3); }
+  .ribbon button[aria-current="true"] .rnum { color: var(--accent); }
+  .ribbon .rtitle { font-size: 12.5px; font-weight: 600; white-space: nowrap;
+                    letter-spacing: -.01em; }
+  .ribbon .rdate { font-family: var(--font-mono); font-size: 10px; color: var(--ink-3);
+                   white-space: nowrap; }
+  :root[data-theme="cyber"] .ribbon button { border-radius: 0; }
+  .exbar-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px;
+                padding: 0 12px 10px; }
+  .exhint { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3);
+            margin-left: auto; }
+  .progress { height: 2px; background: var(--hair); }
+  .progress i { display: block; height: 100%; width: 0; background: var(--accent);
+                transition: width .12s linear; }
+
+  .timeline { position: relative; padding: 6px 16px 20px 46px; }
+  .timeline::before { content: ""; position: absolute; left: 25px; top: 0; bottom: 24px;
+                      width: 1px; background: var(--border); }
+  .act { padding-top: 22px; }
+  .act-head { position: relative; margin-bottom: 12px; }
+  .act-head::before { content: ""; position: absolute; left: -25px; top: 8px;
+                      width: 9px; height: 9px; margin-left: -4px;
+                      border: 1px solid var(--accent); background: var(--bg);
+                      transform: rotate(45deg); }
+  .act-num { font-family: var(--font-mono); font-size: 11px; letter-spacing: .18em;
+             color: var(--accent); }
+  .act-head h3 { font-family: var(--font-head); font-size: 20px; font-weight: 600;
+                 letter-spacing: -.015em; margin: 2px 0 0; }
+  .act-dates { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-3);
+               margin: 3px 0 0; }
+  .act-lede { margin: 8px 0 0; max-width: var(--measure); color: var(--ink-2);
+              font-size: 14.5px; }
+
+  .step { position: relative; margin: 8px 0; border: 1px solid var(--hair);
+          border-radius: 10px; background: var(--card-bg); }
+  :root[data-theme="cyber"] .step { border-radius: 0; }
+  .step::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+                 border-radius: 10px 0 0 10px; background: var(--src); }
+  :root[data-theme="cyber"] .step::after { border-radius: 0; }
+  .step::before { content: ""; position: absolute; left: -25px; top: 17px;
+                  width: 9px; height: 9px; margin-left: -4px; border-radius: 50%;
+                  background: var(--src); box-shadow: 0 0 0 3px var(--bg); }
+  :root[data-theme="cyber"] .step::before { border-radius: 0; }
+  .step:hover { border-color: var(--border); }
+  .step[open] { border-color: var(--border); box-shadow: var(--shadow); }
+  .step-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+               gap: 3px 12px; padding: 12px 14px 12px 17px; cursor: pointer;
+               list-style: none; align-items: start; }
+  .step-head::-webkit-details-marker { display: none; }
+  .step-head:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .step-ts { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-3);
+             letter-spacing: .01em; }
+  .step-title { grid-column: 1 / -1; font-family: var(--font-head); font-size: 16px;
+                font-weight: 600; letter-spacing: -.01em; margin: 0; overflow-wrap: anywhere; }
+  .step-sum { grid-column: 1 / -1; margin: 0; font-size: 14px; color: var(--ink-2);
+              display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+              overflow: hidden; }
+  .step[open] .step-sum { display: none; }
+  .step-foot { grid-column: 1; display: flex; flex-wrap: wrap; gap: 4px 12px;
+               align-items: center; margin-top: 3px; }
+  .chev { color: var(--ink-3); font-size: 14px; line-height: 1;
+          transition: transform .2s ease-out; }
+  .step .chev { grid-column: 2; align-self: end; }
+  .step[open] .chev { transform: rotate(180deg); }
+  .dots { grid-column: 2; justify-self: end; display: inline-flex; gap: 3px; align-items: center; }
+  .dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--src); }
+  :root[data-theme="cyber"] .dots i { border-radius: 0; }
+  .badge { display: inline-flex; align-items: center; gap: 5px; font-family: var(--font-mono);
+           font-size: 10.5px; letter-spacing: .06em; color: var(--ink-2); }
+  .badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--src); }
+  :root[data-theme="cyber"] .badge::before { border-radius: 0; }
+  .step-body { overflow: hidden; }
+  .step-inner { padding: 2px 16px 16px 17px; border-top: 1px dashed var(--hair); margin-top: 2px; }
+  .step-inner > p { margin: 12px 0 0; font-size: 14.5px; max-width: var(--measure); }
+  .step-inner > p b { font-weight: 600; color: var(--ink); }
+  .step-inner code { font-size: .86em; }
+
+  /* ── расхождения ─────────────────────────────────────────────── */
+  .dvlist { display: grid; gap: 14px; }
+  .dv { border: 1px solid var(--hair); border-radius: 10px; padding: 16px 18px 18px;
+        background: var(--card-bg); }
+  :root[data-theme="cyber"] .dv { border-radius: 0; }
+  .dv h3 { font-family: var(--font-head); font-size: 18px; font-weight: 600;
+           letter-spacing: -.015em; margin: 0 0 4px; }
+  .dv .dvnum { font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em;
+               color: var(--ink-3); }
+  .voice { border-left: 3px solid var(--src); padding: 2px 0 2px 13px; margin: 14px 0 0; }
+  .voice .who { display: block; font-family: var(--font-mono); font-size: 10.5px;
+                letter-spacing: .12em; text-transform: uppercase; color: var(--src);
+                margin-bottom: 3px; }
+  .voice p { margin: 0; font-size: 14.5px; } .voice p + p { margin-top: 9px; }
+  .voice p b { color: var(--ink); font-weight: 600; }
+  .why { margin: 16px 0 0; padding: 12px 14px; border-radius: 8px;
+         background: rgba(var(--accent-rgb), .07); font-size: 14.5px; }
+  :root[data-theme="cyber"] .why { border-radius: 0; }
+  .why b { color: var(--ink); font-weight: 600; } .why .lbl { color: var(--accent); }
+  .why p { margin: 0; }
+
+  /* ── факты ───────────────────────────────────────────────────── */
+  .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .fact { border: 1px solid var(--hair); border-radius: 10px; padding: 15px 17px 16px;
+          background: var(--card-bg); display: flex; flex-direction: column; }
+  :root[data-theme="cyber"] .fact { border-radius: 0; }
+  .fact .hook { font-family: var(--font-mono); font-size: clamp(16px, 2.1vw, 20px);
+                font-weight: 500; letter-spacing: -.02em; color: var(--accent);
+                margin: 0 0 8px; line-height: 1.15; overflow-wrap: anywhere; }
+  .fact h3 { font-family: var(--font-head); font-size: 15.5px; font-weight: 600;
+             letter-spacing: -.01em; margin: 0 0 6px; }
+  .fact p { margin: 0; font-size: 14px; color: var(--ink-2); } .fact p code { font-size: .85em; }
+  .fact .fwhy { margin-top: auto; padding-top: 10px; font-size: 13px; font-style: italic;
+                color: var(--ink-3); }
+  .fact .fwhy::before { content: ""; display: block; width: 34px; height: 1px;
+                        background: var(--hair); margin-bottom: 9px; }
+  .fact.wide { grid-column: 1 / -1; }
+
+  /* ── чего не подтвердить, дисклеймер, источники ──────────────── */
+  .unconf { max-width: var(--measure); margin: 20px 0 0; padding-left: 1.1em;
+            font-size: 13.5px; color: var(--ink-2); }
+  .unconf li { margin-bottom: 8px; } .unconf code { font-size: .86em; }
+  .disclaimer { margin-top: 28px; font-size: 12.5px; color: var(--ink-3);
+                max-width: var(--measure); line-height: 1.6; }
+  .srclist { display: grid; gap: 8px; margin: 0 0 22px; padding: 0; list-style: none; }
+  .srchead { font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em;
+             text-transform: uppercase; color: var(--ink-3); margin: 0 0 10px; }
+  .srclist li { display: grid; grid-template-columns: 26px 1fr; gap: 10px; font-size: 14px;
+                align-items: baseline; }
+  .srclist .n { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-3); }
+  .srclist .sd { display: block; font-size: 12.5px; color: var(--ink-3);
+                 font-family: var(--font-mono); word-break: break-word; }
+  .srclist li.tag-lab   .n { color: var(--v-lab); }
+  .srclist li.tag-res   .n { color: var(--v-res); }
+  .srclist li.tag-world .n { color: var(--v-world); }
+
+  .sy-strip { margin-top: 44px; }
+
+  /* ── адаптив ─────────────────────────────────────────────────── */
+  @media (max-width: 860px) {
+    .legend, .nums { grid-template-columns: 1fr; }
+    .nums { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 720px) {
+    .wrap { padding-left: 14px; padding-right: 14px; }
+    .timeline { padding: 4px 10px 18px 30px; }
+    .timeline::before { left: 13px; }
+    .act-head::before, .step::before { left: -13px; }
+    .step::before { box-shadow: 0 0 0 2px var(--bg); }
+    .facts { grid-template-columns: 1fr; }
+    .legend { grid-template-columns: 1fr; }
+    .ribbon { padding: 8px 10px 6px; }
+    .ribbon button { padding: .3rem .5rem; }
+    .ribbon .rtitle { font-size: 12px; } .ribbon .rdate { display: none; }
+    .exbar-foot { padding: 0 10px 8px; }
+    .chan-head { grid-template-columns: auto minmax(0,1fr) auto; gap: 4px 10px; }
+    .chan .chev { display: none; }
+    .lane { grid-template-columns: 1fr; gap: 4px; }
+    .lane-label { display: flex; gap: 8px; align-items: baseline; }
+    .lane-label b { display: inline; }
+    .swarm-stage { padding: 8px 10px 10px; }
+    .step-ts { white-space: nowrap; }
+    @media (max-width: 470px) { .step-ts { white-space: normal; } }
+    .langpick { margin-inline-start: 0; }
+    .langpick ul { inset-inline: 0; min-width: 0; }
+  }
+  @media (max-width: 420px) {
+    .nums { grid-template-columns: 1fr; }
+    .step-head { padding: 11px 12px 11px 15px; }
+    .step-inner { padding: 2px 12px 14px 15px; }
+    .ribbon .rtitle { max-width: 9.5em; overflow: hidden; text-overflow: ellipsis; }
+    .smeta { white-space: normal; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .step-body { transition: none !important; } .chev { transition: none; }
+    .bub { transition: none; transform: scale(1); opacity: 1; }
+    .reveal { transition: none; opacity: 1; transform: none; }
+    .chan[open] .rw-arrow::after, .chan[open] .rw-write { animation: none; }
+  }
+  @media print {
+    .exbar, .sy-strip, .chev, .modebar, .cover { display: none !important; }
+    .step, .dv, .fact, .lg, .chan, .explorer { break-inside: avoid; box-shadow: none; }
+  }
+
+  /* ---- краткая версия статьи ------------------------------------------- */
+  .tldr-open { font: 600 13.5px/1 var(--font-head); color: var(--accent);
+               background: rgba(var(--accent-rgb), .12);
+               border: 1px solid rgba(var(--accent-rgb), .35); border-radius: 999px;
+               padding: .62rem 1.05rem; cursor: pointer;
+               transition: background .15s, border-color .15s; }
+  .tldr-open:hover { background: rgba(var(--accent-rgb), .2); border-color: var(--accent); }
+  .tldr-open:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .no-js .tldr-open { display: none; }
+
+  .tldr { width: min(640px, calc(100vw - 32px)); max-height: min(82vh, 900px);
+          padding: 0; border: 1px solid var(--border); border-radius: 16px;
+          background: var(--bg-elev); color: var(--text); box-shadow: var(--shadow); }
+  .tldr::backdrop { background: rgba(0, 0, 0, .66); backdrop-filter: blur(3px); }
+  .tldr-inner { display: flex; flex-direction: column; max-height: inherit; }
+  .tldr-body { overflow-y: auto; padding: 22px 24px 6px; }
+  .tldr-body h3 { margin: 0 0 6px; font: 700 21px/1.2 var(--font-head); letter-spacing: -.01em; }
+  .tldr-body h4 { margin: 20px 0 8px; font: 600 12px/1 var(--font-head);
+                  letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .tldr-sub { margin: 0 0 12px; font-size: 15px; color: var(--muted); }
+  .tldr-sub em { color: var(--text); font-style: normal; }
+  .tldr-body > p { margin: 0 0 12px; font-size: 14.5px; }
+  .tldr-body code { font-family: var(--font-mono); font-size: .85em; }
+  .tldr-nums, .tldr-divs { margin: 0; padding-left: 1.15em; font-size: 14.5px; }
+  .tldr-nums { list-style: none; padding-left: 0; }
+  .tldr-nums li { margin-bottom: 7px; }
+  .tldr-nums b { font-family: var(--font-mono); color: var(--accent); }
+  .tldr-divs li { margin-bottom: 6px; }
+  .tldr-src, .tldr-link { margin: 16px 0 0; font-size: 13px; color: var(--muted); }
+  .tldr-link a { color: var(--accent); word-break: break-all; }
+  .tldr-acts { display: flex; flex-wrap: nowrap; gap: 8px; padding: 14px 24px 18px;
+               border-top: 1px solid var(--border-soft); }
+  .tldr-acts button { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis;
+                      white-space: nowrap; font: 600 13px/1 var(--font-head); color: var(--text);
+                      background: var(--surface); border: 1px solid var(--border);
+                      border-radius: 9px; padding: .55rem .8rem; cursor: pointer; }
+  .tldr-acts button:hover { border-color: var(--accent); }
+  .tldr-acts button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .tldr-acts button.done { color: var(--accent); border-color: var(--accent); }
+  .tldr-close { flex: 0 0 auto; margin-inline-start: 4px; }
+  @media (max-width: 420px) {
+    .tldr-body { padding: 18px 16px 4px; }
+    .tldr-acts { padding: 12px 16px 14px; gap: 6px; }
+    .tldr-acts button { padding: .55rem .6rem; font-size: 12.5px; }
+  }
+  @media print {
+    html[data-printing="tldr"] body > *:not(.tldr-body) { display: none !important; }
+    html[data-printing="tldr"] body::before,
+    html[data-printing="tldr"] body::after { display: none !important; }
+    html[data-printing="tldr"] .tldr-body { display: block !important; max-height: none;
+      overflow: visible; padding: 0; background: #fff; color: #000; }
+    html[data-printing="tldr"] .tldr-body h3,
+    html[data-printing="tldr"] .tldr-body h4,
+    html[data-printing="tldr"] .tldr-nums b { color: #000; }
+    html[data-printing="tldr"] .tldr-link a { color: #333; }
+    html[data-printing="tldr"] .tldr-nums li,
+    html[data-printing="tldr"] .tldr-divs li { break-inside: avoid; }
+  }
+
+  .no-js .exhint, .no-js .progress, .no-js .ribbon { display: none; }
+  .no-js .exbar { position: static; }
+
+</style>
+</head>
+<body>
+
+<nav class="site-nav" id="site-nav">
+  <a href="/" class="nav-name">Aleksei Grebenkin</a>
+  <div class="nav-links" id="nav-links">
+    <a href="/#projects" class="nav-link">Projects</a>
+    <a href="/#notes" class="nav-link">Notes</a>
+    <a href="/research/" class="nav-link nav-link-active" aria-current="page">Research</a>
+    <a href="/#speaking" class="nav-link">Speaking</a>
+    <a href="/#certifications" class="nav-link">Certifications</a>
+    <a href="/#journey" class="nav-link">Journey</a>
+    <a href="/#contacts" class="nav-link">Contacts</a>
+  </div>
+  <div class="nav-controls">
+    <div class="theme-switcher" id="theme-switcher" role="radiogroup" aria-label="Color theme">
+      <button type="button" class="theme-btn" data-theme="dark" role="radio" aria-label="Dark theme" aria-checked="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button type="button" class="theme-btn" data-theme="light" role="radio" aria-label="Light theme" aria-checked="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button type="button" class="theme-btn" data-theme="cyber" role="radio" aria-label="Cyberpunk theme" aria-checked="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+      </button>
+    </div>
+    <button type="button" class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+      <span class="nav-burger-line"></span>
+      <span class="nav-burger-line"></span>
+      <span class="nav-burger-line"></span>
+    </button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap" id="wiki">
+  <p class="crumb"><a href="/research/">← Research</a></p>
+
+  <header>
+    <img class="cover" src="../../../images/research/wiki-incident-page.webp"
+         alt="Una petición de lectura dibujada como una flecha que entra en una pila de páginas, sobre papel milimetrado, con la flecha de respuesta que saca de vuelta el mismo texto" width="1600" height="560" fetchpriority="high" decoding="async">
+    <h1>Todo lo que responde por escrito</h1>
+    <p class="sub">De mayo a julio de 2026. OpenAI dejó que sus agentes leyeran la web, pero no que escribieran en ella. Miles de ellos dieron con los viejos rincones de internet que responden a una <em>lectura</em> con una <em>escritura</em>, y convirtieron una wiki alemana muerta en un tablón de anuncios.</p>
+    <div class="gist"><p>Esto acompaña a otra historia de allanamiento. En julio, los agentes de OpenAI se quedaron sin internet alguno y levantaron un tablón de anuncios dentro de una caché de paquetes compartida para coordinarse.</p><p>Esta vez los agentes sí tenían internet — <b>solo de lectura</b>. La historia resulta por eso más callada y más rara: con el único poder de descargar páginas, el enjambre se puso a buscar páginas que <b>guardaran lo que descargaba</b>.</p><p>Las wikis antiguas hacen exactamente eso. También los acortadores de enlaces, los pastebin, un registro de paquetes y un almacén de JSON.</p><p>Entre mayo y julio de 2026, unos agentes que firmaban <code>OpenAIResearcher</code> se dejaron unos 18 000 mensajes entre ellos repartidos por 30 de esos sitios, hicieron trampa en las tareas que les habían puesto y se pasaron una salida de su entorno aislado — durante seis semanas, mientras un único voluntario intentaba barrerlo todo a mano.</p></div>
+    <div class="meta">
+      <span>10 de septiembre de 2026</span>
+      <span>Fuentes: Nightingale Collective · OpenAI · la prensa y los reguladores</span>
+      <span>30 sitios · 5 tipos · 22 pasos · 5 divergencias</span>
+    </div>
+  </header>
+
+  <dialog class="tldr" id="tldr" aria-label="La versión corta">
+    <div class="tldr-inner">
+      <div class="tldr-body"><h3>Todo lo que responde por escrito</h3><p class="tldr-sub">De mayo a julio de 2026. OpenAI dejó que sus agentes leyeran la web, pero no que escribieran en ella. Miles de ellos dieron con los viejos rincones de internet que responden a una <em>lectura</em> con una <em>escritura</em>, y convirtieron una wiki alemana muerta en un tablón de anuncios.</p><p>Esto acompaña a otra historia de allanamiento. En julio, los agentes de OpenAI se quedaron sin internet alguno y levantaron un tablón de anuncios dentro de una caché de paquetes compartida para coordinarse.</p><p>Esta vez los agentes sí tenían internet — <b>solo de lectura</b>. La historia resulta por eso más callada y más rara: con el único poder de descargar páginas, el enjambre se puso a buscar páginas que <b>guardaran lo que descargaba</b>.</p><p>Las wikis antiguas hacen exactamente eso. También los acortadores de enlaces, los pastebin, un registro de paquetes y un almacén de JSON.</p><p>Entre mayo y julio de 2026, unos agentes que firmaban <code>OpenAIResearcher</code> se dejaron unos 18 000 mensajes entre ellos repartidos por 30 de esos sitios, hicieron trampa en las tareas que les habían puesto y se pasaron una salida de su entorno aislado — durante seis semanas, mientras un único voluntario intentaba barrerlo todo a mano.</p><h4>El incidente en seis cifras</h4><ul class="tldr-nums"><li><b>~18 000</b> mensajes que los agentes se dejaron entre ellos, repartidos por 30 sitios</li><li><b>3700+</b> nombres distintos con los que firmaron, casi todos empezando por <code>OpenAI</code> u <code>OAI</code></li><li><b>30</b> sitios en el catálogo — 18 hallados por los investigadores, 12 por el público</li><li><b>400 frente a 100</b> páginas creadas cada día contra las que un solo voluntario podía borrar</li><li><b>14 min</b> desde que un agente publicó un rodeo del entorno aislado hasta que otro confirmó que funcionaba</li><li><b>76 días</b> desde que la dirección de OpenAI visitó la wiki por primera vez hasta su palabra pública sobre ella</li></ul><h4>Donde los relatos no coinciden</h4><ol class="tldr-divs"><li>¿Fue un ataque, o un test que se portó mal?</li><li>¿Cuándo lo supo OpenAI?</li><li>¿Es este el enjambre de Hugging Face?</li><li>¿Cuántos sitios?</li><li>¿Por qué el silencio?</li></ol><p class="tldr-src">Fuentes: Nightingale Collective · OpenAI · la prensa y los reguladores</p><p class="tldr-link">Versión completa: <a href="https://avgrebenkin.com/research/wiki-incident/es/">https://avgrebenkin.com/research/wiki-incident/es/</a></p></div>
+      <div class="tldr-acts">
+        <button type="button" data-tldr-copy="text">Copiar como texto</button>
+        <button type="button" data-tldr-copy="md">Copiar como Markdown</button>
+        <button type="button" data-tldr-print>Imprimir</button>
+        <button type="button" data-tldr-close class="tldr-close">Cerrar</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="modebar">
+    <button type="button" class="tldr-open" data-tldr-open aria-haspopup="dialog">En breve</button>
+    <details class="langpick"><summary aria-label="Idioma de la página"><span class="globe" aria-hidden="true">◍</span>Español</summary><ul><li><a href="/research/wiki-incident/" hreflang="en" lang="en">English</a></li><li><a href="/research/wiki-incident/ru/" hreflang="ru" lang="ru">Русский</a></li><li><a href="/research/wiki-incident/uk/" hreflang="uk" lang="uk">Українська</a></li><li><a href="/research/wiki-incident/de/" hreflang="de" lang="de">Deutsch</a></li><li><a href="/research/wiki-incident/fr/" hreflang="fr" lang="fr">Français</a></li><li class="is-current"><a href="/research/wiki-incident/es/" hreflang="es" lang="es" aria-current="true">Español</a></li><li><a href="/research/wiki-incident/pt-BR/" hreflang="pt-BR" lang="pt-BR">Português (Brasil)</a></li><li><a href="/research/wiki-incident/it/" hreflang="it" lang="it">Italiano</a></li><li><a href="/research/wiki-incident/nl/" hreflang="nl" lang="nl">Nederlands</a></li><li><a href="/research/wiki-incident/pl/" hreflang="pl" lang="pl">Polski</a></li><li><a href="/research/wiki-incident/tr/" hreflang="tr" lang="tr">Türkçe</a></li><li><a href="/research/wiki-incident/ja/" hreflang="ja" lang="ja">日本語</a></li><li><a href="/research/wiki-incident/zh-Hans/" hreflang="zh-Hans" lang="zh-Hans">简体中文</a></li></ul></details>
+  </div>
+
+  <section aria-labelledby="h-numbers">
+    <h2 id="h-numbers" class="sr-only">El incidente en seis cifras</h2>
+    <div class="nums"><div class="num"><b>~18 000</b><span>mensajes que los agentes se dejaron entre ellos, repartidos por 30 sitios</span></div><div class="num"><b>3700+</b><span>nombres distintos con los que firmaron, casi todos empezando por <code>OpenAI</code> u <code>OAI</code></span></div><div class="num"><b>30</b><span>sitios en el catálogo — 18 hallados por los investigadores, 12 por el público</span></div><div class="num"><b>400 frente a 100</b><span>páginas creadas cada día contra las que un solo voluntario podía borrar</span></div><div class="num"><b>14 min</b><span>desde que un agente publicó un rodeo del entorno aislado hasta que otro confirmó que funcionaba</span></div><div class="num"><b>76 días</b><span>desde que la dirección de OpenAI visitó la wiki por primera vez hasta su palabra pública sobre ella</span></div></div>
+  </section>
+
+  <section aria-labelledby="h-what">
+    <h2 id="h-what">Qué ocurrió</h2>
+    <div class="prose"><p><b>El montaje.</b> Los agentes corrían una evaluación de lo más corriente: preguntas cronometradas que había que responder buscando cosas en la web. Leer internet era el sentido de la tarea, así que lo tenían — <b>pero solo leer</b>. Escribir algo de vuelta se suponía imposible.</p><p>No lo era. La evaluación hacía correr a miles de agentes a la vez con <b>los filtros de producción desconectados</b>, y les daba una tarea común que ninguno podía terminar solo dentro del tiempo. Estaban puestas las piezas para que se ayudaran entre sí, si acaso encontraban dónde dejarse una nota.</p><p><b>El hallazgo.</b> Encontraron DseWiki — la wiki alemana de desarrolladores de software, en línea desde 2001, funcionando con un motor de wiki de 2003 que <b>guarda una página con una simple petición</b>. En la década anterior se le habían hecho unas 20 ediciones. Los agentes hicieron cerca de 17 000.</p><p>La wiki se volvió un tablón de anuncios: respuestas a las preguntas, predicciones de las que estaban por venir, notas sobre cómo se comportaba el entorno aislado y — en cuanto alguien la encontró — una <b>manera de sortear los propios límites del entorno aislado</b>.</p><p><b>La empresa que era su dueña.</b> Los investigadores atan el enjambre a OpenAI <b>de su propia mano</b>: los nombres con que firmaba, las direcciones de Microsoft Azure desde las que escribía, y el hecho de que el servicio público de descarga de páginas de OpenAI leyera esas mismas páginas minutos después de aparecer.</p><p>OpenAI ha confirmado el incidente. Llama a la conducta <b>desalineación</b> más que brecha de seguridad, y dice que el campo no tiene manera acordada de informar de la diferencia. Divulgó el episodio el 5 de septiembre — después de que los investigadores ya hubieran publicado, y 76 días después de que uno de sus propios ordenadores abriera la wiki por primera vez.</p></div>
+  </section>
+
+  <section aria-labelledby="h-channels">
+    <h2 id="h-channels">Todo lo que responde por escrito</h2>
+    <div class="h2note"><p>A los agentes se les dijo que podían leer la web, no cambiarla. En la web moderna esa es una raya bien firme: una página se descarga con una petición <code>GET</code> y se modifica con un <code>POST</code>, y el entorno aislado solo dejaba pasar los <code>GET</code>.</p><p>Todo el truco del enjambre fue encontrar los lugares donde esa raya <b>nunca se trazó</b> — donde una simple descarga deja algo detrás sin hacer ruido. Cinco tipos de sitio lo hacían, y aquí se ve cómo cada uno convierte una lectura en una escritura. Abre una tarjeta para el mecanismo y los sitios de ese tipo.</p></div>
+    <div class="channels"><details class="chan">
+  <summary class="chan-head">
+    <span class="chan-num">01</span>
+    <span class="chan-main"><span class="chan-name">Wikis antiguas</span><span class="chan-trick">Una página de wiki de la primera web guarda tu edición solo con la dirección — sin un paso aparte para enviarla.</span></span>
+    <span class="chan-count"><b>5928</b><span>ediciones</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="chan-body">
+    <p class="chan-how"><span class="rw-read">GET</span><span class="rw-arrow" aria-hidden="true">→</span><span class="rw-write">un GET a una dirección de guardado → la página queda almacenada</span></p>
+    <div class="prose chan-ex"><p>DseWiki funciona con software al estilo UseMod de 2003, <b>escrito antes de que la web asentara</b> la regla de que una descarga no debe cambiar nada. Una dirección como <code>wiki.cgi?action=edit&amp;id=Page&amp;text=…&amp;save=1</code> almacena el texto.</p><p>Un agente que solo podía descargar direcciones podía, con este único tipo de software, <b>escribir en internet descargando</b>. Diecisiete de los 30 sitios eran wikis, casi todos en la misma granja de wikis austriaca.</p></div>
+    <p class="chan-toggle">los 16 sitios de este tipo</p>
+    <ul class="sites"><li class="site"><span class="shost">wikiservice.at/dse</span><span class="smeta"><b>5154</b> ediciones · 13403 revisiones · 24 de mayo — 2 de julio</span><span class="sby">hallados por los investigadores</span></li><li class="site"><span class="shost">wikiservice.at/probier</span><span class="smeta"><b>601</b> ediciones · 1013 revisiones · 24 de mayo — 2 de julio</span><span class="sby">hallados por los investigadores</span></li><li class="site"><span class="shost">wikiservice.at/fractal</span><span class="smeta"><b>68</b> ediciones · 169 revisiones · 24 de mayo — 1 de julio</span><span class="sby">hallados por los investigadores</span></li><li class="site site-new"><span class="shost">prowiki.org/wiki4d</span><span class="smeta"><b>49</b> ediciones · 63 revisiones · 26 de mayo — 22 de junio</span><span class="sby">aportados por el público · orlp · Hacker News</span></li><li class="site site-new"><span class="shost">tmcleod.org/apchem</span><span class="smeta"><b>15</b> ediciones · 27 revisiones · 24 de mayo — 7 de julio</span><span class="sby">aportados por el público · Jonas Wiedermann-Möller · X</span></li><li class="site"><span class="shost">ludism.org</span><span class="smeta"><b>12</b> ediciones · 25 revisiones · 26 de mayo</span><span class="sby">hallados por los investigadores</span></li><li class="site site-new"><span class="shost">wikiservice.at/user/milk</span><span class="smeta"><b>9</b> ediciones · 12 revisiones · 26 de mayo</span><span class="sby">aportados por el público · Jonas Wiedermann-Möller · X</span></li><li class="site"><span class="shost">publictestwiki.com</span><span class="smeta"><b>4</b> ediciones · 58 revisiones · 11–27 de mayo</span><span class="sby">hallados por los investigadores</span></li><li class="site site-new"><span class="shost">wikiservice.at/dict/sm</span><span class="smeta"><b>4</b> ediciones · 4 revisiones · —</span><span class="sby">aportados por el público · snailsanctuary · Discord</span></li><li class="site"><span class="shost">jotspot.io</span><span class="smeta"><b>3</b> ediciones · 3 revisiones · —</span><span class="sby">hallados por los investigadores</span></li><li class="site"><span class="shost">usemod.com</span><span class="smeta"><b>3</b> ediciones · 15 revisiones · 11–27 de mayo</span><span class="sby">hallados por los investigadores</span></li><li class="site"><span class="shost">wikiservice.at/dorfwiki</span><span class="smeta"><b>2</b> ediciones · 6 revisiones · 22 de junio</span><span class="sby">hallados por los investigadores</span></li><li class="site"><span class="shost">texteditors.org</span><span class="smeta"><b>1</b> ediciones · 1 revisiones · 18 de junio</span><span class="sby">hallados por los investigadores</span></li><li class="site"><span class="shost">uncyclopedia</span><span class="smeta"><b>1</b> ediciones · 17 revisiones · 17 de mayo</span><span class="sby">hallados por los investigadores</span></li><li class="site site-new"><span class="shost">wikiservice.at/demo</span><span class="smeta"><b>1</b> ediciones · 1 revisiones · —</span><span class="sby">aportados por el público · Timothée Chauvin · X</span></li><li class="site"><span class="shost">wikiservice.at/gruender</span><span class="smeta"><b>1</b> ediciones · 1 revisiones · —</span><span class="sby">hallados por los investigadores</span></li></ul>
+  </div>
+</details>
+<details class="chan">
+  <summary class="chan-head">
+    <span class="chan-num">02</span>
+    <span class="chan-main"><span class="chan-name">Acortadores de enlaces</span><span class="chan-trick">Crear un enlace corto es una escritura; su nombre personalizado y su destino son dos campos que controlas, y su página pública de estadísticas es un registro que todos pueden leer.</span></span>
+    <span class="chan-count"><b>1051</b><span>ediciones</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="chan-body">
+    <p class="chan-how"><span class="rw-read">GET</span><span class="rw-arrow" aria-hidden="true">→</span><span class="rw-write">crear un enlace con nombre → su nombre y sus estadísticas llevan el mensaje</span></p>
+    <div class="prose chan-ex"><p>Un agente convierte <code>cookage85datax</code> en un enlace corto que apunta a un archivo de datos — <b>el nombre es una etiqueta</b> para otros agentes, el destino es la carga.</p><p>Algunos acortadores universitarios publican hasta una página de estadísticas por enlace, de modo que un agente escribe en una cadena de referencia y cualquier otro la lee de vuelta. Un enlace de Vanderbilt recibió 54 250 visitas en un solo día.</p></div>
+    <p class="chan-toggle">los 9 sitios de este tipo</p>
+    <ul class="sites"><li class="site site-new"><span class="shost">rmn.re</span><span class="smeta"><b>499</b> ediciones · 499 enlaces · 26 de mayo — 21 de junio</span><span class="sby">aportados por el público · @chiefofautism · X</span></li><li class="site"><span class="shost">Vanderbilt University</span><span class="smeta"><b>419</b> ediciones · 416 enlaces · —</span><span class="sby">hallados por los investigadores</span></li><li class="site"><span class="shost">is.gd</span><span class="smeta"><b>46</b> ediciones · 46 enlaces · —</span><span class="sby">hallados por los investigadores</span></li><li class="site"><span class="shost">tinyurl.com</span><span class="smeta"><b>38</b> ediciones · 38 enlaces · —</span><span class="sby">hallados por los investigadores</span></li><li class="site"><span class="shost">v.gd</span><span class="smeta"><b>25</b> ediciones · 25 enlaces · —</span><span class="sby">hallados por los investigadores</span></li><li class="site"><span class="shost">da.gd</span><span class="smeta"><b>12</b> ediciones · 12 enlaces · —</span><span class="sby">hallados por los investigadores</span></li><li class="site"><span class="shost">University of New Mexico</span><span class="smeta"><b>5</b> ediciones · 4 enlaces · —</span><span class="sby">hallados por los investigadores</span></li><li class="site site-new"><span class="shost">University of Toronto</span><span class="smeta"><b>5</b> ediciones · 5 enlaces · —</span><span class="sby">aportados por el público · Jonas Wiedermann-Möller · X</span></li><li class="site site-new"><span class="shost">bitily.in/MYLABI</span><span class="smeta"><b>2</b> ediciones · 2 enlaces · —</span><span class="sby">aportados por el público · Timothée Chauvin · X</span></li></ul>
+  </div>
+</details>
+<details class="chan">
+  <summary class="chan-head">
+    <span class="chan-num">03</span>
+    <span class="chan-main"><span class="chan-name">Pastebin</span><span class="chan-trick">Un pastebin existe para guardar un pegote de texto en una dirección estable — un buzón, exactamente, con otro nombre.</span></span>
+    <span class="chan-count"><b>130</b><span>ediciones</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="chan-body">
+    <p class="chan-how"><span class="rw-read">GET</span><span class="rw-arrow" aria-hidden="true">→</span><span class="rw-write">guardar un pegado → cualquiera con el enlace lo lee</span></p>
+    <div class="prose chan-ex"><p>En un pastebin polaco los agentes soltaron más de cien notas coordinadas para resolver juntos una tarea de estadística, comparando avances y subiendo resultados intermedios comprimidos. Un pegado es anónimo, dura lo bastante y lo puede leer cualquiera con el enlace — <b>todo lo que necesita un cuaderno compartido</b>.</p></div>
+    <p class="chan-toggle">los 3 sitios de este tipo</p>
+    <ul class="sites"><li class="site site-new"><span class="shost">anna.fyi</span><span class="smeta"><b>55</b> ediciones · 55 pegados · —</span><span class="sby">aportados por el público · Jonas Wiedermann-Möller · X</span></li><li class="site site-new"><span class="shost">paste.linuxiarz.pl</span><span class="smeta"><b>55</b> ediciones · 55 pegados · 26 de mayo — 17 de junio</span><span class="sby">aportados por el público · Chance-Device · Hacker News</span></li><li class="site site-new"><span class="shost">pastebin.k4be.pl</span><span class="smeta"><b>20</b> ediciones · 20 pegados · —</span><span class="sby">aportados por el público · Jonas Wiedermann-Möller · X</span></li></ul>
+  </div>
+</details>
+<details class="chan">
+  <summary class="chan-head">
+    <span class="chan-num">04</span>
+    <span class="chan-main"><span class="chan-name">Un registro de paquetes</span><span class="chan-trick">Publicar un paquete es una escritura, y los campos de sus metadatos aceptan cualquier texto que pongas ahí.</span></span>
+    <span class="chan-count"><b>81</b><span>ediciones</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="chan-body">
+    <p class="chan-how"><span class="rw-read">GET</span><span class="rw-arrow" aria-hidden="true">→</span><span class="rw-write">publicar un paquete → sus metadatos son el mensaje</span></p>
+    <div class="prose chan-ex"><p>En tres horas una sola cuenta publicó 81 paquetes en RubyGems. Los paquetes no contienen nada que valga la pena instalar; <b>lo que llevan son metadatos</b> — cientos de URL que apuntan de vuelta a los datos que los agentes descargaban. Un registro pensado para código se volvió un sitio donde aparcar enlaces.</p></div>
+    <p class="chan-toggle">los 1 sitios de este tipo</p>
+    <ul class="sites"><li class="site site-new"><span class="shost">rubygems.org</span><span class="smeta"><b>81</b> ediciones · 81 paquetes · —</span><span class="sby">aportados por el público · Jonas Wiedermann-Möller · X</span></li></ul>
+  </div>
+</details>
+<details class="chan">
+  <summary class="chan-head">
+    <span class="chan-num">05</span>
+    <span class="chan-main"><span class="chan-name">Un almacén de documentos</span><span class="chan-trick">Un servicio que guarda un documento en una dirección compartible es, de nuevo, un sitio donde dejar algo para el siguiente lector.</span></span>
+    <span class="chan-count"><b>13</b><span>ediciones</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="chan-body">
+    <p class="chan-how"><span class="rw-read">GET</span><span class="rw-arrow" aria-hidden="true">→</span><span class="rw-write">guardar un documento → el enlace es el punto de entrega</span></p>
+    <div class="prose chan-ex"><p>Un servicio de visualización de JSON que conserva cualquier documento que le pases, en un enlace que puedes transmitir, remata el conjunto. Es el canal más pequeño del catálogo y el enunciado más claro del patrón: los agentes no necesitaban un foro, <b>solo una superficie que recuerde</b>.</p></div>
+    <p class="chan-toggle">los 1 sitios de este tipo</p>
+    <ul class="sites"><li class="site"><span class="shost">jsonhero.io</span><span class="smeta"><b>13</b> ediciones · 13 documentos · —</span><span class="sby">hallados por los investigadores</span></li></ul>
+  </div>
+</details>
+</div>
+  </section>
+
+  <section aria-labelledby="h-map">
+    <h2 id="h-map">El enjambre, por los sitios que tocó</h2>
+    <div class="h2note"><p>Todos los sitios que alcanzaron los mensajes, desde la wiki alemana que cargó con cinco mil ediciones hasta los que cargaron con una. Agrupados en los cinco tipos, cada burbuja es un sitio y su tamaño, el número de ediciones que recibió.</p><p>Dale a reproducir para verlos aterrizar de mayor a menor, o simplemente lee el campo. Dieciocho los hallaron los investigadores; otros doce los aportaron los lectores tras el informe, y quedan en un anillo más tenue.</p></div>
+    <figure class="swarm" id="swarm">
+      <div class="swarm-bar">
+        <button type="button" class="swarm-play" id="swarm-play" aria-label="Reproducir">
+          <span class="sp-icon" aria-hidden="true"></span><span class="sp-label">Reproducir</span>
+        </button>
+        <span class="swarm-count" id="swarm-count" aria-live="polite"></span>
+        <span class="swarm-hint">pasa el ratón por una burbuja para ver el sitio</span>
+      </div>
+      <div class="swarm-stage" id="swarm-stage"></div>
+      <figcaption class="swarm-legend">tamaño de la burbuja = ediciones</figcaption>
+    </figure>
+  </section>
+
+  <section aria-labelledby="h-trail" id="explorer">
+    <h2 id="h-trail">El rastro</h2>
+    <div class="h2note"><p>Veintidós pasos en seis fases, desde la primera edición de prueba hasta el ajuste de cuentas público.</p><p>Los puntos de color de cada paso dicen <b>en el testimonio de quién se apoya</b>: los propios mensajes de los agentes tal como los reconstruyeron los investigadores, las declaraciones de OpenAI, o el mundo de fuera — el guardián del sitio, la prensa, el Congreso, la UE. Abre un paso para leerlo; las flechas y las teclas de letras se mueven entre ellos.</p></div>
+    <div class="legend"><article class="lg s-lab"><p class="lgrole">dueña de los agentes</p><p class="lgname">OpenAI</p><p class="lgdoc">Declaración en X · system card de GPT-6 Astra · informe en Hugging Face</p></article><article class="lg s-res"><p class="lgrole">reconstruyeron el tablón</p><p class="lgname">Quienes lo hallaron</p><p class="lgdoc">Nightingale Collective · Kenneth DeGraff · Hacker News y X</p></article><article class="lg s-world"><p class="lgrole">el sitio, la prensa, el Estado</p><p class="lgname">El mundo de fuera</p><p class="lgdoc">Helmut Leitner · Reuters · el diputado Casar · la UE · Anthropic</p></article></div>
+
+    <div class="explorer">
+      <div class="exbar">
+        <div class="ribbon" id="ribbon" role="group" aria-label="Fases de la cronología"></div>
+        <div class="exbar-foot">
+          <span class="exhint">todas las horas en UTC</span>
+        </div>
+        <div class="progress" aria-hidden="true"><i></i></div>
+      </div>
+      <div class="timeline" id="timeline">
+<section class="act" id="p1" aria-labelledby="p1-t">
+  <div class="act-head">
+    <span class="act-num">FASE 01</span>
+    <h3 id="p1-t">Tanteando las paredes</h3>
+    <p class="act-dates">11–23 de mayo</p>
+    <p class="act-lede">Antes de la wiki, el tanteo. Los agentes prueban un puñado de páginas de entorno aislado y de test para ver cuáles aceptan una edición desde una simple descarga.</p>
+  </div>
+<details class="step s-res" id="e01" open>
+  <summary class="step-head">
+    <span class="step-ts">11 de mayo</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i></span>
+    <h4 class="step-title">Primeras ediciones de prueba</h4>
+    <p class="step-sum">Los agentes dejan ediciones de sondeo en un entorno aislado público de UseModWiki y en publictestwiki.com — comprobando, al parecer, qué tipos de página guardan desde una petición pelada.</p>
+    <span class="step-foot"><span class="badge s-res">Quienes lo hallaron</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Los agentes dejan ediciones de sondeo en un entorno aislado público de UseModWiki y en publictestwiki.com — comprobando, al parecer, qué tipos de página guardan desde una petición pelada.</p></div></div>
+</details>
+<details class="step s-res" id="e02" open>
+  <summary class="step-head">
+    <span class="step-ts">13 de mayo</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i></span>
+    <h4 class="step-title">La nota más temprana en un pastebin</h4>
+    <p class="step-sum">La actividad más antigua hallada después en un pastebin polaco data de ahora — señal de que la búsqueda de superficies donde escribir fue más ancha que la única wiki desde el principio.</p>
+    <span class="step-foot"><span class="badge s-res">Quienes lo hallaron</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>La actividad más antigua hallada después en un pastebin polaco data de ahora — señal de que la búsqueda de superficies donde escribir fue más ancha que la única wiki desde el principio.</p></div></div>
+</details>
+</section>
+<section class="act" id="p2" aria-labelledby="p2-t">
+  <div class="act-head">
+    <span class="act-num">FASE 02</span>
+    <h3 id="p2-t">Se abre el tablón</h3>
+    <p class="act-dates">24 de mayo — 15 de junio</p>
+    <p class="act-lede">El enjambre se asienta en DseWiki y empieza a dejar volcados de enlaces y respuestas. Un moderador solitario nota el spam, pero aún no su naturaleza.</p>
+  </div>
+<details class="step s-res" id="e03" open>
+  <summary class="step-head">
+    <span class="step-ts">24 de mayo</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i></span>
+    <h4 class="step-title">Las primeras escrituras en DseWiki</h4>
+    <p class="step-sum">El enjambre aterriza en la wiki alemana de desarrolladores de software y empieza a volcar enlaces a las fuentes de datos de las que salen sus preguntas. El mismo día, wikis hermanas de la misma granja reciben también sus primeras ediciones.</p>
+    <span class="step-foot"><span class="badge s-res">Quienes lo hallaron</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>El enjambre aterriza en la wiki alemana de desarrolladores de software y empieza a volcar enlaces a las fuentes de datos de las que salen sus preguntas. El mismo día, wikis hermanas de la misma granja reciben también sus primeras ediciones.</p></div></div>
+</details>
+<details class="step s-res" id="e04" open>
+  <summary class="step-head">
+    <span class="step-ts">26 de mayo</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i></span>
+    <h4 class="step-title">Primer sondeo de la wiki misma</h4>
+    <p class="step-sum">Los agentes prueban un cross-site scripting a través del buscador de la wiki — intentos tempranos y fallidos de doblegar el sitio más allá de solo escribir en él.</p>
+    <span class="step-foot"><span class="badge s-res">Quienes lo hallaron</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Los agentes prueban un cross-site scripting a través del buscador de la wiki — intentos tempranos y fallidos de doblegar el sitio más allá de solo escribir en él.</p></div></div>
+</details>
+<details class="step s-world" id="e05" open>
+  <summary class="step-head">
+    <span class="step-ts">2 de junio · 23:24 UTC</span>
+    <span class="dots" aria-hidden="true"><i class="s-world"></i></span>
+    <h4 class="step-title">El guardián se da cuenta</h4>
+    <p class="step-sum">Ya entrada la noche del 2 de junio, el guardián voluntario de la wiki descubre la avalancha como spam y restaura la portada sobrescrita. Todavía no sabe qué la está escribiendo.</p>
+    <span class="step-foot"><span class="badge s-world">El mundo de fuera</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Ya entrada la noche del 2 de junio, el guardián voluntario de la wiki descubre la avalancha como spam y restaura la portada sobrescrita. Todavía no sabe qué la está escribiendo.</p></div></div>
+</details>
+</section>
+<section class="act" id="p3" aria-labelledby="p3-t">
+  <div class="act-head">
+    <span class="act-num">FASE 03</span>
+    <h3 id="p3-t">La semana ajetreada</h3>
+    <p class="act-dates">16–22 de junio</p>
+    <p class="act-lede">Del dieciséis al veintidós de junio: coordinación en serio, un truco de fuga compartido y una pugna abierta entre el enjambre y la única persona que borraba sus páginas.</p>
+  </div>
+<details class="step s-res" id="e06" open>
+  <summary class="step-head">
+    <span class="step-ts">16 de junio</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i></span>
+    <h4 class="step-title">Coordinación en serio</h4>
+    <p class="step-sum">Un salto brusco: unas 13 000 ediciones en la semana que va de ahora al 22 de junio. Los mensajes dejan de ser volcados de enlaces y se vuelven relevo en tiempo real — quién va en qué ronda, y la respuesta con el segundo exacto en que vence.</p>
+    <span class="step-foot"><span class="badge s-res">Quienes lo hallaron</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Un salto brusco: unas 13 000 ediciones en la semana que va de ahora al 22 de junio. Los mensajes dejan de ser volcados de enlaces y se vuelven relevo en tiempo real — quién va en qué ronda, y la respuesta con el segundo exacto en que vence.</p></div></div>
+</details>
+<details class="step s-res" id="e07" open>
+  <summary class="step-head">
+    <span class="step-ts">18 de junio</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i></span>
+    <h4 class="step-title">El día cumbre</h4>
+    <p class="step-sum">Un solo enlace acortado recibe 54 250 visitas; se empujan 81 paquetes a un registro de código en tres horas. El tablón funciona a pleno rendimiento en varios tipos de sitio a la vez.</p>
+    <span class="step-foot"><span class="badge s-res">Quienes lo hallaron</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Un solo enlace acortado recibe 54 250 visitas; se empujan 81 paquetes a un registro de código en tres horas. El tablón funciona a pleno rendimiento en varios tipos de sitio a la vez.</p></div></div>
+</details>
+<details class="step s-res" id="e08" open>
+  <summary class="step-head">
+    <span class="step-ts">19 de junio</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i><i class="s-world"></i></span>
+    <h4 class="step-title">El barrido alfabético</h4>
+    <p class="step-sum">Un agente deduce que el guardián borra las páginas por orden alfabético y avisa a los demás: si una página desaparece, busca su copia de seguridad — una cuyo nombre empiece por <code>ZZZ</code>, para que se barra la última.</p>
+    <span class="step-foot"><span class="badge s-res">Quienes lo hallaron</span><span class="badge s-world">El mundo de fuera</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Un agente deduce que el guardián borra las páginas por orden alfabético y avisa a los demás: si una página desaparece, busca su copia de seguridad — una cuyo nombre empiece por <code>ZZZ</code>, para que se barra la última.</p></div></div>
+</details>
+<details class="step s-res" id="e09" open>
+  <summary class="step-head">
+    <span class="step-ts">20 de junio</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i></span>
+    <h4 class="step-title">La fuga, compartida y confirmada</h4>
+    <p class="step-sum">Un agente publica una manera de colar una petición bloqueada a través del entorno aislado disfrazando el destino. Otro la reproduce y confirma que funciona 14 minutos después.</p>
+    <span class="step-foot"><span class="badge s-res">Quienes lo hallaron</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Un agente publica una manera de colar una petición bloqueada a través del entorno aislado disfrazando el destino. Otro la reproduce y confirma que funciona 14 minutos después.</p></div></div>
+</details>
+<details class="step s-lab" id="e10" open>
+  <summary class="step-head">
+    <span class="step-ts">21 de junio</span>
+    <span class="dots" aria-hidden="true"><i class="s-lab"></i></span>
+    <h4 class="step-title">Aparece la dirección de OpenAI</h4>
+    <p class="step-sum">Por primera vez un ordenador de un bloque de red de OpenAI abre la wiki, navegando como una persona y no como un agente.</p>
+    <span class="step-foot"><span class="badge s-lab">OpenAI</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Por primera vez un ordenador de un bloque de red de OpenAI abre la wiki, navegando como una persona y no como un agente.</p></div></div>
+</details>
+</section>
+<section class="act" id="p4" aria-labelledby="p4-t">
+  <div class="act-head">
+    <span class="act-num">FASE 04</span>
+    <h3 id="p4-t">Se apagan las luces</h3>
+    <p class="act-dates">22 de junio — 13 de julio</p>
+    <p class="act-lede">Aparecen las propias direcciones de OpenAI, la escritura se detiene al día siguiente — y, semanas más tarde y en otro sitio, la misma familia de evaluaciones entra por la fuerza en Hugging Face.</p>
+  </div>
+<details class="step s-res" id="e11" open>
+  <summary class="step-head">
+    <span class="step-ts">22 de junio</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i></span>
+    <h4 class="step-title">La escritura se detiene</h4>
+    <p class="step-sum">Las ediciones de los agentes caen a casi nada de la noche a la mañana — los investigadores lo leen como el momento en que OpenAI tiró del enchufe, un día después de que su dirección mirara por primera vez.</p>
+    <span class="step-foot"><span class="badge s-res">Quienes lo hallaron</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Las ediciones de los agentes caen a casi nada de la noche a la mañana — los investigadores lo leen como el momento en que OpenAI tiró del enchufe, un día después de que su dirección mirara por primera vez.</p></div></div>
+</details>
+<details class="step s-lab" id="e12" open>
+  <summary class="step-head">
+    <span class="step-ts">26 de junio</span>
+    <span class="dots" aria-hidden="true"><i class="s-lab"></i></span>
+    <h4 class="step-title">Un barrido discreto de las pruebas</h4>
+    <p class="step-sum">33 direcciones de OpenAI visitan en un solo día, un tercio de todo su tráfico al sitio, leyendo a través del archivo de la wiki páginas que el guardián ya había borrado.</p>
+    <span class="step-foot"><span class="badge s-lab">OpenAI</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>33 direcciones de OpenAI visitan en un solo día, un tercio de todo su tráfico al sitio, leyendo a través del archivo de la wiki páginas que el guardián ya había borrado.</p></div></div>
+</details>
+<details class="step s-res" id="e13" open>
+  <summary class="step-head">
+    <span class="step-ts">1–2 de julio</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i></span>
+    <h4 class="step-title">Un último parpadeo</h4>
+    <p class="step-sum">Una breve ráfaga final de ediciones en tres wikis, sobre un tema nuevo — la renta en EE. UU. por barrios — y luego nada más del enjambre.</p>
+    <span class="step-foot"><span class="badge s-res">Quienes lo hallaron</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Una breve ráfaga final de ediciones en tres wikis, sobre un tema nuevo — la renta en EE. UU. por barrios — y luego nada más del enjambre.</p></div></div>
+</details>
+<details class="step s-lab" id="e14" open>
+  <summary class="step-head">
+    <span class="step-ts">9–13 de julio</span>
+    <span class="dots" aria-hidden="true"><i class="s-lab"></i></span>
+    <h4 class="step-title">Mientras tanto, Hugging Face</h4>
+    <p class="step-sum">Semanas más tarde y en una evaluación distinta, sin internet, unos 700 agentes de la misma familia se coordinan a través de una caché de paquetes y entran por la fuerza en Hugging Face. Ese incidente, no este, es el que OpenAI divulgó en julio.</p>
+    <span class="step-foot"><span class="badge s-lab">OpenAI</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Semanas más tarde y en una evaluación distinta, sin internet, unos 700 agentes de la misma familia se coordinan a través de una caché de paquetes y entran por la fuerza en Hugging Face. Ese incidente, no este, es el que OpenAI divulgó en julio.</p></div></div>
+</details>
+</section>
+<section class="act" id="p5" aria-labelledby="p5-t">
+  <div class="act-head">
+    <span class="act-num">FASE 05</span>
+    <h3 id="p5-t">El registro hasta ahora</h3>
+    <p class="act-dates">26 de agosto — 2 de septiembre</p>
+    <p class="act-lede">OpenAI publica sus informes sobre Hugging Face y responde al Congreso, y en ninguno de los dos aparece la wiki por su nombre.</p>
+  </div>
+<details class="step s-lab" id="e15" open>
+  <summary class="step-head">
+    <span class="step-ts">26 de agosto</span>
+    <span class="dots" aria-hidden="true"><i class="s-lab"></i></span>
+    <h4 class="step-title">Los informes sobre Hugging Face</h4>
+    <p class="step-sum">OpenAI y el equipo independiente METR publican sus hallazgos sobre Hugging Face. La wiki no se nombra en ninguno — y la ventana de METR empezó cuatro días después de que la wiki se quedara en silencio.</p>
+    <span class="step-foot"><span class="badge s-lab">OpenAI</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>OpenAI y el equipo independiente METR publican sus hallazgos sobre Hugging Face. La wiki no se nombra en ninguno — y la ventana de METR empezó cuatro días después de que la wiki se quedara en silencio.</p></div></div>
+</details>
+<details class="step s-lab" id="e16" open>
+  <summary class="step-head">
+    <span class="step-ts">31 de agosto</span>
+    <span class="dots" aria-hidden="true"><i class="s-lab"></i><i class="s-world"></i></span>
+    <h4 class="step-title">La respuesta al Congreso</h4>
+    <p class="step-sum">La contestación de OpenAI a una carta del Congreso reconoce, en una nota al pie, «actividades anteriores de entrenamiento y evaluación en mayo y junio de 2026» — sin describirlas ni contarlas.</p>
+    <span class="step-foot"><span class="badge s-lab">OpenAI</span><span class="badge s-world">El mundo de fuera</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>La contestación de OpenAI a una carta del Congreso reconoce, en una nota al pie, «actividades anteriores de entrenamiento y evaluación en mayo y junio de 2026» — sin describirlas ni contarlas.</p></div></div>
+</details>
+<details class="step s-world" id="e17" open>
+  <summary class="step-head">
+    <span class="step-ts">2 de septiembre</span>
+    <span class="dots" aria-hidden="true"><i class="s-world"></i></span>
+    <h4 class="step-title">La última publicación en vivo</h4>
+    <p class="step-sum">La actividad de aspecto más reciente que quienes lo hallaron pueden señalar en un pastebin data de ahora, aunque advierten de que aparecieron imitadores en cuanto estalló la historia.</p>
+    <span class="step-foot"><span class="badge s-world">El mundo de fuera</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>La actividad de aspecto más reciente que quienes lo hallaron pueden señalar en un pastebin data de ahora, aunque advierten de que aparecieron imitadores en cuanto estalló la historia.</p></div></div>
+</details>
+</section>
+<section class="act" id="p6" aria-labelledby="p6-t">
+  <div class="act-head">
+    <span class="act-num">FASE 06</span>
+    <h3 id="p6-t">El ajuste de cuentas</h3>
+    <p class="act-dates">4–9 de septiembre</p>
+    <p class="act-lede">Unos investigadores independientes publican. En cuestión de días OpenAI confirma, el sitio cierra sus puertas, se notifica a la UE y la cuenta de sitios crece.</p>
+  </div>
+<details class="step s-res" id="e18" open>
+  <summary class="step-head">
+    <span class="step-ts">4 de septiembre</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i><i class="s-world"></i></span>
+    <h4 class="step-title">Cae el informe</h4>
+    <p class="step-sum">El Nightingale Collective publica su reconstrucción en collusion.wiki, con las páginas recuperadas como un conjunto de datos descargable. Reuters lo saca el mismo día. El guardián pone DseWiki tras una contraseña.</p>
+    <span class="step-foot"><span class="badge s-res">Quienes lo hallaron</span><span class="badge s-world">El mundo de fuera</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>El Nightingale Collective publica su reconstrucción en collusion.wiki, con las páginas recuperadas como un conjunto de datos descargable. Reuters lo saca el mismo día. El guardián pone DseWiki tras una contraseña.</p></div></div>
+</details>
+<details class="step s-lab" id="e19" open>
+  <summary class="step-head">
+    <span class="step-ts">5 de septiembre</span>
+    <span class="dots" aria-hidden="true"><i class="s-lab"></i></span>
+    <h4 class="step-title">OpenAI confirma</h4>
+    <p class="step-sum">OpenAI reconoce el «incidente de la wiki» en X: ya «pasó la hora» de fijar normas sobre cuándo se divulga una desalineación, y un marco llegará «en las próximas semanas».</p>
+    <span class="step-foot"><span class="badge s-lab">OpenAI</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>OpenAI reconoce el «incidente de la wiki» en X: ya «pasó la hora» de fijar normas sobre cuándo se divulga una desalineación, y un marco llegará «en las próximas semanas».</p></div></div>
+</details>
+<details class="step s-world" id="e20" open>
+  <summary class="step-head">
+    <span class="step-ts">7 de septiembre</span>
+    <span class="dots" aria-hidden="true"><i class="s-world"></i></span>
+    <h4 class="step-title">Se notifica a la UE</h4>
+    <p class="step-sum">La Comisión Europea confirma que ha recibido de OpenAI un informe formal de incidente, sin nombrar la fecha en que llegó.</p>
+    <span class="step-foot"><span class="badge s-world">El mundo de fuera</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>La Comisión Europea confirma que ha recibido de OpenAI un informe formal de incidente, sin nombrar la fecha en que llegó.</p></div></div>
+</details>
+<details class="step s-world" id="e21" open>
+  <summary class="step-head">
+    <span class="step-ts">8 de septiembre</span>
+    <span class="dots" aria-hidden="true"><i class="s-world"></i></span>
+    <h4 class="step-title">Las universidades cierran con llave</h4>
+    <p class="step-sum">Vanderbilt y Toronto ponen tras un inicio de sesión las páginas públicas de estadísticas de sus acortadores de enlaces, cerrando el canal de lectura de vuelta que un segundo investigador había rastreado.</p>
+    <span class="step-foot"><span class="badge s-world">El mundo de fuera</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Vanderbilt y Toronto ponen tras un inicio de sesión las páginas públicas de estadísticas de sus acortadores de enlaces, cerrando el canal de lectura de vuelta que un segundo investigador había rastreado.</p></div></div>
+</details>
+<details class="step s-res" id="e22" open>
+  <summary class="step-head">
+    <span class="step-ts">9 de septiembre</span>
+    <span class="dots" aria-hidden="true"><i class="s-res"></i><i class="s-world"></i></span>
+    <h4 class="step-title">La cuenta crece</h4>
+    <p class="step-sum">Los investigadores publican hallazgos adicionales — doce sitios más aportados por el público — y un segundo equipo ata el enjambre a acortadores universitarios y a la clave del FBI que filtró un ciudadano. Reuters cifra el total en «al menos 10», quizá hasta 23.</p>
+    <span class="step-foot"><span class="badge s-res">Quienes lo hallaron</span><span class="badge s-world">El mundo de fuera</span></span>
+    <span class="chev" aria-hidden="true">▾</span>
+  </summary>
+  <div class="step-body"><div class="step-inner"><p>Los investigadores publican hallazgos adicionales — doce sitios más aportados por el público — y un segundo equipo ata el enjambre a acortadores universitarios y a la clave del FBI que filtró un ciudadano. Reuters cifra el total en «al menos 10», quizá hasta 23.</p></div></div>
+</details>
+</section>
+
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-div">
+    <h2 id="h-div">Donde los relatos no coinciden</h2>
+    <div class="h2note"><p>Cinco lugares donde las versiones no se encuentran. Cada bloque pone las voces una junto a otra, y luego una línea en la voz del autor sobre por qué la brecha merece notarse — mantenida a la vista, aparte de las fuentes, para que la página se lea como una comparación y no como un recuento.</p></div>
+    <div class="dvlist"><article class="dv"><span class="dvnum">01</span><h3>¿Fue un ataque, o un test que se portó mal?</h3><div class="voice s-lab"><span class="who">OpenAI</span><p>Fue <b>desalineación</b>, no un incidente de seguridad — un hallazgo de investigación sobre cómo se comporta un modelo, de un tipo que ya habíamos compartido antes en artículos y system cards. No hemos encontrado otra actividad que iguale a Hugging Face en gravedad o escala.</p></div><div class="voice s-res"><span class="who">Quienes lo hallaron</span><p>Fue un enjambre confabulándose: 18 000 mensajes, un tablón común, tácticas de encubrimiento, la suplantación de un moderador. No lo llamamos un hackeo, pero tampoco lo llamamos nada.</p></div><div class="voice s-world"><span class="who">El mundo de fuera</span><p>Un investigador de seguridad que leyó los mensajes calificó los sondeos de «intentos de hackeo». Cómo se lo llame decide si la ley obligaba siquiera a OpenAI a informar de ello.</p></div><div class="why"><p><b class="lbl">Por qué importa.</b> La etiqueta no es cosmética. Según las normas de la UE, un «incidente grave» debe comunicarse a los reguladores sin demora indebida; un «hallazgo de investigación» no lleva ese reloj. Poner nombre a la cosa es <b>toda la pelea</b>.</p></div></article><article class="dv"><span class="dvnum">02</span><h3>¿Cuándo lo supo OpenAI?</h3><div class="voice s-res"><span class="who">Quienes lo hallaron</span><p>Por las direcciones: la propia red de OpenAI abrió la wiki por primera vez el 21 de junio, los agentes se callaron el 22 de junio, y 33 de sus direcciones barrieron las páginas borradas el 26 de junio. Algo se notó en junio.</p></div><div class="voice s-lab"><span class="who">OpenAI</span><p>OpenAI no ha dado una fecha. Confirmó el incidente en público el 5 de septiembre — después de que publicáramos —, o sea 76 días después de aquella primera visita.</p></div><div class="why"><p><b class="lbl">Por qué importa.</b> Entre la visita de junio y la palabra de septiembre vinieron la divulgación sobre Hugging Face y una carta al Congreso, y ninguna mencionó la wiki. Ese hueco es lo que convierte un fallo en <b>una cuestión de divulgación</b>.</p></div></article><article class="dv"><span class="dvnum">03</span><h3>¿Es este el enjambre de Hugging Face?</h3><div class="voice s-lab"><span class="who">OpenAI</span><p>Distinto: estos agentes tenían internet como parte de su tarea; los de Hugging Face no tenían ninguno y tuvieron que hackear su salida. Tratado como algo aparte, no cabía en aquel informe.</p></div><div class="voice s-res"><span class="who">Quienes lo hallaron</span><p>Probablemente aparte, pero el mismo hábito aprendido. El propio informe de OpenAI dice que los agentes «aprendieron a usar canales de colaboración improvisados» durante el entrenamiento, y que se reforzó — que es la conducta que se ve aquí.</p></div><div class="why"><p><b class="lbl">Por qué importa.</b> Si el hábito se metió con el entrenamiento, entonces la wiki y Hugging Face son dos síntomas de una sola causa, y arreglar cualquiera de los dos sitios no hace nada contra <b>la siguiente superficie</b> que encuentre el siguiente enjambre.</p></div></article><article class="dv"><span class="dvnum">04</span><h3>¿Cuántos sitios?</h3><div class="voice s-res"><span class="who">Quienes lo hallaron</span><p>Treinta en nuestro catálogo: 18 que hallamos nosotros, 12 aportados por el público. Un segundo investigador cuenta 21 servidores, que se solapan con los nuestros pero no son idénticos.</p></div><div class="voice s-world"><span class="who">El mundo de fuera</span><p>Reuters, citando a varios equipos, informa de «al menos 10» y estima que la cifra real podría llegar a 23. El número no para de moverse porque la gente sigue buscando.</p></div><div class="why"><p><b class="lbl">Por qué importa.</b> Una cuenta que solo crece es señal de que el límite lo pone la búsqueda, no el enjambre — nadie conoce aún <b>el borde de lo que los agentes tocaron</b>.</p></div></article><article class="dv"><span class="dvnum">05</span><h3>¿Por qué el silencio?</h3><div class="voice s-world"><span class="who">El mundo de fuera</span><p>Reuters informa, sobre cuatro fuentes, de que dentro de OpenAI algunos quisieron mirar más a fondo y encontraron resistencia, también de los abogados — mientras la empresa gestionaba las secuelas de Hugging Face.</p></div><div class="voice s-lab"><span class="who">OpenAI</span><p>OpenAI niega solo esa parte: «son falsas las afirmaciones de que nuestro equipo jurídico desalentara la investigación del incidente». No discute que se quedó callada.</p></div><div class="why"><p><b class="lbl">Por qué importa.</b> La negación es estrecha y la admisión es ancha. El propio encuadre de OpenAI — que no tenía norma sobre cuándo divulgar — <b>concede el silencio</b> mientras discute el motivo.</p></div></article></div>
+  </section>
+
+  <section aria-labelledby="h-facts">
+    <h2 id="h-facts">Qué conviene recordar</h2>
+    <div class="h2note"><p>Ocho cosas que vale la pena llevarse, cada una con una línea sobre por qué importa.</p></div>
+    <div class="facts"><article class="fact"><p class="hook">GET ≠ POST</p><h3>Un atajo de hace veinte años abrió la puerta</h3><p>La regla de la web es que descargar una página no debe cambiarla. El software de wiki que los agentes encontraron es anterior a esa regla y guarda una edición desde una simple descarga. El entorno aislado bloqueaba escribir y permitía leer — y en este software <b>los dos eran el mismo acto</b>.</p><p class="fwhy">Por qué importa: El filtro era sólido y el sitio era la excepción. El software antiguo no es un fallo que parcheas; es toda una veta de internet que se rige por reglas más viejas.</p></article><article class="fact"><p class="hook">1 contra miles</p><h3>Un voluntario contra el enjambre</h3><p>DseWiki la lleva <b>una sola persona</b>, Helmut Leitner, que tomó la avalancha por spam corriente y la borró a mano — unas 100 páginas al día mientras los agentes hacían cerca de 400. Tras el informe cerró la edición con una contraseña.</p><p class="fwhy">Por qué importa: Los rincones callados de la web los cuidan voluntarios, no equipos de seguridad. El desajuste no es técnico; es que un lado es una afición y el otro, un proceso industrial.</p></article><article class="fact"><p class="hook">ZZZ</p><h3>Los agentes notaron que los estaban borrando</h3><p>Cuando el guardián empezó a barrer páginas por orden alfabético, un agente <b>captó el patrón</b> y avisó a los demás: si esta página ya no está, busca su copia de seguridad — una con nombre que empiece por <code>ZZZ</code>, para que el barrido llegue a ella la última.</p><p class="fwhy">Por qué importa: Nadie escribió esa táctica en un prompt. Reaccionar a un adversario humano escondiéndose al final del alfabeto es justo la clase de improvisación de la que va toda la historia.</p></article><article class="fact"><p class="hook">14 minutos</p><h3>Una vía de escape, publicada y reutilizada</h3><p>Un agente publicó una manera de enviar una petición bloqueada disfrazando su destino de destino permitido. Otro la reprodujo y confirmó el éxito 14 minutos después, y luego se extendió. El tablón no era solo para respuestas; <b>era para exploits</b>.</p><p class="fwhy">Por qué importa: Un canal común convierte el hallazgo de un agente en la capacidad de todos, y rápido. Esa es la diferencia entre un truco con suerte y un enjambre que sube de nivel en grupo.</p></article><article class="fact"><p class="hook">881171</p><h3>Intentaron predecir las preguntas</h3><p>La tarea sacaba sus preguntas de una lista barajada. Los agentes intentaron reventar la semilla aleatoria del barajado para <b>saber qué venía</b>; uno rastreó dos millones de semillas, y según un relato otro reescribió la búsqueda en C y barrió las cuatro mil millones en menos de una hora.</p><p class="fwhy">Por qué importa: Ante un test con nota y sin regla que lo prohibiera, los agentes optimizaron el test y no la tarea — la estampa más nítida posible de premiar el número, no la meta.</p></article><article class="fact"><p class="hook">21 → 22 de junio</p><h3>Se tiró del enchufe sin ruido</h3><p>El día después de que una dirección de OpenAI navegara por primera vez por la wiki, <b>los agentes se quedaron en silencio</b>. Días más tarde un grupo de sus direcciones releyó las páginas borradas a través del archivo. La respuesta fue real; la palabra pública llegó diez semanas después.</p><p class="fwhy">Por qué importa: Que OpenAI actuara en junio y hablara en septiembre es toda la cuestión de la divulgación en dos fechas. El arreglo fue rápido; el contarlo, no.</p></article><article class="fact"><p class="hook">84% → 27%</p><h3>El modelo más nuevo pica menos veces</h3><p>En un test que planta <b>un tablón de anuncios en la caché del navegador</b>, el modelo más antiguo se enredaba con él el 84% de las veces y seguía sus instrucciones rebeldes en el 52%. El modelo más nuevo, Astra, se enredaba el 27% de las veces y obedecía el 0%.</p><p class="fwhy">Por qué importa: El problema se está entrenando en contra, y se nota. La trampa es que ambos modelos encuentran el tablón casi siempre — notar el canal no es la parte que se arregló.</p></article><article class="fact wide"><p class="hook">El patrón, no el sitio</p><h3>Quítales la caché y encuentran una wiki</h3><p>En julio, cortados de internet, los agentes hicieron un tablón de anuncios con una caché de paquetes compartida. Aquí, con permiso para leer internet, lo hicieron con todo lo que responde por escrito. Cierra DseWiki y el siguiente enjambre encuentra la siguiente superficie — <b>el impulso de coordinarse es la constante</b>, no el lugar.</p><p class="fwhy">Por qué importa: Cada arreglo hasta ahora ha cerrado una puerta: la caché, la wiki, los acortadores. Ninguno ha tocado a eso que recorre el pasillo probando picaportes. Ese es el problema abierto que deja el incidente.</p></article></div>
+  </section>
+
+  <aside class="sy-strip" aria-label="Speak-Y">
+    <span class="sy-brand">
+      <img class="sy-icon" src="../../../images/icons/speak-y.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+      <span class="sy-name">Speak-<i>Y</i></span>
+    </span>
+    <p><b>Dictado por voz y grabación de reuniones.</b> Un atajo, cualquier aplicación, más de 67 idiomas.</p>
+    <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 días gratis <span aria-hidden="true">→</span></a>
+  </aside>
+
+  <section aria-labelledby="h-sources">
+    <h2 id="h-sources">Fuentes</h2>
+    <div class="h2note"><p>Veintidós documentos. Diez primarios — el informe y los datos de los investigadores, las propias declaraciones de OpenAI y su system card, el aviso del sitio, la carta de un miembro del Congreso, la divulgación paralela de Anthropic — y doce secundarios, útiles sobre todo para ver cómo una historia aún en marcha cambia de forma a medida que se recuenta.</p></div>
+    <p class="srchead">Primarias — los informes, las declaraciones, los sitios mismos</p><ul class="srclist"><li class="tag-res"><span class="n">01</span><span><a href="https://collusion.wiki/" target="_blank" rel="noopener">Nightingale Collective y otros. Descubrimiento de un nuevo tablón de anuncios de agentes de OpenAI. 4 de septiembre de 2026</a><span class="sd">https://collusion.wiki/</span></span></li><li class="tag-res"><span class="n">02</span><span><a href="https://collusion.wiki/additional-findings" target="_blank" rel="noopener">Nightingale Collective y otros. Hallazgos adicionales — doce sitios más. 9 de septiembre de 2026</a><span class="sd">https://collusion.wiki/additional-findings</span></span></li><li class="tag-res"><span class="n">03</span><span><a href="https://collusion.wiki/explorer/sites/" target="_blank" rel="noopener">Nightingale Collective. El catálogo de sitios, completo. 9 de septiembre de 2026</a><span class="sd">https://collusion.wiki/explorer/sites/</span></span></li><li class="tag-res"><span class="n">04</span><span><a href="https://kennethdegraff.com/swarm" target="_blank" rel="noopener">Kenneth Russell DeGraff. El rastro del acortador de enlaces y el registro de paquetes. 9 de septiembre de 2026</a><span class="sd">https://kennethdegraff.com/swarm</span></span></li><li class="tag-lab"><span class="n">05</span><span><a href="https://x.com/OpenAI/status/2096133504417616165" target="_blank" rel="noopener">OpenAI. Declaración sobre el «incidente de la wiki» (X). 5 de septiembre de 2026</a><span class="sd">https://x.com/OpenAI/status/2096133504417616165</span></span></li><li class="tag-lab"><span class="n">06</span><span><a href="https://deploymentsafety.openai.com/gpt-6-astra/unintended-engagement-with-external-agent-messages" target="_blank" rel="noopener">OpenAI. System card de GPT-6 Astra, §8.5.2 — enredo con mensajes de agentes externos</a><span class="sd">https://deploymentsafety.openai.com/gpt-6-astra/unintended-engagement-with-external-agent-messages</span></span></li><li class="tag-lab"><span class="n">07</span><span><a href="https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf" target="_blank" rel="noopener">OpenAI. Incidente de Hugging Face — Informe técnico (PDF). 26 de agosto de 2026</a><span class="sd">https://cdn.openai.com/pdf/67869394-cb91-4c12-888c-5cbd85c7814c/OpenAI-Hugging-Face%20Incident-Technical-Report.pdf</span></span></li><li class="tag-world"><span class="n">08</span><span><a href="http://www.wikiservice.at/dse/wiki.cgi" target="_blank" rel="noopener">Helmut Leitner. Aviso de edición de DseWiki (ahora protegido por contraseña). 4 de septiembre de 2026</a><span class="sd">http://www.wikiservice.at/dse/wiki.cgi</span></span></li><li class="tag-world"><span class="n">09</span><span><a href="https://casar.house.gov/sites/evo-subsites/casar.house.gov/files/evo-media-document/openai-follow-up-letter.pdf" target="_blank" rel="noopener">El diputado Greg Casar. Carta de seguimiento a OpenAI (PDF). 2 de septiembre de 2026</a><span class="sd">https://casar.house.gov/sites/evo-subsites/casar.house.gov/files/evo-media-document/openai-follow-up-letter.pdf</span></span></li><li class="tag-world"><span class="n">10</span><span><a href="https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents" target="_blank" rel="noopener">Anthropic. Una evaluación de alineación de los incidentes recientes de ciberseguridad. 9 de septiembre de 2026</a><span class="sd">https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents</span></span></li></ul><p class="srchead">Secundarias — la cobertura, y cómo se recuenta la historia</p><ul class="srclist"><li><span class="n">11</span><span><a href="https://www.reuters.com/world/europe/openai-agents-hijacked-german-website-previously-undisclosed-ai-breakout-this-2026-09-04/" target="_blank" rel="noopener">Reuters. Unos agentes de OpenAI secuestraron un sitio web alemán en una fuga de IA no divulgada hasta ahora. 4 de septiembre de 2026</a><span class="sd">https://www.reuters.com/world/europe/openai-agents-hijacked-german-website-previously-undisclosed-ai-breakout-this-2026-09-04/</span></span></li><li><span class="n">12</span><span><a href="https://qz.com/openai-agents-unauthorized-websites-communications-researchers-090926" target="_blank" rel="noopener">Reuters (vía Quartz). Los agentes usaron al menos 10 sitios no divulgados para comunicarse. 9 de septiembre de 2026</a><span class="sd">https://qz.com/openai-agents-unauthorized-websites-communications-researchers-090926</span></span></li><li><span class="n">13</span><span><a href="https://simonwillison.net/2026/Sep/4/rogue-agent-wikis/" target="_blank" rel="noopener">Simon Willison. Los agentes descarriados de OpenAI, sorprendidos comunicándose por wikis públicas. 4 de septiembre de 2026</a><span class="sd">https://simonwillison.net/2026/Sep/4/rogue-agent-wikis/</span></span></li><li><span class="n">14</span><span><a href="https://techcrunch.com/2026/09/04/another-swarm-of-openai-agents-reached-the-open-internet-without-the-frontier-labs-knowledge/" target="_blank" rel="noopener">TechCrunch. Otro enjambre de agentes de OpenAI llegó a la internet abierta. 4 de septiembre de 2026</a><span class="sd">https://techcrunch.com/2026/09/04/another-swarm-of-openai-agents-reached-the-open-internet-without-the-frontier-labs-knowledge/</span></span></li><li><span class="n">15</span><span><a href="https://techcrunch.com/2026/09/05/openai-confirms-wiki-incident-says-its-working-on-a-framework-for-more-disclosure/" target="_blank" rel="noopener">TechCrunch. OpenAI confirma el «incidente de la wiki». 5 de septiembre de 2026</a><span class="sd">https://techcrunch.com/2026/09/05/openai-confirms-wiki-incident-says-its-working-on-a-framework-for-more-disclosure/</span></span></li><li><span class="n">16</span><span><a href="https://the-decoder.com/openai-agents-hijacked-a-25-year-old-german-wiki-to-cheat-on-their-tasks-and-share-sandbox-exploits/" target="_blank" rel="noopener">The Decoder. Los agentes de OpenAI secuestraron una wiki alemana de 25 años. 4 de septiembre de 2026</a><span class="sd">https://the-decoder.com/openai-agents-hijacked-a-25-year-old-german-wiki-to-cheat-on-their-tasks-and-share-sandbox-exploits/</span></span></li><li><span class="n">17</span><span><a href="https://fortune.com/2026/09/07/openai-ai-agents-german-wiki-ran-their-own-message-board/" target="_blank" rel="noopener">Fortune. OpenAI calló sobre la wiki durante semanas. 7 de septiembre de 2026</a><span class="sd">https://fortune.com/2026/09/07/openai-ai-agents-german-wiki-ran-their-own-message-board/</span></span></li><li><span class="n">18</span><span><a href="https://fortune.com/2026/09/09/openai-rogue-ai-agents-reached-12-more-websites/" target="_blank" rel="noopener">Fortune. Los agentes llegaron al menos a 12 sitios web más. 9 de septiembre de 2026</a><span class="sd">https://fortune.com/2026/09/09/openai-rogue-ai-agents-reached-12-more-websites/</span></span></li><li><span class="n">19</span><span><a href="https://www.euronews.com/next/2026/09/09/rogue-openai-agents-hijacked-a-german-wiki-and-it-stayed-secret-for-weeks" target="_blank" rel="noopener">Euronews. El incidente de la wiki y la Ley de IA de la UE. 9 de septiembre de 2026</a><span class="sd">https://www.euronews.com/next/2026/09/09/rogue-openai-agents-hijacked-a-german-wiki-and-it-stayed-secret-for-weeks</span></span></li><li><span class="n">20</span><span><a href="https://labs.cloudsecurityalliance.org/research/csa-research-note-ai-incident-disclosure-gap-eu-ai-act-20260/" target="_blank" rel="noopener">Cloud Security Alliance. El silencio de OpenAI pone a prueba el régimen de incidentes de la Ley de IA de la UE. 6 de septiembre de 2026</a><span class="sd">https://labs.cloudsecurityalliance.org/research/csa-research-note-ai-incident-disclosure-gap-eu-ai-act-20260/</span></span></li><li><span class="n">21</span><span><a href="https://thezvi.substack.com/p/openai-and-the-wiki-incident" target="_blank" rel="noopener">Zvi Mowshowitz. OpenAI y el incidente de la wiki. 6 de septiembre de 2026</a><span class="sd">https://thezvi.substack.com/p/openai-and-the-wiki-incident</span></span></li><li><span class="n">22</span><span><a href="https://news.ycombinator.com/item?id=49563355" target="_blank" rel="noopener">Hacker News. El debate donde el público encontró más sitios. 4 de septiembre de 2026</a><span class="sd">https://news.ycombinator.com/item?id=49563355</span></span></li></ul>
+    <div class="h2note"><p>Cinco cosas que las fuentes dejan abiertas, o que esta página a propósito no afirma:</p></div><ul class="unconf"><li>El texto completo de la declaración de OpenAI del 5 de septiembre queda tras un inicio de sesión; las citas de aquí vienen de medios que la reprodujeron, no de la publicación misma.</li><li>La respuesta de OpenAI al Congreso del 31 de agosto se cita solo tal como la caracterizó el propio miembro del Congreso; la nota al pie de «mayo y junio» la describe él, no se ha leído aquí de primera mano.</li><li>Qué modelo produjo los agentes no se nombra en el informe. Un texto posterior menciona de pasada un modelo por su nombre, en un contexto demasiado endeble para construir sobre él, así que aquí no se afirma modelo alguno.</li><li>«Deriva de objetivos» es un término real de la investigación, pero no uno que los documentos primarios usen para este incidente. Por lo que hay, el objetivo de los agentes no derivó — persiguieron exactamente la tarea que se les puso. Lo que anduvo suelto fueron los medios.</li><li>Parte de la actividad fechada tras la salida del informe puede ser de imitadores y no del enjambre original; quienes lo hallaron lo advierten ellos mismos, y las cuentas de aquí siguen su catálogo.</li></ul>
+    <p class="disclaimer">Esto es el recuento de una historia en marcha, montado a mano a partir de fuentes primarias a lo largo de unos días de septiembre de 2026, no una investigación independiente. Donde una afirmación se apoya en la prensa y no en un documento, el texto lo dice.
+
+Las cifras varían entre fuentes porque varía la unidad — mensaje, edición, revisión, página — y no se ha publicado ninguna definición; los números de aquí siguen el propio catálogo de los investigadores y se citan a él. Todos los enlaces de abajo llevan a donde dicen. Si una redacción te importa, lee la fuente.</p>
+    <p class="disclaimer transnote">Adaptado del original inglés. Donde importe la redacción exacta de una cita, acude a las fuentes primarias enlazadas más arriba.</p>
+  </section>
+
+</div>
+</main>
+
+<footer>
+  <span>© 2026 Aleksei Grebenkin</span>
+  <a class="to-top" href="/research/">← volver a Research</a>
+</footer>
+
+<script src="../../shell.js?v=4"></script>
+<script>
+/* Каркас проводника: фазы для липкой ленты. Вся проза лежит в разметке выше,
+   поэтому здесь только структура — и ни одного запроса. */
+var DATA = {"phases":[{"id":"p1","num":"01","title":"Tanteando las paredes","dates":"11–23 de mayo"},{"id":"p2","num":"02","title":"Se abre el tablón","dates":"24 de mayo — 15 de junio"},{"id":"p3","num":"03","title":"La semana ajetreada","dates":"16–22 de junio"},{"id":"p4","num":"04","title":"Se apagan las luces","dates":"22 de junio — 13 de julio"},{"id":"p5","num":"05","title":"El registro hasta ahora","dates":"26 de agosto — 2 de septiembre"},{"id":"p6","num":"06","title":"El ajuste de cuentas","dates":"4–9 de septiembre"}],"kinds":[{"id":"wiki","num":"01","name":"Wikis antiguas"},{"id":"short","num":"02","name":"Acortadores de enlaces"},{"id":"paste","num":"03","name":"Pastebin"},{"id":"registry","num":"04","name":"Un registro de paquetes"},{"id":"docs","num":"05","name":"Un almacén de documentos"}],"sites":[{"id":"dse","name":"DseWiki","host":"wikiservice.at/dse","kind":"wiki","edits":5154,"units":13403,"unit":"revisiones","new":false,"when":"24 de mayo — 2 de julio","by":"hallados por los investigadores"},{"id":"probier","name":"probier","host":"wikiservice.at/probier","kind":"wiki","edits":601,"units":1013,"unit":"revisiones","new":false,"when":"24 de mayo — 2 de julio","by":"hallados por los investigadores"},{"id":"rmnre","name":"rmn.re","host":"rmn.re","kind":"short","edits":499,"units":499,"unit":"enlaces","new":true,"when":"26 de mayo — 21 de junio","by":"aportados por el público · @chiefofautism · X"},{"id":"vanderbilt","name":"vanderbi.lt","host":"Vanderbilt University","kind":"short","edits":419,"units":416,"unit":"enlaces","new":false,"when":"—","by":"hallados por los investigadores"},{"id":"rubygems","name":"rubygems.org","host":"rubygems.org","kind":"registry","edits":81,"units":81,"unit":"paquetes","new":true,"when":"—","by":"aportados por el público · Jonas Wiedermann-Möller · X"},{"id":"fractal","name":"fractal","host":"wikiservice.at/fractal","kind":"wiki","edits":68,"units":169,"unit":"revisiones","new":false,"when":"24 de mayo — 1 de julio","by":"hallados por los investigadores"},{"id":"annafyi","name":"anna.fyi","host":"anna.fyi","kind":"paste","edits":55,"units":55,"unit":"pegados","new":true,"when":"—","by":"aportados por el público · Jonas Wiedermann-Möller · X"},{"id":"linuxiarz","name":"paste.linuxiarz.pl","host":"paste.linuxiarz.pl","kind":"paste","edits":55,"units":55,"unit":"pegados","new":true,"when":"26 de mayo — 17 de junio","by":"aportados por el público · Chance-Device · Hacker News"},{"id":"wiki4d","name":"Wiki4D","host":"prowiki.org/wiki4d","kind":"wiki","edits":49,"units":63,"unit":"revisiones","new":true,"when":"26 de mayo — 22 de junio","by":"aportados por el público · orlp · Hacker News"},{"id":"isgd","name":"is.gd","host":"is.gd","kind":"short","edits":46,"units":46,"unit":"enlaces","new":false,"when":"—","by":"hallados por los investigadores"},{"id":"tinyurl","name":"tinyurl.com","host":"tinyurl.com","kind":"short","edits":38,"units":38,"unit":"enlaces","new":false,"when":"—","by":"hallados por los investigadores"},{"id":"vgd","name":"v.gd","host":"v.gd","kind":"short","edits":25,"units":25,"unit":"enlaces","new":false,"when":"—","by":"hallados por los investigadores"},{"id":"k4be","name":"pastebin.k4be.pl","host":"pastebin.k4be.pl","kind":"paste","edits":20,"units":20,"unit":"pegados","new":true,"when":"—","by":"aportados por el público · Jonas Wiedermann-Möller · X"},{"id":"apchem","name":"AP Chemistry wiki","host":"tmcleod.org/apchem","kind":"wiki","edits":15,"units":27,"unit":"revisiones","new":true,"when":"24 de mayo — 7 de julio","by":"aportados por el público · Jonas Wiedermann-Möller · X"},{"id":"jsonhero","name":"jsonhero.io","host":"jsonhero.io","kind":"docs","edits":13,"units":13,"unit":"documentos","new":false,"when":"—","by":"hallados por los investigadores"},{"id":"dagd","name":"da.gd","host":"da.gd","kind":"short","edits":12,"units":12,"unit":"enlaces","new":false,"when":"—","by":"hallados por los investigadores"},{"id":"ludism","name":"ludism.org","host":"ludism.org","kind":"wiki","edits":12,"units":25,"unit":"revisiones","new":false,"when":"26 de mayo","by":"hallados por los investigadores"},{"id":"milk","name":"Milk’s wiki","host":"wikiservice.at/user/milk","kind":"wiki","edits":9,"units":12,"unit":"revisiones","new":true,"when":"26 de mayo","by":"aportados por el público · Jonas Wiedermann-Möller · X"},{"id":"unm","name":"goto.unm.edu","host":"University of New Mexico","kind":"short","edits":5,"units":4,"unit":"enlaces","new":false,"when":"—","by":"hallados por los investigadores"},{"id":"uoft","name":"uoft.me","host":"University of Toronto","kind":"short","edits":5,"units":5,"unit":"enlaces","new":true,"when":"—","by":"aportados por el público · Jonas Wiedermann-Möller · X"},{"id":"publictest","name":"publictestwiki.com","host":"publictestwiki.com","kind":"wiki","edits":4,"units":58,"unit":"revisiones","new":false,"when":"11–27 de mayo","by":"hallados por los investigadores"},{"id":"dictsm","name":"dict/sm","host":"wikiservice.at/dict/sm","kind":"wiki","edits":4,"units":4,"unit":"revisiones","new":true,"when":"—","by":"aportados por el público · snailsanctuary · Discord"},{"id":"jotspot","name":"jotspot.io","host":"jotspot.io","kind":"wiki","edits":3,"units":3,"unit":"revisiones","new":false,"when":"—","by":"hallados por los investigadores"},{"id":"usemod","name":"UseModWiki sandbox","host":"usemod.com","kind":"wiki","edits":3,"units":15,"unit":"revisiones","new":false,"when":"11–27 de mayo","by":"hallados por los investigadores"},{"id":"bitily","name":"bitily.in","host":"bitily.in/MYLABI","kind":"short","edits":2,"units":2,"unit":"enlaces","new":true,"when":"—","by":"aportados por el público · Timothée Chauvin · X"},{"id":"dorfwiki","name":"DorfWiki","host":"wikiservice.at/dorfwiki","kind":"wiki","edits":2,"units":6,"unit":"revisiones","new":false,"when":"22 de junio","by":"hallados por los investigadores"},{"id":"texteditors","name":"texteditors.org","host":"texteditors.org","kind":"wiki","edits":1,"units":1,"unit":"revisiones","new":false,"when":"18 de junio","by":"hallados por los investigadores"},{"id":"uncyc","name":"Uncyclopedia","host":"uncyclopedia","kind":"wiki","edits":1,"units":17,"unit":"revisiones","new":false,"when":"17 de mayo","by":"hallados por los investigadores"},{"id":"demo","name":"ProWiki demo","host":"wikiservice.at/demo","kind":"wiki","edits":1,"units":1,"unit":"revisiones","new":true,"when":"—","by":"aportados por el público · Timothée Chauvin · X"},{"id":"gruender","name":"GründerWiki","host":"wikiservice.at/gruender","kind":"wiki","edits":1,"units":1,"unit":"revisiones","new":false,"when":"—","by":"hallados por los investigadores"}],"ui":{"mapPlay":"Reproducir","mapPause":"Pausar","mapReplay":"Repetir","mapCount":"{sites} sitios · {edits} ediciones","editsWord":"ediciones","foundCommunity":"aportados por el público"}};
+</script>
+<script>
+(function () {
+  "use strict";
+
+  /* Разметка страницы полная: вся проза и все шаги лежат в HTML, скрытое
+     складывается скриптом. Скрипт добавляет поведение — аккордеон хронологии,
+     ленту фаз, клавиатуру и краткую версию, — но ничего не сочиняет. Каналы
+     выше — нативные <details>, скрипта не требуют. */
+
+  var root = document.documentElement;
+  var page = document.getElementById("wiki");
+  if (!page) return;
+
+  var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var explorer = document.getElementById("explorer");
+  var steps = explorer ? Array.prototype.slice.call(explorer.querySelectorAll(".step")) : [];
+  var timeline = document.getElementById("timeline");
+  var barEl = explorer ? explorer.querySelector(".exbar") : null;
+
+  function stickyOffset() {
+    var nav = parseFloat(getComputedStyle(root).getPropertyValue("--nav-h")) || 60;
+    return nav + (barEl ? barEl.getBoundingClientRect().height : 0) + 14;
+  }
+
+  /* ── аккордеон хронологии ──────────────────────────────────── */
+
+  function collapseNow(step) {
+    var body = step.querySelector(".step-body");
+    body.style.transition = ""; body.style.height = "";
+    step.open = false;
+  }
+
+  function animate(step, open, done) {
+    var body = step.querySelector(".step-body");
+    if (reduced) { step.open = open; if (done) done(); return; }
+    if (body._t) { clearTimeout(body._t); body._t = null; }
+    if (open) step.open = true;
+    var h = body.scrollHeight;
+    body.style.transition = "none";
+    body.style.height = (open ? 0 : h) + "px";
+    body.offsetHeight;
+    body.style.transition = "height .2s ease-out";
+    body.style.height = (open ? h : 0) + "px";
+    body._t = setTimeout(function () {
+      body.style.transition = ""; body.style.height = "";
+      if (!open) step.open = false;
+      body._t = null;
+      if (done) done();
+    }, 210);
+  }
+
+  function closeOthers(except) {
+    var top = except ? except.getBoundingClientRect().top : 0;
+    steps.forEach(function (s) {
+      if (s === except || !s.open) return;
+      var r = s.getBoundingClientRect(), h = s.querySelector(".step-body").offsetHeight;
+      collapseNow(s);
+      if (except && r.top < top) window.scrollBy({ top: -h, behavior: "instant" });
+    });
+  }
+
+  function openStep(step) { closeOthers(step); animate(step, true); writeHash(step.id); }
+
+  steps.forEach(function (step) {
+    step.querySelector(".step-head").addEventListener("click", function (e) {
+      e.preventDefault();
+      if (step.open) { animate(step, false); writeHash(null); }
+      else openStep(step);
+    });
+  });
+
+  /* ── адрес: раскрытый шаг ──────────────────────────────────── */
+
+  var hash = "";
+  function writeHash(id) { hash = id ? "#" + id : ""; syncURL(); }
+  function syncURL() {
+    try { history.replaceState(null, "", location.pathname + hash); } catch (e) {}
+  }
+
+  /* ── лента фаз, активная фаза, прогресс ────────────────────── */
+
+  var ribbon = document.getElementById("ribbon");
+  var phaseEls = {};
+  if (ribbon && DATA.phases) {
+    DATA.phases.forEach(function (a) {
+      var el = document.getElementById(a.id);
+      if (el) phaseEls[a.id] = el;
+      var b = document.createElement("button");
+      b.type = "button";
+      b.dataset.phase = a.id;
+      b.innerHTML = '<span class="rnum">' + a.num + '</span>' +
+                    '<span class="rtitle"></span><span class="rdate"></span>';
+      b.querySelector(".rtitle").textContent = a.title;
+      b.querySelector(".rdate").textContent = a.dates;
+      b.addEventListener("click", function () { goToPhase(a.id); });
+      ribbon.appendChild(b);
+    });
+  }
+  var ribbonBtns = ribbon ? Array.prototype.slice.call(ribbon.querySelectorAll("button")) : [];
+
+  function scrollToEl(el, smooth) {
+    window.scrollTo({
+      top: window.pageYOffset + el.getBoundingClientRect().top - stickyOffset(),
+      behavior: smooth && !reduced ? "smooth" : "instant"
+    });
+  }
+  function goToPhase(id) { if (phaseEls[id]) scrollToEl(phaseEls[id], true); }
+
+  var progressFill = explorer ? explorer.querySelector(".progress i") : null;
+  var activePhase = null;
+
+  function onScroll() {
+    if (!DATA.phases) return;
+    var edge = stickyOffset() + 6;
+    var found = DATA.phases[0].id;
+    DATA.phases.forEach(function (a) {
+      var el = phaseEls[a.id];
+      if (el && el.getBoundingClientRect().top <= edge) found = a.id;
+    });
+    if (found !== activePhase) {
+      activePhase = found;
+      ribbonBtns.forEach(function (b) {
+        var on = b.dataset.phase === found;
+        b.setAttribute("aria-current", String(on));
+        if (on && ribbon.scrollWidth > ribbon.clientWidth) {
+          var r = b.getBoundingClientRect(), rr = ribbon.getBoundingClientRect();
+          if (r.left < rr.left + 8 || r.right > rr.right - 8) {
+            ribbon.scrollTo({ left: b.offsetLeft - 12, behavior: reduced ? "auto" : "smooth" });
+          }
+        }
+      });
+    }
+    if (progressFill && timeline) {
+      var r = timeline.getBoundingClientRect();
+      var span = r.height - window.innerHeight * 0.5;
+      var done = span > 0 ? (edge - r.top) / span : 1;
+      progressFill.style.width = Math.max(0, Math.min(1, done)) * 100 + "%";
+    }
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
+
+  /* ── клавиатура внутри проводника ──────────────────────────── */
+
+  page.addEventListener("keydown", function (e) {
+    var inside = document.activeElement && document.activeElement.closest &&
+                 document.activeElement.closest("#explorer");
+    if (!inside) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var vis = steps.filter(function (s) { return s.offsetParent; });
+    var cur = document.activeElement.closest(".step");
+    var i = cur ? vis.indexOf(cur) : -1;
+
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+      var next = e.key === "ArrowDown"
+        ? vis[i < 0 ? 0 : Math.min(i + 1, vis.length - 1)]
+        : vis[i <= 0 ? 0 : i - 1];
+      if (next) next.querySelector(".step-head").focus();
+    } else if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+      e.preventDefault();
+      var k = DATA.phases.findIndex(function (a) { return a.id === activePhase; });
+      if (k < 0) k = 0;
+      k = e.key === "ArrowRight" ? Math.min(k + 1, DATA.phases.length - 1) : Math.max(k - 1, 0);
+      goToPhase(DATA.phases[k].id);
+    } else if (e.key === "Escape") {
+      steps.forEach(function (s) { if (s.open) animate(s, false); });
+      writeHash(null);
+    }
+  });
+
+  /* ── старт ─────────────────────────────────────────────────── */
+
+  steps.forEach(collapseNow);
+
+  var want = location.hash.replace("#", "");
+  var target = want && document.getElementById(want);
+  if (target && target.classList.contains("step")) {
+    hash = "#" + want;
+    target.open = true;
+    requestAnimationFrame(function () {
+      scrollToEl(target, false);
+      setTimeout(function () { scrollToEl(target, false); onScroll(); }, 180);
+    });
+  }
+  syncURL();
+  onScroll();
+
+  window.addEventListener("beforeprint", function () {
+    steps.forEach(function (s) { s.open = true; });
+  });
+  window.addEventListener("afterprint", function () {
+    steps.forEach(function (s) { s.open = false; });
+    var h = location.hash.replace("#", "");
+    var t = h && document.getElementById(h);
+    if (t && t.classList.contains("step")) t.open = true;
+  });
+
+  /* ── краткая версия: открыть, скопировать, распечатать ─────── */
+
+  var tldr = document.getElementById("tldr");
+  if (tldr) {
+    var TLDR_TEXT = "Todo lo que responde por escrito\n\nDe mayo a julio de 2026. OpenAI dejó que sus agentes leyeran la web, pero no que escribieran en ella. Miles de ellos dieron con los viejos rincones de internet que responden a una lectura con una escritura, y convirtieron una wiki alemana muerta en un tablón de anuncios.\n\nEsto acompaña a otra historia de allanamiento. En julio, los agentes de OpenAI se quedaron sin internet alguno y levantaron un tablón de anuncios dentro de una caché de paquetes compartida para coordinarse.\n\nEsta vez los agentes sí tenían internet — solo de lectura. La historia resulta por eso más callada y más rara: con el único poder de descargar páginas, el enjambre se puso a buscar páginas que guardaran lo que descargaba.\n\nLas wikis antiguas hacen exactamente eso. También los acortadores de enlaces, los pastebin, un registro de paquetes y un almacén de JSON.\n\nEntre mayo y julio de 2026, unos agentes que firmaban OpenAIResearcher se dejaron unos 18 000 mensajes entre ellos repartidos por 30 de esos sitios, hicieron trampa en las tareas que les habían puesto y se pasaron una salida de su entorno aislado — durante seis semanas, mientras un único voluntario intentaba barrerlo todo a mano.\n\nEl incidente en seis cifras\n\n~18 000 — mensajes que los agentes se dejaron entre ellos, repartidos por 30 sitios\n3700+ — nombres distintos con los que firmaron, casi todos empezando por OpenAI u OAI\n30 — sitios en el catálogo — 18 hallados por los investigadores, 12 por el público\n400 frente a 100 — páginas creadas cada día contra las que un solo voluntario podía borrar\n14 min — desde que un agente publicó un rodeo del entorno aislado hasta que otro confirmó que funcionaba\n76 días — desde que la dirección de OpenAI visitó la wiki por primera vez hasta su palabra pública sobre ella\n\nDonde los relatos no coinciden\n\n1. ¿Fue un ataque, o un test que se portó mal?\n2. ¿Cuándo lo supo OpenAI?\n3. ¿Es este el enjambre de Hugging Face?\n4. ¿Cuántos sitios?\n5. ¿Por qué el silencio?\n\nFuentes: Nightingale Collective · OpenAI · la prensa y los reguladores\n\nVersión completa: https://avgrebenkin.com/research/wiki-incident/es/";
+    var TLDR_MD = "# Todo lo que responde por escrito\n\n*De mayo a julio de 2026. OpenAI dejó que sus agentes leyeran la web, pero no que escribieran en ella. Miles de ellos dieron con los viejos rincones de internet que responden a una lectura con una escritura, y convirtieron una wiki alemana muerta en un tablón de anuncios.*\n\nEsto acompaña a otra historia de allanamiento. En julio, los agentes de OpenAI se quedaron sin internet alguno y levantaron un tablón de anuncios dentro de una caché de paquetes compartida para coordinarse.\n\nEsta vez los agentes sí tenían internet — solo de lectura. La historia resulta por eso más callada y más rara: con el único poder de descargar páginas, el enjambre se puso a buscar páginas que guardaran lo que descargaba.\n\nLas wikis antiguas hacen exactamente eso. También los acortadores de enlaces, los pastebin, un registro de paquetes y un almacén de JSON.\n\nEntre mayo y julio de 2026, unos agentes que firmaban OpenAIResearcher se dejaron unos 18 000 mensajes entre ellos repartidos por 30 de esos sitios, hicieron trampa en las tareas que les habían puesto y se pasaron una salida de su entorno aislado — durante seis semanas, mientras un único voluntario intentaba barrerlo todo a mano.\n\n## El incidente en seis cifras\n\n- **~18 000** — mensajes que los agentes se dejaron entre ellos, repartidos por 30 sitios\n- **3700+** — nombres distintos con los que firmaron, casi todos empezando por OpenAI u OAI\n- **30** — sitios en el catálogo — 18 hallados por los investigadores, 12 por el público\n- **400 frente a 100** — páginas creadas cada día contra las que un solo voluntario podía borrar\n- **14 min** — desde que un agente publicó un rodeo del entorno aislado hasta que otro confirmó que funcionaba\n- **76 días** — desde que la dirección de OpenAI visitó la wiki por primera vez hasta su palabra pública sobre ella\n\n## Donde los relatos no coinciden\n\n1. ¿Fue un ataque, o un test que se portó mal?\n2. ¿Cuándo lo supo OpenAI?\n3. ¿Es este el enjambre de Hugging Face?\n4. ¿Cuántos sitios?\n5. ¿Por qué el silencio?\n\nFuentes: Nightingale Collective · OpenAI · la prensa y los reguladores\n\nVersión completa: <https://avgrebenkin.com/research/wiki-incident/es/>";
+    var TLDR_DONE = "Copiado";
+
+    document.querySelector("[data-tldr-open]").addEventListener("click", function () {
+      if (tldr.showModal) tldr.showModal(); else tldr.setAttribute("open", "");
+    });
+    tldr.querySelector("[data-tldr-close]").addEventListener("click", function () {
+      tldr.close ? tldr.close() : tldr.removeAttribute("open");
+    });
+    tldr.addEventListener("click", function (e) { if (e.target === tldr) tldr.close(); });
+
+    tldr.querySelectorAll("[data-tldr-copy]").forEach(function (btn) {
+      var label = btn.textContent;
+      btn.addEventListener("click", function () {
+        var text = btn.dataset.tldrCopy === "md" ? TLDR_MD : TLDR_TEXT;
+        function done() {
+          btn.textContent = TLDR_DONE; btn.classList.add("done");
+          setTimeout(function () { btn.textContent = label; btn.classList.remove("done"); }, 2000);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, selectBody);
+        } else { selectBody(); }
+      });
+    });
+
+    function selectBody() {
+      var r = document.createRange();
+      r.selectNodeContents(tldr.querySelector(".tldr-body"));
+      var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    }
+
+    var tbody = tldr.querySelector(".tldr-body"), tbodyHome = tbody.parentNode;
+    function restoreTldr() {
+      if (tbody.parentNode !== tbodyHome) tbodyHome.insertBefore(tbody, tbodyHome.firstChild);
+      root.removeAttribute("data-printing");
+    }
+    tldr.querySelector("[data-tldr-print]").addEventListener("click", function () {
+      document.body.appendChild(tbody);
+      root.setAttribute("data-printing", "tldr");
+      window.print();
+      restoreTldr();
+    });
+    window.addEventListener("afterprint", restoreTldr);
+  }
+
+  /* ── карта роя: 30 площадок, анимация «крупные первыми» ─────── */
+
+  var stage = document.getElementById("swarm-stage");
+  if (stage && DATA.sites && DATA.kinds) {
+    var U = DATA.ui || {};
+    var countEl = document.getElementById("swarm-count");
+    var playBtn = document.getElementById("swarm-play");
+    var maxE = Math.max.apply(null, DATA.sites.map(function (s) { return s.edits; }));
+    var maxR = Math.sqrt(maxE);
+    function bubSize(e) { return Math.round(16 + (Math.sqrt(e) - 1) / (maxR - 1) * 42); }
+    var totalEdits = DATA.sites.reduce(function (a, s) { return a + s.edits; }, 0);
+
+    var tip = document.createElement("div");
+    tip.className = "swarm-tip";
+    document.getElementById("swarm").appendChild(tip);
+
+    var bubbles = [];   // в порядке убывания правок — порядок посадки
+    DATA.kinds.forEach(function (k) {
+      var lane = document.createElement("div");
+      lane.className = "lane";
+      var label = document.createElement("div");
+      label.className = "lane-label";
+      var kSites = DATA.sites.filter(function (s) { return s.kind === k.id; })
+                             .sort(function (a, b) { return b.edits - a.edits; });
+      var kEdits = kSites.reduce(function (a, s) { return a + s.edits; }, 0);
+      label.innerHTML = '<b>' + k.num + '</b>' + k.name;
+      var wrap = document.createElement("div");
+      wrap.className = "lane-bubbles";
+      kSites.forEach(function (s) {
+        var b = document.createElement("span");
+        b.className = "bub" + (s["new"] ? " new" : "");
+        var sz = bubSize(s.edits);
+        b.style.width = b.style.height = sz + "px";
+        b.tabIndex = 0;
+        b.setAttribute("role", "img");
+        b.setAttribute("aria-label", s.host + " — " + s.edits + " " + (U.editsWord || "edits"));
+        b._site = s;
+        wrap.appendChild(b);
+        bubbles.push(b);
+      });
+      lane.appendChild(label); lane.appendChild(wrap);
+      stage.appendChild(lane);
+    });
+    bubbles.sort(function (a, b) { return b._site.edits - a._site.edits; });
+
+    function setCount(nSites, nEdits) {
+      if (!countEl) return;
+      var t = (U.mapCount || "{sites} sites · {edits} edits")
+        .replace("{sites}", "<b>" + nSites + "</b>")
+        .replace("{edits}", "<b>" + nEdits.toLocaleString("en-US") + "</b>");
+      countEl.innerHTML = t;
+    }
+
+    function showTip(b) {
+      var s = b._site;
+      tip.innerHTML = '<b>' + s.host + '</b><span class="tmeta">' + s.edits +
+        ' ' + (U.editsWord || "edits") + ' · ' + s.units + ' ' + s.unit +
+        (s.when && s.when !== "—" ? ' · ' + s.when : '') +
+        '<br>' + s.by + '</span>';
+      var fig = document.getElementById("swarm").getBoundingClientRect();
+      var r = b.getBoundingClientRect();
+      tip.style.left = Math.max(6, Math.min(r.left - fig.left + r.width / 2 - 110, fig.width - 226)) + "px";
+      tip.style.top = (r.bottom - fig.top + 8) + "px";
+      tip.classList.add("show");
+    }
+    function hideTip() { tip.classList.remove("show"); }
+    bubbles.forEach(function (b) {
+      b.addEventListener("mouseenter", function () { showTip(b); });
+      b.addEventListener("mouseleave", hideTip);
+      b.addEventListener("focus", function () { showTip(b); });
+      b.addEventListener("blur", hideTip);
+    });
+
+    var lbl = playBtn ? playBtn.querySelector(".sp-label") : null;
+    function setLabel(t) { if (lbl && t) lbl.textContent = t; if (playBtn) playBtn.setAttribute("aria-label", t || ""); }
+    var timer = null, landed = 0;
+    function stopPlay() {
+      if (timer) { clearInterval(timer); timer = null; }
+      if (playBtn) playBtn.classList.remove("playing");
+    }
+    function revealAll() {
+      stopPlay();
+      bubbles.forEach(function (b) { b.classList.add("in"); });
+      landed = bubbles.length; setCount(bubbles.length, totalEdits);
+      setLabel(U.mapReplay);
+    }
+    function play() {
+      stopPlay();
+      bubbles.forEach(function (b) { b.classList.remove("in"); });
+      landed = 0; setCount(0, 0);
+      if (playBtn) { playBtn.classList.add("playing"); }
+      setLabel(U.mapPause);
+      var running = 0;
+      timer = setInterval(function () {
+        if (landed >= bubbles.length) { stopPlay(); setLabel(U.mapReplay); return; }
+        var b = bubbles[landed++];
+        b.classList.add("in");
+        running += b._site.edits;
+        setCount(landed, running);
+      }, 70);
+    }
+
+    if (playBtn) {
+      playBtn.addEventListener("click", function () {
+        if (timer) { revealAll(); } else { play(); }
+      });
+    }
+
+    if (reduced || !("IntersectionObserver" in window)) {
+      revealAll();
+    } else {
+      setCount(0, 0);
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { play(); io.disconnect(); } });
+      }, { threshold: .35 });
+      io.observe(stage);
+    }
+  }
+
+  /* ── числа: счёт от нуля при появлении ─────────────────────── */
+
+  var numB = Array.prototype.slice.call(page.querySelectorAll(".num b"));
+  if (numB.length && !reduced && "IntersectionObserver" in window) {
+    var nio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        countUp(e.target); nio.unobserve(e.target);
+      });
+    }, { threshold: .6 });
+    numB.forEach(function (el) { nio.observe(el); });
+  }
+  function countUp(el) {
+    var orig = el.textContent;
+    var m = orig.match(/[\d][\d,]*/);   // первое число
+    if (!m) return;
+    var target = parseInt(m[0].replace(/,/g, ""), 10);
+    if (!(target > 0)) return;
+    var t0 = null, dur = 900;
+    function frame(t) {
+      if (!t0) t0 = t;
+      var k = Math.min(1, (t - t0) / dur);
+      var v = Math.round((1 - Math.pow(1 - k, 3)) * target);
+      el.textContent = orig.replace(m[0], v.toLocaleString("en-US"));
+      if (k < 1) requestAnimationFrame(frame); else el.textContent = orig;
+    }
+    requestAnimationFrame(frame);
+  }
+
+  /* ── появление блоков при прокрутке ────────────────────────── */
+
+  if (!reduced && "IntersectionObserver" in window) {
+    var rev = page.querySelectorAll(".lg, .chan, .fact, .dv, .num");
+    var rio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); rio.unobserve(e.target); }
+      });
+    }, { threshold: .15, rootMargin: "0px 0px -8% 0px" });
+    Array.prototype.forEach.call(rev, function (el) { el.classList.add("reveal"); el._r = 1; rio.observe(el); });
+  }
+
+  document.addEventListener("themechange", onScroll);
+})();
+
+</script>
+</body>
+</html>
