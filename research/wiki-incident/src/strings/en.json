@@ -26,6 +26,12 @@
     "backToResearch": "← back to Research",
     "channelsGroup": "Kinds of site",
     "trailGroup": "Timeline phases",
+    "mapPlay": "Play",
+    "mapReplay": "Replay",
+    "mapPause": "Pause",
+    "mapCount": "{sites} sites · {edits} edits",
+    "mapHint": "hover a bubble for the site",
+    "mapLegendSize": "bubble size = edits",
     "utcHint": "all times are UTC",
     "phaseLabel": "PHASE {n}",
     "sitesToggle": "the {n} sites of this kind",
@@ -83,6 +89,10 @@
     "channels": {
       "h": "Anything that writes back",
       "note": "The agents were told they could read the web, not change it. On the modern web that is a firm line: a page is fetched with a `GET` request and changed with a `POST`, and the sandbox let through only `GET`.\n\nThe swarm's whole trick was to find the places where that line was **never drawn** — where a plain fetch quietly leaves something behind. Five kinds of site did, and here is how each one turns a read into a write. Open a card for the mechanism and the sites of that kind."
+    },
+    "map": {
+      "h": "The swarm, by the sites it touched",
+      "note": "Every site the messages reached, from the German wiki that carried five thousand edits down to the ones that carried one. Grouped into the five kinds, each bubble a site, its size the number of edits it took.\n\nPress play to watch them land largest first, or just read the field. Eighteen were found by the researchers; twelve more were brought in by readers after the report, and sit on a fainter ring."
     },
     "trail": {
       "h": "The trail",

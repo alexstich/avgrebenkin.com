@@ -245,5 +245,165 @@
     window.addEventListener("afterprint", restoreTldr);
   }
 
+  /* ── карта роя: 30 площадок, анимация «крупные первыми» ─────── */
+
+  var stage = document.getElementById("swarm-stage");
+  if (stage && DATA.sites && DATA.kinds) {
+    var U = DATA.ui || {};
+    var countEl = document.getElementById("swarm-count");
+    var playBtn = document.getElementById("swarm-play");
+    var maxE = Math.max.apply(null, DATA.sites.map(function (s) { return s.edits; }));
+    var maxR = Math.sqrt(maxE);
+    function bubSize(e) { return Math.round(16 + (Math.sqrt(e) - 1) / (maxR - 1) * 42); }
+    var totalEdits = DATA.sites.reduce(function (a, s) { return a + s.edits; }, 0);
+
+    var tip = document.createElement("div");
+    tip.className = "swarm-tip";
+    document.getElementById("swarm").appendChild(tip);
+
+    var bubbles = [];   // в порядке убывания правок — порядок посадки
+    DATA.kinds.forEach(function (k) {
+      var lane = document.createElement("div");
+      lane.className = "lane";
+      var label = document.createElement("div");
+      label.className = "lane-label";
+      var kSites = DATA.sites.filter(function (s) { return s.kind === k.id; })
+                             .sort(function (a, b) { return b.edits - a.edits; });
+      var kEdits = kSites.reduce(function (a, s) { return a + s.edits; }, 0);
+      label.innerHTML = '<b>' + k.num + '</b>' + k.name;
+      var wrap = document.createElement("div");
+      wrap.className = "lane-bubbles";
+      kSites.forEach(function (s) {
+        var b = document.createElement("span");
+        b.className = "bub" + (s["new"] ? " new" : "");
+        var sz = bubSize(s.edits);
+        b.style.width = b.style.height = sz + "px";
+        b.tabIndex = 0;
+        b.setAttribute("role", "img");
+        b.setAttribute("aria-label", s.host + " — " + s.edits + " " + (U.editsWord || "edits"));
+        b._site = s;
+        wrap.appendChild(b);
+        bubbles.push(b);
+      });
+      lane.appendChild(label); lane.appendChild(wrap);
+      stage.appendChild(lane);
+    });
+    bubbles.sort(function (a, b) { return b._site.edits - a._site.edits; });
+
+    function setCount(nSites, nEdits) {
+      if (!countEl) return;
+      var t = (U.mapCount || "{sites} sites · {edits} edits")
+        .replace("{sites}", "<b>" + nSites + "</b>")
+        .replace("{edits}", "<b>" + nEdits.toLocaleString("en-US") + "</b>");
+      countEl.innerHTML = t;
+    }
+
+    function showTip(b) {
+      var s = b._site;
+      tip.innerHTML = '<b>' + s.host + '</b><span class="tmeta">' + s.edits +
+        ' ' + (U.editsWord || "edits") + ' · ' + s.units + ' ' + s.unit +
+        (s.when && s.when !== "—" ? ' · ' + s.when : '') +
+        '<br>' + s.by + '</span>';
+      var fig = document.getElementById("swarm").getBoundingClientRect();
+      var r = b.getBoundingClientRect();
+      tip.style.left = Math.max(6, Math.min(r.left - fig.left + r.width / 2 - 110, fig.width - 226)) + "px";
+      tip.style.top = (r.bottom - fig.top + 8) + "px";
+      tip.classList.add("show");
+    }
+    function hideTip() { tip.classList.remove("show"); }
+    bubbles.forEach(function (b) {
+      b.addEventListener("mouseenter", function () { showTip(b); });
+      b.addEventListener("mouseleave", hideTip);
+      b.addEventListener("focus", function () { showTip(b); });
+      b.addEventListener("blur", hideTip);
+    });
+
+    var lbl = playBtn ? playBtn.querySelector(".sp-label") : null;
+    function setLabel(t) { if (lbl && t) lbl.textContent = t; if (playBtn) playBtn.setAttribute("aria-label", t || ""); }
+    var timer = null, landed = 0;
+    function stopPlay() {
+      if (timer) { clearInterval(timer); timer = null; }
+      if (playBtn) playBtn.classList.remove("playing");
+    }
+    function revealAll() {
+      stopPlay();
+      bubbles.forEach(function (b) { b.classList.add("in"); });
+      landed = bubbles.length; setCount(bubbles.length, totalEdits);
+      setLabel(U.mapReplay);
+    }
+    function play() {
+      stopPlay();
+      bubbles.forEach(function (b) { b.classList.remove("in"); });
+      landed = 0; setCount(0, 0);
+      if (playBtn) { playBtn.classList.add("playing"); }
+      setLabel(U.mapPause);
+      var running = 0;
+      timer = setInterval(function () {
+        if (landed >= bubbles.length) { stopPlay(); setLabel(U.mapReplay); return; }
+        var b = bubbles[landed++];
+        b.classList.add("in");
+        running += b._site.edits;
+        setCount(landed, running);
+      }, 70);
+    }
+
+    if (playBtn) {
+      playBtn.addEventListener("click", function () {
+        if (timer) { revealAll(); } else { play(); }
+      });
+    }
+
+    if (reduced || !("IntersectionObserver" in window)) {
+      revealAll();
+    } else {
+      setCount(0, 0);
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { play(); io.disconnect(); } });
+      }, { threshold: .35 });
+      io.observe(stage);
+    }
+  }
+
+  /* ── числа: счёт от нуля при появлении ─────────────────────── */
+
+  var numB = Array.prototype.slice.call(page.querySelectorAll(".num b"));
+  if (numB.length && !reduced && "IntersectionObserver" in window) {
+    var nio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        countUp(e.target); nio.unobserve(e.target);
+      });
+    }, { threshold: .6 });
+    numB.forEach(function (el) { nio.observe(el); });
+  }
+  function countUp(el) {
+    var orig = el.textContent;
+    var m = orig.match(/[\d][\d,]*/);   // первое число
+    if (!m) return;
+    var target = parseInt(m[0].replace(/,/g, ""), 10);
+    if (!(target > 0)) return;
+    var t0 = null, dur = 900;
+    function frame(t) {
+      if (!t0) t0 = t;
+      var k = Math.min(1, (t - t0) / dur);
+      var v = Math.round((1 - Math.pow(1 - k, 3)) * target);
+      el.textContent = orig.replace(m[0], v.toLocaleString("en-US"));
+      if (k < 1) requestAnimationFrame(frame); else el.textContent = orig;
+    }
+    requestAnimationFrame(frame);
+  }
+
+  /* ── появление блоков при прокрутке ────────────────────────── */
+
+  if (!reduced && "IntersectionObserver" in window) {
+    var rev = page.querySelectorAll(".lg, .chan, .fact, .dv, .num");
+    var rio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); rio.unobserve(e.target); }
+      });
+    }, { threshold: .15, rootMargin: "0px 0px -8% 0px" });
+    Array.prototype.forEach.call(rev, function (el) { el.classList.add("reveal"); el._r = 1; rio.observe(el); });
+  }
+
   document.addEventListener("themechange", onScroll);
 })();

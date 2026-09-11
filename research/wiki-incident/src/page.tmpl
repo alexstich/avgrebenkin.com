@@ -233,6 +233,22 @@
     {{channels}}
   </section>
 
+  <section aria-labelledby="h-map">
+    <h2 id="h-map">{{hMap}}</h2>
+    <div class="h2note">{{nMap}}</div>
+    <figure class="swarm" id="swarm">
+      <div class="swarm-bar">
+        <button type="button" class="swarm-play" id="swarm-play" aria-label="{{mapPlay}}">
+          <span class="sp-icon" aria-hidden="true"></span><span class="sp-label">{{mapPlay}}</span>
+        </button>
+        <span class="swarm-count" id="swarm-count" aria-live="polite"></span>
+        <span class="swarm-hint">{{mapHint}}</span>
+      </div>
+      <div class="swarm-stage" id="swarm-stage"></div>
+      <figcaption class="swarm-legend">{{mapLegendSize}}</figcaption>
+    </figure>
+  </section>
+
   <section aria-labelledby="h-trail" id="explorer">
     <h2 id="h-trail">{{hTrail}}</h2>
     <div class="h2note">{{nTrail}}</div>

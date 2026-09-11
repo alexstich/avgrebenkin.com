@@ -395,7 +395,22 @@ def build(code, langs):
 
     index = {'phases': [{'id': p['id'], 'num': p['num'],
                          'title': L.at('phases.%s.title' % p['id']),
-                         'dates': fmt_ts(L, {'d': p['from'], 'd2': p['to']})} for p in S['phases']]}
+                         'dates': fmt_ts(L, {'d': p['from'], 'd2': p['to']})} for p in S['phases']],
+             'kinds': [{'id': k['id'], 'num': k['num'],
+                        'name': L.at('kinds.%s.name' % k['id'])} for k in S['kinds']],
+             'sites': [{'id': s['id'], 'name': s['name'], 'host': s['host'],
+                        'kind': s['kind'], 'edits': s['edits'], 'units': s['units'],
+                        'unit': L.at(UNIT_KEY[s['unit']]),
+                        'new': s['by'] != 'authors',
+                        'when': site_when(L, s),
+                        'by': (L.at('ui.foundAuthors') if s['by'] == 'authors'
+                               else L.at('ui.foundCommunity')
+                               + (' · ' + s['finder'] if s.get('finder') else ''))}
+                       for s in S['sites']],
+             'ui': {'mapPlay': L.at('ui.mapPlay'), 'mapPause': L.at('ui.mapPause'),
+                    'mapReplay': L.at('ui.mapReplay'), 'mapCount': L.at('ui.mapCount'),
+                    'editsWord': L.at('ui.editsWord'),
+                    'foundCommunity': L.at('ui.foundCommunity')}}
 
     up = '../' if code == DEFAULT else '../../'
     tldr_html, tldr_text, tldr_md = tldr_parts(L, SITE + path_for(code))
@@ -431,6 +446,9 @@ def build(code, langs):
         'hWhat': rich(L.at('sections.what.h')),
         'hChannels': rich(L.at('sections.channels.h')),
         'nChannels': paras(L.at('sections.channels.note')),
+        'hMap': rich(L.at('sections.map.h')), 'nMap': paras(L.at('sections.map.note')),
+        'mapPlay': html.escape(L.at('ui.mapPlay')), 'mapHint': rich(L.at('ui.mapHint')),
+        'mapLegendSize': rich(L.at('ui.mapLegendSize')),
         'hTrail': rich(L.at('sections.trail.h')), 'nTrail': paras(L.at('sections.trail.note')),
         'hDiv': rich(L.at('sections.divergences.h')), 'nDiv': paras(L.at('sections.divergences.note')),
         'hFacts': rich(L.at('sections.facts.h')), 'nFacts': paras(L.at('sections.facts.note')),

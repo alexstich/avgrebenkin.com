@@ -173,6 +173,20 @@
   :root[data-theme="light"] .rw-read  { color: #1d4ed8; }
   :root[data-theme="light"] .rw-write { color: #b91c1c; }
   :root[data-theme="cyber"] .rw-read, :root[data-theme="cyber"] .rw-write { border-radius: 0; }
+  /* Пакет GET, бегущий по стрелке при раскрытии канала — анимация чистым CSS,
+     без скрипта. В reduce гасится ниже. */
+  .rw-arrow { position: relative; }
+  .rw-arrow::after { content: ""; position: absolute; left: 0; top: 50%; width: 6px; height: 6px;
+                     margin-top: -3px; border-radius: 50%; background: var(--v-lab);
+                     opacity: 0; }
+  .chan[open] .rw-arrow::after { animation: rwrun 1.05s ease-in-out .12s 1; }
+  .chan[open] .rw-write { animation: rwland 1.2s ease-out 1; }
+  @keyframes rwrun { 0%{opacity:0;transform:translateX(-2px);} 12%{opacity:1;}
+                     78%{opacity:1;transform:translateX(20px);} 100%{opacity:0;transform:translateX(22px);} }
+  @keyframes rwland { 0%,62%{background:rgba(var(--v-world-rgb),.08);} 74%{background:rgba(var(--v-world-rgb),.34);}
+                      100%{background:rgba(var(--v-world-rgb),.08);} }
+  :root[data-theme="cyber"] .rw-arrow::after { border-radius: 0; }
+
   .chan-ex { font-size: 14.5px; }
   .chan-ex code { font-size: .86em; }
   .chan-toggle { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em;
@@ -189,6 +203,66 @@
            color: var(--ink-3); white-space: nowrap; }
   .smeta b { color: var(--ink-2); }
   .sby { grid-column: 1 / -1; font-size: 11.5px; color: var(--ink-3); }
+
+  /* ── карта роя: 30 площадок, анимированный интерактив ────────── */
+  .swarm { margin: 0; border: 1px solid var(--hair); border-radius: 10px;
+           background:
+             linear-gradient(var(--grid-ink) 1px, transparent 1px) 0 0 / 8px 8px,
+             linear-gradient(90deg, var(--grid-ink) 1px, transparent 1px) 0 0 / 8px 8px,
+             var(--card-bg); overflow: hidden; }
+  :root[data-theme="cyber"] .swarm { border-radius: 0; }
+  .swarm-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px;
+               padding: 12px 14px; border-bottom: 1px solid var(--hair); }
+  .swarm-play { display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+                font: 600 13px/1 var(--font-head); color: var(--accent);
+                background: rgba(var(--accent-rgb), .12);
+                border: 1px solid rgba(var(--accent-rgb), .35); border-radius: 999px;
+                padding: .5rem .95rem; transition: background .15s, border-color .15s; }
+  .swarm-play:hover { background: rgba(var(--accent-rgb), .2); border-color: var(--accent); }
+  .swarm-play:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .sp-icon { width: 0; height: 0; border-style: solid; border-width: 5px 0 5px 8px;
+             border-color: transparent transparent transparent currentColor; }
+  .swarm-play.playing .sp-icon { width: 8px; height: 9px; border: 0;
+             background: linear-gradient(90deg, currentColor 0 3px, transparent 3px 5px, currentColor 5px 8px); }
+  .swarm-count { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink); }
+  .swarm-count b { color: var(--accent); }
+  .swarm-hint { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3);
+                margin-left: auto; }
+  .swarm-stage { display: grid; gap: 2px; padding: 8px 12px 12px; }
+  .lane { display: grid; grid-template-columns: 96px 1fr; gap: 12px; align-items: center;
+          padding: 8px 0; border-top: 1px dashed var(--hair); }
+  .lane:first-child { border-top: 0; }
+  .lane-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .04em;
+                color: var(--ink-2); line-height: 1.35; }
+  .lane-label b { display: block; color: var(--accent); font-weight: 500; font-size: 10px;
+                  letter-spacing: .14em; }
+  .lane-bubbles { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; min-height: 34px; }
+  .bub { position: relative; border-radius: 50%; background: rgba(var(--accent-rgb), .16);
+         border: 1px solid rgba(var(--accent-rgb), .5); cursor: default;
+         transform: scale(0); opacity: 0; transition: transform .34s cubic-bezier(.2,1.3,.4,1), opacity .34s; }
+  .bub.in { transform: scale(1); opacity: 1; }
+  .bub.new { background: rgba(var(--v-res-rgb), .14); border: 1px dashed rgba(var(--v-res-rgb), .7); }
+  .bub:hover, .bub:focus-visible { border-color: var(--accent); background: rgba(var(--accent-rgb), .32);
+         outline: none; z-index: 3; }
+  .bub.new:hover, .bub.new:focus-visible { border-color: var(--v-res); background: rgba(var(--v-res-rgb), .3); }
+  :root[data-theme="cyber"] .bub { border-radius: 0; }
+  .swarm-tip { position: absolute; z-index: 40; pointer-events: none; opacity: 0;
+               transform: translateY(4px); transition: opacity .12s, transform .12s;
+               background: var(--bg-elev); border: 1px solid var(--border);
+               border-radius: 8px; padding: 8px 10px; box-shadow: var(--shadow);
+               font-size: 12px; max-width: 220px; }
+  .swarm-tip.show { opacity: 1; transform: translateY(0); }
+  .swarm-tip b { font-family: var(--font-mono); color: var(--ink); }
+  .swarm-tip .tmeta { display: block; font-family: var(--font-mono); font-size: 11px;
+                      color: var(--ink-3); margin-top: 3px; }
+  :root[data-theme="cyber"] .swarm-tip { border-radius: 0; }
+  .swarm-legend { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3);
+                  padding: 0 14px 12px; margin: 0; }
+  .no-js .swarm { display: none; }
+
+  /* появление блоков при прокрутке — ставится скриптом, поэтому без JS всё видно */
+  .reveal { opacity: 0; transform: translateY(10px); transition: opacity .5s ease, transform .5s ease; }
+  .reveal.in { opacity: 1; transform: none; }
 
   /* ── проводник (хронология) ──────────────────────────────────── */
   .explorer { border: 1px solid var(--hair); border-radius: 10px; overflow: visible;
@@ -368,6 +442,10 @@
     .exbar-foot { padding: 0 10px 8px; }
     .chan-head { grid-template-columns: auto minmax(0,1fr) auto; gap: 4px 10px; }
     .chan .chev { display: none; }
+    .lane { grid-template-columns: 1fr; gap: 4px; }
+    .lane-label { display: flex; gap: 8px; align-items: baseline; }
+    .lane-label b { display: inline; }
+    .swarm-stage { padding: 8px 10px 10px; }
     .step-ts { white-space: nowrap; }
     @media (max-width: 470px) { .step-ts { white-space: normal; } }
     .langpick { margin-inline-start: 0; }
@@ -382,6 +460,9 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .step-body { transition: none !important; } .chev { transition: none; }
+    .bub { transition: none; transform: scale(1); opacity: 1; }
+    .reveal { transition: none; opacity: 1; transform: none; }
+    .chan[open] .rw-arrow::after, .chan[open] .rw-write { animation: none; }
   }
   @media print {
     .exbar, .sy-strip, .chev, .modebar, .cover { display: none !important; }

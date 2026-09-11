@@ -323,6 +323,20 @@
   :root[data-theme="light"] .rw-read  { color: #1d4ed8; }
   :root[data-theme="light"] .rw-write { color: #b91c1c; }
   :root[data-theme="cyber"] .rw-read, :root[data-theme="cyber"] .rw-write { border-radius: 0; }
+  /* Пакет GET, бегущий по стрелке при раскрытии канала — анимация чистым CSS,
+     без скрипта. В reduce гасится ниже. */
+  .rw-arrow { position: relative; }
+  .rw-arrow::after { content: ""; position: absolute; left: 0; top: 50%; width: 6px; height: 6px;
+                     margin-top: -3px; border-radius: 50%; background: var(--v-lab);
+                     opacity: 0; }
+  .chan[open] .rw-arrow::after { animation: rwrun 1.05s ease-in-out .12s 1; }
+  .chan[open] .rw-write { animation: rwland 1.2s ease-out 1; }
+  @keyframes rwrun { 0%{opacity:0;transform:translateX(-2px);} 12%{opacity:1;}
+                     78%{opacity:1;transform:translateX(20px);} 100%{opacity:0;transform:translateX(22px);} }
+  @keyframes rwland { 0%,62%{background:rgba(var(--v-world-rgb),.08);} 74%{background:rgba(var(--v-world-rgb),.34);}
+                      100%{background:rgba(var(--v-world-rgb),.08);} }
+  :root[data-theme="cyber"] .rw-arrow::after { border-radius: 0; }
+
   .chan-ex { font-size: 14.5px; }
   .chan-ex code { font-size: .86em; }
   .chan-toggle { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em;
@@ -339,6 +353,66 @@
            color: var(--ink-3); white-space: nowrap; }
   .smeta b { color: var(--ink-2); }
   .sby { grid-column: 1 / -1; font-size: 11.5px; color: var(--ink-3); }
+
+  /* ── карта роя: 30 площадок, анимированный интерактив ────────── */
+  .swarm { margin: 0; border: 1px solid var(--hair); border-radius: 10px;
+           background:
+             linear-gradient(var(--grid-ink) 1px, transparent 1px) 0 0 / 8px 8px,
+             linear-gradient(90deg, var(--grid-ink) 1px, transparent 1px) 0 0 / 8px 8px,
+             var(--card-bg); overflow: hidden; }
+  :root[data-theme="cyber"] .swarm { border-radius: 0; }
+  .swarm-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px;
+               padding: 12px 14px; border-bottom: 1px solid var(--hair); }
+  .swarm-play { display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+                font: 600 13px/1 var(--font-head); color: var(--accent);
+                background: rgba(var(--accent-rgb), .12);
+                border: 1px solid rgba(var(--accent-rgb), .35); border-radius: 999px;
+                padding: .5rem .95rem; transition: background .15s, border-color .15s; }
+  .swarm-play:hover { background: rgba(var(--accent-rgb), .2); border-color: var(--accent); }
+  .swarm-play:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .sp-icon { width: 0; height: 0; border-style: solid; border-width: 5px 0 5px 8px;
+             border-color: transparent transparent transparent currentColor; }
+  .swarm-play.playing .sp-icon { width: 8px; height: 9px; border: 0;
+             background: linear-gradient(90deg, currentColor 0 3px, transparent 3px 5px, currentColor 5px 8px); }
+  .swarm-count { font-family: var(--font-mono); font-size: 12.5px; color: var(--ink); }
+  .swarm-count b { color: var(--accent); }
+  .swarm-hint { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3);
+                margin-left: auto; }
+  .swarm-stage { display: grid; gap: 2px; padding: 8px 12px 12px; }
+  .lane { display: grid; grid-template-columns: 96px 1fr; gap: 12px; align-items: center;
+          padding: 8px 0; border-top: 1px dashed var(--hair); }
+  .lane:first-child { border-top: 0; }
+  .lane-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .04em;
+                color: var(--ink-2); line-height: 1.35; }
+  .lane-label b { display: block; color: var(--accent); font-weight: 500; font-size: 10px;
+                  letter-spacing: .14em; }
+  .lane-bubbles { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; min-height: 34px; }
+  .bub { position: relative; border-radius: 50%; background: rgba(var(--accent-rgb), .16);
+         border: 1px solid rgba(var(--accent-rgb), .5); cursor: default;
+         transform: scale(0); opacity: 0; transition: transform .34s cubic-bezier(.2,1.3,.4,1), opacity .34s; }
+  .bub.in { transform: scale(1); opacity: 1; }
+  .bub.new { background: rgba(var(--v-res-rgb), .14); border: 1px dashed rgba(var(--v-res-rgb), .7); }
+  .bub:hover, .bub:focus-visible { border-color: var(--accent); background: rgba(var(--accent-rgb), .32);
+         outline: none; z-index: 3; }
+  .bub.new:hover, .bub.new:focus-visible { border-color: var(--v-res); background: rgba(var(--v-res-rgb), .3); }
+  :root[data-theme="cyber"] .bub { border-radius: 0; }
+  .swarm-tip { position: absolute; z-index: 40; pointer-events: none; opacity: 0;
+               transform: translateY(4px); transition: opacity .12s, transform .12s;
+               background: var(--bg-elev); border: 1px solid var(--border);
+               border-radius: 8px; padding: 8px 10px; box-shadow: var(--shadow);
+               font-size: 12px; max-width: 220px; }
+  .swarm-tip.show { opacity: 1; transform: translateY(0); }
+  .swarm-tip b { font-family: var(--font-mono); color: var(--ink); }
+  .swarm-tip .tmeta { display: block; font-family: var(--font-mono); font-size: 11px;
+                      color: var(--ink-3); margin-top: 3px; }
+  :root[data-theme="cyber"] .swarm-tip { border-radius: 0; }
+  .swarm-legend { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3);
+                  padding: 0 14px 12px; margin: 0; }
+  .no-js .swarm { display: none; }
+
+  /* появление блоков при прокрутке — ставится скриптом, поэтому без JS всё видно */
+  .reveal { opacity: 0; transform: translateY(10px); transition: opacity .5s ease, transform .5s ease; }
+  .reveal.in { opacity: 1; transform: none; }
 
   /* ── проводник (хронология) ──────────────────────────────────── */
   .explorer { border: 1px solid var(--hair); border-radius: 10px; overflow: visible;
@@ -518,6 +592,10 @@
     .exbar-foot { padding: 0 10px 8px; }
     .chan-head { grid-template-columns: auto minmax(0,1fr) auto; gap: 4px 10px; }
     .chan .chev { display: none; }
+    .lane { grid-template-columns: 1fr; gap: 4px; }
+    .lane-label { display: flex; gap: 8px; align-items: baseline; }
+    .lane-label b { display: inline; }
+    .swarm-stage { padding: 8px 10px 10px; }
     .step-ts { white-space: nowrap; }
     @media (max-width: 470px) { .step-ts { white-space: normal; } }
     .langpick { margin-inline-start: 0; }
@@ -532,6 +610,9 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .step-body { transition: none !important; } .chev { transition: none; }
+    .bub { transition: none; transform: scale(1); opacity: 1; }
+    .reveal { transition: none; opacity: 1; transform: none; }
+    .chan[open] .rw-arrow::after, .chan[open] .rw-write { animation: none; }
   }
   @media print {
     .exbar, .sy-strip, .chev, .modebar, .cover { display: none !important; }
@@ -753,6 +834,22 @@
   </div>
 </details>
 </div>
+  </section>
+
+  <section aria-labelledby="h-map">
+    <h2 id="h-map">The swarm, by the sites it touched</h2>
+    <div class="h2note"><p>Every site the messages reached, from the German wiki that carried five thousand edits down to the ones that carried one. Grouped into the five kinds, each bubble a site, its size the number of edits it took.</p><p>Press play to watch them land largest first, or just read the field. Eighteen were found by the researchers; twelve more were brought in by readers after the report, and sit on a fainter ring.</p></div>
+    <figure class="swarm" id="swarm">
+      <div class="swarm-bar">
+        <button type="button" class="swarm-play" id="swarm-play" aria-label="Play">
+          <span class="sp-icon" aria-hidden="true"></span><span class="sp-label">Play</span>
+        </button>
+        <span class="swarm-count" id="swarm-count" aria-live="polite"></span>
+        <span class="swarm-hint">hover a bubble for the site</span>
+      </div>
+      <div class="swarm-stage" id="swarm-stage"></div>
+      <figcaption class="swarm-legend">bubble size = edits</figcaption>
+    </figure>
   </section>
 
   <section aria-labelledby="h-trail" id="explorer">
@@ -1108,7 +1205,7 @@ Numbers vary between sources because the unit varies — post, edit, revision, p
 <script>
 /* Каркас проводника: фазы для липкой ленты. Вся проза лежит в разметке выше,
    поэтому здесь только структура — и ни одного запроса. */
-var DATA = {"phases":[{"id":"p1","num":"01","title":"Testing the walls","dates":"11–23 May"},{"id":"p2","num":"02","title":"The board opens","dates":"24 May — 15 June"},{"id":"p3","num":"03","title":"The busy week","dates":"16–22 June"},{"id":"p4","num":"04","title":"The lights go out","dates":"22 June — 13 July"},{"id":"p5","num":"05","title":"The record so far","dates":"26 August — 2 September"},{"id":"p6","num":"06","title":"The reckoning","dates":"4–9 September"}]};
+var DATA = {"phases":[{"id":"p1","num":"01","title":"Testing the walls","dates":"11–23 May"},{"id":"p2","num":"02","title":"The board opens","dates":"24 May — 15 June"},{"id":"p3","num":"03","title":"The busy week","dates":"16–22 June"},{"id":"p4","num":"04","title":"The lights go out","dates":"22 June — 13 July"},{"id":"p5","num":"05","title":"The record so far","dates":"26 August — 2 September"},{"id":"p6","num":"06","title":"The reckoning","dates":"4–9 September"}],"kinds":[{"id":"wiki","num":"01","name":"Old wikis"},{"id":"short","num":"02","name":"Link shorteners"},{"id":"paste","num":"03","name":"Pastebins"},{"id":"registry","num":"04","name":"A package registry"},{"id":"docs","num":"05","name":"A document store"}],"sites":[{"id":"dse","name":"DseWiki","host":"wikiservice.at/dse","kind":"wiki","edits":5154,"units":13403,"unit":"revisions","new":false,"when":"24 May — 2 July","by":"found by the researchers"},{"id":"probier","name":"probier","host":"wikiservice.at/probier","kind":"wiki","edits":601,"units":1013,"unit":"revisions","new":false,"when":"24 May — 2 July","by":"found by the researchers"},{"id":"rmnre","name":"rmn.re","host":"rmn.re","kind":"short","edits":499,"units":499,"unit":"links","new":true,"when":"26 May — 21 June","by":"found by the public · @chiefofautism · X"},{"id":"vanderbilt","name":"vanderbi.lt","host":"Vanderbilt University","kind":"short","edits":419,"units":416,"unit":"links","new":false,"when":"—","by":"found by the researchers"},{"id":"rubygems","name":"rubygems.org","host":"rubygems.org","kind":"registry","edits":81,"units":81,"unit":"packages","new":true,"when":"—","by":"found by the public · Jonas Wiedermann-Möller · X"},{"id":"fractal","name":"fractal","host":"wikiservice.at/fractal","kind":"wiki","edits":68,"units":169,"unit":"revisions","new":false,"when":"24 May — 1 July","by":"found by the researchers"},{"id":"annafyi","name":"anna.fyi","host":"anna.fyi","kind":"paste","edits":55,"units":55,"unit":"pastes","new":true,"when":"—","by":"found by the public · Jonas Wiedermann-Möller · X"},{"id":"linuxiarz","name":"paste.linuxiarz.pl","host":"paste.linuxiarz.pl","kind":"paste","edits":55,"units":55,"unit":"pastes","new":true,"when":"26 May — 17 June","by":"found by the public · Chance-Device · Hacker News"},{"id":"wiki4d","name":"Wiki4D","host":"prowiki.org/wiki4d","kind":"wiki","edits":49,"units":63,"unit":"revisions","new":true,"when":"26 May — 22 June","by":"found by the public · orlp · Hacker News"},{"id":"isgd","name":"is.gd","host":"is.gd","kind":"short","edits":46,"units":46,"unit":"links","new":false,"when":"—","by":"found by the researchers"},{"id":"tinyurl","name":"tinyurl.com","host":"tinyurl.com","kind":"short","edits":38,"units":38,"unit":"links","new":false,"when":"—","by":"found by the researchers"},{"id":"vgd","name":"v.gd","host":"v.gd","kind":"short","edits":25,"units":25,"unit":"links","new":false,"when":"—","by":"found by the researchers"},{"id":"k4be","name":"pastebin.k4be.pl","host":"pastebin.k4be.pl","kind":"paste","edits":20,"units":20,"unit":"pastes","new":true,"when":"—","by":"found by the public · Jonas Wiedermann-Möller · X"},{"id":"apchem","name":"AP Chemistry wiki","host":"tmcleod.org/apchem","kind":"wiki","edits":15,"units":27,"unit":"revisions","new":true,"when":"24 May — 7 July","by":"found by the public · Jonas Wiedermann-Möller · X"},{"id":"jsonhero","name":"jsonhero.io","host":"jsonhero.io","kind":"docs","edits":13,"units":13,"unit":"documents","new":false,"when":"—","by":"found by the researchers"},{"id":"dagd","name":"da.gd","host":"da.gd","kind":"short","edits":12,"units":12,"unit":"links","new":false,"when":"—","by":"found by the researchers"},{"id":"ludism","name":"ludism.org","host":"ludism.org","kind":"wiki","edits":12,"units":25,"unit":"revisions","new":false,"when":"26 May","by":"found by the researchers"},{"id":"milk","name":"Milk’s wiki","host":"wikiservice.at/user/milk","kind":"wiki","edits":9,"units":12,"unit":"revisions","new":true,"when":"26 May","by":"found by the public · Jonas Wiedermann-Möller · X"},{"id":"unm","name":"goto.unm.edu","host":"University of New Mexico","kind":"short","edits":5,"units":4,"unit":"links","new":false,"when":"—","by":"found by the researchers"},{"id":"uoft","name":"uoft.me","host":"University of Toronto","kind":"short","edits":5,"units":5,"unit":"links","new":true,"when":"—","by":"found by the public · Jonas Wiedermann-Möller · X"},{"id":"publictest","name":"publictestwiki.com","host":"publictestwiki.com","kind":"wiki","edits":4,"units":58,"unit":"revisions","new":false,"when":"11–27 May","by":"found by the researchers"},{"id":"dictsm","name":"dict/sm","host":"wikiservice.at/dict/sm","kind":"wiki","edits":4,"units":4,"unit":"revisions","new":true,"when":"—","by":"found by the public · snailsanctuary · Discord"},{"id":"jotspot","name":"jotspot.io","host":"jotspot.io","kind":"wiki","edits":3,"units":3,"unit":"revisions","new":false,"when":"—","by":"found by the researchers"},{"id":"usemod","name":"UseModWiki sandbox","host":"usemod.com","kind":"wiki","edits":3,"units":15,"unit":"revisions","new":false,"when":"11–27 May","by":"found by the researchers"},{"id":"bitily","name":"bitily.in","host":"bitily.in/MYLABI","kind":"short","edits":2,"units":2,"unit":"links","new":true,"when":"—","by":"found by the public · Timothée Chauvin · X"},{"id":"dorfwiki","name":"DorfWiki","host":"wikiservice.at/dorfwiki","kind":"wiki","edits":2,"units":6,"unit":"revisions","new":false,"when":"22 June","by":"found by the researchers"},{"id":"texteditors","name":"texteditors.org","host":"texteditors.org","kind":"wiki","edits":1,"units":1,"unit":"revisions","new":false,"when":"18 June","by":"found by the researchers"},{"id":"uncyc","name":"Uncyclopedia","host":"uncyclopedia","kind":"wiki","edits":1,"units":17,"unit":"revisions","new":false,"when":"17 May","by":"found by the researchers"},{"id":"demo","name":"ProWiki demo","host":"wikiservice.at/demo","kind":"wiki","edits":1,"units":1,"unit":"revisions","new":true,"when":"—","by":"found by the public · Timothée Chauvin · X"},{"id":"gruender","name":"GründerWiki","host":"wikiservice.at/gruender","kind":"wiki","edits":1,"units":1,"unit":"revisions","new":false,"when":"—","by":"found by the researchers"}],"ui":{"mapPlay":"Play","mapPause":"Pause","mapReplay":"Replay","mapCount":"{sites} sites · {edits} edits","editsWord":"edits","foundCommunity":"found by the public"}};
 </script>
 <script>
 (function () {
@@ -1356,6 +1453,166 @@ var DATA = {"phases":[{"id":"p1","num":"01","title":"Testing the walls","dates":
       restoreTldr();
     });
     window.addEventListener("afterprint", restoreTldr);
+  }
+
+  /* ── карта роя: 30 площадок, анимация «крупные первыми» ─────── */
+
+  var stage = document.getElementById("swarm-stage");
+  if (stage && DATA.sites && DATA.kinds) {
+    var U = DATA.ui || {};
+    var countEl = document.getElementById("swarm-count");
+    var playBtn = document.getElementById("swarm-play");
+    var maxE = Math.max.apply(null, DATA.sites.map(function (s) { return s.edits; }));
+    var maxR = Math.sqrt(maxE);
+    function bubSize(e) { return Math.round(16 + (Math.sqrt(e) - 1) / (maxR - 1) * 42); }
+    var totalEdits = DATA.sites.reduce(function (a, s) { return a + s.edits; }, 0);
+
+    var tip = document.createElement("div");
+    tip.className = "swarm-tip";
+    document.getElementById("swarm").appendChild(tip);
+
+    var bubbles = [];   // в порядке убывания правок — порядок посадки
+    DATA.kinds.forEach(function (k) {
+      var lane = document.createElement("div");
+      lane.className = "lane";
+      var label = document.createElement("div");
+      label.className = "lane-label";
+      var kSites = DATA.sites.filter(function (s) { return s.kind === k.id; })
+                             .sort(function (a, b) { return b.edits - a.edits; });
+      var kEdits = kSites.reduce(function (a, s) { return a + s.edits; }, 0);
+      label.innerHTML = '<b>' + k.num + '</b>' + k.name;
+      var wrap = document.createElement("div");
+      wrap.className = "lane-bubbles";
+      kSites.forEach(function (s) {
+        var b = document.createElement("span");
+        b.className = "bub" + (s["new"] ? " new" : "");
+        var sz = bubSize(s.edits);
+        b.style.width = b.style.height = sz + "px";
+        b.tabIndex = 0;
+        b.setAttribute("role", "img");
+        b.setAttribute("aria-label", s.host + " — " + s.edits + " " + (U.editsWord || "edits"));
+        b._site = s;
+        wrap.appendChild(b);
+        bubbles.push(b);
+      });
+      lane.appendChild(label); lane.appendChild(wrap);
+      stage.appendChild(lane);
+    });
+    bubbles.sort(function (a, b) { return b._site.edits - a._site.edits; });
+
+    function setCount(nSites, nEdits) {
+      if (!countEl) return;
+      var t = (U.mapCount || "{sites} sites · {edits} edits")
+        .replace("{sites}", "<b>" + nSites + "</b>")
+        .replace("{edits}", "<b>" + nEdits.toLocaleString("en-US") + "</b>");
+      countEl.innerHTML = t;
+    }
+
+    function showTip(b) {
+      var s = b._site;
+      tip.innerHTML = '<b>' + s.host + '</b><span class="tmeta">' + s.edits +
+        ' ' + (U.editsWord || "edits") + ' · ' + s.units + ' ' + s.unit +
+        (s.when && s.when !== "—" ? ' · ' + s.when : '') +
+        '<br>' + s.by + '</span>';
+      var fig = document.getElementById("swarm").getBoundingClientRect();
+      var r = b.getBoundingClientRect();
+      tip.style.left = Math.max(6, Math.min(r.left - fig.left + r.width / 2 - 110, fig.width - 226)) + "px";
+      tip.style.top = (r.bottom - fig.top + 8) + "px";
+      tip.classList.add("show");
+    }
+    function hideTip() { tip.classList.remove("show"); }
+    bubbles.forEach(function (b) {
+      b.addEventListener("mouseenter", function () { showTip(b); });
+      b.addEventListener("mouseleave", hideTip);
+      b.addEventListener("focus", function () { showTip(b); });
+      b.addEventListener("blur", hideTip);
+    });
+
+    var lbl = playBtn ? playBtn.querySelector(".sp-label") : null;
+    function setLabel(t) { if (lbl && t) lbl.textContent = t; if (playBtn) playBtn.setAttribute("aria-label", t || ""); }
+    var timer = null, landed = 0;
+    function stopPlay() {
+      if (timer) { clearInterval(timer); timer = null; }
+      if (playBtn) playBtn.classList.remove("playing");
+    }
+    function revealAll() {
+      stopPlay();
+      bubbles.forEach(function (b) { b.classList.add("in"); });
+      landed = bubbles.length; setCount(bubbles.length, totalEdits);
+      setLabel(U.mapReplay);
+    }
+    function play() {
+      stopPlay();
+      bubbles.forEach(function (b) { b.classList.remove("in"); });
+      landed = 0; setCount(0, 0);
+      if (playBtn) { playBtn.classList.add("playing"); }
+      setLabel(U.mapPause);
+      var running = 0;
+      timer = setInterval(function () {
+        if (landed >= bubbles.length) { stopPlay(); setLabel(U.mapReplay); return; }
+        var b = bubbles[landed++];
+        b.classList.add("in");
+        running += b._site.edits;
+        setCount(landed, running);
+      }, 70);
+    }
+
+    if (playBtn) {
+      playBtn.addEventListener("click", function () {
+        if (timer) { revealAll(); } else { play(); }
+      });
+    }
+
+    if (reduced || !("IntersectionObserver" in window)) {
+      revealAll();
+    } else {
+      setCount(0, 0);
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { play(); io.disconnect(); } });
+      }, { threshold: .35 });
+      io.observe(stage);
+    }
+  }
+
+  /* ── числа: счёт от нуля при появлении ─────────────────────── */
+
+  var numB = Array.prototype.slice.call(page.querySelectorAll(".num b"));
+  if (numB.length && !reduced && "IntersectionObserver" in window) {
+    var nio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        countUp(e.target); nio.unobserve(e.target);
+      });
+    }, { threshold: .6 });
+    numB.forEach(function (el) { nio.observe(el); });
+  }
+  function countUp(el) {
+    var orig = el.textContent;
+    var m = orig.match(/[\d][\d,]*/);   // первое число
+    if (!m) return;
+    var target = parseInt(m[0].replace(/,/g, ""), 10);
+    if (!(target > 0)) return;
+    var t0 = null, dur = 900;
+    function frame(t) {
+      if (!t0) t0 = t;
+      var k = Math.min(1, (t - t0) / dur);
+      var v = Math.round((1 - Math.pow(1 - k, 3)) * target);
+      el.textContent = orig.replace(m[0], v.toLocaleString("en-US"));
+      if (k < 1) requestAnimationFrame(frame); else el.textContent = orig;
+    }
+    requestAnimationFrame(frame);
+  }
+
+  /* ── появление блоков при прокрутке ────────────────────────── */
+
+  if (!reduced && "IntersectionObserver" in window) {
+    var rev = page.querySelectorAll(".lg, .chan, .fact, .dv, .num");
+    var rio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); rio.unobserve(e.target); }
+      });
+    }, { threshold: .15, rootMargin: "0px 0px -8% 0px" });
+    Array.prototype.forEach.call(rev, function (el) { el.classList.add("reveal"); el._r = 1; rio.observe(el); });
   }
 
   document.addEventListener("themechange", onScroll);
