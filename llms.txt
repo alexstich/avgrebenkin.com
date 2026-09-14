@@ -69,28 +69,47 @@ from source, with the method and its weak spots written down on the page.
   to live?", Journal of Maps (TU Wien, ESPON HOUSE4ALL) — 22 million property listings scraped weekly from
   March 2024 to March 2025 in 31 countries, matched to municipalities and to the 2024 mean equivalised
   disposable income, read from the public ESPON feature service (89,601 municipalities, snapshot
-  14 September 2026) and reproduced to within a part in a billion. UNITED STATES: built here from Redfin
-  Data Center (median price per square foot of 3.6 million actual sales, June 2025 to May 2026, all 3,043
-  counties), HUD Income Limits FY2025 (median family income), HUD Fair Market Rents FY2025 (rent by
-  bedroom count, and county population) and the Freddie Mac 30-year fixed rate averaged over the same
-  52 weeks (6.36 %). Headline figures: about 44 % of Europeans live where a third of the average income
-  buys under 50 m², more than 70 % where it buys at most 75 m², more than 39 % where it rents under 50 m²;
-  77 % of Americans live where the same sum buys over 150 m² and 0.5 % where it buys under 50 m².
+  14 September 2026) and reproduced to within a part in a billion. UNITED STATES: the US Census Bureau's
+  American Community Survey, five-year estimates 2020-2024 (public domain), for 3,141 counties covering
+  100 % of the population of the fifty states and DC — median value of owner-occupied homes (B25077),
+  median household income (B19013), median gross rent (B25064), population (B01003) — plus the Freddie Mac
+  30-year fixed rate averaged over 2024 (6.72 %), the year whose dollars the ACS reports.
+  THE UNITED STATES HAS NO SQUARE METRES ON THIS PAGE, AND THAT IS THE FINDING: floor area of housing is
+  not collected by the ACS or by any other US federal source at county level. The American Housing Survey
+  measures size for about thirty metropolitan areas only; the Survey of Construction only for new houses by
+  census division. A county-level price per square metre exists solely inside private listing databases,
+  and none of them licenses republication: Redfin's Data Center carries no data licence or citation
+  permission and its Terms of Use forbid reproduction and redistribution; the equivalent realtor.com series
+  are marked "Copyrighted: Citation Required" where FRED republishes them, and FRED's terms forbid
+  redistributing third-party proprietary content for commercial use without written permission; Zillow
+  publishes a price per square foot only for new construction by metro area. So the three square-metre map
+  modes are switched off in the American frame rather than filled with a guess, and the two measures that
+  public data does support are drawn instead: years of income, and rent as a share of income, both computed
+  on the county's own median home and median rental rather than on a chosen floor area.
+  Headline figures: about 44 % of Europeans live where a third of the average income buys under 50 m², more
+  than 70 % where it buys at most 75 m², more than 39 % where it rents under 50 m². In the United States
+  the median home costs 4.1 years of the median household income; 29 % of Americans live in a county where
+  it costs five years or more, 9.7 % where it costs eight or more. The median rent takes 21 % of the median
+  income nationally — but that is a ratio of two medians, and asked household by household the same survey
+  says 51 % of American renters pay 30 % or more of their income in rent; the page prints both and explains
+  the difference.
   THE PAGE REFUSES TO RANK THE TWO LAYERS TOGETHER and says why: the European income is a mean equivalised
-  disposable income (after tax, per adult-equivalent) while the American one is a median family income
-  (before tax, per family), and the European price is what sellers asked while the American price is what
-  buyers paid — every difference pushes the same way. The map shows one layer at a time and the rankings
-  stay inside it; the fair comparison is the reader's own income, which is what the "job offer abroad"
-  block is for. The reader can replace the average income with their own: net income in 13 currencies at
-  fixed ECB rates, share of income (20–45 %, default exactly one third), mortgage term (10–30 years),
-  interest rate, down payment (0–40 %), household size on the OECD-modified scale. Map modes: square metres
-  to buy, to rent, rent minus buy, years of income, rent as a share of income; the two rent-in-square-metre
-  modes are empty on the American map because HUD publishes rent by bedroom count, not by area, and that is
-  said on the page rather than filled with a guess. Country outlines and US county centroids are Natural
-  Earth (public domain); Eurostat's NUTS outlines were dropped after their licence turned out to forbid
-  commercial use. Everything is embedded in one HTML file, computed in the browser, no network requests,
-  full state in the URL, share link, PNG, CSV and print. Provenance, including every incomparability, is in
-  the "Where the numbers come from" table on the page.
+  disposable income (after tax, per adult-equivalent) while the American one is a median household income
+  (before tax, no equivalence scale), the European price is an asking price per square metre while the
+  American one is the owner's own estimate of a whole home, the European rent excludes utilities while the
+  American gross rent includes them, and the American figures are a five-year average rather than a
+  snapshot. The map shows one layer at a time and the rankings stay inside it; the fair comparison is the
+  reader's own income, which is what the "job offer abroad" block is for — and when that block spans the two
+  layers it equalises the share of income rather than the space, saying so on the spot. The reader can
+  replace the average income with their own: net income in 13 currencies at fixed ECB rates, share of income
+  (20-45 %, default exactly one third), mortgage term (10-30 years), interest rate, down payment (0-40 %),
+  household size on the OECD-modified scale. Every American estimate carries the survey's 90 % confidence
+  interval, shown on the county card: median county ±5.9 %, 187 counties wider than ±20 %. Country outlines
+  and US county centroids are Natural Earth (public domain), with the nine Connecticut planning regions
+  taking their centroids from federal TIGER 2024 boundaries; Eurostat's NUTS outlines were dropped after
+  their licence turned out to forbid commercial use. Everything is embedded in one HTML file, computed in
+  the browser, no network requests, full state in the URL, share link, PNG, CSV and print. Provenance,
+  including every incomparability, is in the "Where the numbers come from" table on the page.
 - [Anything that writes back](https://avgrebenkin.com/research/wiki-incident/) — the 2026 "wiki incident":
   between May and July, OpenAI agents running a timed web-lookup evaluation were allowed to read the
   internet but not write to it, so they sought out sites that store a page on a plain GET request and turned

@@ -59,11 +59,17 @@ NAMES['US'] = 'United States'
 # внутри региона NUTS 3, в США — округ внутри штата, и подписывать их одинаково
 # значило бы врать о том, что показано. Кадр «na» пока подписан Соединёнными
 # Штатами, а не материком: данных по Канаде и Мексике нет, и обещать их нельзя.
+# Поле m2 — не украшение, а развилка всей арифметики: у европейского слоя цена
+# задана за квадратный метр, у американского площади нет вовсе, и метрики там
+# считаются на медианное жильё. Страница спрашивает про кадр, а не про «eu»,
+# чтобы третий слой не пришлось вшивать в условия по имени.
 FRAME = {
     'eu': {'label': 'Europe', 'unit': 'municipality', 'units': 'municipalities',
-           'reg': 'region', 'regs': 'NUTS 3 regions', 'cur': 'EUR', 'sym': '\u20ac'},
+           'reg': 'region', 'regs': 'NUTS 3 regions', 'cur': 'EUR', 'sym': '\u20ac',
+           'm2': True, 'home': 'home', 'rental': 'rental'},
     'na': {'label': 'United States', 'unit': 'county', 'units': 'counties',
-           'reg': 'state', 'regs': 'states', 'cur': 'USD', 'sym': '$'},
+           'reg': 'state', 'regs': 'states', 'cur': 'USD', 'sym': '$',
+           'm2': False, 'home': 'the median home', 'rental': 'the median rental'},
 }
 GROUPS = {
     'eu': [['north', 'North & Baltics'], ['west', 'West'], ['south', 'South'], ['east', 'East']],
@@ -134,6 +140,10 @@ ALIAS = {
 }
 CLASSES = [50, 75, 100, 150]          # границы классов легенды статьи
 POP_MIN = 10000
+# Порог доверия к американской медиане: ACS публикует 90-процентный доверительный
+# интервал, и если он шире пятой части самой оценки, медиана округа держится на
+# горстке анкет. Такие строки не выбрасываются — карточка места называет интервал.
+MOE_HIGH = 20
 
 
 def f(v):
@@ -271,80 +281,77 @@ def main():
     aliases = {r['id']: ALIAS[(r['cc'], r['name'])] for r in rows
                if (r['cc'], r['name']) in ALIAS and r['id'] in keep}
     # ---- США: округа как места, штаты как регионы
-    # Цена там за метр жилья по сделкам, доход — медианный по семье, аренда — по
-    # числу спален, а не за метр (см. extract_us.py). Поэтому у американских мест
-    # есть «сколько метров куплю» и нет «сколько метров сниму»: последнее пришлось
-    # бы выдумать через типовую площадь, а выдумывать нельзя. Метрики, общие для
-    # обоих слоёв, строятся из median_price и fmr_2 — они лежат отдельным массивом
-    # extra, чтобы не раздувать нулями восемь с половиной тысяч европейских строк.
+    # Метра там нет и не будет, пока не придёт письменное разрешение: площадь
+    # жилья в США не собирает ни одно государственное обследование на уровне
+    # округа, а частные данные MLS перепубликовать нельзя (см. extract_us.py).
+    # Поэтому у американских мест sp и rp равны нулю — это «нет данных», а не
+    # «бесплатно», — и работают только две метрики из трёх: «лет дохода» и «доля
+    # дохода на аренду». Считаются они не на метры, а на медианное жильё округа,
+    # и живут в отдельном массиве extra, чтобы не раздувать нулями восемь с
+    # половиной тысяч европейских строк.
     extra, meta = [], {}
     if os.path.exists(US_CSV):
         meta = json.load(open(US_META, encoding='utf-8'))
         us = list(csv.DictReader(open(US_CSV, encoding='utf-8')))
         grp_of = {st: k for k, v in US_GROUP.items() for st in v.split()}
         rate = float(meta['rate30'])
-        ann = annuity(rate)
         for r in us:
             r['pop'] = float(r['pop'] or 0)
-            r['inc'] = float(r['income_family'] or 0)
-            r['sp'] = float(r['price_m2'] or 0)
-            r['sa'] = (r['inc'] / 12.0 / 3.0 * ann / r['sp']) if (r['inc'] and r['sp']) else 0.0
+            r['inc'] = f(r['income'])
+            r['val'] = f(r['value'])
+            r['rnt'] = f(r['rent'])
 
+        # Штат и страна — отдельные запросы к тем же таблицам ACS, а не сборка из
+        # округов: взвешенное по населению среднее медиан не равно медиане, и там,
+        # где настоящую медиану можно просто спросить, суррогат не нужен.
+        nat = meta['nation']
         cc_index['US'] = len(countries)
-        popc = sum(r['pop'] for r in us)
+        popc = sum(r['pop'] for r in us) or 1.0
         countries.append({
             'c': 'US', 'n': NAMES['US'], 'reg': '', 'espon': False,
             'rate': rate, 'pop': round(float(meta['popTotal'])),
-            'sa': round(wmean(us, 'sa'), 1), 'ra': 0,
-            'inc': round(wmean(us, 'inc')), 'sp': round(wmean(us, 'sp')), 'rp': 0,
-            'covS': round(popc / float(meta['popTotal']), 3),
-            'covR': 0, 'places': len(us),
-            'cur': 'USD', 'src': 'redfin+hud', 'frame': 'na',
+            'sa': 0, 'ra': 0,
+            'inc': int(nat['income']), 'sp': 0, 'rp': 0,
+            'covS': round(sum(r['pop'] for r in us if r['val']) / popc, 3),
+            'covR': round(sum(r['pop'] for r in us if r['rnt']) / popc, 3),
+            'places': len(us),
+            'cur': 'USD', 'src': 'acs', 'frame': 'na',
         })
+        extra.append(['c:US', int(nat['value']), int(nat['rent']), 0])
 
         by_st = {}
         for r in us:
             by_st.setdefault(r['st'], []).append(r)
+        st_meta = meta.get('states') or {}
         for st in sorted(by_st):
             rs = by_st[st]
-            pop = sum(r['pop'] for r in rs)
+            pop = sum(r['pop'] for r in rs) or 1.0
+            s = st_meta.get(st) or {}
             n3index['US-' + st] = len(regions)
             regions.append([
                 'US-' + st, US_STATE.get(st, st), 'US', round(pop),
-                round(wmean(rs, 'inc')), round(wmean(rs, 'sp')), 0,
-                round(wmean(rs, 'sa'), 1), 0, 1, 0, grp_of.get(st, ''),
+                int(s.get('income') or 0), 0, 0, 0, 0,
+                round(sum(r['pop'] for r in rs if r['val']) / pop, 3),
+                round(sum(r['pop'] for r in rs if r['rnt']) / pop, 3),
+                grp_of.get(st, ''),
             ])
+            # Ключ — тот же, что страница строит из места (pid): у региона это
+            # «n:», у страны «c:». Разойтись им нельзя, иначе штат молча теряет
+            # свои медианы и показывает прочерк вместо данных.
+            extra.append(['n:US-' + st, int(s.get('value') or 0), int(s.get('rent') or 0), 0])
         for r in us:
-            # deg и coast у американских мест не размечены: metro у HUD — это его
-            # собственная зона, а не степень урбанизации Евростата, и подставлять
-            # одно вместо другого нельзя. Ноль здесь значит «не размечено».
+            # deg и coast у американских мест не размечены: степени урбанизации
+            # Евростата у ACS нет, и подставлять вместо неё что-то своё нельзя.
+            # Ноль здесь значит «не размечено».
             places.append([
                 'us' + r['fips'], r['name'], cc_index['US'], n3index['US-' + r['st']],
-                round(r['pop']), round(r['inc']), round(r['sp']), 0,
+                round(r['pop']), round(r['inc']), 0, 0,
                 round(float(r['lat']) * 100), round(float(r['lon']) * 100), 0, 0,
             ])
-            extra.append(['us' + r['fips'], int(float(r['median_price'] or 0))]
-                         + [int(float(r['fmr_%d' % i] or 0)) for i in range(5)]
-                         + [int(float(r['sales'] or 0))])
-
-        # Те же величины для штатов и страны: иначе «доля дохода на аренду»
-        # красила бы точки округов и оставляла штат и страну без данных, хотя
-        # посчитать их из тех же строк можно — по населению.
-        def wm(rs, key):
-            num = den = 0.0
-            for r in rs:
-                v = float(r[key] or 0)
-                if v:
-                    num += v * r['pop']; den += r['pop']
-            return int(num / den) if den else 0
-        def nsales(rs):
-            return int(sum(float(r['sales'] or 0) for r in rs))
-        for st in sorted(by_st):
-            extra.append(['US-' + st, wm(by_st[st], 'median_price')]
-                         + [wm(by_st[st], 'fmr_%d' % i) for i in range(5)]
-                         + [nsales(by_st[st])])
-        extra.append(['c:US', wm(us, 'median_price')]
-                     + [wm(us, 'fmr_%d' % i) for i in range(5)] + [nsales(us)])
+            # Погрешность оценки вместо числа сделок: у ACS мера доверия к медиане
+            # — это её доверительный интервал, и он публикуется вместе с ней.
+            extra.append(['us' + r['fips'], int(r['val']), int(r['rnt']),
+                          int(f(r['value_moe']))])
 
     places.sort(key=lambda x: -x[4])
 
@@ -429,10 +436,13 @@ def main():
         'aliases': aliases,
         'placefields': ['id', 'name', 'cc', 'reg', 'pop', 'inc', 'sp', 'rp10', 'lat100', 'lon100', 'deg', 'coast'],
         'regionfields': ['id', 'name', 'cc', 'pop', 'inc', 'sp', 'rp', 'sa', 'ra', 'covS', 'covR', 'grp'],
-        'extrafields': ['id', 'mp', 'fmr0', 'fmr1', 'fmr2', 'fmr3', 'fmr4', 'sales'],
-        # Порог, ниже которого медиана округа собрана из единиц сделок за год.
-        # Строки не выбрасываются — карточка места называет число сделок.
-        'thin': int(meta.get('thinSales') or 12),
+        'extrafields': ['id', 'val', 'rent', 'moe'],
+        # Порог относительной погрешности, выше которого медиане округа верить
+        # нельзя. Строки не выбрасываются — карточка места называет интервал.
+        'moe': MOE_HIGH,
+        'usmeta': {k: meta.get(k) for k in
+                   ('release', 'releaseName', 'years', 'rateYear', 'counties',
+                    'moeMedian', 'moeP90')} if meta else {},
     }
     p = os.path.join(HERE, 'data.json')
     json.dump(out, open(p, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))

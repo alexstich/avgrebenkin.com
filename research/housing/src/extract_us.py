@@ -1,76 +1,93 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Американский слой: цена за метр, доход, аренда и население по округам США.
+"""Американский слой: стоимость жилья, доход, аренда и население по округам США.
 
     python3 research/housing/src/extract_us.py [папка с исходниками]
 
-Недостающие файлы скачиваются в эту папку сами. Пять источников, все открытые и
-все без ключа — это было условием: у Бюро переписи API просит ключ, а bulk-файлы
-на www2.census.gov отдают 403 через Cloudflare, так что федеральную статистику
-здесь пересказывает HUD, который ничем не закрыт.
+Недостающие файлы скачиваются в эту папку сами. Три источника, все открытые, без
+ключа и без запрета на коммерческое использование — последнее и есть причина, по
+которой слой переписан.
 
-1. Redfin Data Center, county_market_tracker.tsv000.gz — помесячные медианы по
-   округам: медианная цена продажи и медианная цена за квадратный ФУТ, обе по
-   фактическим сделкам.
-2. HUD Income Limits FY2025 — медианный доход по округам.
-3. HUD Fair Market Rents FY2025 — аренда по числу спален и население округа.
-4. Natural Earth admin-2 — центроид округа для карты (общественное достояние,
-   тот же репозиторий, что и контуры стран в geo.py).
-5. Freddie Mac PMMS — недельная ставка 30-летней фиксированной ипотеки.
+ПОЧЕМУ ЗДЕСЬ БОЛЬШЕ НЕТ КВАДРАТНОГО МЕТРА
+------------------------------------------
+Первая версия слоя считала метры из Redfin: у него есть медианная цена за
+квадратный ФУТ по сделкам, и она давала ту же метрику, что у европейского слоя.
+Пользоваться ею нельзя. Обновлённый Data Center не несёт ни лицензии на данные,
+ни разрешения цитировать — проверены сам центр, страница загрузок и статья
+поддержки «Downloading Data», — а общие Terms of Use от 29 сентября 2025
+(§ 2.3.2–2.3.3) дают «limited, personal, non-exclusive, non-transferable» право
+«access, view, and use the Services» и прямо запрещают воспроизведение,
+перепубликацию и производные работы. Страница бесплатная, но несёт баннер моего
+продукта и встраивает производную таблицу в файл — это ровно то, что запрещено.
 
-ОГОВОРКА ПЕРВАЯ, обязана попасть на страницу: у HUD это медианный доход СЕМЬИ, а
-не домохозяйства. Семьи не включают одиночек, поэтому величина систематически
-выше медианного дохода домохозяйства, и с европейским эквивалентным
-располагаемым доходом на взрослого-эквивалента она несопоставима напрямую. В
-таблице происхождения это отдельная строка, а не та же колонка.
+Замены у метража нет, и это не лень поиска, а свойство американской статистики:
+**площадь жилья в США не является государственной статистикой.** ACS её не
+собирает вовсе; American Housing Survey собирает, но только по трём десяткам
+агломераций; Survey of Construction — только по новостройкам и только по четырём
+переписным регионам. Цена за фут по округам существует лишь у Redfin, Zillow (и
+там только по новостройкам и только по метро) и realtor.com, то есть у частных
+компаний, у которых она взята из MLS. Ни один из них не даёт права на
+перепубликацию: те же ряды realtor.com FRED помечает «Copyrighted: Citation
+Required» и запрещает коммерческую перепубликацию без письменного разрешения.
 
-ОГОВОРКА ВТОРАЯ. HUD задаёт доход не по округу, а по своей зоне (HMFA): все
-округа одной агломерации получают одно и то же число. Атланта — 24 округа с
-одним доходом на всех, Вашингтон — 14. Из 1133 метро-округов различных значений
-дохода всего 625, из 1901 неметро-округа — 1747. Значит внутри агломерации карта
-показывает разброс цен, а не разброс доходов.
+Поэтому американские округа на карте живут без метров — с честной подписью, а не
+с правдоподобной выдумкой, — и несут две другие метрики страницы, которые в
+государственных данных есть. Письма с просьбой о разрешении лежат в
+letter-to-authors.md; придёт ответ — метры включатся одной пересборкой.
 
-ОГОВОРКА ТРЕТЬЯ. Fair Market Rent — не рыночная медиана, а 40-й процентиль
-валовой аренды жилья стандартного качества, то есть административная величина для
-жилищных программ. Она ниже медианы объявлений и считается по числу спален, а не
-по площади: сравнивать её с европейской ценой аренды за метр нельзя, это
-отдельная метрика, а не та же в других единицах.
+ИСТОЧНИКИ
+---------
+1. ACS 2024 5-year (American Community Survey, Бюро переписи США): B25077 —
+   медианная стоимость жилья, занятого владельцем; B19013 — медианный доход
+   домохозяйства; B25064 — медианная валовая аренда; B01003 — население.
+   Читается через открытый API Census Reporter: у Бюро переписи собственный API
+   с недавних пор требует ключ, то есть аккаунт, а bulk-файлы на www2.census.gov
+   отдают 403 через Cloudflare. Census Reporter про свои данные говорит прямо:
+   «Data on Census Reporter comes from the US Census Bureau and is not
+   copyrighted», — это те же федеральные цифры, общественное достояние.
+2. Natural Earth 10m admin-2 — центроид округа для карты (общественное
+   достояние, тот же репозиторий, что и контуры стран в geo.py).
+3. Freddie Mac PMMS — ставка 30-летней фиксированной ипотеки. Их условия:
+   «Information from this document may be used with proper attribution».
 
-Площадь НЕ получается делением медианной цены на медианную цену за фут: отношение
-медиан не равно медиане отношений, а на рынке, где смешаны квартиры и дома,
-расхождение заметное. Поэтому бюджет из дохода и ставки делится прямо на цену за
-фут, без единого допущения о площади.
+ОГОВОРКА ПЕРВАЯ: пять лет в одной цифре. ACS 5-year — это не «2024 год», а
+опрос, размазанный по 2020–2024 годам. Для округов это единственный доступный
+уровень: годичный ACS публикуется только для мест крупнее 65 тысяч жителей, а
+таких округов меньше половины. Суммы Бюро переписи приводит к долларам
+последнего года периода, то есть к долларам 2024-го, — поэтому и ставка здесь
+средняя за 2024 календарный год, а не за пять лет и не за последнюю неделю.
 
-Стыковка по названию округа и коду штата: Redfin не несёт федеральных кодов, его
-числовой идентификатор внутренний. Ловушки, проверенные в данных: Луизиана с
-приходами, Аляска с боро и переписными областями, независимые города Виргинии,
-и штаты Новой Англии, где у HUD несколько строк на округ.
+ОГОВОРКА ВТОРАЯ: стоимость — это оценка владельца, а не цена сделки. B25077
+спрашивает владельца, за сколько, по его мнению, дом был бы продан. Европейский
+слой стоит на объявлениях. Систематическая разница между самооценкой и рынком
+известна и меняет знак в зависимости от фазы цикла; сравнивать эти два числа
+между слоями нельзя, и страница этого не делает.
 
-Виргиния устроена хитрее, чем кажется. Там, где независимый город тёзка округа,
-Redfin пишет «Richmond City County, VA» против «Richmond County, VA», и обе
-строки стыкуются сами. Но «James City County» — настоящий округ, а не город
-Джеймс, поэтому родовое слово нельзя срезать по подстроке «city»: срезается
-только хвост « County», а подстановка « city» пробуется в последнюю очередь и
-лишь в четырёх штатах с независимыми городами.
+ОГОВОРКА ТРЕТЬЯ: аренда валовая. B25064 — медианная валовая аренда, то есть плата
+плюс коммунальные услуги, которые платит наниматель. Европейская цена аренды —
+без коммунальных. Это тоже разные величины, и подписаны они порознь.
 
-Коннектикут пришлось собирать вручную, и это оказалось возможно точно. Redfin и
-Natural Earth знают восемь округов, упразднённых в 2023 году; Income Limits с
-FY2024 перешли на девять плановых регионов. Мост — файл аренды: он остался на
-старых округах и при этом расписан по 169 городам с населением, а в файле дохода
-у тех же 169 городов стоит их плановый регион. Списки городов совпадают полностью,
-169 на 169, поэтому доход старого округа считается как среднее по его городам,
-взвешенное населением. Это не медиана округа, а взвешенная смесь медиан регионов,
-и так это и подписано — но веса настоящие, а не придуманные.
+ОГОВОРКА ЧЕТВЁРТАЯ: медиана округа — это медиана, а не среднее. Штат и страна
+берутся отдельными запросами к тем же таблицам, а не собираются из округов:
+взвешенное по населению среднее медиан — не медиана, и там, где настоящую
+медиану можно просто спросить, выдумывать суррогат незачем.
 
-Аляска проще: Valdez-Cordova Census Area упразднена в 2019 году и разделена на
-Chugach и Copper River, объединение точное, поэтому округ Redfin собирается из
-двух единиц HUD теми же весами.
+КОННЕКТИКУТ. С 2022 года Бюро переписи считает штат по девяти плановым регионам
+вместо восьми упразднённых округов, а Natural Earth остался на старых границах.
+Центроиды девяти регионов берутся из геометрии TIGER 2024 (те же федеральные
+данные, тот же открытый API) и считаются как центр тяжести многоугольника,
+взвешенный по площади колец. Это не подстановка чужой точки, а вычисление по
+настоящей границе.
 
-Непокрытое НЕ отбрасывается молча: причины известных разрывов перечислены в
-KNOWN_GAP, они печатаются и пишутся в us-gaps.csv, а любой новый непокрытый округ
-валит сборку.
+ТЕРРИТОРИИ. Пуэрто-Рико (78 муниципалитетов) в выгрузке есть, но в слой не идёт:
+его опрашивает отдельное обследование PRCS, и в общенациональные итоги Бюро
+переписи Пуэрто-Рико не входит — страна в данных страницы должна быть той же,
+что в строке «United States». Причина записана в us-gaps.csv, а не подразумевается.
+
+Непокрытое НЕ отбрасывается молча: каждый пропуск попадает в us-gaps.csv с
+причиной, а округ без центроида валит сборку.
 """
-import collections, csv, gzip, io, json, os, re, sys, urllib.request, zipfile
+import csv, json, os, sys, urllib.parse, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
@@ -78,59 +95,38 @@ OUT = os.path.join(ROOT, 'research', 'data', 'us-counties.csv')
 GAPS = os.path.join(ROOT, 'research', 'data', 'us-gaps.csv')
 META = os.path.join(ROOT, 'research', 'data', 'us-meta.json')
 
-# Имя файла → откуда взять, если его нет на диске. Redfin сюда не входит: 230 МБ
-# качаются долго, а ссылка на выгрузку живёт в Data Center и меняется.
+CR = 'https://api.censusreporter.org/1.0'
+RELEASE = 'acs2024_5yr'          # последний, где есть все округа
+TIGER = 'tiger2024'
+TABLES = ['B25077', 'B19013', 'B25064', 'B01003']
+VALUE, INCOME, RENT, POP = 'B25077001', 'B19013001', 'B25064001', 'B01003001'
+RATE_YEAR = '2024'               # суммы ACS — в долларах последнего года периода
+
 SOURCES = {
-    'hud_il25.xlsx': 'https://www.huduser.gov/portal/datasets/il/il25/Section8-FY25.xlsx',
-    'hud_fmr25.xlsx': 'https://www.huduser.gov/portal/datasets/fmr/fmr2025/FY25_FMRs_revised.xlsx',
     'pmms.csv': 'https://www.freddiemac.com/pmms/docs/PMMS_history.csv',
     'ne_10m_admin_2_counties.geojson':
         'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/'
         'geojson/ne_10m_admin_2_counties.geojson',
 }
-REDFIN = 'county_market_tracker.tsv000.gz'
-MONTHS = 12                      # окно усреднения: год сделок гасит месячный шум
-SQFT_PER_M2 = 1 / 0.09290304     # 10.7639104167: международный фут, точно
-# Тип жилья — отдельная колонка, и цена за фут у квартир и односемейных домов
-# различается кратно. Берётся сводная строка, а не один из типов: страница
-# отвечает на вопрос «сколько метров жилья», а не «сколько метров квартиры».
-PROPERTY_TYPE = 'All Residential'
-# Порог доверия к медиане. Округ с единицами сделок за год даёт медиану, которой
-# верить нельзя; такие строки не выбрасываются, но помечаются, и число сделок
-# едет в данные, чтобы карточка места могла сказать об этом читателю.
-THIN_SALES = 12
-BEDROOMS = 5                     # fmr_0 … fmr_4: студия и до четырёх спален
+# Территории: в ACS есть, в слой не идут. Ключ — код штата, значение — причина.
+TERRITORY = {'72': 'Пуэрто-Рико: отдельное обследование PRCS, в итоги США не входит'}
 
-COLS = (['fips', 'st', 'county', 'name', 'pop', 'lat', 'lon', 'metro',
-         'income_family', 'price_m2', 'median_price', 'sales']
-        + ['fmr_%d' % i for i in range(BEDROOMS)])
+COLS = ['fips', 'st', 'county', 'name', 'pop', 'lat', 'lon',
+        'value', 'value_moe', 'income', 'income_moe', 'rent', 'rent_moe']
 
-# Родовые слова, которые в названии округа ничего не различают. Порядок перебора
-# задаётся длиной, а не тем, как записано здесь: «Juneau City and Borough» иначе
-# теряет только « Borough» и остаётся «juneau city and».
-GENERIC = sorted((' county', ' parish', ' borough', ' census area', ' municipality',
-                  ' city and borough', ' planning region'), key=len, reverse=True)
 
-# Штаты, где город может не входить ни в один округ и живёт в статистике отдельной
-# строкой. Redfin пишет такой город без родового слова («Alexandria, VA»), HUD — со
-# словом «city», и это единственное, что отличает его от одноимённого округа.
-INDEPENDENT_CITY = {'VA', 'MD', 'MO', 'NV'}
+# Census Reporter отвечает «use a user agent specific to your project» на общий
+# браузерный заголовок, и это их правило, а не техническая помеха: чужой сервер
+# должен видеть, кто и зачем его читает. Здесь стоит адрес самой страницы.
+UA = 'avgrebenkin.com-housing-research/1.0 (+https://avgrebenkin.com/research/housing/)'
 
-# Разные написания одного и того же округа. Ключ — то, что пишет Redfin.
-ALIAS = {
-    ('IL', 'lasalle'): 'la salle',
-}
 
-# Единица Redfin, которой у HUD отвечают несколько: границы переносились, но
-# объединение точное. Valdez-Cordova упразднена в 2019 году и целиком разошлась
-# на Chugach и Copper River.
-UNION = {
-    ('AK', 'valdez cordova'): ['chugach', 'copper river'],
-}
-
-# Разрывы, которые остаются после всех правил, с причиной. Пусто — и хорошо;
-# всё, чего здесь нет, валит сборку, чтобы новая дыра не проехала незамеченной.
-KNOWN_GAP = {}
+def get(url, path, timeout=300):
+    """Скачать в файл. Заголовок обязателен: без него GitHub и API Census
+    Reporter отвечают 403."""
+    req = urllib.request.Request(url, headers={'User-Agent': UA})
+    with urllib.request.urlopen(req, timeout=timeout) as r, open(path, 'wb') as f:
+        f.write(r.read())
 
 
 def fetch(src, name):
@@ -138,153 +134,75 @@ def fetch(src, name):
     if os.path.exists(p):
         return p
     print('скачиваю', name)
-    req = urllib.request.Request(SOURCES[name], headers={
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) '
-                      'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36'})
-    with urllib.request.urlopen(req, timeout=300) as r, open(p, 'wb') as f:
-        f.write(r.read())
+    get(SOURCES[name], p)
     return p
 
 
-def sheet(path, name=None):
-    """Строки листа словарями. Файл аренды HUD чинится на лету: в его docProps
-    дата записана как «2025- 2-18T20:40:31Z», и openpyxl отказывается открывать
-    книгу целиком из-за поля, которое нам не нужно."""
-    import openpyxl
-    buf = io.BytesIO()
-    with zipfile.ZipFile(path) as zin, zipfile.ZipFile(buf, 'w', zipfile.ZIP_DEFLATED) as zout:
-        for it in zin.infolist():
-            b = zin.read(it.filename)
-            if it.filename == 'docProps/core.xml':
-                b = re.sub(rb'(\d{4}-)\s*(\d)-', rb'\g<1>0\g<2>-', b)
-            zout.writestr(it, b)
-    buf.seek(0)
-    wb = openpyxl.load_workbook(buf, read_only=True)
-    ws = wb[name or wb.sheetnames[0]]
-    it = ws.iter_rows(values_only=True)
-    hdr = list(next(it))
-    return [dict(zip(hdr, r)) for r in it]
+def api(src, name, url):
+    """Ответ API с кэшем на диске: пересборка не должна дёргать чужой сервер."""
+    p = os.path.join(src, name)
+    if not os.path.exists(p):
+        print('запрашиваю', name)
+        get(url, p, timeout=600)
+    d = json.load(open(p, encoding='utf-8'))
+    if 'error' in d:
+        raise SystemExit('%s: %s' % (name, d['error']))
+    return d
 
 
-def norm(name):
-    """Название округа к сравнимому виду: регистр, пунктуация и родовое слово."""
-    s = (name or '').lower().strip()
-    for a, b in (('.', ''), (',', ''), ('’', "'"), ('-', ' '), ('&', 'and')):
-        s = s.replace(a, b)
-    for w in GENERIC:
-        if s.endswith(w):
-            s = s[: -len(w)]
-            break
-    return ' '.join(s.split())
+def acs(src, name, geo_ids):
+    url = '%s/data/show/%s?table_ids=%s&geo_ids=%s' % (
+        CR, RELEASE, ','.join(TABLES), urllib.parse.quote(geo_ids, safe='|,'))
+    return api(src, name, url)
 
 
-def keys_for(st, base):
-    """Ключи-кандидаты для строки Redfin, в порядке убывания надёжности."""
-    n = norm(base)
-    yield n
-    a = ALIAS.get((st, n))
-    if a:
-        yield a
-    if st in INDEPENDENT_CITY and not base.strip().lower().endswith('county'):
-        yield n + ' city'
+def cell(row, table, col):
+    """Оценка и её погрешность. Отсутствующая медиана — это None, а не ноль:
+    в округе, где жильё владельцев не продавалось, ноль означал бы «бесплатно»."""
+    t = row.get(table) or {}
+    est = (t.get('estimate') or {}).get(col)
+    moe = (t.get('error') or {}).get(col)
+    return (None if est is None else float(est),
+            None if moe is None else float(moe))
 
 
-def read_redfin(path):
-    """Средневзвешенная по числу сделок цена за фут и цена жилья за последний год.
+def ring_centroid(ring):
+    """Центр тяжести замкнутого кольца и его площадь со знаком (формула Гаусса)."""
+    a = cx = cy = 0.0
+    for i in range(len(ring) - 1):
+        x0, y0 = ring[i][0], ring[i][1]
+        x1, y1 = ring[i + 1][0], ring[i + 1][1]
+        f = x0 * y1 - x1 * y0
+        a += f
+        cx += (x0 + x1) * f
+        cy += (y0 + y1) * f
+    if a == 0:
+        return None
+    a *= 0.5
+    return cx / (6 * a), cy / (6 * a), a
 
-    Файл — полная помесячная история с 2012 года, и строки в нём НЕ упорядочены
-    по дате: в одном месте подряд идут 2018, 2019 и 2025 годы. Поэтому окно
-    задаётся явно и проверяется на каждой строке. «Последняя строка округа» дала
-    бы смесь разных периодов у разных округов, и выглядела бы она правдоподобно.
-    """
-    last = ''
-    seen = set()
-    with gzip.open(path, 'rt', encoding='utf-8', newline='') as f:
-        for row in csv.DictReader(f, delimiter='\t'):
-            seen.add((row['STATE_CODE'], row['REGION']))
-            end = row['PERIOD_END'][:7]
-            if end > last:
-                last = end
-    # Второй проход: окно известно только после первого.
-    y, m = int(last[:4]), int(last[5:7])
-    m -= MONTHS - 1
-    while m <= 0:
-        m += 12; y -= 1
-    first = '%04d-%02d' % (y, m)
-    acc = collections.defaultdict(lambda: [0.0, 0.0, 0.0])
-    inwin = set()
-    with gzip.open(path, 'rt', encoding='utf-8', newline='') as f:
-        for row in csv.DictReader(f, delimiter='\t'):
-            if not (first <= row['PERIOD_END'][:7] <= last):
+
+def centroid_of(geom):
+    """Центр тяжести многоугольника: кольца складываются со своим знаком площади,
+    поэтому дырки вычитаются сами, а не игнорируются."""
+    if not geom:
+        return None
+    polys = geom['coordinates'] if geom['type'] == 'MultiPolygon' else [geom['coordinates']]
+    num_x = num_y = den = 0.0
+    for poly in polys:
+        for i, ring in enumerate(poly):
+            c = ring_centroid(ring)
+            if not c:
                 continue
-            inwin.add((row['STATE_CODE'], row['REGION']))
-            if row['PROPERTY_TYPE'] != PROPERTY_TYPE:
-                continue
-            try:
-                ppsf = float(row['MEDIAN_PPSF'] or 0)
-                price = float(row['MEDIAN_SALE_PRICE'] or 0)
-                sold = float(row['HOMES_SOLD'] or 0)
-            except ValueError:
-                continue
-            if not (ppsf > 0 and sold > 0):
-                continue
-            a = acc[(row['STATE_CODE'], row['REGION'])]
-            a[0] += ppsf * sold
-            a[1] += price * sold
-            a[2] += sold
-    out = {}
-    for (st, region), (sp, pr, n) in acc.items():
-        if n > 0:
-            out[(st, region)] = (sp / n, pr / n, n)
-    # Воронка целиком, а не только её конец: округ, у которого в окне вообще нет
-    # строк, и округ, у которого они есть, но без цены за фут, — разные случаи, и
-    # оба обязаны попасть в отчёт.
-    funnel = {'file': len(seen), 'window': len(inwin), 'usable': len(out)}
-    return out, first, last, funnel
-
-
-def read_fmr(path):
-    """География HUD со старыми округами: (штат, округ) → строки по городам.
-
-    Именно этот файл задаёт единицу американского слоя: только он совпадает и с
-    Redfin, и с контурами Natural Earth, и при этом несёт население.
-    """
-    units = collections.defaultdict(list)
-    for d in sheet(path, 'FY25_FMRs_revised'):
-        st, cname = d.get('stusps'), d.get('countyname')
-        if not (st and cname):
-            continue
-        units[(st, norm(cname))].append({
-            'fips': str(d.get('fips') or '')[:5],
-            'town': (d.get('county_town_name') or '').strip(),
-            'name': cname,
-            'pop': float(d.get('pop2022') or 0),
-            'metro': 1 if d.get('metro') else 0,
-            'fmr': [float(d.get('fmr_%d' % i) or 0) for i in range(BEDROOMS)],
-        })
-    return units
-
-
-def read_income(path):
-    """Доход двумя ключами: по округу и по городу.
-
-    Ключ по городу нужен Новой Англии, где на округ приходится до 169 строк, а в
-    Коннектикуте — ещё и потому, что округ в этом файле уже другой.
-    """
-    by_county, by_town = collections.defaultdict(list), {}
-    for d in sheet(path):
-        st, cname, inc = d.get('stusps'), d.get('County_Name'), d.get('median2025')
-        if not (st and cname and inc):
-            continue
-        by_county[(st, norm(cname))].append(float(inc))
-        town = (d.get('county_town_name') or '').strip()
-        if town:
-            by_town[(st, town)] = float(inc)
-    out = {}
-    for k, v in by_county.items():
-        v.sort()
-        out[k] = v[len(v) // 2]
-    return out, by_town
+            x, y, a = c
+            if i:                      # внутреннее кольцо: дырка
+                a = -abs(a)
+            else:
+                a = abs(a)
+            num_x += x * a; num_y += y * a; den += a
+    if not den:
+        return None
+    return num_y / den, num_x / den    # (широта, долгота)
 
 
 def read_centroids(path):
@@ -296,125 +214,148 @@ def read_centroids(path):
     return out
 
 
-def read_rate(path, first, last):
-    """Средняя ставка 30-летней фиксированной за то же окно, что и сделки.
+def tiger_centroids(src, geoids):
+    """Центроиды из федеральной геометрии — для округов, которых нет в Natural Earth."""
+    if not geoids:
+        return {}
+    url = '%s/geo/show/%s?geo_ids=%s' % (CR, TIGER, urllib.parse.quote(','.join(geoids), safe=','))
+    d = api(src, 'tiger_extra.json', url)
+    out = {}
+    for f, gid in zip(d.get('features', []), geoids):
+        c = centroid_of(f.get('geometry'))
+        if c:
+            out[gid[7:]] = c
+    return out
 
-    Не последняя неделя: цены усреднены за год, и ставка обязана быть за тот же
-    год, иначе метры считаются по кредиту, которого в этих сделках не было.
-    """
+
+def read_rate(path, year):
+    """Средняя 30-летняя фиксированная за календарный год долларов ACS."""
     vals = []
     for r in csv.DictReader(open(path, encoding='utf-8')):
         try:
             m, d, y = r['date'].split('/')
         except (AttributeError, ValueError):
             continue
-        ym = '%04d-%02d' % (int(y), int(m))
-        if first <= ym <= last and (r.get('pmms30') or '').strip():
+        if y == year and (r.get('pmms30') or '').strip():
             vals.append(float(r['pmms30']))
     return (sum(vals) / len(vals), len(vals)) if vals else (0.0, 0)
 
 
 def main():
     src = sys.argv[1] if len(sys.argv) > 1 else HERE
-    redfin, first, last, funnel = read_redfin(os.path.join(src, REDFIN))
-    units = read_fmr(fetch(src, 'hud_fmr25.xlsx'))
-    inc_county, inc_town = read_income(fetch(src, 'hud_il25.xlsx'))
+    counties = acs(src, 'acs_counties.json', '050|01000US')
+    states = acs(src, 'acs_states.json', '040|01000US')
+    nation = acs(src, 'acs_nation.json', '01000US')
+    rel = counties['release']
+    print('%s (%s), таблицы %s' % (rel['name'], rel['years'], ', '.join(TABLES)))
+
     cent = read_centroids(fetch(src, 'ne_10m_admin_2_counties.geojson'))
-    rate, weeks = read_rate(fetch(src, 'pmms.csv'), first, last)
-    print('Redfin: %d округов в файле, %d со строками в окне %s..%s, %d с ценой за фут'
-          % (funnel['file'], funnel['window'], first, last, funnel['usable']))
-    if funnel['window'] < funnel['file']:
-        print('  без единой строки в окне: %d — рынок замер или Redfin перестал их публиковать'
-              % (funnel['file'] - funnel['window']))
-    if funnel['usable'] < funnel['window']:
-        print('  строки в окне есть, цены за фут нет: %d' % (funnel['window'] - funnel['usable']))
-    print('HUD FMR: %d единиц; HUD IL: %d округов и %d городов'
-          % (len(units), len(inc_county), len(inc_town)))
-    print('PMMS 30 лет: %.2f %% в среднем за %d недель окна' % (rate, weeks))
+    print('Natural Earth: %d центроидов округов' % len(cent))
 
-    rows, miss = [], []
-    for (st, region), (ppsf, price, sold) in sorted(redfin.items()):
-        base = region.rsplit(',', 1)[0]
-        part = None
-        for k in keys_for(st, base):
-            if (st, k) in units:
-                part = units[(st, k)]
-                break
-            if (st, k) in UNION:
-                part = [r for n in UNION[(st, k)] for r in units.get((st, n), [])]
-                if part:
-                    break
-                part = None
-        if not part:
-            miss.append((st, region, int(sold)))
+    # Штат по суффиксу названия округа: «Travis County, TX». Своего поля с
+    # аббревиатурой у ACS нет, а код штата — это первые две цифры FIPS.
+    st_of = {}
+    for gid, g in counties['geography'].items():
+        n = g['name']
+        if ', ' in n:
+            st_of[gid[7:12][:2]] = n.rsplit(', ', 1)[1]
+
+    need = sorted(gid for gid in counties['data']
+                  if gid[7:12] not in cent and gid[7:9] not in TERRITORY)
+    if need:
+        print('нет в Natural Earth: %d — беру геометрию TIGER' % len(need))
+        cent.update(tiger_centroids(src, need))
+
+    rows, gaps = [], []
+    pop_total = pop_covered = 0.0
+    for gid in sorted(counties['data']):
+        fips = gid[7:12]
+        d = counties['data'][gid]
+        name = counties['geography'][gid]['name']
+        pop = cell(d, 'B01003', POP)[0] or 0.0
+        st = fips[:2]
+        if st in TERRITORY:
+            gaps.append([fips, name, TERRITORY[st]])
             continue
-
-        # Вес — население. У обычного округа строка одна и веса ни на что не
-        # влияют; у Новой Англии и Аляски они и делают стыковку честной.
-        def wavg(get):
-            num = den = 0.0
-            for p in part:
-                v = get(p)
-                if v:
-                    w = p['pop'] or 1.0
-                    num += v * w; den += w
-            return num / den if den else 0.0
-
-        income = wavg(lambda p: inc_town.get((st, p['town'])) if p['town'] else None)
+        pop_total += pop
+        value, value_moe = cell(d, 'B25077', VALUE)
+        income, income_moe = cell(d, 'B19013', INCOME)
+        rent, rent_moe = cell(d, 'B25064', RENT)
         if not income:
-            income = inc_county.get((st, norm(part[0]['name']))) or 0.0
-        if not income:
-            miss.append((st, region, int(sold)))
+            gaps.append([fips, name, 'ACS не публикует медианный доход домохозяйства'])
             continue
+        if value is None and rent is None:
+            gaps.append([fips, name, 'ACS не публикует ни стоимости жилья, ни аренды'])
+            continue
+        if fips not in cent:
+            raise SystemExit('нет центроида: %s %s' % (fips, name))
+        lat, lon = cent[fips]
+        pop_covered += pop
+        rows.append({
+            'fips': fips, 'st': st_of.get(st, st),
+            'county': name.rsplit(', ', 1)[0], 'name': name,
+            'pop': int(round(pop)), 'lat': round(lat, 4), 'lon': round(lon, 4),
+            'value': int(value) if value else '', 'value_moe': int(value_moe) if value_moe else '',
+            'income': int(income), 'income_moe': int(income_moe) if income_moe else '',
+            'rent': int(rent) if rent else '', 'rent_moe': int(rent_moe) if rent_moe else '',
+        })
 
-        latlon = [cent[p['fips']] for p in part if p['fips'] in cent]
-        lat = sum(a for a, _ in latlon) / len(latlon) if latlon else 0.0
-        lon = sum(b for _, b in latlon) / len(latlon) if latlon else 0.0
-        rows.append([part[0]['fips'], st, part[0]['name'], region,
-                     round(sum(p['pop'] for p in part)), round(lat, 4), round(lon, 4),
-                     max(p['metro'] for p in part), round(income),
-                     round(ppsf * SQFT_PER_M2, 1), round(price), int(sold)]
-                    + [round(wavg(lambda p, i=i: p['fmr'][i])) for i in range(BEDROOMS)])
+    rate, weeks = read_rate(fetch(src, 'pmms.csv'), RATE_YEAR)
+    print('PMMS 30 лет: %.2f %% в среднем за %d недель %s года' % (rate, weeks, RATE_YEAR))
 
-    # Молча терять округа нельзя: так появляется ошибка, которую потом не найти.
-    miss.sort(key=lambda x: -x[2])
-    print('без пары в HUD: %d из %d (%.1f %%)' % (len(miss), len(redfin),
-                                                  100.0 * len(miss) / max(1, len(redfin))))
-    if miss:
-        print('  по штатам:', dict(collections.Counter(m[0] for m in miss).most_common(8)))
-        for st, region, sold in miss[:8]:
-            print('    %s · %s · сделок %d' % (st, region, sold))
-    unexpected = [m for m in miss if m[0] not in KNOWN_GAP]
-    if unexpected:
-        raise SystemExit('новые непокрытые округа, разберитесь до сборки: %s'
-                         % ([(st, r) for st, r, _ in unexpected[:20]],))
+    def agg(block, gid):
+        d = block['data'][gid]
+        return {
+            'pop': int(cell(d, 'B01003', POP)[0] or 0),
+            'value': int(cell(d, 'B25077', VALUE)[0] or 0),
+            'income': int(cell(d, 'B19013', INCOME)[0] or 0),
+            'rent': int(cell(d, 'B25064', RENT)[0] or 0),
+        }
 
+    st_rows = {}
+    for gid in states['data']:
+        code = gid[7:9]
+        if code in TERRITORY:
+            continue
+        st_rows[st_of.get(code, code)] = agg(states, gid)
+
+    with open(OUT, 'w', encoding='utf-8', newline='') as f:
+        w = csv.DictWriter(f, COLS)
+        w.writeheader()
+        for r in rows:
+            w.writerow(r)
     with open(GAPS, 'w', encoding='utf-8', newline='') as f:
         w = csv.writer(f)
-        w.writerow(['st', 'region', 'sales', 'reason'])
-        for st, region, sold in miss:
-            w.writerow([st, region, sold, KNOWN_GAP[st]])
-    with open(OUT, 'w', encoding='utf-8', newline='') as f:
-        w = csv.writer(f)
-        w.writerow(COLS)
-        w.writerows(rows)
-    json.dump({
-        'window': [first, last], 'counties': len(rows), 'gaps': len(miss),
-        'funnel': funnel, 'propertyType': PROPERTY_TYPE, 'thinSales': THIN_SALES,
-        'thinCounties': sum(1 for r in rows if r[COLS.index('sales')] < THIN_SALES),
-        # Население всех единиц HUD, а не только покрытых Redfin: только так
-        # видно, какую долю страны рынок вообще показывает.
-        'popTotal': round(sum(p['pop'] for u in units.values() for p in u)),
-        'popCovered': round(sum(r[COLS.index('pop')] for r in rows)),
-        'rate30': round(rate, 2), 'rateWeeks': weeks,
-        'price': 'Redfin Data Center, county market tracker, median price per square foot',
-        'income': 'HUD Income Limits FY2025, median family income of the HUD area',
-        'rent': 'HUD Fair Market Rents FY2025, 40th percentile gross rent by bedrooms',
-        'pop': 'HUD Fair Market Rents FY2025, pop2022',
-        'geo': 'Natural Earth 10m admin-2 county centroids',
-        'rate': 'Freddie Mac Primary Mortgage Market Survey, 30-year fixed',
-    }, open(META, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
-    print('%s: %d строк, %d байт' % (os.path.relpath(OUT, ROOT), len(rows), os.path.getsize(OUT)))
+        w.writerow(['fips', 'name', 'reason'])
+        w.writerows(gaps)
+
+    # Сколько за медианой: у ACS вместо числа сделок — погрешность оценки.
+    # Относительная погрешность и есть мера доверия к строке, и она едет дальше.
+    rel_moe = sorted(r['value_moe'] / r['value'] * 100
+                     for r in rows if r['value'] and r['value_moe'])
+    meta = {
+        'release': rel['id'], 'releaseName': rel['name'], 'years': rel['years'],
+        'tables': TABLES, 'rate30': round(rate, 2), 'rateWeeks': weeks,
+        'rateYear': RATE_YEAR, 'counties': len(rows), 'gaps': len(gaps),
+        'popTotal': int(round(pop_total)), 'popCovered': int(round(pop_covered)),
+        'nation': agg(nation, '01000US'), 'states': st_rows,
+        'moeMedian': round(rel_moe[len(rel_moe) // 2], 1) if rel_moe else 0,
+        'moeP90': round(rel_moe[int(len(rel_moe) * 0.9)], 1) if rel_moe else 0,
+        'source': 'acs+ne+pmms',
+    }
+    json.dump(meta, open(META, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+
+    print('округов: %d, пропусков: %d' % (len(rows), len(gaps)))
+    print('население: %d из %d (%.1f %%)'
+          % (pop_covered, pop_total, pop_covered / pop_total * 100 if pop_total else 0))
+    print('погрешность стоимости: медиана %.1f %%, девяностая перцентиль %.1f %%'
+          % (meta['moeMedian'], meta['moeP90']))
+    print('страна: доход %d, жильё %d, аренда %d'
+          % (meta['nation']['income'], meta['nation']['value'], meta['nation']['rent']))
+    for g in gaps[:5]:
+        print('  пропуск:', g[0], g[1], '—', g[2])
+    if len(gaps) > 5:
+        print('  … и ещё %d' % (len(gaps) - 5))
 
 
 if __name__ == '__main__':

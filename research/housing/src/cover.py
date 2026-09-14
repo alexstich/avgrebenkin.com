@@ -32,6 +32,31 @@ def cls(v):
     return 4
 
 
+# Тот же цветовой порядок, что на странице: у метров больше — лучше, у лет дохода
+# наоборот, поэтому индекс переворачивается. Кадр без цены за метр красится
+# годами дохода — не потому что так красивее, а потому что метров там нет.
+YEARS_BREAKS = [3, 5, 8, 12]
+
+
+def ycls(v):
+    if not v or v <= 0:
+        return -1
+    i = 0
+    while i < len(YEARS_BREAKS) and v > YEARS_BREAKS[i]:
+        i += 1
+    return 4 - i
+
+
+EXTRA = {}
+for _a in data.get('extra', []):
+    EXTRA[_a[0]] = {'val': _a[1], 'rent': _a[2]}
+
+
+def years(income_year, key):
+    x = EXTRA.get(key)
+    return (x['val'] / income_year) if (x and x.get('val') and income_year) else 0.0
+
+
 def afford(income_year, price_m2, rate_pct, share=100.0 / 3.0, years=30):
     """Формула самого исследования: РОВНО треть дохода (не 33 %, разница 1 %),
     аннуитет на 30 лет по ставке
@@ -83,9 +108,13 @@ def map_svg(key, x0, y0, w, h, dots=900):
     out = ['<clipPath id="%s"><rect x="%.1f" y="%.1f" width="%.1f" height="%.1f"/></clipPath>'
            % (cid, ox, oy, fr['w'] * sc, fr['h'] * sc),
            '<g clip-path="url(#%s)"><g transform="translate(%.1f %.1f) scale(%.4f)">' % (cid, ox, oy, sc)]
-    cval = {c['c']: c['sa'] for c in data['countries']}
+    m2 = data['frames'].get(key, {}).get('m2', True)
+    cval, cyear = {}, {}
+    for c in data['countries']:
+        cval[c['c']] = c['sa']
+        cyear[c['c']] = years(c.get('inc') or 0, 'c:' + c['c'])
     for cc, d in fr['countries'].items():
-        k = cls(cval.get(cc, 0))
+        k = cls(cval.get(cc, 0)) if m2 else ycls(cyear.get(cc, 0))
         fill = RAMP[k] if k >= 0 else ND
         out.append('<path d="%s" fill="%s" fill-opacity="0.8" stroke="%s" stroke-width="%.2f"/>' % (d, fill, BG, 0.6 / sc))
     # Точки — самые населённые места кадра; порядок в data['places'] уже по населению.
@@ -95,14 +124,23 @@ def map_svg(key, x0, y0, w, h, dots=900):
     codes = [c['c'] for c in data['countries']]
     rates = {i: c.get('rate') or 0 for i, c in enumerate(data['countries'])}
     n = 0
+    iid = F.index('id')
     for a in data['places']:
         if n >= dots:
             break
-        if not a[isp] or FRAME_OF.get(codes[a[icc]]) != key:
+        if FRAME_OF.get(codes[a[icc]]) != key:
             continue
+        if m2:
+            if not a[isp]:
+                continue
+            k = cls(afford(a[iinc], a[isp], rates.get(a[icc], 0)))
+        else:
+            y2 = years(a[iinc], a[iid])
+            if not y2:
+                continue
+            k = ycls(y2)
         x, y = project(fr, a[ilat] / 100.0, a[ilon] / 100.0)
         r = max(2.6, min(11.0, math.sqrt(a[ip]) / 130.0))
-        k = cls(afford(a[iinc], a[isp], rates.get(a[icc], 0)))
         out.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="%s" stroke="%s" stroke-width="%.2f"/>'
                    % (x, y, r, RAMP[k] if k >= 0 else ND, BG, 0.8 / sc))
         n += 1
@@ -137,11 +175,13 @@ def cover():
          '<text x="56" y="150" font-family="Space Grotesk, Inter, system-ui, sans-serif" font-size="52" font-weight="700" fill="%s" letter-spacing="-1.5">How many</text>' % INK,
          '<text x="56" y="208" font-family="Space Grotesk, Inter, system-ui, sans-serif" font-size="52" font-weight="700" fill="%s" letter-spacing="-1.5">square metres</text>' % INK,
          '<text x="56" y="266" font-family="Space Grotesk, Inter, system-ui, sans-serif" font-size="52" font-weight="700" fill="%s" letter-spacing="-1.5">can you afford?</text>' % INK,
-         '<text x="56" y="318" font-family="Inter, system-ui, sans-serif" font-size="19" fill="%s">Your income against 8,489 European towns</text>' % MUTED,
-         '<text x="56" y="346" font-family="Inter, system-ui, sans-serif" font-size="19" fill="%s">and 3,043 US counties — buy or rent.</text>' % MUTED,
+         '<text x="56" y="316" font-family="Inter, system-ui, sans-serif" font-size="19" fill="%s">Your income against 8,489 European towns</text>' % MUTED,
+         '<text x="56" y="344" font-family="Inter, system-ui, sans-serif" font-size="19" fill="%s">and 3,141 US counties.</text>' % MUTED,
+         '<text x="56" y="386" font-family="JetBrains Mono, Menlo, monospace" font-size="12" fill="%s" letter-spacing="1.5">EUROPE — M² A THIRD OF THE INCOME BUYS</text>' % MUTED,
          legend(56, 400),
-         '<text x="56" y="560" font-family="JetBrains Mono, Menlo, monospace" font-size="13" fill="%s">m² a third of the average income buys on a 30-year mortgage</text>' % MUTED,
-         '<text x="56" y="582" font-family="JetBrains Mono, Menlo, monospace" font-size="13" fill="%s">data: ESPON HOUSE4ALL · Redfin · HUD · Freddie Mac</text>' % MUTED,
+         '<text x="56" y="542" font-family="JetBrains Mono, Menlo, monospace" font-size="12" fill="%s" letter-spacing="1.5">UNITED STATES — YEARS OF INCOME, SAME COLOURS</text>' % MUTED,
+         '<text x="56" y="564" font-family="JetBrains Mono, Menlo, monospace" font-size="13" fill="%s">no floor area is published for US counties, so no m² there</text>' % MUTED,
+         '<text x="56" y="586" font-family="JetBrains Mono, Menlo, monospace" font-size="13" fill="%s">data: ESPON HOUSE4ALL · US Census Bureau ACS · Freddie Mac</text>' % MUTED,
          '<text x="56" y="76" font-family="JetBrains Mono, Menlo, monospace" font-size="14" fill="#8b7cff" letter-spacing="2">AVGREBENKIN.COM / RESEARCH</text>',
          '</svg>']
     return '\n'.join(s)

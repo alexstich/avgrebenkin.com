@@ -28,10 +28,10 @@
   // квартиры, а в Европе — от N м²: это две разные величины, и подписаны они по
   // кадру, а не общей строкой на всю карту.
   var EX = {};
-  (DATA.extra || []).forEach(function (a) { EX[a[0]] = { mp: a[1], fmr: a.slice(2, 7), sales: a[7] }; });
+  (DATA.extra || []).forEach(function (a) { EX[a[0]] = { val: a[1], rent: a[2], moe: a[3] }; });
   // Ниже этого числа сделок за год медиана округа собрана из единиц, и верить ей
   // нельзя. Строки не выброшены — карточка места называет число сделок вслух.
-  var THIN = DATA.thin || 12;
+  var MOEHI = DATA.moe || 20;
   C.forEach(function (c) { c.kind = "cc"; c.id = "c:" + c.c; c.name = c.n; c.cc = c.c; });
 
   var DEG = { 1: "city", 2: "town or suburb", 3: "rural", 0: "" };
@@ -45,9 +45,9 @@
   var YEARS_BREAKS = [3, 5, 8, 12];
   var SHARE_BREAKS = [20, 30, 40, 50];
   var MODES = {
-    buy:   { inv: false, title: "m² to buy" },
-    rent:  { inv: false, title: "m² to rent" },
-    diff:  { inv: false, title: "rent minus buy, m²" },
+    buy:   { inv: false, m2: true, title: "m² to buy" },
+    rent:  { inv: false, m2: true, title: "m² to rent" },
+    diff:  { inv: false, m2: true, title: "rent minus buy, m²" },
     years: { inv: true,  breaks: YEARS_BREAKS, title: "years of income" },
     share: { inv: true,  breaks: SHARE_BREAKS, title: "rent, % of income" }
   };
@@ -56,8 +56,8 @@
     if (S.mode === "buy") return "square metres to buy";
     if (S.mode === "rent") return "square metres to rent";
     if (S.mode === "diff") return "square metres to rent minus square metres to buy";
-    if (S.mode === "years") return "years of income for " + mapN() + " m²";
-    return "rent for " + mapN() + " m² as a share of income";
+    if (S.mode === "years") return "years of income for " + (m2Here() ? mapN() + " m²" : fr().home);
+    return "rent of " + (m2Here() ? mapN() + " m²" : fr().rental) + " as a share of income";
   }
   function modeLabels() {
     if (S.mode === "years") return ["under 3 years", "3–5", "5–8", "8–12", "over 12"];
@@ -71,6 +71,17 @@
   // come from»).
   var FRAMES = DATA.frames;
   function fr() { return FRAMES[S.frame] || FRAMES[GEO.order[0]]; }
+  // Есть ли у кадра цена за метр. У европейского есть, у американского нет:
+  // площадь жилья в США не собирает ни одно государственное обследование по
+  // округам, а частные данные MLS перепубликовать нельзя. Поэтому «сколько
+  // метров» там не «нет данных по этому округу», а «такой величины не
+  // существует», и метрики считаются на медианное жильё округа.
+  function hasM2(key) { return !!(FRAMES[key || S.frame] || {}).m2; }
+  function m2Here() { return hasM2(S.frame); }
+  function basketOf(pl, what) {
+    var f = FRAMES[frameOf(pl)] || {};
+    return hasM2(frameOf(pl)) ? mapN() + " m²" : (what === "rent" ? f.rental : f.home);
+  }
   function regionsList() { return DATA.groups[S.frame] || []; }
   function frameOf(pl) { var c = C[CI[pl.cc]]; return (c && c.frame) || GEO.order[0]; }
   function inFrame(pl) { return frameOf(pl) === S.frame; }
@@ -119,7 +130,7 @@
     var g = p.get("g");
     if (g && /^[01]{4}$/.test(g)) regionsList().forEach(function (r, i) { S.reg[r[0]] = g.charAt(i) === "1" ? 1 : 0; });
     var o = p.get("o") || "";
-    if (/^-?(buy|rent|price|rentp|inc|pop|name|rate)$/.test(o)) { S.sort = o.replace("-", ""); S.dir = o.charAt(0) === "-" ? "asc" : "desc"; }
+    if (/^-?(buy|rent|price|rentp|years|share|val|rnt|inc|pop|name|rate)$/.test(o)) { S.sort = o.replace("-", ""); S.dir = o.charAt(0) === "-" ? "asc" : "desc"; }
     S.rank = p.get("v") === "cities" ? "cities" : "countries";
     S.sel = placeById(p.get("p")) ? p.get("p") : null;
     S.coast = p.get("z") === "1" ? 1 : 0;
@@ -163,6 +174,14 @@
     var l = L[LI[id]]; return l || null;
   }
   function pid(pl) { return pl.kind === "place" ? pl.id : pl.kind === "region" ? "n:" + pl.id : "c:" + pl.c; }
+  // Две цифры одной строкой для списков внутри карточки. В кадре с метрами это
+  // метры на покупку и аренду, в кадре без них — годы дохода и доля на аренду:
+  // прочерк на месте метров сообщал бы о дыре в данных, которой нет.
+  function summaryOf(pl) {
+    if (hasM2(frameOf(pl))) return fmtM2(buyM2(pl)) + " · " + fmtM2(rentM2(pl)) + " m²";
+    var y = yearsFor(pl), sv = rentShare(pl);
+    return (y === null ? "—" : y.toFixed(1) + " yrs") + " · " + (sv === null ? "—" : Math.round(sv) + " %");
+  }
   function annuity(ratePct, years) {
     var i = ratePct / 100 / 12, n = years * 12;
     return i > 0 ? (1 - Math.pow(1 + i, -n)) / i : n;
@@ -250,14 +269,21 @@
   // цены квартиры в данных нет, а подставить её размер было бы догадкой.
   function yearsFor(pl) {
     var inc = mine() ? myIncome(pl) * 12 : pl.inc;
-    if (!pl.sp || !inc) return null;
+    if (!inc) return null;
+    if (!hasM2(frameOf(pl))) {
+      var x = EX[pid(pl)];
+      return x && x.val ? x.val / inc : null;
+    }
+    if (!pl.sp) return null;
     return priceAt(pl, mapN()) * mapN() / inc;
   }
   function rentShare(pl) {
     var inc = mine() ? myIncome(pl) : localMonthly(pl);
     if (!inc) return null;
-    var x = EX[pl.id];
-    if (x && x.fmr[2]) return x.fmr[2] / inc * 100;
+    if (!hasM2(frameOf(pl))) {
+      var x = EX[pid(pl)];
+      return x && x.rent ? x.rent / inc * 100 : null;
+    }
     if (!pl.rp) return null;
     return rentAt(pl, mapN()) * mapN() / inc * 100;
   }
@@ -269,15 +295,19 @@
     var b = buyM2(pl), r = rentM2(pl);
     return b === null || r === null ? null : r - b;
   }
-  // Индекс цвета: уже с учётом направления шкалы режима.
-  function colourOf(v) {
-    var m = MODES[S.mode];
+  // Индекс цвета: уже с учётом направления шкалы режима. Режим передаётся, а не
+  // берётся из состояния: карточка показывает годы и долю одновременно, в каком
+  // бы режиме ни была карта.
+  function clsFor(mode, v) {
+    var m = MODES[mode];
     if (!m.breaks) return cls(v);
     if (v === null || v === undefined || !(v > 0)) return -1;
     var i = 0;
     while (i < m.breaks.length && v > m.breaks[i]) i++;
     return m.inv ? 4 - i : i;
   }
+  function colourOf(v) { return clsFor(S.mode, v); }
+  function bigCls(c) { return c < 0 ? "nd" : "c" + c; }
   function fmtMetric(v) {
     if (v === null || v === undefined || isNaN(v)) return "—";
     if (S.mode === "years") return v.toFixed(1) + " years";
@@ -419,9 +449,24 @@
     rateEl.value = S.rate === null ? "" : S.rate; $("rate-x").hidden = S.rate === null;
     depEl.value = S.dep; $("dep-o").textContent = S.dep + " %";
     $("adults-o").textContent = S.adults; $("kids-o").textContent = S.kids;
-    $("hhhint").textContent = "Equivalence factor " + eqFactor().toFixed(1) + " (OECD-modified scale: first adult 1, each further adult 0.5, each child 0.3). Used only for the line comparing your income with the local average \u2014 which is per adult-equivalent in Europe and per family in the United States.";
-    wantEl.value = S.want; $("want-o").textContent = S.want ? S.want + " m²" : "any size";
+    $("hhhint").textContent = "Equivalence factor " + eqFactor().toFixed(1) + " (OECD-modified scale: first adult 1, each further adult 0.5, each child 0.3). Used only for the line comparing your income with the local average \u2014 which is per adult-equivalent in Europe and per household in the United States.";
+    wantEl.value = S.want;
+    $("want-o").textContent = !m2Here() ? "no floor area in US data" : S.want ? S.want + " m²" : "any size";
+    normMode();
     segSet("frame", S.frame); segSet("term", S.term); segSet("mapmode", S.mode);
+    // Кнопки метров в американском кадре не «временно пустые», а неприменимые:
+    // площади жилья по округам нет ни в одном открытом источнике, и карта из
+    // прочерков читалась бы как дыра в данных, а не как отсутствие величины.
+    Array.prototype.forEach.call(document.querySelectorAll("#mapmode button"), function (b) {
+      var m = MODES[b.getAttribute("data-v")];
+      b.disabled = !!(m && m.m2) && !m2Here();
+      b.title = b.disabled ? "No floor area is published for US " + fr().units + " — see \u201cWhere the numbers come from\u201d" : "";
+    });
+    // Фильтр «хочу N м²» там же и по той же причине.
+    wantEl.disabled = !m2Here();
+    // Подсказка при наведении объясняет только тем, у кого есть мышь. Причина
+    // обязана быть видна и на телефоне, поэтому она ещё и строкой под кнопками.
+    $("modehint").hidden = m2Here();
     segSet("basis", S.basis); segSet("rankwhat", S.rank);
     var mineBtn = document.querySelector('#basis [data-v="mine"]');
     mineBtn.disabled = !(S.inc > 0);
@@ -433,6 +478,12 @@
     Array.prototype.forEach.call(document.querySelectorAll("#regs .reg"), function (b) { b.setAttribute("aria-pressed", String(!!S.reg[b.getAttribute("data-r")])); });
     var cb = $("coastbtn"); if (cb) cb.setAttribute("aria-pressed", String(!!S.coast));
     setupLine();
+  }
+  // Режим, требующий метров, в кадре без метров невозможен. Нормализация живёт
+  // в одном месте, потому что кадр меняют трое: кнопка, ссылка и выбор места из
+  // поиска, — и каждый из них иначе оставил бы карту в режиме без данных.
+  function normMode() {
+    if (!m2Here() && MODES[S.mode] && MODES[S.mode].m2) S.mode = "years";
   }
   function segSet(id, v) {
     Array.prototype.forEach.call(document.querySelectorAll("#" + id + " button"), function (b) {
@@ -592,7 +643,9 @@
   // Один классификатор на страну и на точку: раньше одна и та же логика стояла
   // дважды и уже начинала расходиться.
   function klass(pl, none) {
-    if (!pl.sp && !pl.rp) return none;
+    // Отсутствие данных определяет сама метрика, а не наличие цены за метр: в
+    // американском кадре цены за метр нет ни у кого, и прежняя проверка красила
+    // серым всю страну при том, что годы дохода и доля на аренду там посчитаны.
     var v = valueOf(pl), c;
     if (S.mode === "diff") { var d = dcls(v); c = d < 0 ? none : "e" + d; }
     else { var k = colourOf(v); c = k < 0 ? none : "c" + k; }
@@ -603,16 +656,20 @@
     if (frameBuilt !== S.frame) buildFrame();
     C.forEach(function (cc) {
       var p = pathOf[cc.c]; if (!p) return;
-      var c = klass(cc, "");
+      // Страна чужого слоя в этот кадр попадает заморскими владениями — у
+      // Нидерландов есть острова в Карибском море, и они лежат внутри окна
+      // американской карты. Красить их европейской метрикой нельзя: это и
+      // чужая величина, и чужая корзина. Поэтому такие контуры остаются фоном.
+      var c = inFrame(cc) ? klass(cc, "") : "";
       p.setAttribute("class", c + (S.sel === "c:" + cc.c ? " sel" : ""));
     });
     buildDots(); paintDots();
     var lg = $("legend"), pre = S.mode === "diff" ? "e" : "c", inv = MODES[S.mode].inv;
-    // Подпись легенды зависит от кадра: в США доля дохода считается от
-    // двухкомнатной квартиры HUD, а не от N м², и делать вид, что это одно и то
-    // же, нельзя.
-    var sz = S.mode === "share" && S.frame !== "eu" ? " for a two-bedroom home"
-           : (S.mode === "years" || S.mode === "share") ? " for " + mapN() + " m²" : "";
+    // Подпись легенды зависит от кадра: в США обе метрики считаются от
+    // медианного жилья округа, а не от N м², и делать вид, что это одно и то же,
+    // нельзя.
+    var sz = (S.mode !== "years" && S.mode !== "share") ? ""
+           : " for " + (m2Here() ? mapN() + " m²" : S.mode === "share" ? fr().rental : fr().home);
     var head = MODES[S.mode].title + sz;
     var html = "<b>" + head + "</b>";
     // Номер образца берётся тем же правилом, что и цвет на карте: у перевёрнутых
@@ -694,14 +751,24 @@
     // Первой строкой — то, чем сейчас раскрашена карта: иначе подсказка отвечает
     // на другой вопрос, чем цвет под курсором.
     if (S.mode === "years" || S.mode === "share") {
-      h += "<div class=\"r lead\"><span>" + (S.mode === "years" ? "years of income for " : "rent for ") + mapN() + " m²</span>" +
+      h += "<div class=\"r lead\"><span>" + (S.mode === "years" ? "years of income for " : "rent of ") +
+           (m2Here() ? mapN() + " m²" : S.mode === "share" ? fr().rental : fr().home) + "</span>" +
            "<span>" + fmtMetric(valueOf(pl)) + "</span></div>";
     }
-    h += "<div class=\"r\"><span>to buy</span><span>" + fmtM2(b) + " m²</span></div>" +
-      "<div class=\"r\"><span>to rent</span><span>" + fmtM2(r) + " m²</span></div>";
-    if (pl.sp) h += "<div class=\"r\"><span>price</span><span>" + fmtLoc(pl, pl.sp) + "/m²</span></div>";
-    if (pl.rp) h += "<div class=\"r\"><span>rent</span><span>" + fmtLoc(pl, pl.rp, 1) + "/m²·mo</span></div>";
-    if (!pl.sp && !pl.rp) h += "<div class=\"r\"><span>no listings data</span></div>";
+    var x = EX[pid(pl)];
+    if (hasM2(frameOf(pl))) {
+      h += "<div class=\"r\"><span>to buy</span><span>" + fmtM2(b) + " m²</span></div>" +
+        "<div class=\"r\"><span>to rent</span><span>" + fmtM2(r) + " m²</span></div>";
+      if (pl.sp) h += "<div class=\"r\"><span>price</span><span>" + fmtLoc(pl, pl.sp) + "/m²</span></div>";
+      if (pl.rp) h += "<div class=\"r\"><span>rent</span><span>" + fmtLoc(pl, pl.rp, 1) + "/m²·mo</span></div>";
+      if (!pl.sp && !pl.rp) h += "<div class=\"r\"><span>no listings data</span></div>";
+    } else {
+      // Метров здесь нет и быть не может, поэтому строки «to buy» не притворяются
+      // пустыми — вместо них то, что в данных действительно есть.
+      h += "<div class=\"r\"><span>median home</span><span>" + (x && x.val ? fmtLoc(pl, x.val) : "no data") + "</span></div>" +
+        "<div class=\"r\"><span>median rent</span><span>" + (x && x.rent ? fmtLoc(pl, x.rent) + "/mo" : "no data") + "</span></div>" +
+        "<div class=\"r\"><span>income</span><span>" + (pl.inc ? fmtLoc(pl, pl.inc / 12) + "/mo" : "no data") + "</span></div>";
+    }
     return h;
   }
   function showTipAt(pl, cx, cy) {
@@ -878,12 +945,12 @@
   function moveIncEUR() { return S.mi > 0 && S.mc ? S.mi / FX[S.mc] : 0; }
   // Ставки у двух слоёв разного возраста, и молчать об этом нельзя: европейские —
   // национальные средние 2023 года из статьи, американская — средняя недельная
-  // ставка Freddie Mac за то же годовое окно, из которого взяты сделки.
+  // ставка Freddie Mac за 2024 год: в этих долларах ACS и выражает суммы.
   function rateVintage(a, b) {
     var f = {}; f[frameOf(a)] = 1; f[frameOf(b)] = 1;
     var t = [];
     if (f.eu) t.push("European rates are the national averages the study used, mostly 2023, not today's");
-    if (f.na) t.push("the US rate is the Freddie Mac 30-year average over the same year of sales");
+    if (f.na) t.push("the US rate is the Freddie Mac 30-year average for 2024, the year whose dollars the ACS estimates are in");
     return t.join("; ") + ". Put your own in the rate field above if you know better ones.";
   }
   function annuityOf(pl, fallback) {
@@ -896,6 +963,24 @@
   function toEUR(v, pl) { return v / (FX[curOf(pl)] || 1); }
   function spEUR(pl) { return pl.sp ? toEUR(pl.sp, pl) : 0; }
   function rpEUR(pl) { return pl.rp ? toEUR(pl.rp, pl) : 0; }
+  // Корзина жилья — то, что сравнивается между двумя местами. Там, где есть цена
+  // за метр, это N м² читателя; там, где её нет, — медианное жильё округа.
+  // Отношение корзин имеет смысл всегда, но обещать «столько же метров» можно
+  // только когда обе корзины измерены в метрах; иначе честный ответ — «та же
+  // доля дохода на своё типовое жильё», и блок говорит именно это.
+  function basketRentEUR(pl) {
+    if (hasM2(frameOf(pl))) return pl.rp ? toEUR(rentAt(pl, mapN()) * mapN(), pl) : 0;
+    var x = EX[pid(pl)]; return x && x.rent ? toEUR(x.rent, pl) : 0;
+  }
+  function basketPriceEUR(pl) {
+    if (hasM2(frameOf(pl))) return pl.sp ? toEUR(priceAt(pl, mapN()) * mapN(), pl) : 0;
+    var x = EX[pid(pl)]; return x && x.val ? toEUR(x.val, pl) : 0;
+  }
+  function sameSpace(a, b) { return hasM2(frameOf(a)) && hasM2(frameOf(b)); }
+  function basketWord(pl, what) {
+    if (hasM2(frameOf(pl))) return mapN() + " m²";
+    return what === "rent" ? "the median rental" : "the median home";
+  }
   function homeIncome(pl) { return mine() ? incEUR() : toEUR(localMonthly(pl), pl); }
   function drawMove() {
     var box = $("moveout");
@@ -908,31 +993,39 @@
     if (!incA) { box.innerHTML = "<p class=\"mempty\">No income on record for " + esc(a.name) + ". Enter your own above and switch to \u201cMy income\u201d.</p>"; return; }
 
     var rows = [], notes = [], rateNote2 = false, buyNeed = null;
-    // Аренда: метры пропорциональны доходу, делённому на цену аренды за метр.
-    if (a.rp && b.rp) {
-      var needRent = incA * (rpEUR(b) / rpEUR(a));
-      var m2A = rentM2(a);
-      rows.push({ what: "to rent the same space", need: needRent, now: incA,
-                  detail: fmtM2(m2A) + " m² at home costs " + fmtEur(Math.round(needRent)) + " a month of income there" });
+    var same = sameSpace(a, b);
+    var rentA = basketRentEUR(a), rentB = basketRentEUR(b);
+    if (rentA && rentB) {
+      var needRent = incA * (rentB / rentA);
+      rows.push({ what: same ? "to rent the same space" : "to keep rent at the same share of income",
+                  need: needRent, now: incA,
+                  detail: same
+                    ? fmtM2(rentM2(a)) + " m² at home costs " + fmtEur(Math.round(needRent)) + " a month of income there"
+                    : basketWord(a, "rent") + " at home against " + basketWord(b, "rent") + " there \u2014 " +
+                      fmtEur(Math.round(rentA)) + " a month against " + fmtEur(Math.round(rentB)) });
     } else {
-      // У американского слоя аренда задана не за метр, а за жильё с таким-то
-      // числом спален, и «столько же метров» там попросту не определено —
-      // это не отсутствие данных, а другая единица измерения.
-      var noRp = a.rp ? b : a;
-      notes.push(frameOf(noRp) === "eu"
-        ? "No rental listings for " + esc(noRp.name) + ", so renting cannot be compared."
-        : "Rent in " + esc(noRp.name) + " is published by number of bedrooms, not by the square metre, so the same space cannot be priced. Buying is still comparable.");
+      var noRp = rentA ? b : a;
+      notes.push("No rent on record for " + esc(noRp.name) + ", so renting cannot be compared.");
     }
 
-    // Покупка: в отношение входит и цена, и аннуитет по ставке своей страны.
+    // Покупка: в отношение входит и цена корзины, и аннуитет по ставке своей страны.
     var annA = annuityOf(a, null), annB = annuityOf(b, null);
-    if (a.sp && b.sp && annA && annB) {
-      var needBuy = incA * (spEUR(b) / spEUR(a)) * (annA / annB);
-      rows.push({ what: "to buy the same space", need: needBuy, now: incA,
-                  detail: fmtM2(buyM2(a)) + " m² at home, on a " + S.term + "-year mortgage at " + fmtRate(rateOf(b)) + " there against " + fmtRate(rateOf(a)) + " at home" });
+    var buyA = basketPriceEUR(a), buyB = basketPriceEUR(b);
+    if (buyA && buyB && annA && annB) {
+      var needBuy = incA * (buyB / buyA) * (annA / annB);
+      rows.push({ what: same ? "to buy the same space" : "to keep buying at the same share of income",
+                  need: needBuy, now: incA,
+                  detail: (same ? fmtM2(buyM2(a)) + " m² at home" : basketWord(a) + " at home against " + basketWord(b) + " there") +
+                          ", on a " + S.term + "-year mortgage at " + fmtRate(rateOf(b)) + " there against " + fmtRate(rateOf(a)) + " at home" });
       buyNeed = needBuy;
       rateNote2 = S.rate === null;
-    } else notes.push("No sale listings or no mortgage rate for one of the two, so buying cannot be compared.");
+    } else notes.push("No price or no mortgage rate for one of the two, so buying cannot be compared.");
+    // Разные корзины — не мелочь оформления, и читатель обязан узнать об этом до
+    // того, как поверит проценту: площади жилья в США нет, поэтому сравнивается
+    // не одинаковая площадь, а одинаковая доля дохода на своё типовое жильё.
+    if (!same && rows.length) {
+      notes.push("The two layers are not measured in the same unit: Europe has a price per square metre, the United States does not publish floor area, so the comparison keeps the share of income equal rather than the space. Part of the gap is therefore size and not price \u2014 the American basket is a whole home, and how big it is, is exactly what the data does not say.");
+    }
 
     if (!rows.length) { box.innerHTML = "<p class=\"mempty\">" + notes.join(" ") + "</p>"; return; }
 
@@ -958,20 +1051,30 @@
       // Что предложение даёт на самом деле — прямой расчёт, а не через отношение.
       var got = [];
       var offerB = offer * (FX[curOf(b)] || 1);          // предложение в валюте места
-      if (b.sp) got.push(fmtM2(buyM2(b, { income: offerB })) + " m² to buy");
-      if (b.rp) got.push(fmtM2(offerB * S.share / 100 / b.rp) + " m² to rent");
-      if (got.length) h += "<p class=\"mnote\">On " + fmtEur(Math.round(offer)) + " in " + esc(b.name) + " you could take " + got.join(" or ") + ", against " + fmtM2(buyM2(a)) + " m² and " + fmtM2(rentM2(a)) + " m² at home.</p>";
+      if (hasM2(frameOf(b))) {
+        if (b.sp) got.push(fmtM2(buyM2(b, { income: offerB })) + " m² to buy");
+        if (b.rp) got.push(fmtM2(offerB * S.share / 100 / b.rp) + " m² to rent");
+        if (got.length) h += "<p class=\"mnote\">On " + fmtEur(Math.round(offer)) + " in " + esc(b.name) + " you could take " + got.join(" or ") +
+          (hasM2(frameOf(a)) ? ", against " + fmtM2(buyM2(a)) + " m² and " + fmtM2(rentM2(a)) + " m² at home" : "") + ".</p>";
+      } else {
+        // В кадре без метров то же самое говорится про целое жильё: сколько лет
+        // предложения стоит медианный дом и какую долю съедает медианная аренда.
+        var xb = EX[pid(b)];
+        if (xb && xb.val) got.push((xb.val / (offerB * 12)).toFixed(1) + " years of it for the median home");
+        if (xb && xb.rent) got.push(Math.round(xb.rent / offerB * 100) + " % of it for the median rent");
+        if (got.length) h += "<p class=\"mnote\">On " + fmtEur(Math.round(offer)) + " in " + esc(b.name) + " the median home costs " + got.join(", and ") + ".</p>";
+      }
     }
     if (rateNote2) {
       // Подписи года мало: читатель увидит год и не поймёт, что от него зависит
       // знак. Поэтому вклад ставки показывается числом. При равных ставках
       // аннуитеты сокращаются, и остаётся чистое отношение цен — это и есть ответ
       // «а если бы ипотека стоила одинаково».
-      var flat = (a.sp && b.sp) ? incA * (spEUR(b) / spEUR(a)) : null;
+      var flat = (buyA && buyB) ? incA * (buyB / buyA) : null;
       if (flat && buyNeed) {
         var dp = Math.round((flat / incA - 1) * 100);
         h += "<p class=\"mnote\"><b>How much of this is the mortgage, not the housing.</b> If both countries charged the same interest, the offer would need to be " +
-             fmtEur(Math.round(flat)) + " (" + (dp >= 0 ? "+" : "−") + Math.abs(dp) + " %) to buy the same space — that is the price difference alone. The rate difference moves it by " +
+             fmtEur(Math.round(flat)) + " (" + (dp >= 0 ? "+" : "−") + Math.abs(dp) + " %) " + (same ? "to buy the same space" : "to keep the same share of income") + " — that is the price difference alone. The rate difference moves it by " +
              fmtEur(Math.round(Math.abs(buyNeed - flat))) +  " a month. " + rateVintage(a, b) + "</p>";
       } else {
         h += "<p class=\"mnote\">" + rateVintage(a, b) + "</p>";
@@ -1011,43 +1114,65 @@
     var kindLine = pl.kind === "place" ? (DEG[pl.deg] ? DEG[pl.deg] + (pl.coast ? ", coastal" : "") + " · " : "") + fmtInt(pl.pop) + " people · " + FRAMES[frameOf(pl)].reg + " " + esc(N3[pl.reg] ? N3[pl.reg].name : "")
                  : pl.kind === "region" ? (frameOf(pl) === "eu" ? "NUTS 3 region" : "state") + " · " + fmtInt(pl.pop) + " people · data for " + Math.round(pl.covS * 100) + " % of them"
                  : "country · " + fmtInt(pl.pop) + " people · " + fmtInt(pl.places) + " " + FRAMES[frameOf(pl)].units;
-    // Сколько сделок стоит за медианой. Европейский слой считает по объявлениям,
-    // и там этого числа нет; у американского оно есть, и тонкие округа обязаны
-    // сказать о себе сами, а не выглядеть как все остальные.
+    // Насколько твёрдая медиана. У европейского слоя такой меры нет: сервис не
+    // публикует числа объявлений. У ACS она есть — доверительный интервал, — и
+    // округа, где он шире пятой части оценки, обязаны сказать это сами, а не
+    // выглядеть как все остальные.
+    var us = !hasM2(frameOf(pl));
     var xs = EX[pid(pl)];
-    if (xs && xs.sales) {
-      kindLine += " · " + fmtInt(xs.sales) + (xs.sales === 1 ? " sale" : " sales") + " in the year";
-      if (xs.sales < THIN) kindLine += " — too few for a reliable median";
+    if (us && xs && xs.moe && xs.val) {
+      var relMoe = xs.moe / xs.val * 100;
+      kindLine += " · median home value \u00b1" + Math.round(relMoe) + " %";
+      if (relMoe > MOEHI) kindLine += ", a wide interval for a median";
     }
     function cap(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
     var h = "<p class=\"plabel\">" + (pl.kind === "place" ? cap(FRAMES[frameOf(pl)].unit)
                                      : pl.kind === "region" ? cap(FRAMES[frameOf(pl)].reg) : "Country") + "</p>" +
       "<h3 class=\"cname\">" + esc(pl.name) + "</h3><p class=\"cmeta\">" + esc(ccName(pl.cc)) + " · " + kindLine + "</p>";
-    h += "<div class=\"cbig\"><div><b class=\"" + (cls(b) < 0 ? "nd" : "c" + cls(b)) + "\">" + fmtM2(b) + "</b><span>m² to buy" + (b === null ? "" : ", " + S.term + " years") + "</span></div>" +
-         "<div><b class=\"" + (cls(r) < 0 ? "nd" : "c" + cls(r)) + "\">" + fmtM2(r) + "</b><span>m² to rent</span></div></div>";
+    if (us) {
+      // Метров здесь нет — и крупными цифрами стоят те две метрики, которые в
+      // американских данных действительно есть. Обе считаются на медианное жильё
+      // округа, а не на площадь, и подписаны именно так.
+      var yv = yearsFor(pl), sv = rentShare(pl);
+      h += "<div class=\"cbig\"><div><b class=\"" + bigCls(clsFor("years", yv)) + "\">" + (yv === null ? "—" : yv.toFixed(1)) + "</b><span>years of income for the median home</span></div>" +
+           "<div><b class=\"" + bigCls(clsFor("share", sv)) + "\">" + (sv === null ? "—" : Math.round(sv) + " %") + "</b><span>of income for the median rent</span></div></div>";
+    } else {
+      h += "<div class=\"cbig\"><div><b class=\"" + bigCls(cls(b)) + "\">" + fmtM2(b) + "</b><span>m² to buy" + (b === null ? "" : ", " + S.term + " years") + "</span></div>" +
+           "<div><b class=\"" + bigCls(cls(r)) + "\">" + fmtM2(r) + "</b><span>m² to rent</span></div></div>";
+    }
     h += "<div class=\"crow\"><span>" + (mine() ? "Your housing budget" : "A third of the local income") + "</span><span>" + fmtLoc(pl, bud) + " / month</span></div>";
-    if (b !== null) {
+    if (b !== null || (us && rate !== null)) {
       var loan = bud * annuity(rate, S.term);
       h += "<div class=\"crow\"><span>Loan that pays off</span><span>" + fmtLoc(pl, loan) + "</span></div>";
       if (S.dep) h += "<div class=\"crow\"><span>Plus a " + S.dep + " % deposit</span><span>" + fmtLoc(pl, loan / (1 - S.dep / 100) - loan) + "</span></div>";
+      // В кадре без метров бюджет всё равно можно сопоставить с жильём — только не
+      // в метрах, а в целых домах: вот цена, которую он вытягивает, и вот медиана.
+      // Без взноса цена равна кредиту, и вторая строка была бы тем же числом
+      // под другим названием.
+      if (us && S.dep) h += "<div class=\"crow\"><span>Home price that reaches</span><span>" + fmtLoc(pl, loan / (1 - S.dep / 100)) + "</span></div>";
     }
-    h += "<div class=\"crow\"><span>" + (frameOf(pl) === "eu" ? "Sale price, taxes and fees in" : "Median price of homes sold") + "</span><span>" + (pl.sp ? fmtLoc(pl, pl.sp) + " / m²" : "no data") + "</span></div>";
-    h += "<div class=\"crow\"><span>Rent</span><span>" + (pl.rp ? fmtLoc(pl, pl.rp, 2) + " / m² / month"
-        : (xs && xs.fmr[2] ? fmtLoc(pl, xs.fmr[2]) + " / month, two bedrooms" : "no data")) + "</span></div>";
+    if (us) {
+      h += "<div class=\"crow\"><span>Median home value, owner's estimate</span><span>" + (xs && xs.val ? fmtLoc(pl, xs.val) : "no data") + "</span></div>";
+      h += "<div class=\"crow\"><span>Median rent, utilities included</span><span>" + (xs && xs.rent ? fmtLoc(pl, xs.rent) + " / month" : "no data") + "</span></div>";
+      h += "<div class=\"crow\"><span>Price per m²</span><span>not published for US counties</span></div>";
+    } else {
+      h += "<div class=\"crow\"><span>Sale price, taxes and fees in</span><span>" + (pl.sp ? fmtLoc(pl, pl.sp) + " / m²" : "no data") + "</span></div>";
+      h += "<div class=\"crow\"><span>Rent</span><span>" + (pl.rp ? fmtLoc(pl, pl.rp, 2) + " / m² / month" : "no data") + "</span></div>";
+    }
     // Название дохода — от слоя: у Евростата это эквивалентный располагаемый после
-    // налогов, у HUD — медианный по семье до налогов. Одна подпись на оба была бы
-    // ровно той ошибкой, о которой страница предупреждает читателя.
-    h += "<div class=\"crow\"><span>" + (frameOf(pl) === "eu" ? "Average income per adult-equivalent"
-                                        : "Median family income, before tax") + "</span><span>" + (pl.inc ? fmtLoc(pl, pl.inc / 12) + " / month" : "no data") + "</span></div>";
+    // налогов, у ACS — медианный по домохозяйству до налогов. Одна подпись на оба
+    // была бы ровно той ошибкой, о которой страница предупреждает читателя.
+    h += "<div class=\"crow\"><span>" + (us ? "Median household income, before tax"
+                                        : "Average income per adult-equivalent") + "</span><span>" + (pl.inc ? fmtLoc(pl, pl.inc / 12) + " / month" : "no data") + "</span></div>";
     h += "<div class=\"crow\"><span>Mortgage rate used</span><span>" + fmtRate(rate) + (S.rate !== null ? " (yours)" : "") + "</span></div>";
-    if (studyBuy(pl) || studyRent(pl)) h += "<div class=\"crow\"><span>" + (frameOf(pl) === "eu" ? "The study's own figures" : "On the local income, 30 years") + "</span><span>" + fmtM2(studyBuy(pl)) + " m² buy · " + fmtM2(studyRent(pl)) + " m² rent</span></div>";
+    if (studyBuy(pl) || studyRent(pl)) h += "<div class=\"crow\"><span>The study's own figures</span><span>" + fmtM2(studyBuy(pl)) + " m² buy · " + fmtM2(studyRent(pl)) + " m² rent</span></div>";
     if (mine() && pl.inc) {
       // Оба числа — в валюте места, иначе евро делились бы на доллары. И подпись
       // от слоя: «на взрослого-эквивалента» верно для Евростата и неверно для
-      // медианного дохода семьи у HUD.
+      // медианного дохода домохозяйства у ACS.
       var eq = myIncome(pl) / eqFactor(), ratio = eq / (pl.inc / 12);
-      h += "<div class=\"crow\"><span>Your income vs the local average</span><span>" + ratio.toFixed(2) + "\u00d7 " +
-           (frameOf(pl) === "eu" ? "per adult-equivalent" : "of a median family, before tax") + "</span></div>";
+      h += "<div class=\"crow\"><span>Your income vs the local " + (us ? "median" : "average") + "</span><span>" + ratio.toFixed(2) + "\u00d7 " +
+           (us ? "of a median household, before tax" : "per adult-equivalent") + "</span></div>";
     }
     // что нужно
     var N = wantN();
@@ -1064,17 +1189,30 @@
       h += "<p class=\"cwhat\">A " + (S.dep || 20) + " % deposit on " + N + " m² is <b>" + fmtLoc(pl, depAmt) + "</b>. Saving <input type=\"number\" id=\"c-sav\" value=\"" + S.sav + "\" min=\"0\" step=\"50\"> € a month, that takes <b>" + (savLoc > 0 ? (depAmt / savLoc / 12).toFixed(1) + " years" : "forever") + "</b>.</p>";
     }
     if (pl.rp) h += "<p class=\"cwhat\">To rent " + N + " m² here on " + shareText() + " of income you need <b>" + fmtLoc(pl, N * pl.rp / (S.share / 100)) + " net a month</b>.</p>";
+    if (us && xs && xs.val && rate !== null) {
+      // Тот же вопрос, что и в Европе, но заданный к целому дому: площади нет, и
+      // «сколько нужно на 70 м²» здесь не имеет ответа — а «сколько нужно на
+      // медианный дом округа» имеет, и это ровно то же арифметическое действие.
+      var needUS = xs.val * (1 - S.dep / 100) / annuity(rate, S.term) / (S.share / 100);
+      var haveUS = myIncome(pl);
+      h += "<p class=\"cwhat\">To buy the median home here (" + fmtLoc(pl, xs.val) + ") on " + shareText() + " of income over " + S.term + " years" + (S.dep ? " with a " + S.dep + " % deposit" : "") + " you need <b>" + fmtLoc(pl, needUS) + " net a month</b>" +
+           (mine() ? " — you have " + fmtLoc(pl, haveUS) + (haveUS >= needUS ? ", enough" : ", " + Math.round((1 - haveUS / needUS) * 100) + " % short") : "") + ".</p>";
+      var depUS = xs.val * (S.dep || 20) / 100, savUS = S.sav * (FX[curOf(pl)] || 1);
+      h += "<p class=\"cwhat\">A " + (S.dep || 20) + " % deposit on it is <b>" + fmtLoc(pl, depUS) + "</b>. Saving <input type=\"number\" id=\"c-sav\" value=\"" + S.sav + "\" min=\"0\" step=\"50\"> € a month, that takes <b>" + (savUS > 0 ? (depUS / savUS / 12).toFixed(1) + " years" : "forever") + "</b>.</p>";
+    }
+    if (us && xs && xs.rent) h += "<p class=\"cwhat\">To rent the median home here (" + fmtLoc(pl, xs.rent) + " a month) on " + shareText() + " of income you need <b>" + fmtLoc(pl, xs.rent / (S.share / 100)) + " net a month</b>.</p>";
     // список внутри региона или страны
     if (pl.kind !== "place") {
       var inside = L.filter(function (l) { return pl.kind === "region" ? l.reg === pl.idx : l.cc === pl.c; })
                     .sort(function (a, b2) { return b2.pop - a.pop; }).slice(0, 8);
       if (inside.length) {
-        h += "<p class=\"csub\">" + (pl.kind === "region" ? "Municipalities in the region" : "Largest municipalities") + "</p><ul class=\"clist\">" +
-          inside.map(function (l) { return "<li data-id=\"" + esc(l.id) + "\"><span>" + esc(l.name) + "</span><span>" + fmtM2(buyM2(l)) + " · " + fmtM2(rentM2(l)) + " m²</span></li>"; }).join("") + "</ul>";
+        var uw = FRAMES[frameOf(pl)].units;
+        h += "<p class=\"csub\">" + (pl.kind === "region" ? cap(uw) + " in the " + FRAMES[frameOf(pl)].reg : "Largest " + uw) + "</p><ul class=\"clist\">" +
+          inside.map(function (l) { return "<li data-id=\"" + esc(l.id) + "\"><span>" + esc(l.name) + "</span><span>" + summaryOf(l) + "</span></li>"; }).join("") + "</ul>";
       }
     } else if (N3[pl.reg]) {
-      h += "<p class=\"csub\">Around it</p><ul class=\"clist\"><li data-id=\"n:" + esc(N3[pl.reg].id) + "\"><span>" + cap(FRAMES[frameOf(pl)].reg) + " " + esc(N3[pl.reg].name) + "</span><span>" + fmtM2(buyM2(N3[pl.reg])) + " · " + fmtM2(rentM2(N3[pl.reg])) + " m²</span></li>" +
-           "<li data-id=\"c:" + pl.cc + "\"><span>" + esc(ccName(pl.cc)) + "</span><span>" + fmtM2(buyM2(C[CI[pl.cc]])) + " · " + fmtM2(rentM2(C[CI[pl.cc]])) + " m²</span></li></ul>";
+      h += "<p class=\"csub\">Around it</p><ul class=\"clist\"><li data-id=\"n:" + esc(N3[pl.reg].id) + "\"><span>" + cap(FRAMES[frameOf(pl)].reg) + " " + esc(N3[pl.reg].name) + "</span><span>" + summaryOf(N3[pl.reg]) + "</span></li>" +
+           "<li data-id=\"c:" + pl.cc + "\"><span>" + esc(ccName(pl.cc)) + "</span><span>" + summaryOf(C[CI[pl.cc]]) + "</span></li></ul>";
     }
     var inCmp = S.cmp.indexOf(pid(pl)) >= 0;
     h += "<div class=\"cbtns\"><button type=\"button\" class=\"cbtn" + (inCmp ? " on" : "") + "\" data-cmp=\"" + esc(pid(pl)) + "\">" + (inCmp ? "✓ In the comparison" : "+ Compare") + "</button>" +
@@ -1131,42 +1269,103 @@
     var cur = one ? keys[0] : "EUR";
     var sym = cur === "USD" ? "$" : cur === "EUR" ? "\u20ac" : cur + "\u00a0";
     function money(p, v) { return v === null || v === undefined ? null : v / (FX[curOf(p)] || 1) * (FX[cur] || 1); }
-    function row(label, fn, best) { return { label: label, vals: P.map(fn), best: best }; }
-    var groups = [
-      ["With your settings" + (one ? "" : " \u00b7 money converted to euro at the ECB rate of " + FX_DATE), [
-        row("m² to buy", function (p) { return buyM2(p); }, "max"),
-        row("m² to rent", function (p) { return rentM2(p); }, "max"),
-        row("Monthly housing budget, " + sym, function (p) { return money(p, budget(p)); }, null),
-        row("Income needed for " + N + " m² to buy, " + sym + "/month", function (p) { return money(p, incomeNeeded(p, N)); }, "min"),
-        row("Income needed for " + N + " m² to rent, " + sym + "/month", function (p) { return money(p, p.rp ? N * p.rp / (S.share / 100) : null); }, "min")
-      ]],
-      ["Same terms for everyone" + (mine() ? " (your income)" : " (local income)"), [
-        row("m² to buy, 20 years", function (p) { return buyM2(p, { term: 20 }); }, "max"),
-        row("m² to buy, 30 years", function (p) { return buyM2(p, { term: 30 }); }, "max"),
-        row("m² to buy at 25 % of income", function (p) { return buyM2(p, { share: 25 }); }, "max"),
-        row("m² to buy at a third of income", function (p) { return buyM2(p, { share: THIRD }); }, "max"),
-        row("m² to rent at 25 % of income", function (p) { return rentM2(p, { share: 25 }); }, "max"),
-        row("m² to rent at a third of income", function (p) { return rentM2(p, { share: THIRD }); }, "max")
-      ]],
-      [P.every(function (p) { return frameOf(p) === "eu"; }) ? "The study's own figures"
-                                                              : "Each on its own local income, 30 years", [
-        row("m² to buy, average local income, 30 years", function (p) { return studyBuy(p); }, "max"),
-        row("m² to rent, average local income", function (p) { return studyRent(p); }, "max")
-      ]],
-      ["The market" + (one ? "" : " \u00b7 in euro; the two layers do not measure income the same way"), [
-        row("Sale price incl. taxes and fees, " + sym + "/m²", function (p) { return money(p, p.sp || null); }, "min"),
-        row("Rent, " + sym + "/m²/month", function (p) { return money(p, p.rp || null); }, "min"),
-        row("Average local income, " + sym + "/month", function (p) { return money(p, p.inc ? p.inc / 12 : null); }, "max"),
-        row("Mortgage rate used, %", function (p) { return rateOf(p); }, "min"),
-        row("Population", function (p) { return p.pop; }, null)
-      ]]
-    ];
-    return { P: P, groups: groups };
+    function row(label, fn, best, fmt) { return { label: label, vals: P.map(fn), best: best, fmt: fmt || "int" }; }
+    function ex(p, k) { var x = EX[pid(p)]; return x && x[k] ? x[k] : null; }
+    // Метры есть не у всех слоёв, и от этого зависит не оформление, а смысл
+    // строк. Три случая: все места с метрами, ни одного, и смесь — в последнем
+    // остаются только те величины, которые определены по обе стороны.
+    var allM2 = P.every(function (p) { return hasM2(frameOf(p)); });
+    var noM2 = P.every(function (p) { return !hasM2(frameOf(p)); });
+    var money2 = one ? "" : " \u00b7 money converted to euro at the ECB rate of " + FX_DATE;
+    var groups;
+
+    if (allM2) {
+      groups = [
+        ["With your settings" + money2, [
+          row("m² to buy", function (p) { return buyM2(p); }, "max", "m2"),
+          row("m² to rent", function (p) { return rentM2(p); }, "max", "m2"),
+          row("Monthly housing budget, " + sym, function (p) { return money(p, budget(p)); }, null),
+          row("Income needed for " + N + " m² to buy, " + sym + "/month", function (p) { return money(p, incomeNeeded(p, N)); }, "min"),
+          row("Income needed for " + N + " m² to rent, " + sym + "/month", function (p) { return money(p, p.rp ? N * p.rp / (S.share / 100) : null); }, "min")
+        ]],
+        ["Same terms for everyone" + (mine() ? " (your income)" : " (local income)"), [
+          row("m² to buy, 20 years", function (p) { return buyM2(p, { term: 20 }); }, "max", "m2"),
+          row("m² to buy, 30 years", function (p) { return buyM2(p, { term: 30 }); }, "max", "m2"),
+          row("m² to buy at 25 % of income", function (p) { return buyM2(p, { share: 25 }); }, "max", "m2"),
+          row("m² to buy at a third of income", function (p) { return buyM2(p, { share: THIRD }); }, "max", "m2"),
+          row("m² to rent at 25 % of income", function (p) { return rentM2(p, { share: 25 }); }, "max", "m2"),
+          row("m² to rent at a third of income", function (p) { return rentM2(p, { share: THIRD }); }, "max", "m2")
+        ]],
+        ["The study's own figures", [
+          row("m² to buy, average local income, 30 years", function (p) { return studyBuy(p); }, "max", "m2"),
+          row("m² to rent, average local income", function (p) { return studyRent(p); }, "max", "m2")
+        ]],
+        ["The market" + money2, [
+          row("Sale price incl. taxes and fees, " + sym + "/m²", function (p) { return money(p, p.sp || null); }, "min"),
+          row("Rent, " + sym + "/m²/month", function (p) { return money(p, p.rp || null); }, "min", "dec2"),
+          row("Average local income, " + sym + "/month", function (p) { return money(p, p.inc ? p.inc / 12 : null); }, "max"),
+          row("Mortgage rate used, %", function (p) { return rateOf(p); }, "min", "dec2"),
+          row("Population", function (p) { return p.pop; }, null)
+        ]]
+      ];
+    } else if (noM2) {
+      groups = [
+        ["With your settings" + money2, [
+          row("Years of income for the median home", function (p) { return yearsFor(p); }, "min", "dec1"),
+          row("Median rent as a share of income, %", function (p) { return rentShare(p); }, "min", "pct"),
+          row("Monthly housing budget, " + sym, function (p) { return money(p, budget(p)); }, null),
+          row("Income needed to buy the median home, " + sym + "/month", function (p) {
+            var v = ex(p, "val"), r = rateOf(p);
+            return v && r !== null ? money(p, v * (1 - S.dep / 100) / annuity(r, S.term) / (S.share / 100)) : null;
+          }, "min"),
+          row("Income needed to rent the median home, " + sym + "/month", function (p) {
+            var v = ex(p, "rent");
+            return v ? money(p, v / (S.share / 100)) : null;
+          }, "min")
+        ]],
+        ["The market" + money2, [
+          row("Median home value, " + sym, function (p) { return money(p, ex(p, "val")); }, "min"),
+          row("Median rent, " + sym + "/month", function (p) { return money(p, ex(p, "rent")); }, "min"),
+          row("Median household income, " + sym + "/month", function (p) { return money(p, p.inc ? p.inc / 12 : null); }, "max"),
+          row("Mortgage rate used, %", function (p) { return rateOf(p); }, "min", "dec2"),
+          row("Population", function (p) { return p.pop; }, null)
+        ]]
+      ];
+    } else {
+      // Смесь слоёв. Метров у части мест нет вовсе, поэтому остаются только две
+      // метрики, определённые везде, — но корзина под ними разная, и заголовок
+      // группы обязан это сказать: в Европе это N м², в США медианное жильё.
+      groups = [
+        ["Both layers \u00b7 in Europe the basket is " + N + " m², in the United States the median home \u2014 floor area is not published for US counties" + money2, [
+          row("Years of income", function (p) { return yearsFor(p); }, null, "dec1"),
+          row("Rent as a share of income, %", function (p) { return rentShare(p); }, null, "pct"),
+          row("Monthly housing budget, " + sym, function (p) { return money(p, budget(p)); }, null),
+          row("Local income, " + sym + "/month", function (p) { return money(p, p.inc ? p.inc / 12 : null); }, null),
+          row("Mortgage rate used, %", function (p) { return rateOf(p); }, null, "dec2"),
+          row("Population", function (p) { return p.pop; }, null)
+        ]],
+        ["Europe only \u00b7 these need a price per square metre", [
+          row("m² to buy", function (p) { return buyM2(p); }, null, "m2"),
+          row("m² to rent", function (p) { return rentM2(p); }, null, "m2"),
+          row("Sale price incl. taxes and fees, " + sym + "/m²", function (p) { return money(p, p.sp || null); }, null)
+        ]],
+        ["United States only \u00b7 these need a whole-home median", [
+          row("Median home value, " + sym, function (p) { return money(p, ex(p, "val")); }, null),
+          row("Median rent, " + sym + "/month", function (p) { return money(p, ex(p, "rent")); }, null)
+        ]]
+      ];
+    }
+    // «Лучшее» в смешанной таблице не подсвечивается вовсе: строки там сравнимы
+    // по смыслу, но не по корзине, и зелёная клетка выдала бы разницу
+    // определений за разницу мест.
+    return { P: P, groups: groups, mixed: !allM2 && !noM2 };
   }
-  function fmtCell(label, v) {
+  function fmtCell(r, v) {
     if (v === null || v === undefined) return "—";
-    if (/^Rent, /.test(label) || /rate/.test(label)) return v.toFixed(2);
-    if (/m²/.test(label)) return fmtM2(v);
+    if (r.fmt === "m2") return fmtM2(v);
+    if (r.fmt === "dec2") return v.toFixed(2);
+    if (r.fmt === "dec1") return v.toFixed(1);
+    if (r.fmt === "pct") return Math.round(v) + " %";
     return fmtInt(v);
   }
   function drawCmp() {
@@ -1185,7 +1384,7 @@
           var bv = null;
           r.vals.forEach(function (v, i) { if (v === null) return; if (bv === null || (r.best === "max" ? v > bv : v < bv)) { bv = v; bestIdx = i; } });
         }
-        h += "<tr><td>" + esc(r.label) + "</td>" + r.vals.map(function (v, i) { return "<td" + (i === bestIdx ? " class=\"best\"" : "") + ">" + fmtCell(r.label, v) + "</td>"; }).join("") + "</tr>";
+        h += "<tr><td>" + esc(r.label) + "</td>" + r.vals.map(function (v, i) { return "<td" + (i === bestIdx ? " class=\"best\"" : "") + ">" + fmtCell(r, v) + "</td>"; }).join("") + "</tr>";
       });
     });
     cmpEl.innerHTML = h + "</tbody>";
@@ -1223,20 +1422,35 @@
 
   // Валюта и слова в шапке — от кадра: в европейском кадре цены в евро за метр
   // муниципалитета, в американском — в долларах за метр округа.
+  // Колонки рейтинга — от кадра, потому что величины разные. Метров в
+  // американском кадре нет вовсе, и колонка из прочерков притворялась бы дырой в
+  // данных; вместо неё те же две метрики, что и на карте.
+  function cap1(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
   function rankCols() {
-    var m = fr().sym, eu = S.frame === "eu";
-    var cols = [["name", S.rank === "countries" ? "Country" : (eu ? "City" : "County")],
-                ["buy", "m² to buy"]];
-    // Столбцов «метры в аренду» и «аренда за метр» в американском кадре нет: у
-    // HUD аренда не за метр, а за жильё с таким-то числом спален, и колонка из
-    // прочерков только притворялась бы данными.
-    if (eu) cols.push(["rent", "m² to rent"]);
-    cols.push(["price", "Price " + m + "/m²"]);
-    cols.push(eu ? ["rentp", "Rent " + m + "/m²·mo"] : ["fmr", "Rent " + m + "/mo, 2 bed"]);
+    var m = fr().sym, eu = m2Here();
+    var cols = [["name", S.rank === "countries" ? "Country" : (eu ? "City" : cap1(fr().unit))]];
+    if (eu) {
+      cols.push(["buy", "m² to buy"], ["rent", "m² to rent"],
+                ["price", "Price " + m + "/m²"], ["rentp", "Rent " + m + "/m²·mo"]);
+    } else {
+      cols.push(["years", "Years of income"], ["share", "Rent, % of income"],
+                ["val", "Median home " + m], ["rnt", "Median rent " + m + "/mo"]);
+    }
     cols.push(["inc", "Income " + m + "/mo"]);
     if (S.rank === "countries") cols.push(["rate", "Rate %"]);
     cols.push(["pop", "People"]);
     return cols;
+  }
+  // Ключ сортировки тоже живёт в кадре: «по метрам на покупку» в американском
+  // кадре отсортировало бы таблицу по пустоте.
+  function normSort() {
+    var ok = rankCols().some(function (c) { return c[0] === S.sort; });
+    if (ok) return;
+    // Вместе с ключом меняется и направление: у метров больше — лучше, у лет
+    // дохода и доли на аренду наоборот, и рейтинг, открывающийся худшими
+    // местами, читался бы как список лучших.
+    S.sort = m2Here() ? "buy" : "years";
+    S.dir = m2Here() ? "desc" : "asc";
   }
   // Подписи вкладок рейтинга тоже от кадра, и вкладка стран прячется там, где
   // страна одна: рейтинг из одной строки — не рейтинг.
@@ -1248,16 +1462,17 @@
     if (!many) { S.rank = "cities"; segSet("rankwhat", S.rank); }
   }
   function rankRows() {
-    // Рейтинг не смешивает кадры. Доход в США считает HUD по семье и до налогов, в
-    // Европе Евростат — эквивалентный и после налогов; поставить их в одну таблицу
-    // по местным доходам значило бы выдать разницу определений за разницу рынков.
-    var src = S.rank === "countries" ? C.filter(function (c) { return inFrame(c) && (c.sp || c.rp); })
+    // Рейтинг не смешивает кадры. Доход в США считает ACS по домохозяйству и до
+    // налогов, в Европе Евростат — эквивалентный и после налогов; поставить их в
+    // одну таблицу значило бы выдать разницу определений за разницу рынков.
+    var src = S.rank === "countries" ? C.filter(function (c) { return inFrame(c) && (c.sp || c.rp || EX["c:" + c.c]); })
                                      : L.filter(function (l) { return inFrame(l) && l.pop >= 100000; });
     var rows = src.filter(function (p) { return passReg(p) && (!S.coast || S.rank === "countries" || p.coast) && reaches(p); })
       .map(function (p) {
-        var x = EX[p.kind === "cc" ? "c:" + p.c : p.id];
+        var x = EX[pid(p)];
         return { p: p, name: p.name, buy: buyM2(p), rent: rentM2(p), price: p.sp || null,
-                 rentp: p.rp || null, fmr: x && x.fmr[2] ? x.fmr[2] : null,
+                 rentp: p.rp || null, val: x && x.val ? x.val : null, rnt: x && x.rent ? x.rent : null,
+                 years: yearsFor(p), share: rentShare(p),
                  inc: p.inc ? p.inc / 12 : null, rate: rateOf(p), pop: p.pop };
       });
     var k = S.sort, d = S.dir === "asc" ? 1 : -1;
@@ -1270,7 +1485,7 @@
     return { rows: rows, total: src.length };
   }
   function drawRank() {
-    syncRankTabs();
+    syncRankTabs(); normSort();
     var cols = rankCols(), rr = rankRows();
     $("rankhead").innerHTML = "<th>#</th>" + cols.map(function (c) {
       return "<th data-sort=\"" + c[0] + "\"" + (S.sort === c[0] ? " aria-sort=\"" + (S.dir === "asc" ? "ascending" : "descending") + "\"" : "") + ">" + c[1] + "</th>";
@@ -1289,10 +1504,11 @@
           }
           return "<td class=\"nm\">" + esc(v) + sub + "</td>";
         }
-        if (c[0] === "buy" || c[0] === "rent") return "<td class=\"cls\"><i class=\"" + (cls(v) < 0 ? "nd" : "c" + cls(v)) + "\"></i> " + fmtM2(v) + "</td>";
+        if (c[0] === "buy" || c[0] === "rent") return "<td class=\"cls\"><i class=\"" + bigCls(cls(v)) + "\"></i> " + fmtM2(v) + "</td>";
+        if (c[0] === "years") return "<td class=\"cls\"><i class=\"" + bigCls(clsFor("years", v)) + "\"></i> " + (v === null ? "—" : v.toFixed(1)) + "</td>";
+        if (c[0] === "share") return "<td class=\"cls\"><i class=\"" + bigCls(clsFor("share", v)) + "\"></i> " + (v === null ? "—" : Math.round(v)) + "</td>";
         if (c[0] === "rate") return "<td>" + (v === null ? "—" : v.toFixed(2)) + "</td>";
         if (c[0] === "rentp") return "<td>" + (v === null ? "—" : v.toFixed(2)) + "</td>";
-        if (c[0] === "fmr") return "<td>" + fmtInt(v) + "</td>";
         return "<td>" + fmtInt(v) + "</td>";
       }).join("") + "<td><button type=\"button\" class=\"rowbtn" + (inCmp ? " on" : "") + "\" data-cmp=\"" + esc(id) + "\" title=\"" + (inCmp ? "Remove from the comparison" : "Add to the comparison") + "\">" + (inCmp ? "✓" : "+") + "</button></td></tr>";
     }).join("");
@@ -1306,7 +1522,8 @@
   $("rankhead").addEventListener("click", function (e) {
     var th = e.target.closest("th[data-sort]"); if (!th) return;
     var k = th.getAttribute("data-sort");
-    if (S.sort === k) S.dir = S.dir === "asc" ? "desc" : "asc"; else { S.sort = k; S.dir = k === "name" || k === "price" || k === "rentp" || k === "rate" ? "asc" : "desc"; }
+    if (S.sort === k) S.dir = S.dir === "asc" ? "desc" : "asc";
+    else { S.sort = k; S.dir = /^(name|price|rentp|rate|years|share|val|rnt)$/.test(k) ? "asc" : "desc"; }
     drawRank(); syncURL();
   });
   $("rankbody").addEventListener("click", function (e) {
@@ -1382,7 +1599,14 @@
       ["Income", mine() ? "€" + fmtInt(incEUR()) + " net a month" + (S.cur !== "EUR" ? " (" + fmtInt(S.inc) + " " + S.cur + ")" : "") + ", household of " + S.adults + " adult" + (S.adults > 1 ? "s" : "") + (S.kids ? " and " + S.kids + " child" + (S.kids > 1 ? "ren" : "") : "") : "the average local income of each place"],
       ["Terms", shareText() + " of income for housing, " + S.term + "-year mortgage at " + rateNote() + ", deposit " + S.dep + " %"],
       ["Map", modeText() + (S.want && S.mode !== "years" && S.mode !== "share" ? "; places where " + S.want + " m² are out of reach are greyed" : "")],
-      ["Source", "Sielker & Banabak 2026, Journal of Maps; ESPON HOUSE4ALL feature service, 14 Sep 2026; outlines Eurostat GISCO NUTS 2021"]
+      // Источник — от кадра: экспорт американского рейтинга не должен
+      // подписываться европейской статьёй. И контуры здесь Natural Earth:
+      // границы GISCO были сняты именно из-за запрета коммерческого
+      // использования, и ссылаться на них в выгрузке нельзя тем более.
+      ["Source", (m2Here()
+        ? "Sielker & Banabak 2026, Journal of Maps; ESPON HOUSE4ALL feature service, 14 Sep 2026"
+        : "US Census Bureau, American Community Survey 2020-2024 (public domain); Freddie Mac PMMS 2024") +
+        "; outlines Natural Earth, public domain"]
     ];
     return rows;
   }
@@ -1486,7 +1710,7 @@
         var bestIdx = -1, bv = null;
         if (r.best && cr.P.length > 1) r.vals.forEach(function (v, i) { if (v === null) return; if (bv === null || (r.best === "max" ? v > bv : v < bv)) { bv = v; bestIdx = i; } });
         ctx.textAlign = "right"; ctx.font = "15px " + mono;
-        r.vals.forEach(function (v, i) { ctx.fillStyle = i === bestIdx ? gvar("--ok") : gvar("--ink"); ctx.fillText(fmtCell(r.label, v), PAD + labelW + colW * (i + 1), y - 8); });
+        r.vals.forEach(function (v, i) { ctx.fillStyle = i === bestIdx ? gvar("--ok") : gvar("--ink"); ctx.fillText(fmtCell(r, v), PAD + labelW + colW * (i + 1), y - 8); });
         ctx.textAlign = "left";
         ctx.strokeStyle = gvar("--hair-soft"); ctx.beginPath(); ctx.moveTo(PAD, y); ctx.lineTo(PNG_W - PAD, y); ctx.stroke();
       });
