@@ -419,7 +419,7 @@
     rateEl.value = S.rate === null ? "" : S.rate; $("rate-x").hidden = S.rate === null;
     depEl.value = S.dep; $("dep-o").textContent = S.dep + " %";
     $("adults-o").textContent = S.adults; $("kids-o").textContent = S.kids;
-    $("hhhint").textContent = "Equivalence factor " + eqFactor().toFixed(1) + " (OECD-modified scale: first adult 1, each further adult 0.5, each child 0.3). Used only to compare your income with the local average per adult-equivalent.";
+    $("hhhint").textContent = "Equivalence factor " + eqFactor().toFixed(1) + " (OECD-modified scale: first adult 1, each further adult 0.5, each child 0.3). Used only for the line comparing your income with the local average \u2014 which is per adult-equivalent in Europe and per family in the United States.";
     wantEl.value = S.want; $("want-o").textContent = S.want ? S.want + " m²" : "any size";
     segSet("frame", S.frame); segSet("term", S.term); segSet("mapmode", S.mode);
     segSet("basis", S.basis); segSet("rankwhat", S.rank);
