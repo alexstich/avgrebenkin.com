@@ -90,7 +90,7 @@
       "creator": { "@id": "https://avgrebenkin.com/#person" },
       "datePublished": "2026-09-14",
       "temporalCoverage": "2024-03/2025-03",
-      "spatialCoverage": { "@type": "Place", "name": "31 European countries (EU-27, Switzerland, Norway, Iceland, Liechtenstein) at LAU and NUTS 3 level" },
+      "spatialCoverage": { "@type": "Place", "name": "31 European countries (EU-27, Switzerland, Norway, Iceland, Liechtenstein) at LAU and NUTS 3 level, and the United States at county level" },
       "measurementTechnique": [
         "Weekly web scraping of housing listings, March 2024 to March 2025, aggregated by municipality and size class with listing-duration weights and cubic spline interpolation (ESPON HOUSE4ALL, TU Wien)",
         "Eurostat EU-SILC mean equivalised disposable income (ilc_di03) disaggregated with the Mikou, Vallet and Guivarch (2024) subnational income dataset",
@@ -181,24 +181,26 @@
       <h1>{{title}}</h1>
       <button type="button" class="sharebtn primary" data-share title="Copy a link that reopens this exact setup">{{svgShare}}Share this setup</button>
     </div>
-    <p class="sub">A third of the average income buys fewer than 50 square metres for <b>44 % of Europeans</b>. Type your own income and see what it buys, and where.</p>
+    <p class="sub">A third of the average income buys fewer than 50 square metres for <b>44 % of Europeans</b>, and more than 150 for <b>77 % of Americans</b> — but those two numbers are not measured the same way, and this page says exactly how they differ. Type your own income and the comparison becomes fair.</p>
     <div class="meta">
-      <span>Data: <a href="https://doi.org/10.1080/17445647.2026.2695777" target="_blank" rel="noopener">Sielker &amp; Banabak, TU Wien, <i>Journal of Maps</i> 2026</a> · <a href="https://www.espon.eu/projects/access-affordable-and-quality-housing-all-people-house4all" target="_blank" rel="noopener">ESPON HOUSE4ALL</a> · <a href="https://ec.europa.eu/eurostat/web/gisco" target="_blank" rel="noopener">Eurostat GISCO</a></span>
-      <span>Listings March 2024 – March 2025 · incomes 2024 · service snapshot 14 Sep 2026</span>
+      <span>Europe: <a href="https://doi.org/10.1080/17445647.2026.2695777" target="_blank" rel="noopener">Sielker &amp; Banabak, TU Wien, <i>Journal of Maps</i> 2026</a> · <a href="https://www.espon.eu/projects/access-affordable-and-quality-housing-all-people-house4all" target="_blank" rel="noopener">ESPON HOUSE4ALL</a></span>
+      <span>United States: <a href="https://www.redfin.com/news/data-center/" target="_blank" rel="noopener">Redfin Data Center</a> · <a href="https://www.huduser.gov/portal/datasets/il.html" target="_blank" rel="noopener">HUD Income Limits</a> · <a href="https://www.huduser.gov/portal/datasets/fmr.html" target="_blank" rel="noopener">HUD Fair Market Rents</a> · <a href="https://www.freddiemac.com/pmms" target="_blank" rel="noopener">Freddie Mac PMMS</a></span>
+      <span>European listings March 2024 – March 2025, incomes 2024 · American sales June 2025 – May 2026, incomes FY2025</span>
     </div>
   </header>
 
-  <div class="keyrow" aria-label="Key numbers from the study">
+  <div class="keyrow" aria-label="Key numbers">
     <div class="key"><b>44 %</b><span>of Europeans live where a 30-year mortgage on a third of the average income buys <b>under 50 m²</b></span></div>
-    <div class="key"><b>70 %</b><span>live where it buys <b>75 m² at most</b>; fewer than 5 % live in the most affordable areas</span></div>
-    <div class="key"><b>39 %</b><span>live where a third of the average income <b>rents under 50 m²</b>; two thirds of them in cities</span></div>
-    <div class="key"><b>22 M</b><span>listings behind the map: 18.4 M for sale and 3.6 M for rent, <b>31 countries</b>, one year of weekly scraping</span></div>
+    <div class="key"><b>77 %</b><span>of Americans live where the same sum buys <b>over 150 m²</b> — on an income counted before tax and per family, not after tax and per adult-equivalent</span></div>
+    <div class="key"><b>11,532</b><span>places you can search: <b>8,489</b> European municipalities and <b>3,043</b> US counties, each with its own price, income and mortgage rate</span></div>
+    <div class="key"><b>25 M</b><span>observations behind them: 22 M European listings and <b>3.6 M</b> American sales</span></div>
   </div>
 
   <section class="prose intro">
-    <p>In September 2026 two researchers at TU Wien, Franziska Sielker and Selim Banabak, published a pair of maps that answer a plain question for every municipality in Europe: <b>how many square metres can an average earner afford here?</b> One map is for buying, one for renting. Both use the same yardstick, a third of the local average income, and both come from the same 22 million property listings gathered for the ESPON HOUSE4ALL project. The maps are published in the <i>Journal of Maps</i>; the numbers behind them sit in a public map service of the ESPON programme.</p>
-    <p>This page puts that dataset in your hands. The study answers for the <b>average local income</b>. You can answer for <b>your own</b>: type what you earn, choose how much of it you would spend on housing, pick a mortgage term and a down payment, and the map, the rankings and the comparison table are recalculated for you. Or turn it around: say how many square metres you want and see where in Europe they are within reach.</p>
-    <p>Everything is computed in your browser from one embedded table. Nothing is sent anywhere. The <b>Where the numbers come from</b> section below says exactly what was taken from where, and what was added.</p>
+    <p>The question is old and the answer is usually a price index, which tells you nothing you can picture. This page answers in square metres instead: <b>how much space does a third of an income buy here?</b> A third of the money, thirty years of mortgage at the local rate, local prices — and the answer comes out in a unit anyone can stand inside.</p>
+    <p>The idea is not mine. In September 2026 Franziska Sielker and Selim Banabak of TU Wien published a pair of maps in the <i>Journal of Maps</i> that did exactly this for every municipality in Europe, from 22 million listings gathered for the ESPON HOUSE4ALL project. Their dataset is the European layer here, reproduced to within a part in a billion. What is new is everything around it: <b>the United States on the same yardstick</b>, built from Redfin's record of actual sales and HUD's income and rent tables — 3,043 counties, 3.6 million transactions — and a calculator that answers for <b>your</b> income rather than the local average.</p>
+    <p><b>The two layers are not one ranking, and the page will not pretend otherwise.</b> Europe's income is measured after tax and per adult-equivalent; America's is measured before tax and per family. Europe's prices are what sellers asked; America's are what buyers paid. Put them in one table by local income and you would be reading the difference between two statistical offices, not between two housing markets. So the map shows one continent at a time and the rankings stay inside it. Type your own income, though, and both sides are answering the identical question — that is the comparison worth having, and it is what the <b>job offer</b> block below is for.</p>
+    <p>Everything is computed in your browser from one embedded table: no request leaves the page, and it works from a downloaded file. The <b>Where the numbers come from</b> section says exactly what was taken from where, what was checked, and what could not be made comparable.</p>
   </section>
 
   <!-- ─── calculator ─────────────────────────────────────────────── -->
@@ -265,8 +267,8 @@
     <div class="phead">
       <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup">{{svgShare}}</button><button type="button" class="ibtn" data-png="map" title="Copy the map as a PNG" aria-label="Copy the map as a PNG">{{svgPng}}</button><button type="button" class="ibtn" data-png-dl="map" title="Download the map as a PNG" aria-label="Download the map as a PNG">{{svgDl}}</button><button type="button" class="ibtn" data-print="map" title="Print the map" aria-label="Print the map">{{svgPrint}}</button></div>
       <h2 id="map-h">The map</h2>
-      <p>Countries are filled with their population-weighted average; each dot is a town, coloured on the same scale. Hover or tap either for its numbers, and zoom in for more towns. Search a town to jump straight to it. Red always means the harder place, whichever measure is showing.</p>
-      <p>The last two measures answer the questions people actually ask. <b>Years of income</b> is how many years of gross income the home costs outright, and <b>rent share</b> is what renting it takes out of a month's income. Both are computed for the size you set under "I want", not for some invented typical flat, and both work wherever a price per square metre exists.</p>
+      <p>Two maps, one scale each: <b>Europe</b> by municipality and the <b>United States</b> by county. They are shown one at a time because the incomes underneath them are measured differently — the <a href="#sources">sources</a> section is blunt about it. Countries are filled with their population-weighted average; each dot is a place, coloured on the same scale. Hover or tap either for its numbers, zoom in for more places, and search to jump straight to one — the search covers both maps and switches between them.</p>
+      <p>The last two measures answer the questions people actually ask. <b>Years of income</b> is how many years of income the home costs outright, and <b>rent share</b> is what renting it takes out of a month. Both follow the size you set under "I want" — except American rent, which HUD publishes by bedroom count rather than by area, so there the share is for a two-bedroom home and the legend says so. American rent has no square-metre reading at all, so those two modes are empty on that map rather than filled with a guess.</p>
     </div>
     <div class="bar">
       <div class="seg" role="group" aria-label="Which map" id="frame"></div>
@@ -279,13 +281,13 @@
     </div>
     <div class="gsearch">
       <label class="sr-only" for="q">Search a town, region or country</label>
-      <input id="q" type="text" placeholder="Town, region or country — e.g. Porto, Bavaria, Poland" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="qsug" aria-autocomplete="list">
+      <input id="q" type="text" placeholder="Town, county, region or country — e.g. Porto, Bavaria, Travis County" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="qsug" aria-autocomplete="list">
       <button type="button" class="gq-clear" id="qx" aria-label="Clear search" hidden>×</button>
       <ul class="gsug" id="qsug" role="listbox" aria-label="Matching places" hidden></ul>
     </div>
     <div class="mapwrap">
       <div class="mapbox" id="mapbox">
-        <svg id="map" viewBox="0 0 {{geoW}} {{geoH}}" role="img" aria-label="Map of Europe: countries filled and towns marked as dots, coloured by affordable square metres">
+        <svg id="map" viewBox="0 0 {{geoW}} {{geoH}}" role="img" aria-label="Map: countries filled and places marked as dots, coloured by affordable square metres">
           <g id="mapg">
             <g id="regions"></g>
             <g id="marks"></g>
@@ -313,7 +315,7 @@
     <div class="phead">
       <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup">{{svgShare}}</button><button type="button" class="ibtn" data-print="move" title="Print this answer" aria-label="Print this answer">{{svgPrint}}</button></div>
       <h2 id="move-h">Offered a job in another country?</h2>
-      <p>The number nobody gives you is how much the offer has to be to leave you no worse off in housing. Put in where you live now and where the job is, and this works it out both for renting and for buying, with each country's own mortgage rate.</p>
+      <p>The number nobody gives you is how much the offer has to be to leave you no worse off in housing. Put in where you live now and where the job is, and this works it out both for renting and for buying, with each country's own mortgage rate and currency. This is also the one place where Europe and the United States can be compared fairly: on <b>your</b> income both sides answer the same question, and no statistical office's definition sits in between.</p>
     </div>
     <div class="moverow">
       <div class="mfield">
@@ -348,7 +350,7 @@
     <div class="phead">
       <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup">{{svgShare}}</button><button type="button" class="ibtn" data-png="cmp" title="Copy the comparison as a PNG" aria-label="Copy the comparison as a PNG">{{svgPng}}</button><button type="button" class="ibtn" data-png-dl="cmp" title="Download the comparison as a PNG" aria-label="Download the comparison as a PNG">{{svgDl}}</button><button type="button" class="ibtn" data-csv="cmp" title="Download the comparison as CSV" aria-label="Download the comparison as CSV">{{svgCsv}}</button><button type="button" class="ibtn" data-print="cmp" title="Print the comparison" aria-label="Print the comparison">{{svgPrint}}</button></div>
       <h2 id="cmp-h">Side by side</h2>
-      <p>Up to four places, towns or countries. Add them from the card above or from the rankings below. The first block follows your settings; the second holds the terms fixed so the places can be compared the way the study compares them.</p>
+      <p>Up to four places, towns, counties or countries, and they may come from either map. The first block follows your settings; the second holds the terms fixed so the places can be compared the way the study compares them. Across the two layers, compare on your own income: the local averages are not the same quantity.</p>
     </div>
     <div class="chips" id="chips"></div>
     <div class="tablescroll"><table class="cmptable" id="cmptable"></table></div>
@@ -359,13 +361,13 @@
     <div class="phead">
       <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup">{{svgShare}}</button><button type="button" class="ibtn" data-csv="rank" title="Download this table as CSV" aria-label="Download this table as CSV">{{svgCsv}}</button><button type="button" class="ibtn" data-print="rank" title="Print the table" aria-label="Print the table">{{svgPrint}}</button></div>
       <h2 id="rank-h">Rankings</h2>
-      <p>Countries as population-weighted means of their municipalities, cities as single municipalities of 100,000 people or more. Every number moves with your settings; the size filter above narrows the list.</p>
+      <p>Countries as population-weighted means of their places, cities and counties as single places of 100,000 people or more. The table stays inside the map you are looking at, on purpose: the European and American incomes are different measurements, and one ranking of both would compare statistical offices rather than housing markets. Every number moves with your settings; the size filter above narrows the list.</p>
     </div>
     <div class="bar">
       <div class="seg" role="group" aria-label="What to rank" id="rankwhat">
         <button type="button" data-v="countries" aria-pressed="true">Countries</button><button type="button" data-v="cities" aria-pressed="false">Cities</button>
       </div>
-      <div class="regs" role="group" aria-label="Parts of Europe" id="regs"></div>
+      <div class="regs" role="group" aria-label="Parts of the map" id="regs"></div>
     </div>
     <div class="tablescroll"><table class="ranktable" id="ranktable"><thead><tr id="rankhead"></tr></thead><tbody id="rankbody"></tbody></table></div>
     <p class="note" id="ranknote"></p>
@@ -376,7 +378,7 @@
     <div class="phead">
       <div class="pactions"><button type="button" class="ibtn" data-print="hist" title="Print the chart" aria-label="Print the chart">{{svgPrint}}</button></div>
       <h2 id="hist-h">Who lives where</h2>
-      <p>The study's figure 3, rebuilt from the same table: each bar is a class of affordability, its height the share of the population of the 31 countries living there, its colours the split into cities, towns and suburbs, and rural areas. Fixed to the study's own terms: a third of the local average income, 30 years, national rate. Your settings do not move this chart.</p>
+      <p><b>Europe only.</b> The study's figure 3, rebuilt from the same table: each bar is a class of affordability, its height the share of the population of the 31 countries living there, its colours the split into cities, towns and suburbs, and rural areas. Fixed to the study's own terms: a third of the local average income, 30 years, national rate. Your settings do not move this chart.</p>
     </div>
     <div class="histwrap">
       <figure class="hist"><figcaption>Buying, m² on a 30-year mortgage</figcaption><svg id="hist-sale" viewBox="0 0 520 300" role="img" aria-label="Population share by class of affordable square metres to buy, split by degree of urbanisation"></svg></figure>
@@ -397,7 +399,8 @@
 
   <!-- ─── article ────────────────────────────────────────────────── -->
   <section class="prose" id="found">
-    <h2>What the study found</h2>
+    <h2>What the European data shows</h2>
+    <p class="lede">Everything in this section is the TU Wien study and the ESPON table behind it: 31 countries, asking prices, income after tax per adult-equivalent. The American section follows, and the two do not share a scale.</p>
     <p>The two maps measure the same thing from two sides. For buying, the authors take a third of the average equivalised disposable income of a municipality, assume it goes to the monthly instalment of a 30-year mortgage at the country's fixed rate, and ask how many square metres the resulting loan buys at local prices, taxes and fees included. For renting they divide the same third of income by the local rent per square metre. <b>Both answers are in square metres</b>, so a reader can compare places without knowing a single price.</p>
     <p><b>Close to 44 % of Europe's population</b> lives where the mortgage buys fewer than 50 square metres. About 28 % live where it buys 50 to 75. Put together, more than 70 % of Europeans live in a place where a 30-year mortgage on a third of the average income buys at most 75 square metres. Fewer than 5 % live in the most affordable class.</p>
     <p>Renting looks much the same: <b>more than 39 %</b> live where a third of the average income rents fewer than 50 square metres, and about 22 % where it rents 50 to 75. The least affordable rental class is very much a city phenomenon: more than 65 % of the people in it live in cities, about 26 % in towns and suburbs, about 10 % in rural areas. Rural areas stand out for another reason: for 12 % of the rural population the scraping found no formal rental offer at all.</p>
@@ -408,6 +411,17 @@
     <p>The geography is what you would expect and sharper than you would expect. <b>Capital regions of nearly every country</b> sit in the least affordable class, and they pull their neighbours with them: unaffordability spills over into the regions around Paris, Berlin and Madrid despite the higher incomes earned there, and across borders around Switzerland and Luxembourg. The coasts of France, Spain, Portugal, Greece and Croatia and the tourist valleys of the Alps are far less affordable than the countryside behind them. Scandinavia and the Baltic states come out markedly more affordable, save a few urban hotspots. The map shows this as dots rather than shaded regions; the ranking and the cards carry the regional figures.</p>
     <p>At the country level the authors name Portugal, the Netherlands and Switzerland as rather unaffordable, and likewise Poland and Hungary. There is a caveat on Poland that matters for reading the whole map: it has an extremely high share of owners without a mortgage, so the gap between prices and incomes is <b>not felt by the majority</b>, who already own. It is felt by newcomers: young households, and anyone who has to move.</p>
     <p>Renting is more affordable than buying in Germany, France, Belgium, Austria and Switzerland, but not in Portugal, Greece, Bulgaria or Ireland. The authors warn against reading the two maps as a like-for-like choice: a mortgage instalment builds equity, a rent payment does not, and the security of tenure differs. Both maps describe the market <b>from a newcomer's point of view</b>, at today's prices; they say nothing about what current residents pay.</p>
+  </section>
+
+  <section class="prose" id="found-us">
+    <h2>What the American data shows</h2>
+    <p>The American layer answers the same question from the opposite kind of source. Redfin publishes, for every county it covers, the median price <b>per square foot of homes that actually sold</b>, month by month. HUD publishes the median family income and the rent its programmes are built on. Put together for the year from June 2025 to May 2026 — <b>3.6 million sales in 3,043 counties</b> — they give a price per square metre and an income for 97 % of the population of the United States.</p>
+    <p>The headline is that American space is cheap and American mortgages are not. <b>77 % of Americans</b> live in a county where a third of the median family income, on a 30-year loan at the year's average 6.36 %, buys more than 150 square metres. In Europe that class holds under 5 % of the population. Only 0.5 % of Americans live where the same sum buys under 50 square metres — the class that holds 44 % of Europeans.</p>
+    <p><b>Before you read that as a verdict on two housing markets, read the next paragraph.</b> The American income is a median <i>family</i> income <i>before</i> tax; the European one is a mean <i>equivalised disposable</i> income <i>after</i> tax, that is, per adult-equivalent. The first is larger than the second for two independent reasons that have nothing to do with housing. The American price is what a buyer paid; the European price is what a seller asked, and asking prices run above transaction prices. Every one of those differences pushes the same way. The gap above is real in the sense that it is what the two official sources say, and it is not a measurement of how much better off Americans are.</p>
+    <p><b>The rate is worth a quarter of the space.</b> Rerun the American map at 4 % — an ordinary European rate in this data — and the share of Americans who can reach 150 square metres goes from 77 % to 87 %. The annuity factor alone moves by 30 %. That is the single largest lever on the page, and it is one the reader can pull: the rate field takes any number.</p>
+    <p><b>Manhattan is the only American county that looks European.</b> At $15,358 per square metre against a metropolitan median family income of $103,000, New York County gives 30 square metres — squarely inside the worst European class. Brooklyn gives 58. After that the list is Californian: Santa Barbara 71, Los Angeles 74, Monterey 74, San Mateo and San Francisco 75 each. At the other end, a third of the income buys 375 square metres in St. Clair County, Illinois, and 360 in neighbouring Madison County.</p>
+    <p><b>Inside a metropolitan area the map shows prices only.</b> HUD sets income by its own area, not by county, so all 14 counties of the Washington area carry the same $163,900. Within that one number, Falls Church buys 137 square metres and Stafford County 320. The variation you see inside any American metro on this map is entirely price; the income underneath it is flat by construction. That is a property of the source, not of the country.</p>
+    <p><b>Renting cannot be shown in square metres here.</b> HUD publishes rent by number of bedrooms, not by area, and it publishes the 40th percentile of standard-quality units rather than the market median — a figure built for housing vouchers. So the American map has no "square metres to rent" and no "rent minus buy"; what it has is the share of income a two-bedroom home takes, which for <b>96 % of Americans</b> is under 30 %. That number is lower than a market median would be, and it is not the same measurement as the European rent share. It is shown because it is what the source honestly supports.</p>
   </section>
 
   <details class="panel method" id="method">
@@ -424,6 +438,14 @@
         <dd>A third of the income goes to the instalment of a 30-year annuity mortgage at the national fixed rate supplied by the European Commission's DG ECFIN, the latest yearly average available, typically 2023. The price is harmonised to include real-estate transfer tax or VAT, land registry and notary fees. No down payment is assumed, on purpose: it keeps the indicator comparable across regulatory settings. Annex B of the paper repeats the map for a 20-year term.</dd>
         <dt>Rent</dt>
         <dd>The same third of income divided by the rent per square metre from the spline. Both indicators are in square metres at the same burden, but the authors caution against comparing them directly: the mortgage instalment builds equity, the rent does not.</dd>
+        <dt>United States: price</dt>
+        <dd>Redfin's county market tracker, the median price per square foot of homes <b>sold</b> in the county that month, all residential types. Twelve months from June 2025 to May 2026 are averaged with the number of sales as the weight, which smooths the monthly noise of small counties. Square feet become square metres at 10.7639. Affordable area is the loan divided by the price per square metre directly — never the median price divided by the median price per foot, because the ratio of two medians is not the median of the ratio, and on a market that mixes flats and houses the difference is not small.</dd>
+        <dt>United States: income and rent</dt>
+        <dd>HUD Income Limits FY2025 for the median family income and HUD Fair Market Rents FY2025 for rent by number of bedrooms and for county population. Neither is a county statistic in the European sense: HUD sets one income for a whole metropolitan area, and its rent is the 40th percentile of gross rent for standard-quality units, not a market median. Six New England states publish by town; those rows are collapsed to the county with population as the weight.</dd>
+        <dt>United States: joining the two</dt>
+        <dd>Redfin carries no federal county codes, so the join is by state and county name. Louisiana's parishes, Alaska's boroughs and census areas, Virginia's independent cities and Connecticut's rewritten counties each needed a rule; all 3,043 counties match and the build fails if a new one ever does not. Connecticut was the hard case: Redfin still publishes the eight counties abolished in 2023 while the income file moved to nine planning regions in 2024. The rent file turned out to be the bridge — it kept the old counties and lists all 169 towns with their populations, and the income file lists the same 169 towns with their planning region, so the county income is the population-weighted mean of its towns. Alaska's Valdez-Cordova, abolished in 2019, is reassembled from Chugach and Copper River, which is an exact union.</dd>
+        <dt>United States: mortgage rate</dt>
+        <dd>Freddie Mac's Primary Mortgage Market Survey, the 30-year fixed rate, averaged over the same 52 weeks as the sales: 6.36 %. Not the latest week — the prices are a year's average, and a rate from a different year would price a loan that none of these buyers took.</dd>
         <dt>Checks</dt>
         <dd>For five countries where average transaction prices exist at some regional level, Annex A compares listed and transacted prices and finds a very high correlation, with spreads that vary. The authors expect the spread to be smaller in hot markets, which would make urban ownership look even less affordable than the map already does.</dd>
       </dl>
@@ -437,11 +459,49 @@
     <p><b>Local income is an estimate.</b> The survey income is disaggregated, not measured, in each municipality. In several Eastern European countries the disaggregation varies little outside the big cities, so some intermediate regions may look poorer than they are. The authors ask that absolute values be treated with caution; the patterns are more robust than the digits.</p>
     <p><b>No down payment, no loan limits.</b> The study abstracts from both. The down-payment slider on this page is my addition: it reduces the loan and lets you see what a saved deposit is worth. Loan-to-value rules, income multiples and other formal entry barriers are still not modelled.</p>
     <p><b>Your income is not equivalised.</b> The study's third is a third of an income per adult-equivalent. When you type a household income, the page takes a third of the whole thing, because that is what a household actually spends, and uses the household composition only to compare your income with the local average. The two views agree for a single adult.</p>
-    <p><b>Timing.</b> Listings are from 2024–2025, incomes are 2024, rates are mostly 2023 averages and the population is the 2021 census round. Rates have moved since; the rate field lets you override them.</p>
+    <p><b>Timing.</b> European listings are from 2024–2025, incomes 2024, rates mostly 2023 averages, population the 2021 census round. American sales are from June 2025 to May 2026, incomes and rents fiscal 2025, population the 2022 American Community Survey. The two layers are a year apart, which is one more reason they sit on separate maps.</p>
+    <p><b>The two incomes are not the same quantity.</b> Europe's is a mean equivalised disposable income: after tax, divided by a household-size weight, so it is per adult-equivalent. America's is a median family income before tax, for the whole family. Both are what their statistical office publishes; neither can be converted into the other without modelling tax and household composition, which would be a guess dressed as a number. This page does not make that conversion. It keeps the layers apart and offers the honest alternative: put in your own income and both sides answer the same question.</p>
+    <p><b>Asking prices against paid prices.</b> The European layer is built from listings — what sellers asked. The American layer is built from closings — what buyers paid. Asking prices run above transaction prices, by an amount that varies with how hot the market is. This too pushes the comparison in one direction.</p>
+    <p><b>American income is flat inside a metropolitan area.</b> HUD publishes one median family income per HUD area, so the 24 counties of metropolitan Atlanta share a single figure, and 14 counties around Washington share another. Of 1,133 metropolitan counties there are only 625 distinct income values; of 1,901 non-metropolitan counties, 1,747. Inside a metro, this map varies because prices vary, not because incomes do.</p>
+    <p><b>American rent is not in square metres.</b> Fair Market Rent is quoted by bedroom count and set at the 40th percentile of standard-quality units. It cannot be divided into square metres and it is not a market median, so the American map has no rent-in-square-metres mode and its rent share is a different measurement from the European one, shown under its own label.</p>
+    <p><b>Nothing outside Europe and the United States yet.</b> Canada, Australia and the United Kingdom all have the ingredients in principle; none of them had an open, machine-readable price <i>per unit of area</i> that survived a licence check in this round. An empty map with an honest label beats a filled one with an invented number.</p>
   </section>
 
   <section class="prose" id="sources">
     <h2>Where the numbers come from</h2>
+    <p>Every number on this page comes from a public file that anyone can download without a key, an account or a payment. Here is the whole provenance in one table; the paragraphs after it are the parts that needed a decision.</p>
+    <div class="tablescroll"><table class="prov">
+      <thead><tr><th scope="col"></th><th scope="col">Europe, 31 countries</th><th scope="col">United States</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Price</th>
+          <td>ESPON HOUSE4ALL: 18.4 M <b>asking</b> prices from a year of weekly scraping, per m², transaction costs added</td>
+          <td>Redfin Data Center: median price per square foot of homes <b>sold</b>, 3.6 M sales, weighted by sales over 12 months</td></tr>
+        <tr><th scope="row">Income</th>
+          <td>Eurostat EU-SILC mean <b>equivalised disposable</b> income 2024 — after tax, per adult-equivalent — disaggregated to municipalities</td>
+          <td>HUD Income Limits FY2025 median <b>family</b> income — before tax, per family — one figure per HUD area</td></tr>
+        <tr><th scope="row">Rent</th>
+          <td>ESPON HOUSE4ALL: 3.6 M rental listings, per m² per month</td>
+          <td>HUD Fair Market Rents FY2025: 40th percentile gross rent, <b>by bedroom count</b>, not by area</td></tr>
+        <tr><th scope="row">Mortgage rate</th>
+          <td>DG ECFIN national fixed rates, latest yearly average, mostly 2023</td>
+          <td>Freddie Mac PMMS 30-year fixed, averaged over the same 52 weeks as the sales: 6.36 %</td></tr>
+        <tr><th scope="row">Population</th>
+          <td>Eurostat LAU 2021 table</td>
+          <td>HUD Fair Market Rents file, from the 2022 American Community Survey</td></tr>
+        <tr><th scope="row">Outlines</th>
+          <td colspan="2">Natural Earth 1:50 m country shapes for both maps; county centroids from Natural Earth 1:10 m admin-2. Public domain.</td></tr>
+        <tr><th scope="row">Granularity</th>
+          <td>8,489 municipalities in 1,251 NUTS 3 regions</td>
+          <td>3,043 counties in 51 states</td></tr>
+        <tr><th scope="row">Period</th>
+          <td>Listings March 2024 – March 2025, incomes 2024</td>
+          <td>Sales June 2025 – May 2026, incomes and rents fiscal 2025</td></tr>
+        <tr><th scope="row">Coverage</th>
+          <td>31 countries; three more appear on the map without data</td>
+          <td>97 % of the population; every county Redfin publishes is matched</td></tr>
+      </tbody>
+    </table></div>
+    <p>Read the first two rows together and the reason the layers stay apart is visible at a glance: one column is asking prices against after-tax income per adult-equivalent, the other is paid prices against before-tax income per family. Both are defensible measurements. Neither converts into the other.</p>
     <p>The paper's data availability statement says the data is available at reasonable request to the authors. No table is attached to the paper; the supplementary files are the two maps as vector PDFs. The numbers on this page therefore came from the next best place, and the following is exactly what happened.</p>
     <p><b>The ESPON map service.</b> The HOUSE4ALL project publishes an interactive StoryMap on the ESPON ArcGIS portal. Its maps are drawn from three public feature services on the programme's GIS server, and one of them, <code>HOUSE4ALL_data_at_LAU_level</code>, carries a row per municipality with the 2024 mean equivalised income, the corrected sale price and rent per square metre, the national mortgage rate and the two affordability indicators of the paper, <code>sa_m2</code> and <code>ra_m2</code>. On 14 September 2026 all 89,601 rows were read through the service's query interface, 2,000 at a time, with the centroid of each municipality. That table, trimmed to the fields used here, is published next to this page as <a href="{{up}}data/house4all-lau-2024.csv">house4all-lau-2024.csv</a> (10.7 MB).</p>
     <p><b>The formula was checked, not assumed.</b> For all 78,758 municipalities with sales data, a third of the monthly income times the annuity factor of a 30-year loan at the row's rate, divided by the corrected price, reproduces the service's <code>sa_m2</code> to within one part in a billion; the rent indicator likewise. So the calculator uses the study's arithmetic, not an approximation of it, and with the defaults left alone it shows the study's own numbers. The corrected price is the duration-weighted listing price with transaction costs added: in Vienna it is 6.4 % above the raw listing price, which is about what Austrian transfer tax, registration and notary fees add up to.</p>
@@ -453,6 +513,10 @@
 
     <p><b>Why the map is dots and not shaded regions.</b> The first version of this page shaded NUTS 3 regions using Eurostat's own outlines, which is what almost every European map does. Their download terms turn out to say something else: permission is granted "on condition that the data will not be used for commercial purposes", and commercial users are sent to EuroGeographics for a licence. The condition sits on a parent page, not on the pages the files are downloaded from, which is probably why so many projects redistribute those outlines as if they were free. This page carries an advertisement for my own product, so it cannot promise to be non-commercial, and the outlines were replaced with Natural Earth country shapes, which are public domain. No public-domain equivalent of NUTS 3 exists, so regional shading went with them. The region names come from Eurostat's statistical code list, which is free to reuse for any purpose. The projection is unchanged: Lambert azimuthal equal-area, the family the ESPON maps use.</p>
     <p><b>Where the page and the paper differ.</b> The population shares computed from the service ({{statSale50}} % under 50 m² to buy, {{statRent50}} % to rent) are a few points below the paper's 44 % and 39 %. The service is the project's data release; the paper's figure 3 was drawn from the authors' working dataset, and the two may differ in population weights, in income year or in the treatment of municipalities without data. The paper's figures are quoted as the paper's; the chart shows what the public table gives. A request to the authors for the final table is drafted and will be sent.</p>
+    <p><b>The American layer, and why the Census Bureau is not in it.</b> The obvious source for county income and population is the Census Bureau. Its API now requires a key, which means an account, and its bulk files at <code>www2.census.gov</code> answer a plain download with a Cloudflare block. Neither is a wall worth climbing for data that HUD republishes in the open: the income limits and the fair-market-rent tables are single spreadsheets, no key, no account, and they carry population as well. The mortgage rate comes straight from Freddie Mac's own weekly history file. The one thing HUD does not have is geography, and that came from Natural Earth's admin-2 layer — the same public-domain source as the country outlines, so the whole map rests on one licence.</p>
+    <p><b>Every county is accounted for.</b> Redfin publishes 3,043 counties; all 3,043 are on this page. The build prints the ones that fail to match and stops if any do, because a county that quietly disappears is a mistake nobody finds later. Two cases needed real work rather than a spelling rule. Connecticut abolished its eight counties in 2023 and HUD's income file moved to nine planning regions, whose boundaries are not nested inside the old ones — Fairfield County splits between two regions with very different incomes. The rent file turned out to still use the old counties <i>and</i> to list all 169 Connecticut towns with their populations, while the income file lists the same 169 towns with their planning region. The lists match exactly, 169 to 169, so each old county's income is the population-weighted mean over its towns. That is a weighted blend of regional medians rather than a county median, and it is labelled as one — but the weights are real, not assumed. Alaska's Valdez-Cordova Census Area, abolished in 2019, is reassembled from Chugach and Copper River, which is an exact union.</p>
+    <p><b>Virginia nearly caused a silent error.</b> Thirty-four Virginian independent cities appear in Redfin without the word "County", and HUD writes them as "Alexandria city". The obvious fix — strip the word "city" — would have merged Richmond city with Richmond County, two different places with different incomes, and would have destroyed James City County, which is a county whose name ends in "City". The rule that survives is narrower: only the trailing word "County" is ever stripped, and " city" is appended as a last resort, only in the four states that have independent cities, and only after a direct match has failed.</p>
+    <p><b>The size premium stops at the Atlantic.</b> The European data measures how much more a square metre costs in a small flat, country by country, and this page uses it wherever you name a size. There is no such measurement for the United States, and applying the European curve there would have been an invented number in a place where the page shows a real one everywhere else. Outside Europe the premium is exactly one, and the sizes you name are priced at the county's overall price per square metre.</p>
     <p><b>Exchange rates</b> for the income field are the European Central Bank's euro reference rates of 11 September 2026, fixed in the page so that a shared link means the same amount next month.</p>
   </section>
 
@@ -463,6 +527,11 @@
       <li>Sielker, F., Banabak, S., Gerhalter, M., Neuhuber, T., Sutterlütti, D., Dorner, J., et al. (2025). <i>Access to affordable and quality housing for all people: Main report</i>. ESPON EGTC. <a href="https://www.espon.eu/sites/default/files/2025-11/espon-house4all-main-report.pdf" target="_blank" rel="noopener">PDF</a>.</li>
       <li>Sielker, F., Banabak, S., Serra, M., Palma, E., Falcón, L., Sutterlütti, D., &amp; Larrea, E. (2025). <i>Access to affordable and quality housing for all people: Methodological report</i>. ESPON EGTC. <a href="https://www.espon.eu/sites/default/files/publications/files/2026-02/espon-h4al-methodological-report.pdf" target="_blank" rel="noopener">PDF</a>. Lists the sites scraped and the processing code.</li>
       <li>ESPON HOUSE4ALL StoryMap and feature services, ESPON GIS portal. <a href="https://gis-portal.espon.eu/arcgis/apps/storymaps/stories/6acf53415f994941bcb2e8e31793f2e1" target="_blank" rel="noopener">StoryMap</a> · <a href="https://gis-server.espon.eu/arcgis/rest/services/Hosted/HOUSE4ALL_data_at_LAU_level/FeatureServer/0" target="_blank" rel="noopener">HOUSE4ALL_data_at_LAU_level</a> · <a href="https://www.espon.eu/projects/access-affordable-and-quality-housing-all-people-house4all" target="_blank" rel="noopener">project page</a>.</li>
+      <li>Redfin Data Center. County market tracker, median sale price and median price per square foot by county and month. <a href="https://www.redfin.com/news/data-center/" target="_blank" rel="noopener">redfin.com/news/data-center</a>. Redfin asks that the data be cited to Redfin and linked back; it is free to use with attribution.</li>
+      <li>U.S. Department of Housing and Urban Development. FY2025 Income Limits, Section 8 file, median family income by county and HUD area. <a href="https://www.huduser.gov/portal/datasets/il.html" target="_blank" rel="noopener">huduser.gov</a>.</li>
+      <li>U.S. Department of Housing and Urban Development. FY2025 Fair Market Rents, revised file, gross rent by bedroom count and population by county and town. <a href="https://www.huduser.gov/portal/datasets/fmr.html" target="_blank" rel="noopener">huduser.gov</a>.</li>
+      <li>Freddie Mac. Primary Mortgage Market Survey, weekly history of the 30-year fixed rate. <a href="https://www.freddiemac.com/pmms" target="_blank" rel="noopener">freddiemac.com/pmms</a>.</li>
+      <li>Natural Earth. County outlines and centroids, 1:10 million admin-2, public domain. <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">naturalearthdata.com</a>.</li>
       <li>Mikou, M., Vallet, A., &amp; Guivarch, C. (2024). Harmonized disposable income dataset for Europe at subnational level. <i>Scientific Data</i>, 11, 308. <a href="https://doi.org/10.1038/s41597-024-03138-x" target="_blank" rel="noopener">doi:10.1038/s41597-024-03138-x</a>.</li>
       <li>Eurostat. Mean and median income by age and sex, EU-SILC survey (ilc_di03). <a href="https://ec.europa.eu/eurostat/databrowser/view/ilc_di03/default/table?lang=en" target="_blank" rel="noopener">databrowser</a>.</li>
       <li>Eurostat. Local Administrative Units, LAU 2021 correspondence table with population, degree of urbanisation and coastal flag. <a href="https://ec.europa.eu/eurostat/web/gisco/geodata/statistical-units/local-administrative-units" target="_blank" rel="noopener">GISCO</a>.</li>

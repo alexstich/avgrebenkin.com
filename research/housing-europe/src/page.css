@@ -107,6 +107,20 @@
   .refs ol { margin: 0; padding-left: 1.3em; color: var(--ink-2); font-size: 14px; line-height: 1.55; }
   .refs li { margin-bottom: 8px; }
   .refs .fine { margin-top: 16px; font-size: 13px; color: var(--ink-3); }
+  /* Врезка «это только про один слой»: тон спокойный, но заметный, чтобы читатель
+     не принял европейские цифры за общие. */
+  .prose p.lede { border-left: 2px solid var(--hair); padding-left: 12px; font-size: 13.5px;
+                  color: var(--ink-3); }
+
+  /* Таблица происхождения. Два слоя рядом, узкая первая колонка, скролл по
+     горизонтали на узком экране — как и у остальных таблиц страницы. */
+  .prov { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 560px; }
+  .prov th, .prov td { text-align: left; vertical-align: top; padding: 9px 12px;
+                       border-bottom: 1px solid var(--hair-soft); line-height: 1.5; }
+  .prov thead th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em;
+                   color: var(--ink-3); font-weight: 600; }
+  .prov th[scope="row"] { color: var(--ink); font-weight: 600; white-space: nowrap; }
+  .prov td { color: var(--ink-2); }
 
   /* ── заголовки панелей ──────────────────────────────────────────── */
   .phead { padding: 16px 20px 13px; border-bottom: 1px solid var(--hair-soft); }
