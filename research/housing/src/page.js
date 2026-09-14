@@ -1448,7 +1448,7 @@
     Array.prototype.forEach.call(document.querySelectorAll(sel), function (btn) {
       btn.addEventListener("click", function () {
         var which = btn.getAttribute(dl ? "data-png-dl" : "data-png");
-        var build = which === "map" ? buildMapPNG : buildCmpPNG, name = which === "map" ? "housing-europe-map.png" : "housing-europe-comparison.png";
+        var build = which === "map" ? buildMapPNG : buildCmpPNG, name = which === "map" ? "housing-map.png" : "housing-comparison.png";
         build().then(function (blob) {
           if (!dl && window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
             navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]).then(function () { done(btn, "PNG copied"); }, function () { savePNG(blob, name, btn); });
@@ -1481,7 +1481,7 @@
         out += "metric," + cr.P.map(function (p) { return csvCell(p.name + " (" + ccName(p.cc) + ")"); }).join(",") + "\n";
         cr.groups.forEach(function (g) { g[1].forEach(function (r) { out += csvCell(r.label) + "," + r.vals.map(function (v) { return csvCell(v === null ? "" : Math.round(v * 100) / 100); }).join(",") + "\n"; }); });
       }
-      saveText(out, which === "rank" ? "housing-europe-" + S.rank + ".csv" : "housing-europe-comparison.csv", btn);
+      saveText(out, which === "rank" ? "housing-" + S.rank + ".csv" : "housing-comparison.csv", btn);
     });
   });
 

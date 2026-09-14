@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Контуры стран для карты — из Natural Earth в компактные SVG-кадры.
 
-    python3 research/housing-europe/src/geo.py [папка с geojson]
+    python3 research/housing/src/geo.py [папка с geojson]
 
 Почему не GISCO. Контуры NUTS Евростата выглядели очевидным выбором и были здесь
 сначала, но их лицензия проверена по первоисточнику и не подходит: на страницах

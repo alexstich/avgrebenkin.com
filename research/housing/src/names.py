@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Имена регионов NUTS — из статистической номенклатуры Евростата.
 
-    python3 research/housing-europe/src/names.py
+    python3 research/housing/src/names.py
 
 Зачем отдельный шаг. Раньше имена приходили атрибутом NAME_LATN из того же файла
 контуров GISCO, что и геометрия. Геометрия оттуда убрана по лицензии (см. geo.py),

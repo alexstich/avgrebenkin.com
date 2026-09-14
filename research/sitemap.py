@@ -21,8 +21,8 @@ ORDER = ['en', 'ru', 'uk', 'de', 'fr', 'es', 'pt-BR', 'it', 'nl', 'pl', 'tr', 'j
 DEFAULT = 'en'
 
 STUDIES = [
-    dict(base='/research/housing-europe/', dirname='housing-europe',
-         image='/images/research/housing-europe.jpg',
+    dict(base='/research/housing/', dirname='housing',
+         image='/images/research/housing.jpg',
          title=lambda L: L['htmlTitle']),
     dict(base='/research/ai-and-work/', dirname='ai-and-work',
          image='/images/research/ai-and-work.jpg',

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Сборка страницы «How many square metres can you afford?».
 
-    python3 research/housing-europe/src/build.py
+    python3 research/housing/src/build.py
 
 Что откуда:
   strings/en.json — заголовки и метаданные страницы; пока один язык, но каркас
@@ -22,7 +22,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..', '..'))
 OUTDIR = os.path.normpath(os.path.join(HERE, '..'))
 SITE = 'https://avgrebenkin.com'
-BASE = '/research/housing-europe/'
+BASE = '/research/housing/'
 DEFAULT = 'en'
 ORDER = ['en']
 

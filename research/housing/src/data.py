@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Датасет страницы из CSV по муниципалитетам: страны, регионы NUTS 3, города.
 
-    python3 research/housing-europe/src/data.py      # печатает размеры, пишет data.json
+    python3 research/housing/src/data.py      # печатает размеры, пишет data.json
 
 Вход: research/data/house4all-lau-2024.csv (см. extract.py) и src/region-names.json
 (см. names.py). Геометрия сюда больше не нужна: имена регионов приходят из

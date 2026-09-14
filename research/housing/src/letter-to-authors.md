@@ -27,7 +27,7 @@ Dear Dr Sielker, dear Dr Banabak,
 
 I am an independent software engineer and I publish interactive research pages at avgrebenkin.com. I have built a page on top of your Journal of Maps paper "Where can you still afford to live?" (doi:10.1080/17445647.2026.2695777):
 
-https://avgrebenkin.com/research/housing-europe/
+https://avgrebenkin.com/research/housing/
 
 The page lets a reader replace the average local income with their own net income, term, rate and down payment, and recomputes the affordable square metres for every municipality, region and country, on a NUTS 3 map with search, comparison and rankings. It is free, has no advertising for anything but my own product, and every number on it is credited to you, to the HOUSE4ALL consortium and to ESPON, with the full citation and DOI.
 
@@ -61,7 +61,7 @@ Dear ESPON EGTC,
 
 Your legal notice asks that a copy of any web-based report using ESPON material be sent to you. This is that notification.
 
-The page is https://avgrebenkin.com/research/housing-europe/. It is a free, non-commercial interactive page that lets a reader enter their own net income, mortgage term, rate and down payment and see how many square metres that buys or rents in each European municipality, region and country. The affordability data comes from the public feature service HOUSE4ALL_data_at_LAU_level on gis-server.espon.eu, read on 14 September 2026, and underpins the HOUSE4ALL work of Sielker, Banabak and the project consortium.
+The page is https://avgrebenkin.com/research/housing/. It is a free, non-commercial interactive page that lets a reader enter their own net income, mortgage term, rate and down payment and see how many square metres that buys or rents in each European municipality, region and country. The affordability data comes from the public feature service HOUSE4ALL_data_at_LAU_level on gis-server.espon.eu, read on 14 September 2026, and underpins the HOUSE4ALL work of Sielker, Banabak and the project consortium.
 
 On the requirements in the notice:
 

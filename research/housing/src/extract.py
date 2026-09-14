@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Из сырой выгрузки ESPON HOUSE4ALL — компактный CSV по муниципалитетам.
 
-    python3 research/housing-europe/src/extract.py <папка с h4a_all.json и lau2021.xlsx>
+    python3 research/housing/src/extract.py <папка с h4a_all.json и lau2021.xlsx>
 
 Откуда сырьё (в репозиторий не коммитится, 61 МБ):
   * https://gis-server.espon.eu/arcgis/rest/services/Hosted/HOUSE4ALL_data_at_LAU_level/FeatureServer/0

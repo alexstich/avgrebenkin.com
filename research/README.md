@@ -26,8 +26,8 @@ research/
   ai-and-work/index.html         исследование №3, английский
   ai-and-work/<код>/index.html   оно же на остальных двенадцати языках
   ai-and-work/src/               из чего оно собирается
-  housing-europe/index.html      исследование №5, пока только английский
-  housing-europe/src/            из чего оно собирается, включая выгрузку данных
+  housing/index.html      исследование №5, пока только английский
+  housing/src/            из чего оно собирается, включая выгрузку данных
   AUTHORING.md             свод правил для следующего исследования
   README.md                этот файл
 ```
@@ -692,18 +692,18 @@ still afford to live?» в *Journal of Maps* 2026 (doi:10.1080/17445647.2026.269
 
 | Файл | Что внутри |
 |---|---|
-| `housing-europe/index.html` | Собранная страница — **результат сборки**, ~1 МБ: 700 КБ данных и 200 КБ контуров |
-| `housing-europe/src/page.tmpl`, `page.css`, `page.js` | Каркас, стили, поведение |
-| `housing-europe/src/strings/en.json` | Заголовки и метаданные страницы |
-| `housing-europe/src/build.py` | Сборка: вшивает `data.json`, `geo.json`, считает доли населения для текста |
-| `housing-europe/src/extract.py` | Сырая выгрузка ESPON + таблица LAU Евростата → `research/data/house4all-lau-2024.csv` |
-| `housing-europe/src/data.py` | CSV → `data.json`: страны, NUTS 3, 8 489 муниципалитетов, рисунок 3 |
-| `housing-europe/src/geo.py` | GISCO NUTS 2021 1:20 млн → `geo.json`, проекция Ламберта, 1400 единиц по ширине |
-| `housing-europe/src/cover.py` | Обложки из самих данных: `cover.svg` (с заголовком) и `cover-page.svg` (без слов) |
-| `housing-europe/src/letter-to-authors.md` | Черновик письма авторам; отправляет Алексей |
+| `housing/index.html` | Собранная страница — **результат сборки**, ~1 МБ: 700 КБ данных и 200 КБ контуров |
+| `housing/src/page.tmpl`, `page.css`, `page.js` | Каркас, стили, поведение |
+| `housing/src/strings/en.json` | Заголовки и метаданные страницы |
+| `housing/src/build.py` | Сборка: вшивает `data.json`, `geo.json`, считает доли населения для текста |
+| `housing/src/extract.py` | Сырая выгрузка ESPON + таблица LAU Евростата → `research/data/house4all-lau-2024.csv` |
+| `housing/src/data.py` | CSV → `data.json`: страны, NUTS 3, 8 489 муниципалитетов, рисунок 3 |
+| `housing/src/geo.py` | GISCO NUTS 2021 1:20 млн → `geo.json`, проекция Ламберта, 1400 единиц по ширине |
+| `housing/src/cover.py` | Обложки из самих данных: `cover.svg` (с заголовком) и `cover-page.svg` (без слов) |
+| `housing/src/letter-to-authors.md` | Черновик письма авторам; отправляет Алексей |
 | `data/house4all-lau-2024.csv` | 89 601 муниципалитет: доход 2024, цена и аренда за м², ставка, sa_m2, ra_m2, центроид, DEGURBA, побережье; 10,7 МБ |
-| `../images/research/housing-europe.jpg` | Обложка 1200×630 для og:image и соцсетей (+ `.webp` для карточки индекса) |
-| `../images/research/housing-europe-page.webp` | Обложка 1600×560 без слов в шапке страницы |
+| `../images/research/housing.jpg` | Обложка 1200×630 для og:image и соцсетей (+ `.webp` для карточки индекса) |
+| `../images/research/housing-page.webp` | Обложка 1600×560 без слов в шапке страницы |
 
 ### Откуда данные и что было проверено
 
