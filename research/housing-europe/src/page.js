@@ -10,14 +10,14 @@
   // ---- расшифровка компактных массивов
   var C = DATA.countries, CI = {};
   C.forEach(function (c, i) { CI[c.c] = i; });
-  var N3 = DATA.nuts3.map(function (a, i) {
-    return { kind: "n3", idx: i, id: a[0], name: a[1], cc: a[2], pop: a[3], inc: a[4], sp: a[5], rp: a[6],
+  var N3 = DATA.regions.map(function (a, i) {
+    return { kind: "region", idx: i, id: a[0], name: a[1], cc: a[2], pop: a[3], inc: a[4], sp: a[5], rp: a[6],
              sa: a[7], ra: a[8], covS: a[9], covR: a[10] };
   });
   var N3I = {};
   N3.forEach(function (n, i) { N3I[n.id] = i; });
-  var L = DATA.lau.map(function (a, i) {
-    return { kind: "lau", idx: i, id: a[0], name: a[1], cc: C[a[2]].c, n3: a[3], pop: a[4], inc: a[5], sp: a[6],
+  var L = DATA.places.map(function (a, i) {
+    return { kind: "place", idx: i, id: a[0], name: a[1], cc: C[a[2]].c, reg: a[3], pop: a[4], inc: a[5], sp: a[6],
              rp: a[7] / 10, lat: a[8] / 100, lon: a[9] / 100, deg: a[10], coast: a[11],
              alias: (DATA.aliases || {})[a[0]] || "" };
   });
@@ -95,7 +95,7 @@
     if (id.slice(0, 2) === "n:") { var n = N3[N3I[id.slice(2)]]; return n || null; }
     var l = L[LI[id]]; return l || null;
   }
-  function pid(pl) { return pl.kind === "lau" ? pl.id : pl.kind === "n3" ? "n:" + pl.id : "c:" + pl.c; }
+  function pid(pl) { return pl.kind === "place" ? pl.id : pl.kind === "region" ? "n:" + pl.id : "c:" + pl.c; }
   function annuity(ratePct, years) {
     var i = ratePct / 100 / 12, n = years * 12;
     return i > 0 ? (1 - Math.pow(1 + i, -n)) / i : n;
@@ -317,11 +317,11 @@
   // ======================================================================
   var mapEl = $("map"), mapg = $("mapg"), regionsG = $("regions"), bordersG = $("borders"), marksG = $("marks");
   var pathOf = {};
-  Object.keys(GEO.nuts3).forEach(function (id) {
-    var p = svgel("path", { d: GEO.nuts3[id], "data-id": id });
+  Object.keys(GEO.regions).forEach(function (id) {
+    var p = svgel("path", { d: GEO.regions[id], "data-id": id });
     regionsG.appendChild(p); pathOf[id] = p;
   });
-  Object.keys(GEO.nuts0).forEach(function (id) { bordersG.appendChild(svgel("path", { d: GEO.nuts0[id] })); });
+  Object.keys(GEO.countries).forEach(function (id) { bordersG.appendChild(svgel("path", { d: GEO.countries[id] })); });
 
   function paintMap() {
     N3.forEach(function (n) {
@@ -444,17 +444,17 @@
   function drawMarks() {
     marksG.innerHTML = "";
     var pl = placeById(S.sel);
-    if (!pl || pl.kind !== "lau") return;
+    if (!pl || pl.kind !== "place") return;
     var xy = project(pl.lat, pl.lon), r = 7 / Z.k;
     marksG.appendChild(svgel("circle", { cx: xy[0].toFixed(1), cy: xy[1].toFixed(1), r: (r * 1.8).toFixed(2) }));
     marksG.appendChild(svgel("circle", { cx: xy[0].toFixed(1), cy: xy[1].toFixed(1), r: (r * 0.55).toFixed(2), "class": "core" }));
   }
   function flyTo(pl) {
     var xy;
-    if (pl.kind === "lau") xy = project(pl.lat, pl.lon);
-    else if (pl.kind === "n3") { var bb = pathOf[pl.id] && pathOf[pl.id].getBBox(); if (!bb) return; xy = [bb.x + bb.width / 2, bb.y + bb.height / 2]; }
+    if (pl.kind === "place") xy = project(pl.lat, pl.lon);
+    else if (pl.kind === "region") { var bb = pathOf[pl.id] && pathOf[pl.id].getBBox(); if (!bb) return; xy = [bb.x + bb.width / 2, bb.y + bb.height / 2]; }
     else return;
-    var k = pl.kind === "lau" ? Math.max(Z.k, 4) : Math.max(Z.k, 2.5);
+    var k = pl.kind === "place" ? Math.max(Z.k, 4) : Math.max(Z.k, 2.5);
     Z.k = k; Z.x = GEO.w / 2 - xy[0] * k; Z.y = GEO.h / 2 - xy[1] * k; applyZ();
   }
 
@@ -486,8 +486,8 @@
   function closeSug() { qsug.hidden = true; qsug.innerHTML = ""; sug = []; sugIdx = -1; qEl.setAttribute("aria-expanded", "false"); }
   function drawSug() {
     qsug.innerHTML = sug.length ? sug.map(function (it, i) {
-      var kind = it.kind === "lau" ? (DEG[it.deg] || "municipality") : it.kind === "n3" ? "region" : "country";
-      var right = it.kind === "cc" ? fmtInt(it.pop) + " people" : esc(ccName(it.cc)) + (it.kind === "lau" ? " · " + fmtInt(it.pop) : "");
+      var kind = it.kind === "place" ? (DEG[it.deg] || "municipality") : it.kind === "region" ? "region" : "country";
+      var right = it.kind === "cc" ? fmtInt(it.pop) + " people" : esc(ccName(it.cc)) + (it.kind === "place" ? " · " + fmtInt(it.pop) : "");
       var shown = esc(it.name) + (it.alias ? " <em>" + esc(it.alias) + "</em>" : "");
       return "<li role=\"option\" data-i=\"" + i + "\" aria-selected=\"" + (i === sugIdx) + "\"><span>" + shown + "</span><span class=\"kind\">" + kind + "</span><span class=\"cy\">" + right + "</span></li>";
     }).join("") : "<li class=\"none\">Nothing matches. Try the local spelling: Wien, Praha, København.</li>";
@@ -538,10 +538,10 @@
       return;
     }
     var b = buyM2(pl), r = rentM2(pl), rate = rateOf(pl), bud = budget(pl);
-    var kindLine = pl.kind === "lau" ? (DEG[pl.deg] ? DEG[pl.deg] + (pl.coast ? ", coastal" : "") + " · " : "") + fmtInt(pl.pop) + " people · region " + esc(N3[pl.n3] ? N3[pl.n3].name : "")
-                 : pl.kind === "n3" ? "NUTS 3 region · " + fmtInt(pl.pop) + " people · data for " + Math.round(pl.covS * 100) + " % of them"
-                 : "country · " + fmtInt(pl.pop) + " people · " + fmtInt(pl.lau) + " municipalities";
-    var h = "<p class=\"plabel\">" + (pl.kind === "lau" ? "Municipality" : pl.kind === "n3" ? "Region" : "Country") + "</p>" +
+    var kindLine = pl.kind === "place" ? (DEG[pl.deg] ? DEG[pl.deg] + (pl.coast ? ", coastal" : "") + " · " : "") + fmtInt(pl.pop) + " people · region " + esc(N3[pl.reg] ? N3[pl.reg].name : "")
+                 : pl.kind === "region" ? "NUTS 3 region · " + fmtInt(pl.pop) + " people · data for " + Math.round(pl.covS * 100) + " % of them"
+                 : "country · " + fmtInt(pl.pop) + " people · " + fmtInt(pl.places) + " municipalities";
+    var h = "<p class=\"plabel\">" + (pl.kind === "place" ? "Municipality" : pl.kind === "region" ? "Region" : "Country") + "</p>" +
       "<h3 class=\"cname\">" + esc(pl.name) + "</h3><p class=\"cmeta\">" + esc(ccName(pl.cc)) + " · " + kindLine + "</p>";
     h += "<div class=\"cbig\"><div><b class=\"" + (cls(b) < 0 ? "nd" : "c" + cls(b)) + "\">" + fmtM2(b) + "</b><span>m² to buy" + (b === null ? "" : ", " + S.term + " years") + "</span></div>" +
          "<div><b class=\"" + (cls(r) < 0 ? "nd" : "c" + cls(r)) + "\">" + fmtM2(r) + "</b><span>m² to rent</span></div></div>";
@@ -572,15 +572,15 @@
     }
     if (pl.rp) h += "<p class=\"cwhat\">To rent " + N + " m² here on " + S.share + " % of income you need <b>€" + fmtInt(N * pl.rp / (S.share / 100)) + " net a month</b>.</p>";
     // список внутри региона или страны
-    if (pl.kind !== "lau") {
-      var inside = L.filter(function (l) { return pl.kind === "n3" ? l.n3 === pl.idx : l.cc === pl.c; })
+    if (pl.kind !== "place") {
+      var inside = L.filter(function (l) { return pl.kind === "region" ? l.reg === pl.idx : l.cc === pl.c; })
                     .sort(function (a, b2) { return b2.pop - a.pop; }).slice(0, 8);
       if (inside.length) {
-        h += "<p class=\"csub\">" + (pl.kind === "n3" ? "Municipalities in the region" : "Largest municipalities") + "</p><ul class=\"clist\">" +
+        h += "<p class=\"csub\">" + (pl.kind === "region" ? "Municipalities in the region" : "Largest municipalities") + "</p><ul class=\"clist\">" +
           inside.map(function (l) { return "<li data-id=\"" + esc(l.id) + "\"><span>" + esc(l.name) + "</span><span>" + fmtM2(buyM2(l)) + " · " + fmtM2(rentM2(l)) + " m²</span></li>"; }).join("") + "</ul>";
       }
-    } else if (N3[pl.n3]) {
-      h += "<p class=\"csub\">Around it</p><ul class=\"clist\"><li data-id=\"n:" + esc(N3[pl.n3].id) + "\"><span>Region " + esc(N3[pl.n3].name) + "</span><span>" + fmtM2(buyM2(N3[pl.n3])) + " · " + fmtM2(rentM2(N3[pl.n3])) + " m²</span></li>" +
+    } else if (N3[pl.reg]) {
+      h += "<p class=\"csub\">Around it</p><ul class=\"clist\"><li data-id=\"n:" + esc(N3[pl.reg].id) + "\"><span>Region " + esc(N3[pl.reg].name) + "</span><span>" + fmtM2(buyM2(N3[pl.reg])) + " · " + fmtM2(rentM2(N3[pl.reg])) + " m²</span></li>" +
            "<li data-id=\"c:" + pl.cc + "\"><span>" + esc(ccName(pl.cc)) + "</span><span>" + fmtM2(buyM2(C[CI[pl.cc]])) + " · " + fmtM2(rentM2(C[CI[pl.cc]])) + " m²</span></li></ul>";
     }
     var inCmp = S.cmp.indexOf(pid(pl)) >= 0;

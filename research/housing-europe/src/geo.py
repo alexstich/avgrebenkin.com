@@ -100,7 +100,7 @@ def main():
         if d:
             nuts0[f['properties']['NUTS_ID']] = d
     out = {'w': W, 'h': H, 'lat0': LAT0, 'lon0': LON0,
-           'box': [minx, maxx, miny, maxy], 'nuts3': nuts3, 'nuts0': nuts0, 'names': names}
+           'box': [minx, maxx, miny, maxy], 'regions': nuts3, 'countries': nuts0, 'names': names}
     p = os.path.join(HERE, 'geo.json')
     json.dump(out, open(p, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
     print('geo.json: %d NUTS3, %d стран, %d×%d, %d байт' % (len(nuts3), len(nuts0), W, H, os.path.getsize(p)))

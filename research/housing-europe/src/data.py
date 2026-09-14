@@ -11,9 +11,9 @@
   * countries — 31 страна проекта ESPON плюс три без данных (AL, MK, RS): ставка
     ипотеки, население, взвешенные по населению средние — доступные метры,
     доход, цена и аренда, — и доля населения, у которой вообще есть данные;
-  * nuts3 — 1 253 региона NUTS 3, те же взвешенные средние: карта раскрашивается
+  * regions — 1 253 региона NUTS 3, те же взвешенные средние: карта раскрашивается
     по ним, потому что 89 601 полигон LAU в страницу не влезает;
-  * lau — муниципалитеты от 10 000 жителей плюс самый населённый в каждом
+  * places — муниципалитеты от 10 000 жителей плюс самый населённый в каждом
     NUTS 3 (чтобы поиск находил хоть что-то в любом регионе): около 9 000 строк,
     компактными массивами, чтобы страница осталась в пределах мегабайта;
   * hist — население по классам доступности и степени урбанизации, для
@@ -154,7 +154,11 @@ def main():
             'inc': round(wmean(rs, 'inc')), 'sp': round(wmean(rs, 'sp')), 'rp': round(wmean(rs, 'rp'), 2),
             'covS': round(sum(r['pop'] for r in rs if r['sa']) / pop, 3) if pop else 0,
             'covR': round(sum(r['pop'] for r in rs if r['ra']) / pop, 3) if pop else 0,
-            'lau': len(rs),
+            'places': len(rs),
+            # Валюта самих данных, а не читателя: таблица ESPON целиком в евро.
+            # Источник помечен, потому что «Where the numbers come from» должен
+            # показывать построчно, откуда взята каждая страна.
+            'cur': 'EUR', 'src': 'espon',
         })
 
     # ---- NUTS 3
@@ -162,13 +166,13 @@ def main():
     for r in rows:
         if r['nuts3'].strip():
             by_n3.setdefault(r['nuts3'], []).append(r)
-    nuts3 = []
+    regions = []
     n3index = {}
     for code in sorted(by_n3):
         rs = by_n3[code]
         pop = sum(r['pop'] for r in rs)
-        n3index[code] = len(nuts3)
-        nuts3.append([
+        n3index[code] = len(regions)
+        regions.append([
             code, geo['names'].get(code, code), rs[0]['cc'], round(pop),
             round(wmean(rs, 'inc')), round(wmean(rs, 'sp')), round(wmean(rs, 'rp'), 2),
             round(wmean(rs, 'sa'), 1), round(wmean(rs, 'ra'), 1),
@@ -189,13 +193,13 @@ def main():
     # Каждый алиас обязан найти свою строку: имя в сервисе меняется молча, и без
     # этой проверки поиск по «Vienna» однажды перестал бы работать незаметно.
     seen_alias = set()
-    lau = []
+    places = []
     for r in rows:
         if r['id'] not in keep:
             continue
         if (r['cc'], r['name']) in ALIAS:
             seen_alias.add((r['cc'], r['name']))
-        lau.append([
+        places.append([
             r['id'], r['name'], cc_index[r['cc']], n3index.get(r['nuts3'], -1), round(r['pop']),
             round(r['inc']), round(r['sp']), round(r['rp'] * 10), round(r['lat'] * 100), round(r['lon'] * 100),
             r['deg'], r['coast'],
@@ -205,7 +209,7 @@ def main():
         raise SystemExit('алиасы не нашли своих строк: %s' % (lost,))
     aliases = {r['id']: ALIAS[(r['cc'], r['name'])] for r in rows
                if (r['cc'], r['name']) in ALIAS and r['id'] in keep}
-    lau.sort(key=lambda x: -x[4])
+    places.sort(key=lambda x: -x[4])
 
     # ---- рисунок 3: население по классам × степень урбанизации
     def hist(key):
@@ -221,16 +225,16 @@ def main():
     out = {
         'classes': CLASSES,
         'popTotal': round(total31),
-        'countries': countries, 'nuts3': nuts3, 'lau': lau,
+        'countries': countries, 'regions': regions, 'places': places,
         'hist': {'sale': hist('sa'), 'rent': hist('ra')},
         'aliases': aliases,
-        'laufields': ['id', 'name', 'cc', 'nuts3', 'pop', 'inc', 'sp', 'rp10', 'lat100', 'lon100', 'deg', 'coast'],
-        'nuts3fields': ['id', 'name', 'cc', 'pop', 'inc', 'sp', 'rp', 'sa', 'ra', 'covS', 'covR'],
+        'placefields': ['id', 'name', 'cc', 'reg', 'pop', 'inc', 'sp', 'rp10', 'lat100', 'lon100', 'deg', 'coast'],
+        'regionfields': ['id', 'name', 'cc', 'pop', 'inc', 'sp', 'rp', 'sa', 'ra', 'covS', 'covR'],
     }
     p = os.path.join(HERE, 'data.json')
     json.dump(out, open(p, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
-    print('data.json: %d стран, %d NUTS3, %d LAU, %d английских алиасов, %d байт'
-          % (len(countries), len(nuts3), len(lau), len(aliases), os.path.getsize(p)))
+    print('data.json: %d стран, %d регионов, %d мест, %d английских алиасов, %d байт'
+          % (len(countries), len(regions), len(places), len(aliases), os.path.getsize(p)))
     for k in ('sale', 'rent'):
         h = out['hist'][k]
         print(k, [round(sum(row) / total31 * 1e8) / 1e0 for row in h])

@@ -74,7 +74,7 @@ def build(code, langs):
 
     js = re.sub(r'\{\{js:(\w+)\}\}', lambda m: json.dumps(L[m.group(1)], ensure_ascii=False), js)
     js = js.replace('{{data}}', json.dumps(data, ensure_ascii=False, separators=(',', ':')))
-    js = js.replace('{{geo}}', json.dumps({k: geo[k] for k in ('w', 'h', 'lat0', 'lon0', 'box', 'nuts3', 'nuts0')},
+    js = js.replace('{{geo}}', json.dumps({k: geo[k] for k in ('w', 'h', 'lat0', 'lon0', 'box', 'regions', 'countries')},
                                           ensure_ascii=False, separators=(',', ':')))
     # </script> внутри строки данных закрыл бы тег раньше времени
     js = js.replace('</script', '<\\/script')
