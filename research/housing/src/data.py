@@ -277,7 +277,7 @@ def main():
     # бы выдумать через типовую площадь, а выдумывать нельзя. Метрики, общие для
     # обоих слоёв, строятся из median_price и fmr_2 — они лежат отдельным массивом
     # extra, чтобы не раздувать нулями восемь с половиной тысяч европейских строк.
-    extra = []
+    extra, meta = [], {}
     if os.path.exists(US_CSV):
         meta = json.load(open(US_META, encoding='utf-8'))
         us = list(csv.DictReader(open(US_CSV, encoding='utf-8')))
@@ -324,7 +324,8 @@ def main():
                 round(float(r['lat']) * 100), round(float(r['lon']) * 100), 0, 0,
             ])
             extra.append(['us' + r['fips'], int(float(r['median_price'] or 0))]
-                         + [int(float(r['fmr_%d' % i] or 0)) for i in range(5)])
+                         + [int(float(r['fmr_%d' % i] or 0)) for i in range(5)]
+                         + [int(float(r['sales'] or 0))])
 
         # Те же величины для штатов и страны: иначе «доля дохода на аренду»
         # красила бы точки округов и оставляла штат и страну без данных, хотя
@@ -336,11 +337,14 @@ def main():
                 if v:
                     num += v * r['pop']; den += r['pop']
             return int(num / den) if den else 0
+        def nsales(rs):
+            return int(sum(float(r['sales'] or 0) for r in rs))
         for st in sorted(by_st):
             extra.append(['US-' + st, wm(by_st[st], 'median_price')]
-                         + [wm(by_st[st], 'fmr_%d' % i) for i in range(5)])
+                         + [wm(by_st[st], 'fmr_%d' % i) for i in range(5)]
+                         + [nsales(by_st[st])])
         extra.append(['c:US', wm(us, 'median_price')]
-                     + [wm(us, 'fmr_%d' % i) for i in range(5)])
+                     + [wm(us, 'fmr_%d' % i) for i in range(5)] + [nsales(us)])
 
     places.sort(key=lambda x: -x[4])
 
@@ -425,7 +429,10 @@ def main():
         'aliases': aliases,
         'placefields': ['id', 'name', 'cc', 'reg', 'pop', 'inc', 'sp', 'rp10', 'lat100', 'lon100', 'deg', 'coast'],
         'regionfields': ['id', 'name', 'cc', 'pop', 'inc', 'sp', 'rp', 'sa', 'ra', 'covS', 'covR', 'grp'],
-        'extrafields': ['id', 'mp', 'fmr0', 'fmr1', 'fmr2', 'fmr3', 'fmr4'],
+        'extrafields': ['id', 'mp', 'fmr0', 'fmr1', 'fmr2', 'fmr3', 'fmr4', 'sales'],
+        # Порог, ниже которого медиана округа собрана из единиц сделок за год.
+        # Строки не выбрасываются — карточка места называет число сделок.
+        'thin': int(meta.get('thinSales') or 12),
     }
     p = os.path.join(HERE, 'data.json')
     json.dump(out, open(p, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))

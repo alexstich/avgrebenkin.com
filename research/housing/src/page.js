@@ -28,7 +28,10 @@
   // квартиры, а в Европе — от N м²: это две разные величины, и подписаны они по
   // кадру, а не общей строкой на всю карту.
   var EX = {};
-  (DATA.extra || []).forEach(function (a) { EX[a[0]] = { mp: a[1], fmr: a.slice(2) }; });
+  (DATA.extra || []).forEach(function (a) { EX[a[0]] = { mp: a[1], fmr: a.slice(2, 7), sales: a[7] }; });
+  // Ниже этого числа сделок за год медиана округа собрана из единиц, и верить ей
+  // нельзя. Строки не выброшены — карточка места называет число сделок вслух.
+  var THIN = DATA.thin || 12;
   C.forEach(function (c) { c.kind = "cc"; c.id = "c:" + c.c; c.name = c.n; c.cc = c.c; });
 
   var DEG = { 1: "city", 2: "town or suburb", 3: "rural", 0: "" };
@@ -319,6 +322,13 @@
   function fmtInt(v) { return v === null || v === undefined ? "—" : Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
   function fmtM2(v) { return v === null || v === undefined || isNaN(v) ? "—" : (v < 10 ? v.toFixed(1) : Math.round(v).toString()); }
   function fmtEur(v) { return v === null || v === undefined ? "—" : "€" + fmtInt(v); }
+  // Деньги места — в валюте места. Карточка и подсказка показывают местные цены и
+  // местный доход, и подписывать их евро означало бы врать на весь американский
+  // слой: $185 700 в Сан-Франциско — это не 185 700 евро.
+  function fmtLoc(pl, v, dec) {
+    if (v === null || v === undefined) return "—";
+    return symOf(pl) + (dec ? v.toFixed(dec) : fmtInt(v));
+  }
   function fmtRate(v) { return v === null || v === undefined ? "—" : v.toFixed(2) + " %"; }
   function fmtSigned(v) { return v === null || v === undefined ? "—" : (v > 0 ? "+" : "") + fmtM2(v); }
   function esc(v) { return String(v).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;"); }
@@ -689,8 +699,8 @@
     }
     h += "<div class=\"r\"><span>to buy</span><span>" + fmtM2(b) + " m²</span></div>" +
       "<div class=\"r\"><span>to rent</span><span>" + fmtM2(r) + " m²</span></div>";
-    if (pl.sp) h += "<div class=\"r\"><span>price</span><span>€" + fmtInt(pl.sp) + "/m²</span></div>";
-    if (pl.rp) h += "<div class=\"r\"><span>rent</span><span>€" + pl.rp.toFixed(1) + "/m²·mo</span></div>";
+    if (pl.sp) h += "<div class=\"r\"><span>price</span><span>" + fmtLoc(pl, pl.sp) + "/m²</span></div>";
+    if (pl.rp) h += "<div class=\"r\"><span>rent</span><span>" + fmtLoc(pl, pl.rp, 1) + "/m²·mo</span></div>";
     if (!pl.sp && !pl.rp) h += "<div class=\"r\"><span>no listings data</span></div>";
     return h;
   }
@@ -999,40 +1009,61 @@
     }
     var b = buyM2(pl), r = rentM2(pl), rate = rateOf(pl), bud = budget(pl);
     var kindLine = pl.kind === "place" ? (DEG[pl.deg] ? DEG[pl.deg] + (pl.coast ? ", coastal" : "") + " · " : "") + fmtInt(pl.pop) + " people · " + FRAMES[frameOf(pl)].reg + " " + esc(N3[pl.reg] ? N3[pl.reg].name : "")
-                 : pl.kind === "region" ? "NUTS 3 region · " + fmtInt(pl.pop) + " people · data for " + Math.round(pl.covS * 100) + " % of them"
-                 : "country · " + fmtInt(pl.pop) + " people · " + fmtInt(pl.places) + " municipalities";
+                 : pl.kind === "region" ? (frameOf(pl) === "eu" ? "NUTS 3 region" : "state") + " · " + fmtInt(pl.pop) + " people · data for " + Math.round(pl.covS * 100) + " % of them"
+                 : "country · " + fmtInt(pl.pop) + " people · " + fmtInt(pl.places) + " " + FRAMES[frameOf(pl)].units;
+    // Сколько сделок стоит за медианой. Европейский слой считает по объявлениям,
+    // и там этого числа нет; у американского оно есть, и тонкие округа обязаны
+    // сказать о себе сами, а не выглядеть как все остальные.
+    var xs = EX[pid(pl)];
+    if (xs && xs.sales) {
+      kindLine += " · " + fmtInt(xs.sales) + (xs.sales === 1 ? " sale" : " sales") + " in the year";
+      if (xs.sales < THIN) kindLine += " — too few for a reliable median";
+    }
     function cap(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
     var h = "<p class=\"plabel\">" + (pl.kind === "place" ? cap(FRAMES[frameOf(pl)].unit)
                                      : pl.kind === "region" ? cap(FRAMES[frameOf(pl)].reg) : "Country") + "</p>" +
       "<h3 class=\"cname\">" + esc(pl.name) + "</h3><p class=\"cmeta\">" + esc(ccName(pl.cc)) + " · " + kindLine + "</p>";
     h += "<div class=\"cbig\"><div><b class=\"" + (cls(b) < 0 ? "nd" : "c" + cls(b)) + "\">" + fmtM2(b) + "</b><span>m² to buy" + (b === null ? "" : ", " + S.term + " years") + "</span></div>" +
          "<div><b class=\"" + (cls(r) < 0 ? "nd" : "c" + cls(r)) + "\">" + fmtM2(r) + "</b><span>m² to rent</span></div></div>";
-    h += "<div class=\"crow\"><span>" + (mine() ? "Your housing budget" : "A third of the local income") + "</span><span>€" + fmtInt(bud) + " / month</span></div>";
+    h += "<div class=\"crow\"><span>" + (mine() ? "Your housing budget" : "A third of the local income") + "</span><span>" + fmtLoc(pl, bud) + " / month</span></div>";
     if (b !== null) {
       var loan = bud * annuity(rate, S.term);
-      h += "<div class=\"crow\"><span>Loan that pays off</span><span>€" + fmtInt(loan) + "</span></div>";
-      if (S.dep) h += "<div class=\"crow\"><span>Plus a " + S.dep + " % deposit</span><span>€" + fmtInt(loan / (1 - S.dep / 100) - loan) + "</span></div>";
+      h += "<div class=\"crow\"><span>Loan that pays off</span><span>" + fmtLoc(pl, loan) + "</span></div>";
+      if (S.dep) h += "<div class=\"crow\"><span>Plus a " + S.dep + " % deposit</span><span>" + fmtLoc(pl, loan / (1 - S.dep / 100) - loan) + "</span></div>";
     }
-    h += "<div class=\"crow\"><span>Sale price, taxes and fees in</span><span>" + (pl.sp ? "€" + fmtInt(pl.sp) + " / m²" : "no data") + "</span></div>";
-    h += "<div class=\"crow\"><span>Rent</span><span>" + (pl.rp ? "€" + pl.rp.toFixed(2) + " / m² / month" : "no data") + "</span></div>";
-    h += "<div class=\"crow\"><span>Average income per adult-equivalent</span><span>" + (pl.inc ? "€" + fmtInt(pl.inc / 12) + " / month" : "no data") + "</span></div>";
+    h += "<div class=\"crow\"><span>" + (frameOf(pl) === "eu" ? "Sale price, taxes and fees in" : "Median price of homes sold") + "</span><span>" + (pl.sp ? fmtLoc(pl, pl.sp) + " / m²" : "no data") + "</span></div>";
+    h += "<div class=\"crow\"><span>Rent</span><span>" + (pl.rp ? fmtLoc(pl, pl.rp, 2) + " / m² / month"
+        : (xs && xs.fmr[2] ? fmtLoc(pl, xs.fmr[2]) + " / month, two bedrooms" : "no data")) + "</span></div>";
+    // Название дохода — от слоя: у Евростата это эквивалентный располагаемый после
+    // налогов, у HUD — медианный по семье до налогов. Одна подпись на оба была бы
+    // ровно той ошибкой, о которой страница предупреждает читателя.
+    h += "<div class=\"crow\"><span>" + (frameOf(pl) === "eu" ? "Average income per adult-equivalent"
+                                        : "Median family income, before tax") + "</span><span>" + (pl.inc ? fmtLoc(pl, pl.inc / 12) + " / month" : "no data") + "</span></div>";
     h += "<div class=\"crow\"><span>Mortgage rate used</span><span>" + fmtRate(rate) + (S.rate !== null ? " (yours)" : "") + "</span></div>";
-    if (studyBuy(pl) || studyRent(pl)) h += "<div class=\"crow\"><span>The study's own figures</span><span>" + fmtM2(studyBuy(pl)) + " m² buy · " + fmtM2(studyRent(pl)) + " m² rent</span></div>";
+    if (studyBuy(pl) || studyRent(pl)) h += "<div class=\"crow\"><span>" + (frameOf(pl) === "eu" ? "The study's own figures" : "On the local income, 30 years") + "</span><span>" + fmtM2(studyBuy(pl)) + " m² buy · " + fmtM2(studyRent(pl)) + " m² rent</span></div>";
     if (mine() && pl.inc) {
-      var eq = incEUR() / eqFactor(), ratio = eq / (pl.inc / 12);
-      h += "<div class=\"crow\"><span>Your income vs the local average</span><span>" + ratio.toFixed(2) + "× per adult-equivalent</span></div>";
+      // Оба числа — в валюте места, иначе евро делились бы на доллары. И подпись
+      // от слоя: «на взрослого-эквивалента» верно для Евростата и неверно для
+      // медианного дохода семьи у HUD.
+      var eq = myIncome(pl) / eqFactor(), ratio = eq / (pl.inc / 12);
+      h += "<div class=\"crow\"><span>Your income vs the local average</span><span>" + ratio.toFixed(2) + "\u00d7 " +
+           (frameOf(pl) === "eu" ? "per adult-equivalent" : "of a median family, before tax") + "</span></div>";
     }
     // что нужно
     var N = wantN();
     h += "<p class=\"csub\">What it would take</p>";
     if (pl.sp && rate !== null) {
       var need = incomeNeeded(pl, N);
-      h += "<p class=\"cwhat\">To buy <input type=\"number\" id=\"c-n\" value=\"" + N + "\" min=\"10\" max=\"400\" step=\"5\"> m² here on " + S.share + " % of income over " + S.term + " years" + (S.dep ? " with a " + S.dep + " % deposit" : "") + " you need <b>€" + fmtInt(need) + " net a month</b>" +
-           (mine() ? " — you have €" + fmtInt(incEUR()) + (incEUR() >= need ? ", enough" : ", " + Math.round((1 - incEUR() / need) * 100) + " % short") : "") + ".</p>";
+      var have = myIncome(pl);          // доход читателя в валюте места
+      h += "<p class=\"cwhat\">To buy <input type=\"number\" id=\"c-n\" value=\"" + N + "\" min=\"10\" max=\"400\" step=\"5\"> m² here on " + shareText() + " of income over " + S.term + " years" + (S.dep ? " with a " + S.dep + " % deposit" : "") + " you need <b>" + fmtLoc(pl, need) + " net a month</b>" +
+           (mine() ? " — you have " + fmtLoc(pl, have) + (have >= need ? ", enough" : ", " + Math.round((1 - have / need) * 100) + " % short") : "") + ".</p>";
       var depAmt = N * pl.sp * (S.dep || 20) / 100;
-      h += "<p class=\"cwhat\">A " + (S.dep || 20) + " % deposit on " + N + " m² is <b>€" + fmtInt(depAmt) + "</b>. Saving <input type=\"number\" id=\"c-sav\" value=\"" + S.sav + "\" min=\"0\" step=\"50\"> € a month, that takes <b>" + (S.sav > 0 ? (depAmt / S.sav / 12).toFixed(1) + " years" : "forever") + "</b>.</p>";
+      // Взнос — в валюте места, сбережения читателя — в евро, поэтому для счёта
+      // они приводятся; без этого доллары делились бы на евро.
+      var savLoc = S.sav * (FX[curOf(pl)] || 1);
+      h += "<p class=\"cwhat\">A " + (S.dep || 20) + " % deposit on " + N + " m² is <b>" + fmtLoc(pl, depAmt) + "</b>. Saving <input type=\"number\" id=\"c-sav\" value=\"" + S.sav + "\" min=\"0\" step=\"50\"> € a month, that takes <b>" + (savLoc > 0 ? (depAmt / savLoc / 12).toFixed(1) + " years" : "forever") + "</b>.</p>";
     }
-    if (pl.rp) h += "<p class=\"cwhat\">To rent " + N + " m² here on " + S.share + " % of income you need <b>€" + fmtInt(N * pl.rp / (S.share / 100)) + " net a month</b>.</p>";
+    if (pl.rp) h += "<p class=\"cwhat\">To rent " + N + " m² here on " + shareText() + " of income you need <b>" + fmtLoc(pl, N * pl.rp / (S.share / 100)) + " net a month</b>.</p>";
     // список внутри региона или страны
     if (pl.kind !== "place") {
       var inside = L.filter(function (l) { return pl.kind === "region" ? l.reg === pl.idx : l.cc === pl.c; })
@@ -1042,7 +1073,7 @@
           inside.map(function (l) { return "<li data-id=\"" + esc(l.id) + "\"><span>" + esc(l.name) + "</span><span>" + fmtM2(buyM2(l)) + " · " + fmtM2(rentM2(l)) + " m²</span></li>"; }).join("") + "</ul>";
       }
     } else if (N3[pl.reg]) {
-      h += "<p class=\"csub\">Around it</p><ul class=\"clist\"><li data-id=\"n:" + esc(N3[pl.reg].id) + "\"><span>Region " + esc(N3[pl.reg].name) + "</span><span>" + fmtM2(buyM2(N3[pl.reg])) + " · " + fmtM2(rentM2(N3[pl.reg])) + " m²</span></li>" +
+      h += "<p class=\"csub\">Around it</p><ul class=\"clist\"><li data-id=\"n:" + esc(N3[pl.reg].id) + "\"><span>" + cap(FRAMES[frameOf(pl)].reg) + " " + esc(N3[pl.reg].name) + "</span><span>" + fmtM2(buyM2(N3[pl.reg])) + " · " + fmtM2(rentM2(N3[pl.reg])) + " m²</span></li>" +
            "<li data-id=\"c:" + pl.cc + "\"><span>" + esc(ccName(pl.cc)) + "</span><span>" + fmtM2(buyM2(C[CI[pl.cc]])) + " · " + fmtM2(rentM2(C[CI[pl.cc]])) + " m²</span></li></ul>";
     }
     var inCmp = S.cmp.indexOf(pid(pl)) >= 0;
@@ -1068,14 +1099,14 @@
     if (!ps.length) return;
     if (pl.sp && rate !== null) {
       var need = incomeNeeded(pl, N);
-      ps[0].querySelector("b").innerHTML = "€" + fmtInt(need) + " net a month";
+      ps[0].querySelector("b").innerHTML = fmtLoc(pl, need) + " net a month";
       var depAmt = N * pl.sp * (S.dep || 20) / 100;
       var bs = ps[1].querySelectorAll("b");
-      bs[0].textContent = "€" + fmtInt(depAmt);
+      bs[0].textContent = fmtLoc(pl, depAmt);
       bs[1].textContent = S.sav > 0 ? (depAmt / S.sav / 12).toFixed(1) + " years" : "forever";
       ps[1].firstChild.nodeValue = "A " + (S.dep || 20) + " % deposit on " + N + " m² is ";
     }
-    if (pl.rp) { var last = ps[ps.length - 1]; last.innerHTML = "To rent " + N + " m² here on " + shareText() + " of income you need <b>€" + fmtInt(N * pl.rp / (S.share / 100)) + " net a month</b>."; }
+    if (pl.rp) { var last = ps[ps.length - 1]; last.innerHTML = "To rent " + N + " m² here on " + shareText() + " of income you need <b>" + fmtLoc(pl, N * pl.rp / (S.share / 100)) + " net a month</b>."; }
   }
 
   // ======================================================================

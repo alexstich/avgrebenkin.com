@@ -90,7 +90,15 @@ SOURCES = {
 }
 REDFIN = 'county_market_tracker.tsv000.gz'
 MONTHS = 12                      # окно усреднения: год сделок гасит месячный шум
-SQFT_PER_M2 = 10.7639
+SQFT_PER_M2 = 1 / 0.09290304     # 10.7639104167: международный фут, точно
+# Тип жилья — отдельная колонка, и цена за фут у квартир и односемейных домов
+# различается кратно. Берётся сводная строка, а не один из типов: страница
+# отвечает на вопрос «сколько метров жилья», а не «сколько метров квартиры».
+PROPERTY_TYPE = 'All Residential'
+# Порог доверия к медиане. Округ с единицами сделок за год даёт медиану, которой
+# верить нельзя; такие строки не выбрасываются, но помечаются, и число сделок
+# едет в данные, чтобы карточка места могла сказать об этом читателю.
+THIN_SALES = 12
 BEDROOMS = 5                     # fmr_0 … fmr_4: студия и до четырёх спален
 
 COLS = (['fips', 'st', 'county', 'name', 'pop', 'lat', 'lon', 'metro',
@@ -182,10 +190,18 @@ def keys_for(st, base):
 
 
 def read_redfin(path):
-    """Средневзвешенная по числу сделок цена за фут и цена жилья за последний год."""
+    """Средневзвешенная по числу сделок цена за фут и цена жилья за последний год.
+
+    Файл — полная помесячная история с 2012 года, и строки в нём НЕ упорядочены
+    по дате: в одном месте подряд идут 2018, 2019 и 2025 годы. Поэтому окно
+    задаётся явно и проверяется на каждой строке. «Последняя строка округа» дала
+    бы смесь разных периодов у разных округов, и выглядела бы она правдоподобно.
+    """
     last = ''
+    seen = set()
     with gzip.open(path, 'rt', encoding='utf-8', newline='') as f:
         for row in csv.DictReader(f, delimiter='\t'):
+            seen.add((row['STATE_CODE'], row['REGION']))
             end = row['PERIOD_END'][:7]
             if end > last:
                 last = end
@@ -196,11 +212,13 @@ def read_redfin(path):
         m += 12; y -= 1
     first = '%04d-%02d' % (y, m)
     acc = collections.defaultdict(lambda: [0.0, 0.0, 0.0])
+    inwin = set()
     with gzip.open(path, 'rt', encoding='utf-8', newline='') as f:
         for row in csv.DictReader(f, delimiter='\t'):
-            if row['PROPERTY_TYPE'] != 'All Residential':
-                continue
             if not (first <= row['PERIOD_END'][:7] <= last):
+                continue
+            inwin.add((row['STATE_CODE'], row['REGION']))
+            if row['PROPERTY_TYPE'] != PROPERTY_TYPE:
                 continue
             try:
                 ppsf = float(row['MEDIAN_PPSF'] or 0)
@@ -218,7 +236,11 @@ def read_redfin(path):
     for (st, region), (sp, pr, n) in acc.items():
         if n > 0:
             out[(st, region)] = (sp / n, pr / n, n)
-    return out, first, last
+    # Воронка целиком, а не только её конец: округ, у которого в окне вообще нет
+    # строк, и округ, у которого они есть, но без цены за фут, — разные случаи, и
+    # оба обязаны попасть в отчёт.
+    funnel = {'file': len(seen), 'window': len(inwin), 'usable': len(out)}
+    return out, first, last, funnel
 
 
 def read_fmr(path):
@@ -294,12 +316,18 @@ def read_rate(path, first, last):
 
 def main():
     src = sys.argv[1] if len(sys.argv) > 1 else HERE
-    redfin, first, last = read_redfin(os.path.join(src, REDFIN))
+    redfin, first, last, funnel = read_redfin(os.path.join(src, REDFIN))
     units = read_fmr(fetch(src, 'hud_fmr25.xlsx'))
     inc_county, inc_town = read_income(fetch(src, 'hud_il25.xlsx'))
     cent = read_centroids(fetch(src, 'ne_10m_admin_2_counties.geojson'))
     rate, weeks = read_rate(fetch(src, 'pmms.csv'), first, last)
-    print('Redfin: %d округов, окно %s..%s' % (len(redfin), first, last))
+    print('Redfin: %d округов в файле, %d со строками в окне %s..%s, %d с ценой за фут'
+          % (funnel['file'], funnel['window'], first, last, funnel['usable']))
+    if funnel['window'] < funnel['file']:
+        print('  без единой строки в окне: %d — рынок замер или Redfin перестал их публиковать'
+              % (funnel['file'] - funnel['window']))
+    if funnel['usable'] < funnel['window']:
+        print('  строки в окне есть, цены за фут нет: %d' % (funnel['window'] - funnel['usable']))
     print('HUD FMR: %d единиц; HUD IL: %d округов и %d городов'
           % (len(units), len(inc_county), len(inc_town)))
     print('PMMS 30 лет: %.2f %% в среднем за %d недель окна' % (rate, weeks))
@@ -372,6 +400,8 @@ def main():
         w.writerows(rows)
     json.dump({
         'window': [first, last], 'counties': len(rows), 'gaps': len(miss),
+        'funnel': funnel, 'propertyType': PROPERTY_TYPE, 'thinSales': THIN_SALES,
+        'thinCounties': sum(1 for r in rows if r[COLS.index('sales')] < THIN_SALES),
         # Население всех единиц HUD, а не только покрытых Redfin: только так
         # видно, какую долю страны рынок вообще показывает.
         'popTotal': round(sum(p['pop'] for u in units.values() for p in u)),
