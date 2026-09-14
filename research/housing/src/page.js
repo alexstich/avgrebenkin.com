@@ -125,6 +125,11 @@
     S.mt = placeById(p.get("mt")) ? p.get("mt") : null;
     S.mi = num("mi", 0, 1e7, 0);
     S.mc = FX[p.get("mc")] ? p.get("mc") : null;
+    // Ссылка может нести место одного слоя и кадр другого — например «?p=us48453»
+    // без «f». Кадр идёт за выбранным местом: показывать метку там, где её на
+    // карте нет, хуже, чем переключить карту.
+    var sel = placeById(S.sel);
+    if (sel && frameOf(sel) !== S.frame) S.frame = frameOf(sel);
   }
   function shareURL() {
     var q = [];
@@ -744,7 +749,7 @@
     else if (pl.kind === "region") { var r = regXY[pl.id]; if (!r) return; xy = project(r[0], r[1]); }
     else { var b = pathOf[pl.c] && pathOf[pl.c].getBBox(); if (!b) return; xy = [b.x + b.width / 2, b.y + b.height / 2]; }
     var k = pl.kind === "place" ? Math.max(Z.k, 4) : Math.max(Z.k, 2.5);
-    Z.k = k; Z.x = GEO.w / 2 - xy[0] * k; Z.y = GEO.h / 2 - xy[1] * k; applyZ();
+    Z.k = k; Z.x = GF.w / 2 - xy[0] * k; Z.y = GF.h / 2 - xy[1] * k; applyZ();
   }
 
   // ======================================================================
@@ -781,7 +786,8 @@
     function close() { box.hidden = true; box.innerHTML = ""; sug = []; idx = -1; el.setAttribute("aria-expanded", "false"); }
     function draw() {
       box.innerHTML = sug.length ? sug.map(function (it, i) {
-        var kind = it.kind === "place" ? (DEG[it.deg] || "municipality") : it.kind === "region" ? "region" : "country";
+        var kind = it.kind === "place" ? (DEG[it.deg] || FRAMES[frameOf(it)].unit)
+                 : it.kind === "region" ? FRAMES[frameOf(it)].reg : "country";
         var right = it.kind === "cc" ? fmtInt(it.pop) + " people" : esc(ccName(it.cc)) + (it.kind === "place" ? " · " + fmtInt(it.pop) : "");
         var shown = esc(it.name) + (it.alias ? " <em>" + esc(it.alias) + "</em>" : "");
         return "<li role=\"option\" data-i=\"" + i + "\" aria-selected=\"" + (i === idx) + "\"><span>" + shown + "</span><span class=\"kind\">" + kind + "</span><span class=\"cy\">" + right + "</span></li>";
@@ -978,6 +984,7 @@
     if (pl && !inFrame(pl)) {
       S.frame = frameOf(pl);
       buildRegButtons(); syncControls();
+      buildFrame();          // до перелёта: точка считается в проекции кадра
     }
     if (pl && fly) flyTo(pl);
     paintMap(); drawMarks(); drawCard(); drawRank(); drawMove(); syncURL();
@@ -991,10 +998,12 @@
       return;
     }
     var b = buyM2(pl), r = rentM2(pl), rate = rateOf(pl), bud = budget(pl);
-    var kindLine = pl.kind === "place" ? (DEG[pl.deg] ? DEG[pl.deg] + (pl.coast ? ", coastal" : "") + " · " : "") + fmtInt(pl.pop) + " people · region " + esc(N3[pl.reg] ? N3[pl.reg].name : "")
+    var kindLine = pl.kind === "place" ? (DEG[pl.deg] ? DEG[pl.deg] + (pl.coast ? ", coastal" : "") + " · " : "") + fmtInt(pl.pop) + " people · " + FRAMES[frameOf(pl)].reg + " " + esc(N3[pl.reg] ? N3[pl.reg].name : "")
                  : pl.kind === "region" ? "NUTS 3 region · " + fmtInt(pl.pop) + " people · data for " + Math.round(pl.covS * 100) + " % of them"
                  : "country · " + fmtInt(pl.pop) + " people · " + fmtInt(pl.places) + " municipalities";
-    var h = "<p class=\"plabel\">" + (pl.kind === "place" ? "Municipality" : pl.kind === "region" ? "Region" : "Country") + "</p>" +
+    function cap(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
+    var h = "<p class=\"plabel\">" + (pl.kind === "place" ? cap(FRAMES[frameOf(pl)].unit)
+                                     : pl.kind === "region" ? cap(FRAMES[frameOf(pl)].reg) : "Country") + "</p>" +
       "<h3 class=\"cname\">" + esc(pl.name) + "</h3><p class=\"cmeta\">" + esc(ccName(pl.cc)) + " · " + kindLine + "</p>";
     h += "<div class=\"cbig\"><div><b class=\"" + (cls(b) < 0 ? "nd" : "c" + cls(b)) + "\">" + fmtM2(b) + "</b><span>m² to buy" + (b === null ? "" : ", " + S.term + " years") + "</span></div>" +
          "<div><b class=\"" + (cls(r) < 0 ? "nd" : "c" + cls(r)) + "\">" + fmtM2(r) + "</b><span>m² to rent</span></div></div>";
