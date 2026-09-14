@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="{{lang}}" dir="{{dir}}" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>{{htmlTitle}}</title>
+<meta name="description" content="{{metaDescription}}">
+<link rel="canonical" href="{{canonical}}">
+{{hreflang}}
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Aleksei Grebenkin">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0b0c11" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f5f6f9" media="(prefers-color-scheme: light)">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%235b4fd6'/%3E%3Cg fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M16 8v8'/%3E%3Cpath d='M11 12v4'/%3E%3Cpath d='M21 12v4'/%3E%3Cpath d='M16 20v4'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Aleksei Grebenkin">
+<meta property="og:locale" content="{{locale}}">
+<meta property="og:title" content="{{htmlTitle}}">
+<meta property="og:description" content="{{ogDescription}}">
+<meta property="og:url" content="{{canonical}}">
+<meta property="og:image" content="https://avgrebenkin.com/images/research/housing-europe.jpg">
+<meta property="og:image:secure_url" content="https://avgrebenkin.com/images/research/housing-europe.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{imageAlt}}">
+<meta property="article:published_time" content="2026-09-14">
+<meta property="article:modified_time" content="2026-09-14">
+<meta property="article:author" content="https://avgrebenkin.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{htmlTitle}}">
+<meta name="twitter:description" content="{{ogDescription}}">
+<meta name="twitter:image" content="https://avgrebenkin.com/images/research/housing-europe.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"></noscript>
+<link rel="stylesheet" href="{{up}}shell.css?v=5">
+
+<script>
+  /* the theme before first paint, so a light reader never sees a dark flash */
+  (function () {
+    try {
+      var t = localStorage.getItem('theme');
+      if (['dark', 'light', 'cyber'].indexOf(t) === -1) {
+        t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+    document.documentElement.classList.add('js');
+  })();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "{{canonical}}#webpage",
+      "url": "{{canonical}}",
+      "name": "{{ldTitle}}",
+      "description": "{{ldDescription}}",
+      "isPartOf": { "@id": "https://avgrebenkin.com/#website" },
+      "author": { "@id": "https://avgrebenkin.com/#person" },
+      "datePublished": "2026-09-14",
+      "dateModified": "2026-09-14",
+      "inLanguage": "{{lang}}",
+      "breadcrumb": { "@id": "{{canonical}}#breadcrumb" },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://avgrebenkin.com/images/research/housing-europe.jpg",
+        "width": 1200,
+        "height": 630
+      },
+      "mainEntity": { "@id": "{{canonical}}#dataset" }
+    },
+    {
+      "@type": "Dataset",
+      "@id": "{{canonical}}#dataset",
+      "name": "{{ldDatasetName}}",
+      "description": "{{ldDatasetDescription}}",
+      "creator": { "@id": "https://avgrebenkin.com/#person" },
+      "datePublished": "2026-09-14",
+      "temporalCoverage": "2024-03/2025-03",
+      "spatialCoverage": { "@type": "Place", "name": "31 European countries (EU-27, Switzerland, Norway, Iceland, Liechtenstein) at LAU and NUTS 3 level" },
+      "measurementTechnique": [
+        "Weekly web scraping of housing listings, March 2024 to March 2025, aggregated by municipality and size class with listing-duration weights and cubic spline interpolation (ESPON HOUSE4ALL, TU Wien)",
+        "Eurostat EU-SILC mean equivalised disposable income (ilc_di03) disaggregated with the Mikou, Vallet and Guivarch (2024) subnational income dataset",
+        "Affordable floor area: one third of the mean equivalised income on a 30-year annuity mortgage at the DG ECFIN national fixed rate, price including transfer tax, VAT, notary and registry"
+      ],
+      "variableMeasured": [
+        { "@type": "PropertyValue", "name": "sa_m2", "description": "Square metres a third of the local mean equivalised income buys on a 30-year mortgage at the national fixed rate, price including transaction costs" },
+        { "@type": "PropertyValue", "name": "ra_m2", "description": "Square metres a third of the local mean equivalised income rents at the local listed rent per square metre" },
+        { "@type": "PropertyValue", "name": "sp_corr", "description": "Sale price per square metre, duration-weighted listing price plus transaction costs, EUR" },
+        { "@type": "PropertyValue", "name": "rp_corr", "description": "Monthly rent per square metre, duration-weighted listing rent, EUR" },
+        { "@type": "PropertyValue", "name": "income24", "description": "Mean equivalised disposable income 2024, EUR per year" },
+        { "@type": "PropertyValue", "name": "rate", "description": "National fixed mortgage interest rate used by the study, per cent" },
+        { "@type": "PropertyValue", "name": "pop", "description": "Population 2021, Eurostat LAU" },
+        { "@type": "PropertyValue", "name": "degurba", "description": "Degree of urbanisation 2021: 1 city, 2 town or suburb, 3 rural (EU-27 only)" }
+      ],
+      "citation": [
+        "Sielker, F., & Banabak, S. (2026). Where can you still afford to live? – a comparative perspective on European housing affordability. Journal of Maps, 22(1), 2695777. https://doi.org/10.1080/17445647.2026.2695777",
+        "https://www.espon.eu/projects/access-affordable-and-quality-housing-all-people-house4all",
+        "https://doi.org/10.1038/s41597-024-03138-x"
+      ],
+      "isAccessibleForFree": true,
+      "keywords": ["housing affordability", "Europe", "rent", "house prices", "mortgage", "ESPON", "TU Wien", "LAU", "NUTS 3"],
+      "distribution": {
+        "@type": "DataDownload",
+        "encodingFormat": "text/csv",
+        "contentUrl": "https://avgrebenkin.com/research/data/house4all-lau-2024.csv"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "{{canonical}}#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://avgrebenkin.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Research", "item": "https://avgrebenkin.com/research/" },
+        { "@type": "ListItem", "position": 3, "name": "{{ldName}}", "item": "{{canonical}}" }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+{{css}}
+</style>
+</head>
+<body>
+
+<nav class="site-nav" id="site-nav">
+  <a href="/" class="nav-name">Aleksei Grebenkin</a>
+  <div class="nav-links" id="nav-links">
+    <a href="/#projects" class="nav-link">Projects</a>
+    <a href="/#notes" class="nav-link">Notes</a>
+    <a href="/research/" class="nav-link nav-link-active">Research</a>
+    <a href="/#speaking" class="nav-link">Speaking</a>
+    <a href="/#certifications" class="nav-link">Certifications</a>
+    <a href="/#journey" class="nav-link">Journey</a>
+    <a href="/#contacts" class="nav-link">Contacts</a>
+  </div>
+  <div class="nav-controls">
+    <div class="theme-switcher" id="theme-switcher" role="radiogroup" aria-label="Color theme">
+      <button type="button" class="theme-btn" data-theme="dark" role="radio" aria-label="Dark theme" aria-checked="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button type="button" class="theme-btn" data-theme="light" role="radio" aria-label="Light theme" aria-checked="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button type="button" class="theme-btn" data-theme="cyber" role="radio" aria-label="Cyberpunk theme" aria-checked="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+      </button>
+    </div>
+    <button type="button" class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+      <span class="nav-burger-line"></span>
+      <span class="nav-burger-line"></span>
+      <span class="nav-burger-line"></span>
+    </button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+  <div class="printhead"><h2>{{title}}</h2><p id="printsetup"></p><p id="printurl">{{printUrl}}</p></div>
+  <p class="crumb"><a href="/research/">← Research</a></p>
+
+  <header class="hero">
+    <img class="cover" src="{{up}}../images/research/housing-europe-page.webp"
+         alt="{{imageAlt}}" width="1600" height="560" fetchpriority="high" decoding="async">
+    <div class="htop">
+      <h1>{{title}}</h1>
+      <button type="button" class="sharebtn primary" data-share title="Copy a link that reopens this exact setup">{{svgShare}}Share this setup</button>
+    </div>
+    <p class="sub">A third of the average income buys fewer than 50 square metres for <b>44 % of Europeans</b>. Type your own income and see what it buys, and where.</p>
+    <div class="meta">
+      <span>Data: <a href="https://doi.org/10.1080/17445647.2026.2695777" target="_blank" rel="noopener">Sielker &amp; Banabak, TU Wien, <i>Journal of Maps</i> 2026</a> · <a href="https://www.espon.eu/projects/access-affordable-and-quality-housing-all-people-house4all" target="_blank" rel="noopener">ESPON HOUSE4ALL</a> · <a href="https://ec.europa.eu/eurostat/web/gisco" target="_blank" rel="noopener">Eurostat GISCO</a></span>
+      <span>Listings March 2024 – March 2025 · incomes 2024 · service snapshot 14 Sep 2026</span>
+    </div>
+  </header>
+
+  <div class="keyrow" aria-label="Key numbers from the study">
+    <div class="key"><b>44 %</b><span>of Europeans live where a 30-year mortgage on a third of the average income buys <b>under 50 m²</b></span></div>
+    <div class="key"><b>70 %</b><span>live where it buys <b>75 m² at most</b>; fewer than 5 % live in the most affordable areas</span></div>
+    <div class="key"><b>39 %</b><span>live where a third of the average income <b>rents under 50 m²</b>; two thirds of them in cities</span></div>
+    <div class="key"><b>22 M</b><span>listings behind the map: 18.4 M for sale and 3.6 M for rent, <b>31 countries</b>, one year of weekly scraping</span></div>
+  </div>
+
+  <section class="prose intro">
+    <p>In September 2026 two researchers at TU Wien, Franziska Sielker and Selim Banabak, published a pair of maps that answer a plain question for every municipality in Europe: <b>how many square metres can an average earner afford here?</b> One map is for buying, one for renting. Both use the same yardstick, a third of the local average income, and both come from the same 22 million property listings gathered for the ESPON HOUSE4ALL project. The maps are published in the <i>Journal of Maps</i>; the numbers behind them sit in a public map service of the ESPON programme.</p>
+    <p>This page puts that dataset in your hands. The study answers for the <b>average local income</b>. You can answer for <b>your own</b>: type what you earn, choose how much of it you would spend on housing, pick a mortgage term and a down payment, and the map, the rankings and the comparison table are recalculated for you. Or turn it around: say how many square metres you want and see where in Europe they are within reach.</p>
+    <p>Everything is computed in your browser from one embedded table. Nothing is sent anywhere. The <b>Where the numbers come from</b> section below says exactly what was taken from where, and what was added.</p>
+  </section>
+
+  <!-- ─── calculator ─────────────────────────────────────────────── -->
+  <section class="panel" id="p-calc" aria-labelledby="calc-h">
+    <div class="phead">
+      <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup">{{svgShare}}</button></div>
+      <h2 id="calc-h">Your numbers</h2>
+      <p>The study assumes the average local income and a 30-year mortgage. Change any of it. With no income entered, every place is shown on its own average income, exactly as in the published maps.</p>
+    </div>
+    <div class="presets" id="presets" role="group" aria-label="Example setups"></div>
+    <div class="calc">
+      <div class="field f-income">
+        <label for="inc">Net income of the household per month</label>
+        <div class="inrow">
+          <input id="inc" type="number" inputmode="decimal" min="0" step="50" placeholder="leave empty for the local average">
+          <select id="cur" aria-label="Currency"></select>
+        </div>
+        <p class="fhint" id="inchint">After tax, all earners together. Converted to euro at the ECB reference rate of 11 September 2026.</p>
+      </div>
+      <div class="field">
+        <label for="share">Share of income for housing <output for="share" id="share-o">33 %</output></label>
+        <input id="share" type="range" min="20" max="45" step="1" value="33">
+        <p class="fhint">The study uses one third. Above 40 % is usually called an overburden.</p>
+      </div>
+      <div class="field">
+        <label for="term">Mortgage term</label>
+        <div class="seg" role="group" aria-label="Mortgage term in years" id="term">
+          <button type="button" data-v="10">10 y</button><button type="button" data-v="15">15 y</button><button type="button" data-v="20">20 y</button><button type="button" data-v="25">25 y</button><button type="button" data-v="30" aria-pressed="true">30 y</button>
+        </div>
+        <p class="fhint">The study's maps use 30 years; its Annex B repeats them for 20.</p>
+      </div>
+      <div class="field">
+        <label for="rate">Interest rate, % per year</label>
+        <div class="inrow">
+          <input id="rate" type="number" inputmode="decimal" min="0" max="25" step="0.05" placeholder="national rate from the study">
+          <button type="button" class="minibtn" id="rate-x" hidden>national</button>
+        </div>
+        <p class="fhint" id="ratehint">Empty means each country's own fixed rate from the study: 3.01 % in France, 4.00 % in Germany, 8.32 % in Poland.</p>
+      </div>
+      <div class="field">
+        <label for="dep">Down payment <output for="dep" id="dep-o">0 %</output></label>
+        <input id="dep" type="range" min="0" max="40" step="5" value="0">
+        <p class="fhint">Of the price including taxes and fees. The study assumes none; the loan then covers the rest.</p>
+      </div>
+      <div class="field">
+        <label>Household</label>
+        <div class="inrow hh">
+          <span class="stepper"><button type="button" data-hh="adults" data-d="-1" aria-label="Fewer adults">−</button><b id="adults-o">1</b><button type="button" data-hh="adults" data-d="1" aria-label="More adults">+</button><i>adults</i></span>
+          <span class="stepper"><button type="button" data-hh="kids" data-d="-1" aria-label="Fewer children">−</button><b id="kids-o">0</b><button type="button" data-hh="kids" data-d="1" aria-label="More children">+</button><i>children under 14</i></span>
+        </div>
+        <p class="fhint" id="hhhint">Equivalence factor 1.0 (OECD-modified scale). Used only to compare your income with the local average per adult-equivalent.</p>
+      </div>
+      <div class="field f-want">
+        <label for="want">I want at least <output for="want" id="want-o">—</output></label>
+        <input id="want" type="range" min="0" max="150" step="5" value="0">
+        <p class="fhint">Zero switches the filter off. With a value, the map dims every region where that size is out of reach, and the rankings show only the places where it is not.</p>
+      </div>
+    </div>
+    <div class="setupline" id="setupline" aria-live="polite"></div>
+  </section>
+
+  <!-- ─── map ────────────────────────────────────────────────────── -->
+  <section class="panel" id="p-map" aria-labelledby="map-h">
+    <div class="phead">
+      <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup">{{svgShare}}</button><button type="button" class="ibtn" data-png="map" title="Copy the map as a PNG" aria-label="Copy the map as a PNG">{{svgPng}}</button><button type="button" class="ibtn" data-png-dl="map" title="Download the map as a PNG" aria-label="Download the map as a PNG">{{svgDl}}</button><button type="button" class="ibtn" data-print="map" title="Print the map" aria-label="Print the map">{{svgPrint}}</button></div>
+      <h2 id="map-h">The map</h2>
+      <p>Square metres per NUTS 3 region, the population-weighted mean of its municipalities. Hover or tap a region for its numbers; search a town to jump to it. Colours follow the legend of the study: the darker, the fewer square metres.</p>
+    </div>
+    <div class="bar">
+      <div class="seg" role="group" aria-label="What the map shows" id="mapmode">
+        <button type="button" data-v="buy" aria-pressed="true">Buy</button><button type="button" data-v="rent" aria-pressed="false">Rent</button><button type="button" data-v="diff" aria-pressed="false">Rent − buy</button>
+      </div>
+      <div class="seg" role="group" aria-label="Whose income" id="basis">
+        <button type="button" data-v="local" aria-pressed="true">Local average income</button><button type="button" data-v="mine" aria-pressed="false" disabled title="Enter your income above">My income</button>
+      </div>
+    </div>
+    <div class="gsearch">
+      <label class="sr-only" for="q">Search a town, region or country</label>
+      <input id="q" type="text" placeholder="Town, region or country — e.g. Porto, Bavaria, Poland" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="qsug" aria-autocomplete="list">
+      <button type="button" class="gq-clear" id="qx" aria-label="Clear search" hidden>×</button>
+      <ul class="gsug" id="qsug" role="listbox" aria-label="Matching places" hidden></ul>
+    </div>
+    <div class="mapwrap">
+      <div class="mapbox" id="mapbox">
+        <svg id="map" viewBox="0 0 {{geoW}} {{geoH}}" role="img" aria-label="Map of Europe by NUTS 3 region, coloured by affordable square metres">
+          <g id="mapg">
+            <g id="regions"></g>
+            <g id="borders"></g>
+            <g id="marks"></g>
+          </g>
+        </svg>
+        <div class="legend" id="legend" aria-label="Map legend"></div>
+        <div class="zoombar">
+          <button type="button" class="zbtn" id="zin" aria-label="Zoom in">+</button>
+          <button type="button" class="zbtn" id="zout" aria-label="Zoom out">−</button>
+          <button type="button" class="zbtn" id="zreset" aria-label="Reset the view" title="Reset the view">⌂</button>
+        </div>
+        <div class="ghint"><span class="ghint-mouse">drag to pan · ctrl + wheel to zoom</span><span class="ghint-touch">drag sideways · pinch to zoom</span></div>
+        <div class="tip" id="maptip" role="status"></div>
+      </div>
+      <div class="cardcol" id="card">
+        <p class="plabel">Selected place</p>
+        <p class="cempty">Search a town above or click a region on the map. The card shows what your settings mean there, and what it would take.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── compare ────────────────────────────────────────────────── -->
+  <section class="panel" id="p-cmp" aria-labelledby="cmp-h">
+    <div class="phead">
+      <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup">{{svgShare}}</button><button type="button" class="ibtn" data-png="cmp" title="Copy the comparison as a PNG" aria-label="Copy the comparison as a PNG">{{svgPng}}</button><button type="button" class="ibtn" data-png-dl="cmp" title="Download the comparison as a PNG" aria-label="Download the comparison as a PNG">{{svgDl}}</button><button type="button" class="ibtn" data-csv="cmp" title="Download the comparison as CSV" aria-label="Download the comparison as CSV">{{svgCsv}}</button><button type="button" class="ibtn" data-print="cmp" title="Print the comparison" aria-label="Print the comparison">{{svgPrint}}</button></div>
+      <h2 id="cmp-h">Side by side</h2>
+      <p>Up to four places, towns or countries. Add them from the card above or from the rankings below. The first block follows your settings; the second holds the terms fixed so the places can be compared the way the study compares them.</p>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="tablescroll"><table class="cmptable" id="cmptable"></table></div>
+  </section>
+
+  <!-- ─── rankings ───────────────────────────────────────────────── -->
+  <section class="panel" id="p-rank" aria-labelledby="rank-h">
+    <div class="phead">
+      <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup">{{svgShare}}</button><button type="button" class="ibtn" data-csv="rank" title="Download this table as CSV" aria-label="Download this table as CSV">{{svgCsv}}</button><button type="button" class="ibtn" data-print="rank" title="Print the table" aria-label="Print the table">{{svgPrint}}</button></div>
+      <h2 id="rank-h">Rankings</h2>
+      <p>Countries as population-weighted means of their municipalities, cities as single municipalities of 100,000 people or more. Every number moves with your settings; the size filter above narrows the list.</p>
+    </div>
+    <div class="bar">
+      <div class="seg" role="group" aria-label="What to rank" id="rankwhat">
+        <button type="button" data-v="countries" aria-pressed="true">Countries</button><button type="button" data-v="cities" aria-pressed="false">Cities</button>
+      </div>
+      <div class="regs" role="group" aria-label="Parts of Europe" id="regs"></div>
+    </div>
+    <div class="tablescroll"><table class="ranktable" id="ranktable"><thead><tr id="rankhead"></tr></thead><tbody id="rankbody"></tbody></table></div>
+    <p class="note" id="ranknote"></p>
+  </section>
+
+  <!-- ─── figure 3 ───────────────────────────────────────────────── -->
+  <section class="panel" id="p-hist" aria-labelledby="hist-h">
+    <div class="phead">
+      <div class="pactions"><button type="button" class="ibtn" data-print="hist" title="Print the chart" aria-label="Print the chart">{{svgPrint}}</button></div>
+      <h2 id="hist-h">Who lives where</h2>
+      <p>The study's figure 3, rebuilt from the same table: each bar is a class of affordability, its height the share of the population of the 31 countries living there, its colours the split into cities, towns and suburbs, and rural areas. Fixed to the study's own terms: a third of the local average income, 30 years, national rate. Your settings do not move this chart.</p>
+    </div>
+    <div class="histwrap">
+      <figure class="hist"><figcaption>Buying, m² on a 30-year mortgage</figcaption><svg id="hist-sale" viewBox="0 0 520 300" role="img" aria-label="Population share by class of affordable square metres to buy, split by degree of urbanisation"></svg></figure>
+      <figure class="hist"><figcaption>Renting, m² on a third of income</figcaption><svg id="hist-rent" viewBox="0 0 520 300" role="img" aria-label="Population share by class of affordable square metres to rent, split by degree of urbanisation"></svg></figure>
+    </div>
+    <div class="histlegend"><span><i class="d1"></i>cities</span><span><i class="d2"></i>towns and suburbs</span><span><i class="d3"></i>rural</span><span><i class="d0"></i>not classified (Switzerland, Norway, Iceland)</span></div>
+    <p class="note">Read from the table as served in September 2026: {{statSale50}} % of people live where a third of the average income buys under 50 m², {{statSale75}} % where it buys 50–75 m²; for renting {{statRent50}} % and {{statRent75}} %, with {{statRentNd}} % in municipalities where no rental offer was recorded. The paper reports 44 %, 28 %, 39 %, 22 % and 12 % of the rural population; the gap is the difference between the map service and the final dataset of the paper, and is discussed under <a href="#sources">Where the numbers come from</a>.</p>
+  </section>
+
+  <aside class="sy-strip" aria-label="Speak-Y">
+    <span class="sy-brand">
+      <img class="sy-icon" src="{{up}}../images/icons/speak-y.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+      <span class="sy-name">Speak-<i>Y</i></span>
+    </span>
+      <p><b>Voice input and meeting recording.</b> One hotkey, any app, 67+ languages.</p>
+      <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free <span aria-hidden="true">→</span></a>
+    </aside>
+
+  <!-- ─── article ────────────────────────────────────────────────── -->
+  <section class="prose" id="found">
+    <h2>What the study found</h2>
+    <p>The two maps measure the same thing from two sides. For buying, the authors take a third of the average equivalised disposable income of a municipality, assume it goes to the monthly instalment of a 30-year mortgage at the country's fixed rate, and ask how many square metres the resulting loan buys at local prices, taxes and fees included. For renting they divide the same third of income by the local rent per square metre. <b>Both answers are in square metres</b>, so a reader can compare places without knowing a single price.</p>
+    <p><b>Close to 44 % of Europe's population</b> lives where the mortgage buys fewer than 50 square metres. About 28 % live where it buys 50 to 75. Put together, more than 70 % of Europeans live in a place where a 30-year mortgage on a third of the average income buys at most 75 square metres. Fewer than 5 % live in the most affordable class.</p>
+    <p>Renting looks much the same: <b>more than 39 %</b> live where a third of the average income rents fewer than 50 square metres, and about 22 % where it rents 50 to 75. The least affordable rental class is very much a city phenomenon: more than 65 % of the people in it live in cities, about 26 % in towns and suburbs, about 10 % in rural areas. Rural areas stand out for another reason: for 12 % of the rural population the scraping found no formal rental offer at all.</p>
+    <p>The geography is what you would expect and sharper than you would expect. <b>Capital regions of nearly every country</b> sit in the least affordable class, and they pull their neighbours with them: unaffordability spills over into the surrounding regions of Paris, Berlin and Madrid despite the higher incomes earned there, and across borders around Switzerland and Luxembourg. The coasts of France, Spain, Portugal, Greece and Croatia and the tourist valleys of the Alps are far less affordable than the countryside behind them. Scandinavia and the Baltic states come out markedly more affordable, save a few urban hotspots.</p>
+    <p>At the country level the authors name Portugal, the Netherlands and Switzerland as rather unaffordable, and likewise Poland and Hungary. There is a caveat on Poland that matters for reading the whole map: it has an extremely high share of owners without a mortgage, so the gap between prices and incomes is <b>not felt by the majority</b>, who already own. It is felt by newcomers: young households, and anyone who has to move.</p>
+    <p>Renting is more affordable than buying in Germany, France, Belgium, Austria and Switzerland, but not in Portugal, Greece, Bulgaria or Ireland. The authors warn against reading the two maps as a like-for-like choice: a mortgage instalment builds equity, a rent payment does not, and the security of tenure differs. Both maps describe the market <b>from a newcomer's point of view</b>, at today's prices; they say nothing about what current residents pay.</p>
+  </section>
+
+  <details class="panel method" id="method">
+    <summary>How the numbers were made</summary>
+    <div class="methodbody">
+      <dl>
+        <dt>Listings</dt>
+        <dd>Weekly web scraping from the beginning of March 2024 to the end of March 2025 in 31 countries: the EU-27 plus Switzerland, Norway, Iceland and Liechtenstein. Where possible the crawlers targeted aggregator sites such as Nestoria, which mirror listings from several national portals; national sites were added where coverage was thin. More than 100 million records came in; after translation, de-duplication and outlier filtering, <b>18,360,314 unique sale listings and 3,568,849 unique long-term rental listings</b> remained. A listing that reappeared week after week counts once, in its last version before it went offline.</dd>
+        <dt>Municipality and size</dt>
+        <dd>Each listing is matched to a municipality, the Eurostat LAU (local administrative unit) except in Portugal and Greece, where a coarser unit is used, and to one of five size classes: 0–30, 31–60, 61–90, 91–120 and above 120 square metres. Prices are averaged by municipality and class with a weight that penalises listings that stayed online much longer than the median, on the reasoning that an overpriced flat sits. Thin classes borrow from their neighbours; a cubic spline then smooths the five points into one price-to-size curve per municipality and tenure.</dd>
+        <dt>Income</dt>
+        <dd>The mean equivalised disposable income per country from Eurostat's EU-SILC survey (table ilc_di03), spread across municipalities with the subnational income distribution of Mikou, Vallet and Guivarch (2024). Equivalised means the household income is divided by a weight for household size, so the figure is per adult-equivalent. The authors chose income over GDP per head deliberately: GDP piles up in capitals and financial centres and would make exactly the places that matter look richer than their residents are.</dd>
+        <dt>Mortgage</dt>
+        <dd>A third of the income goes to the instalment of a 30-year annuity mortgage at the national fixed rate supplied by the European Commission's DG ECFIN, the latest yearly average available, typically 2023. The price is harmonised to include real-estate transfer tax or VAT, land registry and notary fees. No down payment is assumed, on purpose: it keeps the indicator comparable across regulatory settings. Annex B of the paper repeats the map for a 20-year term.</dd>
+        <dt>Rent</dt>
+        <dd>The same third of income divided by the rent per square metre from the spline. Both indicators are in square metres at the same burden, but the authors caution against comparing them directly: the mortgage instalment builds equity, the rent does not.</dd>
+        <dt>Checks</dt>
+        <dd>For five countries where average transaction prices exist at some regional level, Annex A compares listed and transacted prices and finds a very high correlation, with spreads that vary. The authors expect the spread to be smaller in hot markets, which would make urban ownership look even less affordable than the map already does.</dd>
+      </dl>
+    </div>
+  </details>
+
+  <section class="prose" id="limits">
+    <h2>Limitations, theirs and mine</h2>
+    <p><b>Listed prices are not transaction prices.</b> The study works from asking prices, and the gap to the price actually paid is not known at municipal level. Where it is known it correlates well with the listing, but it follows patterns of its own.</p>
+    <p><b>A municipality is one number.</b> Inside a city the difference between districts can be as large as the difference between regions; the map cannot show it. On this page the map goes one step coarser still, to NUTS 3 regions, because 89,601 municipal outlines do not fit in a web page. The search and the card work at municipal level.</p>
+    <p><b>Local income is an estimate.</b> The survey income is disaggregated, not measured, in each municipality. In several Eastern European countries the disaggregation varies little outside the big cities, so some intermediate regions may look poorer than they are. The authors ask that absolute values be treated with caution; the patterns are more robust than the digits.</p>
+    <p><b>No down payment, no loan limits.</b> The study abstracts from both. The down-payment slider on this page is my addition: it reduces the loan and lets you see what a saved deposit is worth. Loan-to-value rules, income multiples and other formal entry barriers are still not modelled.</p>
+    <p><b>Your income is not equivalised.</b> The study's third is a third of an income per adult-equivalent. When you type a household income, the page takes a third of the whole thing, because that is what a household actually spends, and uses the household composition only to compare your income with the local average. The two views agree for a single adult.</p>
+    <p><b>Timing.</b> Listings are from 2024–2025, incomes are 2024, rates are mostly 2023 averages and the population is the 2021 census round. Rates have moved since; the rate field lets you override them.</p>
+  </section>
+
+  <section class="prose" id="sources">
+    <h2>Where the numbers come from</h2>
+    <p>The paper's data availability statement says the data is available at reasonable request to the authors. No table is attached to the paper; the supplementary files are the two maps as vector PDFs. The numbers on this page therefore came from the next best place, and the following is exactly what happened.</p>
+    <p><b>The ESPON map service.</b> The HOUSE4ALL project publishes an interactive StoryMap on the ESPON ArcGIS portal. Its maps are drawn from three public feature services on the programme's GIS server, and one of them, <code>HOUSE4ALL_data_at_LAU_level</code>, carries a row per municipality with the 2024 mean equivalised income, the corrected sale price and rent per square metre, the national mortgage rate and the two affordability indicators of the paper, <code>sa_m2</code> and <code>ra_m2</code>. On 14 September 2026 all 89,601 rows were read through the service's query interface, 2,000 at a time, with the centroid of each municipality. That table, trimmed to the fields used here, is published next to this page as <a href="{{up}}data/house4all-lau-2024.csv">house4all-lau-2024.csv</a> (10.7 MB).</p>
+    <p><b>The formula was checked, not assumed.</b> For all 78,758 municipalities with sales data, a third of the monthly income times the annuity factor of a 30-year loan at the row's rate, divided by the corrected price, reproduces the service's <code>sa_m2</code> to within one part in a billion; the rent indicator likewise. So the calculator uses the study's arithmetic, not an approximation of it, and with the defaults left alone it shows the study's own numbers. The corrected price is the duration-weighted listing price with transaction costs added: in Vienna it is 6.4 % above the raw listing price, which is about what Austrian transfer tax, registration and notary fees add up to.</p>
+    <p><b>What the service does not have.</b> The five size-class prices are in the service, but the published indicators use the overall corrected price, and so does this page. The degree of urbanisation and the coastal flag come from Eurostat's LAU 2021 correspondence table, which covers the EU-27 only; Swiss, Norwegian and Icelandic municipalities appear as "not classified" in the chart above. Region outlines are Eurostat GISCO NUTS 2021 at 1:20 million, projected in the Lambert azimuthal equal-area projection the ESPON maps use. Overseas territories, the Canaries, the Azores and Madeira are outside the frame but inside the search.</p>
+    <p><b>Where the page and the paper differ.</b> The population shares computed from the service ({{statSale50}} % under 50 m² to buy, {{statRent50}} % to rent) are a few points below the paper's 44 % and 39 %. The service is the project's data release; the paper's figure 3 was drawn from the authors' working dataset, and the two may differ in population weights, in income year or in the treatment of municipalities without data. The paper's figures are quoted as the paper's; the chart shows what the public table gives. A request to the authors for the final table is drafted and will be sent.</p>
+    <p><b>Exchange rates</b> for the income field are the European Central Bank's euro reference rates of 11 September 2026, fixed in the page so that a shared link means the same amount next month.</p>
+  </section>
+
+  <section class="prose refs" id="refs">
+    <h2>Sources</h2>
+    <ol>
+      <li>Sielker, F., &amp; Banabak, S. (2026). Where can you still afford to live? – a comparative perspective on European housing affordability. <i>Journal of Maps</i>, 22(1), 2695777. Open access, published 2 September 2026. <a href="https://doi.org/10.1080/17445647.2026.2695777" target="_blank" rel="noopener">doi:10.1080/17445647.2026.2695777</a>. Supplementary maps: <a href="https://www.tandfonline.com/action/downloadSupplement?doi=10.1080%2F17445647.2026.2695777&amp;file=tjom_a_2695777_sm9338.pdf" target="_blank" rel="noopener">SalesAffordability2024.pdf</a>, <a href="https://www.tandfonline.com/action/downloadSupplement?doi=10.1080%2F17445647.2026.2695777&amp;file=tjom_a_2695777_sm9339.pdf" target="_blank" rel="noopener">RentalAffordability2024.pdf</a>.</li>
+      <li>Sielker, F., Banabak, S., Gerhalter, M., Neuhuber, T., Sutterlütti, D., Dorner, J., et al. (2025). <i>Access to affordable and quality housing for all people: Main report</i>. ESPON EGTC. <a href="https://www.espon.eu/sites/default/files/2025-11/espon-house4all-main-report.pdf" target="_blank" rel="noopener">PDF</a>.</li>
+      <li>Sielker, F., Banabak, S., Serra, M., Palma, E., Falcón, L., Sutterlütti, D., &amp; Larrea, E. (2025). <i>Access to affordable and quality housing for all people: Methodological report</i>. ESPON EGTC. <a href="https://www.espon.eu/sites/default/files/publications/files/2026-02/espon-h4al-methodological-report.pdf" target="_blank" rel="noopener">PDF</a>. Lists the sites scraped and the processing code.</li>
+      <li>ESPON HOUSE4ALL StoryMap and feature services, ESPON GIS portal. <a href="https://gis-portal.espon.eu/arcgis/apps/storymaps/stories/6acf53415f994941bcb2e8e31793f2e1" target="_blank" rel="noopener">StoryMap</a> · <a href="https://gis-server.espon.eu/arcgis/rest/services/Hosted/HOUSE4ALL_data_at_LAU_level/FeatureServer/0" target="_blank" rel="noopener">HOUSE4ALL_data_at_LAU_level</a> · <a href="https://www.espon.eu/projects/access-affordable-and-quality-housing-all-people-house4all" target="_blank" rel="noopener">project page</a>.</li>
+      <li>Mikou, M., Vallet, A., &amp; Guivarch, C. (2024). Harmonized disposable income dataset for Europe at subnational level. <i>Scientific Data</i>, 11, 308. <a href="https://doi.org/10.1038/s41597-024-03138-x" target="_blank" rel="noopener">doi:10.1038/s41597-024-03138-x</a>.</li>
+      <li>Eurostat. Mean and median income by age and sex, EU-SILC survey (ilc_di03). <a href="https://ec.europa.eu/eurostat/databrowser/view/ilc_di03/default/table?lang=en" target="_blank" rel="noopener">databrowser</a>.</li>
+      <li>Eurostat. Local Administrative Units, LAU 2021 correspondence table with population, degree of urbanisation and coastal flag. <a href="https://ec.europa.eu/eurostat/web/gisco/geodata/statistical-units/local-administrative-units" target="_blank" rel="noopener">GISCO</a>.</li>
+      <li>Eurostat GISCO. NUTS 2021 regions, 1:20 million, © EuroGeographics for the administrative boundaries. <a href="https://ec.europa.eu/eurostat/web/gisco/geodata/statistical-units/territorial-units-statistics" target="_blank" rel="noopener">GISCO</a>.</li>
+      <li>European Central Bank. Euro foreign exchange reference rates, 11 September 2026. <a href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html" target="_blank" rel="noopener">ECB</a>.</li>
+      <li>Press coverage with the authors' own summary: <a href="https://www.eurekalert.org/news-releases/1141906" target="_blank" rel="noopener">EurekAlert!, 2 September 2026</a>; <a href="https://www.tuwien.at/en/tu-wien/news/news-articles?tx_news_pi1%5Baction%5D=detail&amp;tx_news_pi1%5Bcontroller%5D=News&amp;tx_news_pi1%5Bnews%5D=210029&amp;cHash=bcb107412caa9ded3616c68e2352a144" target="_blank" rel="noopener">TU Wien news</a>.</li>
+    </ol>
+    <p class="fine">The study is the work of Franziska Sielker and Selim Banabak of the Institute of Spatial Planning, TU Wien, and of the ESPON HOUSE4ALL consortium. This page is an independent reading of their public data; any error in the calculator or the text is mine, not theirs.</p>
+  </section>
+</div>
+</main>
+
+<footer>
+  <span>© 2026 Aleksei Grebenkin</span>
+  <a class="to-top" href="#top">↑ top</a>
+</footer>
+
+<script src="{{up}}shell.js?v=5"></script>
+<script>
+{{js}}
+</script>
+</body>
+</html>

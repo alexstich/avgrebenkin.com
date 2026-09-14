@@ -1,0 +1,1025 @@
+(function () {
+  "use strict";
+  /* Всё, что видно на странице, считается здесь из одной вшитой таблицы: DATA —
+     страны, регионы NUTS 3 и 8 489 муниципалитетов (см. src/data.py), GEO —
+     контуры регионов в проекции Ламберта (см. src/geo.py). Ни одного запроса в
+     сеть страница не делает и открывается локальным файлом. */
+  var DATA = {{data}};
+  var GEO = {{geo}};
+
+  // ---- расшифровка компактных массивов
+  var C = DATA.countries, CI = {};
+  C.forEach(function (c, i) { CI[c.c] = i; });
+  var N3 = DATA.nuts3.map(function (a, i) {
+    return { kind: "n3", idx: i, id: a[0], name: a[1], cc: a[2], pop: a[3], inc: a[4], sp: a[5], rp: a[6],
+             sa: a[7], ra: a[8], covS: a[9], covR: a[10] };
+  });
+  var N3I = {};
+  N3.forEach(function (n, i) { N3I[n.id] = i; });
+  var L = DATA.lau.map(function (a, i) {
+    return { kind: "lau", idx: i, id: a[0], name: a[1], cc: C[a[2]].c, n3: a[3], pop: a[4], inc: a[5], sp: a[6],
+             rp: a[7] / 10, lat: a[8] / 100, lon: a[9] / 100, deg: a[10], coast: a[11],
+             alias: (DATA.aliases || {})[a[0]] || "" };
+  });
+  var LI = {};
+  L.forEach(function (l, i) { LI[l.id] = i; });
+  C.forEach(function (c) { c.kind = "cc"; c.id = "c:" + c.c; c.name = c.n; c.cc = c.c; });
+
+  var DEG = { 1: "city", 2: "town or suburb", 3: "rural", 0: "" };
+  var CLASSES = DATA.classes;                       // [50, 75, 100, 150]
+  var CLASS_LABEL = ["under 50 m²", "50–75 m²", "76–100 m²", "101–150 m²", "over 150 m²"];
+  var DIFF_BREAKS = [-20, -5, 5, 20];
+  var DIFF_LABEL = ["buying gives 20 m² more", "buying gives 5–20 m² more", "within 5 m²", "renting gives 5–20 m² more", "renting gives 20 m² more"];
+  var REGIONS = [["north", "North & Baltics"], ["west", "West"], ["south", "South"], ["east", "East"]];
+  // Курсы ЕЦБ на 11 сентября 2026: единиц валюты за евро. Вшиты, чтобы ссылка
+  // означала ту же сумму и через месяц.
+  var FX = { EUR: 1, USD: 1.1592, GBP: 0.85815, CHF: 0.9451, PLN: 4.3250, CZK: 24.264, HUF: 364.45,
+             SEK: 11.2373, NOK: 10.7805, DKK: 7.4748, RON: 5.2547, ISK: 139.60, TRY: 56.3329 };
+  var FX_DATE = "11 Sep 2026";
+
+  // ---- состояние: всё живёт в адресной строке
+  var S = { inc: 0, cur: "EUR", share: 33, term: 30, rate: null, dep: 0, adults: 1, kids: 0,
+            mode: "buy", basis: "local", want: 0, cmp: [], reg: { north: 1, west: 1, south: 1, east: 1 },
+            sort: "buy", dir: "desc", rank: "countries", sel: null, coast: 0, sav: 500 };
+  var DEFAULTS = JSON.parse(JSON.stringify(S));
+
+  function readURL() {
+    var p = new URLSearchParams(location.search);
+    function num(k, lo, hi, def) {
+      if (!p.has(k) || p.get(k) === "") return def;
+      var v = parseFloat(p.get(k)); return isNaN(v) ? def : Math.max(lo, Math.min(hi, v));
+    }
+    S.inc = num("i", 0, 1e7, 0);
+    S.cur = FX[p.get("c")] ? p.get("c") : "EUR";
+    S.share = num("s", 20, 45, 33);
+    S.term = [10, 15, 20, 25, 30].indexOf(num("t", 10, 30, 30)) >= 0 ? num("t", 10, 30, 30) : 30;
+    S.rate = p.has("r") && p.get("r") !== "" ? num("r", 0, 25, null) : null;
+    S.dep = num("d", 0, 40, 0);
+    S.adults = num("a", 1, 6, 1); S.kids = num("k", 0, 8, 0);
+    S.mode = ["buy", "rent", "diff"].indexOf(p.get("m")) >= 0 ? p.get("m") : "buy";
+    S.basis = p.get("b") === "mine" && S.inc > 0 ? "mine" : "local";
+    S.want = num("q", 0, 150, 0);
+    S.cmp = (p.get("x") || "").split(",").filter(function (id) { return placeById(id); }).slice(0, 4);
+    var g = p.get("g");
+    if (g && /^[01]{4}$/.test(g)) REGIONS.forEach(function (r, i) { S.reg[r[0]] = g.charAt(i) === "1" ? 1 : 0; });
+    var o = p.get("o") || "";
+    if (/^-?(buy|rent|price|rentp|inc|pop|name|rate)$/.test(o)) { S.sort = o.replace("-", ""); S.dir = o.charAt(0) === "-" ? "asc" : "desc"; }
+    S.rank = p.get("v") === "cities" ? "cities" : "countries";
+    S.sel = placeById(p.get("p")) ? p.get("p") : null;
+    S.coast = p.get("z") === "1" ? 1 : 0;
+    S.sav = num("sv", 0, 1e6, 500);
+  }
+  function shareURL() {
+    var q = [];
+    function put(k, v, def) { if (v !== def && v !== null && v !== "" && v !== undefined) q.push(k + "=" + encodeURIComponent(v)); }
+    put("i", S.inc, 0); put("c", S.cur, "EUR"); put("s", S.share, 33); put("t", S.term, 30);
+    put("r", S.rate, null); put("d", S.dep, 0); put("a", S.adults, 1); put("k", S.kids, 0);
+    put("m", S.mode, "buy"); put("b", S.basis, "local"); put("q", S.want, 0);
+    put("x", S.cmp.join(","), ""); put("g", REGIONS.map(function (r) { return S.reg[r[0]]; }).join(""), "1111");
+    put("o", (S.dir === "asc" ? "-" : "") + S.sort, "buy"); put("v", S.rank, "countries");
+    put("p", S.sel, null); put("z", S.coast, 0); put("sv", S.sav, 500);
+    return location.origin + location.pathname + (q.length ? "?" + q.join("&") : "");
+  }
+  var urlTimer = null;
+  function syncURL() {
+    clearTimeout(urlTimer);
+    urlTimer = setTimeout(function () {
+      try { history.replaceState(null, "", shareURL().replace(location.origin, "") ); } catch (e) {}
+    }, 250);
+  }
+
+  // ---- арифметика: та же, что у ESPON; с настройками по умолчанию сходится с sa_m2 и ra_m2
+  function placeById(id) {
+    if (!id) return null;
+    if (id.slice(0, 2) === "c:") { var c = C[CI[id.slice(2)]]; return c && c.espon ? c : null; }
+    if (id.slice(0, 2) === "n:") { var n = N3[N3I[id.slice(2)]]; return n || null; }
+    var l = L[LI[id]]; return l || null;
+  }
+  function pid(pl) { return pl.kind === "lau" ? pl.id : pl.kind === "n3" ? "n:" + pl.id : "c:" + pl.c; }
+  function annuity(ratePct, years) {
+    var i = ratePct / 100 / 12, n = years * 12;
+    return i > 0 ? (1 - Math.pow(1 + i, -n)) / i : n;
+  }
+  function eqFactor() { return 1 + 0.5 * (S.adults - 1) + 0.3 * S.kids; }
+  function incEUR() { return S.inc > 0 ? S.inc / FX[S.cur] : 0; }
+  function mine() { return S.basis === "mine" && S.inc > 0; }
+  function localMonthly(pl) { return pl.inc / 12; }
+  function budget(pl) { return (mine() ? incEUR() : localMonthly(pl)) * S.share / 100; }
+  function rateOf(pl) {
+    if (S.rate !== null) return S.rate;
+    var c = C[CI[pl.cc]]; return c && c.rate ? c.rate : null;
+  }
+  function buyM2(pl, opt) {
+    opt = opt || {};
+    if (!pl.sp || !pl.inc && !mine()) return null;
+    var r = opt.rate != null ? opt.rate : rateOf(pl);
+    if (r === null) return null;
+    var b = (opt.income != null ? opt.income : (mine() ? incEUR() : localMonthly(pl))) * (opt.share || S.share) / 100;
+    var loan = b * annuity(r, opt.term || S.term);
+    var dep = opt.dep != null ? opt.dep : S.dep;
+    return loan / (1 - dep / 100) / pl.sp;
+  }
+  function rentM2(pl, opt) {
+    opt = opt || {};
+    if (!pl.rp || !pl.inc && !mine()) return null;
+    var b = (opt.income != null ? opt.income : (mine() ? incEUR() : localMonthly(pl))) * (opt.share || S.share) / 100;
+    return b / pl.rp;
+  }
+  // Цифры самой статьи: средний местный доход, треть, 30 лет, национальная ставка, без взноса.
+  function studyBuy(pl) { return pl.inc && pl.sp ? buyM2(pl, { income: localMonthly(pl), share: 33, term: 30, dep: 0, rate: (C[CI[pl.cc]] || {}).rate || null }) : null; }
+  function studyRent(pl) { return pl.inc && pl.rp ? localMonthly(pl) * 33 / 100 / pl.rp : null; }
+  function incomeNeeded(pl, m2) {          // чистый доход в месяц, чтобы купить m2 при текущих условиях
+    var r = rateOf(pl); if (!pl.sp || r === null) return null;
+    return m2 * pl.sp * (1 - S.dep / 100) / annuity(r, S.term) / (S.share / 100);
+  }
+  function cls(v) {
+    if (v === null || v === undefined || !(v > 0)) return -1;
+    for (var i = 0; i < CLASSES.length; i++) if (v <= CLASSES[i]) return i;
+    return 4;
+  }
+  function dcls(v) {
+    if (v === null || v === undefined || isNaN(v)) return -1;
+    for (var i = 0; i < DIFF_BREAKS.length; i++) if (v <= DIFF_BREAKS[i]) return i;
+    return 4;
+  }
+  function valueOf(pl) {
+    if (S.mode === "buy") return buyM2(pl);
+    if (S.mode === "rent") return rentM2(pl);
+    var b = buyM2(pl), r = rentM2(pl);
+    return b === null || r === null ? null : r - b;
+  }
+  function reaches(pl) {                      // проходит ли место фильтр «хочу N м²»
+    if (!S.want) return true;
+    if (S.mode === "rent") return (rentM2(pl) || 0) >= S.want;
+    if (S.mode === "buy") return (buyM2(pl) || 0) >= S.want;
+    return (buyM2(pl) || 0) >= S.want || (rentM2(pl) || 0) >= S.want;
+  }
+  function regionOf(cc) { var c = C[CI[cc]]; return c ? c.reg : ""; }
+  function ccName(cc) { var c = C[CI[cc]]; return c ? c.n : cc; }
+
+  // ---- форматирование
+  function fmtInt(v) { return v === null || v === undefined ? "—" : Math.round(v).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+  function fmtM2(v) { return v === null || v === undefined || isNaN(v) ? "—" : (v < 10 ? v.toFixed(1) : Math.round(v).toString()); }
+  function fmtEur(v) { return v === null || v === undefined ? "—" : "€" + fmtInt(v); }
+  function fmtRate(v) { return v === null || v === undefined ? "—" : v.toFixed(2) + " %"; }
+  function fmtSigned(v) { return v === null || v === undefined ? "—" : (v > 0 ? "+" : "") + fmtM2(v); }
+  function esc(v) { return String(v).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;"); }
+  // Диакритика снимается разложением, но перечёркнутые и лигатурные буквы им не
+  // разбираются: "Wrocław" осталось бы с «ł», и запрос "wroclaw" его не находил.
+  var LETTERS = { "ł": "l", "ø": "o", "đ": "d", "ð": "d", "þ": "th", "ß": "ss", "æ": "ae", "œ": "oe", "ı": "i" };
+  function fold(v) {
+    v = String(v).toLowerCase();
+    if (v.normalize) v = v.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    return v.replace(/[łøđðþßæœı]/g, function (c) { return LETTERS[c]; });
+  }
+  function el(tag, attrs, html) {
+    var n = document.createElement(tag);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (html !== undefined) n.innerHTML = html;
+    return n;
+  }
+  function svgel(name, attrs) {
+    var n = document.createElementNS("http://www.w3.org/2000/svg", name);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    return n;
+  }
+
+  // ---- проекция: та же, что в geo.py
+  var BOX = GEO.box, SC = GEO.w / (BOX[1] - BOX[0]), LAT0 = GEO.lat0 * Math.PI / 180, LON0 = GEO.lon0 * Math.PI / 180;
+  function project(lat, lon) {
+    var p = lat * Math.PI / 180, l = lon * Math.PI / 180;
+    var k = Math.sqrt(2 / (1 + Math.sin(LAT0) * Math.sin(p) + Math.cos(LAT0) * Math.cos(p) * Math.cos(l - LON0)));
+    var x = k * Math.cos(p) * Math.sin(l - LON0);
+    var y = k * (Math.cos(LAT0) * Math.sin(p) - Math.sin(LAT0) * Math.cos(p) * Math.cos(l - LON0));
+    return [(x - BOX[0]) * SC, (BOX[3] - y) * SC];
+  }
+
+  // ======================================================================
+  // калькулятор
+  // ======================================================================
+  var $ = function (id) { return document.getElementById(id); };
+  var incEl = $("inc"), curEl = $("cur"), shareEl = $("share"), rateEl = $("rate"), depEl = $("dep"), wantEl = $("want");
+  Object.keys(FX).forEach(function (k) { curEl.appendChild(el("option", { value: k }, k)); });
+
+  var PRESETS = [
+    { n: "The study's own view", d: "average local income, 30 years, no deposit", s: {} },
+    { n: "Junior developer", d: "2,000 € net, alone, 30 years", s: { inc: 2000, adults: 1, kids: 0, basis: "mine", term: 30 } },
+    { n: "Couple with a child", d: "4,500 € net, wants 75 m²", s: { inc: 4500, adults: 2, kids: 1, basis: "mine", want: 75 } },
+    { n: "Remote worker, coast", d: "3,000 € net, cities on the coast", s: { inc: 3000, adults: 1, basis: "mine", coast: 1, rank: "cities", sort: "buy" } },
+    { n: "Buying with savings", d: "2,400 € net, two adults, 40 % deposit, 15 years", s: { inc: 2400, adults: 2, basis: "mine", dep: 40, term: 15 } },
+    { n: "Student, renting", d: "900 € net, rent map", s: { inc: 900, adults: 1, basis: "mine", mode: "rent" } }
+  ];
+  var presetsBox = $("presets");
+  PRESETS.forEach(function (p, i) {
+    var b = el("button", { type: "button", "class": "preset", "data-i": i, "aria-pressed": "false" },
+               esc(p.n) + "<small>" + esc(p.d) + "</small>");
+    b.addEventListener("click", function () {
+      var keep = { cmp: S.cmp, sel: S.sel, reg: S.reg };
+      var fresh = JSON.parse(JSON.stringify(DEFAULTS));
+      for (var k in fresh) S[k] = fresh[k];
+      for (var k2 in p.s) S[k2] = p.s[k2];
+      S.cmp = keep.cmp; S.sel = keep.sel; S.reg = keep.reg;
+      syncControls(); update(); syncURL();
+    });
+    presetsBox.appendChild(b);
+  });
+  function presetActive() {
+    for (var i = 0; i < PRESETS.length; i++) {
+      var p = PRESETS[i], ok = true;
+      ["inc", "cur", "share", "term", "rate", "dep", "adults", "kids", "mode", "basis", "want", "coast"].forEach(function (k) {
+        var want = k in p.s ? p.s[k] : DEFAULTS[k];
+        if (String(S[k]) !== String(want)) ok = false;
+      });
+      if (ok) return i;
+    }
+    return -1;
+  }
+
+  function syncControls() {
+    incEl.value = S.inc || "";
+    curEl.value = S.cur;
+    shareEl.value = S.share; $("share-o").textContent = S.share + " %";
+    rateEl.value = S.rate === null ? "" : S.rate; $("rate-x").hidden = S.rate === null;
+    depEl.value = S.dep; $("dep-o").textContent = S.dep + " %";
+    $("adults-o").textContent = S.adults; $("kids-o").textContent = S.kids;
+    $("hhhint").textContent = "Equivalence factor " + eqFactor().toFixed(1) + " (OECD-modified scale: first adult 1, each further adult 0.5, each child 0.3). Used only to compare your income with the local average per adult-equivalent.";
+    wantEl.value = S.want; $("want-o").textContent = S.want ? S.want + " m²" : "any size";
+    segSet("term", S.term); segSet("mapmode", S.mode); segSet("basis", S.basis); segSet("rankwhat", S.rank);
+    var mineBtn = document.querySelector('#basis [data-v="mine"]');
+    mineBtn.disabled = !(S.inc > 0);
+    mineBtn.title = S.inc > 0 ? "" : "Enter your income above";
+    $("inchint").textContent = S.cur === "EUR" ? "After tax, all earners together. Leave empty to see every place on its own average income."
+      : "After tax, all earners together. " + fmtInt(S.inc) + " " + S.cur + " = €" + fmtInt(incEUR()) + " at the ECB reference rate of " + FX_DATE + ".";
+    var act = presetActive();
+    Array.prototype.forEach.call(presetsBox.children, function (b, i) { b.setAttribute("aria-pressed", String(i === act)); });
+    Array.prototype.forEach.call(document.querySelectorAll("#regs .reg"), function (b) { b.setAttribute("aria-pressed", String(!!S.reg[b.getAttribute("data-r")])); });
+    var cb = $("coastbtn"); if (cb) cb.setAttribute("aria-pressed", String(!!S.coast));
+    setupLine();
+  }
+  function segSet(id, v) {
+    Array.prototype.forEach.call(document.querySelectorAll("#" + id + " button"), function (b) {
+      b.setAttribute("aria-pressed", String(String(b.getAttribute("data-v")) === String(v)));
+    });
+  }
+  function segBind(id, fn) {
+    $(id).addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-v]"); if (!b || b.disabled) return;
+      fn(b.getAttribute("data-v")); syncControls(); update(); syncURL();
+    });
+  }
+  segBind("term", function (v) { S.term = +v; });
+  segBind("mapmode", function (v) { S.mode = v; });
+  segBind("basis", function (v) { S.basis = v; });
+  segBind("rankwhat", function (v) { S.rank = v; });
+  incEl.addEventListener("input", function () {
+    S.inc = Math.max(0, parseFloat(incEl.value) || 0);
+    if (S.inc > 0 && S.basis === "local" && !incEl._touchedBasis) { S.basis = "mine"; }
+    if (!(S.inc > 0)) S.basis = "local";
+    syncControls(); update(); syncURL();
+  });
+  curEl.addEventListener("change", function () { S.cur = curEl.value; syncControls(); update(); syncURL(); });
+  shareEl.addEventListener("input", function () { S.share = +shareEl.value; syncControls(); update(); syncURL(); });
+  rateEl.addEventListener("input", function () {
+    S.rate = rateEl.value === "" ? null : Math.max(0, Math.min(25, parseFloat(rateEl.value) || 0));
+    $("rate-x").hidden = S.rate === null; update(); syncURL(); setupLine();
+  });
+  $("rate-x").addEventListener("click", function () { S.rate = null; syncControls(); update(); syncURL(); });
+  depEl.addEventListener("input", function () { S.dep = +depEl.value; syncControls(); update(); syncURL(); });
+  wantEl.addEventListener("input", function () { S.want = +wantEl.value; cardN = null; syncControls(); update(); syncURL(); });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-hh]"), function (b) {
+    b.addEventListener("click", function () {
+      var k = b.getAttribute("data-hh"), d = +b.getAttribute("data-d");
+      if (k === "adults") S.adults = Math.max(1, Math.min(6, S.adults + d)); else S.kids = Math.max(0, Math.min(8, S.kids + d));
+      syncControls(); update(); syncURL();
+    });
+  });
+  function rateNote() {
+    if (S.rate !== null) return S.rate.toFixed(2) + " % everywhere";
+    return "each country's own rate";
+  }
+  function setupLine() {
+    var t;
+    if (mine()) {
+      t = "<b>€" + fmtInt(incEUR()) + "</b> net per month" + (S.cur !== "EUR" ? " (" + fmtInt(S.inc) + " " + S.cur + ")" : "") +
+          " · <b>" + S.share + " %</b> for housing = <b>€" + fmtInt(incEUR() * S.share / 100) + "</b> a month · <b>" + S.term + "-year</b> mortgage at " + rateNote() +
+          " · deposit <b>" + S.dep + " %</b> · household of " + S.adults + (S.adults > 1 ? " adults" : " adult") + (S.kids ? " and " + S.kids + (S.kids > 1 ? " children" : " child") : "") +
+          " (factor " + eqFactor().toFixed(1) + ")";
+    } else {
+      t = "Every place on its <b>own average income</b> · <b>" + S.share + " %</b> for housing · <b>" + S.term + "-year</b> mortgage at " + rateNote() + " · deposit <b>" + S.dep + " %</b>" +
+          (S.share === 33 && S.term === 30 && S.rate === null && S.dep === 0 ? " — the published map exactly" : "");
+    }
+    if (S.want) t += " · looking for <b>" + S.want + " m²</b>";
+    $("setupline").innerHTML = t;
+  }
+
+  // ======================================================================
+  // карта
+  // ======================================================================
+  var mapEl = $("map"), mapg = $("mapg"), regionsG = $("regions"), bordersG = $("borders"), marksG = $("marks");
+  var pathOf = {};
+  Object.keys(GEO.nuts3).forEach(function (id) {
+    var p = svgel("path", { d: GEO.nuts3[id], "data-id": id });
+    regionsG.appendChild(p); pathOf[id] = p;
+  });
+  Object.keys(GEO.nuts0).forEach(function (id) { bordersG.appendChild(svgel("path", { d: GEO.nuts0[id] })); });
+
+  function paintMap() {
+    N3.forEach(function (n) {
+      var p = pathOf[n.id]; if (!p) return;
+      var v = valueOf(n), c = "";
+      if (!n.sp && !n.rp) c = "";
+      else if (S.mode === "diff") { var d = dcls(v); c = d < 0 ? "" : "e" + d; }
+      else { var k = cls(v); c = k < 0 ? "" : "c" + k; }
+      if (c && !reaches(n)) c = "dim";
+      p.setAttribute("class", c + (S.sel === "n:" + n.id ? " sel" : ""));
+    });
+    var lg = $("legend"), html = "<b>" + (S.mode === "buy" ? "m² to buy" : S.mode === "rent" ? "m² to rent" : "rent minus buy, m²") + "</b>";
+    if (S.mode === "diff") DIFF_LABEL.forEach(function (t, i) { html += "<span><i class=\"e" + i + "\"></i>" + t + "</span>"; });
+    else CLASS_LABEL.forEach(function (t, i) { html += "<span><i class=\"c" + i + "\"></i>" + t + "</span>"; });
+    html += "<span><i class=\"nd\"></i>" + (S.want ? "no data or under " + S.want + " m²" : "no data") + "</span>";
+    lg.innerHTML = html;
+  }
+
+  // зум и панорама: transform на группе, точка под курсором остаётся на месте
+  var Z = { k: 1, x: 0, y: 0 };
+  function applyZ() { mapg.setAttribute("transform", "translate(" + Z.x.toFixed(1) + " " + Z.y.toFixed(1) + ") scale(" + Z.k.toFixed(3) + ")"); drawMarks(); }
+  function svgPoint(cx, cy) {
+    var r = mapEl.getBoundingClientRect();
+    return [(cx - r.left) / r.width * GEO.w, (cy - r.top) / r.height * GEO.h];
+  }
+  function zoomAt(f, sx, sy) {
+    var nk = Math.max(1, Math.min(14, Z.k * f)); f = nk / Z.k;
+    if (sx === undefined) { sx = GEO.w / 2; sy = GEO.h / 2; }
+    Z.x = sx - (sx - Z.x) * f; Z.y = sy - (sy - Z.y) * f; Z.k = nk;
+    if (Z.k === 1) { Z.x = 0; Z.y = 0; }
+    applyZ();
+  }
+  $("zin").addEventListener("click", function () { zoomAt(1.5); });
+  $("zout").addEventListener("click", function () { zoomAt(1 / 1.5); });
+  $("zreset").addEventListener("click", function () { Z.k = 1; Z.x = 0; Z.y = 0; applyZ(); });
+  mapEl.addEventListener("wheel", function (e) {
+    if (!e.ctrlKey && !e.metaKey) return;
+    e.preventDefault();
+    var p = svgPoint(e.clientX, e.clientY);
+    zoomAt(e.deltaY < 0 ? 1.2 : 1 / 1.2, p[0], p[1]);
+  }, { passive: false });
+  var ptrs = {}, dragFrom = null, pinch = null, moved = 0;
+  mapEl.addEventListener("pointerdown", function (e) {
+    ptrs[e.pointerId] = [e.clientX, e.clientY];
+    var ids = Object.keys(ptrs);
+    if (ids.length === 1) { dragFrom = [e.clientX, e.clientY, Z.x, Z.y]; moved = 0; mapEl.classList.add("drag"); }
+    else if (ids.length === 2) {
+      var a = ptrs[ids[0]], b = ptrs[ids[1]];
+      pinch = { d: Math.hypot(a[0] - b[0], a[1] - b[1]), k: Z.k, cx: (a[0] + b[0]) / 2, cy: (a[1] + b[1]) / 2, x: Z.x, y: Z.y };
+      dragFrom = null;
+    }
+    mapEl.setPointerCapture(e.pointerId);
+  });
+  mapEl.addEventListener("pointermove", function (e) {
+    if (!ptrs[e.pointerId]) return;
+    ptrs[e.pointerId] = [e.clientX, e.clientY];
+    var r = mapEl.getBoundingClientRect(), sc = GEO.w / r.width;
+    if (pinch) {
+      var ids = Object.keys(ptrs), a = ptrs[ids[0]], b = ptrs[ids[1]];
+      var d = Math.hypot(a[0] - b[0], a[1] - b[1]);
+      var nk = Math.max(1, Math.min(14, pinch.k * d / pinch.d));
+      var p = svgPoint(pinch.cx, pinch.cy), f = nk / pinch.k;
+      Z.k = nk; Z.x = p[0] - (p[0] - pinch.x) * f + ((a[0] + b[0]) / 2 - pinch.cx) * sc;
+      Z.y = p[1] - (p[1] - pinch.y) * f + ((a[1] + b[1]) / 2 - pinch.cy) * sc;
+      applyZ();
+    } else if (dragFrom) {
+      var dx = (e.clientX - dragFrom[0]) * sc, dy = (e.clientY - dragFrom[1]) * sc;
+      moved = Math.max(moved, Math.abs(dx) + Math.abs(dy));
+      if (e.pointerType === "touch" && Z.k === 1) return;      // на телефоне вертикальный свайп — прокрутка страницы
+      Z.x = dragFrom[2] + dx; Z.y = dragFrom[3] + dy; applyZ();
+    }
+  });
+  function ptrEnd(e) {
+    delete ptrs[e.pointerId];
+    if (!Object.keys(ptrs).length) { dragFrom = null; pinch = null; mapEl.classList.remove("drag"); }
+    else if (Object.keys(ptrs).length === 1) { pinch = null; var id = Object.keys(ptrs)[0]; dragFrom = [ptrs[id][0], ptrs[id][1], Z.x, Z.y]; }
+  }
+  mapEl.addEventListener("pointerup", ptrEnd); mapEl.addEventListener("pointercancel", ptrEnd);
+
+  // подсказка и выбор региона
+  var tip = $("maptip"), hoverId = null;
+  function tipHTML(pl) {
+    var b = buyM2(pl), r = rentM2(pl);
+    var h = "<b>" + esc(pl.name) + "</b> · " + esc(ccName(pl.cc)) +
+      "<div class=\"r\"><span>to buy</span><span>" + fmtM2(b) + " m²</span></div>" +
+      "<div class=\"r\"><span>to rent</span><span>" + fmtM2(r) + " m²</span></div>";
+    if (pl.sp) h += "<div class=\"r\"><span>price</span><span>€" + fmtInt(pl.sp) + "/m²</span></div>";
+    if (pl.rp) h += "<div class=\"r\"><span>rent</span><span>€" + pl.rp.toFixed(1) + "/m²·mo</span></div>";
+    if (!pl.sp && !pl.rp) h += "<div class=\"r\"><span>no listings data</span></div>";
+    return h;
+  }
+  function showTipAt(pl, cx, cy) {
+    var r = $("mapbox").getBoundingClientRect();
+    tip.innerHTML = tipHTML(pl);
+    var x = cx - r.left, y = cy - r.top - 12;
+    var w = tip.offsetWidth; x = Math.max(w / 2 + 4, Math.min(x, r.width - w / 2 - 4));
+    tip.style.left = x + "px"; tip.style.top = y + "px"; tip.style.opacity = "1";
+  }
+  regionsG.addEventListener("pointermove", function (e) {
+    if (dragFrom && moved > 6) return;
+    var p = e.target.closest("path"); if (!p) return;
+    var id = p.getAttribute("data-id"), n = N3[N3I[id]];
+    if (!n) { tip.style.opacity = "0"; return; }
+    if (e.pointerType === "touch") return;
+    hoverId = id; showTipAt(n, e.clientX, e.clientY);
+  });
+  regionsG.addEventListener("pointerleave", function () { tip.style.opacity = "0"; hoverId = null; });
+  regionsG.addEventListener("click", function (e) {
+    if (moved > 6) return;
+    var p = e.target.closest("path"); if (!p) return;
+    var n = N3[N3I[p.getAttribute("data-id")]]; if (!n) return;
+    select("n:" + n.id, false);
+    if (e.pointerType === "touch" || matchMedia("(hover: none)").matches) showTipAt(n, e.clientX, e.clientY);
+  });
+  mapEl.addEventListener("keydown", function (e) {
+    if (e.key === "+" || e.key === "=") zoomAt(1.5); else if (e.key === "-") zoomAt(1 / 1.5);
+  });
+  mapEl.setAttribute("tabindex", "0");
+
+  function drawMarks() {
+    marksG.innerHTML = "";
+    var pl = placeById(S.sel);
+    if (!pl || pl.kind !== "lau") return;
+    var xy = project(pl.lat, pl.lon), r = 7 / Z.k;
+    marksG.appendChild(svgel("circle", { cx: xy[0].toFixed(1), cy: xy[1].toFixed(1), r: (r * 1.8).toFixed(2) }));
+    marksG.appendChild(svgel("circle", { cx: xy[0].toFixed(1), cy: xy[1].toFixed(1), r: (r * 0.55).toFixed(2), "class": "core" }));
+  }
+  function flyTo(pl) {
+    var xy;
+    if (pl.kind === "lau") xy = project(pl.lat, pl.lon);
+    else if (pl.kind === "n3") { var bb = pathOf[pl.id] && pathOf[pl.id].getBBox(); if (!bb) return; xy = [bb.x + bb.width / 2, bb.y + bb.height / 2]; }
+    else return;
+    var k = pl.kind === "lau" ? Math.max(Z.k, 4) : Math.max(Z.k, 2.5);
+    Z.k = k; Z.x = GEO.w / 2 - xy[0] * k; Z.y = GEO.h / 2 - xy[1] * k; applyZ();
+  }
+
+  // ======================================================================
+  // поиск: муниципалитеты, регионы, страны
+  // ======================================================================
+  var qEl = $("q"), qsug = $("qsug"), qx = $("qx");
+  // Показывается всегда имя источника (Wien, Praha), но ищется и по английскому
+  // экзониму: читатель набирает Vienna, а в данных его нет.
+  L.forEach(function (l) { l._q = fold(l.name); l._qa = l.alias ? fold(l.alias) : ""; });
+  N3.forEach(function (n) { n._q = fold(n.name); });
+  C.forEach(function (c) { c._q = fold(c.n); });
+  var sug = [], sugIdx = -1;
+  function find(q) {
+    q = fold(q).trim(); if (!q) return [];
+    var exact = [], head = [], tail = [];
+    function scan(list, pred) {
+      for (var i = 0; i < list.length; i++) {
+        var it = list[i]; if (pred && !pred(it)) continue;
+        var a = it._qa || "";
+        if (it._q === q || a === q) exact.push(it);
+        else if (it._q.indexOf(q) === 0 || (a && a.indexOf(q) === 0)) head.push(it);
+        else if (q.length > 2 && (it._q.indexOf(q) > 0 || (a && a.indexOf(q) > 0))) tail.push(it);
+      }
+    }
+    scan(C, function (c) { return c.espon; }); scan(L); scan(N3, function (n) { return n.sp || n.rp; });
+    return exact.concat(head, tail).slice(0, 9);
+  }
+  function closeSug() { qsug.hidden = true; qsug.innerHTML = ""; sug = []; sugIdx = -1; qEl.setAttribute("aria-expanded", "false"); }
+  function drawSug() {
+    qsug.innerHTML = sug.length ? sug.map(function (it, i) {
+      var kind = it.kind === "lau" ? (DEG[it.deg] || "municipality") : it.kind === "n3" ? "region" : "country";
+      var right = it.kind === "cc" ? fmtInt(it.pop) + " people" : esc(ccName(it.cc)) + (it.kind === "lau" ? " · " + fmtInt(it.pop) : "");
+      var shown = esc(it.name) + (it.alias ? " <em>" + esc(it.alias) + "</em>" : "");
+      return "<li role=\"option\" data-i=\"" + i + "\" aria-selected=\"" + (i === sugIdx) + "\"><span>" + shown + "</span><span class=\"kind\">" + kind + "</span><span class=\"cy\">" + right + "</span></li>";
+    }).join("") : "<li class=\"none\">Nothing matches. Try the local spelling: Wien, Praha, København.</li>";
+    qsug.hidden = false; qEl.setAttribute("aria-expanded", "true");
+  }
+  function take(it) {
+    if (!it) return;
+    qEl.value = it.name; qx.hidden = false; closeSug();
+    select(pid(it), true);
+  }
+  qEl.addEventListener("input", function () {
+    qx.hidden = !qEl.value; sug = find(qEl.value); sugIdx = sug.length ? 0 : -1;
+    if (!qEl.value.trim()) closeSug(); else drawSug();
+  });
+  qEl.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowDown") { if (sug.length) { sugIdx = (sugIdx + 1) % sug.length; drawSug(); } e.preventDefault(); }
+    else if (e.key === "ArrowUp") { if (sug.length) { sugIdx = (sugIdx - 1 + sug.length) % sug.length; drawSug(); } e.preventDefault(); }
+    else if (e.key === "Enter") { take(sug[sugIdx]); e.preventDefault(); }
+    else if (e.key === "Escape") closeSug();
+  });
+  qEl.addEventListener("focus", function () { if (sug.length) drawSug(); });
+  qsug.addEventListener("mousedown", function (e) { var li = e.target.closest("li[data-i]"); if (li) { e.preventDefault(); take(sug[+li.getAttribute("data-i")]); } });
+  qx.addEventListener("click", function () { qEl.value = ""; qx.hidden = true; closeSug(); qEl.focus(); });
+  document.addEventListener("click", function (e) { if (!e.target.closest(".gsearch")) closeSug(); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "/" || e.metaKey || e.ctrlKey || e.altKey) return;
+    var t = e.target, tag = t && t.tagName;
+    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (t && t.isContentEditable)) return;
+    e.preventDefault(); qEl.focus(); qEl.select();
+  });
+
+  // ======================================================================
+  // карточка выбранного места
+  // ======================================================================
+  var cardEl = $("card");
+  function select(id, fly) {
+    S.sel = id;
+    var pl = placeById(id);
+    if (pl && fly) flyTo(pl);
+    paintMap(); drawMarks(); drawCard(); drawRank(); syncURL();
+  }
+  var cardN = null;                          // «сколько метров» в карточке: своё поле, фильтр не двигает
+  function wantN() { return cardN || S.want || 70; }
+  function drawCard() {
+    var pl = placeById(S.sel);
+    if (!pl) {
+      cardEl.innerHTML = "<p class=\"plabel\">Selected place</p><p class=\"cempty\">Search a town above or click a region on the map. The card shows what your settings mean there, and what it would take.</p>";
+      return;
+    }
+    var b = buyM2(pl), r = rentM2(pl), rate = rateOf(pl), bud = budget(pl);
+    var kindLine = pl.kind === "lau" ? (DEG[pl.deg] ? DEG[pl.deg] + (pl.coast ? ", coastal" : "") + " · " : "") + fmtInt(pl.pop) + " people · region " + esc(N3[pl.n3] ? N3[pl.n3].name : "")
+                 : pl.kind === "n3" ? "NUTS 3 region · " + fmtInt(pl.pop) + " people · data for " + Math.round(pl.covS * 100) + " % of them"
+                 : "country · " + fmtInt(pl.pop) + " people · " + fmtInt(pl.lau) + " municipalities";
+    var h = "<p class=\"plabel\">" + (pl.kind === "lau" ? "Municipality" : pl.kind === "n3" ? "Region" : "Country") + "</p>" +
+      "<h3 class=\"cname\">" + esc(pl.name) + "</h3><p class=\"cmeta\">" + esc(ccName(pl.cc)) + " · " + kindLine + "</p>";
+    h += "<div class=\"cbig\"><div><b class=\"" + (cls(b) < 0 ? "nd" : "c" + cls(b)) + "\">" + fmtM2(b) + "</b><span>m² to buy" + (b === null ? "" : ", " + S.term + " years") + "</span></div>" +
+         "<div><b class=\"" + (cls(r) < 0 ? "nd" : "c" + cls(r)) + "\">" + fmtM2(r) + "</b><span>m² to rent</span></div></div>";
+    h += "<div class=\"crow\"><span>" + (mine() ? "Your housing budget" : "A third of the local income") + "</span><span>€" + fmtInt(bud) + " / month</span></div>";
+    if (b !== null) {
+      var loan = bud * annuity(rate, S.term);
+      h += "<div class=\"crow\"><span>Loan that pays off</span><span>€" + fmtInt(loan) + "</span></div>";
+      if (S.dep) h += "<div class=\"crow\"><span>Plus a " + S.dep + " % deposit</span><span>€" + fmtInt(loan / (1 - S.dep / 100) - loan) + "</span></div>";
+    }
+    h += "<div class=\"crow\"><span>Sale price, taxes and fees in</span><span>" + (pl.sp ? "€" + fmtInt(pl.sp) + " / m²" : "no data") + "</span></div>";
+    h += "<div class=\"crow\"><span>Rent</span><span>" + (pl.rp ? "€" + pl.rp.toFixed(2) + " / m² / month" : "no data") + "</span></div>";
+    h += "<div class=\"crow\"><span>Average income per adult-equivalent</span><span>" + (pl.inc ? "€" + fmtInt(pl.inc / 12) + " / month" : "no data") + "</span></div>";
+    h += "<div class=\"crow\"><span>Mortgage rate used</span><span>" + fmtRate(rate) + (S.rate !== null ? " (yours)" : "") + "</span></div>";
+    if (studyBuy(pl) || studyRent(pl)) h += "<div class=\"crow\"><span>The study's own figures</span><span>" + fmtM2(studyBuy(pl)) + " m² buy · " + fmtM2(studyRent(pl)) + " m² rent</span></div>";
+    if (mine() && pl.inc) {
+      var eq = incEUR() / eqFactor(), ratio = eq / (pl.inc / 12);
+      h += "<div class=\"crow\"><span>Your income vs the local average</span><span>" + ratio.toFixed(2) + "× per adult-equivalent</span></div>";
+    }
+    // что нужно
+    var N = wantN();
+    h += "<p class=\"csub\">What it would take</p>";
+    if (pl.sp && rate !== null) {
+      var need = incomeNeeded(pl, N);
+      h += "<p class=\"cwhat\">To buy <input type=\"number\" id=\"c-n\" value=\"" + N + "\" min=\"10\" max=\"400\" step=\"5\"> m² here on " + S.share + " % of income over " + S.term + " years" + (S.dep ? " with a " + S.dep + " % deposit" : "") + " you need <b>€" + fmtInt(need) + " net a month</b>" +
+           (mine() ? " — you have €" + fmtInt(incEUR()) + (incEUR() >= need ? ", enough" : ", " + Math.round((1 - incEUR() / need) * 100) + " % short") : "") + ".</p>";
+      var depAmt = N * pl.sp * (S.dep || 20) / 100;
+      h += "<p class=\"cwhat\">A " + (S.dep || 20) + " % deposit on " + N + " m² is <b>€" + fmtInt(depAmt) + "</b>. Saving <input type=\"number\" id=\"c-sav\" value=\"" + S.sav + "\" min=\"0\" step=\"50\"> € a month, that takes <b>" + (S.sav > 0 ? (depAmt / S.sav / 12).toFixed(1) + " years" : "forever") + "</b>.</p>";
+    }
+    if (pl.rp) h += "<p class=\"cwhat\">To rent " + N + " m² here on " + S.share + " % of income you need <b>€" + fmtInt(N * pl.rp / (S.share / 100)) + " net a month</b>.</p>";
+    // список внутри региона или страны
+    if (pl.kind !== "lau") {
+      var inside = L.filter(function (l) { return pl.kind === "n3" ? l.n3 === pl.idx : l.cc === pl.c; })
+                    .sort(function (a, b2) { return b2.pop - a.pop; }).slice(0, 8);
+      if (inside.length) {
+        h += "<p class=\"csub\">" + (pl.kind === "n3" ? "Municipalities in the region" : "Largest municipalities") + "</p><ul class=\"clist\">" +
+          inside.map(function (l) { return "<li data-id=\"" + esc(l.id) + "\"><span>" + esc(l.name) + "</span><span>" + fmtM2(buyM2(l)) + " · " + fmtM2(rentM2(l)) + " m²</span></li>"; }).join("") + "</ul>";
+      }
+    } else if (N3[pl.n3]) {
+      h += "<p class=\"csub\">Around it</p><ul class=\"clist\"><li data-id=\"n:" + esc(N3[pl.n3].id) + "\"><span>Region " + esc(N3[pl.n3].name) + "</span><span>" + fmtM2(buyM2(N3[pl.n3])) + " · " + fmtM2(rentM2(N3[pl.n3])) + " m²</span></li>" +
+           "<li data-id=\"c:" + pl.cc + "\"><span>" + esc(ccName(pl.cc)) + "</span><span>" + fmtM2(buyM2(C[CI[pl.cc]])) + " · " + fmtM2(rentM2(C[CI[pl.cc]])) + " m²</span></li></ul>";
+    }
+    var inCmp = S.cmp.indexOf(pid(pl)) >= 0;
+    h += "<div class=\"cbtns\"><button type=\"button\" class=\"cbtn" + (inCmp ? " on" : "") + "\" data-cmp=\"" + esc(pid(pl)) + "\">" + (inCmp ? "✓ In the comparison" : "+ Compare") + "</button>" +
+         (pl.kind !== "cc" ? "<button type=\"button\" class=\"cbtn\" data-fly>Show on the map</button>" : "") +
+         "<button type=\"button\" class=\"cbtn\" data-unsel>Clear</button></div>";
+    cardEl.innerHTML = h;
+  }
+  cardEl.addEventListener("click", function (e) {
+    var li = e.target.closest("li[data-id]"); if (li) { select(li.getAttribute("data-id"), true); return; }
+    var cb = e.target.closest("[data-cmp]"); if (cb) { toggleCmp(cb.getAttribute("data-cmp")); return; }
+    if (e.target.closest("[data-fly]")) { var pl = placeById(S.sel); if (pl) flyTo(pl); return; }
+    if (e.target.closest("[data-unsel]")) { select(null, false); return; }
+  });
+  cardEl.addEventListener("input", function (e) {
+    var pl = placeById(S.sel); if (!pl) return;
+    if (e.target.id === "c-n") { cardN = Math.max(10, Math.min(400, +e.target.value || 70)); redrawWhat(pl, cardN); drawCmp(); }
+    if (e.target.id === "c-sav") { S.sav = Math.max(0, +e.target.value || 0); redrawWhat(pl, wantN()); syncURL(); }
+  });
+  function redrawWhat(pl, N) {
+    var rate = rateOf(pl);
+    var ps = cardEl.querySelectorAll(".cwhat");
+    if (!ps.length) return;
+    if (pl.sp && rate !== null) {
+      var need = incomeNeeded(pl, N);
+      ps[0].querySelector("b").innerHTML = "€" + fmtInt(need) + " net a month";
+      var depAmt = N * pl.sp * (S.dep || 20) / 100;
+      var bs = ps[1].querySelectorAll("b");
+      bs[0].textContent = "€" + fmtInt(depAmt);
+      bs[1].textContent = S.sav > 0 ? (depAmt / S.sav / 12).toFixed(1) + " years" : "forever";
+      ps[1].firstChild.nodeValue = "A " + (S.dep || 20) + " % deposit on " + N + " m² is ";
+    }
+    if (pl.rp) { var last = ps[ps.length - 1]; last.innerHTML = "To rent " + N + " m² here on " + S.share + " % of income you need <b>€" + fmtInt(N * pl.rp / (S.share / 100)) + " net a month</b>."; }
+  }
+
+  // ======================================================================
+  // сравнение
+  // ======================================================================
+  function toggleCmp(id) {
+    var i = S.cmp.indexOf(id);
+    if (i >= 0) S.cmp.splice(i, 1); else { if (S.cmp.length >= 4) S.cmp.shift(); S.cmp.push(id); }
+    drawCard(); drawCmp(); drawRank(); syncURL();
+  }
+  var chipsEl = $("chips"), cmpEl = $("cmptable");
+  function cmpRows() {
+    var P = S.cmp.map(placeById).filter(Boolean);
+    var N = wantN();
+    function row(label, fn, best) { return { label: label, vals: P.map(fn), best: best }; }
+    var groups = [
+      ["With your settings", [
+        row("m² to buy", function (p) { return buyM2(p); }, "max"),
+        row("m² to rent", function (p) { return rentM2(p); }, "max"),
+        row("Monthly housing budget, €", function (p) { return budget(p); }, null),
+        row("Income needed for " + N + " m² to buy, €/month", function (p) { return incomeNeeded(p, N); }, "min"),
+        row("Income needed for " + N + " m² to rent, €/month", function (p) { return p.rp ? N * p.rp / (S.share / 100) : null; }, "min")
+      ]],
+      ["Same terms for everyone" + (mine() ? " (your income)" : " (local income)"), [
+        row("m² to buy, 20 years", function (p) { return buyM2(p, { term: 20 }); }, "max"),
+        row("m² to buy, 30 years", function (p) { return buyM2(p, { term: 30 }); }, "max"),
+        row("m² to buy at 25 % of income", function (p) { return buyM2(p, { share: 25 }); }, "max"),
+        row("m² to buy at 33 % of income", function (p) { return buyM2(p, { share: 33 }); }, "max"),
+        row("m² to rent at 25 % of income", function (p) { return rentM2(p, { share: 25 }); }, "max"),
+        row("m² to rent at 33 % of income", function (p) { return rentM2(p, { share: 33 }); }, "max")
+      ]],
+      ["The study's own figures", [
+        row("m² to buy, average local income, 30 years", function (p) { return studyBuy(p); }, "max"),
+        row("m² to rent, average local income", function (p) { return studyRent(p); }, "max")
+      ]],
+      ["The market", [
+        row("Sale price incl. taxes and fees, €/m²", function (p) { return p.sp || null; }, "min"),
+        row("Rent, €/m²/month", function (p) { return p.rp || null; }, "min"),
+        row("Average income per adult-equivalent, €/month", function (p) { return p.inc ? p.inc / 12 : null; }, "max"),
+        row("Mortgage rate used, %", function (p) { return rateOf(p); }, "min"),
+        row("Population", function (p) { return p.pop; }, null)
+      ]]
+    ];
+    return { P: P, groups: groups };
+  }
+  function fmtCell(label, v) {
+    if (v === null || v === undefined) return "—";
+    if (/Rent, €/.test(label) || /rate/.test(label)) return v.toFixed(2);
+    if (/m²/.test(label)) return fmtM2(v);
+    return fmtInt(v);
+  }
+  function drawCmp() {
+    var P = S.cmp.map(placeById).filter(Boolean);
+    chipsEl.innerHTML = P.map(function (p) {
+      return "<span class=\"chip\">" + esc(p.name) + (p.kind !== "cc" ? " <small>" + esc(p.cc) + "</small>" : "") + "<button type=\"button\" data-rm=\"" + esc(pid(p)) + "\" aria-label=\"Remove\">×</button></span>";
+    }).join("") + (P.length < 4 ? "<span class=\"chip empty\">" + (P.length ? "add up to " + (4 - P.length) + " more" : "nothing selected yet — add a place from the card or the rankings") + "</span>" : "");
+    if (!P.length) { cmpEl.innerHTML = ""; return; }
+    var cr = cmpRows();
+    var h = "<thead><tr><th></th>" + P.map(function (p) { return "<th>" + esc(p.name) + "<br><small style=\"color:var(--ink-3);font-weight:400\">" + esc(ccName(p.cc)) + "</small></th>"; }).join("") + "</tr></thead><tbody>";
+    cr.groups.forEach(function (g) {
+      h += "<tr class=\"grp\"><td colspan=\"" + (P.length + 1) + "\">" + esc(g[0]) + "</td></tr>";
+      g[1].forEach(function (r) {
+        var bestIdx = -1;
+        if (r.best && P.length > 1) {
+          var bv = null;
+          r.vals.forEach(function (v, i) { if (v === null) return; if (bv === null || (r.best === "max" ? v > bv : v < bv)) { bv = v; bestIdx = i; } });
+        }
+        h += "<tr><td>" + esc(r.label) + "</td>" + r.vals.map(function (v, i) { return "<td" + (i === bestIdx ? " class=\"best\"" : "") + ">" + fmtCell(r.label, v) + "</td>"; }).join("") + "</tr>";
+      });
+    });
+    cmpEl.innerHTML = h + "</tbody>";
+  }
+  chipsEl.addEventListener("click", function (e) { var b = e.target.closest("[data-rm]"); if (b) toggleCmp(b.getAttribute("data-rm")); });
+
+  // ======================================================================
+  // рейтинги
+  // ======================================================================
+  var regsEl = $("regs");
+  REGIONS.forEach(function (r) {
+    var b = el("button", { type: "button", "class": "reg", "data-r": r[0], "aria-pressed": "true" }, r[1]);
+    b.addEventListener("click", function () {
+      S.reg[r[0]] = S.reg[r[0]] ? 0 : 1;
+      if (!REGIONS.some(function (x) { return S.reg[x[0]]; })) REGIONS.forEach(function (x) { S.reg[x[0]] = 1; });
+      syncControls(); drawRank(); syncURL();
+    });
+    regsEl.appendChild(b);
+  });
+  var coastBtn = el("button", { type: "button", "class": "reg", id: "coastbtn", "aria-pressed": "false", title: "EU-27 municipalities flagged coastal by Eurostat" }, "coast only");
+  coastBtn.addEventListener("click", function () { S.coast = S.coast ? 0 : 1; syncControls(); drawRank(); syncURL(); });
+  regsEl.appendChild(coastBtn);
+
+  var RANK_COLS = {
+    countries: [["name", "Country"], ["buy", "m² to buy"], ["rent", "m² to rent"], ["price", "Price €/m²"], ["rentp", "Rent €/m²·mo"], ["inc", "Income €/mo"], ["rate", "Rate %"], ["pop", "People"]],
+    cities: [["name", "City"], ["buy", "m² to buy"], ["rent", "m² to rent"], ["price", "Price €/m²"], ["rentp", "Rent €/m²·mo"], ["inc", "Income €/mo"], ["pop", "People"]]
+  };
+  function rankRows() {
+    var src = S.rank === "countries" ? C.filter(function (c) { return c.espon && (c.sp || c.rp); })
+                                     : L.filter(function (l) { return l.pop >= 100000; });
+    var rows = src.filter(function (p) { return S.reg[regionOf(p.cc)] && (!S.coast || S.rank === "countries" || p.coast) && reaches(p); })
+      .map(function (p) { return { p: p, name: p.name, buy: buyM2(p), rent: rentM2(p), price: p.sp || null, rentp: p.rp || null, inc: p.inc ? p.inc / 12 : null, rate: rateOf(p), pop: p.pop }; });
+    var k = S.sort, d = S.dir === "asc" ? 1 : -1;
+    rows.sort(function (a, b) {
+      var x = a[k], y = b[k];
+      if (k === "name") return d * String(x).localeCompare(String(y));
+      if (x === null) return 1; if (y === null) return -1;
+      return d * (x - y);
+    });
+    return { rows: rows, total: src.length };
+  }
+  function drawRank() {
+    var cols = RANK_COLS[S.rank], rr = rankRows();
+    $("rankhead").innerHTML = "<th>#</th>" + cols.map(function (c) {
+      return "<th data-sort=\"" + c[0] + "\"" + (S.sort === c[0] ? " aria-sort=\"" + (S.dir === "asc" ? "ascending" : "descending") + "\"" : "") + ">" + c[1] + "</th>";
+    }).join("") + "<th></th>";
+    $("rankbody").innerHTML = rr.rows.map(function (r, i) {
+      var id = pid(r.p), inCmp = S.cmp.indexOf(id) >= 0;
+      return "<tr data-id=\"" + esc(id) + "\"" + (S.sel === id ? " class=\"sel\"" : "") + "><td>" + (i + 1) + "</td>" + cols.map(function (c) {
+        var v = r[c[0]];
+        if (c[0] === "name") return "<td class=\"nm\">" + esc(v) + (S.rank === "cities" ? "<span class=\"cc\">" + esc(ccName(r.p.cc)) + "</span>" : "") + "</td>";
+        if (c[0] === "buy" || c[0] === "rent") return "<td class=\"cls\"><i class=\"" + (cls(v) < 0 ? "nd" : "c" + cls(v)) + "\"></i> " + fmtM2(v) + "</td>";
+        if (c[0] === "rate") return "<td>" + (v === null ? "—" : v.toFixed(2)) + "</td>";
+        if (c[0] === "rentp") return "<td>" + (v === null ? "—" : v.toFixed(2)) + "</td>";
+        return "<td>" + fmtInt(v) + "</td>";
+      }).join("") + "<td><button type=\"button\" class=\"rowbtn" + (inCmp ? " on" : "") + "\" data-cmp=\"" + esc(id) + "\" title=\"" + (inCmp ? "Remove from the comparison" : "Add to the comparison") + "\">" + (inCmp ? "✓" : "+") + "</button></td></tr>";
+    }).join("");
+    var note = rr.rows.length + " of " + rr.total + " " + (S.rank === "countries" ? "countries" : "cities of 100,000 or more") +
+      (S.want ? " where " + S.want + " m² are within reach" : "") + (S.coast && S.rank === "cities" ? ", coastal only" : "") +
+      ". " + (mine() ? "On your income of €" + fmtInt(incEUR()) + " a month." : "Each on its own average income.") +
+      (S.rank === "countries" ? " Country values are population-weighted means of municipalities; Liechtenstein has no listings data." : " Click a row to open the place on the map.");
+    $("ranknote").textContent = note;
+  }
+  $("rankhead").addEventListener("click", function (e) {
+    var th = e.target.closest("th[data-sort]"); if (!th) return;
+    var k = th.getAttribute("data-sort");
+    if (S.sort === k) S.dir = S.dir === "asc" ? "desc" : "asc"; else { S.sort = k; S.dir = k === "name" || k === "price" || k === "rentp" || k === "rate" ? "asc" : "desc"; }
+    drawRank(); syncURL();
+  });
+  $("rankbody").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-cmp]"); if (b) { toggleCmp(b.getAttribute("data-cmp")); return; }
+    var tr = e.target.closest("tr[data-id]"); if (tr) { select(tr.getAttribute("data-id"), true); $("p-map").scrollIntoView({ behavior: "smooth", block: "start" }); }
+  });
+
+  // ======================================================================
+  // рисунок 3: население по классам и степени урбанизации
+  // ======================================================================
+  function drawHist(id, m) {
+    var svg = $(id); svg.innerHTML = "";
+    var W = 520, H = 300, L0 = 40, R0 = 10, T0 = 26, B0 = 40, total = DATA.popTotal / 1e6;
+    var labels = ["<50", "50–75", "76–100", "101–150", ">150", "no data"];
+    var pw = (W - L0 - R0) / 6, maxPct = 0;
+    m.forEach(function (row) { var s = row.reduce(function (a, b) { return a + b; }, 0) / total * 100; if (s > maxPct) maxPct = s; });
+    var yMax = Math.ceil(maxPct / 10) * 10 || 10;
+    function y(pct) { return T0 + (H - T0 - B0) * (1 - pct / yMax); }
+    for (var g = 0; g <= yMax; g += 10) {
+      svg.appendChild(svgel("line", { x1: L0, x2: W - R0, y1: y(g), y2: y(g) }));
+      var t = svgel("text", { x: L0 - 6, y: y(g) + 3.5, "text-anchor": "end" }); t.textContent = g + " %"; svg.appendChild(t);
+    }
+    m.forEach(function (row, i) {
+      var x = L0 + i * pw + pw * 0.16, w = pw * 0.68, acc = 0;
+      var order = [0, 1, 2, 3], klass = ["d1", "d2", "d3", "d0"];
+      order.forEach(function (j) {
+        var pct = row[j] / total * 100; if (!pct) return;
+        var r = svgel("rect", { x: x, y: y(acc + pct), width: w, height: y(acc) - y(acc + pct), "class": klass[j] });
+        var tt = svgel("title"); tt.textContent = ["cities", "towns and suburbs", "rural", "not classified"][j] + ": " + pct.toFixed(1) + " % of population (" + row[j].toFixed(1) + " M)";
+        r.appendChild(tt); svg.appendChild(r); acc += pct;
+      });
+      var v = svgel("text", { x: x + w / 2, y: y(acc) - 6, "text-anchor": "middle", "class": "v" }); v.textContent = acc.toFixed(0) + " %"; svg.appendChild(v);
+      var lb = svgel("text", { x: x + w / 2, y: H - B0 + 16, "text-anchor": "middle" }); lb.textContent = labels[i]; svg.appendChild(lb);
+    });
+    var ax = svgel("text", { x: W / 2, y: H - 6, "text-anchor": "middle" }); ax.textContent = "affordable square metres on a third of the local average income"; svg.appendChild(ax);
+  }
+  drawHist("hist-sale", DATA.hist.sale); drawHist("hist-rent", DATA.hist.rent);
+
+  // ======================================================================
+  // поделиться, картинка, CSV, печать
+  // ======================================================================
+  function flash(btn, msg) {
+    var t = el("div", { "class": "copied", role: "status" }, esc(msg));
+    document.body.appendChild(t);
+    var r = btn.getBoundingClientRect(), w = t.offsetWidth, h = t.offsetHeight;
+    function clamp(v, max) { return Math.max(8, Math.min(v, max - 8)); }
+    var top = r.bottom + 8 + h > window.innerHeight ? r.top - h - 8 : r.bottom + 8;
+    t.style.left = clamp(r.right - w, window.innerWidth - w) + "px"; t.style.top = clamp(top, window.innerHeight - h) + "px";
+    setTimeout(function () { t.classList.add("in"); }, 16);
+    setTimeout(function () { t.classList.remove("in"); setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 260); }, 1800);
+  }
+  var TICK = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12.5 4.5 4.5L19 7"/></svg>';
+  function done(btn, msg, keepLabel) {
+    var icon = btn.classList.contains("ibtn"), label = btn.innerHTML, title = btn.title;
+    btn.innerHTML = icon ? TICK : msg; btn.classList.add("done"); if (icon) btn.title = msg; flash(btn, msg);
+    setTimeout(function () { btn.innerHTML = label; btn.title = title; btn.classList.remove("done"); }, 2400);
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-share]"), function (btn) {
+    btn.addEventListener("click", function () {
+      var url = shareURL(); syncURL();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () { done(btn, "Link copied"); }, function () { done(btn, "Address bar holds the link"); });
+      } else done(btn, "Address bar holds the link");
+    });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll(".pactions"), function (box) {
+    box.addEventListener("click", function (e) { if (e.target.closest(".ibtn")) { e.preventDefault(); e.stopPropagation(); } });
+  });
+
+  function gvar(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+  function legendRows() {
+    var rows = [
+      ["Income", mine() ? "€" + fmtInt(incEUR()) + " net a month" + (S.cur !== "EUR" ? " (" + fmtInt(S.inc) + " " + S.cur + ")" : "") + ", household of " + S.adults + " adult" + (S.adults > 1 ? "s" : "") + (S.kids ? " and " + S.kids + " child" + (S.kids > 1 ? "ren" : "") : "") : "the average local income of each place"],
+      ["Terms", S.share + " % of income for housing, " + S.term + "-year mortgage at " + rateNote() + ", deposit " + S.dep + " %"],
+      ["Map", (S.mode === "buy" ? "square metres to buy" : S.mode === "rent" ? "square metres to rent" : "square metres to rent minus square metres to buy") + (S.want ? "; regions where " + S.want + " m² are out of reach are greyed" : "")],
+      ["Source", "Sielker & Banabak 2026, Journal of Maps; ESPON HOUSE4ALL feature service, 14 Sep 2026; outlines Eurostat GISCO NUTS 2021"]
+    ];
+    return rows;
+  }
+  function inlineStyles(src, clone) {
+    var props = ["fill", "fill-opacity", "stroke", "stroke-width", "stroke-opacity", "opacity", "font-family", "font-size", "font-weight", "text-anchor"];
+    var a = src.querySelectorAll("*"), b = clone.querySelectorAll("*");
+    for (var i = 0; i < a.length; i++) {
+      var cs = getComputedStyle(a[i]), css = "";
+      for (var j = 0; j < props.length; j++) { var v = cs.getPropertyValue(props[j]); if (v) css += props[j] + ":" + v + ";"; }
+      b[i].setAttribute("style", css); b[i].removeAttribute("class");
+    }
+  }
+  function mapImage() {
+    var clone = mapEl.cloneNode(true);
+    inlineStyles(mapEl, clone);
+    clone.setAttribute("xmlns", "http://www.w3.org/2000/svg"); clone.setAttribute("width", GEO.w); clone.setAttribute("height", GEO.h);
+    var img = new Image();
+    img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(new XMLSerializer().serializeToString(clone));
+    return img.decode ? img.decode().then(function () { return img; }) : new Promise(function (ok) { img.onload = function () { ok(img); }; });
+  }
+  function wrapText(ctx, text, x, y, maxW, lh) {
+    var words = text.split(" "), line = "", used = 0;
+    for (var i = 0; i < words.length; i++) {
+      var probe = line ? line + " " + words[i] : words[i];
+      if (ctx.measureText(probe).width > maxW && line) { ctx.fillText(line, x, y + used * lh); used++; line = words[i]; } else line = probe;
+    }
+    if (line) { ctx.fillText(line, x, y + used * lh); used++; }
+    return used * lh;
+  }
+  var PNG_W = 1400, PAD = 52, PNG_SCALE = 2;
+  var head = "'Space Grotesk', system-ui, sans-serif", body = "'Inter', system-ui, sans-serif", mono = "'JetBrains Mono', ui-monospace, Menlo, monospace";
+  function legendBlock(ctx, y, rows, inner) {
+    var labelW = 110, textW = inner - labelW;
+    ctx.strokeStyle = gvar("--hair"); ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(PAD, y); ctx.lineTo(PNG_W - PAD, y); ctx.stroke();
+    y += 12;
+    rows.forEach(function (r) {
+      ctx.fillStyle = gvar("--ink-3"); ctx.font = "600 12px " + mono; ctx.fillText(r[0].toUpperCase(), PAD, y + 14);
+      ctx.fillStyle = gvar("--ink-2"); ctx.font = "15px " + body;
+      y += wrapText(ctx, r[1], PAD + labelW, y + 14, textW, 24) + 12;
+    });
+    y += 14; ctx.fillStyle = gvar("--ink-3"); ctx.font = "12px " + mono; ctx.fillText(shareURL().replace(/^https?:\/\//, ""), PAD, y);
+    return y + 8;
+  }
+  function measureLegend(rows, inner) {
+    var probe = document.createElement("canvas").getContext("2d"); probe.font = "15px " + body;
+    var textW = inner - 110;
+    return rows.reduce(function (sum, r) {
+      var lines = 1, line = "", words = r[1].split(" ");
+      for (var i = 0; i < words.length; i++) { var pl = line ? line + " " + words[i] : words[i]; if (probe.measureText(pl).width > textW && line) { lines++; line = words[i]; } else line = pl; }
+      return sum + lines * 24 + 12;
+    }, 12 + 14 + 8 + 12);
+  }
+  function buildMapPNG() {
+    return mapImage().then(function (img) {
+      var inner = PNG_W - PAD * 2, mapH = Math.round(inner * GEO.h / GEO.w), rows = legendRows();
+      var legendH = 0, lgLines = S.mode === "diff" ? DIFF_LABEL : CLASS_LABEL;
+      var height = PAD + 44 + 28 + 20 + mapH + 16 + 22 + 20 + measureLegend(rows, inner) + PAD;
+      var cv = document.createElement("canvas"); cv.width = PNG_W * PNG_SCALE; cv.height = height * PNG_SCALE;
+      var ctx = cv.getContext("2d"); ctx.scale(PNG_SCALE, PNG_SCALE); ctx.textBaseline = "alphabetic";
+      ctx.fillStyle = gvar("--bg"); ctx.fillRect(0, 0, PNG_W, height);
+      var y = PAD + 36;
+      ctx.fillStyle = gvar("--ink"); ctx.font = "600 34px " + head; ctx.fillText({{js:title}}, PAD, y);
+      y += 28; ctx.fillStyle = gvar("--ink-2"); ctx.font = "16px " + body;
+      ctx.fillText((S.mode === "buy" ? "Square metres to buy" : S.mode === "rent" ? "Square metres to rent" : "Square metres to rent minus to buy") + (mine() ? " on €" + fmtInt(incEUR()) + " net a month" : " on the average local income") + ", by NUTS 3 region", PAD, y);
+      y += 20; ctx.drawImage(img, PAD, y, inner, mapH); y += mapH + 16;
+      var x = PAD; ctx.font = "12px " + mono;
+      lgLines.forEach(function (t, i) {
+        ctx.fillStyle = gvar(S.mode === "diff" ? "--d" + (i + 1) : "--m" + (i + 1)); ctx.fillRect(x, y, 16, 12);
+        ctx.fillStyle = gvar("--ink-2"); ctx.fillText(t, x + 22, y + 11); x += 22 + ctx.measureText(t).width + 24;
+      });
+      ctx.fillStyle = gvar("--nd") || "#888"; ctx.strokeStyle = gvar("--hair"); ctx.fillRect(x, y, 16, 12); ctx.strokeRect(x + .5, y + .5, 15, 11);
+      ctx.fillStyle = gvar("--ink-2"); ctx.fillText("no data", x + 22, y + 11);
+      y += 22 + 20;
+      legendBlock(ctx, y, rows, inner);
+      return new Promise(function (ok) { cv.toBlob(ok, "image/png"); });
+    });
+  }
+  function buildCmpPNG() {
+    var cr = cmpRows(); if (!cr.P.length) return Promise.reject(new Error("empty"));
+    var inner = PNG_W - PAD * 2, rows = legendRows(), colW = Math.min(240, (inner - 420) / cr.P.length), labelW = inner - colW * cr.P.length;
+    var nrows = cr.groups.reduce(function (s, g) { return s + g[1].length + 1; }, 0);
+    var height = PAD + 44 + 28 + 24 + 40 + nrows * 28 + 30 + measureLegend(rows, inner) + PAD;
+    var cv = document.createElement("canvas"); cv.width = PNG_W * PNG_SCALE; cv.height = height * PNG_SCALE;
+    var ctx = cv.getContext("2d"); ctx.scale(PNG_SCALE, PNG_SCALE); ctx.textBaseline = "alphabetic";
+    ctx.fillStyle = gvar("--bg"); ctx.fillRect(0, 0, PNG_W, height);
+    var y = PAD + 36;
+    ctx.fillStyle = gvar("--ink"); ctx.font = "600 34px " + head; ctx.fillText({{js:title}}, PAD, y);
+    y += 28; ctx.fillStyle = gvar("--ink-2"); ctx.font = "16px " + body; ctx.fillText("Side by side: " + cr.P.map(function (p) { return p.name; }).join(", "), PAD, y);
+    y += 24;
+    ctx.font = "600 15px " + head; ctx.fillStyle = gvar("--ink"); ctx.textAlign = "right";
+    cr.P.forEach(function (p, i) { ctx.fillText(p.name, PAD + labelW + colW * (i + 1), y + 18); });
+    ctx.font = "12px " + mono; ctx.fillStyle = gvar("--ink-3");
+    cr.P.forEach(function (p, i) { ctx.fillText(ccName(p.cc), PAD + labelW + colW * (i + 1), y + 34); });
+    ctx.textAlign = "left"; y += 40;
+    cr.groups.forEach(function (g) {
+      y += 28; ctx.fillStyle = gvar("--ink-3"); ctx.font = "600 11px " + mono; ctx.fillText(g[0].toUpperCase(), PAD, y - 8);
+      ctx.strokeStyle = gvar("--hair"); ctx.beginPath(); ctx.moveTo(PAD, y - 2); ctx.lineTo(PNG_W - PAD, y - 2); ctx.stroke();
+      g[1].forEach(function (r) {
+        y += 28; ctx.fillStyle = gvar("--ink-2"); ctx.font = "14px " + body; ctx.fillText(r.label, PAD, y - 8);
+        var bestIdx = -1, bv = null;
+        if (r.best && cr.P.length > 1) r.vals.forEach(function (v, i) { if (v === null) return; if (bv === null || (r.best === "max" ? v > bv : v < bv)) { bv = v; bestIdx = i; } });
+        ctx.textAlign = "right"; ctx.font = "15px " + mono;
+        r.vals.forEach(function (v, i) { ctx.fillStyle = i === bestIdx ? gvar("--ok") : gvar("--ink"); ctx.fillText(fmtCell(r.label, v), PAD + labelW + colW * (i + 1), y - 8); });
+        ctx.textAlign = "left";
+        ctx.strokeStyle = gvar("--hair-soft"); ctx.beginPath(); ctx.moveTo(PAD, y); ctx.lineTo(PNG_W - PAD, y); ctx.stroke();
+      });
+    });
+    y += 30; legendBlock(ctx, y, rows, inner);
+    return new Promise(function (ok) { cv.toBlob(ok, "image/png"); });
+  }
+  function savePNG(blob, name, btn) {
+    var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = name; a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000); done(btn, "PNG saved");
+  }
+  function pngAction(sel, dl) {
+    Array.prototype.forEach.call(document.querySelectorAll(sel), function (btn) {
+      btn.addEventListener("click", function () {
+        var which = btn.getAttribute(dl ? "data-png-dl" : "data-png");
+        var build = which === "map" ? buildMapPNG : buildCmpPNG, name = which === "map" ? "housing-europe-map.png" : "housing-europe-comparison.png";
+        build().then(function (blob) {
+          if (!dl && window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
+            navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]).then(function () { done(btn, "PNG copied"); }, function () { savePNG(blob, name, btn); });
+          } else savePNG(blob, name, btn);
+        }, function () { flash(btn, which === "cmp" ? "Add a place to compare first" : "Could not build the image"); });
+      });
+    });
+  }
+  pngAction("[data-png]", false); pngAction("[data-png-dl]", true);
+
+  function csvSettings() {
+    return legendRows().map(function (r) { return "# " + r[0] + ": " + r[1]; }).concat(["# " + shareURL()]).join("\n") + "\n";
+  }
+  function csvCell(v) { v = v === null || v === undefined ? "" : String(v); return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+  function saveText(text, name, btn) {
+    var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type: "text/csv;charset=utf-8" })); a.download = name; a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000); done(btn, "CSV saved");
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-csv]"), function (btn) {
+    btn.addEventListener("click", function () {
+      var which = btn.getAttribute("data-csv"), out = csvSettings();
+      if (which === "rank") {
+        var cols = RANK_COLS[S.rank], rr = rankRows();
+        out += "rank," + cols.map(function (c) { return csvCell(c[1]); }).join(",") + (S.rank === "cities" ? ",country" : "") + "\n";
+        rr.rows.forEach(function (r, i) {
+          out += (i + 1) + "," + cols.map(function (c) { var v = r[c[0]]; return csvCell(typeof v === "number" ? Math.round(v * 100) / 100 : v); }).join(",") + (S.rank === "cities" ? "," + csvCell(ccName(r.p.cc)) : "") + "\n";
+        });
+      } else {
+        var cr = cmpRows(); if (!cr.P.length) { flash(btn, "Add a place to compare first"); return; }
+        out += "metric," + cr.P.map(function (p) { return csvCell(p.name + " (" + ccName(p.cc) + ")"); }).join(",") + "\n";
+        cr.groups.forEach(function (g) { g[1].forEach(function (r) { out += csvCell(r.label) + "," + r.vals.map(function (v) { return csvCell(v === null ? "" : Math.round(v * 100) / 100); }).join(",") + "\n"; }); });
+      }
+      saveText(out, which === "rank" ? "housing-europe-" + S.rank + ".csv" : "housing-europe-comparison.csv", btn);
+    });
+  });
+
+  // печать: один блок на лист, светлая палитра
+  var printedTheme = null;
+  function beforePrint(part) {
+    $("printurl").textContent = (location.origin + location.pathname).replace(/^https?:\/\//, "");
+    // Органы управления на лист не идут, поэтому настройка и режим карты
+    // печатаются словами в шапке — иначе распечатку не прочесть без экрана.
+    $("printsetup").textContent = $("setupline").textContent +
+      (part === "map" ? " · map: " + (S.mode === "buy" ? "square metres to buy" : S.mode === "rent" ? "square metres to rent" : "rent minus buy") : "") +
+      (part === "rank" ? " · " + $("ranknote").textContent : "");
+    var root = document.documentElement;
+    printedTheme = root.getAttribute("data-theme");
+    if (printedTheme !== "light") root.setAttribute("data-theme", "light");
+    root.setAttribute("data-print", part);
+    var wide = part === "rank", pw = wide ? 1033 : 710, ph = (wide ? 710 : 1033) - 80;
+    var node = $("p-" + part), sc = 1, w = pw;
+    if (part === "rank") { w = $("ranktable").scrollWidth + 44; sc = Math.min(1, pw / w); }
+    else { var prev = node.style.width; node.style.width = pw + "px"; var h = node.getBoundingClientRect().height; node.style.width = prev; if (part !== "cmp") sc = Math.min(1, ph / h); }
+    root.style.setProperty("--pscale", sc.toFixed(4)); root.style.setProperty("--pwidth", Math.round(w) + "px");
+  }
+  function afterPrint() {
+    var root = document.documentElement;
+    root.removeAttribute("data-print"); root.style.removeProperty("--pscale"); root.style.removeProperty("--pwidth");
+    if (printedTheme && printedTheme !== "light") root.setAttribute("data-theme", printedTheme);
+    printedTheme = null;
+  }
+  window.addEventListener("afterprint", afterPrint);
+  Array.prototype.forEach.call(document.querySelectorAll("[data-print]"), function (btn) {
+    btn.addEventListener("click", function () {
+      beforePrint(btn.getAttribute("data-print")); window.print();
+      setTimeout(function () { if (document.documentElement.hasAttribute("data-print")) afterPrint(); }, 800);
+    });
+  });
+
+  // ======================================================================
+  function update() { paintMap(); drawCard(); drawCmp(); drawRank(); setupLine(); }
+  document.addEventListener("themechange", function () { paintMap(); });
+  readURL();
+  syncControls();
+  update();
+  var first = placeById(S.sel);
+  if (first && first.kind !== "cc") flyTo(first);
+  drawMarks();
+})();

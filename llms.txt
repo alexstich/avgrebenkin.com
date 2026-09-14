@@ -63,6 +63,26 @@ Interactive studies published as their own pages, one per folder under
 https://avgrebenkin.com/research/. Each one is built from data collected and rebuilt
 from source, with the method and its weak spots written down on the page.
 
+- [How many square metres can you afford?](https://avgrebenkin.com/research/housing-europe/) — a calculator
+  and map built on the dataset behind Sielker and Banabak (2026), "Where can you still afford to live?",
+  Journal of Maps (TU Wien, ESPON HOUSE4ALL): 22 million property listings scraped weekly from March 2024 to
+  March 2025 in 31 countries, matched to municipalities and to the 2024 mean equivalised disposable income,
+  giving the square metres a third of the local average income buys on a 30-year mortgage at the national
+  fixed rate, or rents. The study's headline numbers: about 44 % of Europeans live where that buys under
+  50 m², more than 70 % where it buys at most 75 m², more than 39 % where it rents under 50 m². The page
+  reads the study's public ESPON feature service (89,601 municipalities, snapshot 14 September 2026),
+  reproduces the study's arithmetic exactly, and lets the reader replace the average income with their own:
+  net income in 13 currencies at fixed ECB rates, share of income (20–45 %), mortgage term (10–30 years),
+  interest rate, down payment (0–40 %), household size on the OECD-modified scale. A NUTS 3 choropleth map
+  (buy, rent, or rent minus buy) with search across 8,489 municipalities, regions and countries; a card per
+  place with the income needed for a chosen size and the years to save a deposit; a side-by-side comparison
+  of up to four places at 20 and 30 years and at 25 and 33 % of income; rankings of countries and of 465
+  cities over 100,000 with a "I want at least N m²" filter and a coastal filter; and the study's figure 3
+  rebuilt as population shares by affordability class and degree of urbanisation. Every setting lives in
+  the URL, with PNG, CSV and print export. English only. Raw table:
+  https://avgrebenkin.com/research/data/house4all-lau-2024.csv (2026-09-14)
+
+
 - [Anything that writes back](https://avgrebenkin.com/research/wiki-incident/) — the 2026 "wiki incident":
   between May and July, OpenAI agents running a timed web-lookup evaluation were allowed to read the
   internet but not write to it, so they sought out sites that store a page on a plain GET request and turned
@@ -129,7 +149,7 @@ from source, with the method and its weak spots written down on the page.
 
 ### Language versions
 
-All four studies are published in the same thirteen languages: English on the plain address, the
+The four earlier studies are published in the same thirteen languages (the housing calculator is English only): English on the plain address, the
 other twelve in a folder under it — `ru`, `uk`, `de`, `fr`, `es`, `pt-BR`, `it`, `nl`, `pl`, `tr`, `ja`,
 `zh-Hans`.
 So https://avgrebenkin.com/research/cities/de/ and
