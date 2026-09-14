@@ -4,7 +4,9 @@
 
     python3 research/housing-europe/src/data.py      # печатает размеры, пишет data.json
 
-Вход: research/data/house4all-lau-2024.csv (см. extract.py) и src/geo.json (см. geo.py).
+Вход: research/data/house4all-lau-2024.csv (см. extract.py) и src/region-names.json
+(см. names.py). Геометрия сюда больше не нужна: имена регионов приходят из
+статистической номенклатуры, а не из файла контуров.
 Выход: src/data.json — то, что build.py вшивает в страницу переменной DATA.
 
 Что внутри и почему именно столько:
@@ -131,7 +133,7 @@ def main():
                 'coast': int(r['coastal']) if r['coastal'] else 0,
                 'sl': f(r['s_listings']), 'rl': f(r['r_listings']),
             })
-    geo = json.load(open(os.path.join(HERE, 'geo.json'), encoding='utf-8'))
+    rnames = json.load(open(os.path.join(HERE, 'region-names.json'), encoding='utf-8'))
 
     # ---- страны
     region_of = {c: k for k, cs in REGION.items() for c in cs}
@@ -173,7 +175,7 @@ def main():
         pop = sum(r['pop'] for r in rs)
         n3index[code] = len(regions)
         regions.append([
-            code, geo['names'].get(code, code), rs[0]['cc'], round(pop),
+            code, rnames.get(code, code), rs[0]['cc'], round(pop),
             round(wmean(rs, 'inc')), round(wmean(rs, 'sp')), round(wmean(rs, 'rp'), 2),
             round(wmean(rs, 'sa'), 1), round(wmean(rs, 'ra'), 1),
             round(sum(r['pop'] for r in rs if r['sa']) / pop, 2) if pop else 0,

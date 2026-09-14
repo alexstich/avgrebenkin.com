@@ -11,7 +11,7 @@
                     в шапку самой страницы
 Карта — та же, что на странице: покупка, средний местный доход, 30 лет.
 """
-import json, os, subprocess
+import json, math, os, subprocess
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..', '..'))
@@ -32,15 +32,53 @@ def cls(v):
     return 4
 
 
+def afford(income_year, price_m2, rate_pct, share=33.0, years=30):
+    """Формула самого исследования: треть дохода, аннуитет на 30 лет по ставке
+    страны. Совпадает с buyM2() на странице при настройках по умолчанию."""
+    if not price_m2 or not income_year or not rate_pct:
+        return 0.0
+    i = rate_pct / 100.0 / 12.0
+    n = years * 12
+    ann = (1 - (1 + i) ** -n) / i if i > 0 else n
+    return (income_year / 12.0) * share / 100.0 * ann / price_m2
+
+
+def project(lat, lon):
+    """Та же проекция, что в geo.py, в те же экранные единицы: обложка обязана
+    совпадать с картой на странице, а не жить своей геометрией."""
+    p, l = math.radians(lat), math.radians(lon)
+    p0, l0 = math.radians(geo['lat0']), math.radians(geo['lon0'])
+    k = math.sqrt(2 / (1 + math.sin(p0) * math.sin(p) + math.cos(p0) * math.cos(p) * math.cos(l - l0)))
+    x = k * math.cos(p) * math.sin(l - l0)
+    y = k * (math.cos(p0) * math.sin(p) - math.sin(p0) * math.cos(p) * math.cos(l - l0))
+    minx, maxx, miny, maxy = geo['box']
+    scale = geo['w'] / (maxx - minx)
+    return (x - minx) * scale, (maxy - y) * scale
+
+
 def map_svg(x0, y0, w, h):
-    """Карта, вписанная в прямоугольник (x0, y0, w, h), без Турции и Балкан без данных."""
+    """Карта в прямоугольнике (x0, y0, w, h): страны заливкой, города точками —
+    как на странице. Контуров уровня региона больше нет, см. geo.py."""
     sc = min(w / geo['w'], h / geo['h'])
     out = ['<g transform="translate(%.1f %.1f) scale(%.4f)">' % (x0 + (w - geo['w'] * sc) / 2, y0 + (h - geo['h'] * sc) / 2, sc)]
-    val = {n[0]: n[7] for n in data['nuts3']}
-    for nid, d in geo['nuts3'].items():
-        k = cls(val.get(nid, 0))
+    cval = {c['c']: c['sa'] for c in data['countries']}
+    for cc, d in geo['countries'].items():
+        k = cls(cval.get(cc, 0))
         fill = RAMP[k] if k >= 0 else ND
-        out.append('<path d="%s" fill="%s" stroke="%s" stroke-width="%.2f"/>' % (d, fill, BG, 0.6 / sc))
+        out.append('<path d="%s" fill="%s" fill-opacity="0.8" stroke="%s" stroke-width="%.2f"/>' % (d, fill, BG, 0.6 / sc))
+    # Точки — самые населённые места; порядок в data['places'] уже по населению.
+    F = data['placefields']
+    ip, ilat, ilon, isp = F.index('pop'), F.index('lat100'), F.index('lon100'), F.index('sp')
+    icc, iinc = F.index('cc'), F.index('inc')
+    rates = {i: c.get('rate') or 0 for i, c in enumerate(data['countries'])}
+    for a in data['places'][:900]:
+        if not a[isp]:
+            continue
+        x, y = project(a[ilat] / 100.0, a[ilon] / 100.0)
+        r = max(2.6, min(11.0, math.sqrt(a[ip]) / 130.0))
+        k = cls(afford(a[iinc], a[isp], rates.get(a[icc], 0)))
+        out.append('<circle cx="%.1f" cy="%.1f" r="%.1f" fill="%s" stroke="%s" stroke-width="%.2f"/>'
+                   % (x, y, r, RAMP[k] if k >= 0 else ND, BG, 0.8 / sc))
     out.append('</g>')
     return ''.join(out)
 

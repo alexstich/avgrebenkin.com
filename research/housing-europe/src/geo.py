@@ -1,32 +1,57 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Контуры NUTS 3 и границы стран для карты — из GISCO Евростата в компактный SVG.
+"""Контуры стран для карты — из Natural Earth в компактный SVG.
 
     python3 research/housing-europe/src/geo.py [папка с geojson]
 
-Источник: https://gisco-services.ec.europa.eu/distribution/v2/nuts/geojson/
-  NUTS_RG_20M_2021_4326_LEVL_3.geojson — регионы NUTS 3 редакции 2021, масштаб 1:20 млн
-  NUTS_RG_20M_2021_4326_LEVL_0.geojson — контуры стран той же редакции
-(© EuroGeographics для административных границ). Если файлов в папке нет,
-скрипт их скачает.
+Почему не GISCO. Контуры NUTS Евростата выглядели очевидным выбором и были здесь
+сначала, но их лицензия проверена по первоисточнику и не подходит: на страницах
+«Administrative units» и «Statistical units» условие сформулировано дословно —
+«The permission to use the data is granted on condition that: the data will not be
+used for commercial purposes», а за коммерческой лицензией отсылают в
+EuroGeographics. На страницах раздела стоит баннер собственного продукта, так что
+некоммерческий характер как минимум спорен. Формулировка живёт на родительской
+странице, а на конечных страницах про NUTS её нет вовсе — поэтому эти контуры
+часто перераспространяют как свободные, хотя первоисточник такого права не даёт.
+
+Natural Earth — общественное достояние без условий, и покрывает весь мир, а не
+одну Европу, что нужно для не-европейских слоёв.
+
+Источник: https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/
+  geojson/ne_50m_admin_0_countries.geojson — репозиторий сопровождающего Natural Earth.
+
+Что изменилось в модели. Полигонов уровня региона больше нет: в Natural Earth их
+нет, а лицензионно чистой замены с кодами NUTS не нашлось. Карта красит страны, а
+места показывает точками по центроидам — они и так есть в данных. Регионы остаются
+в поиске, рейтингах и сравнении, просто не красятся на карте.
 
 Проекция — азимутальная равновеликая Ламберта с центром 52° с. ш., 10° в. д.
-(то же семейство, что EPSG:3035 у самого ESPON). Координаты квантуются в сетку
-1400 единиц по ширине, путь пишется относительными отрезками: 1499 полигонов
-NUTS 3 занимают около 135 КБ. Заморские территории (Французская Гвиана, Канары,
-Азоры, Мадейра, Шпицберген) в кадр не попадают: рамка −25…45° по долготе и
-34…72° по широте.
+Координаты квантуются в сетку 1400 единиц по ширине, путь пишется относительными
+отрезками. Рамка −25…45° по долготе и 34…72° по широте.
 
-Что пишется: src/geo.json — {w, h, nuts3: {код: путь}, nuts0: {код: путь},
-names: {код NUTS3: латинское имя}}.
+Рамка считается по странам, у которых есть данные (читается из data.json), иначе
+Турция и Северная Африка раздвигают кадр и Европа съёживается. Соседи рисуются и
+обрезаются границами viewBox.
+
+Что пишется: src/geo.json — {w, h, lat0, lon0, box, countries: {ISO-2: путь}}.
 """
 import json, math, os, sys, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-BASE = 'https://gisco-services.ec.europa.eu/distribution/v2/nuts/geojson/'
-FILES = {3: 'NUTS_RG_20M_2021_4326_LEVL_3.geojson', 0: 'NUTS_RG_20M_2021_4326_LEVL_0.geojson'}
+URL = ('https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/'
+       'geojson/ne_50m_admin_0_countries.geojson')
+NAME = 'ne_50m_admin_0_countries.geojson'
 W = 1400
 LAT0, LON0 = 52.0, 10.0
+
+# Natural Earth держит код в ISO_A2, но для спорных и мелких территорий там '-99'.
+# Тогда берём ISO_A2_EH, где эти случаи разведены (Франция, Норвегия, Косово).
+def iso2(props):
+    for k in ('ISO_A2_EH', 'ISO_A2', 'WB_A2'):
+        v = (props.get(k) or '').strip()
+        if v and v != '-99':
+            return v
+    return ''
 
 
 def laea(lat, lon):
@@ -51,19 +76,27 @@ def rings(feature):
             yield ring
 
 
-def load(src, level):
-    p = os.path.join(src, FILES[level])
+def load(src):
+    p = os.path.join(src, NAME)
     if not os.path.exists(p):
-        print('скачиваю', FILES[level])
-        urllib.request.urlretrieve(BASE + FILES[level], p)
+        print('скачиваю', NAME)
+        urllib.request.urlretrieve(URL, p)
     return json.load(open(p, encoding='utf-8'))
 
 
 def main():
     src = sys.argv[1] if len(sys.argv) > 1 else HERE
-    g3, g0 = load(src, 3), load(src, 0)
+    g = load(src)
+    feats = [f for f in g['features'] if iso2(f['properties']) and list(rings(f))]
+
+    # Рамка — по странам, для которых есть данные. Если считать по всем контурам в
+    # кадре, Турция и Северная Африка раздвигают её, и Европа съёживается вдвое.
+    dp = os.path.join(HERE, 'data.json')
+    core = {c['c'] for c in json.load(open(dp, encoding='utf-8'))['countries']} if os.path.exists(dp) else None
+    frame = [f for f in feats if core is None or iso2(f['properties']) in core] or feats
+
     xs, ys = [], []
-    for f in g3['features']:
+    for f in frame:
         for ring in rings(f):
             for p in ring:
                 x, y = laea(p[1], p[0]); xs.append(x); ys.append(y)
@@ -89,21 +122,16 @@ def main():
             paths.append(d + 'z')
         return ''.join(paths)
 
-    nuts3, names, nuts0 = {}, {}, {}
-    for f in g3['features']:
+    countries = {}
+    for f in feats:
         d = encode(f)
         if d:
-            nuts3[f['properties']['NUTS_ID']] = d
-            names[f['properties']['NUTS_ID']] = f['properties']['NAME_LATN']
-    for f in g0['features']:
-        d = encode(f)
-        if d:
-            nuts0[f['properties']['NUTS_ID']] = d
+            countries[iso2(f['properties'])] = d
     out = {'w': W, 'h': H, 'lat0': LAT0, 'lon0': LON0,
-           'box': [minx, maxx, miny, maxy], 'regions': nuts3, 'countries': nuts0, 'names': names}
+           'box': [minx, maxx, miny, maxy], 'countries': countries}
     p = os.path.join(HERE, 'geo.json')
     json.dump(out, open(p, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
-    print('geo.json: %d NUTS3, %d стран, %d×%d, %d байт' % (len(nuts3), len(nuts0), W, H, os.path.getsize(p)))
+    print('geo.json: %d стран, %d×%d, %d байт' % (len(countries), W, H, os.path.getsize(p)))
 
 
 if __name__ == '__main__':

@@ -237,8 +237,19 @@
   
   #regions path:hover, #regions path.hover { stroke: var(--pick); stroke-width: 1.4; }
   #regions path.sel { stroke: var(--pick); stroke-width: 2; }
-  #borders path { fill: none; stroke: var(--border-line); stroke-width: .7; vector-effect: non-scaling-stroke;
-                  pointer-events: none; }
+  /* Страна красится приглушённо, чтобы точки городов поверх неё читались: одна и
+     та же шкала в двух насыщенностях, а не два разных набора цветов. */
+  #regions path { opacity: .5; }
+  #regions path.sel, #regions path:hover { opacity: .75; }
+  #dots circle { stroke: var(--panel); stroke-width: .8; vector-effect: non-scaling-stroke;
+                 cursor: pointer; transition: fill .25s; }
+  #dots circle.c0 { fill: var(--m1); } #dots circle.c1 { fill: var(--m2); } #dots circle.c2 { fill: var(--m3); }
+  #dots circle.c3 { fill: var(--m4); } #dots circle.c4 { fill: var(--m5); }
+  #dots circle.e0 { fill: var(--d1); } #dots circle.e1 { fill: var(--d2); } #dots circle.e2 { fill: var(--d3); }
+  #dots circle.e3 { fill: var(--d4); } #dots circle.e4 { fill: var(--d5); }
+  #dots circle.nd, #dots circle.dim { fill: var(--nd); opacity: .55; }
+  #dots circle:hover { stroke: var(--pick); stroke-width: 2; }
+  #dots circle.sel { stroke: var(--pick); stroke-width: 2.4; }
   #marks circle { fill: none; stroke: var(--pick); stroke-width: 2; vector-effect: non-scaling-stroke;
                   pointer-events: none; }
   #marks circle.core { fill: var(--pick); stroke: none; }

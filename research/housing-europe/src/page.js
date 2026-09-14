@@ -315,24 +315,81 @@
   // ======================================================================
   // карта
   // ======================================================================
-  var mapEl = $("map"), mapg = $("mapg"), regionsG = $("regions"), bordersG = $("borders"), marksG = $("marks");
+  var mapEl = $("map"), mapg = $("mapg"), regionsG = $("regions"), marksG = $("marks");
+  // Контуры теперь страновые: полигонов уровня NUTS 3 в свободной лицензии нет
+  // (см. geo.py). Страна красится заливкой, места показываются точками поверх.
   var pathOf = {};
-  Object.keys(GEO.regions).forEach(function (id) {
-    var p = svgel("path", { d: GEO.regions[id], "data-id": id });
+  Object.keys(GEO.countries).forEach(function (id) {
+    var p = svgel("path", { d: GEO.countries[id], "data-id": "c:" + id });
     regionsG.appendChild(p); pathOf[id] = p;
   });
-  Object.keys(GEO.countries).forEach(function (id) { bordersG.appendChild(svgel("path", { d: GEO.countries[id] })); });
+
+  // Центроид региона — среднее по его местам: собственной геометрии у него больше
+  // нет, а «перелететь к региону» и поставить метку всё равно нужно.
+  var regXY = {};
+  (function () {
+    var acc = {};
+    L.forEach(function (l) {
+      if (l.reg < 0) return;
+      var a = acc[l.reg] || (acc[l.reg] = [0, 0, 0]);
+      a[0] += l.lat * l.pop; a[1] += l.lon * l.pop; a[2] += l.pop;
+    });
+    Object.keys(acc).forEach(function (k) {
+      var a = acc[k]; if (a[2]) regXY[N3[k].id] = [a[0] / a[2], a[1] / a[2]];
+    });
+  })();
+
+  // Точки мест. Все 8 489 кружков разом — лишняя работа для браузера на обзорном
+  // масштабе, где они всё равно сливаются, поэтому показывается столько, сколько
+  // различимо при текущем зуме, начиная с самых населённых (L уже отсортирован).
+  var dotsG = svgel("g", { id: "dots" });
+  regionsG.parentNode.insertBefore(dotsG, marksG);
+  var dotOf = [], dotsShown = 0;
+  function dotBudget() { return Math.min(L.length, Math.round(420 * Z.k * Z.k)); }
+  function buildDots() {
+    var n = dotBudget();
+    if (n === dotsShown) return;
+    if (n < dotsShown) {
+      while (dotOf.length > n) dotsG.removeChild(dotOf.pop());
+    } else {
+      for (var i = dotOf.length; i < n; i++) {
+        var l = L[i], xy = project(l.lat, l.lon);
+        var c = svgel("circle", { cx: xy[0].toFixed(1), cy: xy[1].toFixed(1), "data-id": l.id });
+        dotsG.appendChild(c); dotOf.push(c);
+      }
+    }
+    dotsShown = n;
+    sizeDots(); paintDots();
+  }
+  function sizeDots() {
+    // Радиус по населению, но в экранных единицах: при зуме точки не раздуваются.
+    for (var i = 0; i < dotOf.length; i++) {
+      var l = L[i], r = Math.max(1.6, Math.min(9, Math.sqrt(l.pop) / 170));
+      dotOf[i].setAttribute("r", (r / Z.k).toFixed(2));
+    }
+  }
+  function paintDots() {
+    for (var i = 0; i < dotOf.length; i++) {
+      var l = L[i], v = valueOf(l), c;
+      if (!l.sp && !l.rp) c = "nd";
+      else if (S.mode === "diff") { var d = dcls(v); c = d < 0 ? "nd" : "e" + d; }
+      else { var k = cls(v); c = k < 0 ? "nd" : "c" + k; }
+      if (c !== "nd" && !reaches(l)) c = "dim";
+      dotOf[i].setAttribute("class", "dot " + c + (S.sel === l.id ? " sel" : ""));
+    }
+  }
 
   function paintMap() {
-    N3.forEach(function (n) {
-      var p = pathOf[n.id]; if (!p) return;
-      var v = valueOf(n), c = "";
-      if (!n.sp && !n.rp) c = "";
+    C.forEach(function (cc) {
+      var p = pathOf[cc.c]; if (!p) return;
+      var v = valueOf(cc), c = "";
+      if (!cc.sp && !cc.rp) c = "";
       else if (S.mode === "diff") { var d = dcls(v); c = d < 0 ? "" : "e" + d; }
       else { var k = cls(v); c = k < 0 ? "" : "c" + k; }
-      if (c && !reaches(n)) c = "dim";
-      p.setAttribute("class", c + (S.sel === "n:" + n.id ? " sel" : ""));
+      if (c && !reaches(cc)) c = "dim";
+      p.setAttribute("class", c + (S.sel === "c:" + cc.c ? " sel" : ""));
     });
+    buildDots(); paintDots();
     var lg = $("legend"), html = "<b>" + (S.mode === "buy" ? "m² to buy" : S.mode === "rent" ? "m² to rent" : "rent minus buy, m²") + "</b>";
     if (S.mode === "diff") DIFF_LABEL.forEach(function (t, i) { html += "<span><i class=\"e" + i + "\"></i>" + t + "</span>"; });
     else CLASS_LABEL.forEach(function (t, i) { html += "<span><i class=\"c" + i + "\"></i>" + t + "</span>"; });
@@ -342,7 +399,7 @@
 
   // зум и панорама: transform на группе, точка под курсором остаётся на месте
   var Z = { k: 1, x: 0, y: 0 };
-  function applyZ() { mapg.setAttribute("transform", "translate(" + Z.x.toFixed(1) + " " + Z.y.toFixed(1) + ") scale(" + Z.k.toFixed(3) + ")"); drawMarks(); }
+  function applyZ() { mapg.setAttribute("transform", "translate(" + Z.x.toFixed(1) + " " + Z.y.toFixed(1) + ") scale(" + Z.k.toFixed(3) + ")"); buildDots(); sizeDots(); drawMarks(); }
   function svgPoint(cx, cy) {
     var r = mapEl.getBoundingClientRect();
     return [(cx - r.left) / r.width * GEO.w, (cy - r.top) / r.height * GEO.h];
@@ -420,21 +477,30 @@
     var w = tip.offsetWidth; x = Math.max(w / 2 + 4, Math.min(x, r.width - w / 2 - 4));
     tip.style.left = x + "px"; tip.style.top = y + "px"; tip.style.opacity = "1";
   }
-  regionsG.addEventListener("pointermove", function (e) {
+  // Точка места перекрывает страну, поэтому цель ищется сначала среди точек.
+  function targetOf(e) {
+    var el = e.target.closest("circle[data-id], path[data-id]");
+    if (!el) return null;
+    var id = el.getAttribute("data-id");
+    return id.indexOf("c:") === 0 ? C[CI[id.slice(2)]] : L[LI[id]];
+  }
+  function onMapMove(e) {
     if (dragFrom && moved > 6) return;
-    var p = e.target.closest("path"); if (!p) return;
-    var id = p.getAttribute("data-id"), n = N3[N3I[id]];
-    if (!n) { tip.style.opacity = "0"; return; }
+    var t = targetOf(e);
+    if (!t) { tip.style.opacity = "0"; hoverId = null; return; }
     if (e.pointerType === "touch") return;
-    hoverId = id; showTipAt(n, e.clientX, e.clientY);
-  });
-  regionsG.addEventListener("pointerleave", function () { tip.style.opacity = "0"; hoverId = null; });
-  regionsG.addEventListener("click", function (e) {
+    hoverId = pid(t); showTipAt(t, e.clientX, e.clientY);
+  }
+  function onMapClick(e) {
     if (moved > 6) return;
-    var p = e.target.closest("path"); if (!p) return;
-    var n = N3[N3I[p.getAttribute("data-id")]]; if (!n) return;
-    select("n:" + n.id, false);
-    if (e.pointerType === "touch" || matchMedia("(hover: none)").matches) showTipAt(n, e.clientX, e.clientY);
+    var t = targetOf(e); if (!t) return;
+    select(pid(t), false);
+    if (e.pointerType === "touch" || matchMedia("(hover: none)").matches) showTipAt(t, e.clientX, e.clientY);
+  }
+  [regionsG, dotsG].forEach(function (g) {
+    g.addEventListener("pointermove", onMapMove);
+    g.addEventListener("click", onMapClick);
+    g.addEventListener("pointerleave", function () { tip.style.opacity = "0"; hoverId = null; });
   });
   mapEl.addEventListener("keydown", function (e) {
     if (e.key === "+" || e.key === "=") zoomAt(1.5); else if (e.key === "-") zoomAt(1 / 1.5);
@@ -444,16 +510,20 @@
   function drawMarks() {
     marksG.innerHTML = "";
     var pl = placeById(S.sel);
-    if (!pl || pl.kind !== "place") return;
-    var xy = project(pl.lat, pl.lon), r = 7 / Z.k;
+    if (!pl) return;
+    var xy;
+    if (pl.kind === "place") xy = project(pl.lat, pl.lon);
+    else if (pl.kind === "region" && regXY[pl.id]) xy = project(regXY[pl.id][0], regXY[pl.id][1]);
+    else return;
+    var r = 7 / Z.k;
     marksG.appendChild(svgel("circle", { cx: xy[0].toFixed(1), cy: xy[1].toFixed(1), r: (r * 1.8).toFixed(2) }));
     marksG.appendChild(svgel("circle", { cx: xy[0].toFixed(1), cy: xy[1].toFixed(1), r: (r * 0.55).toFixed(2), "class": "core" }));
   }
   function flyTo(pl) {
     var xy;
     if (pl.kind === "place") xy = project(pl.lat, pl.lon);
-    else if (pl.kind === "region") { var bb = pathOf[pl.id] && pathOf[pl.id].getBBox(); if (!bb) return; xy = [bb.x + bb.width / 2, bb.y + bb.height / 2]; }
-    else return;
+    else if (pl.kind === "region") { var r = regXY[pl.id]; if (!r) return; xy = project(r[0], r[1]); }
+    else { var b = pathOf[pl.c] && pathOf[pl.c].getBBox(); if (!b) return; xy = [b.x + b.width / 2, b.y + b.height / 2]; }
     var k = pl.kind === "place" ? Math.max(Z.k, 4) : Math.max(Z.k, 2.5);
     Z.k = k; Z.x = GEO.w / 2 - xy[0] * k; Z.y = GEO.h / 2 - xy[1] * k; applyZ();
   }
@@ -888,7 +958,7 @@
       var y = PAD + 36;
       ctx.fillStyle = gvar("--ink"); ctx.font = "600 34px " + head; ctx.fillText({{js:title}}, PAD, y);
       y += 28; ctx.fillStyle = gvar("--ink-2"); ctx.font = "16px " + body;
-      ctx.fillText((S.mode === "buy" ? "Square metres to buy" : S.mode === "rent" ? "Square metres to rent" : "Square metres to rent minus to buy") + (mine() ? " on €" + fmtInt(incEUR()) + " net a month" : " on the average local income") + ", by NUTS 3 region", PAD, y);
+      ctx.fillText((S.mode === "buy" ? "Square metres to buy" : S.mode === "rent" ? "Square metres to rent" : "Square metres to rent minus to buy") + (mine() ? " on €" + fmtInt(incEUR()) + " net a month" : " on the average local income") + ", by country and town", PAD, y);
       y += 20; ctx.drawImage(img, PAD, y, inner, mapH); y += mapH + 16;
       var x = PAD; ctx.font = "12px " + mono;
       lgLines.forEach(function (t, i) {
