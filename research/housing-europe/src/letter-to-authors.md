@@ -11,6 +11,14 @@ Spatial Planning (Forschungsbereich Stadt- und Regionalforschung), TU Wien.
 если можно, прислать итоговую таблицу статьи (доли населения на странице
 расходятся с рисунком 3 на несколько пунктов).
 
+**Второе письмо, отдельное — в ESPON EGTC (info@espon.eu).** Правовая заметка
+ESPON, пункт (f), обязывает выслать им копию веб-публикации, использующей их
+материалы. Текст ниже, после письма авторам. Требования (a)–(c) той же заметки на
+странице уже выполнены: двойное цитирование «© ESPON» и «Origin of data: ESPON
+EGTC» и дисклеймер про Monitoring Committee стоят под картой, в блоке источников и
+в шапке каждого печатного листа. Пункты (d) и (e) нас не связывают: карта нарисована
+своя из их таблицы, оформление карт ESPON не используется и логотип не ставится.
+
 ---
 
 Subject: Your Journal of Maps affordability data, reused in an interactive page — with attribution
@@ -32,6 +40,36 @@ Two requests, both easy to say no to:
 2. The population shares I compute from the service (about 41 % under 50 m² to buy, 37 % to rent) are a few points below the 44 % and 39 % in your figure 3. If the final table behind the paper is available for reuse under attribution, I would gladly replace the service snapshot with it and mark the difference clearly. If not, I will keep quoting your figures as yours and mine as mine.
 
 Thank you for the work. The maps are the first thing I have seen that answers the question in the reader's own units.
+
+With best regards,
+Aleksei Grebenkin
+Batumi, Georgia
+aleksey.v.grebenkin@gmail.com · https://avgrebenkin.com
+
+---
+
+## Второе письмо — в ESPON EGTC
+
+Отправляет Алексей сам, на info@espon.eu. Это не просьба, а выполнение пункта (f)
+правовой заметки: уведомление о веб-публикации, использующей материалы ESPON.
+
+---
+
+Subject: Notification under your legal notice — web page using ESPON HOUSE4ALL data
+
+Dear ESPON EGTC,
+
+Your legal notice asks that a copy of any web-based report using ESPON material be sent to you. This is that notification.
+
+The page is https://avgrebenkin.com/research/housing-europe/. It is a free, non-commercial interactive page that lets a reader enter their own net income, mortgage term, rate and down payment and see how many square metres that buys or rents in each European municipality, region and country. The affordability data comes from the public feature service HOUSE4ALL_data_at_LAU_level on gis-server.espon.eu, read on 14 September 2026, and underpins the HOUSE4ALL work of Sielker, Banabak and the project consortium.
+
+On the requirements in the notice:
+
+- The data is cited twofold as "© ESPON" and "Origin of data: ESPON EGTC".
+- The disclaimer "The interpretation of ESPON material does not necessarily reflect the opinion of the ESPON Monitoring Committee" appears under the map, in the sources section, and in the header of every printed sheet.
+- No ESPON map is reproduced. The maps on the page were drawn for it from the data table, in my own design, and carry neither the ESPON map design nor the ESPON logo. The page says this explicitly so that no reader mistakes them for ESPON maps.
+
+If any of this falls short of what you intend, please tell me and I will correct or remove the page.
 
 With best regards,
 Aleksei Grebenkin

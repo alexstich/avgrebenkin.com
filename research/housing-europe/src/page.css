@@ -206,6 +206,12 @@
              cursor: pointer; font-size: 14px; color: var(--ink); }
   /* Строка подсказки подсвечивается акцентом, и на этом фоне --ink-3 даёт
      3.8:1 — ниже AA. Экзоним получает собственный, замеренный тон. */
+  /* Лицензия ESPON требует дисклеймер «на видном и читаемом месте», поэтому
+     строка мельче основного текста, но не серее --ink-2, и печатается тоже. */
+  #printespon { font-size: 10px; color: #444; margin-top: 4px; }
+
+  .espon { font-size: 14px; border-top: 1px solid var(--line); margin-top: 14px; padding-top: 10px; color: var(--ink-2); }
+
   .gsug li em { font-style: normal; color: var(--sug-em); font-size: 12px; }
   .gsug li .cy { margin-left: auto; color: var(--ink-3); font-size: 11px; font-family: var(--mono);
                  white-space: nowrap; }

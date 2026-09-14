@@ -342,6 +342,12 @@
              cursor: pointer; font-size: 14px; color: var(--ink); }
   /* Строка подсказки подсвечивается акцентом, и на этом фоне --ink-3 даёт
      3.8:1 — ниже AA. Экзоним получает собственный, замеренный тон. */
+  /* Лицензия ESPON требует дисклеймер «на видном и читаемом месте», поэтому
+     строка мельче основного текста, но не серее --ink-2, и печатается тоже. */
+  #printespon { font-size: 10px; color: #444; margin-top: 4px; }
+
+  .espon { font-size: 14px; border-top: 1px solid var(--line); margin-top: 14px; padding-top: 10px; color: var(--ink-2); }
+
   .gsug li em { font-style: normal; color: var(--sug-em); font-size: 12px; }
   .gsug li .cy { margin-left: auto; color: var(--ink-3); font-size: 11px; font-family: var(--mono);
                  white-space: nowrap; }
@@ -592,7 +598,7 @@
 
 <main>
 <div class="wrap">
-  <div class="printhead"><h2>How many square metres can you afford?</h2><p id="printsetup"></p><p id="printurl">avgrebenkin.com/research/housing-europe/</p></div>
+  <div class="printhead"><h2>How many square metres can you afford?</h2><p id="printsetup"></p><p id="printurl">avgrebenkin.com/research/housing-europe/</p><p id="printespon">Affordability data: © ESPON · Origin of data: ESPON EGTC. The interpretation of ESPON material does not necessarily reflect the opinion of the ESPON Monitoring Committee.</p></div>
   <p class="crumb"><a href="/research/">← Research</a></p>
 
   <header class="hero">
@@ -725,6 +731,7 @@
         <p class="cempty">Search a town above or click a region on the map. The card shows what your settings mean there, and what it would take.</p>
       </div>
     </div>
+    <p class="espon">Affordability data: © ESPON · Origin of data: ESPON EGTC. The interpretation of ESPON material does not necessarily reflect the opinion of the ESPON Monitoring Committee. The map on this page is drawn here from that data; it is not an ESPON map and does not use the ESPON map design. Region outlines © EuroGeographics.</p>
   </section>
 
   <!-- ─── compare ────────────────────────────────────────────────── -->
@@ -844,6 +851,7 @@
       <li>European Central Bank. Euro foreign exchange reference rates, 11 September 2026. <a href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html" target="_blank" rel="noopener">ECB</a>.</li>
       <li>Press coverage with the authors' own summary: <a href="https://www.eurekalert.org/news-releases/1141906" target="_blank" rel="noopener">EurekAlert!, 2 September 2026</a>; <a href="https://www.tuwien.at/en/tu-wien/news/news-articles?tx_news_pi1%5Baction%5D=detail&amp;tx_news_pi1%5Bcontroller%5D=News&amp;tx_news_pi1%5Bnews%5D=210029&amp;cHash=bcb107412caa9ded3616c68e2352a144" target="_blank" rel="noopener">TU Wien news</a>.</li>
     </ol>
+    <p class="fine espon"><b>ESPON terms.</b> The affordability data used here is ESPON material and is cited as its legal notice requires: <b>© ESPON</b> and <b>Origin of data: ESPON EGTC</b>. The notice also requires this disclaimer wherever ESPON findings are used: <b>"The interpretation of ESPON material does not necessarily reflect the opinion of the ESPON Monitoring Committee."</b> The maps on this page were drawn for it from the ESPON table and are not reproductions of ESPON maps, so they carry neither the ESPON map design nor the ESPON logo.</p>
     <p class="fine">The study is the work of Franziska Sielker and Selim Banabak of the Institute of Spatial Planning, TU Wien, and of the ESPON HOUSE4ALL consortium. This page is an independent reading of their public data; any error in the calculator or the text is mine, not theirs.</p>
   </section>
 </div>
