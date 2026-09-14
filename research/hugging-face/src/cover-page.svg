@@ -1,84 +1,80 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420">
-  <!-- Обложка для шапки самой страницы: та же графика и те же слова, что на
-       карточке раздела. Слова английские на всех тринадцати языках — решение
-       автора (со словами смотрится лучше). Названия трёх источников — имена
-       собственные, они и так одинаковы. Светлый цветной язык — как на карточке
-       и как у соседнего исследования про вики. Шрифты системные. -->
+  <!-- Шапка страницы: та же графика и слова, что на карточке. Палитра своя,
+       светлый день — нарочно не как у соседней тёмной вики. Три источника —
+       сплошные цветные плитки. Имена собственные одинаковы на всех языках.
+       Шрифты системные: сайтовых в rsvg нет. -->
   <defs>
-    <linearGradient id="sky" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#20265e"/>
-      <stop offset="52%" stop-color="#2b2059"/>
-      <stop offset="100%" stop-color="#3a1d52"/>
+    <linearGradient id="day" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="50%" stop-color="#f6eeff"/>
+      <stop offset="100%" stop-color="#fff0f2"/>
     </linearGradient>
-    <radialGradient id="glowV" cx="78%" cy="4%" r="62%">
-      <stop offset="0%" stop-color="#8f7bff" stop-opacity=".50"/>
-      <stop offset="100%" stop-color="#8f7bff" stop-opacity="0"/>
+    <radialGradient id="bloomB" cx="88%" cy="2%" r="48%">
+      <stop offset="0%" stop-color="#7db4ff" stop-opacity=".30"/>
+      <stop offset="100%" stop-color="#7db4ff" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="glowT" cx="2%" cy="70%" r="52%">
-      <stop offset="0%" stop-color="#37e0c8" stop-opacity=".26"/>
-      <stop offset="100%" stop-color="#37e0c8" stop-opacity="0"/>
+    <radialGradient id="bloomA" cx="2%" cy="20%" r="42%">
+      <stop offset="0%" stop-color="#ffce5c" stop-opacity=".26"/>
+      <stop offset="100%" stop-color="#ffce5c" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="glowP" cx="58%" cy="120%" r="58%">
-      <stop offset="0%" stop-color="#ff67a8" stop-opacity=".24"/>
-      <stop offset="100%" stop-color="#ff67a8" stop-opacity="0"/>
+    <radialGradient id="bloomC" cx="50%" cy="128%" r="58%">
+      <stop offset="0%" stop-color="#ff8aa6" stop-opacity=".24"/>
+      <stop offset="100%" stop-color="#ff8aa6" stop-opacity="0"/>
     </radialGradient>
-    <pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse">
-      <path d="M16 0H0V16" fill="none" stroke="#ffffff" stroke-opacity=".06" stroke-width="1"/>
+    <pattern id="gridd" width="16" height="16" patternUnits="userSpaceOnUse">
+      <path d="M16 0H0V16" fill="none" stroke="#2b2059" stroke-opacity=".05" stroke-width="1"/>
     </pattern>
   </defs>
 
-  <rect width="1200" height="420" fill="url(#sky)"/>
-  <rect width="1200" height="420" fill="url(#grid)"/>
-  <rect width="1200" height="420" fill="url(#glowV)"/>
-  <rect width="1200" height="420" fill="url(#glowT)"/>
-  <rect width="1200" height="420" fill="url(#glowP)"/>
+  <rect width="1200" height="420" fill="url(#day)"/>
+  <rect width="1200" height="420" fill="url(#gridd)"/>
+  <rect width="1200" height="420" fill="url(#bloomB)"/>
+  <rect width="1200" height="420" fill="url(#bloomA)"/>
+  <rect width="1200" height="420" fill="url(#bloomC)"/>
 
   <!-- линия времени и точки шагов -->
-  <line x1="88" y1="40" x2="88" y2="150" stroke="#8f7bff" stroke-opacity=".6" stroke-width="2.5"/>
-  <circle cx="88" cy="68" r="6" fill="#a29be0"/>
-  <circle cx="88" cy="98" r="6" fill="#a29be0"/>
-  <circle cx="88" cy="128" r="6" fill="#a29be0"/>
+  <line x1="88" y1="40" x2="88" y2="150" stroke="#6b4bd6" stroke-opacity=".55" stroke-width="2.5"/>
+  <circle cx="88" cy="68" r="6" fill="#8a86b0"/>
+  <circle cx="88" cy="98" r="6" fill="#8a86b0"/>
+  <circle cx="88" cy="128" r="6" fill="#8a86b0"/>
 
   <!-- заголовок: те же слова, что на карточке раздела -->
   <text x="140" y="92" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
-        font-weight="700" font-size="44" letter-spacing="-1.1" fill="#f6f4ff">Three reports,</text>
+        font-weight="700" font-size="44" letter-spacing="-1.1" fill="#1c1b3a">Three reports,</text>
   <text x="140" y="140" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
-        font-weight="700" font-size="44" letter-spacing="-1.1" fill="#f6f4ff">one break-in</text>
+        font-weight="700" font-size="44" letter-spacing="-1.1" fill="#1c1b3a">one break-in</text>
   <text x="140" y="176" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
-        font-size="19" fill="#cfc9f2">The Hugging Face incident, July 2026</text>
+        font-size="19" fill="#5b5680">The Hugging Face incident, July 2026</text>
   <text x="140" y="204" font-family="Menlo, monospace" font-size="13"
-        letter-spacing="1.6" fill="#a29be0">32 STEPS · 3 SOURCES · 5 DISAGREEMENTS</text>
+        letter-spacing="1.6" fill="#7d79a6">32 STEPS · 3 SOURCES · 5 DISAGREEMENTS</text>
 
   <!-- точка расхождения и вилка на три версии -->
-  <circle cx="88" cy="150" r="9" fill="#ff6a4d"/>
-  <path d="M88 159V250" fill="none" stroke="#cfc9f2" stroke-width="2.5"/>
-  <path d="M88 222H965V262" fill="none" stroke="#ff8a6b" stroke-width="2.5"/>
-  <path d="M88 236H600V262" fill="none" stroke="#7db4ff" stroke-width="2.5"/>
-  <path d="M88 250H235V262" fill="none" stroke="#ffcf5c" stroke-width="2.5"/>
+  <circle cx="88" cy="150" r="9" fill="#ff5a3c"/>
+  <path d="M88 159V250" fill="none" stroke="#8a86b0" stroke-width="2.5"/>
+  <path d="M88 222H965V262" fill="none" stroke="#ff6a4d" stroke-width="2.5"/>
+  <path d="M88 236H600V262" fill="none" stroke="#3d7bff" stroke-width="2.5"/>
+  <path d="M88 250H235V262" fill="none" stroke="#f3a81f" stroke-width="2.5"/>
 
-  <!-- три карточки версий: светлые листы с цветной шапкой -->
+  <!-- три источника: сплошные цветные плитки -->
   <g>
-    <rect x="70" y="262" width="330" height="126" rx="12" fill="#f5f4fb"/>
-    <rect x="70" y="262" width="330" height="6" rx="3" fill="#f3a81f"/>
-    <text x="92" y="300" font-family="Menlo, monospace" font-size="15" letter-spacing="2.4" fill="#c9860b">METR</text>
-    <rect x="92" y="318" width="240" height="9" rx="4.5" fill="#2b2059" fill-opacity=".18"/>
-    <rect x="92" y="337" width="286" height="9" rx="4.5" fill="#2b2059" fill-opacity=".11"/>
-    <rect x="92" y="356" width="180" height="9" rx="4.5" fill="#2b2059" fill-opacity=".11"/>
+    <rect x="70" y="262" width="330" height="126" rx="12" fill="#f3a81f"/>
+    <text x="92" y="300" font-family="Menlo, monospace" font-size="15" letter-spacing="2.4" fill="#ffffff">METR</text>
+    <rect x="92" y="318" width="240" height="9" rx="4.5" fill="#ffffff" fill-opacity=".85"/>
+    <rect x="92" y="337" width="286" height="9" rx="4.5" fill="#ffffff" fill-opacity=".55"/>
+    <rect x="92" y="356" width="180" height="9" rx="4.5" fill="#ffffff" fill-opacity=".55"/>
   </g>
   <g>
-    <rect x="435" y="262" width="330" height="126" rx="12" fill="#f5f4fb"/>
-    <rect x="435" y="262" width="330" height="6" rx="3" fill="#3d7bff"/>
-    <text x="457" y="300" font-family="Menlo, monospace" font-size="15" letter-spacing="2.4" fill="#2f6bff">OPENAI</text>
-    <rect x="457" y="318" width="200" height="9" rx="4.5" fill="#2b2059" fill-opacity=".18"/>
-    <rect x="457" y="337" width="286" height="9" rx="4.5" fill="#2b2059" fill-opacity=".11"/>
-    <rect x="457" y="356" width="150" height="9" rx="4.5" fill="#2b2059" fill-opacity=".11"/>
+    <rect x="435" y="262" width="330" height="126" rx="12" fill="#3d7bff"/>
+    <text x="457" y="300" font-family="Menlo, monospace" font-size="15" letter-spacing="2.4" fill="#ffffff">OPENAI</text>
+    <rect x="457" y="318" width="200" height="9" rx="4.5" fill="#ffffff" fill-opacity=".85"/>
+    <rect x="457" y="337" width="286" height="9" rx="4.5" fill="#ffffff" fill-opacity=".55"/>
+    <rect x="457" y="356" width="150" height="9" rx="4.5" fill="#ffffff" fill-opacity=".55"/>
   </g>
   <g>
-    <rect x="800" y="262" width="330" height="126" rx="12" fill="#f5f4fb"/>
-    <rect x="800" y="262" width="330" height="6" rx="3" fill="#ff6a4d"/>
-    <text x="822" y="300" font-family="Menlo, monospace" font-size="15" letter-spacing="2.4" fill="#f0502f">HUGGING FACE</text>
-    <rect x="822" y="318" width="260" height="9" rx="4.5" fill="#2b2059" fill-opacity=".18"/>
-    <rect x="822" y="337" width="200" height="9" rx="4.5" fill="#2b2059" fill-opacity=".11"/>
-    <rect x="822" y="356" width="240" height="9" rx="4.5" fill="#2b2059" fill-opacity=".11"/>
+    <rect x="800" y="262" width="330" height="126" rx="12" fill="#ff6a4d"/>
+    <text x="822" y="300" font-family="Menlo, monospace" font-size="15" letter-spacing="2.4" fill="#ffffff">HUGGING FACE</text>
+    <rect x="822" y="318" width="260" height="9" rx="4.5" fill="#ffffff" fill-opacity=".85"/>
+    <rect x="822" y="337" width="200" height="9" rx="4.5" fill="#ffffff" fill-opacity=".55"/>
+    <rect x="822" y="356" width="240" height="9" rx="4.5" fill="#ffffff" fill-opacity=".55"/>
   </g>
 </svg>
