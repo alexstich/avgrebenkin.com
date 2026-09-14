@@ -32,8 +32,9 @@ def cls(v):
     return 4
 
 
-def afford(income_year, price_m2, rate_pct, share=33.0, years=30):
-    """Формула самого исследования: треть дохода, аннуитет на 30 лет по ставке
+def afford(income_year, price_m2, rate_pct, share=100.0 / 3.0, years=30):
+    """Формула самого исследования: РОВНО треть дохода (не 33 %, разница 1 %),
+    аннуитет на 30 лет по ставке
     страны. Совпадает с buyM2() на странице при настройках по умолчанию."""
     if not price_m2 or not income_year or not rate_pct:
         return 0.0

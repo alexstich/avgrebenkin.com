@@ -27,9 +27,18 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..', '..'))
 OUT = os.path.join(ROOT, 'research', 'data', 'house4all-lau-2024.csv')
 
-COLS = ['mun_id', 'cc', 'name', 'nuts3', 'nuts2', 'pop', 'area_km2', 'income24',
-        'sp_corr', 'sp_unc', 'rp_corr', 'rp_unc', 'rate', 'sa_m2', 'ra_m2',
-        's_listings', 'r_listings', 'lat', 'lon', 'degurba', 'coastal', 'lau_year']
+# Пять классов площади сервиса: середины 25, 45, 75, 100 и 200 м². Авторы
+# моделировали сплайном именно нелинейность цены за метр по размеру, и без этих
+# полей страница отвечала на ползунок размера пропорционально, то есть неверно:
+# по всей выборке метр в квартире до 30 м² стоит на 28 % дороже среднего, а свыше
+# 120 м² — на 6 % дешевле; для аренды разброс ещё шире, +38 % против −17 %.
+CLASS_KEYS = ['a', 'b', 'c', 'd', 'e']
+CLASS_MID = {'a': 25, 'b': 45, 'c': 75, 'd': 100, 'e': 200}
+
+COLS = (['mun_id', 'cc', 'name', 'nuts3', 'nuts2', 'pop', 'area_km2', 'income24',
+         'sp_corr', 'sp_unc', 'rp_corr', 'rp_unc', 'rate', 'sa_m2', 'ra_m2',
+         's_listings', 'r_listings', 'lat', 'lon', 'degurba', 'coastal', 'lau_year']
+        + ['sp_' + k for k in CLASS_KEYS] + ['rp_' + k for k in CLASS_KEYS])
 
 
 def degurba(src):
@@ -97,7 +106,9 @@ def main():
                 num(a['sp_corr'], 1), num(a['sp_unc'], 1), num(a['rp_corr'], 3), num(a['rp_unc'], 3),
                 num(a['sale_mor_1'], 3), num(a['sa_m2'], 2), num(a['ra_m2'], 2),
                 num(a['s_num_list'], 0), num(a['r_num_list'], 0),
-                num(c.get('y'), 4), num(c.get('x'), 4), d[0], d[1], a['year']])
+                num(c.get('y'), 4), num(c.get('x'), 4), d[0], d[1], a['year']]
+                + [num(a.get('sp_corr_' + k), 1) for k in CLASS_KEYS]
+                + [num(a.get('rp_corr_' + k), 3) for k in CLASS_KEYS])
     rows.sort(key=lambda r: r[0])
     with open(OUT, 'w', encoding='utf-8', newline='') as f:
         w = csv.writer(f)

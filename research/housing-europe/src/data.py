@@ -132,6 +132,10 @@ def main():
                 'deg': int(r['degurba']) if r['degurba'] else 0,
                 'coast': int(r['coastal']) if r['coastal'] else 0,
                 'sl': f(r['s_listings']), 'rl': f(r['r_listings']),
+                'sp_a': f(r['sp_a']), 'sp_b': f(r['sp_b']), 'sp_c': f(r['sp_c']),
+                'sp_d': f(r['sp_d']), 'sp_e': f(r['sp_e']),
+                'rp_a': f(r['rp_a']), 'rp_b': f(r['rp_b']), 'rp_c': f(r['rp_c']),
+                'rp_d': f(r['rp_d']), 'rp_e': f(r['rp_e']),
             })
     rnames = json.load(open(os.path.join(HERE, 'region-names.json'), encoding='utf-8'))
 
@@ -224,8 +228,42 @@ def main():
         return [[round(v / 1e6, 3) for v in row] for row in m]
 
     total31 = sum(r['pop'] for r in rows if r['cc'] in ESPON31)
+    # ---- надбавка за размер: отношение цены класса к общей, медиана по стране
+    # Сервис отдаёт цену по пяти классам площади, и она заметно нелинейна: метр в
+    # маленькой квартире дороже. Отношение берётся медианой по муниципалитетам
+    # страны, а не по каждому месту отдельно: по классам данных втрое меньше, чем
+    # по общей цене, и на уровне места они рваные. Стран с малым числом наблюдений
+    # ставится общеевропейская медиана, чтобы не было дыр.
+    CK = ['a', 'b', 'c', 'd', 'e']
+    MIN_N = 30
+
+    def med(v):
+        v = sorted(v)
+        return round(v[len(v) // 2], 3) if v else None
+
+    def ratios(prefix, base):
+        per_cc, pooled = {}, {k: [] for k in CK}
+        for r in rows:
+            b = r.get(base) or 0
+            if not b:
+                continue
+            for k in CK:
+                v = r.get(prefix + k) or 0
+                if v:
+                    per_cc.setdefault(r['cc'], {k2: [] for k2 in CK})[k].append(v / b)
+                    pooled[k].append(v / b)
+        eu = [med(pooled[k]) or 1.0 for k in CK]
+        out_cc = {}
+        for cc, d in per_cc.items():
+            out_cc[cc] = [(med(d[k]) if len(d[k]) >= MIN_N else None) or eu[i]
+                          for i, k in enumerate(CK)]
+        return {'eu': eu, 'cc': out_cc}
+
+    size = {'edges': [30, 60, 90, 120], 'mids': [25, 45, 75, 100, 200],
+            'sp': ratios('sp_', 'sp'), 'rp': ratios('rp_', 'rp')}
+
     out = {
-        'classes': CLASSES,
+        'classes': CLASSES, 'size': size,
         'popTotal': round(total31),
         'countries': countries, 'regions': regions, 'places': places,
         'hist': {'sale': hist('sa'), 'rent': hist('ra')},

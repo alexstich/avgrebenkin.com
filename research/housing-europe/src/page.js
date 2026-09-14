@@ -63,7 +63,12 @@
   var FX_DATE = "11 Sep 2026";
 
   // ---- состояние: всё живёт в адресной строке
-  var S = { inc: 0, cur: "EUR", share: 33, term: 30, rate: null, dep: 0, adults: 1, kids: 0,
+  // Исследование берёт РОВНО ТРЕТЬ дохода, а не 33 %. Разница кажется мелкой, но
+  // она ровно 1 %, и с 33 % страница расходилась с опубликованными sa_m2 и ra_m2
+  // на этот самый 1 % — при этом обещая точное совпадение. С третью расхождение
+  // 7.7e-10 на 78 758 строках продажи и 4.9e-9 на 47 154 строках аренды.
+  var THIRD = 100 / 3;
+  var S = { inc: 0, cur: "EUR", share: THIRD, term: 30, rate: null, dep: 0, adults: 1, kids: 0,
             mode: "buy", basis: "local", want: 0, cmp: [], reg: { north: 1, west: 1, south: 1, east: 1 },
             sort: "buy", dir: "desc", mf: null, mt: null, mi: 0, mc: null, rank: "countries", sel: null, coast: 0, sav: 500 };
   var DEFAULTS = JSON.parse(JSON.stringify(S));
@@ -76,7 +81,7 @@
     }
     S.inc = num("i", 0, 1e7, 0);
     S.cur = FX[p.get("c")] ? p.get("c") : "EUR";
-    S.share = num("s", 20, 45, 33);
+    S.share = num("s", 20, 45, THIRD);
     S.term = [10, 15, 20, 25, 30].indexOf(num("t", 10, 30, 30)) >= 0 ? num("t", 10, 30, 30) : 30;
     S.rate = p.has("r") && p.get("r") !== "" ? num("r", 0, 25, null) : null;
     S.dep = num("d", 0, 40, 0);
@@ -101,7 +106,7 @@
   function shareURL() {
     var q = [];
     function put(k, v, def) { if (v !== def && v !== null && v !== "" && v !== undefined) q.push(k + "=" + encodeURIComponent(v)); }
-    put("i", S.inc, 0); put("c", S.cur, "EUR"); put("s", S.share, 33); put("t", S.term, 30);
+    put("i", S.inc, 0); put("c", S.cur, "EUR"); put("s", S.share, THIRD); put("t", S.term, 30);
     put("r", S.rate, null); put("d", S.dep, 0); put("a", S.adults, 1); put("k", S.kids, 0);
     put("m", S.mode, "buy"); put("b", S.basis, "local"); put("q", S.want, 0);
     put("x", S.cmp.join(","), ""); put("g", REGIONS.map(function (r) { return S.reg[r[0]]; }).join(""), "1111");
@@ -134,6 +139,7 @@
   function incEUR() { return S.inc > 0 ? S.inc / FX[S.cur] : 0; }
   function mine() { return S.basis === "mine" && S.inc > 0; }
   function localMonthly(pl) { return pl.inc / 12; }
+  function shareText() { return S.share === THIRD ? "a third" : Math.round(S.share) + " %"; }
   function budget(pl) { return (mine() ? incEUR() : localMonthly(pl)) * S.share / 100; }
   function rateOf(pl) {
     if (S.rate !== null) return S.rate;
@@ -156,11 +162,11 @@
     return b / pl.rp;
   }
   // Цифры самой статьи: средний местный доход, треть, 30 лет, национальная ставка, без взноса.
-  function studyBuy(pl) { return pl.inc && pl.sp ? buyM2(pl, { income: localMonthly(pl), share: 33, term: 30, dep: 0, rate: (C[CI[pl.cc]] || {}).rate || null }) : null; }
-  function studyRent(pl) { return pl.inc && pl.rp ? localMonthly(pl) * 33 / 100 / pl.rp : null; }
+  function studyBuy(pl) { return pl.inc && pl.sp ? buyM2(pl, { income: localMonthly(pl), share: THIRD, term: 30, dep: 0, rate: (C[CI[pl.cc]] || {}).rate || null }) : null; }
+  function studyRent(pl) { return pl.inc && pl.rp ? localMonthly(pl) * THIRD / 100 / pl.rp : null; }
   function incomeNeeded(pl, m2) {          // чистый доход в месяц, чтобы купить m2 при текущих условиях
     var r = rateOf(pl); if (!pl.sp || r === null) return null;
-    return m2 * pl.sp * (1 - S.dep / 100) / annuity(r, S.term) / (S.share / 100);
+    return m2 * priceAt(pl, m2) * (1 - S.dep / 100) / annuity(r, S.term) / (S.share / 100);
   }
   function cls(v) {
     if (v === null || v === undefined || !(v > 0)) return -1;
@@ -172,18 +178,43 @@
     for (var i = 0; i < DIFF_BREAKS.length; i++) if (v <= DIFF_BREAKS[i]) return i;
     return 4;
   }
+  // ---- надбавка за размер
+  // Цена за метр нелинейна по площади: в Испании метр в квартире до 30 м² стоит
+  // на 83 % дороже среднего, в Германии на 13 %. Коэффициенты по странам считает
+  // data.py из тех же пяти классов сервиса.
+  //
+  // Применяется ТОЛЬКО там, где размер назван читателем: «лет дохода», «доля на
+  // аренду», «сколько нужно дохода на N м²» и фильтр «хочу N м²». Основные метры
+  // на покупку и аренду остаются на общей цене — это арифметика самого
+  // исследования, и страница обязана сходиться с ним при настройках по умолчанию.
+  var SZ = DATA.size || null;
+  function sizeIdx(n) {
+    if (!SZ) return -1;
+    for (var i = 0; i < SZ.edges.length; i++) if (n <= SZ.edges[i]) return i;
+    return SZ.edges.length;
+  }
+  function sizeFactor(pl, what, n) {
+    if (!SZ || !n) return 1;
+    var t = SZ[what]; if (!t) return 1;
+    var row = t.cc[pl.cc] || t.eu;
+    var v = row[sizeIdx(n)];
+    return v > 0 ? v : 1;
+  }
+  function priceAt(pl, n) { return pl.sp ? pl.sp * sizeFactor(pl, "sp", n) : 0; }
+  function rentAt(pl, n) { return pl.rp ? pl.rp * sizeFactor(pl, "rp", n) : 0; }
+
   // Годы дохода и доля на аренду считаются на то же жильё, которое читатель задал
   // ползунком «хочу N м²». Своего «типового жилья» страница не выдумывает: медианной
   // цены квартиры в данных нет, а подставить её размер было бы догадкой.
   function yearsFor(pl) {
     var inc = mine() ? incEUR() * 12 : pl.inc;
     if (!pl.sp || !inc) return null;
-    return pl.sp * mapN() / inc;
+    return priceAt(pl, mapN()) * mapN() / inc;
   }
   function rentShare(pl) {
     var inc = mine() ? incEUR() : localMonthly(pl);
     if (!pl.rp || !inc) return null;
-    return pl.rp * mapN() / inc * 100;
+    return rentAt(pl, mapN()) * mapN() / inc * 100;
   }
   function valueOf(pl) {
     if (S.mode === "buy") return buyM2(pl);
@@ -211,9 +242,23 @@
   function reaches(pl) {                      // проходит ли место фильтр «хочу N м²»
     if (!S.want) return true;
     if (S.mode === "years" || S.mode === "share") return true;
-    if (S.mode === "rent") return (rentM2(pl) || 0) >= S.want;
-    if (S.mode === "buy") return (buyM2(pl) || 0) >= S.want;
-    return (buyM2(pl) || 0) >= S.want || (rentM2(pl) || 0) >= S.want;
+    // Проверяется по цене класса, в который попадает сам запрошенный размер:
+    // «хочу 25 м²» в Испании стоит за метр вдвое дороже среднего.
+    var b = buyAtSize(pl, S.want), r = rentAtSize(pl, S.want);
+    if (S.mode === "rent") return r >= S.want;
+    if (S.mode === "buy") return b >= S.want;
+    return b >= S.want || r >= S.want;
+  }
+  // Сколько метров даёт бюджет, если метр стоит по классу запрошенного размера.
+  function buyAtSize(pl, n) {
+    var p = priceAt(pl, n); if (!p) return 0;
+    var r = rateOf(pl); if (r === null) return 0;
+    var loan = budget(pl) * annuity(r, S.term);
+    return loan / (1 - S.dep / 100) / p;
+  }
+  function rentAtSize(pl, n) {
+    var p = rentAt(pl, n);
+    return p ? budget(pl) / p : 0;
   }
   function regionOf(cc) { var c = C[CI[cc]]; return c ? c.reg : ""; }
   function ccName(cc) { var c = C[CI[cc]]; return c ? c.n : cc; }
@@ -299,7 +344,7 @@
   function syncControls() {
     incEl.value = S.inc || "";
     curEl.value = S.cur;
-    shareEl.value = S.share; $("share-o").textContent = S.share + " %";
+    shareEl.value = Math.round(S.share); $("share-o").textContent = shareText();
     rateEl.value = S.rate === null ? "" : S.rate; $("rate-x").hidden = S.rate === null;
     depEl.value = S.dep; $("dep-o").textContent = S.dep + " %";
     $("adults-o").textContent = S.adults; $("kids-o").textContent = S.kids;
@@ -362,12 +407,12 @@
     var t;
     if (mine()) {
       t = "<b>€" + fmtInt(incEUR()) + "</b> net per month" + (S.cur !== "EUR" ? " (" + fmtInt(S.inc) + " " + S.cur + ")" : "") +
-          " · <b>" + S.share + " %</b> for housing = <b>€" + fmtInt(incEUR() * S.share / 100) + "</b> a month · <b>" + S.term + "-year</b> mortgage at " + rateNote() +
+          " · <b>" + shareText() + "</b> for housing = <b>€" + fmtInt(incEUR() * S.share / 100) + "</b> a month · <b>" + S.term + "-year</b> mortgage at " + rateNote() +
           " · deposit <b>" + S.dep + " %</b> · household of " + S.adults + (S.adults > 1 ? " adults" : " adult") + (S.kids ? " and " + S.kids + (S.kids > 1 ? " children" : " child") : "") +
           " (factor " + eqFactor().toFixed(1) + ")";
     } else {
-      t = "Every place on its <b>own average income</b> · <b>" + S.share + " %</b> for housing · <b>" + S.term + "-year</b> mortgage at " + rateNote() + " · deposit <b>" + S.dep + " %</b>" +
-          (S.share === 33 && S.term === 30 && S.rate === null && S.dep === 0 ? " — the published map exactly" : "");
+      t = "Every place on its <b>own average income</b> · <b>" + shareText() + "</b> for housing · <b>" + S.term + "-year</b> mortgage at " + rateNote() + " · deposit <b>" + S.dep + " %</b>" +
+          (S.share === THIRD && S.term === 30 && S.rate === null && S.dep === 0 ? " — the published map exactly" : "");
     }
     if (S.want) t += " · looking for <b>" + S.want + " m²</b>";
     $("setupline").innerHTML = t;
@@ -873,7 +918,7 @@
       bs[1].textContent = S.sav > 0 ? (depAmt / S.sav / 12).toFixed(1) + " years" : "forever";
       ps[1].firstChild.nodeValue = "A " + (S.dep || 20) + " % deposit on " + N + " m² is ";
     }
-    if (pl.rp) { var last = ps[ps.length - 1]; last.innerHTML = "To rent " + N + " m² here on " + S.share + " % of income you need <b>€" + fmtInt(N * pl.rp / (S.share / 100)) + " net a month</b>."; }
+    if (pl.rp) { var last = ps[ps.length - 1]; last.innerHTML = "To rent " + N + " m² here on " + shareText() + " of income you need <b>€" + fmtInt(N * pl.rp / (S.share / 100)) + " net a month</b>."; }
   }
 
   // ======================================================================
@@ -901,9 +946,9 @@
         row("m² to buy, 20 years", function (p) { return buyM2(p, { term: 20 }); }, "max"),
         row("m² to buy, 30 years", function (p) { return buyM2(p, { term: 30 }); }, "max"),
         row("m² to buy at 25 % of income", function (p) { return buyM2(p, { share: 25 }); }, "max"),
-        row("m² to buy at 33 % of income", function (p) { return buyM2(p, { share: 33 }); }, "max"),
+        row("m² to buy at a third of income", function (p) { return buyM2(p, { share: THIRD }); }, "max"),
         row("m² to rent at 25 % of income", function (p) { return rentM2(p, { share: 25 }); }, "max"),
-        row("m² to rent at 33 % of income", function (p) { return rentM2(p, { share: 33 }); }, "max")
+        row("m² to rent at a third of income", function (p) { return rentM2(p, { share: THIRD }); }, "max")
       ]],
       ["The study's own figures", [
         row("m² to buy, average local income, 30 years", function (p) { return studyBuy(p); }, "max"),
