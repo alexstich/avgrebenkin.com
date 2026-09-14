@@ -54,6 +54,11 @@ def stats(data):
         out['stat%s50' % key] = '%.0f' % (sum(h[0]) / total * 100)
         out['stat%s75' % key] = '%.0f' % (sum(h[1]) / total * 100)
         out['stat%sNd' % key] = '%.0f' % (sum(h[5]) / total * 100)
+    sz = data.get('size') or {}
+    own = sz.get('own') or []
+    espon = [c for c in data['countries'] if c.get('espon')]
+    out['statOwnCurve'] = str(len([c for c in own if any(e['c'] == c for e in espon)]))
+    out['statCountries'] = str(len(espon))
     return out
 
 

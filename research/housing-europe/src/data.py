@@ -269,6 +269,25 @@ def main():
 
     size = {'edges': [30, 60, 90, 120], 'mids': [25, 45, 75, 100, 200],
             'sp': ratios('sp_', 'sp'), 'rp': ratios('rp_', 'rp')}
+    # У скольких стран кривая размера измерена во всех пяти классах, а у скольких
+    # хотя бы один класс достроен общеевропейской медианой. Цифра идёт в текст
+    # подстановкой, чтобы фраза не разошлась с данными при следующей выгрузке.
+    own = []
+    for cc in sorted({r['cc'] for r in rows}):
+        n = []
+        for k in CK:
+            cnt = 0
+            for r in rows:
+                if r['cc'] != cc:
+                    continue
+                b = r.get('sp') or 0
+                v = r.get('sp_' + k) or 0
+                if b and v and abs(v / b - 1) > 1e-9:
+                    cnt += 1
+            n.append(cnt)
+        if all(c >= MIN_N for c in n):
+            own.append(cc)
+    size['own'] = own
 
     out = {
         'classes': CLASSES, 'size': size,
