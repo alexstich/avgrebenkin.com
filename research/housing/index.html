@@ -1534,7 +1534,10 @@
           " (factor " + eqFactor().toFixed(1) + ")";
     } else {
       t = "Every place on its <b>own average income</b> · <b>" + shareText() + "</b> for housing · <b>" + S.term + "-year</b> mortgage at " + rateNote() + " · deposit <b>" + S.dep + " %</b>" +
-          (S.share === THIRD && S.term === 30 && S.rate === null && S.dep === 0 ? " — the published map exactly" : "");
+          // «Как в статье» — это про европейский кадр. У американского слоя
+          // published map нет, там те же условия просто называются условиями.
+          (S.share === THIRD && S.term === 30 && S.rate === null && S.dep === 0
+            ? (S.frame === "eu" ? " — the published map exactly" : " — the study's terms, applied here") : "");
     }
     if (S.want) t += " · looking for <b>" + S.want + " m²</b>";
     $("setupline").innerHTML = t;
@@ -2125,14 +2128,24 @@
   function cmpRows() {
     var P = S.cmp.map(placeById).filter(Boolean);
     var N = wantN();
+    // Деньги в таблице обязаны быть в одной валюте. Если все выбранные места из
+    // одного слоя, показывается его собственная — иначе всё сводится к евро по
+    // курсу ЕЦБ, и заголовок группы это говорит: сравнивать доллары с евро
+    // столбец в столбец и подсвечивать «лучшее» было бы враньём.
+    var seen = {};
+    P.forEach(function (p) { seen[curOf(p)] = 1; });
+    var keys = Object.keys(seen), one = keys.length === 1;
+    var cur = one ? keys[0] : "EUR";
+    var sym = cur === "USD" ? "$" : cur === "EUR" ? "\u20ac" : cur + "\u00a0";
+    function money(p, v) { return v === null || v === undefined ? null : v / (FX[curOf(p)] || 1) * (FX[cur] || 1); }
     function row(label, fn, best) { return { label: label, vals: P.map(fn), best: best }; }
     var groups = [
-      ["With your settings", [
+      ["With your settings" + (one ? "" : " \u00b7 money converted to euro at the ECB rate of " + FX_DATE), [
         row("m² to buy", function (p) { return buyM2(p); }, "max"),
         row("m² to rent", function (p) { return rentM2(p); }, "max"),
-        row("Monthly housing budget, €", function (p) { return budget(p); }, null),
-        row("Income needed for " + N + " m² to buy, €/month", function (p) { return incomeNeeded(p, N); }, "min"),
-        row("Income needed for " + N + " m² to rent, €/month", function (p) { return p.rp ? N * p.rp / (S.share / 100) : null; }, "min")
+        row("Monthly housing budget, " + sym, function (p) { return money(p, budget(p)); }, null),
+        row("Income needed for " + N + " m² to buy, " + sym + "/month", function (p) { return money(p, incomeNeeded(p, N)); }, "min"),
+        row("Income needed for " + N + " m² to rent, " + sym + "/month", function (p) { return money(p, p.rp ? N * p.rp / (S.share / 100) : null); }, "min")
       ]],
       ["Same terms for everyone" + (mine() ? " (your income)" : " (local income)"), [
         row("m² to buy, 20 years", function (p) { return buyM2(p, { term: 20 }); }, "max"),
@@ -2142,14 +2155,15 @@
         row("m² to rent at 25 % of income", function (p) { return rentM2(p, { share: 25 }); }, "max"),
         row("m² to rent at a third of income", function (p) { return rentM2(p, { share: THIRD }); }, "max")
       ]],
-      ["The study's own figures", [
+      [P.every(function (p) { return frameOf(p) === "eu"; }) ? "The study's own figures"
+                                                              : "Each on its own local income, 30 years", [
         row("m² to buy, average local income, 30 years", function (p) { return studyBuy(p); }, "max"),
         row("m² to rent, average local income", function (p) { return studyRent(p); }, "max")
       ]],
-      ["The market", [
-        row("Sale price incl. taxes and fees, €/m²", function (p) { return p.sp || null; }, "min"),
-        row("Rent, €/m²/month", function (p) { return p.rp || null; }, "min"),
-        row("Average income per adult-equivalent, €/month", function (p) { return p.inc ? p.inc / 12 : null; }, "max"),
+      ["The market" + (one ? "" : " \u00b7 in euro; the two layers do not measure income the same way"), [
+        row("Sale price incl. taxes and fees, " + sym + "/m²", function (p) { return money(p, p.sp || null); }, "min"),
+        row("Rent, " + sym + "/m²/month", function (p) { return money(p, p.rp || null); }, "min"),
+        row("Average local income, " + sym + "/month", function (p) { return money(p, p.inc ? p.inc / 12 : null); }, "max"),
         row("Mortgage rate used, %", function (p) { return rateOf(p); }, "min"),
         row("Population", function (p) { return p.pop; }, null)
       ]]
@@ -2158,7 +2172,7 @@
   }
   function fmtCell(label, v) {
     if (v === null || v === undefined) return "—";
-    if (/Rent, €/.test(label) || /rate/.test(label)) return v.toFixed(2);
+    if (/^Rent, /.test(label) || /rate/.test(label)) return v.toFixed(2);
     if (/m²/.test(label)) return fmtM2(v);
     return fmtInt(v);
   }
@@ -2518,7 +2532,7 @@
     btn.addEventListener("click", function () {
       var which = btn.getAttribute("data-csv"), out = csvSettings();
       if (which === "rank") {
-        var cols = RANK_COLS[S.rank], rr = rankRows();
+        var cols = rankCols(), rr = rankRows();
         out += "rank," + cols.map(function (c) { return csvCell(c[1]); }).join(",") + (S.rank === "cities" ? ",country" : "") + "\n";
         rr.rows.forEach(function (r, i) {
           out += (i + 1) + "," + cols.map(function (c) { var v = r[c[0]]; return csvCell(typeof v === "number" ? Math.round(v * 100) / 100 : v); }).join(",") + (S.rank === "cities" ? "," + csvCell(ccName(r.p.cc)) : "") + "\n";
