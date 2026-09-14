@@ -12,7 +12,7 @@
   C.forEach(function (c, i) { CI[c.c] = i; });
   var N3 = DATA.regions.map(function (a, i) {
     return { kind: "region", idx: i, id: a[0], name: a[1], cc: a[2], pop: a[3], inc: a[4], sp: a[5], rp: a[6],
-             sa: a[7], ra: a[8], covS: a[9], covR: a[10] };
+             sa: a[7], ra: a[8], covS: a[9], covR: a[10], grp: a[11] };
   });
   var N3I = {};
   N3.forEach(function (n, i) { N3I[n.id] = i; });
@@ -23,6 +23,12 @@
   });
   var LI = {};
   L.forEach(function (l, i) { LI[l.id] = i; });
+  // Аренда в США задана не за метр, а за жильё с таким-то числом спален
+  // (см. extract_us.py). «Доля дохода на аренду» считается там от двухкомнатной
+  // квартиры, а в Европе — от N м²: это две разные величины, и подписаны они по
+  // кадру, а не общей строкой на всю карту.
+  var EX = {};
+  (DATA.extra || []).forEach(function (a) { EX[a[0]] = { mp: a[1], fmr: a.slice(2) }; });
   C.forEach(function (c) { c.kind = "cc"; c.id = "c:" + c.c; c.name = c.n; c.cc = c.c; });
 
   var DEG = { 1: "city", 2: "town or suburb", 3: "rural", 0: "" };
@@ -55,7 +61,23 @@
     if (S.mode === "share") return ["under 20 % of income", "20–30 %", "30–40 %", "40–50 %", "over 50 %"];
     return S.mode === "diff" ? DIFF_LABEL : CLASS_LABEL;
   }
-  var REGIONS = [["north", "North & Baltics"], ["west", "West"], ["south", "South"], ["east", "East"]];
+  // Кадры карты. Европа и США — два слоя одного исследования, но не одна шкала:
+  // своя проекция, своя валюта, свои слова для единицы и, главное, свой источник
+  // дохода. Поэтому всё, что считается по местным деньгам, живёт внутри кадра, а
+  // сравнивать слои честно только на доходе читателя (см. «Where the numbers
+  // come from»).
+  var FRAMES = DATA.frames;
+  function fr() { return FRAMES[S.frame] || FRAMES[GEO.order[0]]; }
+  function regionsList() { return DATA.groups[S.frame] || []; }
+  function frameOf(pl) { var c = C[CI[pl.cc]]; return (c && c.frame) || GEO.order[0]; }
+  function inFrame(pl) { return frameOf(pl) === S.frame; }
+  function allRegOn() {
+    var o = {};
+    Object.keys(DATA.groups).forEach(function (f) {
+      DATA.groups[f].forEach(function (r) { o[r[0]] = 1; });
+    });
+    return o;
+  }
   // Курсы ЕЦБ на 11 сентября 2026: единиц валюты за евро. Вшиты, чтобы ссылка
   // означала ту же сумму и через месяц.
   var FX = { EUR: 1, USD: 1.1592, GBP: 0.85815, CHF: 0.9451, PLN: 4.3250, CZK: 24.264, HUF: 364.45,
@@ -69,7 +91,7 @@
   // 7.7e-10 на 78 758 строках продажи и 4.9e-9 на 47 154 строках аренды.
   var THIRD = 100 / 3;
   var S = { inc: 0, cur: "EUR", share: THIRD, term: 30, rate: null, dep: 0, adults: 1, kids: 0,
-            mode: "buy", basis: "local", want: 0, cmp: [], reg: { north: 1, west: 1, south: 1, east: 1 },
+            mode: "buy", basis: "local", want: 0, cmp: [], frame: GEO.order[0], reg: allRegOn(),
             sort: "buy", dir: "desc", mf: null, mt: null, mi: 0, mc: null, rank: "countries", sel: null, coast: 0, sav: 500 };
   var DEFAULTS = JSON.parse(JSON.stringify(S));
 
@@ -90,8 +112,9 @@
     S.basis = p.get("b") === "mine" && S.inc > 0 ? "mine" : "local";
     S.want = num("q", 0, 150, 0);
     S.cmp = (p.get("x") || "").split(",").filter(function (id) { return placeById(id); }).slice(0, 4);
+    S.frame = GEO.order.indexOf(p.get("f")) >= 0 ? p.get("f") : GEO.order[0];
     var g = p.get("g");
-    if (g && /^[01]{4}$/.test(g)) REGIONS.forEach(function (r, i) { S.reg[r[0]] = g.charAt(i) === "1" ? 1 : 0; });
+    if (g && /^[01]{4}$/.test(g)) regionsList().forEach(function (r, i) { S.reg[r[0]] = g.charAt(i) === "1" ? 1 : 0; });
     var o = p.get("o") || "";
     if (/^-?(buy|rent|price|rentp|inc|pop|name|rate)$/.test(o)) { S.sort = o.replace("-", ""); S.dir = o.charAt(0) === "-" ? "asc" : "desc"; }
     S.rank = p.get("v") === "cities" ? "cities" : "countries";
@@ -109,7 +132,8 @@
     put("i", S.inc, 0); put("c", S.cur, "EUR"); put("s", S.share, THIRD); put("t", S.term, 30);
     put("r", S.rate, null); put("d", S.dep, 0); put("a", S.adults, 1); put("k", S.kids, 0);
     put("m", S.mode, "buy"); put("b", S.basis, "local"); put("q", S.want, 0);
-    put("x", S.cmp.join(","), ""); put("g", REGIONS.map(function (r) { return S.reg[r[0]]; }).join(""), "1111");
+    put("x", S.cmp.join(","), ""); put("f", S.frame, GEO.order[0]);
+    put("g", regionsList().map(function (r) { return S.reg[r[0]]; }).join(""), "1111");
     put("o", (S.dir === "asc" ? "-" : "") + S.sort, "buy"); put("v", S.rank, "countries");
     put("p", S.sel, null); put("z", S.coast, 0); put("sv", S.sav, 500);
     put("mf", S.mf, null); put("mt", S.mt, null); put("mi", S.mi, 0); put("mc", S.mc, null);
@@ -126,7 +150,7 @@
   // ---- арифметика: та же, что у ESPON; с настройками по умолчанию сходится с sa_m2 и ra_m2
   function placeById(id) {
     if (!id) return null;
-    if (id.slice(0, 2) === "c:") { var c = C[CI[id.slice(2)]]; return c && c.espon ? c : null; }
+    if (id.slice(0, 2) === "c:") { var c = C[CI[id.slice(2)]]; return c && (c.sp || c.rp) ? c : null; }
     if (id.slice(0, 2) === "n:") { var n = N3[N3I[id.slice(2)]]; return n || null; }
     var l = L[LI[id]]; return l || null;
   }
@@ -137,10 +161,16 @@
   }
   function eqFactor() { return 1 + 0.5 * (S.adults - 1) + 0.3 * S.kids; }
   function incEUR() { return S.inc > 0 ? S.inc / FX[S.cur] : 0; }
+  // Цены и доходы места записаны в валюте его страны, а доход читателя — в его
+  // собственной. Без перевода бюджет в долларовом округе делился бы на долларовую
+  // цену, оставаясь при этом в евро.
+  function curOf(pl) { var c = C[CI[pl.cc]]; return (c && c.cur) || "EUR"; }
+  function symOf(pl) { var u = curOf(pl); return u === "USD" ? "$" : u === "EUR" ? "\u20ac" : u + "\u00a0"; }
+  function myIncome(pl) { return incEUR() * (FX[curOf(pl)] || 1); }
   function mine() { return S.basis === "mine" && S.inc > 0; }
   function localMonthly(pl) { return pl.inc / 12; }
   function shareText() { return S.share === THIRD ? "a third" : Math.round(S.share) + " %"; }
-  function budget(pl) { return (mine() ? incEUR() : localMonthly(pl)) * S.share / 100; }
+  function budget(pl) { return (mine() ? myIncome(pl) : localMonthly(pl)) * S.share / 100; }
   function rateOf(pl) {
     if (S.rate !== null) return S.rate;
     var c = C[CI[pl.cc]]; return c && c.rate ? c.rate : null;
@@ -150,7 +180,7 @@
     if (!pl.sp || !pl.inc && !mine()) return null;
     var r = opt.rate != null ? opt.rate : rateOf(pl);
     if (r === null) return null;
-    var b = (opt.income != null ? opt.income : (mine() ? incEUR() : localMonthly(pl))) * (opt.share || S.share) / 100;
+    var b = (opt.income != null ? opt.income : (mine() ? myIncome(pl) : localMonthly(pl))) * (opt.share || S.share) / 100;
     var loan = b * annuity(r, opt.term || S.term);
     var dep = opt.dep != null ? opt.dep : S.dep;
     return loan / (1 - dep / 100) / pl.sp;
@@ -158,7 +188,7 @@
   function rentM2(pl, opt) {
     opt = opt || {};
     if (!pl.rp || !pl.inc && !mine()) return null;
-    var b = (opt.income != null ? opt.income : (mine() ? incEUR() : localMonthly(pl))) * (opt.share || S.share) / 100;
+    var b = (opt.income != null ? opt.income : (mine() ? myIncome(pl) : localMonthly(pl))) * (opt.share || S.share) / 100;
     return b / pl.rp;
   }
   // Цифры самой статьи: средний местный доход, треть, 30 лет, национальная ставка, без взноса.
@@ -196,7 +226,11 @@
   function sizeFactor(pl, what, n) {
     if (!SZ || !n) return 1;
     var t = SZ[what]; if (!t) return 1;
-    var row = t.cc[pl.cc] || t.eu;
+    var row = t.cc[pl.cc];
+    // Общеевропейскую кривую можно достроить европейской стране, у которой мало
+    // наблюдений, но не американскому округу: надбавка за размер там не измерена
+    // вовсе, и подставить чужую значило бы выдумать число.
+    if (!row) { if (frameOf(pl) !== "eu") return 1; row = t.eu; }
     var v = row[sizeIdx(n)];
     return v > 0 ? v : 1;
   }
@@ -207,13 +241,16 @@
   // ползунком «хочу N м²». Своего «типового жилья» страница не выдумывает: медианной
   // цены квартиры в данных нет, а подставить её размер было бы догадкой.
   function yearsFor(pl) {
-    var inc = mine() ? incEUR() * 12 : pl.inc;
+    var inc = mine() ? myIncome(pl) * 12 : pl.inc;
     if (!pl.sp || !inc) return null;
     return priceAt(pl, mapN()) * mapN() / inc;
   }
   function rentShare(pl) {
-    var inc = mine() ? incEUR() : localMonthly(pl);
-    if (!pl.rp || !inc) return null;
+    var inc = mine() ? myIncome(pl) : localMonthly(pl);
+    if (!inc) return null;
+    var x = EX[pl.id];
+    if (x && x.fmr[2]) return x.fmr[2] / inc * 100;
+    if (!pl.rp) return null;
     return rentAt(pl, mapN()) * mapN() / inc * 100;
   }
   function valueOf(pl) {
@@ -260,7 +297,17 @@
     var p = rentAt(pl, n);
     return p ? budget(pl) / p : 0;
   }
-  function regionOf(cc) { var c = C[CI[cc]]; return c ? c.reg : ""; }
+  // Группа фильтра живёт на регионе, а не на стране: в Европе все регионы страны
+  // в одной группе, а США — одна страна на четыре переписных региона.
+  var GRP_CC = {};
+  N3.forEach(function (n) { (GRP_CC[n.cc] || (GRP_CC[n.cc] = {}))[n.grp] = 1; });
+  function passReg(pl) {
+    if (pl.kind === "region") return !!S.reg[pl.grp];
+    if (pl.kind === "place") { var n = N3[pl.reg]; return n ? !!S.reg[n.grp] : true; }
+    var g = GRP_CC[pl.cc] || {};
+    for (var k in g) if (S.reg[k]) return true;
+    return false;
+  }
   function ccName(cc) { var c = C[CI[cc]]; return c ? c.n : cc; }
 
   // ---- форматирование
@@ -290,8 +337,17 @@
     return n;
   }
 
-  // ---- проекция: та же, что в geo.py
-  var BOX = GEO.box, SC = GEO.w / (BOX[1] - BOX[0]), LAT0 = GEO.lat0 * Math.PI / 180, LON0 = GEO.lon0 * Math.PI / 180;
+  // ---- проекция: та же, что в geo.py, но кадров теперь несколько, и у каждого
+  // свой центр. Одна азимутальная проекция с центром в Европе растянула бы
+  // Северную Америку до неузнаваемости, поэтому переменные ниже переставляются
+  // при смене кадра, а project() читает их каждый раз.
+  var GF = null, BOX, SC, LAT0, LON0;
+  function setGeoFrame(key) {
+    GF = GEO.frames[key] || GEO.frames[GEO.order[0]];
+    BOX = GF.box; SC = GF.w / (BOX[1] - BOX[0]);
+    LAT0 = GF.lat0 * Math.PI / 180; LON0 = GF.lon0 * Math.PI / 180;
+  }
+  setGeoFrame(GEO.order[0]);
   function project(lat, lon) {
     var p = lat * Math.PI / 180, l = lon * Math.PI / 180;
     var k = Math.sqrt(2 / (1 + Math.sin(LAT0) * Math.sin(p) + Math.cos(LAT0) * Math.cos(p) * Math.cos(l - LON0)));
@@ -350,7 +406,8 @@
     $("adults-o").textContent = S.adults; $("kids-o").textContent = S.kids;
     $("hhhint").textContent = "Equivalence factor " + eqFactor().toFixed(1) + " (OECD-modified scale: first adult 1, each further adult 0.5, each child 0.3). Used only to compare your income with the local average per adult-equivalent.";
     wantEl.value = S.want; $("want-o").textContent = S.want ? S.want + " m²" : "any size";
-    segSet("term", S.term); segSet("mapmode", S.mode); segSet("basis", S.basis); segSet("rankwhat", S.rank);
+    segSet("frame", S.frame); segSet("term", S.term); segSet("mapmode", S.mode);
+    segSet("basis", S.basis); segSet("rankwhat", S.rank);
     var mineBtn = document.querySelector('#basis [data-v="mine"]');
     mineBtn.disabled = !(S.inc > 0);
     mineBtn.title = S.inc > 0 ? "" : "Enter your income above";
@@ -373,6 +430,24 @@
       fn(b.getAttribute("data-v")); syncControls(); update(); syncURL();
     });
   }
+  // Переключатель кадра строится из данных: кадры приходят из geo.py, и список
+  // кнопок обязан следовать за ними, а не повторять их в разметке.
+  (function () {
+    var box = $("frame");
+    GEO.order.forEach(function (k) {
+      box.appendChild(el("button", { type: "button", "data-v": k, "aria-pressed": String(k === S.frame) }, FRAMES[k].label));
+    });
+  })();
+  segBind("frame", function (v) {
+    if (S.frame === v) return;
+    S.frame = v;
+    // Выбранное место осталось в другом кадре — на этой карте его просто нет.
+    if (S.sel && !inFrame(placeById(S.sel) || { cc: "" })) S.sel = null;
+    // В кадре с одной страной рейтинг стран — это одна строка. Показывать её
+    // вместо трёх тысяч округов бессмысленно, поэтому вид переключается сам.
+    if (C.filter(inFrame).length < 2) S.rank = "cities";
+    buildRegButtons();
+  });
   segBind("term", function (v) { S.term = +v; });
   segBind("mapmode", function (v) { S.mode = v; });
   segBind("basis", function (v) { S.basis = v; });
@@ -424,11 +499,7 @@
   var mapEl = $("map"), mapg = $("mapg"), regionsG = $("regions"), marksG = $("marks");
   // Контуры теперь страновые: полигонов уровня NUTS 3 в свободной лицензии нет
   // (см. geo.py). Страна красится заливкой, места показываются точками поверх.
-  var pathOf = {};
-  Object.keys(GEO.countries).forEach(function (id) {
-    var p = svgel("path", { d: GEO.countries[id], "data-id": "c:" + id });
-    regionsG.appendChild(p); pathOf[id] = p;
-  });
+  var pathOf = {}, FL = L, frameBuilt = null;
 
   // Центроид региона — среднее по его местам: собственной геометрии у него больше
   // нет, а «перелететь к региону» и поставить метку всё равно нужно.
@@ -451,7 +522,26 @@
   var dotsG = svgel("g", { id: "dots" });
   regionsG.parentNode.insertBefore(dotsG, marksG);
   var dotOf = [], dotsShown = 0;
-  function dotBudget() { return Math.min(L.length, Math.round(420 * Z.k * Z.k)); }
+
+  // Кадр перестраивается целиком: и контуры, и точки посчитаны в его проекции.
+  function buildFrame() {
+    setGeoFrame(S.frame);
+    mapEl.setAttribute("viewBox", "0 0 " + GF.w + " " + GF.h);
+    mapEl.setAttribute("aria-label", "Map of " + fr().label + ": countries filled and "
+      + fr().units + " marked as dots, coloured by " + modeText());
+    while (regionsG.firstChild) regionsG.removeChild(regionsG.firstChild);
+    pathOf = {};
+    Object.keys(GF.countries).forEach(function (id) {
+      var p = svgel("path", { d: GF.countries[id], "data-id": "c:" + id });
+      regionsG.appendChild(p); pathOf[id] = p;
+    });
+    FL = L.filter(inFrame);
+    while (dotOf.length) dotsG.removeChild(dotOf.pop());
+    dotsShown = 0;
+    Z.k = 1; Z.x = 0; Z.y = 0; applyZ();
+    frameBuilt = S.frame;
+  }
+  function dotBudget() { return Math.min(FL.length, Math.round(420 * Z.k * Z.k)); }
   function buildDots() {
     var n = dotBudget();
     if (n === dotsShown) return;
@@ -459,7 +549,7 @@
       while (dotOf.length > n) dotsG.removeChild(dotOf.pop());
     } else {
       for (var i = dotOf.length; i < n; i++) {
-        var l = L[i], xy = project(l.lat, l.lon);
+        var l = FL[i], xy = project(l.lat, l.lon);
         var c = svgel("circle", { cx: xy[0].toFixed(1), cy: xy[1].toFixed(1), "data-id": l.id });
         dotsG.appendChild(c); dotOf.push(c);
       }
@@ -470,13 +560,13 @@
   function sizeDots() {
     // Радиус по населению, но в экранных единицах: при зуме точки не раздуваются.
     for (var i = 0; i < dotOf.length; i++) {
-      var l = L[i], r = Math.max(1.6, Math.min(9, Math.sqrt(l.pop) / 170));
+      var l = FL[i], r = Math.max(1.6, Math.min(9, Math.sqrt(l.pop) / 170));
       dotOf[i].setAttribute("r", (r / Z.k).toFixed(2));
     }
   }
   function paintDots() {
     for (var i = 0; i < dotOf.length; i++) {
-      var l = L[i];
+      var l = FL[i];
       dotOf[i].setAttribute("class", "dot " + klass(l, "nd") + (S.sel === l.id ? " sel" : ""));
     }
   }
@@ -492,6 +582,7 @@
     return c;
   }
   function paintMap() {
+    if (frameBuilt !== S.frame) buildFrame();
     C.forEach(function (cc) {
       var p = pathOf[cc.c]; if (!p) return;
       var c = klass(cc, "");
@@ -499,7 +590,12 @@
     });
     buildDots(); paintDots();
     var lg = $("legend"), pre = S.mode === "diff" ? "e" : "c", inv = MODES[S.mode].inv;
-    var head = MODES[S.mode].title + (S.mode === "years" || S.mode === "share" ? " for " + mapN() + " m²" : "");
+    // Подпись легенды зависит от кадра: в США доля дохода считается от
+    // двухкомнатной квартиры HUD, а не от N м², и делать вид, что это одно и то
+    // же, нельзя.
+    var sz = S.mode === "share" && S.frame !== "eu" ? " for a two-bedroom home"
+           : (S.mode === "years" || S.mode === "share") ? " for " + mapN() + " m²" : "";
+    var head = MODES[S.mode].title + sz;
     var html = "<b>" + head + "</b>";
     // Номер образца берётся тем же правилом, что и цвет на карте: у перевёрнутых
     // шкал подпись «меньше трёх лет» обязана стоять рядом с зелёным, а не с красным.
@@ -516,11 +612,11 @@
   function applyZ() { mapg.setAttribute("transform", "translate(" + Z.x.toFixed(1) + " " + Z.y.toFixed(1) + ") scale(" + Z.k.toFixed(3) + ")"); buildDots(); sizeDots(); drawMarks(); }
   function svgPoint(cx, cy) {
     var r = mapEl.getBoundingClientRect();
-    return [(cx - r.left) / r.width * GEO.w, (cy - r.top) / r.height * GEO.h];
+    return [(cx - r.left) / r.width * GF.w, (cy - r.top) / r.height * GF.h];
   }
   function zoomAt(f, sx, sy) {
     var nk = Math.max(1, Math.min(14, Z.k * f)); f = nk / Z.k;
-    if (sx === undefined) { sx = GEO.w / 2; sy = GEO.h / 2; }
+    if (sx === undefined) { sx = GF.w / 2; sy = GF.h / 2; }
     Z.x = sx - (sx - Z.x) * f; Z.y = sy - (sy - Z.y) * f; Z.k = nk;
     if (Z.k === 1) { Z.x = 0; Z.y = 0; }
     applyZ();
@@ -549,7 +645,7 @@
   mapEl.addEventListener("pointermove", function (e) {
     if (!ptrs[e.pointerId]) return;
     ptrs[e.pointerId] = [e.clientX, e.clientY];
-    var r = mapEl.getBoundingClientRect(), sc = GEO.w / r.width;
+    var r = mapEl.getBoundingClientRect(), sc = GF.w / r.width;
     if (pinch) {
       var ids = Object.keys(ptrs), a = ptrs[ids[0]], b = ptrs[ids[1]];
       var d = Math.hypot(a[0] - b[0], a[1] - b[1]);
@@ -761,11 +857,27 @@
   // продукта, который иначе остаётся невидимым.
   var movePickFrom, movePickTo;
   function moveIncEUR() { return S.mi > 0 && S.mc ? S.mi / FX[S.mc] : 0; }
+  // Ставки у двух слоёв разного возраста, и молчать об этом нельзя: европейские —
+  // национальные средние 2023 года из статьи, американская — средняя недельная
+  // ставка Freddie Mac за то же годовое окно, из которого взяты сделки.
+  function rateVintage(a, b) {
+    var f = {}; f[frameOf(a)] = 1; f[frameOf(b)] = 1;
+    var t = [];
+    if (f.eu) t.push("European rates are the national averages the study used, mostly 2023, not today's");
+    if (f.na) t.push("the US rate is the Freddie Mac 30-year average over the same year of sales");
+    return t.join("; ") + ". Put your own in the rate field above if you know better ones.";
+  }
   function annuityOf(pl, fallback) {
     var r = rateOf(pl);
     return r === null ? fallback : annuity(r, S.term);
   }
-  function homeIncome(pl) { return mine() ? incEUR() : localMonthly(pl); }
+  // Блок переезда считает всё в евро. Цены места записаны в валюте его страны, и
+  // без приведения отношение «цена там к цене дома» между долларовым округом и
+  // европейским городом было бы умножено на курс — то есть просто неверно.
+  function toEUR(v, pl) { return v / (FX[curOf(pl)] || 1); }
+  function spEUR(pl) { return pl.sp ? toEUR(pl.sp, pl) : 0; }
+  function rpEUR(pl) { return pl.rp ? toEUR(pl.rp, pl) : 0; }
+  function homeIncome(pl) { return mine() ? incEUR() : toEUR(localMonthly(pl), pl); }
   function drawMove() {
     var box = $("moveout");
     var a = placeById(S.mf), b = placeById(S.mt);
@@ -779,16 +891,24 @@
     var rows = [], notes = [], rateNote2 = false, buyNeed = null;
     // Аренда: метры пропорциональны доходу, делённому на цену аренды за метр.
     if (a.rp && b.rp) {
-      var needRent = incA * (b.rp / a.rp);
+      var needRent = incA * (rpEUR(b) / rpEUR(a));
       var m2A = rentM2(a);
       rows.push({ what: "to rent the same space", need: needRent, now: incA,
                   detail: fmtM2(m2A) + " m² at home costs " + fmtEur(Math.round(needRent)) + " a month of income there" });
-    } else notes.push("No rental listings for " + esc(a.rp ? b.name : a.name) + ", so renting cannot be compared.");
+    } else {
+      // У американского слоя аренда задана не за метр, а за жильё с таким-то
+      // числом спален, и «столько же метров» там попросту не определено —
+      // это не отсутствие данных, а другая единица измерения.
+      var noRp = a.rp ? b : a;
+      notes.push(frameOf(noRp) === "eu"
+        ? "No rental listings for " + esc(noRp.name) + ", so renting cannot be compared."
+        : "Rent in " + esc(noRp.name) + " is published by number of bedrooms, not by the square metre, so the same space cannot be priced. Buying is still comparable.");
+    }
 
     // Покупка: в отношение входит и цена, и аннуитет по ставке своей страны.
     var annA = annuityOf(a, null), annB = annuityOf(b, null);
     if (a.sp && b.sp && annA && annB) {
-      var needBuy = incA * (b.sp / a.sp) * (annA / annB);
+      var needBuy = incA * (spEUR(b) / spEUR(a)) * (annA / annB);
       rows.push({ what: "to buy the same space", need: needBuy, now: incA,
                   detail: fmtM2(buyM2(a)) + " m² at home, on a " + S.term + "-year mortgage at " + fmtRate(rateOf(b)) + " there against " + fmtRate(rateOf(a)) + " at home" });
       buyNeed = needBuy;
@@ -818,8 +938,9 @@
     if (offer) {
       // Что предложение даёт на самом деле — прямой расчёт, а не через отношение.
       var got = [];
-      if (b.sp) got.push(fmtM2(buyM2(b, { income: offer })) + " m² to buy");
-      if (b.rp) got.push(fmtM2(offer * S.share / 100 / b.rp) + " m² to rent");
+      var offerB = offer * (FX[curOf(b)] || 1);          // предложение в валюте места
+      if (b.sp) got.push(fmtM2(buyM2(b, { income: offerB })) + " m² to buy");
+      if (b.rp) got.push(fmtM2(offerB * S.share / 100 / b.rp) + " m² to rent");
       if (got.length) h += "<p class=\"mnote\">On " + fmtEur(Math.round(offer)) + " in " + esc(b.name) + " you could take " + got.join(" or ") + ", against " + fmtM2(buyM2(a)) + " m² and " + fmtM2(rentM2(a)) + " m² at home.</p>";
     }
     if (rateNote2) {
@@ -827,14 +948,14 @@
       // знак. Поэтому вклад ставки показывается числом. При равных ставках
       // аннуитеты сокращаются, и остаётся чистое отношение цен — это и есть ответ
       // «а если бы ипотека стоила одинаково».
-      var flat = (a.sp && b.sp) ? incA * (b.sp / a.sp) : null;
+      var flat = (a.sp && b.sp) ? incA * (spEUR(b) / spEUR(a)) : null;
       if (flat && buyNeed) {
         var dp = Math.round((flat / incA - 1) * 100);
         h += "<p class=\"mnote\"><b>How much of this is the mortgage, not the housing.</b> If both countries charged the same interest, the offer would need to be " +
              fmtEur(Math.round(flat)) + " (" + (dp >= 0 ? "+" : "−") + Math.abs(dp) + " %) to buy the same space — that is the price difference alone. The rate difference moves it by " +
-             fmtEur(Math.round(Math.abs(buyNeed - flat))) + " a month. Rates here are the national averages the study used, mostly 2023, not today's; put your own in the rate field above if you know better ones.</p>";
+             fmtEur(Math.round(Math.abs(buyNeed - flat))) +  " a month. " + rateVintage(a, b) + "</p>";
       } else {
-        h += "<p class=\"mnote\">Mortgage rates are the national averages the study used, mostly 2023, not today's. Put your own in the rate field above if you know better ones.</p>";
+        h += "<p class=\"mnote\">" + rateVintage(a, b) + "</p>";
       }
     }
     if (notes.length) h += "<p class=\"mnote\">" + notes.join(" ") + "</p>";
@@ -848,6 +969,13 @@
   function select(id, fly) {
     S.sel = id;
     var pl = placeById(id);
+    // Поиск ищет по обоим слоям, а карта показывает один: выбрали американский
+    // округ из европейского кадра — кадр переезжает следом, иначе метка улетела
+    // бы за край.
+    if (pl && !inFrame(pl)) {
+      S.frame = frameOf(pl);
+      buildRegButtons(); syncControls();
+    }
     if (pl && fly) flyTo(pl);
     paintMap(); drawMarks(); drawCard(); drawRank(); drawMove(); syncURL();
   }
@@ -1014,28 +1142,70 @@
   // рейтинги
   // ======================================================================
   var regsEl = $("regs");
-  REGIONS.forEach(function (r) {
-    var b = el("button", { type: "button", "class": "reg", "data-r": r[0], "aria-pressed": "true" }, r[1]);
-    b.addEventListener("click", function () {
-      S.reg[r[0]] = S.reg[r[0]] ? 0 : 1;
-      if (!REGIONS.some(function (x) { return S.reg[x[0]]; })) REGIONS.forEach(function (x) { S.reg[x[0]] = 1; });
-      syncControls(); drawRank(); syncURL();
+  // Кнопки групп свои у каждого кадра: Европа делится на четыре части света, США —
+  // на четыре переписных региона, и общего списка у них нет.
+  function buildRegButtons() {
+    var list = regionsList();
+    regsEl.innerHTML = "";
+    list.forEach(function (r) {
+      var b = el("button", { type: "button", "class": "reg", "data-r": r[0], "aria-pressed": "true" }, r[1]);
+      b.addEventListener("click", function () {
+        S.reg[r[0]] = S.reg[r[0]] ? 0 : 1;
+        if (!list.some(function (x) { return S.reg[x[0]]; })) list.forEach(function (x) { S.reg[x[0]] = 1; });
+        syncControls(); drawRank(); syncURL();
+      });
+      regsEl.appendChild(b);
     });
-    regsEl.appendChild(b);
-  });
-  var coastBtn = el("button", { type: "button", "class": "reg", id: "coastbtn", "aria-pressed": "false", title: "EU-27 municipalities flagged coastal by Eurostat" }, "coast only");
-  coastBtn.addEventListener("click", function () { S.coast = S.coast ? 0 : 1; syncControls(); drawRank(); syncURL(); });
-  regsEl.appendChild(coastBtn);
+    // Признак приморья приходит из европейского датасета; у американских округов
+    // его нет, и показывать выключатель, который ничего не отфильтрует, незачем.
+    if (S.frame === "eu") {
+      var coastBtn = el("button", { type: "button", "class": "reg", id: "coastbtn", "aria-pressed": String(!!S.coast), title: "EU-27 municipalities flagged coastal by Eurostat" }, "coast only");
+      coastBtn.addEventListener("click", function () { S.coast = S.coast ? 0 : 1; syncControls(); drawRank(); syncURL(); });
+      regsEl.appendChild(coastBtn);
+    } else {
+      S.coast = 0;
+    }
+  }
 
-  var RANK_COLS = {
-    countries: [["name", "Country"], ["buy", "m² to buy"], ["rent", "m² to rent"], ["price", "Price €/m²"], ["rentp", "Rent €/m²·mo"], ["inc", "Income €/mo"], ["rate", "Rate %"], ["pop", "People"]],
-    cities: [["name", "City"], ["buy", "m² to buy"], ["rent", "m² to rent"], ["price", "Price €/m²"], ["rentp", "Rent €/m²·mo"], ["inc", "Income €/mo"], ["pop", "People"]]
-  };
+  // Валюта и слова в шапке — от кадра: в европейском кадре цены в евро за метр
+  // муниципалитета, в американском — в долларах за метр округа.
+  function rankCols() {
+    var m = fr().sym, eu = S.frame === "eu";
+    var cols = [["name", S.rank === "countries" ? "Country" : (eu ? "City" : "County")],
+                ["buy", "m² to buy"]];
+    // Столбцов «метры в аренду» и «аренда за метр» в американском кадре нет: у
+    // HUD аренда не за метр, а за жильё с таким-то числом спален, и колонка из
+    // прочерков только притворялась бы данными.
+    if (eu) cols.push(["rent", "m² to rent"]);
+    cols.push(["price", "Price " + m + "/m²"]);
+    cols.push(eu ? ["rentp", "Rent " + m + "/m²·mo"] : ["fmr", "Rent " + m + "/mo, 2 bed"]);
+    cols.push(["inc", "Income " + m + "/mo"]);
+    if (S.rank === "countries") cols.push(["rate", "Rate %"]);
+    cols.push(["pop", "People"]);
+    return cols;
+  }
+  // Подписи вкладок рейтинга тоже от кадра, и вкладка стран прячется там, где
+  // страна одна: рейтинг из одной строки — не рейтинг.
+  function syncRankTabs() {
+    var btns = document.querySelectorAll("#rankwhat button");
+    var many = C.filter(inFrame).length > 1;
+    btns[0].hidden = !many;
+    btns[1].textContent = S.frame === "eu" ? "Cities" : "Counties";
+    if (!many) { S.rank = "cities"; segSet("rankwhat", S.rank); }
+  }
   function rankRows() {
-    var src = S.rank === "countries" ? C.filter(function (c) { return c.espon && (c.sp || c.rp); })
-                                     : L.filter(function (l) { return l.pop >= 100000; });
-    var rows = src.filter(function (p) { return S.reg[regionOf(p.cc)] && (!S.coast || S.rank === "countries" || p.coast) && reaches(p); })
-      .map(function (p) { return { p: p, name: p.name, buy: buyM2(p), rent: rentM2(p), price: p.sp || null, rentp: p.rp || null, inc: p.inc ? p.inc / 12 : null, rate: rateOf(p), pop: p.pop }; });
+    // Рейтинг не смешивает кадры. Доход в США считает HUD по семье и до налогов, в
+    // Европе Евростат — эквивалентный и после налогов; поставить их в одну таблицу
+    // по местным доходам значило бы выдать разницу определений за разницу рынков.
+    var src = S.rank === "countries" ? C.filter(function (c) { return inFrame(c) && (c.sp || c.rp); })
+                                     : L.filter(function (l) { return inFrame(l) && l.pop >= 100000; });
+    var rows = src.filter(function (p) { return passReg(p) && (!S.coast || S.rank === "countries" || p.coast) && reaches(p); })
+      .map(function (p) {
+        var x = EX[p.kind === "cc" ? "c:" + p.c : p.id];
+        return { p: p, name: p.name, buy: buyM2(p), rent: rentM2(p), price: p.sp || null,
+                 rentp: p.rp || null, fmr: x && x.fmr[2] ? x.fmr[2] : null,
+                 inc: p.inc ? p.inc / 12 : null, rate: rateOf(p), pop: p.pop };
+      });
     var k = S.sort, d = S.dir === "asc" ? 1 : -1;
     rows.sort(function (a, b) {
       var x = a[k], y = b[k];
@@ -1046,7 +1216,8 @@
     return { rows: rows, total: src.length };
   }
   function drawRank() {
-    var cols = RANK_COLS[S.rank], rr = rankRows();
+    syncRankTabs();
+    var cols = rankCols(), rr = rankRows();
     $("rankhead").innerHTML = "<th>#</th>" + cols.map(function (c) {
       return "<th data-sort=\"" + c[0] + "\"" + (S.sort === c[0] ? " aria-sort=\"" + (S.dir === "asc" ? "ascending" : "descending") + "\"" : "") + ">" + c[1] + "</th>";
     }).join("") + "<th></th>";
@@ -1054,17 +1225,28 @@
       var id = pid(r.p), inCmp = S.cmp.indexOf(id) >= 0;
       return "<tr data-id=\"" + esc(id) + "\"" + (S.sel === id ? " class=\"sel\"" : "") + "><td>" + (i + 1) + "</td>" + cols.map(function (c) {
         var v = r[c[0]];
-        if (c[0] === "name") return "<td class=\"nm\">" + esc(v) + (S.rank === "cities" ? "<span class=\"cc\">" + esc(ccName(r.p.cc)) + "</span>" : "") + "</td>";
+        // Подпись под названием — страна там, где стран много, и регион там, где
+        // страна одна: «Macon County, IL — United States» не сообщает ничего.
+        if (c[0] === "name") {
+          var sub = "";
+          if (S.rank === "cities") {
+            var many = C.filter(inFrame).length > 1, n = N3[r.p.reg];
+            sub = "<span class=\"cc\">" + esc(many ? ccName(r.p.cc) : (n ? n.name : "")) + "</span>";
+          }
+          return "<td class=\"nm\">" + esc(v) + sub + "</td>";
+        }
         if (c[0] === "buy" || c[0] === "rent") return "<td class=\"cls\"><i class=\"" + (cls(v) < 0 ? "nd" : "c" + cls(v)) + "\"></i> " + fmtM2(v) + "</td>";
         if (c[0] === "rate") return "<td>" + (v === null ? "—" : v.toFixed(2)) + "</td>";
         if (c[0] === "rentp") return "<td>" + (v === null ? "—" : v.toFixed(2)) + "</td>";
+        if (c[0] === "fmr") return "<td>" + fmtInt(v) + "</td>";
         return "<td>" + fmtInt(v) + "</td>";
       }).join("") + "<td><button type=\"button\" class=\"rowbtn" + (inCmp ? " on" : "") + "\" data-cmp=\"" + esc(id) + "\" title=\"" + (inCmp ? "Remove from the comparison" : "Add to the comparison") + "\">" + (inCmp ? "✓" : "+") + "</button></td></tr>";
     }).join("");
-    var note = rr.rows.length + " of " + rr.total + " " + (S.rank === "countries" ? "countries" : "cities of 100,000 or more") +
+    var note = rr.rows.length + " of " + rr.total + " " + (S.rank === "countries" ? "countries" : fr().units + " of 100,000 people or more") +
       (S.want ? " where " + S.want + " m² are within reach" : "") + (S.coast && S.rank === "cities" ? ", coastal only" : "") +
       ". " + (mine() ? "On your income of €" + fmtInt(incEUR()) + " a month." : "Each on its own average income.") +
-      (S.rank === "countries" ? " Country values are population-weighted means of municipalities; Liechtenstein has no listings data." : " Click a row to open the place on the map.");
+      " " + fr().label + " only: the two layers use different income definitions and do not belong in one ranking." +
+      (S.rank === "countries" ? " Country values are population-weighted means of " + fr().units + "." : " Click a row to open the place on the map.");
     $("ranknote").textContent = note;
   }
   $("rankhead").addEventListener("click", function (e) {
@@ -1162,7 +1344,7 @@
   function mapImage() {
     var clone = mapEl.cloneNode(true);
     inlineStyles(mapEl, clone);
-    clone.setAttribute("xmlns", "http://www.w3.org/2000/svg"); clone.setAttribute("width", GEO.w); clone.setAttribute("height", GEO.h);
+    clone.setAttribute("xmlns", "http://www.w3.org/2000/svg"); clone.setAttribute("width", GF.w); clone.setAttribute("height", GF.h);
     var img = new Image();
     img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(new XMLSerializer().serializeToString(clone));
     return img.decode ? img.decode().then(function () { return img; }) : new Promise(function (ok) { img.onload = function () { ok(img); }; });
@@ -1201,7 +1383,7 @@
   }
   function buildMapPNG() {
     return mapImage().then(function (img) {
-      var inner = PNG_W - PAD * 2, mapH = Math.round(inner * GEO.h / GEO.w), rows = legendRows();
+      var inner = PNG_W - PAD * 2, mapH = Math.round(inner * GF.h / GF.w), rows = legendRows();
       var legendH = 0, lgLines = modeLabels();
       var height = PAD + 44 + 28 + 20 + mapH + 16 + 22 + 20 + measureLegend(rows, inner) + PAD;
       var cv = document.createElement("canvas"); cv.width = PNG_W * PNG_SCALE; cv.height = height * PNG_SCALE;
@@ -1340,6 +1522,7 @@
   function update() { paintMap(); drawCard(); drawCmp(); drawRank(); drawMove(); setupLine(); }
   document.addEventListener("themechange", function () { paintMap(); });
   readURL();
+  buildRegButtons();
   syncControls();
   syncMoveInputs();
   update();

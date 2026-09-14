@@ -372,6 +372,10 @@ def main():
         w.writerows(rows)
     json.dump({
         'window': [first, last], 'counties': len(rows), 'gaps': len(miss),
+        # Население всех единиц HUD, а не только покрытых Redfin: только так
+        # видно, какую долю страны рынок вообще показывает.
+        'popTotal': round(sum(p['pop'] for u in units.values() for p in u)),
+        'popCovered': round(sum(r[COLS.index('pop')] for r in rows)),
         'rate30': round(rate, 2), 'rateWeeks': weeks,
         'price': 'Redfin Data Center, county market tracker, median price per square foot',
         'income': 'HUD Income Limits FY2025, median family income of the HUD area',

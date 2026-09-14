@@ -50,6 +50,49 @@ REGION = {
     'east': ['BG', 'CZ', 'HU', 'PL', 'RO', 'SK', 'AL', 'MK', 'RS'],
 }
 ESPON31 = set(NAMES) - {'AL', 'MK', 'RS'}
+NAMES['US'] = 'United States'
+
+# Кадры карты (см. geo.py) и группы для фильтра рейтингов. Группа живёт на уровне
+# региона, а не страны: в Европе регионы страны всегда в одной группе, а США —
+# одна страна на четыре переписных региона, и фильтровать её по стране бессмысленно.
+# Кадр несёт не только подпись, но и слова: в Европе единица — муниципалитет
+# внутри региона NUTS 3, в США — округ внутри штата, и подписывать их одинаково
+# значило бы врать о том, что показано. Кадр «na» пока подписан Соединёнными
+# Штатами, а не материком: данных по Канаде и Мексике нет, и обещать их нельзя.
+FRAME = {
+    'eu': {'label': 'Europe', 'unit': 'municipality', 'units': 'municipalities',
+           'reg': 'region', 'regs': 'NUTS 3 regions', 'cur': 'EUR', 'sym': '\u20ac'},
+    'na': {'label': 'United States', 'unit': 'county', 'units': 'counties',
+           'reg': 'state', 'regs': 'states', 'cur': 'USD', 'sym': '$'},
+}
+GROUPS = {
+    'eu': [['north', 'North & Baltics'], ['west', 'West'], ['south', 'South'], ['east', 'East']],
+    'na': [['ne', 'Northeast'], ['mw', 'Midwest'], ['so', 'South'], ['we', 'West']],
+}
+# Переписные регионы Бюро переписи США — те же четыре, что во всей американской
+# статистике, чтобы читатель узнал деление, а не гадал, откуда оно взялось.
+US_GROUP = {
+    'ne': 'CT ME MA NH RI VT NJ NY PA',
+    'mw': 'IL IN MI OH WI IA KS MN MO NE ND SD',
+    'so': 'DE DC FL GA MD NC SC VA WV AL KY MS TN AR LA OK TX',
+    'we': 'AZ CO ID MT NV NM UT WY AK CA HI OR WA',
+}
+US_STATE = {
+    'AL': 'Alabama', 'AK': 'Alaska', 'AZ': 'Arizona', 'AR': 'Arkansas', 'CA': 'California',
+    'CO': 'Colorado', 'CT': 'Connecticut', 'DE': 'Delaware', 'DC': 'District of Columbia',
+    'FL': 'Florida', 'GA': 'Georgia', 'HI': 'Hawaii', 'ID': 'Idaho', 'IL': 'Illinois',
+    'IN': 'Indiana', 'IA': 'Iowa', 'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisiana',
+    'ME': 'Maine', 'MD': 'Maryland', 'MA': 'Massachusetts', 'MI': 'Michigan',
+    'MN': 'Minnesota', 'MS': 'Mississippi', 'MO': 'Missouri', 'MT': 'Montana',
+    'NE': 'Nebraska', 'NV': 'Nevada', 'NH': 'New Hampshire', 'NJ': 'New Jersey',
+    'NM': 'New Mexico', 'NY': 'New York', 'NC': 'North Carolina', 'ND': 'North Dakota',
+    'OH': 'Ohio', 'OK': 'Oklahoma', 'OR': 'Oregon', 'PA': 'Pennsylvania',
+    'RI': 'Rhode Island', 'SC': 'South Carolina', 'SD': 'South Dakota', 'TN': 'Tennessee',
+    'TX': 'Texas', 'UT': 'Utah', 'VT': 'Vermont', 'VA': 'Virginia', 'WA': 'Washington',
+    'WV': 'West Virginia', 'WI': 'Wisconsin', 'WY': 'Wyoming',
+}
+US_CSV = os.path.join(ROOT, 'research', 'data', 'us-counties.csv')
+US_META = os.path.join(ROOT, 'research', 'data', 'us-meta.json')
 
 # Английские экзонимы — только для поиска, не для показа. Названия на странице
 # остаются такими, как их даёт источник (Wien, Praha, København): переводить их
@@ -98,6 +141,17 @@ def f(v):
         return float(v)
     except (TypeError, ValueError):
         return 0.0
+
+
+def annuity(rate, years=30):
+    """Во сколько раз месячный платёж превращается в тело кредита.
+
+    Та же формула, что у ESPON: страница считает метры этим множителем и для
+    Европы, и для США, иначе два слоя мерились бы разной линейкой.
+    """
+    i = rate / 100.0 / 12.0
+    n = years * 12
+    return n if i <= 0 else (1 - (1 + i) ** -n) / i
 
 
 def cls(v):
@@ -164,7 +218,7 @@ def main():
             # Валюта самих данных, а не читателя: таблица ESPON целиком в евро.
             # Источник помечен, потому что «Where the numbers come from» должен
             # показывать построчно, откуда взята каждая страна.
-            'cur': 'EUR', 'src': 'espon',
+            'cur': 'EUR', 'src': 'espon', 'frame': 'eu',
         })
 
     # ---- NUTS 3
@@ -184,6 +238,7 @@ def main():
             round(wmean(rs, 'sa'), 1), round(wmean(rs, 'ra'), 1),
             round(sum(r['pop'] for r in rs if r['sa']) / pop, 2) if pop else 0,
             round(sum(r['pop'] for r in rs if r['ra']) / pop, 2) if pop else 0,
+            region_of.get(rs[0]['cc'], ''),
         ])
 
     # ---- муниципалитеты: крупные плюс по одному на регион
@@ -215,6 +270,78 @@ def main():
         raise SystemExit('алиасы не нашли своих строк: %s' % (lost,))
     aliases = {r['id']: ALIAS[(r['cc'], r['name'])] for r in rows
                if (r['cc'], r['name']) in ALIAS and r['id'] in keep}
+    # ---- США: округа как места, штаты как регионы
+    # Цена там за метр жилья по сделкам, доход — медианный по семье, аренда — по
+    # числу спален, а не за метр (см. extract_us.py). Поэтому у американских мест
+    # есть «сколько метров куплю» и нет «сколько метров сниму»: последнее пришлось
+    # бы выдумать через типовую площадь, а выдумывать нельзя. Метрики, общие для
+    # обоих слоёв, строятся из median_price и fmr_2 — они лежат отдельным массивом
+    # extra, чтобы не раздувать нулями восемь с половиной тысяч европейских строк.
+    extra = []
+    if os.path.exists(US_CSV):
+        meta = json.load(open(US_META, encoding='utf-8'))
+        us = list(csv.DictReader(open(US_CSV, encoding='utf-8')))
+        grp_of = {st: k for k, v in US_GROUP.items() for st in v.split()}
+        rate = float(meta['rate30'])
+        ann = annuity(rate)
+        for r in us:
+            r['pop'] = float(r['pop'] or 0)
+            r['inc'] = float(r['income_family'] or 0)
+            r['sp'] = float(r['price_m2'] or 0)
+            r['sa'] = (r['inc'] / 12.0 / 3.0 * ann / r['sp']) if (r['inc'] and r['sp']) else 0.0
+
+        cc_index['US'] = len(countries)
+        popc = sum(r['pop'] for r in us)
+        countries.append({
+            'c': 'US', 'n': NAMES['US'], 'reg': '', 'espon': False,
+            'rate': rate, 'pop': round(float(meta['popTotal'])),
+            'sa': round(wmean(us, 'sa'), 1), 'ra': 0,
+            'inc': round(wmean(us, 'inc')), 'sp': round(wmean(us, 'sp')), 'rp': 0,
+            'covS': round(popc / float(meta['popTotal']), 3),
+            'covR': 0, 'places': len(us),
+            'cur': 'USD', 'src': 'redfin+hud', 'frame': 'na',
+        })
+
+        by_st = {}
+        for r in us:
+            by_st.setdefault(r['st'], []).append(r)
+        for st in sorted(by_st):
+            rs = by_st[st]
+            pop = sum(r['pop'] for r in rs)
+            n3index['US-' + st] = len(regions)
+            regions.append([
+                'US-' + st, US_STATE.get(st, st), 'US', round(pop),
+                round(wmean(rs, 'inc')), round(wmean(rs, 'sp')), 0,
+                round(wmean(rs, 'sa'), 1), 0, 1, 0, grp_of.get(st, ''),
+            ])
+        for r in us:
+            # deg и coast у американских мест не размечены: metro у HUD — это его
+            # собственная зона, а не степень урбанизации Евростата, и подставлять
+            # одно вместо другого нельзя. Ноль здесь значит «не размечено».
+            places.append([
+                'us' + r['fips'], r['name'], cc_index['US'], n3index['US-' + r['st']],
+                round(r['pop']), round(r['inc']), round(r['sp']), 0,
+                round(float(r['lat']) * 100), round(float(r['lon']) * 100), 0, 0,
+            ])
+            extra.append(['us' + r['fips'], int(float(r['median_price'] or 0))]
+                         + [int(float(r['fmr_%d' % i] or 0)) for i in range(5)])
+
+        # Те же величины для штатов и страны: иначе «доля дохода на аренду»
+        # красила бы точки округов и оставляла штат и страну без данных, хотя
+        # посчитать их из тех же строк можно — по населению.
+        def wm(rs, key):
+            num = den = 0.0
+            for r in rs:
+                v = float(r[key] or 0)
+                if v:
+                    num += v * r['pop']; den += r['pop']
+            return int(num / den) if den else 0
+        for st in sorted(by_st):
+            extra.append(['US-' + st, wm(by_st[st], 'median_price')]
+                         + [wm(by_st[st], 'fmr_%d' % i) for i in range(5)])
+        extra.append(['c:US', wm(us, 'median_price')]
+                     + [wm(us, 'fmr_%d' % i) for i in range(5)])
+
     places.sort(key=lambda x: -x[4])
 
     # ---- рисунок 3: население по классам × степень урбанизации
@@ -293,10 +420,12 @@ def main():
         'classes': CLASSES, 'size': size,
         'popTotal': round(total31),
         'countries': countries, 'regions': regions, 'places': places,
+        'extra': extra, 'frames': FRAME, 'groups': GROUPS,
         'hist': {'sale': hist('sa'), 'rent': hist('ra')},
         'aliases': aliases,
         'placefields': ['id', 'name', 'cc', 'reg', 'pop', 'inc', 'sp', 'rp10', 'lat100', 'lon100', 'deg', 'coast'],
-        'regionfields': ['id', 'name', 'cc', 'pop', 'inc', 'sp', 'rp', 'sa', 'ra', 'covS', 'covR'],
+        'regionfields': ['id', 'name', 'cc', 'pop', 'inc', 'sp', 'rp', 'sa', 'ra', 'covS', 'covR', 'grp'],
+        'extrafields': ['id', 'mp', 'fmr0', 'fmr1', 'fmr2', 'fmr3', 'fmr4'],
     }
     p = os.path.join(HERE, 'data.json')
     json.dump(out, open(p, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))

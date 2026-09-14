@@ -79,8 +79,7 @@ def build(code, langs):
 
     js = re.sub(r'\{\{js:(\w+)\}\}', lambda m: json.dumps(L[m.group(1)], ensure_ascii=False), js)
     js = js.replace('{{data}}', json.dumps(data, ensure_ascii=False, separators=(',', ':')))
-    js = js.replace('{{geo}}', json.dumps({k: geo[k] for k in ('w', 'h', 'lat0', 'lon0', 'box', 'countries')},
-                                          ensure_ascii=False, separators=(',', ':')))
+    js = js.replace('{{geo}}', json.dumps(geo, ensure_ascii=False, separators=(',', ':')))
     # </script> внутри строки данных закрыл бы тег раньше времени
     js = js.replace('</script', '<\\/script')
 
@@ -101,7 +100,10 @@ def build(code, langs):
         'ldDatasetName': json.dumps(L['ldDatasetName'], ensure_ascii=False)[1:-1],
         'ldDatasetDescription': json.dumps(L['ldDatasetDescription'], ensure_ascii=False)[1:-1],
         'locale': L['htmlLocale'],
-        'geoW': geo['w'], 'geoH': geo['h'],
+        # viewBox первого кадра: дальше его переставляет сам скрипт при смене
+        # кадра, но разметка обязана быть осмысленной и до выполнения скрипта.
+        'geoW': geo['frames'][geo['order'][0]]['w'],
+        'geoH': geo['frames'][geo['order'][0]]['h'],
     })
 
     def sub(m):
