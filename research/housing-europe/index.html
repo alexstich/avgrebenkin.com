@@ -1737,7 +1737,7 @@
     var incA = homeIncome(a);
     if (!incA) { box.innerHTML = "<p class=\"mempty\">No income on record for " + esc(a.name) + ". Enter your own above and switch to \u201cMy income\u201d.</p>"; return; }
 
-    var rows = [], notes = [], rateNote2 = false;
+    var rows = [], notes = [], rateNote2 = false, buyNeed = null;
     // Аренда: метры пропорциональны доходу, делённому на цену аренды за метр.
     if (a.rp && b.rp) {
       var needRent = incA * (b.rp / a.rp);
@@ -1752,6 +1752,7 @@
       var needBuy = incA * (b.sp / a.sp) * (annA / annB);
       rows.push({ what: "to buy the same space", need: needBuy, now: incA,
                   detail: fmtM2(buyM2(a)) + " m² at home, on a " + S.term + "-year mortgage at " + fmtRate(rateOf(b)) + " there against " + fmtRate(rateOf(a)) + " at home" });
+      buyNeed = needBuy;
       rateNote2 = S.rate === null;
     } else notes.push("No sale listings or no mortgage rate for one of the two, so buying cannot be compared.");
 
@@ -1783,9 +1784,19 @@
       if (got.length) h += "<p class=\"mnote\">On " + fmtEur(Math.round(offer)) + " in " + esc(b.name) + " you could take " + got.join(" or ") + ", against " + fmtM2(buyM2(a)) + " m² and " + fmtM2(rentM2(a)) + " m² at home.</p>";
     }
     if (rateNote2) {
-      // Знак переворота между арендой и покупкой держится на разнице ставок, а она
-      // из среза исследования. Без года эта цифра однажды станет просто неверной.
-      h += "<p class=\"mnote\">Mortgage rates are the national averages the study used, mostly 2023, not today's. They drive the difference between the two answers, so put your own in the rate field above if you know better ones.</p>";
+      // Подписи года мало: читатель увидит год и не поймёт, что от него зависит
+      // знак. Поэтому вклад ставки показывается числом. При равных ставках
+      // аннуитеты сокращаются, и остаётся чистое отношение цен — это и есть ответ
+      // «а если бы ипотека стоила одинаково».
+      var flat = (a.sp && b.sp) ? incA * (b.sp / a.sp) : null;
+      if (flat && buyNeed) {
+        var dp = Math.round((flat / incA - 1) * 100);
+        h += "<p class=\"mnote\"><b>How much of this is the mortgage, not the housing.</b> If both countries charged the same interest, the offer would need to be " +
+             fmtEur(Math.round(flat)) + " (" + (dp >= 0 ? "+" : "−") + Math.abs(dp) + " %) to buy the same space — that is the price difference alone. The rate difference moves it by " +
+             fmtEur(Math.round(Math.abs(buyNeed - flat))) + " a month. Rates here are the national averages the study used, mostly 2023, not today's; put your own in the rate field above if you know better ones.</p>";
+      } else {
+        h += "<p class=\"mnote\">Mortgage rates are the national averages the study used, mostly 2023, not today's. Put your own in the rate field above if you know better ones.</p>";
+      }
     }
     if (notes.length) h += "<p class=\"mnote\">" + notes.join(" ") + "</p>";
     box.innerHTML = h;
