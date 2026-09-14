@@ -125,6 +125,13 @@
   .wrap .ibtn svg { display: block; width: 13px; height: 13px; fill: none; stroke: currentColor;
               stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
   .ibtn.done svg { stroke-width: 2.2; }
+  /* На мышке 28×24 хватает, пальцем — нет. Кнопки не раздуваются, растёт только
+     зона нажатия, иначе ряд из пяти иконок перестроил бы шапку панели. */
+  @media (pointer: coarse) {
+    .ibtn { position: relative; }
+    .ibtn::after { content: ""; position: absolute; left: 50%; top: 50%;
+                   width: 40px; height: 40px; transform: translate(-50%, -50%); }
+  }
   :root[data-theme="cyber"] .pactions, :root[data-theme="cyber"] .ibtn { border-radius: 0; }
   .copied { position: fixed; z-index: 40; padding: 6px 11px; border-radius: 8px;
             background: var(--accent); color: var(--bg);
