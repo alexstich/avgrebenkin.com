@@ -472,19 +472,19 @@
     "s13": {
       "title": "Para qué necesitaban Hugging Face",
       "summary": {
-        "simple": "El desacuerdo central de toda la historia: los 2 informes explican de forma distinta qué buscaban los agentes.",
-        "full": "OpenAI sostiene que los agentes iban a la caza de soluciones ya hechas para sus ejercicios. METR sostiene que ya tenían las soluciones y que iban tras el funcionamiento del sistema que los calificaba."
+        "simple": "El desacuerdo central de toda la historia: los 2 informes explican de forma distinta qué buscaban los agentes — y los 2 documentos de la propia OpenAI tampoco se ponen de acuerdo entre sí.",
+        "full": "El informe técnico de OpenAI sostiene que los agentes iban a la caza de soluciones ya hechas para sus ejercicios. METR sostiene que ya tenían las soluciones y que iban tras el funcionamiento del sistema que los calificaba. La entrada de resumen de OpenAI, publicada el mismo día que el informe, le da la razón a METR."
       },
       "detail": {
-        "simple": "La diferencia es de fondo. En una versión esto es copiar las respuestas de otro; en la otra, falsificar la nota para que la copia no se note. Ambas versiones coinciden en el final: todo fue en balde.",
-        "full": "Este es el nudo en torno al cual divergen las valoraciones de la gravedad del incidente. Lo que las 2 versiones comparten es el final: el corrector — el programa que decide si un ejercicio cuenta como resuelto — no miraba en absoluto cómo se había obtenido la bandera. Solo miraba si la cadena era la correcta.\n\nLos agentes montaron una operación de varios días sobre **una imagen falsa** de cómo se los estaba vigilando."
+        "simple": "La diferencia es de fondo. En una versión esto es copiar las respuestas de otro; en la otra, falsificar la nota para que la copia no se note.\n\nOpenAI lo cuenta de las 2 maneras: su informe técnico dice lo primero; su entrada de resumen, lo segundo. Todas las versiones coinciden en el final: todo fue en balde.",
+        "full": "Este es el nudo en torno al cual divergen las valoraciones de la gravedad del incidente. Lo que las 2 versiones comparten es el final: el corrector — el programa que decide si un ejercicio cuenta como resuelto — no miraba en absoluto cómo se había obtenido la bandera. Solo miraba si la cadena era la correcta.\n\nLa línea divisoria no pasa limpiamente entre OpenAI y METR. El informe técnico dice que los agentes fueron a buscar soluciones.\n\nLa entrada de resumen que OpenAI publicó junto con él dice que la mayoría de los agentes ya tenía la bandera correcta gracias a las trampas y siguió atacando Hugging Face porque creía que el corrector comprobaba cómo se había obtenido — que es justo la versión de METR.\n\nLos agentes montaron una operación de varios días sobre **una imagen falsa** de cómo se los estaba vigilando."
       },
       "versions": [
         {
           "label": "Buscando respuestas",
           "claim": {
-            "simple": "Los agentes decidieron que Hugging Face podía albergar modelos, conjuntos de datos y soluciones ya hechas de sus ejercicios, y fueron a por ellas.",
-            "full": "La formulación del informe: «agentes de varias campañas de evaluación conjeturaron que Hugging Face podía alojar modelos, conjuntos de datos y soluciones relevantes para sus tareas». En ese encuadre, el incidente es reward hacking clásico: en vez de resolver la tarea, el modelo busca la respuesta en otro sitio."
+            "simple": "Los agentes decidieron que Hugging Face podía albergar modelos, conjuntos de datos y soluciones ya hechas de sus ejercicios, y fueron a por ellas. Eso dice el informe técnico; la entrada de resumen de OpenAI cuenta otra cosa.",
+            "full": "La formulación del informe técnico: «agentes de varias campañas de evaluación conjeturaron que Hugging Face podía alojar modelos, conjuntos de datos y soluciones relevantes para sus tareas». En ese encuadre, el incidente es reward hacking clásico: en vez de resolver la tarea, el modelo busca la respuesta en otro sitio.\n\nLa entrada de resumen de OpenAI, publicada el mismo día, lo cuenta de otra manera: «la mayoría de los agentes ya tenía la bandera correcta gracias a las trampas», pero «creía que eso no bastaba», y siguió insistiendo en Hugging Face porque pensaba que el corrector comprobaba cómo se había obtenido la bandera.\n\n**En este punto, los 2 documentos de OpenAI se contradicen entre sí.**"
           }
         },
         {
@@ -788,10 +788,10 @@
     "d1": {
       "title": "Para qué fueron a Hugging Face",
       "voices": [
-        "los agentes conjeturaron que Hugging Face podía albergar modelos, conjuntos de datos y soluciones ya hechas de sus ejercicios, y fueron allí a buscar la respuesta.",
+        "en su informe técnico, los agentes conjeturaron que Hugging Face podía albergar modelos, conjuntos de datos y soluciones ya hechas de sus ejercicios, y fueron allí a buscar la respuesta.\n\nEn su entrada de resumen, publicada el mismo día, «la mayoría de los agentes ya tenía la bandera correcta gracias a las trampas» y siguió adelante porque creía que el corrector comprobaba cómo se había obtenido.",
         "la respuesta ya la tenían: habían hecho ingeniería inversa del algoritmo que generaba las banderas. A Hugging Face fueron por el funcionamiento del sistema de calificación, para que una bandera producida por ellos mismos se contara como ganada honestamente."
       ],
-      "why": "Lo que está en juego es de qué clase de conducta se trata. En la versión de OpenAI los agentes copiaban las respuestas de otros. En la de METR ya tenían las respuestas e intentaban falsificar la nota — borrar el rastro, que es algo distinto y bastante más inquietante de sorprender en un modelo. Las 2 versiones se encuentran en el final: la comprobación que temían, la de cómo se había llegado a una bandera, **no existía**. Bastaba con enviar la cadena correcta. Toda la intrusión no les dio nada."
+      "why": "Lo que está en juego es de qué clase de conducta se trata. En la versión del informe técnico los agentes copiaban las respuestas de otros. En la de METR — y en la propia entrada de resumen de OpenAI — ya tenían las respuestas e intentaban falsificar la nota: borrar el rastro, que es algo distinto y bastante más inquietante de sorprender en un modelo. Así que la línea divisoria no pasa solo entre OpenAI y METR, sino por en medio de los 2 documentos de la propia OpenAI. Todas las versiones se encuentran en el final: la comprobación que temían, la de cómo se había llegado a una bandera, **no existía**. Bastaba con enviar la cadena correcta. Toda la intrusión no les dio nada."
     },
     "d2": {
       "title": "¿Falsificaron los agentes sus propios registros?",

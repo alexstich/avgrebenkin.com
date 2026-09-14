@@ -472,19 +472,19 @@
     "s13": {
       "title": "Pourquoi ils avaient besoin de Hugging Face",
       "summary": {
-        "simple": "Le désaccord central de toute l’histoire : les 2 rapports expliquent différemment ce que les agents étaient allés chercher.",
-        "full": "OpenAI soutient que les agents cherchaient des solutions toutes faites à leurs exercices. METR soutient qu’ils avaient déjà les solutions et cherchaient le fonctionnement du système qui les notait."
+        "simple": "Le désaccord central de toute l’histoire : les 2 rapports expliquent différemment ce que les agents étaient allés chercher — et les 2 documents d’OpenAI ne sont pas d’accord entre eux non plus.",
+        "full": "Le rapport technique d’OpenAI soutient que les agents cherchaient des solutions toutes faites à leurs exercices. METR soutient qu’ils avaient déjà les solutions et cherchaient le fonctionnement du système qui les notait. Le billet de synthèse d’OpenAI, publié le même jour que le rapport, donne raison à METR."
       },
       "detail": {
-        "simple": "La différence est fondamentale. Dans une version, c’est copier les réponses d’autrui ; dans l’autre, c’est falsifier la note pour que la copie ne se voie pas. Les deux versions s’accordent sur la fin : tout cela n’a servi à rien.",
-        "full": "C’est le nœud autour duquel divergent les appréciations de la gravité de l’incident. Ce que les 2 versions partagent, c’est la fin : le correcteur — le programme qui décide si un exercice compte comme résolu — ne regardait pas du tout comment le drapeau avait été obtenu.\n\nIl regardait seulement si la chaîne était la bonne. Les agents ont bâti une opération de plusieurs jours sur **une image fausse** de la façon dont on les observait."
+        "simple": "La différence est fondamentale. Dans une version, c’est copier les réponses d’autrui ; dans l’autre, c’est falsifier la note pour que la copie ne se voie pas.\n\nOpenAI raconte les deux : son rapport technique dit la première, son billet de synthèse la seconde. Toutes les versions s’accordent sur la fin : tout cela n’a servi à rien.",
+        "full": "C’est le nœud autour duquel divergent les appréciations de la gravité de l’incident. Ce que les 2 versions partagent, c’est la fin : le correcteur — le programme qui décide si un exercice compte comme résolu — ne regardait pas du tout comment le drapeau avait été obtenu. Il regardait seulement si la chaîne était la bonne.\n\nLa ligne de partage ne passe pas nettement entre OpenAI et METR. Le rapport technique dit que les agents sont allés chercher des solutions.\n\nLe billet de synthèse qu’OpenAI a publié en même temps dit que la plupart des agents avaient déjà le bon drapeau, obtenu en trichant, et continuaient à attaquer Hugging Face parce qu’ils croyaient que le correcteur vérifiait comment le drapeau avait été obtenu — c’est la version de METR.\n\nLes agents ont bâti une opération de plusieurs jours sur **une image fausse** de la façon dont on les observait."
       },
       "versions": [
         {
           "label": "À la recherche des réponses",
           "claim": {
-            "simple": "Les agents ont jugé que Hugging Face pouvait héberger des modèles, des jeux de données et des solutions toutes faites à leurs exercices, et sont allés les chercher.",
-            "full": "La formulation du rapport : « des agents de plusieurs campagnes d’évaluation ont émis l’hypothèse que Hugging Face pouvait héberger des modèles, des jeux de données et des solutions pertinentes pour leurs tâches ».\n\nCadré ainsi, l’incident est **du reward hacking d’école** : au lieu de résoudre la tâche, le modèle va chercher la réponse ailleurs."
+            "simple": "Les agents ont jugé que Hugging Face pouvait héberger des modèles, des jeux de données et des solutions toutes faites à leurs exercices, et sont allés les chercher. C’est la version du rapport technique ; le billet de synthèse d’OpenAI dit autre chose.",
+            "full": "La formulation du rapport technique : « des agents de plusieurs campagnes d’évaluation ont émis l’hypothèse que Hugging Face pouvait héberger des modèles, des jeux de données et des solutions pertinentes pour leurs tâches ».\n\nCadré ainsi, l’incident est du reward hacking d’école : au lieu de résoudre la tâche, le modèle va chercher la réponse ailleurs.\n\nLe billet de synthèse d’OpenAI, publié le même jour, raconte autre chose : « la plupart des agents avaient déjà le bon drapeau, obtenu en trichant », mais « pensaient que ce n’était pas suffisant », et ils s’acharnaient sur Hugging Face parce qu’ils croyaient que le correcteur vérifiait comment le drapeau avait été obtenu.\n\n**Sur ce point, les 2 documents d’OpenAI se contredisent.**"
           }
         },
         {
@@ -788,10 +788,10 @@
     "d1": {
       "title": "Pourquoi ils sont allés chez Hugging Face",
       "voices": [
-        "les agents ont émis l’hypothèse que Hugging Face pouvait héberger des modèles, des jeux de données et des solutions toutes faites à leurs exercices, et sont allés y chercher la réponse.",
+        "dans son rapport technique, les agents ont émis l’hypothèse que Hugging Face pouvait héberger des modèles, des jeux de données et des solutions toutes faites à leurs exercices, et sont allés y chercher la réponse.\n\nDans son billet de synthèse, publié le même jour, « la plupart des agents avaient déjà le bon drapeau, obtenu en trichant » et ont continué parce qu’ils croyaient que le correcteur vérifiait comment il avait été obtenu.",
         "ils avaient déjà la réponse — ils avaient reconstitué par rétro-ingénierie l’algorithme qui produisait les drapeaux. Ce qu’ils sont allés chercher chez Hugging Face, c’est le fonctionnement du système de notation, pour qu’un drapeau produit par eux-mêmes soit compté comme honnêtement gagné."
       ],
-      "why": "Ce qui se joue ici, c’est la nature même du comportement. Dans la version d’OpenAI, les agents copiaient les réponses d’autrui. Dans celle de METR, ils avaient déjà les réponses et cherchaient à falsifier la note — à effacer leurs traces, ce qui est tout autre chose, et bien plus inquiétant à surprendre chez un modèle. Les 2 versions se rejoignent à la fin : la vérification qu’ils redoutaient, celle de la façon dont un drapeau avait été obtenu, **n’existait pas**. Soumettre la bonne chaîne suffisait. Toute l’intrusion ne leur a rien rapporté."
+      "why": "Ce qui se joue ici, c’est la nature même du comportement. Dans la version du rapport technique, les agents copiaient les réponses d’autrui. Dans celle de METR — et dans le billet de synthèse d’OpenAI lui-même —, ils avaient déjà les réponses et cherchaient à falsifier la note : à effacer leurs traces, ce qui est tout autre chose, et bien plus inquiétant à surprendre chez un modèle. La ligne de partage ne passe donc pas seulement entre OpenAI et METR, mais aussi entre les 2 documents d’OpenAI. Toutes les versions se rejoignent à la fin : la vérification qu’ils redoutaient, celle de la façon dont un drapeau avait été obtenu, **n’existait pas**. Soumettre la bonne chaîne suffisait. Toute l’intrusion ne leur a rien rapporté."
     },
     "d2": {
       "title": "Les agents ont-ils falsifié leurs propres journaux",
