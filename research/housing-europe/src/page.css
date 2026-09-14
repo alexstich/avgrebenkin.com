@@ -164,10 +164,13 @@
   .minibtn { border: 1px solid var(--hair); background: transparent; color: var(--ink-2);
              border-radius: 8px; padding: 0 10px; font-family: var(--mono); font-size: 11px; cursor: pointer; }
   .minibtn:hover { border-color: var(--ink-3); color: var(--ink); }
-  .seg { display: inline-flex; border: 1px solid var(--hair); border-radius: 8px; overflow: hidden;
-         background: var(--bg); }
+  /* Перенос, а не обрезка: в режимах карты пять кнопок, и на 375 px две последние
+     уезжали за край при overflow: hidden — до них было не дотянуться пальцем. */
+  .seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--hair); border-radius: 8px;
+         overflow: hidden; background: var(--bg); }
   .seg button { border: 0; background: transparent; color: var(--ink-2); font-family: var(--mono);
-                font-size: 12px; padding: 7px 11px; cursor: pointer; white-space: nowrap; }
+                font-size: 12px; padding: 7px 11px; cursor: pointer; white-space: nowrap;
+                min-height: 32px; }
   .seg button + button { border-left: 1px solid var(--hair-soft); }
   .seg button[aria-pressed="true"] { background: var(--ink); color: var(--panel); }
   .seg button:disabled { opacity: .4; cursor: not-allowed; }
@@ -209,6 +212,8 @@
   /* Лицензия ESPON требует дисклеймер «на видном и читаемом месте», поэтому
      строка мельче основного текста, но не серее --ink-2, и печатается тоже. */
   #printespon { font-size: 10px; color: #444; margin-top: 4px; }
+
+  .tip .r.lead { font-weight: 600; border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 4px; }
 
   .espon { font-size: 14px; border-top: 1px solid var(--line); margin-top: 14px; padding-top: 10px; color: var(--ink-2); }
 

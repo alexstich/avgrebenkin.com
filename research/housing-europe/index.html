@@ -300,10 +300,13 @@
   .minibtn { border: 1px solid var(--hair); background: transparent; color: var(--ink-2);
              border-radius: 8px; padding: 0 10px; font-family: var(--mono); font-size: 11px; cursor: pointer; }
   .minibtn:hover { border-color: var(--ink-3); color: var(--ink); }
-  .seg { display: inline-flex; border: 1px solid var(--hair); border-radius: 8px; overflow: hidden;
-         background: var(--bg); }
+  /* Перенос, а не обрезка: в режимах карты пять кнопок, и на 375 px две последние
+     уезжали за край при overflow: hidden — до них было не дотянуться пальцем. */
+  .seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--hair); border-radius: 8px;
+         overflow: hidden; background: var(--bg); }
   .seg button { border: 0; background: transparent; color: var(--ink-2); font-family: var(--mono);
-                font-size: 12px; padding: 7px 11px; cursor: pointer; white-space: nowrap; }
+                font-size: 12px; padding: 7px 11px; cursor: pointer; white-space: nowrap;
+                min-height: 32px; }
   .seg button + button { border-left: 1px solid var(--hair-soft); }
   .seg button[aria-pressed="true"] { background: var(--ink); color: var(--panel); }
   .seg button:disabled { opacity: .4; cursor: not-allowed; }
@@ -345,6 +348,8 @@
   /* Лицензия ESPON требует дисклеймер «на видном и читаемом месте», поэтому
      строка мельче основного текста, но не серее --ink-2, и печатается тоже. */
   #printespon { font-size: 10px; color: #444; margin-top: 4px; }
+
+  .tip .r.lead { font-weight: 600; border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 4px; }
 
   .espon { font-size: 14px; border-top: 1px solid var(--line); margin-top: 14px; padding-top: 10px; color: var(--ink-2); }
 
@@ -703,11 +708,12 @@
     <div class="phead">
       <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-png="map" title="Copy the map as a PNG" aria-label="Copy the map as a PNG"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.2" y="5" width="17.6" height="14" rx="2.4"/><circle cx="8.6" cy="10" r="1.5"/><path d="m4.4 16.6 4.4-4 3.4 3 3-2.6 4.4 4"/></svg></button><button type="button" class="ibtn" data-png-dl="map" title="Download the map as a PNG" aria-label="Download the map as a PNG"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v10.4"/><path d="m7.6 10.6 4.4 4.4 4.4-4.4"/><path d="M4.8 19.2h14.4"/></svg></button><button type="button" class="ibtn" data-print="map" title="Print the map" aria-label="Print the map"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
       <h2 id="map-h">The map</h2>
-      <p>Countries are filled with their population-weighted average; each dot is a town, coloured on the same scale. Hover or tap either for its numbers, and zoom in for more towns. Search a town to jump straight to it. The redder, the fewer square metres.</p>
+      <p>Countries are filled with their population-weighted average; each dot is a town, coloured on the same scale. Hover or tap either for its numbers, and zoom in for more towns. Search a town to jump straight to it. Red always means the harder place, whichever measure is showing.</p>
+      <p>The last two measures answer the questions people actually ask. <b>Years of income</b> is how many years of gross income the home costs outright, and <b>rent share</b> is what renting it takes out of a month's income. Both are computed for the size you set under "I want", not for some invented typical flat, and both work wherever a price per square metre exists.</p>
     </div>
     <div class="bar">
       <div class="seg" role="group" aria-label="What the map shows" id="mapmode">
-        <button type="button" data-v="buy" aria-pressed="true">Buy</button><button type="button" data-v="rent" aria-pressed="false">Rent</button><button type="button" data-v="diff" aria-pressed="false">Rent − buy</button>
+        <button type="button" data-v="buy" aria-pressed="true">m² to buy</button><button type="button" data-v="rent" aria-pressed="false">m² to rent</button><button type="button" data-v="diff" aria-pressed="false">Rent − buy</button><button type="button" data-v="years" aria-pressed="false">Years of income</button><button type="button" data-v="share" aria-pressed="false">Rent share</button>
       </div>
       <div class="seg" role="group" aria-label="Whose income" id="basis">
         <button type="button" data-v="local" aria-pressed="true">Local average income</button><button type="button" data-v="mine" aria-pressed="false" disabled title="Enter your income above">My income</button>
@@ -909,6 +915,31 @@
   var CLASS_LABEL = ["under 50 m²", "50–75 m²", "76–100 m²", "101–150 m²", "over 150 m²"];
   var DIFF_BREAKS = [-20, -5, 5, 20];
   var DIFF_LABEL = ["buying gives 20 m² more", "buying gives 5–20 m² more", "within 5 m²", "renting gives 5–20 m² more", "renting gives 20 m² more"];
+  // Метры считаются от дохода: чем больше, тем лучше. Годы дохода и доля на аренду
+  // читаются наоборот, поэтому у них своё направление шкалы — иначе красный и
+  // зелёный поменялись бы смыслом между режимами одной и той же карты.
+  var YEARS_BREAKS = [3, 5, 8, 12];
+  var SHARE_BREAKS = [20, 30, 40, 50];
+  var MODES = {
+    buy:   { inv: false, title: "m² to buy" },
+    rent:  { inv: false, title: "m² to rent" },
+    diff:  { inv: false, title: "rent minus buy, m²" },
+    years: { inv: true,  breaks: YEARS_BREAKS, title: "years of income" },
+    share: { inv: true,  breaks: SHARE_BREAKS, title: "rent, % of income" }
+  };
+  function mapN() { return S.want || 70; }
+  function modeText() {
+    if (S.mode === "buy") return "square metres to buy";
+    if (S.mode === "rent") return "square metres to rent";
+    if (S.mode === "diff") return "square metres to rent minus square metres to buy";
+    if (S.mode === "years") return "years of income for " + mapN() + " m²";
+    return "rent for " + mapN() + " m² as a share of income";
+  }
+  function modeLabels() {
+    if (S.mode === "years") return ["under 3 years", "3–5", "5–8", "8–12", "over 12"];
+    if (S.mode === "share") return ["under 20 % of income", "20–30 %", "30–40 %", "40–50 %", "over 50 %"];
+    return S.mode === "diff" ? DIFF_LABEL : CLASS_LABEL;
+  }
   var REGIONS = [["north", "North & Baltics"], ["west", "West"], ["south", "South"], ["east", "East"]];
   // Курсы ЕЦБ на 11 сентября 2026: единиц валюты за евро. Вшиты, чтобы ссылка
   // означала ту же сумму и через месяц.
@@ -935,7 +966,7 @@
     S.rate = p.has("r") && p.get("r") !== "" ? num("r", 0, 25, null) : null;
     S.dep = num("d", 0, 40, 0);
     S.adults = num("a", 1, 6, 1); S.kids = num("k", 0, 8, 0);
-    S.mode = ["buy", "rent", "diff"].indexOf(p.get("m")) >= 0 ? p.get("m") : "buy";
+    S.mode = MODES[p.get("m")] ? p.get("m") : "buy";
     S.basis = p.get("b") === "mine" && S.inc > 0 ? "mine" : "local";
     S.want = num("q", 0, 150, 0);
     S.cmp = (p.get("x") || "").split(",").filter(function (id) { return placeById(id); }).slice(0, 4);
@@ -1021,14 +1052,45 @@
     for (var i = 0; i < DIFF_BREAKS.length; i++) if (v <= DIFF_BREAKS[i]) return i;
     return 4;
   }
+  // Годы дохода и доля на аренду считаются на то же жильё, которое читатель задал
+  // ползунком «хочу N м²». Своего «типового жилья» страница не выдумывает: медианной
+  // цены квартиры в данных нет, а подставить её размер было бы догадкой.
+  function yearsFor(pl) {
+    var inc = mine() ? incEUR() * 12 : pl.inc;
+    if (!pl.sp || !inc) return null;
+    return pl.sp * mapN() / inc;
+  }
+  function rentShare(pl) {
+    var inc = mine() ? incEUR() : localMonthly(pl);
+    if (!pl.rp || !inc) return null;
+    return pl.rp * mapN() / inc * 100;
+  }
   function valueOf(pl) {
     if (S.mode === "buy") return buyM2(pl);
     if (S.mode === "rent") return rentM2(pl);
+    if (S.mode === "years") return yearsFor(pl);
+    if (S.mode === "share") return rentShare(pl);
     var b = buyM2(pl), r = rentM2(pl);
     return b === null || r === null ? null : r - b;
   }
+  // Индекс цвета: уже с учётом направления шкалы режима.
+  function colourOf(v) {
+    var m = MODES[S.mode];
+    if (!m.breaks) return cls(v);
+    if (v === null || v === undefined || !(v > 0)) return -1;
+    var i = 0;
+    while (i < m.breaks.length && v > m.breaks[i]) i++;
+    return m.inv ? 4 - i : i;
+  }
+  function fmtMetric(v) {
+    if (v === null || v === undefined || isNaN(v)) return "—";
+    if (S.mode === "years") return v.toFixed(1) + " years";
+    if (S.mode === "share") return Math.round(v) + " %";
+    return fmtM2(v) + " m²";
+  }
   function reaches(pl) {                      // проходит ли место фильтр «хочу N м²»
     if (!S.want) return true;
+    if (S.mode === "years" || S.mode === "share") return true;
     if (S.mode === "rent") return (rentM2(pl) || 0) >= S.want;
     if (S.mode === "buy") return (buyM2(pl) || 0) >= S.want;
     return (buyM2(pl) || 0) >= S.want || (rentM2(pl) || 0) >= S.want;
@@ -1249,30 +1311,38 @@
   }
   function paintDots() {
     for (var i = 0; i < dotOf.length; i++) {
-      var l = L[i], v = valueOf(l), c;
-      if (!l.sp && !l.rp) c = "nd";
-      else if (S.mode === "diff") { var d = dcls(v); c = d < 0 ? "nd" : "e" + d; }
-      else { var k = cls(v); c = k < 0 ? "nd" : "c" + k; }
-      if (c !== "nd" && !reaches(l)) c = "dim";
-      dotOf[i].setAttribute("class", "dot " + c + (S.sel === l.id ? " sel" : ""));
+      var l = L[i];
+      dotOf[i].setAttribute("class", "dot " + klass(l, "nd") + (S.sel === l.id ? " sel" : ""));
     }
   }
 
+  // Один классификатор на страну и на точку: раньше одна и та же логика стояла
+  // дважды и уже начинала расходиться.
+  function klass(pl, none) {
+    if (!pl.sp && !pl.rp) return none;
+    var v = valueOf(pl), c;
+    if (S.mode === "diff") { var d = dcls(v); c = d < 0 ? none : "e" + d; }
+    else { var k = colourOf(v); c = k < 0 ? none : "c" + k; }
+    if (c !== none && !reaches(pl)) c = "dim";
+    return c;
+  }
   function paintMap() {
     C.forEach(function (cc) {
       var p = pathOf[cc.c]; if (!p) return;
-      var v = valueOf(cc), c = "";
-      if (!cc.sp && !cc.rp) c = "";
-      else if (S.mode === "diff") { var d = dcls(v); c = d < 0 ? "" : "e" + d; }
-      else { var k = cls(v); c = k < 0 ? "" : "c" + k; }
-      if (c && !reaches(cc)) c = "dim";
+      var c = klass(cc, "");
       p.setAttribute("class", c + (S.sel === "c:" + cc.c ? " sel" : ""));
     });
     buildDots(); paintDots();
-    var lg = $("legend"), html = "<b>" + (S.mode === "buy" ? "m² to buy" : S.mode === "rent" ? "m² to rent" : "rent minus buy, m²") + "</b>";
-    if (S.mode === "diff") DIFF_LABEL.forEach(function (t, i) { html += "<span><i class=\"e" + i + "\"></i>" + t + "</span>"; });
-    else CLASS_LABEL.forEach(function (t, i) { html += "<span><i class=\"c" + i + "\"></i>" + t + "</span>"; });
-    html += "<span><i class=\"nd\"></i>" + (S.want ? "no data or under " + S.want + " m²" : "no data") + "</span>";
+    var lg = $("legend"), pre = S.mode === "diff" ? "e" : "c", inv = MODES[S.mode].inv;
+    var head = MODES[S.mode].title + (S.mode === "years" || S.mode === "share" ? " for " + mapN() + " m²" : "");
+    var html = "<b>" + head + "</b>";
+    // Номер образца берётся тем же правилом, что и цвет на карте: у перевёрнутых
+    // шкал подпись «меньше трёх лет» обязана стоять рядом с зелёным, а не с красным.
+    modeLabels().forEach(function (t, i) {
+      html += "<span><i class=\"" + pre + (inv ? 4 - i : i) + "\"></i>" + t + "</span>";
+    });
+    var dimmed = S.want && S.mode !== "years" && S.mode !== "share";
+    html += "<span><i class=\"nd\"></i>" + (dimmed ? "no data or under " + S.want + " m²" : "no data") + "</span>";
     lg.innerHTML = html;
   }
 
@@ -1341,8 +1411,14 @@
   var tip = $("maptip"), hoverId = null;
   function tipHTML(pl) {
     var b = buyM2(pl), r = rentM2(pl);
-    var h = "<b>" + esc(pl.name) + "</b> · " + esc(ccName(pl.cc)) +
-      "<div class=\"r\"><span>to buy</span><span>" + fmtM2(b) + " m²</span></div>" +
+    var h = "<b>" + esc(pl.name) + "</b> · " + esc(ccName(pl.cc));
+    // Первой строкой — то, чем сейчас раскрашена карта: иначе подсказка отвечает
+    // на другой вопрос, чем цвет под курсором.
+    if (S.mode === "years" || S.mode === "share") {
+      h += "<div class=\"r lead\"><span>" + (S.mode === "years" ? "years of income for " : "rent for ") + mapN() + " m²</span>" +
+           "<span>" + fmtMetric(valueOf(pl)) + "</span></div>";
+    }
+    h += "<div class=\"r\"><span>to buy</span><span>" + fmtM2(b) + " m²</span></div>" +
       "<div class=\"r\"><span>to rent</span><span>" + fmtM2(r) + " m²</span></div>";
     if (pl.sp) h += "<div class=\"r\"><span>price</span><span>€" + fmtInt(pl.sp) + "/m²</span></div>";
     if (pl.rp) h += "<div class=\"r\"><span>rent</span><span>€" + pl.rp.toFixed(1) + "/m²·mo</span></div>";
@@ -1772,7 +1848,7 @@
     var rows = [
       ["Income", mine() ? "€" + fmtInt(incEUR()) + " net a month" + (S.cur !== "EUR" ? " (" + fmtInt(S.inc) + " " + S.cur + ")" : "") + ", household of " + S.adults + " adult" + (S.adults > 1 ? "s" : "") + (S.kids ? " and " + S.kids + " child" + (S.kids > 1 ? "ren" : "") : "") : "the average local income of each place"],
       ["Terms", S.share + " % of income for housing, " + S.term + "-year mortgage at " + rateNote() + ", deposit " + S.dep + " %"],
-      ["Map", (S.mode === "buy" ? "square metres to buy" : S.mode === "rent" ? "square metres to rent" : "square metres to rent minus square metres to buy") + (S.want ? "; regions where " + S.want + " m² are out of reach are greyed" : "")],
+      ["Map", modeText() + (S.want && S.mode !== "years" && S.mode !== "share" ? "; places where " + S.want + " m² are out of reach are greyed" : "")],
       ["Source", "Sielker & Banabak 2026, Journal of Maps; ESPON HOUSE4ALL feature service, 14 Sep 2026; outlines Eurostat GISCO NUTS 2021"]
     ];
     return rows;
@@ -1829,7 +1905,7 @@
   function buildMapPNG() {
     return mapImage().then(function (img) {
       var inner = PNG_W - PAD * 2, mapH = Math.round(inner * GEO.h / GEO.w), rows = legendRows();
-      var legendH = 0, lgLines = S.mode === "diff" ? DIFF_LABEL : CLASS_LABEL;
+      var legendH = 0, lgLines = modeLabels();
       var height = PAD + 44 + 28 + 20 + mapH + 16 + 22 + 20 + measureLegend(rows, inner) + PAD;
       var cv = document.createElement("canvas"); cv.width = PNG_W * PNG_SCALE; cv.height = height * PNG_SCALE;
       var ctx = cv.getContext("2d"); ctx.scale(PNG_SCALE, PNG_SCALE); ctx.textBaseline = "alphabetic";
@@ -1837,11 +1913,12 @@
       var y = PAD + 36;
       ctx.fillStyle = gvar("--ink"); ctx.font = "600 34px " + head; ctx.fillText("How many square metres can you afford?", PAD, y);
       y += 28; ctx.fillStyle = gvar("--ink-2"); ctx.font = "16px " + body;
-      ctx.fillText((S.mode === "buy" ? "Square metres to buy" : S.mode === "rent" ? "Square metres to rent" : "Square metres to rent minus to buy") + (mine() ? " on €" + fmtInt(incEUR()) + " net a month" : " on the average local income") + ", by country and town", PAD, y);
+      ctx.fillText(modeText().charAt(0).toUpperCase() + modeText().slice(1) + (mine() ? " on €" + fmtInt(incEUR()) + " net a month" : " on the average local income") + ", by country and town", PAD, y);
       y += 20; ctx.drawImage(img, PAD, y, inner, mapH); y += mapH + 16;
       var x = PAD; ctx.font = "12px " + mono;
       lgLines.forEach(function (t, i) {
-        ctx.fillStyle = gvar(S.mode === "diff" ? "--d" + (i + 1) : "--m" + (i + 1)); ctx.fillRect(x, y, 16, 12);
+        var ci = MODES[S.mode].inv ? 4 - i : i;
+        ctx.fillStyle = gvar(S.mode === "diff" ? "--d" + (i + 1) : "--m" + (ci + 1)); ctx.fillRect(x, y, 16, 12);
         ctx.fillStyle = gvar("--ink-2"); ctx.fillText(t, x + 22, y + 11); x += 22 + ctx.measureText(t).width + 24;
       });
       ctx.fillStyle = gvar("--nd") || "#888"; ctx.strokeStyle = gvar("--hair"); ctx.fillRect(x, y, 16, 12); ctx.strokeRect(x + .5, y + .5, 15, 11);
@@ -1936,7 +2013,7 @@
     // Органы управления на лист не идут, поэтому настройка и режим карты
     // печатаются словами в шапке — иначе распечатку не прочесть без экрана.
     $("printsetup").textContent = $("setupline").textContent +
-      (part === "map" ? " · map: " + (S.mode === "buy" ? "square metres to buy" : S.mode === "rent" ? "square metres to rent" : "rent minus buy") : "") +
+      (part === "map" ? " · map: " + modeText() : "") +
       (part === "rank" ? " · " + $("ranknote").textContent : "");
     var root = document.documentElement;
     printedTheme = root.getAttribute("data-theme");

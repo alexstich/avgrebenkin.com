@@ -30,6 +30,31 @@
   var CLASS_LABEL = ["under 50 m²", "50–75 m²", "76–100 m²", "101–150 m²", "over 150 m²"];
   var DIFF_BREAKS = [-20, -5, 5, 20];
   var DIFF_LABEL = ["buying gives 20 m² more", "buying gives 5–20 m² more", "within 5 m²", "renting gives 5–20 m² more", "renting gives 20 m² more"];
+  // Метры считаются от дохода: чем больше, тем лучше. Годы дохода и доля на аренду
+  // читаются наоборот, поэтому у них своё направление шкалы — иначе красный и
+  // зелёный поменялись бы смыслом между режимами одной и той же карты.
+  var YEARS_BREAKS = [3, 5, 8, 12];
+  var SHARE_BREAKS = [20, 30, 40, 50];
+  var MODES = {
+    buy:   { inv: false, title: "m² to buy" },
+    rent:  { inv: false, title: "m² to rent" },
+    diff:  { inv: false, title: "rent minus buy, m²" },
+    years: { inv: true,  breaks: YEARS_BREAKS, title: "years of income" },
+    share: { inv: true,  breaks: SHARE_BREAKS, title: "rent, % of income" }
+  };
+  function mapN() { return S.want || 70; }
+  function modeText() {
+    if (S.mode === "buy") return "square metres to buy";
+    if (S.mode === "rent") return "square metres to rent";
+    if (S.mode === "diff") return "square metres to rent minus square metres to buy";
+    if (S.mode === "years") return "years of income for " + mapN() + " m²";
+    return "rent for " + mapN() + " m² as a share of income";
+  }
+  function modeLabels() {
+    if (S.mode === "years") return ["under 3 years", "3–5", "5–8", "8–12", "over 12"];
+    if (S.mode === "share") return ["under 20 % of income", "20–30 %", "30–40 %", "40–50 %", "over 50 %"];
+    return S.mode === "diff" ? DIFF_LABEL : CLASS_LABEL;
+  }
   var REGIONS = [["north", "North & Baltics"], ["west", "West"], ["south", "South"], ["east", "East"]];
   // Курсы ЕЦБ на 11 сентября 2026: единиц валюты за евро. Вшиты, чтобы ссылка
   // означала ту же сумму и через месяц.
@@ -56,7 +81,7 @@
     S.rate = p.has("r") && p.get("r") !== "" ? num("r", 0, 25, null) : null;
     S.dep = num("d", 0, 40, 0);
     S.adults = num("a", 1, 6, 1); S.kids = num("k", 0, 8, 0);
-    S.mode = ["buy", "rent", "diff"].indexOf(p.get("m")) >= 0 ? p.get("m") : "buy";
+    S.mode = MODES[p.get("m")] ? p.get("m") : "buy";
     S.basis = p.get("b") === "mine" && S.inc > 0 ? "mine" : "local";
     S.want = num("q", 0, 150, 0);
     S.cmp = (p.get("x") || "").split(",").filter(function (id) { return placeById(id); }).slice(0, 4);
@@ -142,14 +167,45 @@
     for (var i = 0; i < DIFF_BREAKS.length; i++) if (v <= DIFF_BREAKS[i]) return i;
     return 4;
   }
+  // Годы дохода и доля на аренду считаются на то же жильё, которое читатель задал
+  // ползунком «хочу N м²». Своего «типового жилья» страница не выдумывает: медианной
+  // цены квартиры в данных нет, а подставить её размер было бы догадкой.
+  function yearsFor(pl) {
+    var inc = mine() ? incEUR() * 12 : pl.inc;
+    if (!pl.sp || !inc) return null;
+    return pl.sp * mapN() / inc;
+  }
+  function rentShare(pl) {
+    var inc = mine() ? incEUR() : localMonthly(pl);
+    if (!pl.rp || !inc) return null;
+    return pl.rp * mapN() / inc * 100;
+  }
   function valueOf(pl) {
     if (S.mode === "buy") return buyM2(pl);
     if (S.mode === "rent") return rentM2(pl);
+    if (S.mode === "years") return yearsFor(pl);
+    if (S.mode === "share") return rentShare(pl);
     var b = buyM2(pl), r = rentM2(pl);
     return b === null || r === null ? null : r - b;
   }
+  // Индекс цвета: уже с учётом направления шкалы режима.
+  function colourOf(v) {
+    var m = MODES[S.mode];
+    if (!m.breaks) return cls(v);
+    if (v === null || v === undefined || !(v > 0)) return -1;
+    var i = 0;
+    while (i < m.breaks.length && v > m.breaks[i]) i++;
+    return m.inv ? 4 - i : i;
+  }
+  function fmtMetric(v) {
+    if (v === null || v === undefined || isNaN(v)) return "—";
+    if (S.mode === "years") return v.toFixed(1) + " years";
+    if (S.mode === "share") return Math.round(v) + " %";
+    return fmtM2(v) + " m²";
+  }
   function reaches(pl) {                      // проходит ли место фильтр «хочу N м²»
     if (!S.want) return true;
+    if (S.mode === "years" || S.mode === "share") return true;
     if (S.mode === "rent") return (rentM2(pl) || 0) >= S.want;
     if (S.mode === "buy") return (buyM2(pl) || 0) >= S.want;
     return (buyM2(pl) || 0) >= S.want || (rentM2(pl) || 0) >= S.want;
@@ -370,30 +426,38 @@
   }
   function paintDots() {
     for (var i = 0; i < dotOf.length; i++) {
-      var l = L[i], v = valueOf(l), c;
-      if (!l.sp && !l.rp) c = "nd";
-      else if (S.mode === "diff") { var d = dcls(v); c = d < 0 ? "nd" : "e" + d; }
-      else { var k = cls(v); c = k < 0 ? "nd" : "c" + k; }
-      if (c !== "nd" && !reaches(l)) c = "dim";
-      dotOf[i].setAttribute("class", "dot " + c + (S.sel === l.id ? " sel" : ""));
+      var l = L[i];
+      dotOf[i].setAttribute("class", "dot " + klass(l, "nd") + (S.sel === l.id ? " sel" : ""));
     }
   }
 
+  // Один классификатор на страну и на точку: раньше одна и та же логика стояла
+  // дважды и уже начинала расходиться.
+  function klass(pl, none) {
+    if (!pl.sp && !pl.rp) return none;
+    var v = valueOf(pl), c;
+    if (S.mode === "diff") { var d = dcls(v); c = d < 0 ? none : "e" + d; }
+    else { var k = colourOf(v); c = k < 0 ? none : "c" + k; }
+    if (c !== none && !reaches(pl)) c = "dim";
+    return c;
+  }
   function paintMap() {
     C.forEach(function (cc) {
       var p = pathOf[cc.c]; if (!p) return;
-      var v = valueOf(cc), c = "";
-      if (!cc.sp && !cc.rp) c = "";
-      else if (S.mode === "diff") { var d = dcls(v); c = d < 0 ? "" : "e" + d; }
-      else { var k = cls(v); c = k < 0 ? "" : "c" + k; }
-      if (c && !reaches(cc)) c = "dim";
+      var c = klass(cc, "");
       p.setAttribute("class", c + (S.sel === "c:" + cc.c ? " sel" : ""));
     });
     buildDots(); paintDots();
-    var lg = $("legend"), html = "<b>" + (S.mode === "buy" ? "m² to buy" : S.mode === "rent" ? "m² to rent" : "rent minus buy, m²") + "</b>";
-    if (S.mode === "diff") DIFF_LABEL.forEach(function (t, i) { html += "<span><i class=\"e" + i + "\"></i>" + t + "</span>"; });
-    else CLASS_LABEL.forEach(function (t, i) { html += "<span><i class=\"c" + i + "\"></i>" + t + "</span>"; });
-    html += "<span><i class=\"nd\"></i>" + (S.want ? "no data or under " + S.want + " m²" : "no data") + "</span>";
+    var lg = $("legend"), pre = S.mode === "diff" ? "e" : "c", inv = MODES[S.mode].inv;
+    var head = MODES[S.mode].title + (S.mode === "years" || S.mode === "share" ? " for " + mapN() + " m²" : "");
+    var html = "<b>" + head + "</b>";
+    // Номер образца берётся тем же правилом, что и цвет на карте: у перевёрнутых
+    // шкал подпись «меньше трёх лет» обязана стоять рядом с зелёным, а не с красным.
+    modeLabels().forEach(function (t, i) {
+      html += "<span><i class=\"" + pre + (inv ? 4 - i : i) + "\"></i>" + t + "</span>";
+    });
+    var dimmed = S.want && S.mode !== "years" && S.mode !== "share";
+    html += "<span><i class=\"nd\"></i>" + (dimmed ? "no data or under " + S.want + " m²" : "no data") + "</span>";
     lg.innerHTML = html;
   }
 
@@ -462,8 +526,14 @@
   var tip = $("maptip"), hoverId = null;
   function tipHTML(pl) {
     var b = buyM2(pl), r = rentM2(pl);
-    var h = "<b>" + esc(pl.name) + "</b> · " + esc(ccName(pl.cc)) +
-      "<div class=\"r\"><span>to buy</span><span>" + fmtM2(b) + " m²</span></div>" +
+    var h = "<b>" + esc(pl.name) + "</b> · " + esc(ccName(pl.cc));
+    // Первой строкой — то, чем сейчас раскрашена карта: иначе подсказка отвечает
+    // на другой вопрос, чем цвет под курсором.
+    if (S.mode === "years" || S.mode === "share") {
+      h += "<div class=\"r lead\"><span>" + (S.mode === "years" ? "years of income for " : "rent for ") + mapN() + " m²</span>" +
+           "<span>" + fmtMetric(valueOf(pl)) + "</span></div>";
+    }
+    h += "<div class=\"r\"><span>to buy</span><span>" + fmtM2(b) + " m²</span></div>" +
       "<div class=\"r\"><span>to rent</span><span>" + fmtM2(r) + " m²</span></div>";
     if (pl.sp) h += "<div class=\"r\"><span>price</span><span>€" + fmtInt(pl.sp) + "/m²</span></div>";
     if (pl.rp) h += "<div class=\"r\"><span>rent</span><span>€" + pl.rp.toFixed(1) + "/m²·mo</span></div>";
@@ -893,7 +963,7 @@
     var rows = [
       ["Income", mine() ? "€" + fmtInt(incEUR()) + " net a month" + (S.cur !== "EUR" ? " (" + fmtInt(S.inc) + " " + S.cur + ")" : "") + ", household of " + S.adults + " adult" + (S.adults > 1 ? "s" : "") + (S.kids ? " and " + S.kids + " child" + (S.kids > 1 ? "ren" : "") : "") : "the average local income of each place"],
       ["Terms", S.share + " % of income for housing, " + S.term + "-year mortgage at " + rateNote() + ", deposit " + S.dep + " %"],
-      ["Map", (S.mode === "buy" ? "square metres to buy" : S.mode === "rent" ? "square metres to rent" : "square metres to rent minus square metres to buy") + (S.want ? "; regions where " + S.want + " m² are out of reach are greyed" : "")],
+      ["Map", modeText() + (S.want && S.mode !== "years" && S.mode !== "share" ? "; places where " + S.want + " m² are out of reach are greyed" : "")],
       ["Source", "Sielker & Banabak 2026, Journal of Maps; ESPON HOUSE4ALL feature service, 14 Sep 2026; outlines Eurostat GISCO NUTS 2021"]
     ];
     return rows;
@@ -950,7 +1020,7 @@
   function buildMapPNG() {
     return mapImage().then(function (img) {
       var inner = PNG_W - PAD * 2, mapH = Math.round(inner * GEO.h / GEO.w), rows = legendRows();
-      var legendH = 0, lgLines = S.mode === "diff" ? DIFF_LABEL : CLASS_LABEL;
+      var legendH = 0, lgLines = modeLabels();
       var height = PAD + 44 + 28 + 20 + mapH + 16 + 22 + 20 + measureLegend(rows, inner) + PAD;
       var cv = document.createElement("canvas"); cv.width = PNG_W * PNG_SCALE; cv.height = height * PNG_SCALE;
       var ctx = cv.getContext("2d"); ctx.scale(PNG_SCALE, PNG_SCALE); ctx.textBaseline = "alphabetic";
@@ -958,11 +1028,12 @@
       var y = PAD + 36;
       ctx.fillStyle = gvar("--ink"); ctx.font = "600 34px " + head; ctx.fillText({{js:title}}, PAD, y);
       y += 28; ctx.fillStyle = gvar("--ink-2"); ctx.font = "16px " + body;
-      ctx.fillText((S.mode === "buy" ? "Square metres to buy" : S.mode === "rent" ? "Square metres to rent" : "Square metres to rent minus to buy") + (mine() ? " on €" + fmtInt(incEUR()) + " net a month" : " on the average local income") + ", by country and town", PAD, y);
+      ctx.fillText(modeText().charAt(0).toUpperCase() + modeText().slice(1) + (mine() ? " on €" + fmtInt(incEUR()) + " net a month" : " on the average local income") + ", by country and town", PAD, y);
       y += 20; ctx.drawImage(img, PAD, y, inner, mapH); y += mapH + 16;
       var x = PAD; ctx.font = "12px " + mono;
       lgLines.forEach(function (t, i) {
-        ctx.fillStyle = gvar(S.mode === "diff" ? "--d" + (i + 1) : "--m" + (i + 1)); ctx.fillRect(x, y, 16, 12);
+        var ci = MODES[S.mode].inv ? 4 - i : i;
+        ctx.fillStyle = gvar(S.mode === "diff" ? "--d" + (i + 1) : "--m" + (ci + 1)); ctx.fillRect(x, y, 16, 12);
         ctx.fillStyle = gvar("--ink-2"); ctx.fillText(t, x + 22, y + 11); x += 22 + ctx.measureText(t).width + 24;
       });
       ctx.fillStyle = gvar("--nd") || "#888"; ctx.strokeStyle = gvar("--hair"); ctx.fillRect(x, y, 16, 12); ctx.strokeRect(x + .5, y + .5, 15, 11);
@@ -1057,7 +1128,7 @@
     // Органы управления на лист не идут, поэтому настройка и режим карты
     // печатаются словами в шапке — иначе распечатку не прочесть без экрана.
     $("printsetup").textContent = $("setupline").textContent +
-      (part === "map" ? " · map: " + (S.mode === "buy" ? "square metres to buy" : S.mode === "rent" ? "square metres to rent" : "rent minus buy") : "") +
+      (part === "map" ? " · map: " + modeText() : "") +
       (part === "rank" ? " · " + $("ranknote").textContent : "");
     var root = document.documentElement;
     printedTheme = root.getAttribute("data-theme");

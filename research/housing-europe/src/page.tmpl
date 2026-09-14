@@ -265,11 +265,12 @@
     <div class="phead">
       <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup">{{svgShare}}</button><button type="button" class="ibtn" data-png="map" title="Copy the map as a PNG" aria-label="Copy the map as a PNG">{{svgPng}}</button><button type="button" class="ibtn" data-png-dl="map" title="Download the map as a PNG" aria-label="Download the map as a PNG">{{svgDl}}</button><button type="button" class="ibtn" data-print="map" title="Print the map" aria-label="Print the map">{{svgPrint}}</button></div>
       <h2 id="map-h">The map</h2>
-      <p>Countries are filled with their population-weighted average; each dot is a town, coloured on the same scale. Hover or tap either for its numbers, and zoom in for more towns. Search a town to jump straight to it. The redder, the fewer square metres.</p>
+      <p>Countries are filled with their population-weighted average; each dot is a town, coloured on the same scale. Hover or tap either for its numbers, and zoom in for more towns. Search a town to jump straight to it. Red always means the harder place, whichever measure is showing.</p>
+      <p>The last two measures answer the questions people actually ask. <b>Years of income</b> is how many years of gross income the home costs outright, and <b>rent share</b> is what renting it takes out of a month's income. Both are computed for the size you set under "I want", not for some invented typical flat, and both work wherever a price per square metre exists.</p>
     </div>
     <div class="bar">
       <div class="seg" role="group" aria-label="What the map shows" id="mapmode">
-        <button type="button" data-v="buy" aria-pressed="true">Buy</button><button type="button" data-v="rent" aria-pressed="false">Rent</button><button type="button" data-v="diff" aria-pressed="false">Rent − buy</button>
+        <button type="button" data-v="buy" aria-pressed="true">m² to buy</button><button type="button" data-v="rent" aria-pressed="false">m² to rent</button><button type="button" data-v="diff" aria-pressed="false">Rent − buy</button><button type="button" data-v="years" aria-pressed="false">Years of income</button><button type="button" data-v="share" aria-pressed="false">Rent share</button>
       </div>
       <div class="seg" role="group" aria-label="Whose income" id="basis">
         <button type="button" data-v="local" aria-pressed="true">Local average income</button><button type="button" data-v="mine" aria-pressed="false" disabled title="Enter your income above">My income</button>
