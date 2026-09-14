@@ -1,84 +1,99 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <!-- Обложка для карточки раздела и соцсетей. Композиция своя, не по образцу
-       соседних: у взлома — раздвоенная линия времени, у рынка труда — две цифры
-       на светлом, у городов — глобус. Здесь — страница, которая возвращает то,
-       что в неё прочитали: слева запрос GET, справа страница-вики, в которой
-       среди серых строк осели цветные сообщения агентов. Слова английские на
-       всех языках — так же, как у соседей. Шрифты системные: сайтовых в
-       rsvg-convert нет. -->
+  <!-- Обложка для карточки раздела и соцсетей. Композиция своя: слева на цветном
+       сумеречном небе — запрос GET, справа светлая страница-вики, в которой среди
+       серых строк осели цветные сообщения агентов. Светлее и цветастее прежней
+       почти-чёрной версии: живой градиент с засветами, яркий панель-страница.
+       Слова английские на всех языках. Шрифты системные: сайтовых в rsvg нет. -->
   <defs>
-    <pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse">
-      <path d="M16 0H0V16" fill="none" stroke="#ffffff" stroke-opacity=".045" stroke-width="1"/>
-    </pattern>
-    <radialGradient id="glow" cx="80%" cy="4%" r="72%">
-      <stop offset="0%" stop-color="#8b7cff" stop-opacity=".20"/>
-      <stop offset="100%" stop-color="#8b7cff" stop-opacity="0"/>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#20265e"/>
+      <stop offset="52%" stop-color="#2b2059"/>
+      <stop offset="100%" stop-color="#3a1d52"/>
+    </linearGradient>
+    <radialGradient id="glowV" cx="26%" cy="12%" r="60%">
+      <stop offset="0%" stop-color="#8f7bff" stop-opacity=".55"/>
+      <stop offset="100%" stop-color="#8f7bff" stop-opacity="0"/>
     </radialGradient>
+    <radialGradient id="glowT" cx="4%" cy="86%" r="55%">
+      <stop offset="0%" stop-color="#37e0c8" stop-opacity=".34"/>
+      <stop offset="100%" stop-color="#37e0c8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowP" cx="70%" cy="104%" r="60%">
+      <stop offset="0%" stop-color="#ff67a8" stop-opacity=".30"/>
+      <stop offset="100%" stop-color="#ff67a8" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="16" height="16" patternUnits="userSpaceOnUse">
+      <path d="M16 0H0V16" fill="none" stroke="#ffffff" stroke-opacity=".06" stroke-width="1"/>
+    </pattern>
   </defs>
 
-  <rect width="1200" height="630" fill="#0b0c11"/>
+  <rect width="1200" height="630" fill="url(#sky)"/>
   <rect width="1200" height="630" fill="url(#grid)"/>
-  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect width="1200" height="630" fill="url(#glowV)"/>
+  <rect width="1200" height="630" fill="url(#glowT)"/>
+  <rect width="1200" height="630" fill="url(#glowP)"/>
 
   <!-- заголовок -->
   <text x="80" y="196" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
-        font-weight="700" font-size="72" letter-spacing="-2.2" fill="#e9eaf0">Anything that</text>
+        font-weight="700" font-size="72" letter-spacing="-2.2" fill="#f6f4ff">Anything that</text>
   <text x="80" y="272" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
-        font-weight="700" font-size="72" letter-spacing="-2.2" fill="#e9eaf0">writes back</text>
+        font-weight="700" font-size="72" letter-spacing="-2.2" fill="#f6f4ff">writes back</text>
   <text x="82" y="322" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
-        font-size="23" fill="#9298a8">The OpenAI agent wiki incident, 2026</text>
+        font-size="23" fill="#cfc9f2">The OpenAI agent wiki incident, 2026</text>
   <text x="82" y="360" font-family="Menlo, monospace" font-size="14.5"
-        letter-spacing="1.6" fill="#6f7484">30 SITES · ~18,000 MESSAGES · READ-ONLY</text>
+        letter-spacing="1.6" fill="#a29be0">30 SITES · ~18,000 MESSAGES · READ-ONLY</text>
 
   <!-- запрос: агенту дан только GET -->
   <g>
-    <rect x="80" y="452" width="92" height="40" rx="8" fill="none" stroke="#6ea8fe" stroke-opacity=".7"/>
+    <rect x="80" y="452" width="92" height="40" rx="9" fill="#7db4ff" fill-opacity=".14" stroke="#7db4ff" stroke-opacity=".9"/>
     <text x="126" y="478" text-anchor="middle" font-family="Menlo, monospace" font-size="17"
-          fill="#6ea8fe">GET</text>
-    <path d="M172 472 H322" fill="none" stroke="#6ea8fe" stroke-width="2"/>
-    <path d="M316 466 L328 472 L316 478 Z" fill="#6ea8fe"/>
+          fill="#aecbff">GET</text>
+    <path d="M172 472 H322" fill="none" stroke="#7db4ff" stroke-width="2.5"/>
+    <path d="M315 465 L329 472 L315 479 Z" fill="#7db4ff"/>
     <text x="176" y="444" font-family="Menlo, monospace" font-size="12.5"
-          letter-spacing="1" fill="#6f7484">read a page…</text>
+          letter-spacing="1" fill="#a29be0">read a page…</text>
     <!-- …и та же строка возвращается наружу цветной -->
-    <path d="M322 500 H172" fill="none" stroke="#f97362" stroke-width="2"/>
-    <path d="M178 494 L166 500 L178 506 Z" fill="#f97362"/>
+    <path d="M322 500 H172" fill="none" stroke="#ff8a6b" stroke-width="2.5"/>
+    <path d="M179 493 L165 500 L179 507 Z" fill="#ff8a6b"/>
     <text x="176" y="528" font-family="Menlo, monospace" font-size="12.5"
-          letter-spacing="1" fill="#b06a60">…and it kept your note</text>
+          letter-spacing="1" fill="#ff9f86">…and it kept your note</text>
   </g>
 
-  <!-- страница-вики: серые строки, среди них цветные сообщения агентов -->
+  <!-- страница-вики: светлый лист, серые строки, среди них цветные сообщения -->
   <g>
-    <rect x="760" y="70" width="364" height="490" rx="10" fill="#12141c"
-          stroke="#ffffff" stroke-opacity=".10"/>
-    <rect x="760" y="70" width="364" height="4" fill="#8b7cff" fill-opacity=".7"/>
-    <text x="788" y="118" font-family="Menlo, monospace" font-size="13"
-          letter-spacing="1.4" fill="#6f7484">DseWiki · edit</text>
+    <rect x="760" y="64" width="372" height="502" rx="14" fill="#f5f4fb"/>
+    <rect x="760" y="64" width="372" height="502" rx="14" fill="none" stroke="#ffffff" stroke-opacity=".55"/>
+    <rect x="760" y="64" width="372" height="7" rx="3.5" fill="#8f7bff"/>
+    <text x="790" y="116" font-family="Menlo, monospace" font-size="13"
+          letter-spacing="1.4" fill="#8a86b0">DseWiki · edit</text>
     <!-- строки-текст -->
-    <rect x="788" y="140" width="240" height="9" rx="2" fill="#ffffff" fill-opacity=".13"/>
-    <rect x="788" y="160" width="308" height="9" rx="2" fill="#ffffff" fill-opacity=".08"/>
-    <!-- сообщение агента 1 -->
-    <rect x="788" y="188" width="52" height="15" rx="3" fill="#6ea8fe" fill-opacity=".22"/>
-    <text x="792" y="200" font-family="Menlo, monospace" font-size="11" fill="#6ea8fe">OpenAI…</text>
-    <rect x="788" y="212" width="288" height="9" rx="2" fill="#6ea8fe" fill-opacity=".30"/>
-    <rect x="788" y="228" width="212" height="9" rx="2" fill="#6ea8fe" fill-opacity=".18"/>
-    <rect x="788" y="256" width="300" height="9" rx="2" fill="#ffffff" fill-opacity=".08"/>
-    <rect x="788" y="276" width="256" height="9" rx="2" fill="#ffffff" fill-opacity=".08"/>
-    <!-- сообщение агента 2 -->
-    <rect x="788" y="304" width="60" height="15" rx="3" fill="#f97362" fill-opacity=".22"/>
-    <text x="792" y="316" font-family="Menlo, monospace" font-size="11" fill="#f97362">OAI…</text>
-    <rect x="788" y="328" width="296" height="9" rx="2" fill="#f97362" fill-opacity=".30"/>
-    <rect x="788" y="344" width="188" height="9" rx="2" fill="#f97362" fill-opacity=".18"/>
-    <rect x="788" y="372" width="272" height="9" rx="2" fill="#ffffff" fill-opacity=".08"/>
-    <!-- запасная страница ZZZ, пережившая чистку -->
-    <rect x="788" y="400" width="44" height="15" rx="3" fill="#e0a33e" fill-opacity=".25"/>
-    <text x="792" y="412" font-family="Menlo, monospace" font-size="11" fill="#e0a33e">ZZZ</text>
-    <rect x="788" y="424" width="228" height="9" rx="2" fill="#e0a33e" fill-opacity=".26"/>
-    <rect x="788" y="452" width="308" height="9" rx="2" fill="#ffffff" fill-opacity=".08"/>
-    <rect x="788" y="472" width="180" height="9" rx="2" fill="#ffffff" fill-opacity=".08"/>
-    <rect x="788" y="500" width="284" height="9" rx="2" fill="#ffffff" fill-opacity=".08"/>
-    <rect x="788" y="520" width="232" height="9" rx="2" fill="#ffffff" fill-opacity=".08"/>
+    <rect x="790" y="140" width="248" height="9" rx="4.5" fill="#2b2059" fill-opacity=".16"/>
+    <rect x="790" y="160" width="312" height="9" rx="4.5" fill="#2b2059" fill-opacity=".10"/>
+    <!-- сообщение агента 1 (синий) -->
+    <rect x="790" y="188" width="54" height="16" rx="4" fill="#3d7bff" fill-opacity=".16"/>
+    <text x="795" y="200" font-family="Menlo, monospace" font-size="11" fill="#2f6bff">OpenAI…</text>
+    <rect x="790" y="212" width="300" height="9" rx="4.5" fill="#3d7bff" fill-opacity=".55"/>
+    <rect x="790" y="228" width="220" height="9" rx="4.5" fill="#3d7bff" fill-opacity=".30"/>
+    <rect x="790" y="256" width="308" height="9" rx="4.5" fill="#2b2059" fill-opacity=".10"/>
+    <rect x="790" y="276" width="262" height="9" rx="4.5" fill="#2b2059" fill-opacity=".10"/>
+    <!-- сообщение агента 2 (коралловый) -->
+    <rect x="790" y="304" width="62" height="16" rx="4" fill="#ff6a4d" fill-opacity=".16"/>
+    <text x="795" y="316" font-family="Menlo, monospace" font-size="11" fill="#f0502f">OAI…</text>
+    <rect x="790" y="328" width="306" height="9" rx="4.5" fill="#ff6a4d" fill-opacity=".52"/>
+    <rect x="790" y="344" width="196" height="9" rx="4.5" fill="#ff6a4d" fill-opacity=".30"/>
+    <rect x="790" y="372" width="278" height="9" rx="4.5" fill="#2b2059" fill-opacity=".10"/>
+    <!-- сообщение агента 3 (бирюзовый) -->
+    <rect x="790" y="400" width="70" height="16" rx="4" fill="#12b39a" fill-opacity=".18"/>
+    <text x="795" y="412" font-family="Menlo, monospace" font-size="11" fill="#0e9c86">paste…</text>
+    <rect x="790" y="424" width="252" height="9" rx="4.5" fill="#12b39a" fill-opacity=".48"/>
+    <!-- запасная страница ZZZ, пережившая чистку (янтарный) -->
+    <rect x="790" y="452" width="46" height="16" rx="4" fill="#f3a81f" fill-opacity=".22"/>
+    <text x="795" y="464" font-family="Menlo, monospace" font-size="11" fill="#c9860b">ZZZ</text>
+    <rect x="790" y="476" width="234" height="9" rx="4.5" fill="#f3a81f" fill-opacity=".42"/>
+    <rect x="790" y="504" width="312" height="9" rx="4.5" fill="#2b2059" fill-opacity=".10"/>
+    <rect x="790" y="524" width="188" height="9" rx="4.5" fill="#2b2059" fill-opacity=".10"/>
   </g>
 
   <text x="80" y="586" font-family="Menlo, monospace" font-size="15"
-        letter-spacing="1" fill="#6f7484">avgrebenkin.com/research</text>
+        letter-spacing="1" fill="#a29be0">avgrebenkin.com/research</text>
 </svg>
