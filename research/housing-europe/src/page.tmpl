@@ -307,6 +307,41 @@
     <p class="espon">Affordability data: © ESPON · Origin of data: ESPON EGTC. The interpretation of ESPON material does not necessarily reflect the opinion of the ESPON Monitoring Committee. The map on this page is drawn here from that data; it is not an ESPON map and does not use the ESPON map design. Country outlines: Natural Earth, public domain.</p>
   </section>
 
+  <!-- ─── переезд за работой ─────────────────────────────────────── -->
+  <section class="panel" id="p-move" aria-labelledby="move-h">
+    <div class="phead">
+      <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup">{{svgShare}}</button><button type="button" class="ibtn" data-print="move" title="Print this answer" aria-label="Print this answer">{{svgPrint}}</button></div>
+      <h2 id="move-h">Offered a job in another country?</h2>
+      <p>The number nobody gives you is how much the offer has to be to leave you no worse off in housing. Put in where you live now and where the job is, and this works it out both for renting and for buying, with each country's own mortgage rate.</p>
+    </div>
+    <div class="moverow">
+      <div class="mfield">
+        <label for="mfrom">Where you live now</label>
+        <div class="gsearch mgs">
+          <input id="mfrom" type="search" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="mfromsug" placeholder="Town, region or country">
+          <button type="button" class="qx" id="mfromx" hidden aria-label="Clear">×</button>
+          <ul class="gsug" id="mfromsug" role="listbox" aria-label="Matches" hidden></ul>
+        </div>
+      </div>
+      <div class="mfield">
+        <label for="mto">Where the job is</label>
+        <div class="gsearch mgs">
+          <input id="mto" type="search" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="mtosug" placeholder="Town, region or country">
+          <button type="button" class="qx" id="mtox" hidden aria-label="Clear">×</button>
+          <ul class="gsug" id="mtosug" role="listbox" aria-label="Matches" hidden></ul>
+        </div>
+      </div>
+      <div class="mfield mfield-inc">
+        <label for="minc">Offer, net per month <span class="opt">optional</span></label>
+        <div class="mrow">
+          <input id="minc" type="number" min="0" step="50" inputmode="numeric" placeholder="leave empty to see what it must be">
+          <select id="mcur" aria-label="Currency of the offer"></select>
+        </div>
+      </div>
+    </div>
+    <div class="moveout" id="moveout"></div>
+  </section>
+
   <!-- ─── compare ────────────────────────────────────────────────── -->
   <section class="panel" id="p-cmp" aria-labelledby="cmp-h">
     <div class="phead">

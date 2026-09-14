@@ -65,7 +65,7 @@
   // ---- состояние: всё живёт в адресной строке
   var S = { inc: 0, cur: "EUR", share: 33, term: 30, rate: null, dep: 0, adults: 1, kids: 0,
             mode: "buy", basis: "local", want: 0, cmp: [], reg: { north: 1, west: 1, south: 1, east: 1 },
-            sort: "buy", dir: "desc", rank: "countries", sel: null, coast: 0, sav: 500 };
+            sort: "buy", dir: "desc", mf: null, mt: null, mi: 0, mc: null, rank: "countries", sel: null, coast: 0, sav: 500 };
   var DEFAULTS = JSON.parse(JSON.stringify(S));
 
   function readURL() {
@@ -93,6 +93,10 @@
     S.sel = placeById(p.get("p")) ? p.get("p") : null;
     S.coast = p.get("z") === "1" ? 1 : 0;
     S.sav = num("sv", 0, 1e6, 500);
+    S.mf = placeById(p.get("mf")) ? p.get("mf") : null;
+    S.mt = placeById(p.get("mt")) ? p.get("mt") : null;
+    S.mi = num("mi", 0, 1e7, 0);
+    S.mc = FX[p.get("mc")] ? p.get("mc") : null;
   }
   function shareURL() {
     var q = [];
@@ -103,6 +107,7 @@
     put("x", S.cmp.join(","), ""); put("g", REGIONS.map(function (r) { return S.reg[r[0]]; }).join(""), "1111");
     put("o", (S.dir === "asc" ? "-" : "") + S.sort, "buy"); put("v", S.rank, "countries");
     put("p", S.sel, null); put("z", S.coast, 0); put("sv", S.sav, 500);
+    put("mf", S.mf, null); put("mt", S.mt, null); put("mi", S.mi, 0); put("mc", S.mc, null);
     return location.origin + location.pathname + (q.length ? "?" + q.join("&") : "");
   }
   var urlTimer = null;
@@ -607,13 +612,15 @@
   L.forEach(function (l) { l._q = fold(l.name); l._qa = l.alias ? fold(l.alias) : ""; });
   N3.forEach(function (n) { n._q = fold(n.name); });
   C.forEach(function (c) { c._q = fold(c.n); });
-  var sug = [], sugIdx = -1;
-  function find(q) {
+  // Поиск нужен в трёх местах: на карте и в двух полях блока переезда. Раньше он
+  // был жёстко привязан к одному полю, поэтому вынесен в фабрику.
+  function find(q, filter) {
     q = fold(q).trim(); if (!q) return [];
     var exact = [], head = [], tail = [];
     function scan(list, pred) {
       for (var i = 0; i < list.length; i++) {
         var it = list[i]; if (pred && !pred(it)) continue;
+        if (filter && !filter(it)) continue;
         var a = it._qa || "";
         if (it._q === q || a === q) exact.push(it);
         else if (it._q.indexOf(q) === 0 || (a && a.indexOf(q) === 0)) head.push(it);
@@ -623,41 +630,154 @@
     scan(C, function (c) { return c.espon; }); scan(L); scan(N3, function (n) { return n.sp || n.rp; });
     return exact.concat(head, tail).slice(0, 9);
   }
-  function closeSug() { qsug.hidden = true; qsug.innerHTML = ""; sug = []; sugIdx = -1; qEl.setAttribute("aria-expanded", "false"); }
-  function drawSug() {
-    qsug.innerHTML = sug.length ? sug.map(function (it, i) {
-      var kind = it.kind === "place" ? (DEG[it.deg] || "municipality") : it.kind === "region" ? "region" : "country";
-      var right = it.kind === "cc" ? fmtInt(it.pop) + " people" : esc(ccName(it.cc)) + (it.kind === "place" ? " · " + fmtInt(it.pop) : "");
-      var shown = esc(it.name) + (it.alias ? " <em>" + esc(it.alias) + "</em>" : "");
-      return "<li role=\"option\" data-i=\"" + i + "\" aria-selected=\"" + (i === sugIdx) + "\"><span>" + shown + "</span><span class=\"kind\">" + kind + "</span><span class=\"cy\">" + right + "</span></li>";
-    }).join("") : "<li class=\"none\">Nothing matches. Try the local spelling: Wien, Praha, København.</li>";
-    qsug.hidden = false; qEl.setAttribute("aria-expanded", "true");
+
+  function makePicker(o) {
+    var el = $(o.input), box = $(o.sug), clr = o.clear ? $(o.clear) : null;
+    var sug = [], idx = -1;
+    function close() { box.hidden = true; box.innerHTML = ""; sug = []; idx = -1; el.setAttribute("aria-expanded", "false"); }
+    function draw() {
+      box.innerHTML = sug.length ? sug.map(function (it, i) {
+        var kind = it.kind === "place" ? (DEG[it.deg] || "municipality") : it.kind === "region" ? "region" : "country";
+        var right = it.kind === "cc" ? fmtInt(it.pop) + " people" : esc(ccName(it.cc)) + (it.kind === "place" ? " · " + fmtInt(it.pop) : "");
+        var shown = esc(it.name) + (it.alias ? " <em>" + esc(it.alias) + "</em>" : "");
+        return "<li role=\"option\" data-i=\"" + i + "\" aria-selected=\"" + (i === idx) + "\"><span>" + shown + "</span><span class=\"kind\">" + kind + "</span><span class=\"cy\">" + right + "</span></li>";
+      }).join("") : "<li class=\"none\">Nothing matches. Try the local spelling: Wien, Praha, København.</li>";
+      box.hidden = false; el.setAttribute("aria-expanded", "true");
+    }
+    function take(it) {
+      if (!it) return;
+      el.value = it.name; if (clr) clr.hidden = false;
+      close(); o.onPick(it);
+    }
+    el.addEventListener("input", function () {
+      if (clr) clr.hidden = !el.value;
+      sug = find(el.value, o.filter); idx = sug.length ? 0 : -1;
+      if (!el.value.trim()) { close(); if (o.onClear) o.onClear(); } else draw();
+    });
+    el.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowDown") { if (sug.length) { idx = (idx + 1) % sug.length; draw(); } e.preventDefault(); }
+      else if (e.key === "ArrowUp") { if (sug.length) { idx = (idx - 1 + sug.length) % sug.length; draw(); } e.preventDefault(); }
+      else if (e.key === "Enter") { take(sug[idx]); e.preventDefault(); }
+      else if (e.key === "Escape") close();
+    });
+    el.addEventListener("focus", function () { if (sug.length) draw(); });
+    box.addEventListener("mousedown", function (e) {
+      var li = e.target.closest("li[data-i]"); if (li) { e.preventDefault(); take(sug[+li.getAttribute("data-i")]); }
+    });
+    if (clr) clr.addEventListener("click", function () { el.value = ""; clr.hidden = true; close(); if (o.onClear) o.onClear(); el.focus(); });
+    document.addEventListener("click", function (e) { if (!e.target.closest("#" + o.input) && !e.target.closest("#" + o.sug)) close(); });
+    return { set: function (name) { el.value = name || ""; if (clr) clr.hidden = !name; }, close: close };
   }
-  function take(it) {
-    if (!it) return;
-    qEl.value = it.name; qx.hidden = false; closeSug();
-    select(pid(it), true);
+
+  var mapPick = makePicker({ input: "q", sug: "qsug", clear: "qx", onPick: function (it) { select(pid(it), true); } });
+
+  // Поля блока переезда: те же подсказки, но выбор кладётся в своё состояние.
+  movePickFrom = makePicker({ input: "mfrom", sug: "mfromsug", clear: "mfromx",
+    onPick: function (it) { S.mf = pid(it); drawMove(); syncURL(); },
+    onClear: function () { S.mf = null; drawMove(); syncURL(); } });
+  movePickTo = makePicker({ input: "mto", sug: "mtosug", clear: "mtox",
+    onPick: function (it) { S.mt = pid(it); drawMove(); syncURL(); },
+    onClear: function () { S.mt = null; drawMove(); syncURL(); } });
+  (function () {
+    var mi = $("minc"), mc = $("mcur");
+    Object.keys(FX).forEach(function (k) { mc.appendChild(el("option", { value: k }, k)); });
+    mc.value = S.mc || S.cur;
+    mi.value = S.mi || "";
+    mi.addEventListener("input", function () {
+      S.mi = Math.max(0, Math.min(1e7, +mi.value || 0));
+      S.mc = S.mi ? mc.value : null;
+      drawMove(); syncURL();
+    });
+    mc.addEventListener("change", function () { if (S.mi) { S.mc = mc.value; drawMove(); syncURL(); } });
+  })();
+  // Поля заполняются не здесь, а после readURL(): на этом шаге состояние ещё пустое.
+  function syncMoveInputs() {
+    var a = placeById(S.mf), b = placeById(S.mt);
+    movePickFrom.set(a ? a.name : "");
+    movePickTo.set(b ? b.name : "");
+    $("minc").value = S.mi || "";
+    $("mcur").value = S.mc || S.cur;
   }
-  qEl.addEventListener("input", function () {
-    qx.hidden = !qEl.value; sug = find(qEl.value); sugIdx = sug.length ? 0 : -1;
-    if (!qEl.value.trim()) closeSug(); else drawSug();
-  });
-  qEl.addEventListener("keydown", function (e) {
-    if (e.key === "ArrowDown") { if (sug.length) { sugIdx = (sugIdx + 1) % sug.length; drawSug(); } e.preventDefault(); }
-    else if (e.key === "ArrowUp") { if (sug.length) { sugIdx = (sugIdx - 1 + sug.length) % sug.length; drawSug(); } e.preventDefault(); }
-    else if (e.key === "Enter") { take(sug[sugIdx]); e.preventDefault(); }
-    else if (e.key === "Escape") closeSug();
-  });
-  qEl.addEventListener("focus", function () { if (sug.length) drawSug(); });
-  qsug.addEventListener("mousedown", function (e) { var li = e.target.closest("li[data-i]"); if (li) { e.preventDefault(); take(sug[+li.getAttribute("data-i")]); } });
-  qx.addEventListener("click", function () { qEl.value = ""; qx.hidden = true; closeSug(); qEl.focus(); });
-  document.addEventListener("click", function (e) { if (!e.target.closest(".gsearch")) closeSug(); });
+
   document.addEventListener("keydown", function (e) {
     if (e.key !== "/" || e.metaKey || e.ctrlKey || e.altKey) return;
     var t = e.target, tag = t && t.tagName;
     if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (t && t.isContentEditable)) return;
     e.preventDefault(); qEl.focus(); qEl.select();
   });
+
+  // ======================================================================
+  // переезд за работой: сколько должно стоить предложение
+  // ======================================================================
+  // Считается «эквивалентное предложение» — доход в новом месте, при котором
+  // читателю хватит на столько же метров, сколько дома. Для аренды это простое
+  // отношение цен за метр, для покупки в него входит и ставка: одна и та же цена
+  // при 2 % и при 6 % даёт разную площадь, и это ровно тот эффект ипотечного
+  // продукта, который иначе остаётся невидимым.
+  var movePickFrom, movePickTo;
+  function moveIncEUR() { return S.mi > 0 && S.mc ? S.mi / FX[S.mc] : 0; }
+  function annuityOf(pl, fallback) {
+    var r = rateOf(pl);
+    return r === null ? fallback : annuity(r, S.term);
+  }
+  function homeIncome(pl) { return mine() ? incEUR() : localMonthly(pl); }
+  function drawMove() {
+    var box = $("moveout");
+    var a = placeById(S.mf), b = placeById(S.mt);
+    if (!a || !b) {
+      box.innerHTML = "<p class=\"mempty\">Pick both places to see the answer. Everything else on this page already applies: your term, deposit and the share of income you are willing to spend.</p>";
+      return;
+    }
+    var incA = homeIncome(a);
+    if (!incA) { box.innerHTML = "<p class=\"mempty\">No income on record for " + esc(a.name) + ". Enter your own above and switch to \u201cMy income\u201d.</p>"; return; }
+
+    var rows = [], notes = [];
+    // Аренда: метры пропорциональны доходу, делённому на цену аренды за метр.
+    if (a.rp && b.rp) {
+      var needRent = incA * (b.rp / a.rp);
+      var m2A = rentM2(a);
+      rows.push({ what: "to rent the same space", need: needRent, now: incA,
+                  detail: fmtM2(m2A) + " m² at home costs " + fmtEur(Math.round(needRent)) + " a month of income there" });
+    } else notes.push("No rental listings for " + esc(a.rp ? b.name : a.name) + ", so renting cannot be compared.");
+
+    // Покупка: в отношение входит и цена, и аннуитет по ставке своей страны.
+    var annA = annuityOf(a, null), annB = annuityOf(b, null);
+    if (a.sp && b.sp && annA && annB) {
+      var needBuy = incA * (b.sp / a.sp) * (annA / annB);
+      rows.push({ what: "to buy the same space", need: needBuy, now: incA,
+                  detail: fmtM2(buyM2(a)) + " m² at home, on a " + S.term + "-year mortgage at " + fmtRate(rateOf(b)) + " there against " + fmtRate(rateOf(a)) + " at home" });
+    } else notes.push("No sale listings or no mortgage rate for one of the two, so buying cannot be compared.");
+
+    if (!rows.length) { box.innerHTML = "<p class=\"mempty\">" + notes.join(" ") + "</p>"; return; }
+
+    var offer = moveIncEUR();
+    var h = "<p class=\"mhead\">Moving from <b>" + esc(a.name) + "</b> to <b>" + esc(b.name) + "</b> on " + fmtEur(Math.round(incA)) + " net a month</p><div class=\"mgrid\">";
+    rows.forEach(function (r) {
+      var ratio = r.need / r.now;
+      var cls = ratio > 1.02 ? "up" : ratio < 0.98 ? "down" : "same";
+      var verdict = ratio > 1.02 ? "+" + Math.round((ratio - 1) * 100) + " %" : ratio < 0.98 ? "−" + Math.round((1 - ratio) * 100) + " %" : "about the same";
+      h += "<div class=\"mcard " + cls + "\"><p class=\"mlabel\">The offer needs to be</p>" +
+           "<p class=\"mbig\">" + fmtEur(Math.round(r.need)) + "</p>" +
+           "<p class=\"mwhat\">net per month " + r.what + " <b>" + verdict + "</b></p>" +
+           "<p class=\"mdetail\">" + r.detail + "</p>";
+      if (offer) {
+        var gap = offer - r.need;
+        h += "<p class=\"mverdict " + (gap >= 0 ? "ok" : "no") + "\">Your offer of " + fmtEur(Math.round(offer)) + " is " +
+             (gap >= 0 ? fmtEur(Math.round(gap)) + " above" : fmtEur(Math.round(-gap)) + " short") + "</p>";
+      }
+      h += "</div>";
+    });
+    h += "</div>";
+    if (offer) {
+      // Что предложение даёт на самом деле — прямой расчёт, а не через отношение.
+      var got = [];
+      if (b.sp) got.push(fmtM2(buyM2(b, { income: offer })) + " m² to buy");
+      if (b.rp) got.push(fmtM2(offer * S.share / 100 / b.rp) + " m² to rent");
+      if (got.length) h += "<p class=\"mnote\">On " + fmtEur(Math.round(offer)) + " in " + esc(b.name) + " you could take " + got.join(" or ") + ", against " + fmtM2(buyM2(a)) + " m² and " + fmtM2(rentM2(a)) + " m² at home.</p>";
+    }
+    if (notes.length) h += "<p class=\"mnote\">" + notes.join(" ") + "</p>";
+    box.innerHTML = h;
+  }
 
   // ======================================================================
   // карточка выбранного места
@@ -667,7 +787,7 @@
     S.sel = id;
     var pl = placeById(id);
     if (pl && fly) flyTo(pl);
-    paintMap(); drawMarks(); drawCard(); drawRank(); syncURL();
+    paintMap(); drawMarks(); drawCard(); drawRank(); drawMove(); syncURL();
   }
   var cardN = null;                          // «сколько метров» в карточке: своё поле, фильтр не двигает
   function wantN() { return cardN || S.want || 70; }
@@ -1155,10 +1275,11 @@
   });
 
   // ======================================================================
-  function update() { paintMap(); drawCard(); drawCmp(); drawRank(); setupLine(); }
+  function update() { paintMap(); drawCard(); drawCmp(); drawRank(); drawMove(); setupLine(); }
   document.addEventListener("themechange", function () { paintMap(); });
   readURL();
   syncControls();
+  syncMoveInputs();
   update();
   var first = placeById(S.sel);
   if (first && first.kind !== "cc") flyTo(first);

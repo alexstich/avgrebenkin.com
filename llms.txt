@@ -73,13 +73,19 @@ from source, with the method and its weak spots written down on the page.
   reads the study's public ESPON feature service (89,601 municipalities, snapshot 14 September 2026),
   reproduces the study's arithmetic exactly, and lets the reader replace the average income with their own:
   net income in 13 currencies at fixed ECB rates, share of income (20–45 %), mortgage term (10–30 years),
-  interest rate, down payment (0–40 %), household size on the OECD-modified scale. A NUTS 3 choropleth map
-  (buy, rent, or rent minus buy) with search across 8,489 municipalities, regions and countries; a card per
-  place with the income needed for a chosen size and the years to save a deposit; a side-by-side comparison
-  of up to four places at 20 and 30 years and at 25 and 33 % of income; rankings of countries and of 465
-  cities over 100,000 with a "I want at least N m²" filter and a coastal filter; and the study's figure 3
-  rebuilt as population shares by affordability class and degree of urbanisation. Every setting lives in
-  the URL, with PNG, CSV and print export. English only. Raw table:
+  interest rate, down payment (0–40 %), household size on the OECD-modified scale. A map of Europe, countries filled and 8,489 municipalities
+  marked as dots, in five measures: square metres to buy, to rent, the difference between them, years of
+  income for a chosen size, and what renting that size takes out of a month's income; a card per place with
+  the income needed for a chosen size and the years to save a deposit; a block that answers "I have a job
+  offer in another country" by computing the net income the offer must reach to leave the reader no worse
+  off in housing, separately for renting and for buying, with each country's own mortgage rate, so that
+  Warsaw to Berlin needs 75 % more income to rent the same space but 14 % less to buy it; a side-by-side
+  comparison of up to four places at 20 and 30 years and at 25 and 33 % of income; rankings of countries
+  and of 465 cities over 100,000 with a "I want at least N m²" filter and a coastal filter; and the study's
+  figure 3 rebuilt as population shares by affordability class and degree of urbanisation. Every setting
+  lives in the URL, with PNG, CSV and print export. Country outlines are Natural Earth (public domain);
+  Eurostat's NUTS outlines are not used because their licence forbids commercial use. English only.
+  Raw table:
   https://avgrebenkin.com/research/data/house4all-lau-2024.csv (2026-09-14)
 
 

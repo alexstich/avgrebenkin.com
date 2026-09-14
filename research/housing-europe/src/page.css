@@ -150,13 +150,14 @@
   .field label, .field > label { display: flex; justify-content: space-between; align-items: baseline;
                  gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--ink); margin-bottom: 7px; }
   .field output { color: var(--accent); font-variant-numeric: tabular-nums; }
-  .field input[type=number], .field select, .gsearch input {
+  .field input[type=number], .field select, .gsearch input, .mrow input, .mrow select {
     box-sizing: border-box; padding: 8px 11px; border: 1px solid var(--hair); border-radius: 8px;
     background: var(--bg); color: var(--ink); font-family: var(--mono); font-size: 14px; }
   .field input[type=number] { width: 100%; min-width: 0; -moz-appearance: textfield; }
   .field input[type=number]::-webkit-outer-spin-button, .field input[type=number]::-webkit-inner-spin-button { margin-left: 4px; }
-  .field input:focus, .field select:focus, .gsearch input:focus { outline: none; border-color: var(--accent); }
-  .field input::placeholder { color: var(--ink-3); font-size: 12px; }
+  .field input:focus, .field select:focus, .gsearch input:focus,
+  .mrow input:focus, .mrow select:focus { outline: none; border-color: var(--accent); }
+  .field input::placeholder, .mrow input::placeholder { color: var(--ink-3); font-size: 12px; }
   .inrow { display: flex; gap: 8px; align-items: stretch; }
   .inrow select { flex: 0 0 auto; }
   .field input[type=range] { width: 100%; accent-color: var(--accent); margin: 8px 0 4px; }
@@ -212,6 +213,30 @@
   /* Лицензия ESPON требует дисклеймер «на видном и читаемом месте», поэтому
      строка мельче основного текста, но не серее --ink-2, и печатается тоже. */
   #printespon { font-size: 10px; color: #444; margin-top: 4px; }
+
+  /* Блок переезда: три поля в ряд на десктопе, столбиком на телефоне. */
+  .moverow { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+  .mfield label { display: block; font-family: var(--mono); font-size: 12px; color: var(--ink-2); margin-bottom: 6px; }
+  .mfield .opt { color: var(--ink-3); }
+  .mgs { position: relative; }
+  .mrow { display: flex; gap: 6px; }
+  .mrow input { flex: 1; min-width: 0; -moz-appearance: textfield; }
+  .mrow select { flex: 0 0 auto; }
+  .moveout { min-height: 40px; }
+  .mempty, .mnote { color: var(--ink-2); font-size: 14px; }
+  .mhead { margin-bottom: 12px; }
+  .mgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+  .mcard { border: 1px solid var(--hair); border-radius: 10px; padding: 14px 16px; background: var(--bg); }
+  :root[data-theme="cyber"] .mcard { border-radius: 0; }
+  .mlabel { font-family: var(--mono); font-size: 12px; color: var(--ink-2); margin: 0 0 2px; }
+  .mbig { font-family: var(--mono); font-size: 30px; line-height: 1.1; margin: 0 0 4px; color: var(--accent); }
+  .mwhat { margin: 0 0 8px; font-size: 14px; }
+  .mdetail { margin: 0; font-size: 13px; color: var(--ink-2); }
+  .mverdict { margin: 8px 0 0; font-size: 13px; font-family: var(--mono); }
+  .mverdict.ok { color: var(--m5); }
+  .mverdict.no { color: var(--m1); }
+  .mnote { margin-top: 12px; }
+  @media (max-width: 720px) { .moverow { grid-template-columns: 1fr; } }
 
   .tip .r.lead { font-weight: 600; border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 4px; }
 
@@ -428,7 +453,10 @@
     :root[data-print] main .wrap > * { display: none !important; }
     :root[data-print] .wrap > .printhead { display: block !important; }
     :root[data-print="map"] #p-map, :root[data-print="cmp"] #p-cmp,
-    :root[data-print="rank"] #p-rank, :root[data-print="hist"] #p-hist { display: block !important; }
+    :root[data-print="rank"] #p-rank, :root[data-print="hist"] #p-hist,
+    :root[data-print="move"] #p-move { display: block !important; }
+    /* На бумаге поля выбора уже ничего не выбирают — остаётся только ответ. */
+    :root[data-print="move"] .moverow { display: none !important; }
     :root[data-print] .panel { box-shadow: none; border-color: #bbb; }
     :root[data-print="map"] .mapwrap { grid-template-columns: 1fr; }
     :root[data-print="map"] .cardcol { border-left: 0; border-top: 1px solid #ccc; }
