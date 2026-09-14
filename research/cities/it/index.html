@@ -738,6 +738,15 @@
   @media print { .langpick { display: none; } }
   .transnote { margin-top: 4px; padding-top: 14px; border-top: 1px dashed var(--hair);
                font-size: .88rem; color: var(--ink-3); }
+
+  /* ── Оформление: тёплый ведущий акцент статьи, под её обложку ──────────
+     Затрагивает только «обёртку» (ссылки, крошки, заголовки секций, кнопку
+     «Коротко», рамки и свечение фона). Data-цвета серий графиков и текст —
+     не отсюда и не меняются. Cyber-тема сохраняет свой неон. */
+  :root { --accent:#ff6fae; --accent-rgb:255,111,174; --accent-ink:#0b0c11;
+          --border:rgba(255,111,174,.20); }
+  :root[data-theme="light"] { --accent:#c51f68; --accent-rgb:197,31,104; --accent-ink:#ffffff;
+          --border:rgba(197,31,104,.24); }
 </style>
 </head>
 <body>
