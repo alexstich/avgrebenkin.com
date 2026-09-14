@@ -1728,7 +1728,7 @@
     var incA = homeIncome(a);
     if (!incA) { box.innerHTML = "<p class=\"mempty\">No income on record for " + esc(a.name) + ". Enter your own above and switch to \u201cMy income\u201d.</p>"; return; }
 
-    var rows = [], notes = [];
+    var rows = [], notes = [], rateNote2 = false;
     // Аренда: метры пропорциональны доходу, делённому на цену аренды за метр.
     if (a.rp && b.rp) {
       var needRent = incA * (b.rp / a.rp);
@@ -1743,6 +1743,7 @@
       var needBuy = incA * (b.sp / a.sp) * (annA / annB);
       rows.push({ what: "to buy the same space", need: needBuy, now: incA,
                   detail: fmtM2(buyM2(a)) + " m² at home, on a " + S.term + "-year mortgage at " + fmtRate(rateOf(b)) + " there against " + fmtRate(rateOf(a)) + " at home" });
+      rateNote2 = S.rate === null;
     } else notes.push("No sale listings or no mortgage rate for one of the two, so buying cannot be compared.");
 
     if (!rows.length) { box.innerHTML = "<p class=\"mempty\">" + notes.join(" ") + "</p>"; return; }
@@ -1771,6 +1772,11 @@
       if (b.sp) got.push(fmtM2(buyM2(b, { income: offer })) + " m² to buy");
       if (b.rp) got.push(fmtM2(offer * S.share / 100 / b.rp) + " m² to rent");
       if (got.length) h += "<p class=\"mnote\">On " + fmtEur(Math.round(offer)) + " in " + esc(b.name) + " you could take " + got.join(" or ") + ", against " + fmtM2(buyM2(a)) + " m² and " + fmtM2(rentM2(a)) + " m² at home.</p>";
+    }
+    if (rateNote2) {
+      // Знак переворота между арендой и покупкой держится на разнице ставок, а она
+      // из среза исследования. Без года эта цифра однажды станет просто неверной.
+      h += "<p class=\"mnote\">Mortgage rates are the national averages the study used, mostly 2023, not today's. They drive the difference between the two answers, so put your own in the rate field above if you know better ones.</p>";
     }
     if (notes.length) h += "<p class=\"mnote\">" + notes.join(" ") + "</p>";
     box.innerHTML = h;
@@ -2079,7 +2085,7 @@
   function legendRows() {
     var rows = [
       ["Income", mine() ? "€" + fmtInt(incEUR()) + " net a month" + (S.cur !== "EUR" ? " (" + fmtInt(S.inc) + " " + S.cur + ")" : "") + ", household of " + S.adults + " adult" + (S.adults > 1 ? "s" : "") + (S.kids ? " and " + S.kids + " child" + (S.kids > 1 ? "ren" : "") : "") : "the average local income of each place"],
-      ["Terms", S.share + " % of income for housing, " + S.term + "-year mortgage at " + rateNote() + ", deposit " + S.dep + " %"],
+      ["Terms", shareText() + " of income for housing, " + S.term + "-year mortgage at " + rateNote() + ", deposit " + S.dep + " %"],
       ["Map", modeText() + (S.want && S.mode !== "years" && S.mode !== "share" ? "; places where " + S.want + " m² are out of reach are greyed" : "")],
       ["Source", "Sielker & Banabak 2026, Journal of Maps; ESPON HOUSE4ALL feature service, 14 Sep 2026; outlines Eurostat GISCO NUTS 2021"]
     ];
