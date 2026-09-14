@@ -39,8 +39,8 @@ data.json): иначе Турция и Северная Африка раздв�
 Проекция — азимутальная равновеликая Ламберта. Координаты квантуются в сетку
 1400 единиц по ширине, путь пишется относительными отрезками.
 
-Что пишется: src/geo.json — {order: [...], frames: {ключ: {label, w, h, lat0,
-lon0, box, countries: {ISO-2: путь}}}}.
+Что пишется: src/geo.json — {order: [...], frames: {ключ: {w, h, lat0, lon0,
+box, countries: {ISO-2: путь}}}}. Подписи кадров живут в data.py.
 """
 import json, math, os, sys, urllib.request
 
@@ -53,10 +53,13 @@ W = 1400
 # Кадры. lon/lat — окно отбора контуров, lat0/lon0 — центр проекции. Окно задано
 # руками, а не по данным: Алеутские острова уходят за 180-й меридиан и растянули
 # бы американский кадр вдвое ради десятка домов, а Гавайи и Аляска в кадре нужны.
+# Подписи здесь нет намеренно: она живёт в data.py, потому что подписывать надо не
+# кадр, а слой данных. Кадр «na» рисует и Канаду с Мексикой, а данные в нём только
+# американские, и кнопка обязана говорить «United States», а не «North America».
 FRAMES = [
-    {'key': 'eu', 'label': 'Europe', 'lat0': 52.0, 'lon0': 10.0,
+    {'key': 'eu', 'name': 'Европа', 'lat0': 52.0, 'lon0': 10.0,
      'lon': (-25.0, 45.0), 'lat': (34.0, 72.0)},
-    {'key': 'na', 'label': 'North America', 'lat0': 42.0, 'lon0': -98.0,
+    {'key': 'na', 'name': 'Северная Америка', 'lat0': 42.0, 'lon0': -98.0,
      'lon': (-170.0, -52.0), 'lat': (17.0, 72.0)},
 ]
 
@@ -138,8 +141,11 @@ def build(g, fr, core):
         d = encode(f)
         if d:
             countries[iso2(f['properties'])] = d
-    return {'label': fr['label'], 'w': W, 'h': h, 'lat0': fr['lat0'], 'lon0': fr['lon0'],
+    return {'w': W, 'h': h, 'lat0': fr['lat0'], 'lon0': fr['lon0'],
             'box': [minx, maxx, miny, maxy], 'countries': countries}
+
+
+FR_NAME = {f['key']: f['name'] for f in FRAMES}
 
 
 def main():
@@ -164,7 +170,7 @@ def main():
               ensure_ascii=False, separators=(',', ':'))
     for k in order:
         f = frames[k]
-        print('  %-3s %-15s %d стран, %d×%d' % (k, f['label'], len(f['countries']), f['w'], f['h']))
+        print('  %-3s %-17s %d стран, %d×%d' % (k, FR_NAME[k], len(f['countries']), f['w'], f['h']))
     print('geo.json: %d кадров, %d байт' % (len(order), os.path.getsize(p)))
 
 
