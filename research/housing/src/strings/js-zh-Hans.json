@@ -1,0 +1,450 @@
+{
+  "numLocale": "zh-CN",
+  "fxDate": "2026 年 9 月 11 日",
+  "noData": "无数据",
+  "units": {
+    "m2": "{n} m²",
+    "pct": "{n}%",
+    "money": "{sym}{n}",
+    "moneyCode": "{sym} {n}",
+    "amountCode": "{n} {cur}",
+    "perM2": "{money}/m²",
+    "perM2Mo": "{money}/m²·月",
+    "perMo": "{money}/月",
+    "perMonth": "每月 {money}",
+    "perM2Long": "每平方米 {money}",
+    "perM2Month": "每平方米每月 {money}",
+    "years": {
+      "other": "{n} 年"
+    },
+    "yrs": {
+      "other": "{n} 年"
+    },
+    "people": {
+      "other": "{n} 人"
+    },
+    "forever": "遥遥无期",
+    "aThird": "三分之一"
+  },
+  "place": {
+    "city": "城市",
+    "town": "城镇或郊区",
+    "rural": "农村"
+  },
+  "frames": {
+    "eu": {
+      "label": "欧洲",
+      "unit": "市镇",
+      "units": "市镇",
+      "reg": "地区",
+      "regs": "NUTS 3 地区",
+      "home": "住房",
+      "rental": "出租住房",
+      "unitLabel": "市镇",
+      "regLabel": "地区",
+      "regKind": "NUTS 3 地区",
+      "inReg": "所在地区：{name}",
+      "regNamed": "地区：{name}",
+      "unitsInReg": "该地区的市镇",
+      "largest": "最大的市镇",
+      "count": {
+        "other": "{n} 个市镇"
+      },
+      "rankName": "城市",
+      "rankTab": "城市",
+      "countOfBig": {
+        "other": "人口 {min} 及以上的 {n} 个市镇中的 {shown} 个"
+      }
+    },
+    "na": {
+      "label": "美国",
+      "unit": "县",
+      "units": "县",
+      "reg": "州",
+      "regs": "州",
+      "home": "中位数住房",
+      "rental": "中位数出租住房",
+      "unitLabel": "县",
+      "regLabel": "州",
+      "regKind": "州",
+      "inReg": "所在州：{name}",
+      "regNamed": "州：{name}",
+      "unitsInReg": "该州的县",
+      "largest": "最大的县",
+      "count": {
+        "other": "{n} 个县"
+      },
+      "rankName": "县",
+      "rankTab": "县",
+      "countOfBig": {
+        "other": "人口 {min} 及以上的 {n} 个县中的 {shown} 个"
+      }
+    }
+  },
+  "groups": {
+    "eu": {
+      "north": "北欧与波罗的海",
+      "west": "西欧",
+      "south": "南欧",
+      "east": "东欧"
+    },
+    "na": {
+      "ne": "东北部",
+      "mw": "中西部",
+      "so": "南部",
+      "we": "西部"
+    }
+  },
+  "presets": [
+    {
+      "name": "研究本身的视角",
+      "desc": "当地平均收入，30 年，无首付"
+    },
+    {
+      "name": "初级开发者",
+      "desc": "税后 €{inc}，单身，30 年"
+    },
+    {
+      "name": "有一个孩子的夫妻",
+      "desc": "税后 €{inc}，想要 75 m²"
+    },
+    {
+      "name": "远程工作者，海边",
+      "desc": "税后 €{inc}，沿海城市"
+    },
+    {
+      "name": "用积蓄买房",
+      "desc": "税后 €{inc}，两位成人，首付 40%，15 年"
+    },
+    {
+      "name": "学生，租房",
+      "desc": "税后 €{inc}，租房地图"
+    }
+  ],
+  "setup": {
+    "hhHint": "等值系数 {factor}（OECD 修正等值量表：第一位成人 1，每增加一位成人 0.5，每名儿童 0.3）。仅用于把你的收入与当地平均水平作比较的那一行——在欧洲按成人等值计，在美国按家庭计。",
+    "wantNoArea": "美国数据没有住房面积",
+    "wantAny": "不限",
+    "mineDisabled": "请先在上方输入你的收入",
+    "incHint": "税后，所有有收入的成员合计。留空则每个地方都按其自身的平均收入显示。",
+    "incHintFx": "税后，所有有收入的成员合计。{amount} = {eur}，按欧洲央行 {date} 参考汇率换算。",
+    "rateAll": "各地统一 {rate}",
+    "rateOwn": "各国自己的利率",
+    "adults": {
+      "other": "{n} 位成人"
+    },
+    "kids": {
+      "other": "{n} 名儿童"
+    },
+    "adultsKids": "{adults}和{kids}",
+    "termAdj": {
+      "other": "{n} 年期"
+    },
+    "orig": "（{amount}）",
+    "mine": "每月税后 <b>{income}</b>{orig} · <b>{share}</b>用于住房 = 每月 <b>{budget}</b> · <b>{term}</b>房贷，利率：{rate} · 首付 <b>{deposit}</b> · 家庭：{household}（系数 {factor}）",
+    "local": "各地按<b>自身的平均收入</b> · <b>{share}</b>用于住房 · <b>{term}</b>房贷，利率：{rate} · 首付 <b>{deposit}</b>{tail}",
+    "published": "——与已发表的地图完全一致",
+    "studyTerms": "——即研究的条件，套用于此",
+    "want": " · 想要 <b>{m2}</b>"
+  },
+  "modes": {
+    "title": {
+      "buy": "可买 m²",
+      "rent": "可租 m²",
+      "diff": "租减买，m²",
+      "years": "收入年数",
+      "share": "租金占收入 %"
+    },
+    "text": {
+      "buy": "可买的平方米数",
+      "rent": "可租的平方米数",
+      "diff": "可租平方米数减去可买平方米数",
+      "years": "{basket}所需的收入年数",
+      "share": "{basket}的租金占收入的比例"
+    },
+    "noAreaTitle": "美国各{units}没有公布住房面积——见“数字从哪里来”"
+  },
+  "legend": {
+    "classes": [
+      "50 m² 以下",
+      "50–75 m²",
+      "76–100 m²",
+      "101–150 m²",
+      "150 m² 以上"
+    ],
+    "diff": [
+      "买房多 20 m² 以上",
+      "买房多 5–20 m²",
+      "相差 5 m² 以内",
+      "租房多 5–20 m²",
+      "租房多 20 m² 以上"
+    ],
+    "years": [
+      "3 年以下",
+      "3–5",
+      "5–8",
+      "8–12",
+      "12 以上"
+    ],
+    "share": [
+      "收入的 20% 以下",
+      "20–30%",
+      "30–40%",
+      "40–50%",
+      "50% 以上"
+    ],
+    "headFor": "{title}：{basket}",
+    "noData": "无数据",
+    "noDataUnder": "无数据或不足 {m2}"
+  },
+  "map": {
+    "aria": "{label}地图：国家整体着色，{units}以圆点标出，颜色表示{mode}"
+  },
+  "tip": {
+    "yearsFor": "{basket}所需收入年数",
+    "rentOf": "{basket}的租金",
+    "buy": "可买",
+    "rent": "可租",
+    "price": "价格",
+    "rentp": "租金",
+    "noListings": "无房源数据",
+    "medianHome": "中位数住房",
+    "medianRent": "租金中位数",
+    "income": "收入"
+  },
+  "search": {
+    "country": "国家",
+    "none": "没有匹配结果。试试当地拼写：Wien、Praha、København。"
+  },
+  "move": {
+    "empty": "选好两个地方就能看到答案。本页的其他设置都已生效：你的年限、首付，以及你愿意拿出的收入比例。",
+    "noIncome": "{place}没有收入记录。请在上方输入你自己的收入，并切换到“我的收入”。",
+    "rentSame": "租到同样大小的住房",
+    "rentShare": "让房租占收入的比例保持不变",
+    "rentDetailSame": "在那里租下与原居住地同样的 {m2}，需要每月 {money} 的收入",
+    "rentDetail": "{home}（原居住地）对比{there}（那里）——每月 {moneyHome} 对比 {moneyThere}",
+    "noRent": "{place}没有租金记录，因此无法比较租房。",
+    "buySame": "买到同样大小的住房",
+    "buyShare": "让买房占收入的比例保持不变",
+    "buyDetailSame": "原居住地的 {m2}；{term}房贷，那里利率 {rateThere}，原居住地 {rateHome}",
+    "buyDetail": "{home}（原居住地）对比{there}（那里）；{term}房贷，那里利率 {rateThere}，原居住地 {rateHome}",
+    "noBuy": "两地之一没有价格或房贷利率，因此无法比较买房。",
+    "layers": "两个图层的衡量单位不同：欧洲有每平方米价格，美国不公布住房面积，所以这一比较保持不变的是收入比例，而不是居住面积。因此差距中有一部分来自面积而不是价格——美国的参照是一整套住房，而它有多大，恰恰是数据没有说明的。",
+    "medianHome": "中位数住房",
+    "medianRental": "中位数出租住房",
+    "head": "从<b>{from}</b>搬到<b>{to}</b>，现在每月税后 {income}",
+    "more": "+{n}%",
+    "less": "−{n}%",
+    "aboutSame": "大致相同",
+    "needLabel": "邀约需要达到",
+    "what": "每月税后，才能{what}：<b>{verdict}</b>",
+    "offerAbove": "你的邀约 {offer}，高出 {gap}",
+    "offerShort": "你的邀约 {offer}，还差 {gap}",
+    "gotBuy": "买下 {m2}",
+    "gotRent": "租下 {m2}",
+    "eitherOr": "{a}，或{b}",
+    "gotHome": "；在原居住地则是买 {buy}、租 {rent}",
+    "gotM2": "在{place}拿 {offer}，你可以{options}{home}。",
+    "gotYears": {
+      "other": "中位数住房要花这份收入的 {n} 年"
+    },
+    "gotShare": "中位数租金占这份收入的 {pct}",
+    "both": "{a}，{b}",
+    "gotUS": "在{place}拿 {offer}，{options}。",
+    "mortgageShare": "<b>其中多少来自房贷，而不是住房本身。</b>如果两国利率相同，邀约只需 {flat}（{delta}）就能{what}——这就是单纯的价格差。利率差让它每月变动 {rate}。{vintage}",
+    "flatShare": "让住房占收入的比例保持不变",
+    "vintageEu": "欧洲的利率是研究所用的全国平均值，大多为 2023 年，而不是现在的利率。如果你知道更准确的利率，请填入上方的利率栏。",
+    "vintageNa": "美国的利率是房地美 2024 年 30 年期平均利率，这一年正是 ACS 估计所用美元的年份。如果你知道更准确的利率，请填入上方的利率栏。",
+    "vintageBoth": "欧洲的利率是研究所用的全国平均值，大多为 2023 年，而不是现在的利率；美国的利率是房地美 2024 年 30 年期平均利率，这一年正是 ACS 估计所用美元的年份。如果你知道更准确的利率，请填入上方的利率栏。"
+  },
+  "card": {
+    "label": "所选地点",
+    "empty": "在上方搜索一个城镇，或在地图上点击一个地区。卡片会显示你的设置在那里意味着什么，以及要达到目标需要什么。",
+    "coastal": "{deg}，沿海",
+    "coverage": "{pct} 的人口所在地有售价数据",
+    "countryKind": "国家",
+    "countryLabel": "国家",
+    "moe": "住房价值中位数 ±{pct}",
+    "moeWide": "住房价值中位数 ±{pct}，对中位数而言区间很宽",
+    "bigYears": "中位数住房所需的收入年数",
+    "bigShare": "中位数租金占收入",
+    "bigBuy": "可买 m²",
+    "bigBuyTerm": {
+      "other": "可买 m²，{n} 年"
+    },
+    "bigRent": "可租 m²",
+    "yourBudget": "你的住房预算",
+    "thirdLocal": "当地收入的三分之一",
+    "loan": "预算可承担的贷款额",
+    "plusDeposit": "加上 {pct} 首付",
+    "homePrice": "能负担的房价",
+    "medianValue": "住房价值中位数（房主估价）",
+    "medianRent": "租金中位数（含水电等费用）",
+    "pricePerM2": "每平方米价格",
+    "notPublished": "美国各县未公布",
+    "salePrice": "售价（含税费）",
+    "rent": "租金",
+    "incomeUS": "家庭收入中位数（税前）",
+    "incomeEU": "按成人等值计的平均收入",
+    "rateUsed": "所用房贷利率",
+    "rateYours": "{rate}（你设定的）",
+    "study": "研究自己的数字",
+    "studyValue": "买 {buy} m² · 租 {rent} m²",
+    "vsMedian": "你的收入对比当地中位数",
+    "vsAverage": "你的收入对比当地平均值",
+    "ratioUS": "中位数家庭收入的 {ratio} 倍（税前）",
+    "ratioEU": "按成人等值计的 {ratio} 倍",
+    "whatItTakes": "需要什么条件",
+    "withDeposit": "，首付 {pct}",
+    "haveEnough": "——你有 {money}，够了",
+    "haveShort": "——你有 {money}，还差 {pct}",
+    "netMonth": "每月税后 {money}",
+    "buyNeed": "在这里用收入的{share}、分 {years}还款{deposit}，买下 {input} m²，需要<b>{need}</b>{have}。",
+    "depositSave": "{m2} 的 {pct} 首付是 <b>{amount}</b>。每月存 {input} €，所需时间：<b>{time}</b>。",
+    "rentNeed": "在这里用收入的{share}租下 {m2}，需要<b>{need}</b>。",
+    "buyMedianNeed": "在这里用收入的{share}、分 {years}还款{deposit}，买下中位数住房（{price}），需要<b>{need}</b>{have}。",
+    "depositSaveMedian": "它的 {pct} 首付是 <b>{amount}</b>。每月存 {input} €，所需时间：<b>{time}</b>。",
+    "rentMedianNeed": "在这里用收入的{share}租下中位数住房（每月 {rent}），需要<b>{need}</b>。",
+    "around": "周边",
+    "inCmp": "✓ 已加入对比",
+    "addCmp": "+ 对比",
+    "showOnMap": "在地图上显示",
+    "clear": "清除",
+    "summaryM2": "{buy} · {rent} m²",
+    "summaryUS": "{years} · {share}",
+    "shareLocal": "当地收入的{share}"
+  },
+  "cmp": {
+    "converted": " · 金额按欧洲央行 {date} 汇率换算为欧元",
+    "groups": {
+      "settings": "按你的设置{conv}",
+      "sameMine": "统一条件（你的收入）",
+      "sameLocal": "统一条件（当地收入）",
+      "study": "研究自己的数字",
+      "market": "市场{conv}",
+      "both": "两个图层 · 欧洲以 {m2} 为参照，美国以中位数住房为参照——美国各县未公布住房面积{conv}",
+      "euOnly": "仅限欧洲 · 这些需要每平方米价格",
+      "usOnly": "仅限美国 · 这些需要整套住房的中位数"
+    },
+    "rows": {
+      "buy": "可买 m²",
+      "rent": "可租 m²",
+      "budget": "每月住房预算，{sym}",
+      "needBuy": "买下 {m2} 所需收入，{sym}/月",
+      "needRent": "租下 {m2} 所需收入，{sym}/月",
+      "buy20": "可买 m²，20 年",
+      "buy30": "可买 m²，30 年",
+      "buy25": "可买 m²，收入的 25%",
+      "buyThird": "可买 m²，收入的三分之一",
+      "rent25": "可租 m²，收入的 25%",
+      "rentThird": "可租 m²，收入的三分之一",
+      "studyBuy": "可买 m²，当地平均收入，30 年",
+      "studyRent": "可租 m²，当地平均收入",
+      "salePrice": "售价（含税费），{sym}/m²",
+      "rentPrice": "租金，{sym}/m²/月",
+      "avgIncome": "当地平均收入，{sym}/月",
+      "rate": "所用房贷利率，%",
+      "population": "人口",
+      "yearsMedian": "中位数住房所需收入年数",
+      "shareMedian": "租金中位数占收入，%",
+      "needBuyMedian": "买下中位数住房所需收入，{sym}/月",
+      "needRentMedian": "租下中位数住房所需收入，{sym}/月",
+      "medianValue": "住房价值中位数，{sym}",
+      "medianRent": "租金中位数，{sym}/月",
+      "medianIncome": "家庭收入中位数，{sym}/月",
+      "years": "收入年数",
+      "share": "租金占收入，%",
+      "localIncome": "当地收入，{sym}/月"
+    },
+    "remove": "移除",
+    "addMore": {
+      "other": "还可添加 {n} 个"
+    },
+    "nothing": "尚未选择——从卡片或排名中添加地点"
+  },
+  "rank": {
+    "coast": "仅沿海",
+    "coastTitle": "欧盟统计局标记为沿海的欧盟 27 国市镇",
+    "cols": {
+      "country": "国家",
+      "buy": "可买 m²",
+      "rent": "可租 m²",
+      "price": "价格 {sym}/m²",
+      "rentp": "租金 {sym}/m²·月",
+      "years": "收入年数",
+      "share": "租金占收入 %",
+      "val": "住房中位数 {sym}",
+      "rnt": "租金中位数 {sym}/月",
+      "inc": "收入 {sym}/月",
+      "rate": "利率 %",
+      "pop": "人口"
+    },
+    "addCmp": "加入对比",
+    "removeCmp": "移出对比",
+    "shown": "{count}{within}{coastal}。",
+    "countOfCountries": {
+      "other": "{n} 个国家中的 {shown} 个"
+    },
+    "within": "，均能负担 {m2}",
+    "coastal": "，仅限沿海",
+    "onYours": "按你每月 {money} 的收入计算。",
+    "onOwn": "各地按自身的平均收入计算。",
+    "layerOnly": "仅限{label}：两个图层采用不同的收入定义，不应放进同一张排名表。",
+    "countryMeans": "国家数值是其所辖{units}按人口加权的平均值。",
+    "clickRow": "点击一行即可在地图上打开该地。"
+  },
+  "hist": {
+    "labels": [
+      "<50",
+      "50–75",
+      "76–100",
+      "101–150",
+      ">150",
+      "无数据"
+    ],
+    "kinds": [
+      "城市",
+      "城镇与郊区",
+      "农村",
+      "未分类"
+    ],
+    "tip": "{kind}：人口的 {pct}（{m} 百万人）",
+    "axis": "当地平均收入的三分之一可负担的平方米数"
+  },
+  "share": {
+    "copied": "链接已复制",
+    "inBar": "链接已在地址栏中"
+  },
+  "export": {
+    "income": "收入",
+    "terms": "条件",
+    "map": "地图",
+    "source": "来源",
+    "incomeMine": "每月税后 {income}{orig}，家庭：{household}",
+    "incomeLocal": "各地自身的当地平均收入",
+    "termsText": "收入的{share}用于住房，{term}房贷，利率：{rate}，首付 {deposit}",
+    "mapGreyed": "{mode}；够不着 {m2} 的地方显示为灰色",
+    "sourceEu": "Sielker & Banabak 2026, Journal of Maps；ESPON HOUSE4ALL 要素服务，2026 年 9 月 14 日；轮廓：Natural Earth，公有领域",
+    "sourceNa": "美国人口普查局，美国社区调查 2020–2024（公有领域）；房地美 PMMS 2024；轮廓：Natural Earth，公有领域",
+    "csvLine": "{label}：{text}",
+    "mapCaptionMine": "{mode}，按每月税后 {income}，分国家和城镇",
+    "mapCaptionLocal": "{mode}，按当地平均收入，分国家和城镇",
+    "sideBySide": "并排对比：{places}",
+    "pngSaved": "PNG 已保存",
+    "pngCopied": "PNG 已复制",
+    "csvSaved": "CSV 已保存",
+    "needPlace": "请先添加一个要对比的地点",
+    "imageFailed": "无法生成图片"
+  },
+  "csv": {
+    "rank": "排名",
+    "country": "国家",
+    "metric": "指标",
+    "place": "{name}（{country}）"
+  },
+  "print": {
+    "withMap": "{setup} · 地图：{mode}",
+    "withRank": "{setup} · {note}"
+  },
+  "sentSep": ""
+}

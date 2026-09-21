@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" data-theme="dark">
+<html lang="ja" dir="ltr" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>How many square metres can you afford? — housing affordability in Europe and the United States</title>
-<meta name="description" content="Type your net income and see how many square metres you could buy or rent in 8,489 European municipalities: 22 million listings from the ESPON HOUSE4ALL dataset behind the 2026 TU Wien study. Plus 3,141 US counties measured in years of income and rent share, because American public data does not publish floor area at all.">
-<link rel="canonical" href="https://avgrebenkin.com/research/housing/">
+<title>何平方メートルなら手が届くか——ヨーロッパと米国の住まいの手頃さ</title>
+<meta name="description" content="手取り収入を入れると、ヨーロッパの8,489自治体で何平方メートル買えるか、借りられるかがわかります。元はTU Wienの2026年の研究を支えるESPON HOUSE4ALLの2,200万件の物件広告。米国の3,141郡は、公的データが床面積をまったく公表していないため、収入の何年分かと家賃負担率で示します。">
+<link rel="canonical" href="https://avgrebenkin.com/research/housing/ja/">
 <link rel="alternate" hreflang="en" href="https://avgrebenkin.com/research/housing/">
 <link rel="alternate" hreflang="ru" href="https://avgrebenkin.com/research/housing/ru/">
 <link rel="alternate" hreflang="uk" href="https://avgrebenkin.com/research/housing/uk/">
@@ -68,7 +68,8 @@
 
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Aleksei Grebenkin">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:locale:alternate" content="en_US">
 <meta property="og:locale:alternate" content="ru_RU">
 <meta property="og:locale:alternate" content="uk_UA">
 <meta property="og:locale:alternate" content="de_DE">
@@ -79,30 +80,29 @@
 <meta property="og:locale:alternate" content="nl_NL">
 <meta property="og:locale:alternate" content="pl_PL">
 <meta property="og:locale:alternate" content="tr_TR">
-<meta property="og:locale:alternate" content="ja_JP">
 <meta property="og:locale:alternate" content="zh_CN">
-<meta property="og:title" content="How many square metres can you afford? — housing affordability in Europe and the United States">
-<meta property="og:description" content="Your income, 11,630 places in Europe and the United States: how many square metres a third of it buys or rents, built from open data and honest about what does not compare.">
-<meta property="og:url" content="https://avgrebenkin.com/research/housing/">
+<meta property="og:title" content="何平方メートルなら手が届くか——ヨーロッパと米国の住まいの手頃さ">
+<meta property="og:description" content="あなたの収入と、ヨーロッパと米国の11,630か所。その3分の1で何平方メートル買えるか、借りられるか。オープンデータだけで作り、比べられないものは比べられないと正直に示します。">
+<meta property="og:url" content="https://avgrebenkin.com/research/housing/ja/">
 <meta property="og:image" content="https://avgrebenkin.com/images/research/housing.jpg">
 <meta property="og:image:secure_url" content="https://avgrebenkin.com/images/research/housing.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Two dot maps: Europe by municipality, coloured by the square metres a third of the average income buys, from red for under 50 to green for over 150; and the United States by county, coloured on the same scale by the years of income the median home costs">
+<meta property="og:image:alt" content="2枚の点の地図。ヨーロッパは自治体ごとに、平均収入の3分の1で買える平方メートル数で色分けされ、50未満の赤から150超の緑まで。米国は郡ごとに、同じ色の尺度で、中央値の住宅が収入の何年分にあたるかで色分けされています">
 <meta property="article:published_time" content="2026-09-14">
 <meta property="article:modified_time" content="2026-09-21">
 <meta property="article:author" content="https://avgrebenkin.com/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="How many square metres can you afford? — housing affordability in Europe and the United States">
-<meta name="twitter:description" content="Your income, 11,630 places in Europe and the United States: how many square metres a third of it buys or rents, built from open data and honest about what does not compare.">
+<meta name="twitter:title" content="何平方メートルなら手が届くか——ヨーロッパと米国の住まいの手頃さ">
+<meta name="twitter:description" content="あなたの収入と、ヨーロッパと米国の11,630か所。その3分の1で何平方メートル買えるか、借りられるか。オープンデータだけで作り、比べられないものは比べられないと正直に示します。">
 <meta name="twitter:image" content="https://avgrebenkin.com/images/research/housing.jpg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap"></noscript>
-<link rel="stylesheet" href="../shell.css?v=5">
+<link rel="stylesheet" href="../../shell.css?v=5">
 
 <script>
   /* the theme before first paint, so a light reader never sees a dark flash */
@@ -124,30 +124,30 @@
   "@graph": [
     {
       "@type": "WebPage",
-      "@id": "https://avgrebenkin.com/research/housing/#webpage",
-      "url": "https://avgrebenkin.com/research/housing/",
-      "name": "How many square metres can you afford? — housing affordability in Europe and the United States",
-      "description": "An interactive calculator and map of housing affordability: net income in, affordable square metres out, for 8,489 municipalities and 1,251 NUTS 3 regions in 31 European countries (ESPON HOUSE4ALL, the dataset behind Sielker and Banabak 2026, Journal of Maps); and years of income and rent share for 3,141 United States counties from the American Community Survey 2020-2024, where floor area is not published and square metres cannot be computed.",
+      "@id": "https://avgrebenkin.com/research/housing/ja/#webpage",
+      "url": "https://avgrebenkin.com/research/housing/ja/",
+      "name": "何平方メートルなら手が届くか——ヨーロッパと米国の住まいの手頃さ",
+      "description": "住宅の手頃さを示すインタラクティブな計算機と地図。手取り収入を入れると、手の届く平方メートル数が出ます。対象はヨーロッパ31か国の8,489自治体と1,251のNUTS 3地域（ESPON HOUSE4ALL。Sielker and Banabak 2026, Journal of Mapsの基になったデータセット）。米国の3,141郡については、American Community Survey 2020-2024から、収入の何年分かと、家賃が収入に占める割合を示します。米国では床面積が公表されておらず、平方メートル数は計算できません。",
       "isPartOf": { "@id": "https://avgrebenkin.com/#website" },
       "author": { "@id": "https://avgrebenkin.com/#person" },
       "datePublished": "2026-09-14",
       "dateModified": "2026-09-21",
-      "inLanguage": "en",
-      "workTranslation": [ { "@type": "WebPage", "@id": "https://avgrebenkin.com/research/housing/ru/#webpage", "inLanguage": "ru" }, { "@type": "WebPage", "@id": "https://avgrebenkin.com/research/housing/uk/#webpage", "inLanguage": "uk" }, { "@type": "WebPage", "@id": "https://avgrebenkin.com/research/housing/de/#webpage", "inLanguage": "de" }, { "@type": "WebPage", "@id": "https://avgrebenkin.com/research/housing/fr/#webpage", "inLanguage": "fr" }, { "@type": "WebPage", "@id": "https://avgrebenkin.com/research/housing/es/#webpage", "inLanguage": "es" }, { "@type": "WebPage", "@id": "https://avgrebenkin.com/research/housing/pt-BR/#webpage", "inLanguage": "pt-BR" }, { "@type": "WebPage", "@id": "https://avgrebenkin.com/research/housing/it/#webpage", "inLanguage": "it" }, { "@type": "WebPage", "@id": "https://avgrebenkin.com/research/housing/nl/#webpage", "inLanguage": "nl" }, { "@type": "WebPage", "@id": "https://avgrebenkin.com/research/housing/pl/#webpage", "inLanguage": "pl" }, { "@type": "WebPage", "@id": "https://avgrebenkin.com/research/housing/tr/#webpage", "inLanguage": "tr" }, { "@type": "WebPage", "@id": "https://avgrebenkin.com/research/housing/ja/#webpage", "inLanguage": "ja" }, { "@type": "WebPage", "@id": "https://avgrebenkin.com/research/housing/zh-Hans/#webpage", "inLanguage": "zh-Hans" } ],
-      "breadcrumb": { "@id": "https://avgrebenkin.com/research/housing/#breadcrumb" },
+      "inLanguage": "ja",
+      "translationOfWork": { "@type": "WebPage", "@id": "https://avgrebenkin.com/research/housing/#webpage", "inLanguage": "en" },
+      "breadcrumb": { "@id": "https://avgrebenkin.com/research/housing/ja/#breadcrumb" },
       "primaryImageOfPage": {
         "@type": "ImageObject",
         "url": "https://avgrebenkin.com/images/research/housing.jpg",
         "width": 1200,
         "height": 630
       },
-      "mainEntity": { "@id": "https://avgrebenkin.com/research/housing/#dataset" }
+      "mainEntity": { "@id": "https://avgrebenkin.com/research/housing/ja/#dataset" }
     },
     {
       "@type": "Dataset",
-      "@id": "https://avgrebenkin.com/research/housing/#dataset",
-      "name": "Housing affordability by European municipality and US county, 2024–2026",
-      "description": "Per-municipality (LAU) sale price and rent per square metre, mean equivalised disposable income 2024, national mortgage rate and the square metres a third of the local mean income buys on a 30-year mortgage or rents, for 89,601 municipalities in 34 European countries, extracted from the public ESPON HOUSE4ALL feature service (TU Wien, InAtlas, MCRIT) on 14 September 2026; and per-county median home value, median household income, median gross rent and population from the US Census Bureau American Community Survey five-year estimates 2020-2024, with the Freddie Mac 30-year fixed rate for 2024, for 3,141 US counties. No floor area is published for US counties, so square metres are not computed there.",
+      "@id": "https://avgrebenkin.com/research/housing/ja/#dataset",
+      "name": "ヨーロッパの自治体別・米国の郡別の住まいの手頃さ、2024–2026",
+      "description": "ヨーロッパ34か国の89,601自治体（LAU）について、1平方メートルあたりの売出価格と家賃、2024年の平均等価可処分所得、国の住宅ローン金利、そして地域の平均収入の3分の1で30年ローンを組んで買える、または借りられる平方メートル数。2026年9月14日に公開のESPON HOUSE4ALLフィーチャーサービス（TU Wien、InAtlas、MCRIT）から抽出。加えて米国の3,141郡について、米国国勢調査局（U.S. Census Bureau）のAmerican Community Survey 5年推計2020-2024による住宅価値の中央値、世帯所得の中央値、総家賃の中央値、人口と、Freddie Macの2024年の30年固定金利。米国の郡には床面積が公表されていないため、平方メートル数は計算していません。",
       "creator": { "@id": "https://avgrebenkin.com/#person" },
       "datePublished": "2026-09-14",
       "temporalCoverage": "2024-03/2025-03",
@@ -187,11 +187,11 @@
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://avgrebenkin.com/research/housing/#breadcrumb",
+      "@id": "https://avgrebenkin.com/research/housing/ja/#breadcrumb",
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://avgrebenkin.com/" },
         { "@type": "ListItem", "position": 2, "name": "Research", "item": "https://avgrebenkin.com/research/" },
-        { "@type": "ListItem", "position": 3, "name": "How many square metres can you afford?", "item": "https://avgrebenkin.com/research/housing/" }
+        { "@type": "ListItem", "position": 3, "name": "何平方メートルなら手が届くか", "item": "https://avgrebenkin.com/research/housing/ja/" }
       ]
     }
   ]
@@ -904,29 +904,29 @@
 
 <main>
 <div class="wrap">
-  <div class="printhead"><h2>How many square metres can you afford?</h2><p id="printsetup"></p><p id="printurl">avgrebenkin.com/research/housing/</p><p id="printespon">European data: © ESPON · Origin of data: ESPON EGTC. The interpretation of ESPON material does not necessarily reflect the opinion of the ESPON Monitoring Committee. American data: U.S. Census Bureau, American Community Survey 2020–2024, and Freddie Mac.</p></div>
-  <p class="crumb"><a href="/research/">← Research</a></p>
+  <div class="printhead"><h2>何平方メートルなら手が届くか</h2><p id="printsetup"></p><p id="printurl">avgrebenkin.com/research/housing/ja/</p><p id="printespon">ヨーロッパのデータ：© ESPON · Origin of data: ESPON EGTC. The interpretation of ESPON material does not necessarily reflect the opinion of the ESPON Monitoring Committee. 米国のデータ：U.S. Census Bureau, American Community Survey 2020–2024、およびFreddie Mac。</p></div>
+  <p class="crumb"><a href="/research/">← Research に戻る</a></p>
 
   <header class="hero">
-    <img class="cover" src="../../images/research/housing-page.webp"
-         alt="Two dot maps: Europe by municipality, coloured by the square metres a third of the average income buys, from red for under 50 to green for over 150; and the United States by county, coloured on the same scale by the years of income the median home costs" width="1600" height="560" fetchpriority="high" decoding="async">
+    <img class="cover" src="../../../images/research/housing-page.webp"
+         alt="2枚の点の地図。ヨーロッパは自治体ごとに、平均収入の3分の1で買える平方メートル数で色分けされ、50未満の赤から150超の緑まで。米国は郡ごとに、同じ色の尺度で、中央値の住宅が収入の何年分にあたるかで色分けされています" width="1600" height="560" fetchpriority="high" decoding="async">
     <div class="htop">
-      <h1>How many square metres can you afford?</h1>
-      <button type="button" class="sharebtn primary" data-share title="Copy a link that reopens this exact setup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg>Share this setup</button>
+      <h1>何平方メートルなら手が届くか</h1>
+      <button type="button" class="sharebtn primary" data-share title="この設定をそのまま開くリンクをコピー"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg>この設定を共有</button>
     </div>
-    <p class="sub">A third of the average income buys fewer than 50 square metres for <b>44 % of Europeans</b>. The same sentence cannot be written about the United States at all: no American public source measures the floor area of housing county by county. So the American half of this page answers in years of income and in rent — and says exactly where the square metre stops, and why.</p>
+    <p class="sub">平均収入の3分の1で買えるのが50平方メートル未満、という人が<b>ヨーロッパの人々の44%</b>にのぼります。米国については、同じ文をそもそも書けません。住宅の床面積を郡ごとに測っている米国の公的な情報源が一つもないからです。そこでこのページの米国側は、収入の何年分かと家賃で答え、平方メートルがどこで途切れるのか、なぜ途切れるのかをはっきり示します。</p>
     <div class="meta">
-      <span>Europe: <a href="https://doi.org/10.1080/17445647.2026.2695777" target="_blank" rel="noopener">Sielker &amp; Banabak, TU Wien, <i>Journal of Maps</i> 2026</a> · <a href="https://www.espon.eu/projects/access-affordable-and-quality-housing-all-people-house4all" target="_blank" rel="noopener">ESPON HOUSE4ALL</a></span> <span>United States: <a href="https://www.census.gov/programs-surveys/acs" target="_blank" rel="noopener">U.S. Census Bureau, American Community Survey</a> 2020–2024 · <a href="https://www.freddiemac.com/pmms" target="_blank" rel="noopener">Freddie Mac PMMS</a></span> <span>European listings March 2024 – March 2025, incomes 2024 · American estimates 2020–2024, in 2024 dollars</span>
+      <span>ヨーロッパ：<a href="https://doi.org/10.1080/17445647.2026.2695777" target="_blank" rel="noopener">Sielker &amp; Banabak, TU Wien, <i>Journal of Maps</i> 2026</a> · <a href="https://www.espon.eu/projects/access-affordable-and-quality-housing-all-people-house4all" target="_blank" rel="noopener">ESPON HOUSE4ALL</a></span> <span>米国：<a href="https://www.census.gov/programs-surveys/acs" target="_blank" rel="noopener">U.S. Census Bureau, American Community Survey</a> 2020–2024 · <a href="https://www.freddiemac.com/pmms" target="_blank" rel="noopener">Freddie Mac PMMS</a></span> <span>ヨーロッパの物件広告は2024年3月〜2025年3月、所得は2024年 · 米国の推計は2020〜2024年、2024年のドル換算</span>
     </div>
   </header>
 
   <div class="modebar">
     <button type="button" class="tldr-open" id="tldrOpen" aria-haspopup="dialog">
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h16M4 11h16M4 16h9"/></svg>
-      The short version
-      <span class="tldr-open-sub">2 min · copy or print</span>
+      要約
+      <span class="tldr-open-sub">2分 · コピーまたは印刷</span>
     </button>
-    <details class="langpick"><summary aria-label="Page language"><span class="globe" aria-hidden="true">◍</span>English</summary><ul><li class="is-current"><a href="/research/housing/" hreflang="en" lang="en" aria-current="true">English</a></li><li><a href="/research/housing/ru/" hreflang="ru" lang="ru">Русский</a></li><li><a href="/research/housing/uk/" hreflang="uk" lang="uk">Українська</a></li><li><a href="/research/housing/de/" hreflang="de" lang="de">Deutsch</a></li><li><a href="/research/housing/fr/" hreflang="fr" lang="fr">Français</a></li><li><a href="/research/housing/es/" hreflang="es" lang="es">Español</a></li><li><a href="/research/housing/pt-BR/" hreflang="pt-BR" lang="pt-BR">Português (Brasil)</a></li><li><a href="/research/housing/it/" hreflang="it" lang="it">Italiano</a></li><li><a href="/research/housing/nl/" hreflang="nl" lang="nl">Nederlands</a></li><li><a href="/research/housing/pl/" hreflang="pl" lang="pl">Polski</a></li><li><a href="/research/housing/tr/" hreflang="tr" lang="tr">Türkçe</a></li><li><a href="/research/housing/ja/" hreflang="ja" lang="ja">日本語</a></li><li><a href="/research/housing/zh-Hans/" hreflang="zh-Hans" lang="zh-Hans">简体中文</a></li></ul></details>
+    <details class="langpick"><summary aria-label="ページの言語"><span class="globe" aria-hidden="true">◍</span>日本語</summary><ul><li><a href="/research/housing/" hreflang="en" lang="en">English</a></li><li><a href="/research/housing/ru/" hreflang="ru" lang="ru">Русский</a></li><li><a href="/research/housing/uk/" hreflang="uk" lang="uk">Українська</a></li><li><a href="/research/housing/de/" hreflang="de" lang="de">Deutsch</a></li><li><a href="/research/housing/fr/" hreflang="fr" lang="fr">Français</a></li><li><a href="/research/housing/es/" hreflang="es" lang="es">Español</a></li><li><a href="/research/housing/pt-BR/" hreflang="pt-BR" lang="pt-BR">Português (Brasil)</a></li><li><a href="/research/housing/it/" hreflang="it" lang="it">Italiano</a></li><li><a href="/research/housing/nl/" hreflang="nl" lang="nl">Nederlands</a></li><li><a href="/research/housing/pl/" hreflang="pl" lang="pl">Polski</a></li><li><a href="/research/housing/tr/" hreflang="tr" lang="tr">Türkçe</a></li><li class="is-current"><a href="/research/housing/ja/" hreflang="ja" lang="ja" aria-current="true">日本語</a></li><li><a href="/research/housing/zh-Hans/" hreflang="zh-Hans" lang="zh-Hans">简体中文</a></li></ul></details>
   </div>
 
   <!-- Короткая версия: собрана из фраз и чисел самой страницы, ничего нового
@@ -934,109 +934,109 @@
        отдельным листом, всегда со ссылкой на страницу на том же языке. -->
   <dialog class="tldr" id="tldr" aria-labelledby="tldrTitle">
     <div class="tldr-bar">
-      <p class="tldr-kicker">The short version</p>
-      <button type="button" class="tldr-btn" data-tldr-copy="text" title="Copy" aria-label="Copy">
+      <p class="tldr-kicker">短い版</p>
+      <button type="button" class="tldr-btn" data-tldr-copy="text" title="コピー" aria-label="コピー">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
-        <span>Copy</span>
+        <span>コピー</span>
       </button>
       <button type="button" class="tldr-btn" data-tldr-copy="md" title="Markdown" aria-label="Markdown">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 15V9l2.5 3L12 9v6M16 9v4.5M16 13.5l2 2 2-2"/></svg>
         <span>Markdown</span>
       </button>
-      <button type="button" class="tldr-btn" id="tldrPrint" title="Print" aria-label="Print">
+      <button type="button" class="tldr-btn" id="tldrPrint" title="印刷" aria-label="印刷">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg>
-        <span>Print</span>
+        <span>印刷</span>
       </button>
-      <button type="button" class="tldr-btn tldr-x" id="tldrClose" title="Close" aria-label="Close">
+      <button type="button" class="tldr-btn tldr-x" id="tldrClose" title="閉じる" aria-label="閉じる">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
       </button>
     </div>
     <div class="tldr-doc" id="tldrDoc">
-      <h2 id="tldrTitle">How many square metres can you afford?</h2>
-      <p class="tldr-sub">How much space a third of an income buys, in 8,489 European municipalities and 3,141 US counties.</p>
+      <h2 id="tldrTitle">何平方メートルなら手が届くか</h2>
+      <p class="tldr-sub">ヨーロッパの8,489自治体と米国の3,141郡で、収入の3分の1でどれだけの広さが手に入るか。</p>
       <ul>
-        <li>A 30-year mortgage on a third of the average income buys fewer than 50 square metres for <b>44 % of Europeans</b>, and at most 75 square metres for more than 70 %.</li>
-        <li><b>Which country is cheapest depends on how big a flat you want.</b> Moving the question from 25 m² to 150 m² lifts Norway ten places and Spain nine, while Germany and Sweden each fall seven.</li>
-        <li><b>Capital regions of nearly every country</b> sit in the least affordable class and pull their neighbours with them; the coasts and the tourist valleys of the Alps are far less affordable than the countryside behind them.</li>
-        <li>In the United States <b>the median home costs 4.1 years of the median household income</b>, and 9.7 % of Americans live in a county where it is eight years or more — Brooklyn 11.3, the Bronx 10.9.</li>
-        <li><b>The American half is missing the unit.</b> No American public source measures the floor area of housing county by county, so the American map shows years of income and rent share instead of square metres.</li>
-        <li><b>The two layers are not one ranking.</b> Europe measures asking prices against income after tax per adult-equivalent; America measures owners' estimates against income before tax per household. Type your own income, and both sides answer the same question.</li>
-        <li>Enter your income, term, rate and down payment, and all 11,630 places are recomputed in your browser; the job offer block works out what a move abroad has to pay.</li>
+        <li>平均収入の3分の1で30年ローンを組んでも、<b>ヨーロッパの人々の44%</b>は50平方メートル未満しか買えず、70%超の人々も最大75平方メートルにとどまります。</li>
+        <li><b>どの国が最も安いかは、どれだけ広い住まいを望むかで変わります。</b>問いを25m²から150m²に変えると、ノルウェーは10位、スペインは9位上がり、ドイツとスウェーデンはそれぞれ7位下がります。</li>
+        <li><b>ほぼすべての国の首都圏</b>が最も手の届きにくい階級にあり、周囲も巻き込んでいます。海岸とアルプスの観光地の谷は、その背後の田園地帯よりはるかに手が届きにくくなっています。</li>
+        <li>米国では<b>中央値の住宅が世帯所得の中央値の4.1年分</b>にあたり、米国人の9.7%はそれが8年分以上になる郡に住んでいます。ブルックリンは11.3年、ブロンクスは10.9年です。</li>
+        <li><b>米国側には単位が欠けています。</b>住宅の床面積を郡ごとに測っている米国の公的な情報源がないため、米国の地図は平方メートルの代わりに、収入の何年分かと家賃負担率を示します。</li>
+        <li><b>2つの層は一つのランキングではありません。</b>ヨーロッパは希望価格を税引き後・成人等価1人あたりの所得と比べ、米国は所有者の見積もりを税引き前・世帯あたりの所得と比べます。自分の収入を入力すれば、両側が同じ問いに答えます。</li>
+        <li>収入、期間、金利、頭金を入れると、11,630か所すべてがブラウザの中で再計算されます。仕事のオファーのブロックは、外国への移住にいくらの報酬が必要かを計算します。</li>
       </ul>
-      <p class="tldr-src">Europe: Sielker &amp; Banabak, TU Wien, Journal of Maps 2026; © ESPON · Origin of data: ESPON EGTC. The interpretation of ESPON material does not necessarily reflect the opinion of the ESPON Monitoring Committee. United States: U.S. Census Bureau, American Community Survey 2020–2024; Freddie Mac.</p>
-      <p class="tldr-link">The full interactive page: https://avgrebenkin.com/research/housing/</p>
+      <p class="tldr-src">ヨーロッパ：Sielker &amp; Banabak, TU Wien, Journal of Maps 2026。© ESPON · Origin of data: ESPON EGTC. The interpretation of ESPON material does not necessarily reflect the opinion of the ESPON Monitoring Committee. 米国：U.S. Census Bureau, American Community Survey 2020–2024、Freddie Mac。</p>
+      <p class="tldr-link">インタラクティブなページの全体： https://avgrebenkin.com/research/housing/ja/</p>
     </div>
   </dialog>
 
-  <div class="keyrow" aria-label="Key numbers">
-    <div class="key"><b>44 %</b><span>of Europeans live where a 30-year mortgage on a third of the average income buys <b>under 50 m²</b></span></div>
-    <div class="key"><b>4.1</b><span>years of the median household income is what the median American home costs — and <b>9.7 %</b> of Americans live in a county where it is eight years or more</span></div>
-    <div class="key"><b>11,630</b><span>places you can search: <b>8,489</b> European municipalities and <b>3,141</b> US counties, each with its own housing cost, income and mortgage rate</span></div>
-    <div class="key"><b>0</b><span>US counties with an openly licensed price per square metre: floor area is not collected by any federal survey at that level, so this page leaves it blank rather than guessing</span></div>
+  <div class="keyrow" aria-label="主な数字">
+    <div class="key"><b>44%</b><span>ヨーロッパの人々のうち、平均収入の3分の1で30年ローンを組んでも<b>50m²未満</b>しか買えない土地に住む人の割合</span></div>
+    <div class="key"><b>4.1</b><span>年分の世帯所得の中央値。米国の中央値の住宅はこれだけの値段です。それが8年分以上になる郡に住む米国人は<b>9.7%</b>にのぼります</span></div>
+    <div class="key"><b>11,630</b><span>検索できる場所の数。ヨーロッパの<b>8,489</b>自治体と米国の<b>3,141</b>郡で、それぞれに独自の住宅費、所得、住宅ローン金利があります</span></div>
+    <div class="key"><b>0</b><span>1平方メートルあたりの価格がオープンなライセンスで得られる米国の郡の数。その単位で床面積を集めている連邦の調査はないため、このページは推測で埋めずに空欄のままにしています</span></div>
   </div>
 
   <section class="prose intro">
-    <p>The question is old and the answer is usually a price index, which tells you nothing you can picture. This page answers in square metres instead: <b>how much space does a third of an income buy here?</b> A third of the money, thirty years of mortgage at the local rate, local prices — and the answer comes out in a unit anyone can stand inside.</p>
-    <p>The idea is not mine. In September 2026 Franziska Sielker and Selim Banabak of TU Wien published a pair of maps in the <i>Journal of Maps</i> that did exactly this for every municipality in Europe, from 22 million listings gathered for the ESPON HOUSE4ALL project. Their dataset is the European layer here, reproduced to within a part in a billion. What is new is everything around it: <b>the United States alongside it</b>, built from the Census Bureau's American Community Survey — 3,141 counties, the whole population — and a calculator that answers for <b>your</b> income rather than the local average.</p>
-    <p><b>The American half is missing the unit, and that turned out to be the finding.</b> To say how many square metres an income buys you need a price per square metre, and American public statistics do not have one. The Census Bureau asks what a home is worth and what the rent is, but never how big it is; the American Housing Survey measures size only nationally and for a selection of large metropolitan areas; new-construction figures stop at four census regions. County-level floor area exists only inside private listing databases, and none of the companies that hold it grants the right to republish it. So the American map carries the two measures that public data does support — years of income, and rent as a share of income — and the square-metre modes are switched off there rather than filled with a plausible guess.</p>
-    <p><b>The two layers are not one ranking, and the page will not pretend otherwise.</b> Europe's income is measured after tax and per adult-equivalent; America's is measured before tax and per household. Europe's prices are what sellers asked for a square metre; America's are what owners think their whole home is worth. Put them in one table by local income and you would be reading the difference between two statistical offices, not between two housing markets. So the map shows one continent at a time and the rankings stay inside it. Type your own income, though, and both sides are answering the identical question — that is the comparison worth having, and it is what the <b>job offer</b> block below is for.</p>
-    <p>Everything is computed in your browser from one embedded table: no request leaves the page, and it works from a downloaded file. The <b>Where the numbers come from</b> section says exactly what was taken from where, what was checked, and what could not be made comparable.</p>
+    <p>この問いは古く、答えはたいてい価格指数ですが、指数からは何も思い描けません。このページは代わりに平方メートルで答えます。<b>ここでは収入の3分の1で、どれだけの広さが手に入るのか。</b>お金の3分の1、地域の金利で30年のローン、地域の価格。答えは、誰もがその中に立てる単位で出てきます。</p>
+    <p>発想は私のものではありません。2026年9月、TU WienのFranziska SielkerとSelim Banabakが<i>Journal of Maps</i>に2枚一組の地図を発表し、ヨーロッパのすべての自治体についてまさにこれをやってのけました。元になったのは、ESPON HOUSE4ALLプロジェクトのために集めた2,200万件の物件広告です。彼らのデータセットがこのページのヨーロッパの層で、10億分の1の精度で再現しています。新しいのはその周りのすべてです。国勢調査局のAmerican Community Surveyから作った<b>米国を横に並べたこと</b>（3,141郡、全人口）と、地域の平均ではなく<b>あなた</b>の収入で答える計算機です。</p>
+    <p><b>米国側には単位が欠けていて、それこそが発見でした。</b>収入で何平方メートル買えるかを言うには1平方メートルあたりの価格が必要ですが、米国の公的統計にはそれがありません。国勢調査局は住宅の価値と家賃を尋ねても、広さは決して尋ねません。American Housing Surveyが広さを測るのは全国と一部の大都市圏だけで、新築の統計は4つのセンサス地域の単位で止まります。郡単位の床面積は民間の物件データベースの中にしかなく、それを持つ企業はどこも再公開の権利を認めていません。そこで米国の地図には、公的データで裏づけられる2つの指標、つまり収入の何年分かと、収入に占める家賃の割合を載せ、平方メートルのモードは、もっともらしい推測で埋めるかわりにオフにしてあります。</p>
+    <p><b>2つの層は一つのランキングではなく、このページもそう装うことはしません。</b>ヨーロッパの所得は税引き後・成人等価1人あたりで測られ、米国の所得は税引き前・世帯あたりで測られます。ヨーロッパの価格は売り手が1平方メートルに付けた希望価格で、米国の価格は所有者が自宅全体にいくらの価値があると考えているかです。地域の所得で両者を一つの表に並べれば、読み取るのは2つの住宅市場の差ではなく、2つの統計局の差になります。ですから地図は一度に一つの大陸だけを示し、ランキングもその中にとどまります。ただし自分の収入を入力すれば、両側がまったく同じ問いに答えます。それこそ持つ価値のある比較で、下の<b>仕事のオファー</b>のブロックはそのためにあります。</p>
+    <p>計算はすべて、埋め込まれた一つの表から、あなたのブラウザの中で行われます。ページの外へ出るリクエストは一つもなく、ダウンロードしたファイルからでも動きます。<b>数字の出どころ</b>の節には、何をどこから取ったか、何を検証したか、何を比較可能にできなかったかを正確に書いています。</p>
   </section>
 
   <!-- ─── calculator ─────────────────────────────────────────────── -->
   <section class="panel" id="p-calc" aria-labelledby="calc-h">
     <div class="phead">
-      <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button></div>
-      <h2 id="calc-h">Your numbers</h2>
-      <p>Everything here applies to both maps. With no income entered, every place is shown on its own average income — which in Europe reproduces the published maps exactly, and in the United States applies the same terms to the Census Bureau's medians.</p>
+      <div class="pactions"><button type="button" class="ibtn" data-share title="この設定へのリンクをコピー" aria-label="この設定へのリンクをコピー"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button></div>
+      <h2 id="calc-h">あなたの数字</h2>
+      <p>ここでの設定は両方の地図に効きます。収入を入れなければ、どの場所もその地域の平均収入で示されます。ヨーロッパでは公表された地図がそのまま再現され、米国では同じ条件が国勢調査局の中央値に当てはめられます。</p>
     </div>
-    <div class="presets" id="presets" role="group" aria-label="Example setups"></div>
+    <div class="presets" id="presets" role="group" aria-label="設定の例"></div>
     <div class="calc">
       <div class="field f-income">
-        <label for="inc">Net income of the household per month</label>
+        <label for="inc">世帯の手取り月収</label>
         <div class="inrow">
-          <input id="inc" type="number" inputmode="decimal" min="0" step="50" placeholder="leave empty for the local average">
-          <select id="cur" aria-label="Currency"></select>
+          <input id="inc" type="number" inputmode="decimal" min="0" step="50" placeholder="空欄なら地域の平均">
+          <select id="cur" aria-label="通貨"></select>
         </div>
-        <p class="fhint" id="inchint">After tax, all earners together. Converted to euro at the ECB reference rate of 11 September 2026.</p>
+        <p class="fhint" id="inchint">税引き後、稼ぎ手全員の合計。2026年9月11日のECB参照レートでユーロに換算します。</p>
       </div>
       <div class="field">
-        <label for="share">Share of income for housing <output for="share" id="share-o">a third</output></label>
+        <label for="share">収入のうち住まいに回す割合 <output for="share" id="share-o">3分の1</output></label>
         <input id="share" type="range" min="20" max="45" step="1" value="33">
-        <p class="fhint">The study uses one third. Above 40 % is usually called an overburden.</p>
+        <p class="fhint">研究では3分の1を使っています。40%を超えると、一般に過重負担とされます。</p>
       </div>
       <div class="field">
-        <label for="term">Mortgage term</label>
-        <div class="seg" role="group" aria-label="Mortgage term in years" id="term">
-          <button type="button" data-v="10">10 y</button><button type="button" data-v="15">15 y</button><button type="button" data-v="20">20 y</button><button type="button" data-v="25">25 y</button><button type="button" data-v="30" aria-pressed="true">30 y</button>
+        <label for="term">ローン期間</label>
+        <div class="seg" role="group" aria-label="住宅ローンの期間（年）" id="term">
+          <button type="button" data-v="10">10年</button><button type="button" data-v="15">15年</button><button type="button" data-v="20">20年</button><button type="button" data-v="25">25年</button><button type="button" data-v="30" aria-pressed="true">30年</button>
         </div>
-        <p class="fhint">The study's maps use 30 years; its Annex B repeats them for 20.</p>
+        <p class="fhint">研究の地図は30年で、付録Bでは20年で描き直しています。</p>
       </div>
       <div class="field">
-        <label for="rate">Interest rate, % per year</label>
+        <label for="rate">金利（年%）</label>
         <div class="inrow">
-          <input id="rate" type="number" inputmode="decimal" min="0" max="25" step="0.05" placeholder="each place&#x27;s own national rate">
-          <button type="button" class="minibtn" id="rate-x" hidden>national</button>
+          <input id="rate" type="number" inputmode="decimal" min="0" max="25" step="0.05" placeholder="各地の国ごとの金利">
+          <button type="button" class="minibtn" id="rate-x" hidden>国ごと</button>
         </div>
-        <p class="fhint" id="ratehint">Empty means each country's own rate: the study's national fixed rates in Europe — 3.01 % in France, 4.00 % in Germany, 8.32 % in Poland — and the Freddie Mac 30-year average for 2024 of 6.72 % in the United States.</p>
+        <p class="fhint" id="ratehint">空欄なら各国の金利を使います。ヨーロッパでは研究が用いた国ごとの固定金利（フランス3.01%、ドイツ4.00%、ポーランド8.32%など）、米国ではFreddie Macの30年固定の2024年平均6.72%です。</p>
       </div>
       <div class="field">
-        <label for="dep">Down payment <output for="dep" id="dep-o">0 %</output></label>
+        <label for="dep">頭金 <output for="dep" id="dep-o">0 %</output></label>
         <input id="dep" type="range" min="0" max="40" step="5" value="0">
-        <p class="fhint">Of the price. The study assumes none, so the loan covers the whole price; with a down payment it covers the rest. European prices already include transfer tax and notary fees; American values are owners' own estimates with no costs added — see the sources below.</p>
+        <p class="fhint">価格に対する割合。研究では頭金をゼロとしているので、ローンが価格の全額をまかないます。頭金を入れれば、ローンはその残りをまかないます。ヨーロッパの価格には不動産移転税と公証人費用がすでに含まれています。米国の値は所有者自身の見積もりで、費用は上乗せしていません。詳しくは下の出典を参照してください。</p>
       </div>
       <div class="field">
-        <label>Household</label>
+        <label>世帯</label>
         <div class="inrow hh">
-          <span class="stepper"><button type="button" data-hh="adults" data-d="-1" aria-label="Fewer adults">−</button><b id="adults-o">1</b><button type="button" data-hh="adults" data-d="1" aria-label="More adults">+</button><i>adults</i></span>
-          <span class="stepper"><button type="button" data-hh="kids" data-d="-1" aria-label="Fewer children">−</button><b id="kids-o">0</b><button type="button" data-hh="kids" data-d="1" aria-label="More children">+</button><i>children under 14</i></span>
+          <span class="stepper"><button type="button" data-hh="adults" data-d="-1" aria-label="大人を減らす">−</button><b id="adults-o">1</b><button type="button" data-hh="adults" data-d="1" aria-label="大人を増やす">+</button><i>大人</i></span>
+          <span class="stepper"><button type="button" data-hh="kids" data-d="-1" aria-label="子どもを減らす">−</button><b id="kids-o">0</b><button type="button" data-hh="kids" data-d="1" aria-label="子どもを増やす">+</button><i>14歳未満の子ども</i></span>
         </div>
-        <p class="fhint" id="hhhint">Equivalence factor 1.0 (OECD-modified scale). Used only for the line comparing your income with the local average.</p>
+        <p class="fhint" id="hhhint">等価係数1.0（OECD修正尺度）。あなたの収入を地域の平均と比べる行にだけ使います。</p>
       </div>
       <div class="field f-want">
-        <label for="want">Minimum size <output for="want" id="want-o">—</output></label>
+        <label for="want">最小の広さ <output for="want" id="want-o">—</output></label>
         <input id="want" type="range" min="0" max="150" step="5" value="0">
-        <p class="fhint">Zero switches the filter off. With a value, the map dims every place where that size is out of reach, and the rankings show only the places where it is not.</p>
+        <p class="fhint">ゼロならこの絞り込みはオフです。値を入れると、その広さに手が届かない場所は地図上で暗くなり、ランキングには手が届く場所だけが残ります。</p>
       </div>
     </div>
     <div class="setupline" id="setupline" aria-live="polite"></div>
@@ -1045,81 +1045,81 @@
   <!-- ─── map ────────────────────────────────────────────────────── -->
   <section class="panel" id="p-map" aria-labelledby="map-h">
     <div class="phead">
-      <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-png="map" title="Copy the map as a PNG" aria-label="Copy the map as a PNG"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.2" y="5" width="17.6" height="14" rx="2.4"/><circle cx="8.6" cy="10" r="1.5"/><path d="m4.4 16.6 4.4-4 3.4 3 3-2.6 4.4 4"/></svg></button><button type="button" class="ibtn" data-png-dl="map" title="Download the map as a PNG" aria-label="Download the map as a PNG"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v10.4"/><path d="m7.6 10.6 4.4 4.4 4.4-4.4"/><path d="M4.8 19.2h14.4"/></svg></button><button type="button" class="ibtn" data-print="map" title="Print the map" aria-label="Print the map"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
-      <h2 id="map-h">The map</h2>
-      <p>Two maps, one scale each: <b>Europe</b> by municipality and the <b>United States</b> by county. They are shown one at a time because the incomes underneath them are measured differently — the <a href="#sources">sources</a> section is blunt about it. Countries are filled with their overall figure; each dot is a place, coloured on the same scale. Hover or tap either for its numbers, zoom in for more places, and search to jump straight to one — the search covers both maps and switches between them.</p>
-      <p>The last two measures answer the questions people actually ask. <b>Years of income</b> is how many years of income the home costs outright, and <b>rent share</b> is what renting it takes out of a month. In Europe both follow the size you set under "Minimum size", because there a price per square metre exists. In the United States they are measured on the county's own median home and median rental instead, because floor area is not published — the legend says which basket it is using, and the three square-metre modes are switched off in that frame rather than drawn as an empty map.</p>
+      <div class="pactions"><button type="button" class="ibtn" data-share title="この設定へのリンクをコピー" aria-label="この設定へのリンクをコピー"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-png="map" title="地図をPNGでコピー" aria-label="地図をPNGでコピー"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.2" y="5" width="17.6" height="14" rx="2.4"/><circle cx="8.6" cy="10" r="1.5"/><path d="m4.4 16.6 4.4-4 3.4 3 3-2.6 4.4 4"/></svg></button><button type="button" class="ibtn" data-png-dl="map" title="地図をPNGでダウンロード" aria-label="地図をPNGでダウンロード"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v10.4"/><path d="m7.6 10.6 4.4 4.4 4.4-4.4"/><path d="M4.8 19.2h14.4"/></svg></button><button type="button" class="ibtn" data-print="map" title="地図を印刷" aria-label="地図を印刷"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
+      <h2 id="map-h">地図</h2>
+      <p>2枚の地図に、それぞれ一つの尺度。<b>ヨーロッパ</b>は自治体ごと、<b>米国</b>は郡ごとです。1枚ずつ表示するのは、下にある所得の測り方が違うからで、その点は<a href="#sources">出典</a>の節で率直に書いています。国はその国全体の数字で塗り、点の一つひとつが一つの場所で、同じ尺度で色がついています。どちらもカーソルを重ねるかタップすれば数字が出ます。拡大すれば場所が増え、検索すればそこへ直接飛べます。検索は両方の地図を対象にし、必要なら地図を切り替えます。</p>
+      <p>最後の2つの指標は、人が実際に知りたい問いに答えるものです。<b>収入の何年分か</b>は、その住まいを一括で買うと収入の何年分になるか。<b>家賃負担率</b>は、そこを借りると月の収入のどれだけが消えるかです。ヨーロッパでは、どちらも「最小の広さ」で設定した広さに従います。1平方メートルあたりの価格があるからです。米国では床面積が公表されていないため、代わりにその郡の中央値の住宅と中央値の賃貸で測ります。どの基準で測っているかは凡例に出ます。平方メートルを使う3つのモードは、空の地図を描くかわりに、米国の画面ではオフにしてあります。</p>
     </div>
     <div class="bar">
-      <div class="seg" role="group" aria-label="Which map" id="frame"></div>
-      <div class="seg" role="group" aria-label="What the map shows" id="mapmode">
-        <button type="button" data-v="buy" aria-pressed="true">m² to buy</button><button type="button" data-v="rent" aria-pressed="false">m² to rent</button><button type="button" data-v="diff" aria-pressed="false">Rent − buy</button><button type="button" data-v="years" aria-pressed="false">Years of income</button><button type="button" data-v="share" aria-pressed="false">Rent share</button>
+      <div class="seg" role="group" aria-label="どの地図か" id="frame"></div>
+      <div class="seg" role="group" aria-label="地図に示すもの" id="mapmode">
+        <button type="button" data-v="buy" aria-pressed="true">買えるm²</button><button type="button" data-v="rent" aria-pressed="false">借りられるm²</button><button type="button" data-v="diff" aria-pressed="false">賃貸−購入</button><button type="button" data-v="years" aria-pressed="false">収入の何年分か</button><button type="button" data-v="share" aria-pressed="false">家賃負担率</button>
       </div>
-      <p class="fhint" id="modehint" hidden>The three square-metre modes are off here: no US source publishes the floor area of housing by county, so years of income and rent share are measured on the county's own median home instead. <a href="#sources">Where the numbers come from</a>.</p>
-      <div class="seg" role="group" aria-label="Whose income" id="basis">
-        <button type="button" data-v="local" aria-pressed="true">Local average income</button><button type="button" data-v="mine" aria-pressed="false" disabled title="Enter your income above">My income</button>
+      <p class="fhint" id="modehint" hidden>平方メートルを使う3つのモードはここではオフです。住宅の床面積を郡ごとに公表している米国の情報源がないため、収入の何年分かと家賃負担率は、その郡の中央値の住宅で測っています。<a href="#sources">数字の出どころ</a>。</p>
+      <div class="seg" role="group" aria-label="誰の収入か" id="basis">
+        <button type="button" data-v="local" aria-pressed="true">地域の平均収入</button><button type="button" data-v="mine" aria-pressed="false" disabled title="上で収入を入力してください">自分の収入</button>
       </div>
     </div>
     <div class="gsearch">
-      <label class="sr-only" for="q">Search a town, region or country</label>
-      <input id="q" type="text" placeholder="Town, county, region or country — e.g. Porto, Munich, Travis County" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="qsug" aria-autocomplete="list">
-      <button type="button" class="gq-clear" id="qx" aria-label="Clear search" hidden>×</button>
-      <ul class="gsug" id="qsug" role="listbox" aria-label="Matching places" hidden></ul>
+      <label class="sr-only" for="q">町、地域、国を検索</label>
+      <input id="q" type="text" placeholder="町、郡、地域、国——例：Porto, München, Travis County" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="qsug" aria-autocomplete="list">
+      <button type="button" class="gq-clear" id="qx" aria-label="検索をクリア" hidden>×</button>
+      <ul class="gsug" id="qsug" role="listbox" aria-label="一致する場所" hidden></ul>
     </div>
     <div class="mapwrap">
       <div class="mapbox" id="mapbox">
-        <svg id="map" viewBox="0 0 1400 1449" role="img" aria-label="Map: countries filled and places marked as dots, coloured by affordable square metres">
+        <svg id="map" viewBox="0 0 1400 1449" role="img" aria-label="地図：国を塗り分け、場所を点で示し、手の届く平方メートル数で色分け">
           <g id="mapg">
             <g id="regions"></g>
             <g id="marks"></g>
           </g>
         </svg>
-        <div class="legend" id="legend" aria-label="Map legend"></div>
+        <div class="legend" id="legend" aria-label="凡例"></div>
         <div class="zoombar">
-          <button type="button" class="zbtn" id="zin" aria-label="Zoom in">+</button>
-          <button type="button" class="zbtn" id="zout" aria-label="Zoom out">−</button>
-          <button type="button" class="zbtn" id="zreset" aria-label="Reset the view" title="Reset the view">⌂</button>
+          <button type="button" class="zbtn" id="zin" aria-label="拡大">+</button>
+          <button type="button" class="zbtn" id="zout" aria-label="縮小">−</button>
+          <button type="button" class="zbtn" id="zreset" aria-label="表示をリセット" title="表示をリセット">⌂</button>
         </div>
-        <div class="ghint"><span class="ghint-mouse">drag to pan · ctrl + wheel to zoom</span><span class="ghint-touch">drag sideways · pinch to zoom</span></div>
+        <div class="ghint"><span class="ghint-mouse">ドラッグで移動 · Ctrl+ホイールで拡大縮小</span><span class="ghint-touch">横にドラッグ · ピンチで拡大縮小</span></div>
         <div class="tip" id="maptip" role="status"></div>
       </div>
       <div class="cardcol" id="card">
-        <p class="plabel">Selected place</p>
-        <p class="cempty">Search a town above or click a region on the map. The card shows what your settings mean there, and what it would take.</p>
+        <p class="plabel">選んだ場所</p>
+        <p class="cempty">上で町を検索するか、地図上の地域をクリックしてください。カードには、あなたの設定がそこで何を意味するか、そして何が必要になるかが表示されます。</p>
       </div>
     </div>
-    <p class="espon">European data: © ESPON · Origin of data: ESPON EGTC. The interpretation of ESPON material does not necessarily reflect the opinion of the ESPON Monitoring Committee. The maps on this page are drawn here from that data; they are not ESPON maps and do not use the ESPON map design. American data: U.S. Census Bureau, American Community Survey 2020–2024 (public domain), and Freddie Mac. Country outlines and county centroids: Natural Earth, public domain.</p>
+    <p class="espon">ヨーロッパのデータ：© ESPON · Origin of data: ESPON EGTC. The interpretation of ESPON material does not necessarily reflect the opinion of the ESPON Monitoring Committee. このページの地図は、そのデータをもとにここで描いたものです。ESPONの地図ではなく、ESPONの地図デザインも使っていません。米国のデータ：U.S. Census Bureau, American Community Survey 2020–2024（パブリックドメイン）、およびFreddie Mac。国の輪郭と郡の重心：Natural Earth、パブリックドメイン。</p>
   </section>
 
   <!-- ─── переезд за работой ─────────────────────────────────────── -->
   <section class="panel" id="p-move" aria-labelledby="move-h">
     <div class="phead">
-      <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-print="move" title="Print this answer" aria-label="Print this answer"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
-      <h2 id="move-h">Offered a job in another country?</h2>
-      <p>The number nobody gives you is how much the offer has to be to leave you no worse off in housing. Put in where you live now and where the job is, and this works it out both for renting and for buying, with each country's own mortgage rate and currency. It also works across the two maps, on <b>your</b> income rather than either statistical office's — but there, because American floor area is not published, it keeps your share of income equal rather than the space, and says so next to the answer.</p>
+      <div class="pactions"><button type="button" class="ibtn" data-share title="この設定へのリンクをコピー" aria-label="この設定へのリンクをコピー"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-print="move" title="この答えを印刷" aria-label="この答えを印刷"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
+      <h2 id="move-h">外国での仕事のオファーがありましたか？</h2>
+      <p>誰も教えてくれない数字があります。住まいの面で今より悪くならないためには、オファーがいくらでなければならないか、です。いま住んでいる場所と仕事のある場所を入れると、各国の住宅ローン金利と通貨を使って、賃貸と購入の両方についてこれを計算します。2枚の地図をまたいでも使えます。その場合はどちらの統計局の数字でもなく<b>あなた</b>の収入で計算しますが、米国の床面積が公表されていないので、広さではなく収入に占める割合を同じに保ち、そのことを答えの横に書きます。</p>
     </div>
     <div class="moverow">
       <div class="mfield">
-        <label for="mfrom">Where you live now</label>
+        <label for="mfrom">いま住んでいる場所</label>
         <div class="gsearch mgs">
-          <input id="mfrom" type="search" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="mfromsug" placeholder="Town, region or country">
-          <button type="button" class="gq-clear" id="mfromx" hidden aria-label="Clear">×</button>
-          <ul class="gsug" id="mfromsug" role="listbox" aria-label="Matches" hidden></ul>
+          <input id="mfrom" type="search" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="mfromsug" placeholder="町、地域、国">
+          <button type="button" class="gq-clear" id="mfromx" hidden aria-label="クリア">×</button>
+          <ul class="gsug" id="mfromsug" role="listbox" aria-label="候補" hidden></ul>
         </div>
       </div>
       <div class="mfield">
-        <label for="mto">Where the job is</label>
+        <label for="mto">仕事のある場所</label>
         <div class="gsearch mgs">
-          <input id="mto" type="search" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="mtosug" placeholder="Town, region or country">
-          <button type="button" class="gq-clear" id="mtox" hidden aria-label="Clear">×</button>
-          <ul class="gsug" id="mtosug" role="listbox" aria-label="Matches" hidden></ul>
+          <input id="mto" type="search" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="mtosug" placeholder="町、地域、国">
+          <button type="button" class="gq-clear" id="mtox" hidden aria-label="クリア">×</button>
+          <ul class="gsug" id="mtosug" role="listbox" aria-label="候補" hidden></ul>
         </div>
       </div>
       <div class="mfield mfield-inc">
-        <label for="minc">Offer, net per month <span class="opt">optional</span></label>
+        <label for="minc">オファー、手取り月額 <span class="opt">任意</span></label>
         <div class="mrow">
-          <input id="minc" type="number" min="0" step="50" inputmode="numeric" placeholder="leave empty to see what it must be">
-          <select id="mcur" aria-label="Currency of the offer"></select>
+          <input id="minc" type="number" min="0" step="50" inputmode="numeric" placeholder="空欄なら、必要な額を表示">
+          <select id="mcur" aria-label="オファーの通貨"></select>
         </div>
       </div>
     </div>
@@ -1129,9 +1129,9 @@
   <!-- ─── compare ────────────────────────────────────────────────── -->
   <section class="panel" id="p-cmp" aria-labelledby="cmp-h">
     <div class="phead">
-      <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-png="cmp" title="Copy the comparison as a PNG" aria-label="Copy the comparison as a PNG"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.2" y="5" width="17.6" height="14" rx="2.4"/><circle cx="8.6" cy="10" r="1.5"/><path d="m4.4 16.6 4.4-4 3.4 3 3-2.6 4.4 4"/></svg></button><button type="button" class="ibtn" data-png-dl="cmp" title="Download the comparison as a PNG" aria-label="Download the comparison as a PNG"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v10.4"/><path d="m7.6 10.6 4.4 4.4 4.4-4.4"/><path d="M4.8 19.2h14.4"/></svg></button><button type="button" class="ibtn" data-csv="cmp" title="Download the comparison as CSV" aria-label="Download the comparison as CSV"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 4h9l5 5v11H5z"/><path d="M14 4v5h5"/><path d="M8 13h8M8 16.5h8"/></svg></button><button type="button" class="ibtn" data-print="cmp" title="Print the comparison" aria-label="Print the comparison"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
-      <h2 id="cmp-h">Side by side</h2>
-      <p>Up to four places, towns, counties or countries, and they may come from either map. The first block follows your settings; the second holds the terms fixed so the places can be compared the way the study compares them. Mix the two layers and the table keeps only what both sides have, names the basket each is measured on, and marks no cell as best: the local averages are not the same quantity.</p>
+      <div class="pactions"><button type="button" class="ibtn" data-share title="この設定へのリンクをコピー" aria-label="この設定へのリンクをコピー"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-png="cmp" title="比較をPNGでコピー" aria-label="比較をPNGでコピー"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.2" y="5" width="17.6" height="14" rx="2.4"/><circle cx="8.6" cy="10" r="1.5"/><path d="m4.4 16.6 4.4-4 3.4 3 3-2.6 4.4 4"/></svg></button><button type="button" class="ibtn" data-png-dl="cmp" title="比較をPNGでダウンロード" aria-label="比較をPNGでダウンロード"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v10.4"/><path d="m7.6 10.6 4.4 4.4 4.4-4.4"/><path d="M4.8 19.2h14.4"/></svg></button><button type="button" class="ibtn" data-csv="cmp" title="比較をCSVでダウンロード" aria-label="比較をCSVでダウンロード"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 4h9l5 5v11H5z"/><path d="M14 4v5h5"/><path d="M8 13h8M8 16.5h8"/></svg></button><button type="button" class="ibtn" data-print="cmp" title="比較を印刷" aria-label="比較を印刷"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
+      <h2 id="cmp-h">並べて比べる</h2>
+      <p>町、郡、国を最大4か所まで、どちらの地図からでも選べます。最初のブロックはあなたの設定に従い、2つ目のブロックは条件を固定して、研究と同じやり方で場所を比べられるようにしています。2つの層を混ぜると、表は両方にある項目だけを残し、それぞれが何を基準に測られているかを示し、どのセルにも最良の印をつけません。地域の平均どうしは同じ量ではないからです。</p>
     </div>
     <div class="chips" id="chips"></div>
     <div class="tablescroll"><table class="cmptable" id="cmptable"></table></div>
@@ -1140,15 +1140,15 @@
   <!-- ─── rankings ───────────────────────────────────────────────── -->
   <section class="panel" id="p-rank" aria-labelledby="rank-h">
     <div class="phead">
-      <div class="pactions"><button type="button" class="ibtn" data-share title="Copy a link to this setup" aria-label="Copy a link to this setup"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-csv="rank" title="Download this table as CSV" aria-label="Download this table as CSV"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 4h9l5 5v11H5z"/><path d="M14 4v5h5"/><path d="M8 13h8M8 16.5h8"/></svg></button><button type="button" class="ibtn" data-print="rank" title="Print the table" aria-label="Print the table"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
-      <h2 id="rank-h">Rankings</h2>
-      <p>Countries as population-weighted means of their places, cities and counties as single places of 100,000 people or more. The table stays inside the map you are looking at, on purpose: the European and American incomes are different measurements, and one ranking of both would compare statistical offices rather than housing markets. Every number moves with your settings; the size filter above narrows the list.</p>
+      <div class="pactions"><button type="button" class="ibtn" data-share title="この設定へのリンクをコピー" aria-label="この設定へのリンクをコピー"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg></button><button type="button" class="ibtn" data-csv="rank" title="この表をCSVでダウンロード" aria-label="この表をCSVでダウンロード"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 4h9l5 5v11H5z"/><path d="M14 4v5h5"/><path d="M8 13h8M8 16.5h8"/></svg></button><button type="button" class="ibtn" data-print="rank" title="表を印刷" aria-label="表を印刷"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
+      <h2 id="rank-h">ランキング</h2>
+      <p>国はその中の場所の人口加重平均として、都市と郡は人口10万人以上の単独の場所として扱います。表は、いま見ている地図の中だけに意図してとどめています。ヨーロッパと米国の所得は別の測り方をしたもので、両方を一つにしたランキングは、住宅市場ではなく統計局どうしを比べることになるからです。数字はすべてあなたの設定に合わせて動き、上の広さの絞り込みで一覧が狭まります。</p>
     </div>
     <div class="bar">
-      <div class="seg" role="group" aria-label="What to rank" id="rankwhat">
-        <button type="button" data-v="countries" aria-pressed="true">Countries</button><button type="button" data-v="cities" aria-pressed="false">Cities</button>
+      <div class="seg" role="group" aria-label="何を順位づけるか" id="rankwhat">
+        <button type="button" data-v="countries" aria-pressed="true">国</button><button type="button" data-v="cities" aria-pressed="false">都市</button>
       </div>
-      <div class="regs" role="group" aria-label="Parts of the map" id="regs"></div>
+      <div class="regs" role="group" aria-label="地図のどの部分か" id="regs"></div>
     </div>
     <div class="tablescroll"><table class="ranktable" id="ranktable"><thead><tr id="rankhead"></tr></thead><tbody id="rankbody"></tbody></table></div>
     <p class="note" id="ranknote"></p>
@@ -1157,203 +1157,203 @@
   <!-- ─── figure 3 ───────────────────────────────────────────────── -->
   <section class="panel" id="p-hist" aria-labelledby="hist-h">
     <div class="phead">
-      <div class="pactions"><button type="button" class="ibtn" data-print="hist" title="Print the chart" aria-label="Print the chart"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
-      <h2 id="hist-h">Who lives where</h2>
-      <p><b>Europe only.</b> The study's figure 3, rebuilt from the same table: each bar is a class of affordability, its height the share of the population of the 31 countries living there, its colours the split into cities, towns and suburbs, and rural areas. Fixed to the study's own terms: a third of the local average income, 30 years, national rate. Your settings do not move this chart.</p>
+      <div class="pactions"><button type="button" class="ibtn" data-print="hist" title="グラフを印刷" aria-label="グラフを印刷"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg></button></div>
+      <h2 id="hist-h">誰がどこに住んでいるか</h2>
+      <p><b>ヨーロッパのみ。</b>研究の図3を同じ表から組み直したものです。棒の一本一本が手の届きやすさの階級で、高さは31か国の人口のうちそこに住む人の割合、色はその内訳（都市、町と郊外、農村部）を示します。条件は研究と同じに固定しています。地域の平均収入の3分の1、30年、国ごとの金利です。あなたの設定を変えても、このグラフは動きません。</p>
     </div>
     <div class="histwrap">
-      <figure class="hist"><figcaption>Buying, m² on a 30-year mortgage</figcaption><svg id="hist-sale" viewBox="0 0 520 300" role="img" aria-label="Population share by class of affordable square metres to buy, split by degree of urbanisation"></svg></figure>
-      <figure class="hist"><figcaption>Renting, m² on a third of income</figcaption><svg id="hist-rent" viewBox="0 0 520 300" role="img" aria-label="Population share by class of affordable square metres to rent, split by degree of urbanisation"></svg></figure>
+      <figure class="hist"><figcaption>購入：30年ローンでのm²</figcaption><svg id="hist-sale" viewBox="0 0 520 300" role="img" aria-label="購入で手の届く平方メートル数の階級別の人口比率、都市化の度合い別"></svg></figure>
+      <figure class="hist"><figcaption>賃貸：収入の3分の1でのm²</figcaption><svg id="hist-rent" viewBox="0 0 520 300" role="img" aria-label="賃貸で手の届く平方メートル数の階級別の人口比率、都市化の度合い別"></svg></figure>
     </div>
-    <div class="histlegend"><span><i class="d1"></i>cities</span><span><i class="d2"></i>towns and suburbs</span><span><i class="d3"></i>rural</span><span><i class="d0"></i>not classified (Switzerland, Norway, Iceland)</span></div>
-    <p class="note">Read from the table as served in September 2026: 41 % of people live where a third of the average income buys under 50 m², 31 % where it buys 50–75 m²; for renting 37 % and 32 %, with 11 % in municipalities where no rental offer was recorded. The paper reports 44 %, 28 %, 39 % and 22 % for the same four figures, and 12 % of the rural population for the last; the gap is the difference between the map service and the final dataset of the paper, and is discussed under <a href="#sources">Where the numbers come from</a>.</p>
+    <div class="histlegend"><span><i class="d1"></i>都市</span><span><i class="d2"></i>町と郊外</span><span><i class="d3"></i>農村部</span><span><i class="d0"></i>分類なし（スイス、ノルウェー、アイスランド）</span></div>
+    <p class="note">2026年9月時点で提供されている表から読み取った値です。平均収入の3分の1で買えるのが50m²未満の土地に住む人は41%、50〜75m²の土地では31%。賃貸ではそれぞれ37%と32%で、賃貸物件が一件も記録されなかった自治体に住む人が11%います。論文は同じ4つの数字を44%、28%、39%、22%とし、最後の数字は農村人口の12%としています。この差は地図サービスと論文の最終データセットとの違いによるもので、<a href="#sources">数字の出どころ</a>で論じています。</p>
   </section>
 
   <aside class="sy-strip" aria-label="Speak-Y">
     <span class="sy-brand">
-      <img class="sy-icon" src="../../images/icons/speak-y.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+      <img class="sy-icon" src="../../../images/icons/speak-y.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
       <span class="sy-name">Speak-<i>Y</i></span>
     </span>
-      <p><b>Voice input and meeting recording.</b> One hotkey, any app, 67+ languages.</p>
-      <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 days free <span aria-hidden="true">→</span></a>
+      <p><b>音声入力と会議の記録。</b>ホットキー一つ、どのアプリでも、67以上の言語に対応。</p>
+      <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30日間無料 <span aria-hidden="true">→</span></a>
     </aside>
 
   <!-- ─── article ────────────────────────────────────────────────── -->
   <section class="prose" id="found">
-    <h2>What the European data shows</h2>
-    <p class="lede">Everything in this section is the TU Wien study and the ESPON table behind it: 31 countries, asking prices, income after tax per adult-equivalent. The American section follows, and the two do not share a scale.</p>
-    <p>The two maps measure the same thing from two sides. For buying, the authors take a third of the average equivalised disposable income of a municipality, assume it goes to the monthly instalment of a 30-year mortgage at the country's fixed rate, and ask how many square metres the resulting loan buys at local prices, taxes and fees included. For renting they divide the same third of income by the local rent per square metre. <b>Both answers are in square metres</b>, so a reader can compare places without knowing a single price.</p>
-    <p><b>Close to 44 % of Europe's population</b> lives where the mortgage buys fewer than 50 square metres. About 28 % live where it buys 50 to 75. Put together, more than 70 % of Europeans live in a place where a 30-year mortgage on a third of the average income buys at most 75 square metres. Fewer than 5 % live in the most affordable class.</p>
-    <p>Renting looks much the same: <b>more than 39 %</b> live where a third of the average income rents fewer than 50 square metres, and about 22 % where it rents 50 to 75. The least affordable rental class is very much a city phenomenon: more than 65 % of the people in it live in cities, about 26 % in towns and suburbs, about 10 % in rural areas. Rural areas stand out for another reason: for 12 % of the rural population the scraping found no formal rental offer at all.</p>
-    <p><b>Which country is cheapest depends on how big a flat you want.</b> Small flats cost more per square metre everywhere, but how much more is a national trait, and it is enough to reorder the continent. Rank the 31 countries by the years of average income a flat costs outright, and moving the question from 25 m² to 150 m² lifts <b>Norway ten places and Spain nine</b>, while <b>Germany and Sweden each fall seven</b>. Germany is the seventh easiest country in which to buy 25 m² and the fourteenth in which to buy 150 m²; Spain is nineteenth and tenth. Nothing about incomes or overall price levels changed between those two sentences. Only the size did.</p>
+    <h2>ヨーロッパのデータが示すこと</h2>
+    <p class="lede">この節の内容はすべて、TU Wienの研究とその背後にあるESPONの表によるものです。31か国、希望価格、税引き後の成人等価1人あたりの所得。米国の節はこのあとに続き、両者は尺度を共有しません。</p>
+    <p>2枚の地図は同じものを両側から測っています。購入については、著者たちは自治体の平均等価可処分所得の3分の1を取り、それが国の固定金利による30年ローンの月々の返済に充てられると仮定して、そのローンで地域の価格（税と手数料込み）なら何平方メートル買えるかを問います。賃貸については、同じ収入の3分の1を地域の1平方メートルあたりの家賃で割ります。<b>どちらの答えも平方メートル</b>なので、読み手は価格を一つも知らなくても場所を比べられます。</p>
+    <p><b>ヨーロッパの人口の44%近く</b>が、ローンで買えるのが50平方メートル未満の土地に住んでいます。約28%は50〜75平方メートルの土地です。合わせると、ヨーロッパの人々の70%超が、平均収入の3分の1で30年ローンを組んでも最大75平方メートルしか買えない場所に住んでいることになります。最も手の届きやすい階級に住む人は5%に満たません。</p>
+    <p>賃貸もほぼ同じです。<b>39%超</b>が、平均収入の3分の1で借りられるのが50平方メートル未満の土地に住み、約22%が50〜75平方メートルの土地に住んでいます。賃貸で最も手の届きにくい階級は、はっきりと都市の現象です。そこに住む人の65%超が都市、約26%が町と郊外、約10%が農村部に住んでいます。農村部は別の理由でも目立ちます。農村人口の12%については、収集で正式な賃貸物件が一件も見つかりませんでした。</p>
+    <p><b>どの国が最も安いかは、どれだけ広い住まいを望むかで変わります。</b>小さな住まいはどこでも1平方メートルあたりが割高ですが、どれだけ割高かは国ごとの特徴で、それだけで大陸の順位が入れ替わります。31か国を、住まいを一括で買うのに平均収入の何年分かかるかで並べ、問いを25m²から150m²に変えると、<b>ノルウェーは10位、スペインは9位上がり</b>、<b>ドイツとスウェーデンはそれぞれ7位下がります</b>。ドイツは25m²を買うなら7番目に買いやすい国で、150m²なら14番目です。スペインは19番目と10番目です。この2つの文のあいだで、所得も全体の価格水準も何も変わっていません。変わったのは広さだけです。</p>
 
-    <p>How far to trust that depends on where the size premium could be measured, so here it is: in <b>23 of the 31 countries</b> the curve is computed from that country's own listings in all five size bands. The other 8 are small enough that the smallest band is thin, and there the European median stands in. Every country named above is in the first group. One caution the paper is explicit about: where a band had too few listings to aggregate, the authors filled it by interpolation, so a band that carries a number is not always a band that was observed.</p>
+    <p>これをどこまで信じてよいかは、広さによる割増をどこで測れたかによるので、それを示します。<b>31か国のうち23か国</b>では、5つの広さの区分すべてで、その国自身の物件広告から曲線を計算しています。残りの8か国は小さく、最小の区分が手薄なので、ヨーロッパの中央値で代用しています。上で名前を挙げた国はすべて前者です。論文が明言している注意点が一つあります。集計するには物件広告が少なすぎた区分は著者たちが補間で埋めているので、数字の入った区分が、必ずしも実際に観測された区分とは限りません。</p>
 
-    <p>The geography is what you would expect and sharper than you would expect. <b>Capital regions of nearly every country</b> sit in the least affordable class, and they pull their neighbours with them: unaffordability spills over into the regions around Paris, Berlin and Madrid despite the higher incomes earned there, and across borders around Switzerland and Luxembourg. The coasts of France, Spain, Portugal, Greece and Croatia and the tourist valleys of the Alps are far less affordable than the countryside behind them. Scandinavia and the Baltic states come out markedly more affordable, save a few urban hotspots. The map shows this as dots rather than shaded regions; the ranking and the cards carry the regional figures.</p>
-    <p>At the country level the authors name Portugal, the Netherlands and Switzerland as rather unaffordable, and likewise Poland and Hungary. There is a caveat on Poland that matters for reading the whole map: it has an extremely high share of owners without a mortgage, so the gap between prices and incomes is <b>not felt by the majority</b>, who already own. It is felt by newcomers: young households, and anyone who has to move.</p>
-    <p>Renting is more affordable than buying in Germany, France, Belgium, Austria and Switzerland, but not in Portugal, Greece, Bulgaria or Ireland. The authors warn against reading the two maps as a like-for-like choice: a mortgage instalment builds equity, a rent payment does not, and the security of tenure differs. Both maps describe the market <b>from a newcomer's point of view</b>, at today's prices; they say nothing about what current residents pay.</p>
+    <p>地理は予想どおりで、しかも予想以上にくっきりしています。<b>ほぼすべての国の首都圏</b>が最も手の届きにくい階級にあり、周囲も巻き込んでいます。パリ、ベルリン、マドリードの周辺地域では、そこで得られる所得が高いにもかかわらず手の届きにくさがあふれ出し、スイスとルクセンブルクの周りでは国境を越えて広がっています。フランス、スペイン、ポルトガル、ギリシャ、クロアチアの海岸とアルプスの観光地の谷は、その背後の田園地帯よりはるかに手が届きにくくなっています。スカンジナビアとバルト三国は、いくつかの都市のホットスポットを除けば、際立って手が届きやすいという結果です。この地図はこれを塗り分けた地域ではなく点で示し、地域ごとの数字はランキングとカードに載せています。</p>
+    <p>国単位では、著者たちはポルトガル、オランダ、スイスを、そして同じくポーランドとハンガリーを、かなり手が届きにくい国に挙げています。ポーランドには、地図全体の読み方にかかわる但し書きがあります。住宅ローンのない持ち家の割合が極めて高いため、価格と所得の開きは、すでに家を持っている<b>大多数には実感されません</b>。それを感じるのは新たに入ってくる人たち、つまり若い世帯と、引っ越さなければならない人です。</p>
+    <p>ドイツ、フランス、ベルギー、オーストリア、スイスでは購入より賃貸のほうが手が届きやすく、ポルトガル、ギリシャ、ブルガリア、アイルランドではそうではありません。著者たちは、2枚の地図を同じ条件どうしの選択肢として読まないよう注意しています。ローンの返済は資産を築きますが、家賃は築きません。居住の安定性も異なります。どちらの地図も、市場を今日の価格で<b>新たに入る人の視点から</b>描いたもので、いまの住人が払っている額については何も語りません。</p>
   </section>
 
   <section class="prose" id="found-us">
-    <h2>What the American data shows</h2>
-    <p>The American layer rests on a single survey — the Census Bureau's <b>American Community Survey</b>, five-year estimates for 2020–2024, which gives every county a median home value, a median household income, a median gross rent and a population. That is 3,141 counties and <b>100 % of the population of the fifty states and the District of Columbia</b>. It is a survey of households, not a record of transactions, and every number below inherits that.</p>
-    <p><b>Nationally the median home costs 4.1 years of the median household income</b>, and the median rent takes 21 % of the median monthly income. What the map adds is how unevenly that is spread. <b>29 %</b> of Americans live in a county where the home costs five years of income or more, <b>9.7 %</b> where it costs eight or more, and <b>1.8 %</b> where it costs ten or more.</p>
-    <p><b>Where it costs most.</b> By years of income the top of the list is Teton County, Wyoming at 13.2 — Jackson Hole, where the housing is priced for buyers who do not earn the local income — then Nantucket at 11.4. Right behind them sit two of the three most densely populated counties in the country: <b>Kings County (Brooklyn) at 11.3</b> and the <b>Bronx at 10.9</b>, and those two hold four million people between them, against twenty-three thousand in Teton. Manhattan is 10.5, San Francisco 9.9, Los Angeles 9.3. At the other end, a median home costs about one year of income in a handful of thinly populated counties in Kansas and Texas.</p>
-    <p><b>The rent share needs a warning printed next to it.</b> Only 1.2 % of Americans live in a county where the median rent takes 30 % or more of the median income — and that sounds like good news only until you notice what it measures. It is a ratio of two medians: the middle rent divided by the middle income of all households, owners included. Ask the question household by household instead, as the same survey does, and <b>51 % of American renters pay 30 % or more of their income in rent</b>. Both numbers are correct, they are answers to different questions, and this map can only draw the first one.</p>
-    <p><b>Where the square metre stops.</b> Everything above avoids the word "area", and not by choice. The ACS asks an owner what the home is worth and a tenant what the rent is; it does not ask how big the place is, and no other federal survey asks it county by county. That single gap is why the buy, rent and difference modes are greyed out in this frame. Whether an American home is expensive <i>per square metre</i> is a question American public statistics cannot answer — the number exists only in the private listing databases, and the companies that hold it do not license it for republication. This page does not ask them for it. It is built only on data that anyone may reuse, and where that data ends, the page ends too.</p>
-    <p><b>Five years in one number, and an owner's opinion in another.</b> Two properties of the source shape everything here. The five-year estimate is not a snapshot of 2024 but an average of interviews spread over 2020 to 2024, expressed in 2024 dollars — it is the only vintage that covers every county, because the one-year survey only publishes places above 65,000 people. And the value is what the owner says the home would sell for, not what anyone paid: a self-assessment, not a sale price. Neither is a defect to be corrected; both are facts to be stated before the map is read.</p>
-    <p><b>How firm each county is, is published too.</b> Unlike the European layer, the ACS ships a confidence interval with every estimate, and every county card shows it. For the median county the interval is ±5.9 % of the value; for one county in ten it is wider than ±16 %. In 187 counties — 0.29 % of the population — it exceeds a fifth of the estimate, and the card says so in words. Those counties stay on the map, because the survey did happen there and a hole would be worse than a wide interval that announces itself.</p>
+    <h2>米国のデータが示すこと</h2>
+    <p>米国の層は一つの調査だけに基づいています。国勢調査局の<b>American Community Survey</b>の2020–2024年5年推計で、すべての郡について住宅価値の中央値、世帯所得の中央値、総家賃の中央値、人口がわかります。対象は3,141郡、<b>50州とコロンビア特別区の人口の100%</b>です。これは取引の記録ではなく世帯への調査で、以下の数字はすべてその性質を受け継いでいます。</p>
+    <p><b>全国では、中央値の住宅は世帯所得の中央値の4.1年分</b>にあたり、中央値の家賃は月収の中央値の21%を占めます。地図が加えるのは、それがどれほど不均等に分布しているかです。米国人の<b>29%</b>は住宅が収入の5年分以上になる郡に、<b>9.7%</b>は8年分以上の郡に、<b>1.8%</b>は10年分以上の郡に住んでいます。</p>
+    <p><b>最も高くつく場所。</b>収入の何年分かで見ると、一覧の首位はワイオミング州のTeton Countyの13.2年です。ジャクソンホールがあり、住宅は地元の所得を稼がない買い手向けに値付けされています。続いてナンタケットの11.4年。そのすぐ後ろに、全米で最も人口密度の高い3郡のうち2つが並びます。<b>Kings County (Brooklyn)の11.3年</b>と<b>ブロンクスの10.9年</b>で、この2つを合わせると400万人が住んでいます。Teton Countyは2万3,000人です。マンハッタンは10.5年、サンフランシスコは9.9年、ロサンゼルスは9.3年。反対の端では、カンザス州とテキサス州の人口の少ないいくつかの郡で、中央値の住宅が収入の約1年分です。</p>
+    <p><b>家賃負担率には、横に警告を添える必要があります。</b>中央値の家賃が中央値の所得の30%以上を占める郡に住む米国人は、わずか1.2%です。良い知らせに聞こえますが、それはこの数字が何を測っているかに気づくまでです。これは2つの中央値の比で、真ん中の家賃を、持ち家世帯も含めた全世帯の真ん中の所得で割ったものです。同じ調査がしているように、世帯ごとに問えば、<b>米国の借家人の51%が収入の30%以上を家賃に払っています</b>。どちらの数字も正しく、別々の問いへの答えで、この地図が描けるのは前者だけです。</p>
+    <p><b>平方メートルが途切れる場所。</b>ここまでの文章は「面積」という言葉を避けてきましたが、好きでそうしたのではありません。ACSは所有者に住宅の価値を、借家人に家賃を尋ねますが、住まいの広さは尋ねません。郡ごとにそれを尋ねる連邦の調査はほかにもありません。購入、賃貸、差のモードがこの画面で灰色になっているのは、この一つの欠落のためです。米国の住宅が<i>1平方メートルあたり</i>高いかどうかは、米国の公的統計には答えられない問いです。その数字は民間の物件データベースの中にしかなく、それを持つ企業は再公開のためのライセンスを出していません。このページはそれを求めません。誰でも再利用できるデータだけで作られていて、そのデータが尽きるところで、ページも終わります。</p>
+    <p><b>一つの数字に5年分、もう一つの数字には所有者の意見。</b>情報源の2つの性質が、ここでのすべてを形づくっています。5年推計は2024年のスナップショットではなく、2020年から2024年にかけて行われた聞き取りの平均で、2024年のドルで表されています。すべての郡をカバーする版はこれしかありません。1年調査は人口6万5,000人を超える場所しか公表しないからです。そして住宅価値は、誰かが実際に払った額ではなく、所有者がいくらで売れると言っているかです。売却価格ではなく自己評価です。どちらも正すべき欠陥ではなく、地図を読む前に述べておくべき事実です。</p>
+    <p><b>郡ごとの確かさも公表されています。</b>ヨーロッパの層と違い、ACSはすべての推計に信頼区間を付けていて、郡のカードにはどれもそれを表示しています。中央値にあたる郡では区間は値の±5.9%、10郡に1郡では±16%より広くなります。187郡（人口の0.29%）では推計の5分の1を超え、カードがそのことを言葉で伝えます。これらの郡も地図に残しています。調査はそこで実際に行われたのであり、穴を開けるのは、自ら広いと告げる区間より悪いからです。</p>
   </section>
 
   <details class="panel method" id="method">
-    <summary>How the numbers were made</summary>
+    <summary>数字の作り方</summary>
     <div class="methodbody">
       <dl>
-        <dt>Listings</dt>
-        <dd>Weekly web scraping from the beginning of March 2024 to the end of March 2025 in 31 countries: the EU-27 plus Switzerland, Norway, Iceland and Liechtenstein. Where possible the crawlers targeted aggregator sites such as Nestoria, which mirror listings from several national portals; national sites were added where coverage was thin. More than 100 million records came in; after translation, de-duplication and outlier filtering, <b>18,360,314 unique sale listings and 3,568,849 unique long-term rental listings</b> remained. A listing that reappeared week after week counts once, in its last version before it went offline.</dd>
-        <dt>Municipality and size</dt>
-        <dd>Each listing is matched to a municipality, the Eurostat LAU (local administrative unit) except in Portugal and Greece, where a coarser unit is used, and to one of five size classes: 0–30, 31–60, 61–90, 91–120 and above 120 square metres. Prices are averaged by municipality and class with a weight that penalises listings that stayed online much longer than the median, on the reasoning that an overpriced flat sits. Thin classes borrow from their neighbours; a cubic spline then smooths the five points into one price-to-size curve per municipality and tenure.</dd>
-        <dt>Income</dt>
-        <dd>The mean equivalised disposable income per country from Eurostat's EU-SILC survey (table ilc_di03), spread across municipalities with the subnational income distribution of Mikou, Vallet and Guivarch (2024). Equivalised means the household income is divided by a weight for household size, so the figure is per adult-equivalent. The authors chose income over GDP per head deliberately: GDP piles up in capitals and financial centres and would make exactly the places that matter look richer than their residents are.</dd>
-        <dt>Mortgage</dt>
-        <dd>A third of the income goes to the instalment of a 30-year annuity mortgage at the national fixed rate supplied by the European Commission's DG ECFIN, the latest yearly average available, typically 2023. The price is harmonised to include real-estate transfer tax or VAT, land registry and notary fees. No down payment is assumed, on purpose: it keeps the indicator comparable across regulatory settings. Annex B of the paper repeats the map for a 20-year term.</dd>
-        <dt>Rent</dt>
-        <dd>The same third of income divided by the rent per square metre from the spline. Both indicators are in square metres at the same burden, but the authors caution against comparing them directly: the mortgage instalment builds equity, the rent does not.</dd>
-        <dt>United States: what the source is</dt>
-        <dd>The American Community Survey, five-year estimates 2020–2024, published by the U.S. Census Bureau as a federal work in the public domain. Four tables per county: <b>B25077</b> median value of owner-occupied units, <b>B19013</b> median household income, <b>B25064</b> median gross rent, <b>B01003</b> population. Dollar amounts in a multi-year file are inflation-adjusted to the final year, so everything here is in 2024 dollars. The five-year file is used because it is the only one that covers every county: the one-year survey publishes only places above 65,000 people.</dd>
-        <dt>United States: what the numbers mean</dt>
-        <dd>Median <b>value</b> is what the owner estimates the home would sell for — a self-assessment, not a transaction. Median <b>gross rent</b> is contract rent plus the utilities the tenant pays, so it is higher than a bare rent and is not the same thing as the European rent per square metre. Median <b>household</b> income is money income before tax for everyone living together, which is neither the European equivalised disposable income nor a per-person figure. Each of the three is stated under its own name everywhere on the page.</dd>
-        <dt>United States: state and country figures</dt>
-        <dd>Asked of the same tables, not assembled from counties. A population-weighted mean of county medians is not a median, and where the real one can simply be requested there is no reason to build a substitute. So the row for California is California's own ACS median, and the row for the United States is the national one.</dd>
-        <dt>United States: no square metres</dt>
-        <dd>The ACS does not collect floor area, and no other federal source publishes it by county: the American Housing Survey measures size only nationally and for a selection of large metropolitan areas, and the Survey of Construction only for new houses by census region. Price per square metre by county exists only in private listing databases. Redfin's Data Center carries no data licence or citation permission, and its site-wide Terms of Use forbid reproducing or redistributing the service; the same series at realtor.com are marked "Copyrighted: Citation Required" where FRED republishes them, and FRED's own terms forbid redistributing third-party proprietary content for commercial use without written permission. This page is free to read but carries a banner for its author's product, so it counts as commercial. Hence: no square metres in the American frame, and a note instead.</dd>
-        <dt>United States: geography</dt>
-        <dd>County centroids from Natural Earth's admin-2 layer, public domain, the same source as the country outlines. Nine of them are not there: Connecticut replaced its eight counties with nine planning regions, which the Census Bureau now uses and Natural Earth does not yet carry. Their centroids are computed here from the federal TIGER 2024 boundaries as an area-weighted polygon centroid, with interior rings subtracted — a calculation on the real border, not a borrowed point. Puerto Rico's 78 municipios are in the survey but not on this map: they come from a separate survey, the PRCS, and the Census Bureau's United States totals exclude them. The reason is written into the gap file rather than left implied.</dd>
-        <dt>United States: mortgage rate</dt>
-        <dd>Freddie Mac's Primary Mortgage Market Survey, the 30-year fixed rate, averaged over the 52 weeks of 2024: <b>6.72 %</b>. Not the latest week and not a five-year average — the ACS states its dollars in 2024 money, and the rate has to belong to the same year as the dollars.</dd>
-        <dt>Checks</dt>
-        <dd>For five countries where average transaction prices exist at some regional level, Annex A compares listed and transacted prices and finds a very high correlation, with spreads that vary. The authors expect the spread to be smaller in hot markets, which would make urban ownership look even less affordable than the map already does.</dd>
+        <dt>物件広告</dt>
+        <dd>2024年3月初めから2025年3月末まで、31か国で毎週ウェブから収集しました。EU27か国に、スイス、ノルウェー、アイスランド、リヒテンシュタインを加えた国々です。可能な場合、クローラーはNestoriaのような集約サイトを対象にしました。こうしたサイトは各国の複数のポータルの物件広告を映しています。カバーが手薄なところでは各国のサイトを加えました。集まった記録は1億件超で、翻訳、重複の除去、外れ値の除外を経て、<b>重複のない売却物件広告18,360,314件と長期賃貸物件広告3,568,849件</b>が残りました。毎週繰り返し現れた広告は、掲載が終わる前の最後の版で1件と数えます。</dd>
+        <dt>自治体と広さ</dt>
+        <dd>物件広告はそれぞれ、自治体と、5つの広さの階級（0〜30、31〜60、61〜90、91〜120、120平方メートル超）の一つに対応づけられます。自治体はEurostatのLAU（地方行政単位）ですが、ポルトガルとギリシャではもっと粗い単位を使います。価格は自治体と階級ごとに平均され、その際、中央値よりずっと長く掲載されていた広告の重みを下げます。割高な物件は売れ残る、という考えからです。手薄な階級は隣の階級から値を借ります。そのうえで3次スプラインが5つの点をなめらかにつなぎ、自治体と保有形態ごとに1本の価格と広さの曲線にします。</dd>
+        <dt>所得</dt>
+        <dd>EurostatのEU-SILC調査（表ilc_di03）による国ごとの平均等価可処分所得を、Mikou、Vallet、Guivarch（2024）の地域別所得分布を使って自治体に割り振っています。等価とは、世帯の所得を世帯規模に応じた重みで割ることで、数字は成人等価1人あたりになります。著者たちは1人あたりGDPではなく所得を意図して選びました。GDPは首都や金融の中心地に積み上がるので、まさに重要な場所を、住民の実態より豊かに見せてしまうからです。</dd>
+        <dt>住宅ローン</dt>
+        <dd>所得の3分の1を、欧州委員会のDG ECFINが示す国の固定金利による30年の元利均等返済ローンの返済に充てます。金利は入手できる最新の年平均で、多くは2023年です。価格は、不動産移転税または付加価値税、登記費用、公証人費用を含むように揃えています。頭金は意図してゼロとしています。規制の異なる国々のあいだで指標を比べられるようにするためです。論文の付録Bでは、20年の期間で地図を描き直しています。</dd>
+        <dt>家賃</dt>
+        <dd>同じ所得の3分の1を、スプラインによる1平方メートルあたりの家賃で割ります。どちらの指標も同じ負担での平方メートル数ですが、著者たちは両者を直接比べないよう注意しています。ローンの返済は資産を築き、家賃は築かないからです。</dd>
+        <dt>米国：情報源は何か</dt>
+        <dd>American Community Surveyの2020–2024年5年推計で、米国国勢調査局が、パブリックドメインの連邦の著作物として公表しています。郡ごとに4つの表を使います。<b>B25077</b>持ち家住宅の価値の中央値、<b>B19013</b>世帯所得の中央値、<b>B25064</b>総家賃の中央値、<b>B01003</b>人口です。複数年ファイルの金額は最終年に合わせてインフレ調整されているので、ここではすべて2024年のドルです。5年ファイルを使うのは、すべての郡をカバーする唯一のものだからです。1年調査は人口6万5,000人を超える場所しか公表しません。</dd>
+        <dt>米国：数字の意味</dt>
+        <dd><b>住宅価値</b>の中央値は、所有者がその住宅はいくらで売れると見積もるかで、取引ではなく自己評価です。<b>総家賃</b>の中央値は、契約家賃に借家人が払う光熱費などを加えたもので、素の家賃より高く、ヨーロッパの1平方メートルあたりの家賃とは別物です。<b>世帯</b>所得の中央値は、一緒に暮らす全員の税引き前の金銭所得で、ヨーロッパの等価可処分所得でも1人あたりの数字でもありません。3つともページのどこでも、それぞれ固有の名前で示しています。</dd>
+        <dt>米国：州と国の数字</dt>
+        <dd>郡から組み立てたものではなく、同じ表に直接問い合わせたものです。郡の中央値の人口加重平均は中央値ではありません。本物をそのまま取得できるなら、代用品を作る理由はありません。ですからカリフォルニア州の行はカリフォルニア州自身のACS中央値で、米国の行は全国の中央値です。</dd>
+        <dt>米国：平方メートルはなし</dt>
+        <dd>ACSは床面積を集めておらず、郡ごとにそれを公表している連邦の情報源もほかにありません。American Housing Surveyが広さを測るのは全国と一部の大都市圏だけで、Survey of Constructionは新築住宅についてセンサス地域ごとにしか測りません。郡ごとの1平方メートルあたりの価格は民間の物件データベースの中にしかありません。RedfinのData Centerにはデータのライセンスも引用の許可もなく、サイト全体の利用規約はサービスの複製や再配布を禁じています。realtor.comの同じ系列は、FREDが再公開している箇所で「Copyrighted: Citation Required」と表示されていて、FRED自身の規約は、第三者の独占的なコンテンツを書面の許可なく商用目的で再配布することを禁じています。このページは無料で読めますが、筆者の製品のバナーを載せているので商用にあたります。したがって、米国の画面に平方メートルはなく、代わりに注記を置いています。</dd>
+        <dt>米国：地理</dt>
+        <dd>郡の重心は、国の輪郭と同じ情報源であるNatural Earthのadmin-2レイヤー（パブリックドメイン）から取っています。そこにない重心が9つあります。コネチカット州は8つの郡を9つの計画地域に置き換え、国勢調査局はいまそれを使っていますが、Natural Earthはまだ収録していないのです。その重心は、連邦のTIGER 2024の境界から、内側の輪を差し引いた面積加重のポリゴン重心としてここで計算しました。借りてきた点ではなく、実際の境界での計算です。プエルトリコの78のmunicipioは調査には含まれますが、この地図にはありません。別の調査であるPRCSによるもので、国勢調査局の米国の合計にも含まれないからです。その理由は、暗黙のままにせず、欠落ファイルに書き込んであります。</dd>
+        <dt>米国：住宅ローン金利</dt>
+        <dd>Freddie MacのPrimary Mortgage Market Surveyによる30年固定金利の、2024年の52週の平均で<b>6.72%</b>です。最新の週でも5年平均でもありません。ACSは金額を2024年のドルで示しているので、金利もその金額と同じ年のものでなければなりません。</dd>
+        <dt>検証</dt>
+        <dd>地域単位で平均取引価格がある5か国について、付録Aは掲載価格と取引価格を比べ、非常に高い相関を見出していますが、差の幅はまちまちです。著者たちは、過熱した市場ほど差は小さいと見ています。そうだとすれば、都市での持ち家は、地図がすでに示している以上に手が届きにくいことになります。</dd>
       </dl>
     </div>
   </details>
 
   <section class="prose" id="limits">
-    <h2>Limitations, theirs and mine</h2>
-    <p><b>In Europe, listed prices are not transaction prices.</b> The study works from asking prices, and the gap to the price actually paid is not known at municipal level. Where it is known it correlates well with the listing, but it follows patterns of its own. The American layer is neither: it is what owners think their homes are worth, which is not a listing and not a sale.</p>
-    <p><b>A place is one number, and an American county is a large place.</b> Inside a city the difference between districts can be as large as the difference between regions, and the map cannot show it. A county is coarser still: Los Angeles County holds ten million people and one median home value. The map also cannot shade regions at all — the only European region outlines published at this detail come with a licence that forbids commercial use, so this page fills whole countries and marks places as dots instead. Regional and state figures are still in the search, the cards and the ranking.</p>
-    <p><b>European local income is an estimate.</b> The survey income is disaggregated, not measured, in each municipality. In several Eastern European countries the disaggregation varies little outside the big cities, so some intermediate regions may look poorer than they are. The authors ask that absolute values be treated with caution; the patterns are more robust than the digits.</p>
-    <p><b>No down payment, no loan limits.</b> The study abstracts from both. The down-payment slider on this page is my addition: it reduces the loan and lets you see what a saved deposit is worth. Loan-to-value rules, income multiples and other formal entry barriers are still not modelled.</p>
-    <p><b>Your income is not adjusted to match either definition.</b> When you type a household income, the page takes a third of the whole thing, because that is what a household actually spends, and uses the household composition only for the line comparing your income with the local average. That comparison line is against an income per adult-equivalent in Europe and against a median household income before tax in the United States, and it is labelled accordingly — but the square metres, and in the United States the years of income, come from your money and the local price, and that is the same arithmetic everywhere.</p>
-    <p><b>Timing.</b> European listings are from 2024–2025, incomes 2024, rates mostly 2023 averages, population the 2021 census round. The American figures are five-year survey estimates covering 2020 to 2024, stated in 2024 dollars. So the American side is not a snapshot at all but an average across five years, which in a period of fast-moving prices lags a current market. That is one more reason the two layers sit on separate maps.</p>
-    <p><b>The two incomes are not the same quantity.</b> Europe's is a mean equivalised disposable income: after tax, divided by a household-size weight, so it is per adult-equivalent. America's is a median household income before tax, for everyone living together, with no equivalence scale at all. Both are what their statistical office publishes; neither can be converted into the other without modelling tax and household composition, which would be a guess dressed as a number. This page does not make that conversion. It keeps the layers apart and offers the honest alternative: put in your own income and both sides answer the same question.</p>
-    <p><b>Asking prices against owners' estimates.</b> The European layer is built from listings — what sellers asked. The American layer is built from the survey — what owners say their home is worth. Neither is what buyers paid, and the two differ from a sale price in different ways, so the two layers' prices are not compared anywhere on this page.</p>
-    <p><b>And the two prices include different things.</b> The European figure is harmonised to carry real-estate transfer tax or VAT, land registry and notary fees — in Vienna that is 6.4 % on top of the listed price. The American figure is the owner's estimate of the home alone: closing costs, transfer taxes where states levy them, and agent commission are all outside it. So the European price is loaded and the American one is bare, and no attempt is made here to load the American one, because the rates differ by state and by deal and estimating them would be a guess.</p>
-    <p><b>The American home value is an opinion, not a price.</b> The survey asks owners what they think their home would sell for. That is not a transaction price and not an asking price, and nothing on this page pretends otherwise. It is the only county-level measure of housing value the United States publishes, and it is used here under its own name.</p>
-    <p><b>American rent is gross and per home, not net and per square metre.</b> Median gross rent includes the utilities a tenant pays, and it applies to whatever the median rental unit happens to be. It cannot be divided into square metres, and comparing it with the European rent per square metre would be comparing two different things — so the American rent share is computed on the county's own median rental and labelled that way.</p>
-    <p><b>The American rent share is a ratio of medians, not a count of burdened households.</b> The map says the median rent takes 30 % or more of the median income in counties holding 1.2 % of Americans. Asked household by household, the same survey says 51 % of renters pay 30 % or more. The second is the number that describes people; the first is the only one that can be drawn on a county map, and the difference between them is the distribution the map has to flatten.</p>
-    <p><b>There are no American square metres at all.</b> Floor area is not collected by the ACS or by any other federal source at county level, so the three square-metre modes are disabled in that frame. The page would rather switch a control off than draw a map of guesses.</p>
-    <p><b>Nothing outside Europe and the United States.</b> Other countries are not on this page. Adding one would take an openly licensed price <i>per unit of area</i>, and an empty map with an honest label beats a filled one with an invented number.</p>
+    <h2>限界——研究の限界と、私の限界</h2>
+    <p><b>ヨーロッパでは、掲載価格は取引価格ではありません。</b>研究は希望価格を使っており、実際に支払われた価格との差は自治体の単位ではわかりません。わかっているところでは掲載価格とよく相関しますが、独自のパターンもあります。米国の層はどちらでもありません。所有者が自宅にいくらの価値があると考えているかで、掲載価格でも売却価格でもありません。</p>
+    <p><b>一つの場所は一つの数字で、米国の郡は大きな場所です。</b>都市の中では地区ごとの差が地域ごとの差ほど大きいこともあり、地図はそれを示せません。郡はさらに粗く、Los Angeles Countyには1,000万人が住んでいて、住宅価値の中央値は一つです。また地図は地域をまったく塗り分けられません。この細かさで公表されているヨーロッパの地域の輪郭は、商用利用を禁じるライセンス付きのものしかないため、このページは国全体を塗り、場所は点で示しています。地域と州の数字は、検索、カード、ランキングには今も入っています。</p>
+    <p><b>ヨーロッパの地域の所得は推計です。</b>調査による所得は、各自治体で測られたのではなく、按分されたものです。東欧のいくつかの国では大都市の外で按分にほとんど差がないため、中間的な地域の一部は実際より貧しく見えるかもしれません。著者たちは絶対値を慎重に扱うよう求めています。数字そのものより、パターンのほうが確かです。</p>
+    <p><b>頭金なし、借入の上限なし。</b>研究はどちらも考慮に入れていません。このページの頭金のスライダーは私が加えたもので、借入額を減らし、貯めた頭金にどれだけの価値があるかを見られるようにしています。物件価格に対する融資比率の規制、年収倍率の上限、その他の正式な参入障壁は、依然としてモデル化していません。</p>
+    <p><b>あなたの収入は、どちらの定義にも合わせて調整していません。</b>世帯の収入を入力すると、ページはその全体の3分の1を取ります。世帯が実際に使うのはそれだからです。世帯の構成は、あなたの収入を地域の平均と比べる行にだけ使います。その比較の行は、ヨーロッパでは成人等価1人あたりの所得と、米国では税引き前の世帯所得の中央値と比べるもので、そのとおりに表示しています。けれども平方メートル数、そして米国では収入の何年分かは、あなたのお金と地域の価格から出てくるもので、その計算はどこでも同じです。</p>
+    <p><b>時期。</b>ヨーロッパの物件広告は2024〜2025年、所得は2024年、金利は主に2023年の平均、人口は2021年のセンサスです。米国の数字は2020年から2024年にわたる5年の調査推計で、2024年のドルで示されています。つまり米国側はスナップショットではまったくなく5年にわたる平均で、価格が急速に動く時期には現在の市場から遅れます。これも、2つの層を別々の地図に置く理由の一つです。</p>
+    <p><b>2つの所得は同じ量ではありません。</b>ヨーロッパのものは平均等価可処分所得で、税引き後、世帯規模の重みで割ってあり、成人等価1人あたりです。米国のものは税引き前の世帯所得の中央値で、一緒に暮らす全員の分であり、等価尺度はまったく使っていません。どちらもそれぞれの統計局が公表しているものです。税と世帯構成をモデル化しなければ一方を他方に換算できず、それは数字の格好をした推測になります。このページはその換算をしません。層を分けたまま、正直な代わりの方法を示します。自分の収入を入れれば、両側が同じ問いに答えます。</p>
+    <p><b>希望価格と、所有者の見積もり。</b>ヨーロッパの層は物件広告、つまり売り手の希望価格から作られています。米国の層は調査、つまり所有者が自宅にいくらの価値があると言っているかから作られています。どちらも買い手が実際に払った額ではなく、売却価格からのずれ方もそれぞれ違うので、このページでは2つの層の価格をどこでも比べていません。</p>
+    <p><b>そして2つの価格には、含まれるものが違います。</b>ヨーロッパの数字は、不動産移転税または付加価値税、登記費用、公証人費用を含むように揃えてあり、ウィーンではそれが掲載価格に6.4%上乗せされます。米国の数字は住宅そのものについての所有者の見積もりで、クロージングコスト、州が課す場合の移転税、仲介手数料はすべてその外にあります。つまりヨーロッパの価格は諸費用込み、米国の価格は素の値段です。ここで米国の価格に費用を上乗せすることはしていません。率は州によっても取引によっても違い、見積もれば推測になるからです。</p>
+    <p><b>米国の住宅価値は価格ではなく意見です。</b>調査は所有者に、自宅がいくらで売れると思うかを尋ねます。それは取引価格でも希望価格でもなく、このページのどこでもそうでないふりはしていません。米国が公表している郡単位の住宅価値の指標はこれしかなく、ここではその固有の名前のまま使っています。</p>
+    <p><b>米国の家賃は総額で住戸あたり、正味で1平方メートルあたりではありません。</b>総家賃の中央値には借家人が払う光熱費などが含まれ、中央値にあたる賃貸住戸がたまたまどんな住まいであっても、それに当てはまります。平方メートルに割ることはできず、ヨーロッパの1平方メートルあたりの家賃と比べれば、別々のものを比べることになります。そのため米国の家賃負担率は、その郡の中央値の賃貸で計算し、そう表示しています。</p>
+    <p><b>米国の家賃負担率は中央値どうしの比で、負担の重い世帯の数ではありません。</b>地図によれば、中央値の家賃が中央値の所得の30%以上を占める郡に住むのは米国人の1.2%です。世帯ごとに問うと、同じ調査は借家人の51%が30%以上を払っていると答えます。人々の実態を表すのは後者の数字で、郡の地図に描けるのは前者だけです。両者の差は、地図が平らにならさざるをえない分布そのものです。</p>
+    <p><b>米国の平方メートルは、まったくありません。</b>床面積は、ACSでも他のどの連邦の情報源でも郡単位では集められていないので、平方メートルを使う3つのモードはその画面では無効にしています。このページは、推測の地図を描くより、操作をオフにすることを選びます。</p>
+    <p><b>ヨーロッパと米国の外は何もありません。</b>他の国はこのページに載っていません。1か国加えるには、オープンなライセンスの<i>単位面積あたり</i>の価格が必要です。正直なラベルを付けた空の地図のほうが、作った数字で埋めた地図よりましです。</p>
   </section>
 
   <section class="prose" id="sources">
-    <h2>Where the numbers come from</h2>
-    <p>Every number on this page comes from a public file that anyone can download without a key, an account or a payment. Here is the whole provenance in one table; the paragraphs after it are the parts that needed a decision.</p>
+    <h2>数字の出どころ</h2>
+    <p>このページの数字はすべて、キーもアカウントも支払いもなしに誰でもダウンロードできる公開ファイルから取っています。以下が出どころのすべてを一つにまとめた表です。そのあとの段落は、判断が必要だった部分です。</p>
     <div class="tablescroll"><table class="prov">
-      <thead><tr><th scope="col"></th><th scope="col">Europe, 31 countries</th><th scope="col">United States</th></tr></thead>
+      <thead><tr><th scope="col"></th><th scope="col">ヨーロッパ、31か国</th><th scope="col">米国</th></tr></thead>
       <tbody>
-        <tr><th scope="row">Unit of price</th>
-          <td>Per <b>square metre</b> — which is what makes the affordability question answerable in area</td>
-          <td><b>None.</b> Floor area is not collected by the ACS, nor by any federal source at county level. Price per m² by county exists only in private listing databases, which do not license republication</td></tr>
-        <tr><th scope="row">Price</th>
-          <td>ESPON HOUSE4ALL: 18.4 M <b>asking</b> prices from a year of weekly scraping, per m², <b>with</b> transfer tax, notary and registry fees added</td>
-          <td>ACS B25077: median value of owner-occupied homes — what the <b>owner estimates</b> it would sell for, per home, not per area</td></tr>
-        <tr><th scope="row">Depth</th>
-          <td>Listing counts per municipality are not published, so a thin municipality cannot be told from a thick one</td>
-          <td>Every estimate ships a 90 % confidence interval. Median county ±5.9 %, one in ten wider than ±16 %, 187 counties wider than ±20 % — and the card names it</td></tr>
-        <tr><th scope="row">Income</th>
-          <td>Eurostat EU-SILC mean <b>equivalised disposable</b> income 2024 — after tax, per adult-equivalent — disaggregated to municipalities</td>
-          <td>ACS B19013 median <b>household</b> income — before tax, per household, no equivalence scale — measured for each county in its own right</td></tr>
-        <tr><th scope="row">Rent</th>
-          <td>ESPON HOUSE4ALL: 3.6 M rental listings, per m² per month, <b>without</b> utilities</td>
-          <td>ACS B25064 median <b>gross</b> rent: contract rent <b>plus</b> tenant-paid utilities, per home, not per area</td></tr>
-        <tr><th scope="row">Mortgage rate</th>
-          <td>DG ECFIN national fixed rates, latest yearly average, mostly 2023</td>
-          <td>Freddie Mac PMMS 30-year fixed, averaged over 2024 — the year whose dollars the ACS reports: 6.72 %</td></tr>
-        <tr><th scope="row">Population</th>
-          <td>Eurostat LAU 2021 table</td>
-          <td>ACS B01003, same survey and same period as everything else in this column</td></tr>
-        <tr><th scope="row">Outlines</th>
-          <td colspan="2">Natural Earth 1:50 m country shapes for both maps; county centroids from Natural Earth 1:10 m admin-2, and from federal TIGER 2024 boundaries for the nine Connecticut planning regions Natural Earth does not yet carry. Public domain.</td></tr>
-        <tr><th scope="row">Granularity</th>
-          <td>8,489 municipalities in 1,251 NUTS 3 regions</td>
-          <td>3,141 counties in the 50 states and the District of Columbia</td></tr>
-        <tr><th scope="row">Period</th>
-          <td>Listings March 2024 – March 2025, incomes 2024</td>
-          <td>One five-year estimate spanning 2020–2024, in 2024 dollars — an average, not a snapshot</td></tr>
-        <tr><th scope="row">Coverage</th>
-          <td>31 countries; three more appear on the map without data</td>
-          <td>3,141 of 3,144 counties, 100 % of the population. Three lack a median the page needs — one has no income, two have neither a home value nor a rent; Puerto Rico's 78 municipios are excluded as a separate survey</td></tr>
-        <tr><th scope="row">Licence</th>
-          <td>ESPON: reuse with attribution and the required disclaimer, both on this page</td>
-          <td>U.S. federal work, public domain. Freddie Mac: "Information from this document may be used with proper attribution"</td></tr>
+        <tr><th scope="row">価格の単位</th>
+          <td><b>1平方メートル</b>あたり。手の届きやすさの問いに面積で答えられるのは、このためです</td>
+          <td><b>なし。</b>床面積はACSでも、郡単位ではどの連邦の情報源でも集められていません。郡ごとの1m²あたりの価格は民間の物件データベースの中にしかなく、再公開のライセンスは出ていません</td></tr>
+        <tr><th scope="row">価格</th>
+          <td>ESPON HOUSE4ALL：1年間の毎週の収集による1,840万件の<b>希望</b>価格、1m²あたり。不動産移転税、公証人費用、登記費用を<b>加算済み</b></td>
+          <td>ACS B25077：持ち家住宅の価値の中央値。<b>所有者の見積もり</b>による売却見込み額で、面積あたりではなく住宅1戸あたり</td></tr>
+        <tr><th scope="row">データの厚み</th>
+          <td>自治体ごとの物件広告の件数は公表されていないので、手薄な自治体と十分な自治体を見分けられません</td>
+          <td>すべての推計に90%信頼区間が付いています。中央値にあたる郡で±5.9%、10郡に1郡は±16%より広く、187郡は±20%より広い。カードにはそれを明記しています</td></tr>
+        <tr><th scope="row">所得</th>
+          <td>Eurostat EU-SILCの2024年平均<b>等価可処分</b>所得。税引き後、成人等価1人あたりで、自治体に按分</td>
+          <td>ACS B19013の<b>世帯</b>所得の中央値。税引き前、世帯あたり、等価尺度なしで、郡ごとにそれ自体として測定</td></tr>
+        <tr><th scope="row">家賃</th>
+          <td>ESPON HOUSE4ALL：360万件の賃貸物件広告、1m²あたりの月額、光熱費などは<b>含まない</b></td>
+          <td>ACS B25064の<b>総</b>家賃の中央値：契約家賃<b>に加えて</b>借家人が払う光熱費など。面積あたりではなく住宅1戸あたり</td></tr>
+        <tr><th scope="row">住宅ローン金利</th>
+          <td>DG ECFINの国ごとの固定金利、最新の年平均、主に2023年</td>
+          <td>Freddie Mac PMMSの30年固定金利の2024年平均。ACSが金額を示している年と同じです：6.72%</td></tr>
+        <tr><th scope="row">人口</th>
+          <td>Eurostat LAU 2021表</td>
+          <td>ACS B01003。この列のほかの項目と同じ調査、同じ期間</td></tr>
+        <tr><th scope="row">輪郭</th>
+          <td colspan="2">両方の地図の国の形はNatural Earth 1:50m。郡の重心はNatural Earth 1:10m admin-2から、Natural Earthがまだ収録していないコネチカット州の9つの計画地域については連邦のTIGER 2024の境界から。パブリックドメイン。</td></tr>
+        <tr><th scope="row">粒度</th>
+          <td>1,251のNUTS 3地域にある8,489自治体</td>
+          <td>50州とコロンビア特別区の3,141郡</td></tr>
+        <tr><th scope="row">期間</th>
+          <td>物件広告は2024年3月〜2025年3月、所得は2024年</td>
+          <td>2020–2024年にわたる一つの5年推計、2024年のドル。スナップショットではなく平均</td></tr>
+        <tr><th scope="row">カバー範囲</th>
+          <td>31か国。ほかに3か国がデータなしで地図に現れます</td>
+          <td>3,144郡のうち3,141郡、人口の100%。3郡にはこのページに必要な中央値が欠けています。1郡は所得がなく、2郡は住宅価値も家賃もありません。プエルトリコの78のmunicipioは別の調査のため除外</td></tr>
+        <tr><th scope="row">ライセンス</th>
+          <td>ESPON：出典表示と所定の免責文を条件に再利用可。どちらもこのページにあります</td>
+          <td>米国連邦の著作物、パブリックドメイン。Freddie Mac：「この文書の情報は、適切な出典表示のもとで使用できます」</td></tr>
       </tbody>
     </table></div>
-    <p>Read the price and income rows together and the reason the layers stay apart is visible at a glance: one column is asking prices against after-tax income per adult-equivalent, the other is owners' estimates of whole homes against before-tax income per household. Both are defensible measurements. Neither converts into the other.</p>
-    <p>The paper's data availability statement says the data is available at reasonable request to the authors. No table is attached to the paper; the supplementary files are the two maps as vector PDFs. The numbers on this page therefore came from the next best place, and the following is exactly what happened.</p>
-    <p><b>The ESPON map service.</b> The HOUSE4ALL project publishes an interactive StoryMap on the ESPON ArcGIS portal. Its maps are drawn from three public feature services on the programme's GIS server, and one of them, <code>HOUSE4ALL_data_at_LAU_level</code>, carries a row per municipality with the 2024 mean equivalised income, the corrected sale price and rent per square metre, the national mortgage rate and the two affordability indicators of the paper, <code>sa_m2</code> and <code>ra_m2</code>. On 14 September 2026 all 89,601 rows were read through the service's query interface, 2,000 at a time, with the centroid of each municipality. That table, trimmed to the fields used here, is published next to this page as <a href="../data/house4all-lau-2024.csv">house4all-lau-2024.csv</a> (10.7 MB).</p>
-    <p><b>The formula was checked, not assumed.</b> For all 78,758 municipalities with sales data, a third of the monthly income times the annuity factor of a 30-year loan at the row's rate, divided by the corrected price, reproduces the service's <code>sa_m2</code> to within one part in a billion; the rent indicator likewise. So the calculator uses the study's arithmetic, not an approximation of it, and with the defaults left alone it shows the study's own numbers. The corrected price is the duration-weighted listing price with transaction costs added: in Vienna it is 6.4 % above the raw listing price, which is about what Austrian transfer tax, registration and notary fees add up to.</p>
-    <p><b>What is taken from the service, and what is not in it.</b> The five size-class prices are in the service, but the published indicators use the overall corrected price, and so does this page. The degree of urbanisation and the coastal flag come from Eurostat's LAU 2021 correspondence table, which covers the EU-27 only; Swiss, Norwegian and Icelandic municipalities appear as "not classified" in the chart above. Overseas territories, the Canaries, the Azores and Madeira are outside the frame but inside the search.</p>
+    <p>価格の行と所得の行を合わせて読めば、層を分けておく理由が一目でわかります。一方の列は希望価格と、成人等価1人あたりの税引き後所得。もう一方は住宅全体についての所有者の見積もりと、世帯あたりの税引き前所得です。どちらも筋の通った測定ですが、一方を他方に換算することはできません。</p>
+    <p>論文のデータ利用可能性の記載には、データは著者への合理的な要請に応じて提供するとあります。論文に表は添付されておらず、補足ファイルは2枚の地図のベクターPDFです。そのため、このページの数字は次善の場所から取りました。以下は、実際に何をしたかの正確な記録です。</p>
+    <p><b>ESPONの地図サービス。</b>HOUSE4ALLプロジェクトは、ESPONのArcGISポータルでインタラクティブなStoryMapを公開しています。その地図は、プログラムのGISサーバーにある3つの公開フィーチャーサービスから描かれていて、その一つ<code>HOUSE4ALL_data_at_LAU_level</code>には、自治体ごとに1行ずつ、2024年の平均等価所得、補正済みの1平方メートルあたりの売却価格と家賃、国の住宅ローン金利、そして論文の2つの手頃さの指標<code>sa_m2</code>と<code>ra_m2</code>が入っています。2026年9月14日、サービスのクエリインターフェースを通じて、89,601行すべてを、各自治体の重心とともに2,000行ずつ読み込みました。その表を、ここで使う項目に絞ったものを、このページの横に<a href="../../data/house4all-lau-2024.csv">house4all-lau-2024.csv</a>（10.7MB）として公開しています。</p>
+    <p><b>式は仮定せず、検証しました。</b>売却データのある78,758自治体すべてについて、月収の3分の1に、その行の金利による30年ローンの年金現価係数を掛け、補正済みの価格で割ると、サービスの<code>sa_m2</code>が10億分の1以内で再現されます。家賃の指標も同様です。ですから計算機は研究の近似ではなく研究そのものの計算を使っており、初期設定のままなら研究自身の数字を示します。補正済みの価格とは、掲載期間で重みづけした掲載価格に取引費用を加えたもので、ウィーンでは元の掲載価格より6.4%高く、オーストリアの不動産移転税、登記費用、公証人費用の合計とほぼ同じです。</p>
+    <p><b>サービスから取ったもの、サービスにないもの。</b>5つの広さの階級ごとの価格はサービスにありますが、公表された指標は全体の補正済み価格を使っており、このページも同じです。都市化の度合いと海岸のフラグは、EU27か国だけをカバーするEurostatのLAU 2021対応表から取っています。スイス、ノルウェー、アイスランドの自治体は、上のグラフで「分類なし」と表示されます。海外領土、カナリア諸島、アゾレス諸島、マデイラ諸島は、地図の枠の外ですが検索には入っています。</p>
 
-    <p><b>A third is not 33 %.</b> The paper says a third of income, and the first version of this page read that as 33 % because the slider works in whole percent. 33 % is exactly one per cent less than a third — not a percentage point, one per cent of it — and that one per cent was enough to put every figure on the page a per cent below the study's own, while the page claimed to reproduce it exactly. The default is now exactly one third and the slider reads "a third"; move it and it becomes whole percent and stops being the study's setting, which the line under the calculator says. Checked against the service: the published affordable metres are reproduced to within 8 parts in ten billion on 78,758 municipalities for buying and 5 parts in a billion on 47,154 for renting.</p>
+    <p><b>3分の1は33%ではありません。</b>論文は収入の3分の1と言っていますが、このページの最初の版は、スライダーが整数のパーセントで動くため、それを33%と読みました。33%は3分の1よりちょうど1%少ない値です。1パーセントポイントではなく、3分の1の1%です。そしてその1%のせいで、ページは研究を正確に再現していると謳いながら、すべての数字が研究より1%低くなっていました。いまの初期値はちょうど3分の1で、スライダーの表示は「3分の1」です。動かすと整数のパーセントになり、研究の設定ではなくなります。計算機の下の行がそのことを伝えます。サービスと照合した結果、公表されている手の届く平方メートル数は、購入では78,758自治体で100億分の8以内、賃貸では47,154自治体で10億分の5以内で再現されています。</p>
 
-    <p><b>Small flats cost more per square metre.</b> The service carries prices for five size bands as well as the overall average, and the difference is not small: across the whole sample a square metre in a flat under 30 m² costs 28 % more to buy and 38 % more to rent than the average, while one over 120 m² costs 6 % and 17 % less. The premium is a national trait more than a local one, and it varies enormously, from 13 % in Germany to 83 % in Spain. Wherever you name a size, this page now uses the band that size falls into, so the answer to "I want 25 m²" is no longer a straight-line scaling of the answer for 100 m². It changes the order of countries: at 25 m² Germany is easier than Spain, at 150 m² Spain is easier than Germany. The headline square metres to buy and to rent still use the overall price, because that is the study's own arithmetic.</p>
+    <p><b>小さな住まいは1平方メートルあたりが割高です。</b>サービスには全体の平均に加えて5つの広さの区分ごとの価格があり、その差は小さくありません。サンプル全体で見ると、30m²未満の住まいの1平方メートルは、平均より購入で28%、賃貸で38%高く、120m²超の住まいでは6%と17%安くなります。この割増は地域というより国の特徴で、その幅はドイツの13%からスペインの83%まで大きく違います。このページでは広さを指定すると、その広さが入る区分を使うようになったので、「25m²はほしい」への答えは、もはや100m²での答えを単純に比例縮小したものではありません。これで国の順位が変わります。25m²ならドイツのほうがスペインより買いやすく、150m²ならスペインのほうがドイツより買いやすいのです。見出しの、購入と賃貸で手の届く平方メートル数は、今も全体の価格を使っています。それが研究自身の計算だからです。</p>
 
-    <p><b>Why the map is dots and not shaded regions.</b> The first version of this page shaded NUTS 3 regions using Eurostat's own outlines, which is what almost every European map does. Their download terms turn out to say something else: permission is granted "on condition that the data will not be used for commercial purposes", and commercial users are sent to EuroGeographics for a licence. The condition sits on a parent page, not on the pages the files are downloaded from, which is probably why so many projects redistribute those outlines as if they were free. This page carries an advertisement for my own product, so it cannot promise to be non-commercial, and the outlines were replaced with Natural Earth country shapes, which are public domain. No public-domain equivalent of NUTS 3 exists, so regional shading went with them. The region names come from Eurostat's statistical code list, which is free to reuse for any purpose. The projection is unchanged: Lambert azimuthal equal-area, the family the ESPON maps use.</p>
-    <p><b>Where the page and the paper differ.</b> The population shares computed from the service (41 % under 50 m² to buy, 37 % to rent) are a few points below the paper's 44 % and 39 %. The service is the project's data release; the paper's figure 3 was drawn from the authors' working dataset, and the two may differ in population weights, in income year or in the treatment of municipalities without data. The paper's figures are quoted as the paper's; the chart shows what the public table gives.</p>
-    <p><b>The American layer was rebuilt from scratch, and the reason was a licence.</b> The first version of this page measured American counties in square metres, from Redfin's median price per square foot of homes actually sold. That source had to go. The redesigned Data Center carries no data licence and no citation permission — the download hub and the support article on downloading data say nothing about reuse — and Redfin's site-wide Terms of Use grant only a "limited, personal, non-exclusive, non-transferable" right to access and view the service, while forbidding reproduction, redistribution and derivative works. This page embeds a derived table in the file and carries a banner for its author's product. Three of those prohibitions apply. So the square-metre figures came out.</p>
-    <p><b>There was no replacement, and finding that out was the work.</b> Zillow's research download carries no usage statement at all any more, and its only price per square foot is for new construction by metropolitan area, not by county. Realtor.com's county file has exactly the right fields — but FRED, which republishes the same series, marks them "Copyrighted: Citation Required", and FRED's terms forbid redistributing third-party proprietary content for commercial use without written permission from the provider. Every remaining source with floor area by county is a private listing database. This page uses nothing that needs anyone's permission, so the American frame has no square metres — and says so rather than borrowing them.</p>
-    <p><b>What replaced it is one source instead of five.</b> The American Community Survey gives every county a median home value, a median household income, a median gross rent and a population, in one release, as a public-domain federal work. That removed the entire name-matching apparatus the old layer needed — Redfin carried no federal county codes, so counties had been joined by name, with special rules for Louisiana's parishes, Virginia's independent cities and Alaska's renamed boroughs. The ACS is keyed by FIPS code, and the join is exact.</p>
-    <p><b>The Census Bureau's own API is not what is used, and that needs saying.</b> It now requires a key, which means an account, and the bulk files at <code>www2.census.gov</code> answer a plain download with a Cloudflare block. The same public-domain tables come through the open API of Census Reporter, a non-profit that states plainly: "Data on Census Reporter comes from the US Census Bureau and is not copyrighted." Their server asks callers to identify themselves, so the extractor sends this page's own name and address as its user agent rather than pretending to be a browser.</p>
-    <p><b>Connecticut, again, and from the other side.</b> The state replaced its eight counties with nine planning regions, and this time it is the Census Bureau that has moved on and Natural Earth that has not: the survey publishes the nine, the map file still carries the eight. Rather than drop the state or borrow a neighbouring point, the nine centroids are computed here from the federal TIGER 2024 boundaries — an area-weighted polygon centroid with interior rings subtracted — and each was checked to fall inside the state. Alaska needed nothing this time: the survey already uses Chugach and Copper River, the units that replaced Valdez-Cordova in 2019.</p>
-    <p><b>State and national rows are asked for, not assembled.</b> A population-weighted mean of county medians is not a median, and the old layer built its state and national rows that way, from counties. The ACS publishes every level, so California's row is California's own median and the national row is the national one. The page says 4.1 years of income for the median American home because the Census Bureau's two national medians say so, not because 3,141 counties were averaged into it.</p>
-    <p><b>Three counties are missing a number, and 78 municipios were left out on purpose.</b> De Baca County in New Mexico has no published median household income; Kenedy and Loving Counties in Texas — populations in the hundreds — have neither a home value nor a rent. All three are in the gap file with their reason, and any new gap stops the build. Puerto Rico's 78 municipios are in the same download but excluded: they come from the separate Puerto Rico Community Survey, and the Census Bureau's United States totals do not include them, so admitting them would make the country row mean something different from its label.</p>
-    <p><b>The size premium stops at the Atlantic.</b> The European data measures how much more a square metre costs in a small flat, country by country, and this page uses it wherever you name a size. There is no such measurement for the United States, and there is no American price per square metre for it to act on: sizes you name apply only to the European map.</p>
-    <p><b>Exchange rates</b> for the income field are the European Central Bank's euro reference rates of 11 September 2026, fixed in the page so that a shared link means the same amount next month.</p>
+    <p><b>地図が地域の塗り分けではなく点である理由。</b>このページの最初の版は、Eurostat自身の輪郭を使ってNUTS 3地域を塗り分けていました。ヨーロッパの地図のほとんどがそうしています。ところが、そのダウンロード条件には別のことが書かれていました。許可は「データが商用目的に使われないことを条件に」与えられ、商用の利用者はライセンスを得るためEuroGeographicsへ案内されるのです。この条件はファイルをダウンロードするページではなくその親ページにあり、多くのプロジェクトがこの輪郭を自由に使えるかのように再配布しているのは、おそらくそのためです。このページには私自身の製品の広告があるので、非商用を約束できません。そこで輪郭を、パブリックドメインのNatural Earthの国の形に置き換えました。NUTS 3に相当するパブリックドメインのものは存在しないので、地域の塗り分けも一緒になくなりました。地域の名前は、どんな目的にも自由に再利用できるEurostatの統計コードリストから取っています。投影法は変えていません。ESPONの地図と同じ系統の、ランベルト正積方位図法です。</p>
+    <p><b>ページと論文が食い違うところ。</b>サービスから計算した人口比率（購入で50m²未満が41%、賃貸で37%）は、論文の44%と39%より数ポイント低くなっています。サービスはプロジェクトのデータ公開版で、論文の図3は著者たちの作業用データセットから描かれており、両者は人口の重み、所得の年、データのない自治体の扱いで異なる可能性があります。論文の数字は論文のものとして引用し、グラフは公開された表が示すものを描いています。</p>
+    <p><b>米国の層は一から作り直しました。理由はライセンスです。</b>このページの最初の版は、実際に売れた住宅の1平方フィートあたりの価格の中央値をRedfinから取り、米国の郡を平方メートルで測っていました。この情報源は外さなければなりませんでした。刷新されたData Centerにはデータのライセンスも引用の許可もありません。ダウンロードのハブにも、データのダウンロードについてのサポート記事にも、再利用のことは何も書かれていません。そしてRedfinのサイト全体の利用規約は、サービスにアクセスして閲覧する「限定的、個人的、非独占的、譲渡不能な」権利しか与えず、複製、再配布、二次的著作物を禁じています。このページは派生した表をファイルに埋め込み、筆者の製品のバナーを載せています。禁止事項のうち3つに当たります。そこで平方メートルの数字は外しました。</p>
+    <p><b>代わりはありませんでした。それを突き止めることが仕事でした。</b>Zillowの研究用ダウンロードには、もはや利用条件の記載がまったくなく、1平方フィートあたりの価格は大都市圏ごとの新築についてのものしかなく、郡ごとではありません。Realtor.comの郡のファイルにはまさに必要な項目がそろっています。しかし同じ系列を再公開しているFREDはそれに「Copyrighted: Citation Required」と表示していて、FREDの規約は、第三者の独占的なコンテンツを提供者の書面の許可なく商用目的で再配布することを禁じています。郡ごとの床面積を持つ残りの情報源は、すべて民間の物件データベースです。このページは誰かの許可を必要とするものを一切使わないので、米国の画面には平方メートルがなく、借りてくるかわりに、そう明記しています。</p>
+    <p><b>代わりになったのは、5つではなく1つの情報源です。</b>American Community Surveyは、すべての郡について住宅価値の中央値、世帯所得の中央値、総家賃の中央値、人口を、一度の公表で、パブリックドメインの連邦の著作物として提供しています。これで、旧い層に必要だった名前の突き合わせの仕組みがまるごと不要になりました。Redfinには連邦の郡コードがなかったので、郡は名前で結合していて、ルイジアナ州のパリッシュ、バージニア州の独立市、アラスカ州の改名されたバラには特別なルールも必要でした。ACSはFIPSコードで引けるので、結合は完全に一致します。</p>
+    <p><b>国勢調査局自身のAPIは使っていません。そのことは書いておく必要があります。</b>いまではキーが必要で、それはアカウントが必要ということです。また<code>www2.census.gov</code>の一括ファイルは、普通にダウンロードしようとするとCloudflareのブロックを返します。同じパブリックドメインの表は、Census ReporterのオープンなAPIから得られます。これは非営利団体で、「Census Reporterのデータは米国国勢調査局によるもので、著作権はありません」とはっきり述べています。そのサーバーは呼び出し側に身元を名乗るよう求めているので、抽出プログラムはブラウザを装わず、このページ自身の名前とアドレスをユーザーエージェントとして送っています。</p>
+    <p><b>コネチカット州、ふたたび。今度は反対側から。</b>この州は8つの郡を9つの計画地域に置き換えました。今回は、先に進んだのが国勢調査局で、取り残されたのがNatural Earthです。調査は9地域で公表しているのに、地図ファイルはまだ8郡のままです。州を落としたり隣の点を借りたりするかわりに、9つの重心を連邦のTIGER 2024の境界からここで計算し（内側の輪を差し引いた面積加重のポリゴン重心）、それぞれが州の内側に収まることを確かめました。アラスカ州は今回は何も要りませんでした。調査はすでに、2019年にValdez-Cordovaに代わった単位、ChugachとCopper Riverを使っています。</p>
+    <p><b>州と全国の行は、組み立てたのではなく問い合わせたものです。</b>郡の中央値の人口加重平均は中央値ではありません。旧い層は州と全国の行を、郡からそうやって組み立てていました。ACSはすべての階層を公表しているので、カリフォルニア州の行はカリフォルニア州自身の中央値、全国の行は全国の中央値です。このページが米国の中央値の住宅を収入の4.1年分とするのは、国勢調査局の全国の2つの中央値がそう示すからで、3,141郡を平均したからではありません。</p>
+    <p><b>3つの郡には欠けている数字があり、78のmunicipioは意図して除きました。</b>ニューメキシコ州のDe Baca Countyには世帯所得の中央値が公表されていません。テキサス州のKenedy CountyとLoving Countyは人口が数百人で、住宅価値も家賃もありません。3郡とも理由とともに欠落ファイルに載せてあり、新たな欠落が出るとビルドは止まります。プエルトリコの78のmunicipioは同じダウンロードに入っていますが、除外しました。別のPuerto Rico Community Surveyによるもので、国勢調査局の米国の合計にも含まれないため、入れると国の行がそのラベルとは違う意味になってしまうからです。</p>
+    <p><b>広さによる割増は大西洋で止まります。</b>ヨーロッパのデータは、小さな住まいでは1平方メートルがどれだけ割高になるかを国ごとに測っていて、このページは広さを指定するとどこでもそれを使います。米国にはそうした測定がなく、それを当てはめる米国の1平方メートルあたりの価格もありません。指定した広さはヨーロッパの地図にだけ効きます。</p>
+    <p>収入欄の<b>為替レート</b>は、欧州中央銀行の2026年9月11日のユーロ参照レートです。共有したリンクが来月も同じ金額を意味するよう、ページに固定しています。</p>
   </section>
 
   <section class="prose refs" id="refs">
-    <h2>Sources</h2>
+    <h2>出典</h2>
     <ol>
-      <li>Sielker, F., &amp; Banabak, S. (2026). Where can you still afford to live? – a comparative perspective on European housing affordability. <i>Journal of Maps</i>, 22(1), 2695777. Open access, published 2 September 2026. <a href="https://doi.org/10.1080/17445647.2026.2695777" target="_blank" rel="noopener">doi:10.1080/17445647.2026.2695777</a>. Supplementary maps: <a href="https://www.tandfonline.com/action/downloadSupplement?doi=10.1080%2F17445647.2026.2695777&amp;file=tjom_a_2695777_sm9338.pdf" target="_blank" rel="noopener">SalesAffordability2024.pdf</a>, <a href="https://www.tandfonline.com/action/downloadSupplement?doi=10.1080%2F17445647.2026.2695777&amp;file=tjom_a_2695777_sm9339.pdf" target="_blank" rel="noopener">RentalAffordability2024.pdf</a>.</li>
+      <li>Sielker, F., &amp; Banabak, S. (2026). Where can you still afford to live? – a comparative perspective on European housing affordability. <i>Journal of Maps</i>, 22(1), 2695777. オープンアクセス、2026年9月2日公開。<a href="https://doi.org/10.1080/17445647.2026.2695777" target="_blank" rel="noopener">doi:10.1080/17445647.2026.2695777</a>。補足資料の地図：<a href="https://www.tandfonline.com/action/downloadSupplement?doi=10.1080%2F17445647.2026.2695777&amp;file=tjom_a_2695777_sm9338.pdf" target="_blank" rel="noopener">SalesAffordability2024.pdf</a>、<a href="https://www.tandfonline.com/action/downloadSupplement?doi=10.1080%2F17445647.2026.2695777&amp;file=tjom_a_2695777_sm9339.pdf" target="_blank" rel="noopener">RentalAffordability2024.pdf</a>。</li>
       <li>Sielker, F., Banabak, S., Gerhalter, M., Neuhuber, T., Sutterlütti, D., Dorner, J., et al. (2025). <i>Access to affordable and quality housing for all people: Main report</i>. ESPON EGTC. <a href="https://www.espon.eu/sites/default/files/2025-11/espon-house4all-main-report.pdf" target="_blank" rel="noopener">PDF</a>.</li>
-      <li>Sielker, F., Banabak, S., Serra, M., Palma, E., Falcón, L., Sutterlütti, D., &amp; Larrea, E. (2025). <i>Access to affordable and quality housing for all people: Methodological report</i>. ESPON EGTC. <a href="https://www.espon.eu/sites/default/files/publications/files/2026-02/espon-h4al-methodological-report.pdf" target="_blank" rel="noopener">PDF</a>. Lists the sites scraped and the processing code.</li>
-      <li>ESPON HOUSE4ALL StoryMap and feature services, ESPON GIS portal. <a href="https://gis-portal.espon.eu/arcgis/apps/storymaps/stories/6acf53415f994941bcb2e8e31793f2e1" target="_blank" rel="noopener">StoryMap</a> · <a href="https://gis-server.espon.eu/arcgis/rest/services/Hosted/HOUSE4ALL_data_at_LAU_level/FeatureServer/0" target="_blank" rel="noopener">HOUSE4ALL_data_at_LAU_level</a> · <a href="https://www.espon.eu/projects/access-affordable-and-quality-housing-all-people-house4all" target="_blank" rel="noopener">project page</a>.</li>
-      <li>U.S. Census Bureau. American Community Survey, five-year estimates 2020–2024, tables B25077 (median value of owner-occupied units), B19013 (median household income), B25064 (median gross rent) and B01003 (total population), by county, state and nation. <a href="https://www.census.gov/programs-surveys/acs" target="_blank" rel="noopener">census.gov/programs-surveys/acs</a>. A work of the United States government: public domain.</li>
-      <li>Census Reporter. Open API used to read those tables and the TIGER 2024 county boundaries, because the Census Bureau's own API requires a key and its bulk files are behind a block. <a href="https://censusreporter.org/" target="_blank" rel="noopener">censusreporter.org</a>. Their statement: "Data on Census Reporter comes from the US Census Bureau and is not copyrighted."</li>
-      <li>Redfin Data Center. <b>Not used, and here is why:</b> it is the only openly downloadable source of a median sale price per square foot by county, which is what an American square-metre figure would need. The redesigned Data Center, its download hub and its support article on downloading data carry no data licence and no citation permission, and Redfin's site-wide Terms of Use (29 September 2025, §2.3.2–2.3.3) grant a "limited, personal, non-exclusive, non-transferable" licence to "access, view, and use the Services" while forbidding reproduction, redistribution and derivative works. Checked 14 September 2026.</li>
-      <li>Realtor.com Real Estate Data Library and Zillow Research. <b>Also not used.</b> Realtor.com's county file carries both a median listing price per square foot and a median size, but the same series are marked "Copyrighted: Citation Required" where FRED republishes them, and FRED's terms forbid redistributing third-party proprietary content for commercial use without written permission from the provider. Zillow's research downloads carry no usage statement, and their only per-square-foot series covers new construction by metropolitan area, not counties. Checked 14 September 2026.</li>
-      <li>Freddie Mac. Primary Mortgage Market Survey, weekly history of the 30-year fixed rate. <a href="https://www.freddiemac.com/pmms" target="_blank" rel="noopener">freddiemac.com/pmms</a>. Their page states: "Information from this document may be used with proper attribution."</li>
-      <li>Natural Earth. County outlines and centroids, 1:10 million admin-2, public domain. <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">naturalearthdata.com</a>. It still carries Connecticut's eight abolished counties, so the nine planning regions the Census Bureau now uses take their centroids from the federal TIGER 2024 boundaries instead.</li>
+      <li>Sielker, F., Banabak, S., Serra, M., Palma, E., Falcón, L., Sutterlütti, D., &amp; Larrea, E. (2025). <i>Access to affordable and quality housing for all people: Methodological report</i>. ESPON EGTC. <a href="https://www.espon.eu/sites/default/files/publications/files/2026-02/espon-h4al-methodological-report.pdf" target="_blank" rel="noopener">PDF</a>.収集対象のサイトと処理コードを掲載。</li>
+      <li>ESPON HOUSE4ALLのStoryMapとフィーチャーサービス、ESPON GISポータル。<a href="https://gis-portal.espon.eu/arcgis/apps/storymaps/stories/6acf53415f994941bcb2e8e31793f2e1" target="_blank" rel="noopener">StoryMap</a> · <a href="https://gis-server.espon.eu/arcgis/rest/services/Hosted/HOUSE4ALL_data_at_LAU_level/FeatureServer/0" target="_blank" rel="noopener">HOUSE4ALL_data_at_LAU_level</a> · <a href="https://www.espon.eu/projects/access-affordable-and-quality-housing-all-people-house4all" target="_blank" rel="noopener">プロジェクトのページ</a>。</li>
+      <li>U.S. Census Bureau. American Community Survey、5年推計2020–2024、表B25077（持ち家住宅の価値の中央値）、B19013（世帯所得の中央値）、B25064（総家賃の中央値）、B01003（総人口）、郡・州・全国別。<a href="https://www.census.gov/programs-surveys/acs" target="_blank" rel="noopener">census.gov/programs-surveys/acs</a>。米国政府の著作物で、パブリックドメイン。</li>
+      <li>Census Reporter. これらの表とTIGER 2024の郡境界を読み込むのに使ったオープンAPI。国勢調査局自身のAPIはキーを必要とし、一括ファイルはブロックの向こうにあるためです。<a href="https://censusreporter.org/" target="_blank" rel="noopener">censusreporter.org</a>。その声明（原文）：「Data on Census Reporter comes from the US Census Bureau and is not copyrighted.」</li>
+      <li>Redfin Data Center. <b>使っていません。理由は次のとおりです。</b>郡ごとの1平方フィートあたりの売却価格の中央値を公開でダウンロードできる唯一の情報源で、米国の平方メートルの数字にはまさにそれが必要です。刷新されたData Center、そのダウンロードのハブ、データのダウンロードについてのサポート記事にはデータのライセンスも引用の許可もなく、Redfinのサイト全体の利用規約（2025年9月29日、§2.3.2–2.3.3）は、「access, view, and use the Services」のための「limited, personal, non-exclusive, non-transferable」なライセンスを与える一方、複製、再配布、二次的著作物を禁じています。2026年9月14日確認。</li>
+      <li>Realtor.com Real Estate Data LibraryとZillow Research。<b>これも使っていません。</b>Realtor.comの郡のファイルには1平方フィートあたりの掲載価格の中央値と広さの中央値の両方がありますが、FREDが再公開している箇所では同じ系列に「Copyrighted: Citation Required」と表示されていて、FREDの規約は、第三者の独占的なコンテンツを提供者の書面の許可なく商用目的で再配布することを禁じています。Zillowの研究用ダウンロードには利用条件の記載がなく、1平方フィートあたりの系列は大都市圏ごとの新築だけで、郡ごとではありません。2026年9月14日確認。</li>
+      <li>Freddie Mac. Primary Mortgage Market Survey、30年固定金利の週次の履歴。<a href="https://www.freddiemac.com/pmms" target="_blank" rel="noopener">freddiemac.com/pmms</a>。そのページの記載（原文）：「Information from this document may be used with proper attribution.」</li>
+      <li>Natural Earth. 郡の輪郭と重心、1:1000万、admin-2、パブリックドメイン。<a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">naturalearthdata.com</a>。廃止されたコネチカット州の8郡をまだ収録しているため、国勢調査局がいま使っている9つの計画地域の重心は、代わりに連邦のTIGER 2024の境界から取っています。</li>
       <li>Mikou, M., Vallet, A., &amp; Guivarch, C. (2024). Harmonized disposable income dataset for Europe at subnational level. <i>Scientific Data</i>, 11, 308. <a href="https://doi.org/10.1038/s41597-024-03138-x" target="_blank" rel="noopener">doi:10.1038/s41597-024-03138-x</a>.</li>
       <li>Eurostat. Mean and median income by age and sex, EU-SILC survey (ilc_di03). <a href="https://ec.europa.eu/eurostat/databrowser/view/ilc_di03/default/table?lang=en" target="_blank" rel="noopener">databrowser</a>.</li>
-      <li>Eurostat. Local Administrative Units, LAU 2021 correspondence table with population, degree of urbanisation and coastal flag. <a href="https://ec.europa.eu/eurostat/web/gisco/geodata/statistical-units/local-administrative-units" target="_blank" rel="noopener">GISCO</a>.</li>
-      <li>Natural Earth. Country outlines, 1:50 million, public domain. <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">naturalearthdata.com</a>. Eurostat's own NUTS outlines were used at first and then dropped: their download terms grant permission "on condition that the data will not be used for commercial purposes", which this page cannot promise.</li>
-      <li>Eurostat. NUTS region names from the statistical code list GEO, reusable for any purpose with acknowledgement. <a href="https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/codelist/ESTAT/GEO" target="_blank" rel="noopener">SDMX code list</a>.</li>
-      <li>European Central Bank. Euro foreign exchange reference rates, 11 September 2026. <a href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html" target="_blank" rel="noopener">ECB</a>.</li>
-      <li>Press coverage with the authors' own summary: <a href="https://www.eurekalert.org/news-releases/1141906" target="_blank" rel="noopener">EurekAlert!, 2 September 2026</a>; <a href="https://www.tuwien.at/en/tu-wien/news/news-articles?tx_news_pi1%5Baction%5D=detail&amp;tx_news_pi1%5Bcontroller%5D=News&amp;tx_news_pi1%5Bnews%5D=210029&amp;cHash=bcb107412caa9ded3616c68e2352a144" target="_blank" rel="noopener">TU Wien news</a>.</li>
+      <li>Eurostat. Local Administrative Units。人口、都市化の度合い、海岸のフラグを含むLAU 2021対応表。<a href="https://ec.europa.eu/eurostat/web/gisco/geodata/statistical-units/local-administrative-units" target="_blank" rel="noopener">GISCO</a>。</li>
+      <li>Natural Earth. 国の輪郭、1:5000万、パブリックドメイン。<a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">naturalearthdata.com</a>。当初はEurostat自身のNUTSの輪郭を使いましたが、その後やめました。ダウンロード条件は「on condition that the data will not be used for commercial purposes」で許可を与えるとしていて、このページはそれを約束できないからです。</li>
+      <li>Eurostat. 統計コードリストGEOによるNUTS地域名。出典を示せば、どんな目的にも再利用できます。<a href="https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/codelist/ESTAT/GEO" target="_blank" rel="noopener">SDMXコードリスト</a>。</li>
+      <li>European Central Bank. Euro foreign exchange reference rates、2026年9月11日。<a href="https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html" target="_blank" rel="noopener">ECB</a>。</li>
+      <li>著者自身による要約を含む報道：<a href="https://www.eurekalert.org/news-releases/1141906" target="_blank" rel="noopener">EurekAlert!、2026年9月2日</a>、<a href="https://www.tuwien.at/en/tu-wien/news/news-articles?tx_news_pi1%5Baction%5D=detail&amp;tx_news_pi1%5Bcontroller%5D=News&amp;tx_news_pi1%5Bnews%5D=210029&amp;cHash=bcb107412caa9ded3616c68e2352a144" target="_blank" rel="noopener">TU Wienのニュース</a>。</li>
     </ol>
-    <p class="fine espon"><b>ESPON terms.</b> The affordability data used here is ESPON material and is cited as its legal notice requires: <b>© ESPON</b> and <b>Origin of data: ESPON EGTC</b>. The notice also requires this disclaimer wherever ESPON findings are used: <b>"The interpretation of ESPON material does not necessarily reflect the opinion of the ESPON Monitoring Committee."</b> The maps on this page were drawn for it from the ESPON table and are not reproductions of ESPON maps, so they carry neither the ESPON map design nor the ESPON logo. As the notice also requires, a link to this page is sent to the ESPON EGTC.</p>
-    <p class="fine">The study is the work of Franziska Sielker and Selim Banabak of the Institute of Spatial Planning, TU Wien, and of the ESPON HOUSE4ALL consortium. This page is an independent reading of their public data; any error in the calculator or the text is mine, not theirs.</p>
-    
+    <p class="fine espon"><b>ESPONの条件。</b>ここで使った手頃さのデータはESPONの資料であり、その法的告知が求めるとおりに出典を示しています：<b>© ESPON</b>、<b>Origin of data: ESPON EGTC</b>。告知はまた、ESPONの知見を使うすべての場所に次の免責文を求めています：<b>「The interpretation of ESPON material does not necessarily reflect the opinion of the ESPON Monitoring Committee.」</b>このページの地図は、ESPONの表からこのページのために描いたもので、ESPONの地図の複製ではありません。そのためESPONの地図デザインもESPONのロゴも使っていません。これも告知の求めに従い、このページへのリンクをESPON EGTCに送ります。</p>
+    <p class="fine">この研究は、TU Wien空間計画研究所のFranziska SielkerとSelim Banabak、そしてESPON HOUSE4ALLコンソーシアムによる仕事です。このページは彼らの公開データを独自に読み解いたもので、計算機や本文の誤りは彼らではなく私の責任です。</p>
+    <p class="fine transnote">英語の原文からの翻訳です。地図上と検索の地名、引用した著作の題名、ESPONの出典表示と免責文は、原文のままにしてあります（本文中のヨーロッパの地名は日本語の表記を使っています）。</p>
   </section>
 </div>
 </main>
 
 <footer>
-  <span>© 2026 Aleksei Grebenkin</span> <a class="to-top" href="#top">↑ top</a>
+  <span>© 2026 Aleksei Grebenkin</span> <a class="to-top" href="#top">↑ 先頭へ</a>
 </footer>
 
-<script src="../shell.js?v=5"></script>
+<script src="../../shell.js?v=5"></script>
 <script>
 (function () {
   "use strict";
@@ -1366,7 +1366,7 @@
   // Все слова, которые рисует сам скрипт, — из словаря strings/js-<язык>.json.
   // Переводчик правит только JSON: фразы там целые, с именованными местами
   // {name}, и порядок слов в них свой у каждого языка.
-  var T = {"numLocale":"en-US","fxDate":"11 Sep 2026","noData":"no data","units":{"m2":"{n} m²","pct":"{n} %","money":"{sym}{n}","moneyCode":"{sym} {n}","amountCode":"{n} {cur}","perM2":"{money}/m²","perM2Mo":"{money}/m²·mo","perMo":"{money}/mo","perMonth":"{money} / month","perM2Long":"{money} / m²","perM2Month":"{money} / m² / month","years":{"one":"{n} year","other":"{n} years"},"yrs":{"one":"{n} yr","other":"{n} yrs"},"people":{"one":"{n} person","other":"{n} people"},"forever":"forever","aThird":"a third"},"place":{"city":"city","town":"town or suburb","rural":"rural"},"frames":{"eu":{"label":"Europe","unit":"municipality","units":"municipalities","reg":"region","regs":"NUTS 3 regions","home":"home","rental":"rental","unitLabel":"Municipality","regLabel":"Region","regKind":"NUTS 3 region","inReg":"region {name}","regNamed":"Region {name}","unitsInReg":"Municipalities in the region","largest":"Largest municipalities","count":{"one":"{n} municipality","other":"{n} municipalities"},"rankName":"City","rankTab":"Cities","countOfBig":{"one":"{shown} of {n} municipality of {min} people or more","other":"{shown} of {n} municipalities of {min} people or more"}},"na":{"label":"United States","unit":"county","units":"counties","reg":"state","regs":"states","home":"the median home","rental":"the median rental","unitLabel":"County","regLabel":"State","regKind":"state","inReg":"state {name}","regNamed":"State {name}","unitsInReg":"Counties in the state","largest":"Largest counties","count":{"one":"{n} county","other":"{n} counties"},"rankName":"County","rankTab":"Counties","countOfBig":{"one":"{shown} of {n} county of {min} people or more","other":"{shown} of {n} counties of {min} people or more"}}},"groups":{"eu":{"north":"North & Baltics","west":"West","south":"South","east":"East"},"na":{"ne":"Northeast","mw":"Midwest","so":"South","we":"West"}},"presets":[{"name":"The study's own view","desc":"average local income, 30 years, no deposit"},{"name":"Junior developer","desc":"{inc} € net, alone, 30 years"},{"name":"Couple with a child","desc":"{inc} € net, wants 75 m²"},{"name":"Remote worker, coast","desc":"{inc} € net, cities on the coast"},{"name":"Buying with savings","desc":"{inc} € net, two adults, 40 % deposit, 15 years"},{"name":"Student, renting","desc":"{inc} € net, rent map"}],"setup":{"hhHint":"Equivalence factor {factor} (OECD-modified scale: first adult 1, each further adult 0.5, each child 0.3). Used only for the line comparing your income with the local average — which is per adult-equivalent in Europe and per household in the United States.","wantNoArea":"no floor area in US data","wantAny":"any","mineDisabled":"Enter your income above","incHint":"After tax, all earners together. Leave empty to see every place on its own average income.","incHintFx":"After tax, all earners together. {amount} = {eur} at the ECB reference rate of {date}.","rateAll":"{rate} everywhere","rateOwn":"each country's own rate","adults":{"one":"{n} adult","other":"{n} adults"},"kids":{"one":"{n} child","other":"{n} children"},"adultsKids":"{adults} and {kids}","termAdj":{"one":"{n}-year","other":"{n}-year"},"orig":" ({amount})","mine":"<b>{income}</b> net per month{orig} · <b>{share}</b> for housing = <b>{budget}</b> a month · <b>{term}</b> mortgage at {rate} · deposit <b>{deposit}</b> · household of {household} (factor {factor})","local":"Every place on its <b>own average income</b> · <b>{share}</b> for housing · <b>{term}</b> mortgage at {rate} · deposit <b>{deposit}</b>{tail}","published":" — the published map exactly","studyTerms":" — the study's terms, applied here","want":" · looking for <b>{m2}</b>"},"modes":{"title":{"buy":"m² to buy","rent":"m² to rent","diff":"rent minus buy, m²","years":"years of income","share":"rent, % of income"},"text":{"buy":"square metres to buy","rent":"square metres to rent","diff":"square metres to rent minus square metres to buy","years":"years of income for {basket}","share":"rent of {basket} as a share of income"},"noAreaTitle":"No floor area is published for US {units} — see “Where the numbers come from”"},"legend":{"classes":["under 50 m²","50–75 m²","76–100 m²","101–150 m²","over 150 m²"],"diff":["buying gives over 20 m² more","buying gives 5–20 m² more","within 5 m²","renting gives 5–20 m² more","renting gives over 20 m² more"],"years":["under 3 years","3–5","5–8","8–12","over 12"],"share":["under 20 % of income","20–30 %","30–40 %","40–50 %","over 50 %"],"headFor":"{title} for {basket}","noData":"no data","noDataUnder":"no data or under {m2}"},"map":{"aria":"Map of {label}: countries filled and {units} marked as dots, coloured by {mode}"},"tip":{"yearsFor":"years of income for {basket}","rentOf":"rent of {basket}","buy":"to buy","rent":"to rent","price":"price","rentp":"rent","noListings":"no listings data","medianHome":"median home","medianRent":"median rent","income":"income"},"search":{"country":"country","none":"Nothing matches. Try the local spelling: Wien, Praha, København."},"move":{"empty":"Pick both places to see the answer. Everything else on this page already applies: your term, deposit and the share of income you are willing to spend.","noIncome":"No income on record for {place}. Enter your own above and switch to “My income”.","rentSame":"to rent the same space","rentShare":"to keep rent at the same share of income","rentDetailSame":"the same {m2} as at home needs {money} a month of income there","rentDetail":"{home} at home against {there} there — {moneyHome} a month against {moneyThere}","noRent":"No rent on record for {place}, so renting cannot be compared.","buySame":"to buy the same space","buyShare":"to keep buying at the same share of income","buyDetailSame":"{m2} at home, on a {term} mortgage at {rateThere} there against {rateHome} at home","buyDetail":"{home} at home against {there} there, on a {term} mortgage at {rateThere} there against {rateHome} at home","noBuy":"No price or no mortgage rate for one of the two, so buying cannot be compared.","layers":"The two layers are not measured in the same unit: Europe has a price per square metre, the United States does not publish floor area, so the comparison keeps the share of income equal rather than the space. Part of the gap is therefore size and not price — the American basket is a whole home, and how big it is, is exactly what the data does not say.","medianHome":"the median home","medianRental":"the median rental","head":"Moving from <b>{from}</b> to <b>{to}</b> on {income} net a month","more":"+{n} %","less":"−{n} %","aboutSame":"about the same","needLabel":"The offer needs to be","what":"net per month {what} <b>{verdict}</b>","offerAbove":"Your offer of {offer} is {gap} above","offerShort":"Your offer of {offer} is {gap} short","gotBuy":"{m2} to buy","gotRent":"{m2} to rent","eitherOr":"{a} or {b}","gotHome":", against {buy} and {rent} at home","gotM2":"On {offer} in {place} you could take {options}{home}.","gotYears":{"one":"the median home costs {n} year of it","other":"the median home costs {n} years of it"},"gotShare":"the median rent takes {pct} of it","both":"{a}, and {b}","gotUS":"On {offer} in {place}, {options}.","mortgageShare":"<b>How much of this is the mortgage, not the housing.</b> If both countries charged the same interest, the offer would need to be {flat} ({delta}) {what} — that is the price difference alone. The rate difference moves it by {rate} a month. {vintage}","flatShare":"to keep the same share of income","vintageEu":"European rates are the national averages the study used, mostly 2023, not today's. Put your own in the rate field above if you know better ones.","vintageNa":"The US rate is the Freddie Mac 30-year average for 2024, the year whose dollars the ACS estimates are in. Put your own in the rate field above if you know better ones.","vintageBoth":"European rates are the national averages the study used, mostly 2023, not today's; the US rate is the Freddie Mac 30-year average for 2024, the year whose dollars the ACS estimates are in. Put your own in the rate field above if you know better ones."},"card":{"label":"Selected place","empty":"Search a town above or click a region on the map. The card shows what your settings mean there, and what it would take.","coastal":"{deg}, coastal","coverage":"sale data for {pct} of the population","countryKind":"country","countryLabel":"Country","moe":"median home value ±{pct}","moeWide":"median home value ±{pct}, a wide interval for a median","bigYears":"years of income for the median home","bigShare":"of income for the median rent","bigBuy":"m² to buy","bigBuyTerm":{"one":"m² to buy, {n} year","other":"m² to buy, {n} years"},"bigRent":"m² to rent","yourBudget":"Your housing budget","thirdLocal":"A third of the local income","loan":"Loan the budget carries","plusDeposit":"Plus a {pct} deposit","homePrice":"Home price that reaches","medianValue":"Median home value, owner's estimate","medianRent":"Median rent, utilities included","pricePerM2":"Price per m²","notPublished":"not published for US counties","salePrice":"Sale price, taxes and fees in","rent":"Rent","incomeUS":"Median household income, before tax","incomeEU":"Average income per adult-equivalent","rateUsed":"Mortgage rate used","rateYours":"{rate} (yours)","study":"The study's own figures","studyValue":"{buy} m² buy · {rent} m² rent","vsMedian":"Your income vs the local median","vsAverage":"Your income vs the local average","ratioUS":"{ratio}× of a median household, before tax","ratioEU":"{ratio}× per adult-equivalent","whatItTakes":"What it would take","withDeposit":" with a {pct} deposit","haveEnough":" — you have {money}, enough","haveShort":" — you have {money}, {pct} short","netMonth":"{money} net a month","buyNeed":"To buy {input} m² here on {share} of income over {years}{deposit} you need <b>{need}</b>{have}.","depositSave":"A {pct} deposit on {m2} is <b>{amount}</b>. Saving {input} € a month, that takes <b>{time}</b>.","rentNeed":"To rent {m2} here on {share} of income you need <b>{need}</b>.","buyMedianNeed":"To buy the median home here ({price}) on {share} of income over {years}{deposit} you need <b>{need}</b>{have}.","depositSaveMedian":"A {pct} deposit on it is <b>{amount}</b>. Saving {input} € a month, that takes <b>{time}</b>.","rentMedianNeed":"To rent the median home here ({rent} a month) on {share} of income you need <b>{need}</b>.","around":"Around it","inCmp":"✓ In the comparison","addCmp":"+ Compare","showOnMap":"Show on the map","clear":"Clear","summaryM2":"{buy} · {rent} m²","summaryUS":"{years} · {share}","shareLocal":"{share} of the local income"},"cmp":{"converted":" · money converted to euro at the ECB rate of {date}","groups":{"settings":"With your settings{conv}","sameMine":"Same terms for everyone (your income)","sameLocal":"Same terms for everyone (local income)","study":"The study's own figures","market":"The market{conv}","both":"Both layers · in Europe the basket is {m2}, in the United States the median home — floor area is not published for US counties{conv}","euOnly":"Europe only · these need a price per square metre","usOnly":"United States only · these need a whole-home median"},"rows":{"buy":"m² to buy","rent":"m² to rent","budget":"Monthly housing budget, {sym}","needBuy":"Income needed for {m2} to buy, {sym}/month","needRent":"Income needed for {m2} to rent, {sym}/month","buy20":"m² to buy, 20 years","buy30":"m² to buy, 30 years","buy25":"m² to buy at 25 % of income","buyThird":"m² to buy at a third of income","rent25":"m² to rent at 25 % of income","rentThird":"m² to rent at a third of income","studyBuy":"m² to buy, average local income, 30 years","studyRent":"m² to rent, average local income","salePrice":"Sale price incl. taxes and fees, {sym}/m²","rentPrice":"Rent, {sym}/m²/month","avgIncome":"Average local income, {sym}/month","rate":"Mortgage rate used, %","population":"Population","yearsMedian":"Years of income for the median home","shareMedian":"Median rent as a share of income, %","needBuyMedian":"Income needed to buy the median home, {sym}/month","needRentMedian":"Income needed to rent the median home, {sym}/month","medianValue":"Median home value, {sym}","medianRent":"Median rent, {sym}/month","medianIncome":"Median household income, {sym}/month","years":"Years of income","share":"Rent as a share of income, %","localIncome":"Local income, {sym}/month"},"remove":"Remove","addMore":{"one":"add up to {n} more","other":"add up to {n} more"},"nothing":"nothing selected yet — add a place from the card or the rankings"},"rank":{"coast":"coast only","coastTitle":"EU-27 municipalities flagged coastal by Eurostat","cols":{"country":"Country","buy":"m² to buy","rent":"m² to rent","price":"Price {sym}/m²","rentp":"Rent {sym}/m²·mo","years":"Years of income","share":"Rent, % of income","val":"Median home {sym}","rnt":"Median rent {sym}/mo","inc":"Income {sym}/mo","rate":"Rate %","pop":"People"},"addCmp":"Add to the comparison","removeCmp":"Remove from the comparison","shown":"{count}{within}{coastal}.","countOfCountries":{"one":"{shown} of {n} country","other":"{shown} of {n} countries"},"within":" where {m2} are within reach","coastal":", coastal only","onYours":"On your income of {money} a month.","onOwn":"Each on its own average income.","layerOnly":"{label} only: the two layers use different income definitions and do not belong in one ranking.","countryMeans":"Country values are population-weighted means of {units}.","clickRow":"Click a row to open the place on the map."},"hist":{"labels":["<50","50–75","76–100","101–150",">150","no data"],"kinds":["cities","towns and suburbs","rural","not classified"],"tip":"{kind}: {pct} of population ({m} M)","axis":"affordable square metres on a third of the local average income"},"share":{"copied":"Link copied","inBar":"Address bar holds the link"},"export":{"income":"Income","terms":"Terms","map":"Map","source":"Source","incomeMine":"{income} net a month{orig}, household of {household}","incomeLocal":"the average local income of each place","termsText":"{share} of income for housing, {term} mortgage at {rate}, deposit {deposit}","mapGreyed":"{mode}; places where {m2} are out of reach are greyed","sourceEu":"Sielker & Banabak 2026, Journal of Maps; ESPON HOUSE4ALL feature service, 14 Sep 2026; outlines Natural Earth, public domain","sourceNa":"US Census Bureau, American Community Survey 2020-2024 (public domain); Freddie Mac PMMS 2024; outlines Natural Earth, public domain","csvLine":"{label}: {text}","mapCaptionMine":"{mode} on {income} net a month, by country and town","mapCaptionLocal":"{mode} on the average local income, by country and town","sideBySide":"Side by side: {places}","pngSaved":"PNG saved","pngCopied":"PNG copied","csvSaved":"CSV saved","needPlace":"Add a place to compare first","imageFailed":"Could not build the image"},"csv":{"rank":"rank","country":"country","metric":"metric","place":"{name} ({country})"},"print":{"withMap":"{setup} · map: {mode}","withRank":"{setup} · {note}"},"sentSep":" "};
+  var T = {"numLocale":"ja-JP","fxDate":"2026年9月11日","noData":"データなし","units":{"m2":"{n}m²","pct":"{n}%","money":"{sym}{n}","moneyCode":"{n} {sym}","amountCode":"{n} {cur}","perM2":"{money}/m²","perM2Mo":"{money}/m²·月","perMo":"{money}/月","perMonth":"月{money}","perM2Long":"{money}/m²","perM2Month":"{money}/m²（月額）","years":{"other":"{n}年"},"yrs":{"other":"{n}年"},"people":{"other":"{n}人"},"forever":"無限","aThird":"3分の1"},"place":{"city":"都市","town":"町・郊外","rural":"農村部"},"frames":{"eu":{"label":"ヨーロッパ","unit":"自治体","units":"自治体","reg":"地域","regs":"NUTS 3地域","home":"住まい","rental":"賃貸住宅","unitLabel":"自治体","regLabel":"地域","regKind":"NUTS 3地域","inReg":"地域：{name}","regNamed":"地域：{name}","unitsInReg":"この地域の自治体","largest":"人口の多い自治体","count":{"other":"{n}自治体"},"rankName":"都市","rankTab":"都市","countOfBig":{"other":"人口{min}人以上の{n}自治体のうち{shown}"}},"na":{"label":"米国","unit":"郡","units":"郡","reg":"州","regs":"州","home":"中央値の住宅","rental":"中央値の賃貸住宅","unitLabel":"郡","regLabel":"州","regKind":"州","inReg":"州：{name}","regNamed":"州：{name}","unitsInReg":"この州の郡","largest":"人口の多い郡","count":{"other":"{n}郡"},"rankName":"郡","rankTab":"郡","countOfBig":{"other":"人口{min}人以上の{n}郡のうち{shown}"}}},"groups":{"eu":{"north":"北欧・バルト","west":"西欧","south":"南欧","east":"東欧"},"na":{"ne":"北東部","mw":"中西部","so":"南部","we":"西部"}},"presets":[{"name":"研究そのままの設定","desc":"地域の平均収入、30年、頭金なし"},{"name":"若手の開発者","desc":"手取り€{inc}、単身、30年"},{"name":"子ども1人の夫婦","desc":"手取り€{inc}、75m²希望"},{"name":"リモートワーカー、海辺","desc":"手取り€{inc}、海沿いの都市"},{"name":"貯蓄を使って購入","desc":"手取り€{inc}、大人2人、頭金40%、15年"},{"name":"学生、賃貸","desc":"手取り€{inc}、賃貸の地図"}],"setup":{"hhHint":"等価係数{factor}（OECD修正尺度：最初の大人が1、それ以降の大人は1人0.5、子どもは1人0.3）。あなたの収入を地域の平均と比べる行にだけ使います。比べる相手は、ヨーロッパでは成人等価1人あたり、米国では世帯あたりの所得です。","wantNoArea":"米国のデータには床面積がありません","wantAny":"指定なし","mineDisabled":"上で収入を入力してください","incHint":"税引き後、稼ぎ手全員の合計。空欄なら、どの場所もその地域の平均収入で示します。","incHintFx":"税引き後、稼ぎ手全員の合計。{amount} = {eur}（{date}のECB参照レート）。","rateAll":"一律{rate}","rateOwn":"国ごと","adults":{"other":"大人{n}人"},"kids":{"other":"子ども{n}人"},"adultsKids":"{adults}・{kids}","termAdj":{"other":"{n}年"},"orig":"（{amount}）","mine":"手取り月<b>{income}</b>{orig} · 住まいに<b>{share}</b> = 月<b>{budget}</b> · <b>{term}</b>ローン、金利：{rate} · 頭金<b>{deposit}</b> · 世帯：{household}（係数{factor}）","local":"どの場所も<b>その地域の平均収入</b> · 住まいに<b>{share}</b> · <b>{term}</b>ローン、金利：{rate} · 頭金<b>{deposit}</b>{tail}","published":"——公表された地図そのもの","studyTerms":"——研究の条件をここに適用","want":" · 希望の広さ<b>{m2}</b>"},"modes":{"title":{"buy":"買えるm²","rent":"借りられるm²","diff":"賃貸−購入、m²","years":"収入の何年分か","share":"家賃負担率（%）"},"text":{"buy":"購入できる平方メートル数","rent":"賃貸できる平方メートル数","diff":"賃貸できる平方メートル数と購入できる平方メートル数の差","years":"{basket}の購入に要する収入の年数","share":"{basket}の家賃が収入に占める割合"},"noAreaTitle":"米国の{units}については床面積が公表されていません。「数字の出どころ」を参照してください"},"legend":{"classes":["50m²未満","50–75m²","76–100m²","101–150m²","150m²超"],"diff":["購入のほうが20m²超広い","購入のほうが5–20m²広い","差は5m²以内","賃貸のほうが5–20m²広い","賃貸のほうが20m²超広い"],"years":["3年未満","3–5","5–8","8–12","12超"],"share":["収入の20%未満","20–30%","30–40%","40–50%","50%超"],"headFor":"{title}（{basket}）","noData":"データなし","noDataUnder":"データなし、または{m2}未満"},"map":{"aria":"{label}の地図：国を塗り分け、{units}を点で示し、色は{mode}"},"tip":{"yearsFor":"収入の年数（{basket}）","rentOf":"家賃（{basket}）","buy":"購入","rent":"賃貸","price":"価格","rentp":"家賃","noListings":"物件広告のデータなし","medianHome":"住宅の中央値","medianRent":"家賃の中央値","income":"収入"},"search":{"country":"国","none":"一致するものがありません。現地の綴りを試してください：Wien、Praha、København。"},"move":{"empty":"両方の場所を選ぶと答えが出ます。このページのほかの設定、つまりローン期間、頭金、住まいに充てる収入の割合は、すでに反映されています。","noIncome":"{place}には収入の記録がありません。上で自分の収入を入力し、「自分の収入」に切り替えてください。","rentSame":"同じ広さを借りる場合","rentShare":"家賃を収入の同じ割合に保つ場合","rentDetailSame":"いまの場所と同じ{m2}を向こうで借りるには、月{money}の収入が必要です","rentDetail":"いまの場所は{home}、向こうは{there}。家賃は月{moneyHome}と月{moneyThere}です","noRent":"{place}には家賃の記録がないため、賃貸は比較できません。","buySame":"同じ広さを買う場合","buyShare":"購入を収入の同じ割合に保つ場合","buyDetailSame":"いまの場所で買える{m2}、{term}ローン。金利は向こうが{rateThere}、いまの場所が{rateHome}","buyDetail":"いまの場所は{home}、向こうは{there}、{term}ローン。金利は向こうが{rateThere}、いまの場所が{rateHome}","noBuy":"どちらかの場所に価格か住宅ローン金利がないため、購入は比較できません。","layers":"2つの層は同じ単位で測られていません。ヨーロッパには1平方メートルあたりの価格がありますが、米国は床面積を公表していないので、この比較は広さではなく収入に占める割合を同じに保っています。したがって差の一部は価格ではなく広さによるものです。米国の基準は住宅1戸全体で、それがどれだけの広さかこそ、データが語らない点です。","medianHome":"中央値の住宅","medianRental":"中央値の賃貸住宅","head":"手取り月{income}で<b>{from}</b>から<b>{to}</b>へ移る場合","more":"+{n}%","less":"−{n}%","aboutSame":"ほぼ同じ","needLabel":"オファーに必要な額","what":"手取り月額（{what}）<b>{verdict}</b>","offerAbove":"あなたのオファー{offer}は{gap}上回っています","offerShort":"あなたのオファー{offer}は{gap}足りません","gotBuy":"{m2}の購入","gotRent":"{m2}の賃貸","eitherOr":"{a}か{b}","gotHome":"（いまの場所では購入{buy}、賃貸{rent}）","gotM2":"{place}で月{offer}なら、{options}ができます{home}。","gotYears":{"other":"中央値の住宅はその{n}年分にあたります"},"gotShare":"中央値の家賃はその{pct}を占めます","both":"{a}。{b}","gotUS":"{place}で月{offer}なら、{options}。","mortgageShare":"<b>このうち、住まいではなく住宅ローンによる部分。</b>両国の金利が同じなら、オファーは{what}、{flat}（{delta}）で足ります。これが価格差だけの分です。金利の差が、それを月{rate}動かしています。{vintage}","flatShare":"収入の同じ割合を保つ場合","vintageEu":"ヨーロッパの金利は研究が用いた国ごとの平均で、多くは2023年のものであり、今日の金利ではありません。より良い数字を知っていれば、上の金利欄に入力してください。","vintageNa":"米国の金利はFreddie Macの30年固定の2024年平均で、ACSの推計が金額を示している年のものです。より良い数字を知っていれば、上の金利欄に入力してください。","vintageBoth":"ヨーロッパの金利は研究が用いた国ごとの平均で、多くは2023年のものであり、今日の金利ではありません。米国の金利はFreddie Macの30年固定の2024年平均で、ACSの推計が金額を示している年のものです。より良い数字を知っていれば、上の金利欄に入力してください。"},"card":{"label":"選んだ場所","empty":"上で町を検索するか、地図上の地域をクリックしてください。カードには、あなたの設定がそこで何を意味するか、そして何が必要になるかが表示されます。","coastal":"{deg}、沿岸部","coverage":"人口の{pct}に売却価格のデータあり","countryKind":"国","countryLabel":"国","moe":"住宅価値の中央値 ±{pct}","moeWide":"住宅価値の中央値 ±{pct}（中央値としては広い区間）","bigYears":"中央値の住宅に要する収入の年数","bigShare":"中央値の家賃が収入に占める割合","bigBuy":"買えるm²","bigBuyTerm":{"other":"買えるm²（{n}年）"},"bigRent":"借りられるm²","yourBudget":"あなたの住居費予算","thirdLocal":"地域の収入の3分の1","loan":"予算で返済できるローン額","plusDeposit":"頭金{pct}を加えると","homePrice":"届く住宅価格","medianValue":"住宅価値の中央値（所有者の見積もり）","medianRent":"家賃の中央値（光熱費など込み）","pricePerM2":"1m²あたりの価格","notPublished":"米国の郡では非公表","salePrice":"売却価格（税・手数料込み）","rent":"家賃","incomeUS":"世帯所得の中央値（税引き前）","incomeEU":"成人等価1人あたりの平均所得","rateUsed":"使用した住宅ローン金利","rateYours":"{rate}（あなたの設定）","study":"研究自身の数字","studyValue":"購入{buy}m² · 賃貸{rent}m²","vsMedian":"地域の中央値と比べたあなたの収入","vsAverage":"地域の平均と比べたあなたの収入","ratioUS":"税引き前の中央値の世帯の{ratio}倍","ratioEU":"成人等価1人あたりで{ratio}倍","whatItTakes":"何が必要か","withDeposit":"・頭金{pct}","haveEnough":"（あなたは{money}なので足ります）","haveShort":"（あなたは{money}で、{pct}足りません）","netMonth":"手取り月{money}","buyNeed":"ここで{input}m²を、収入の{share}、{years}のローン{deposit}で買うには、<b>{need}</b>が必要です{have}。","depositSave":"{m2}に対する頭金{pct}は<b>{amount}</b>です。毎月{input}€ずつ貯めた場合、かかる期間は<b>{time}</b>です。","rentNeed":"ここで{m2}を収入の{share}で借りるには、<b>{need}</b>が必要です。","buyMedianNeed":"ここで中央値の住宅（{price}）を、収入の{share}、{years}のローン{deposit}で買うには、<b>{need}</b>が必要です{have}。","depositSaveMedian":"その頭金{pct}は<b>{amount}</b>です。毎月{input}€ずつ貯めた場合、かかる期間は<b>{time}</b>です。","rentMedianNeed":"ここで中央値の住宅（月{rent}）を収入の{share}で借りるには、<b>{need}</b>が必要です。","around":"周辺","inCmp":"✓ 比較に追加済み","addCmp":"+ 比較","showOnMap":"地図で表示","clear":"クリア","summaryM2":"{buy} · {rent}m²","summaryUS":"{years} · {share}","shareLocal":"地域の収入の{share}"},"cmp":{"converted":" · 金額は{date}のECBレートでユーロに換算","groups":{"settings":"あなたの設定で{conv}","sameMine":"全員に同じ条件（あなたの収入）","sameLocal":"全員に同じ条件（地域の収入）","study":"研究自身の数字","market":"市場{conv}","both":"両方の層 · ヨーロッパの基準は{m2}、米国は中央値の住宅。米国の郡には床面積が公表されていません{conv}","euOnly":"ヨーロッパのみ · 1平方メートルあたりの価格が必要な項目","usOnly":"米国のみ · 住宅全体の中央値が必要な項目"},"rows":{"buy":"買えるm²","rent":"借りられるm²","budget":"住まいの月予算、{sym}","needBuy":"{m2}の購入に必要な収入、{sym}/月","needRent":"{m2}の賃貸に必要な収入、{sym}/月","buy20":"買えるm²、20年","buy30":"買えるm²、30年","buy25":"収入の25%で買えるm²","buyThird":"収入の3分の1で買えるm²","rent25":"収入の25%で借りられるm²","rentThird":"収入の3分の1で借りられるm²","studyBuy":"買えるm²、地域の平均収入、30年","studyRent":"借りられるm²、地域の平均収入","salePrice":"売却価格（税・手数料込み）、{sym}/m²","rentPrice":"家賃、{sym}/m²/月","avgIncome":"地域の平均収入、{sym}/月","rate":"使用した住宅ローン金利、%","population":"人口","yearsMedian":"中央値の住宅に要する収入の年数","shareMedian":"中央値の家賃が収入に占める割合、%","needBuyMedian":"中央値の住宅の購入に必要な収入、{sym}/月","needRentMedian":"中央値の住宅の賃貸に必要な収入、{sym}/月","medianValue":"住宅価値の中央値、{sym}","medianRent":"家賃の中央値、{sym}/月","medianIncome":"世帯所得の中央値、{sym}/月","years":"収入の年数","share":"家賃負担率、%","localIncome":"地域の収入、{sym}/月"},"remove":"外す","addMore":{"other":"あと{n}か所まで追加できます"},"nothing":"まだ何も選んでいません。カードかランキングから場所を追加してください"},"rank":{"coast":"沿岸のみ","coastTitle":"Eurostatが沿岸と分類したEU27か国の自治体","cols":{"country":"国","buy":"買えるm²","rent":"借りられるm²","price":"価格 {sym}/m²","rentp":"家賃 {sym}/m²·月","years":"収入の年数","share":"家賃負担率 %","val":"住宅中央値 {sym}","rnt":"家賃中央値 {sym}/月","inc":"収入 {sym}/月","rate":"金利 %","pop":"人口"},"addCmp":"比較に追加","removeCmp":"比較から外す","shown":"{count}{within}{coastal}。","countOfCountries":{"other":"{n}か国のうち{shown}か国"},"within":"（{m2}に手が届く場所）","coastal":"（沿岸のみ）","onYours":"月{money}のあなたの収入で計算しています。","onOwn":"各場所をその地域の平均収入で計算しています。","layerOnly":"{label}のみ：2つの層は所得の定義が違うため、一つのランキングには入れません。","countryMeans":"国の値は{units}の人口加重平均です。","clickRow":"行をクリックすると、地図上でその場所が開きます。"},"hist":{"labels":["<50","50–75","76–100","101–150",">150","データなし"],"kinds":["都市","町と郊外","農村部","分類なし"],"tip":"{kind}：人口の{pct}（{m}百万人）","axis":"地域の平均収入の3分の1で手の届く平方メートル数"},"share":{"copied":"リンクをコピーしました","inBar":"リンクはアドレスバーにあります"},"export":{"income":"収入","terms":"条件","map":"地図","source":"出典","incomeMine":"手取り月{income}{orig}、世帯：{household}","incomeLocal":"各場所の地域の平均収入","termsText":"住まいに収入の{share}、{term}ローン、金利：{rate}、頭金{deposit}","mapGreyed":"{mode}。{m2}に手が届かない場所は灰色","sourceEu":"Sielker & Banabak 2026, Journal of Maps；ESPON HOUSE4ALLフィーチャーサービス、2026年9月14日；輪郭はNatural Earth、パブリックドメイン","sourceNa":"US Census Bureau, American Community Survey 2020-2024（パブリックドメイン）；Freddie Mac PMMS 2024；輪郭はNatural Earth、パブリックドメイン","csvLine":"{label}：{text}","mapCaptionMine":"{mode}、手取り月{income}、国・町別","mapCaptionLocal":"{mode}、地域の平均収入、国・町別","sideBySide":"並べて比較：{places}","pngSaved":"PNGを保存しました","pngCopied":"PNGをコピーしました","csvSaved":"CSVを保存しました","needPlace":"先に比較する場所を追加してください","imageFailed":"画像を作成できませんでした"},"csv":{"rank":"順位","country":"国","metric":"指標","place":"{name}（{country}）"},"print":{"withMap":"{setup} · 地図：{mode}","withRank":"{setup} · {note}"},"sentSep":""};
 
   // ---- словарь: подстановка, множественное число, числа
   var LOC = T.numLocale || "en-US";
@@ -3158,7 +3158,7 @@
       var ctx = cv.getContext("2d"); ctx.scale(PNG_SCALE, PNG_SCALE); ctx.textBaseline = "alphabetic";
       ctx.fillStyle = gvar("--bg"); ctx.fillRect(0, 0, PNG_W, height);
       var y = PAD + 36;
-      ctx.fillStyle = gvar("--ink"); ctx.font = "600 34px " + head; ctx.fillText("How many square metres can you afford?", PAD, y);
+      ctx.fillStyle = gvar("--ink"); ctx.font = "600 34px " + head; ctx.fillText("何平方メートルなら手が届くか", PAD, y);
       y += 28; ctx.fillStyle = gvar("--ink-2"); ctx.font = "16px " + body;
       ctx.fillText(mine() ? fill(T.export.mapCaptionMine, { mode: capFirst(modeText()), income: fmtEur(incEUR()) })
                           : fill(T.export.mapCaptionLocal, { mode: capFirst(modeText()) }), PAD, y);
@@ -3185,7 +3185,7 @@
     var ctx = cv.getContext("2d"); ctx.scale(PNG_SCALE, PNG_SCALE); ctx.textBaseline = "alphabetic";
     ctx.fillStyle = gvar("--bg"); ctx.fillRect(0, 0, PNG_W, height);
     var y = PAD + 36;
-    ctx.fillStyle = gvar("--ink"); ctx.font = "600 34px " + head; ctx.fillText("How many square metres can you afford?", PAD, y);
+    ctx.fillStyle = gvar("--ink"); ctx.font = "600 34px " + head; ctx.fillText("何平方メートルなら手が届くか", PAD, y);
     y += 28; ctx.fillStyle = gvar("--ink-2"); ctx.font = "16px " + body; ctx.fillText(fill(T.export.sideBySide, { places: listOf(cr.P.map(function (p) { return p.name; })) }), PAD, y);
     y += 24;
     ctx.font = "600 15px " + head; ctx.fillStyle = gvar("--ink"); ctx.textAlign = "right";
@@ -3306,7 +3306,7 @@
    что стоят в окне, — второй копии, которая разъедется с первой, здесь нет.
    Ссылка внутри — на страницу того же языка, что открыт. */
 (function () {
-  var TL = {"copied": "Copied", "copyManual": "Press ⌘C", "text": "How many square metres can you afford?\n\nHow much space a third of an income buys, in 8,489 European municipalities and 3,141 US counties.\n\n— A 30-year mortgage on a third of the average income buys fewer than 50 square metres for 44 % of Europeans, and at most 75 square metres for more than 70 %.\n\n— Which country is cheapest depends on how big a flat you want. Moving the question from 25 m² to 150 m² lifts Norway ten places and Spain nine, while Germany and Sweden each fall seven.\n\n— Capital regions of nearly every country sit in the least affordable class and pull their neighbours with them; the coasts and the tourist valleys of the Alps are far less affordable than the countryside behind them.\n\n— In the United States the median home costs 4.1 years of the median household income, and 9.7 % of Americans live in a county where it is eight years or more — Brooklyn 11.3, the Bronx 10.9.\n\n— The American half is missing the unit. No American public source measures the floor area of housing county by county, so the American map shows years of income and rent share instead of square metres.\n\n— The two layers are not one ranking. Europe measures asking prices against income after tax per adult-equivalent; America measures owners' estimates against income before tax per household. Type your own income, and both sides answer the same question.\n\n— Enter your income, term, rate and down payment, and all 11,630 places are recomputed in your browser; the job offer block works out what a move abroad has to pay.\n\nEurope: Sielker & Banabak, TU Wien, Journal of Maps 2026; © ESPON · Origin of data: ESPON EGTC. The interpretation of ESPON material does not necessarily reflect the opinion of the ESPON Monitoring Committee. United States: U.S. Census Bureau, American Community Survey 2020–2024; Freddie Mac.\n\nThe full interactive page: https://avgrebenkin.com/research/housing/", "md": "# How many square metres can you afford?\n\n*How much space a third of an income buys, in 8,489 European municipalities and 3,141 US counties.*\n\n- A 30-year mortgage on a third of the average income buys fewer than 50 square metres for **44 % of Europeans**, and at most 75 square metres for more than 70 %.\n- **Which country is cheapest depends on how big a flat you want.** Moving the question from 25 m² to 150 m² lifts Norway ten places and Spain nine, while Germany and Sweden each fall seven.\n- **Capital regions of nearly every country** sit in the least affordable class and pull their neighbours with them; the coasts and the tourist valleys of the Alps are far less affordable than the countryside behind them.\n- In the United States **the median home costs 4.1 years of the median household income**, and 9.7 % of Americans live in a county where it is eight years or more — Brooklyn 11.3, the Bronx 10.9.\n- **The American half is missing the unit.** No American public source measures the floor area of housing county by county, so the American map shows years of income and rent share instead of square metres.\n- **The two layers are not one ranking.** Europe measures asking prices against income after tax per adult-equivalent; America measures owners' estimates against income before tax per household. Type your own income, and both sides answer the same question.\n- Enter your income, term, rate and down payment, and all 11,630 places are recomputed in your browser; the job offer block works out what a move abroad has to pay.\n\nEurope: Sielker & Banabak, TU Wien, Journal of Maps 2026; © ESPON · Origin of data: ESPON EGTC. The interpretation of ESPON material does not necessarily reflect the opinion of the ESPON Monitoring Committee. United States: U.S. Census Bureau, American Community Survey 2020–2024; Freddie Mac.\n\nThe full interactive page: <https://avgrebenkin.com/research/housing/>"};
+  var TL = {"copied": "コピーしました", "copyManual": "⌘Cを押してください", "text": "何平方メートルなら手が届くか\n\nヨーロッパの8,489自治体と米国の3,141郡で、収入の3分の1でどれだけの広さが手に入るか。\n\n— 平均収入の3分の1で30年ローンを組んでも、ヨーロッパの人々の44%は50平方メートル未満しか買えず、70%超の人々も最大75平方メートルにとどまります。\n\n— どの国が最も安いかは、どれだけ広い住まいを望むかで変わります。問いを25m²から150m²に変えると、ノルウェーは10位、スペインは9位上がり、ドイツとスウェーデンはそれぞれ7位下がります。\n\n— ほぼすべての国の首都圏が最も手の届きにくい階級にあり、周囲も巻き込んでいます。海岸とアルプスの観光地の谷は、その背後の田園地帯よりはるかに手が届きにくくなっています。\n\n— 米国では中央値の住宅が世帯所得の中央値の4.1年分にあたり、米国人の9.7%はそれが8年分以上になる郡に住んでいます。ブルックリンは11.3年、ブロンクスは10.9年です。\n\n— 米国側には単位が欠けています。住宅の床面積を郡ごとに測っている米国の公的な情報源がないため、米国の地図は平方メートルの代わりに、収入の何年分かと家賃負担率を示します。\n\n— 2つの層は一つのランキングではありません。ヨーロッパは希望価格を税引き後・成人等価1人あたりの所得と比べ、米国は所有者の見積もりを税引き前・世帯あたりの所得と比べます。自分の収入を入力すれば、両側が同じ問いに答えます。\n\n— 収入、期間、金利、頭金を入れると、11,630か所すべてがブラウザの中で再計算されます。仕事のオファーのブロックは、外国への移住にいくらの報酬が必要かを計算します。\n\nヨーロッパ：Sielker & Banabak, TU Wien, Journal of Maps 2026。© ESPON · Origin of data: ESPON EGTC. The interpretation of ESPON material does not necessarily reflect the opinion of the ESPON Monitoring Committee. 米国：U.S. Census Bureau, American Community Survey 2020–2024、Freddie Mac。\n\nインタラクティブなページの全体： https://avgrebenkin.com/research/housing/ja/", "md": "# 何平方メートルなら手が届くか\n\n*ヨーロッパの8,489自治体と米国の3,141郡で、収入の3分の1でどれだけの広さが手に入るか。*\n\n- 平均収入の3分の1で30年ローンを組んでも、**ヨーロッパの人々の44%**は50平方メートル未満しか買えず、70%超の人々も最大75平方メートルにとどまります。\n- **どの国が最も安いかは、どれだけ広い住まいを望むかで変わります。**問いを25m²から150m²に変えると、ノルウェーは10位、スペインは9位上がり、ドイツとスウェーデンはそれぞれ7位下がります。\n- **ほぼすべての国の首都圏**が最も手の届きにくい階級にあり、周囲も巻き込んでいます。海岸とアルプスの観光地の谷は、その背後の田園地帯よりはるかに手が届きにくくなっています。\n- 米国では**中央値の住宅が世帯所得の中央値の4.1年分**にあたり、米国人の9.7%はそれが8年分以上になる郡に住んでいます。ブルックリンは11.3年、ブロンクスは10.9年です。\n- **米国側には単位が欠けています。**住宅の床面積を郡ごとに測っている米国の公的な情報源がないため、米国の地図は平方メートルの代わりに、収入の何年分かと家賃負担率を示します。\n- **2つの層は一つのランキングではありません。**ヨーロッパは希望価格を税引き後・成人等価1人あたりの所得と比べ、米国は所有者の見積もりを税引き前・世帯あたりの所得と比べます。自分の収入を入力すれば、両側が同じ問いに答えます。\n- 収入、期間、金利、頭金を入れると、11,630か所すべてがブラウザの中で再計算されます。仕事のオファーのブロックは、外国への移住にいくらの報酬が必要かを計算します。\n\nヨーロッパ：Sielker & Banabak, TU Wien, Journal of Maps 2026。© ESPON · Origin of data: ESPON EGTC. The interpretation of ESPON material does not necessarily reflect the opinion of the ESPON Monitoring Committee. 米国：U.S. Census Bureau, American Community Survey 2020–2024、Freddie Mac。\n\nインタラクティブなページの全体： <https://avgrebenkin.com/research/housing/ja/>"};
   var dlg = document.getElementById('tldr');
   if (!dlg || !dlg.showModal) return;
   var timer;

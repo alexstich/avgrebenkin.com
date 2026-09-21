@@ -1,0 +1,492 @@
+{
+  "numLocale": "pl-PL",
+  "fxDate": "11.09.2026",
+  "noData": "brak danych",
+  "units": {
+    "m2": "{n} m²",
+    "pct": "{n}%",
+    "money": "{n} {sym}",
+    "moneyCode": "{n} {sym}",
+    "amountCode": "{n} {cur}",
+    "perM2": "{money}/m²",
+    "perM2Mo": "{money}/m²·mies.",
+    "perMo": "{money}/mies.",
+    "perMonth": "{money} miesięcznie",
+    "perM2Long": "{money} za m²",
+    "perM2Month": "{money} za m² miesięcznie",
+    "years": {
+      "one": "{n} rok",
+      "few": "{n} lata",
+      "many": "{n} lat",
+      "other": "{n} roku"
+    },
+    "yrs": {
+      "one": "{n} r.",
+      "few": "{n} l.",
+      "many": "{n} l.",
+      "other": "{n} r."
+    },
+    "people": {
+      "one": "{n} osoba",
+      "few": "{n} osoby",
+      "many": "{n} osób",
+      "other": "{n} osoby"
+    },
+    "forever": "bez końca",
+    "aThird": "jedna trzecia"
+  },
+  "place": {
+    "city": "miasto",
+    "town": "mniejsze miasto lub przedmieście",
+    "rural": "obszar wiejski"
+  },
+  "frames": {
+    "eu": {
+      "label": "Europa",
+      "unit": "gmina",
+      "units": "gminy",
+      "reg": "region",
+      "regs": "regiony NUTS 3",
+      "home": "mieszkanie",
+      "rental": "mieszkanie na wynajem",
+      "unitLabel": "Gmina",
+      "regLabel": "Region",
+      "regKind": "region NUTS 3",
+      "inReg": "region {name}",
+      "regNamed": "Region {name}",
+      "unitsInReg": "Gminy w regionie",
+      "largest": "Największe gminy",
+      "count": {
+        "one": "{n} gmina",
+        "few": "{n} gminy",
+        "many": "{n} gmin",
+        "other": "{n} gminy"
+      },
+      "rankName": "Miasto",
+      "rankTab": "Miasta",
+      "countOfBig": {
+        "one": "{shown} z {n} gminy liczącej co najmniej {min} mieszkańców",
+        "few": "{shown} z {n} gmin liczących co najmniej {min} mieszkańców",
+        "many": "{shown} z {n} gmin liczących co najmniej {min} mieszkańców",
+        "other": "{shown} z {n} gmin liczących co najmniej {min} mieszkańców"
+      }
+    },
+    "na": {
+      "label": "Stany Zjednoczone",
+      "unit": "hrabstwo",
+      "units": "hrabstwa",
+      "reg": "stan",
+      "regs": "stany",
+      "home": "medianowy dom",
+      "rental": "medianowe mieszkanie na wynajem",
+      "unitLabel": "Hrabstwo",
+      "regLabel": "Stan",
+      "regKind": "stan",
+      "inReg": "stan {name}",
+      "regNamed": "Stan {name}",
+      "unitsInReg": "Hrabstwa w stanie",
+      "largest": "Największe hrabstwa",
+      "count": {
+        "one": "{n} hrabstwo",
+        "few": "{n} hrabstwa",
+        "many": "{n} hrabstw",
+        "other": "{n} hrabstwa"
+      },
+      "rankName": "Hrabstwo",
+      "rankTab": "Hrabstwa",
+      "countOfBig": {
+        "one": "{shown} z {n} hrabstwa liczącego co najmniej {min} mieszkańców",
+        "few": "{shown} z {n} hrabstw liczących co najmniej {min} mieszkańców",
+        "many": "{shown} z {n} hrabstw liczących co najmniej {min} mieszkańców",
+        "other": "{shown} z {n} hrabstw liczących co najmniej {min} mieszkańców"
+      }
+    }
+  },
+  "groups": {
+    "eu": {
+      "north": "Północ i kraje bałtyckie",
+      "west": "Zachód",
+      "south": "Południe",
+      "east": "Wschód"
+    },
+    "na": {
+      "ne": "Północny Wschód",
+      "mw": "Środkowy Zachód",
+      "so": "Południe",
+      "we": "Zachód"
+    }
+  },
+  "presets": [
+    {
+      "name": "Tak, jak liczy badanie",
+      "desc": "przeciętny miejscowy dochód, 30 lat, bez wkładu własnego"
+    },
+    {
+      "name": "Junior developer",
+      "desc": "{inc} € netto, jedna osoba, 30 lat"
+    },
+    {
+      "name": "Para z dzieckiem",
+      "desc": "{inc} € netto, szukają 75 m²"
+    },
+    {
+      "name": "Praca zdalna nad morzem",
+      "desc": "{inc} € netto, miasta na wybrzeżu"
+    },
+    {
+      "name": "Zakup z oszczędności",
+      "desc": "{inc} € netto, dwie osoby dorosłe, wkład 40%, 15 lat"
+    },
+    {
+      "name": "Na studiach, wynajem",
+      "desc": "{inc} € netto, mapa najmu"
+    }
+  ],
+  "setup": {
+    "hhHint": "Współczynnik ekwiwalentności {factor} (zmodyfikowana skala OECD: pierwsza osoba dorosła 1, każda kolejna 0,5, każde dziecko 0,3). Używany tylko w wierszu, który porównuje twój dochód z miejscową średnią – liczoną w Europie na jednostkę ekwiwalentną dorosłego, a w Stanach Zjednoczonych na gospodarstwo domowe.",
+    "wantNoArea": "dane USA nie podają powierzchni",
+    "wantAny": "dowolny",
+    "mineDisabled": "Wpisz dochód powyżej",
+    "incHint": "Po podatku, wszystkie zarabiające osoby razem. Zostaw puste, żeby zobaczyć każde miejsce na jego własnym przeciętnym dochodzie.",
+    "incHintFx": "Po podatku, wszystkie zarabiające osoby razem. {amount} = {eur} po kursie referencyjnym EBC z {date}.",
+    "rateAll": "przy oprocentowaniu {rate} wszędzie",
+    "rateOwn": "przy krajowym oprocentowaniu każdego kraju",
+    "adults": {
+      "one": "{n} osoba dorosła",
+      "few": "{n} osoby dorosłe",
+      "many": "{n} osób dorosłych",
+      "other": "{n} osoby dorosłej"
+    },
+    "kids": {
+      "one": "{n} dziecko",
+      "few": "{n} dzieci",
+      "many": "{n} dzieci",
+      "other": "{n} dziecka"
+    },
+    "adultsKids": "{adults} i {kids}",
+    "termAdj": {
+      "one": "{n} rok",
+      "few": "{n} lata",
+      "many": "{n} lat",
+      "other": "{n} roku"
+    },
+    "orig": " ({amount})",
+    "mine": "<b>{income}</b> netto miesięcznie{orig} · <b>{share}</b> na mieszkanie = <b>{budget}</b> miesięcznie · kredyt na <b>{term}</b> {rate} · wkład własny <b>{deposit}</b> · gospodarstwo domowe: {household} (współczynnik {factor})",
+    "local": "Każde miejsce na <b>własnym przeciętnym dochodzie</b> · <b>{share}</b> na mieszkanie · kredyt na <b>{term}</b> {rate} · wkład własny <b>{deposit}</b>{tail}",
+    "published": " – dokładnie jak na opublikowanej mapie",
+    "studyTerms": " – warunki z badania, zastosowane tutaj",
+    "want": " · szukam <b>{m2}</b>"
+  },
+  "modes": {
+    "title": {
+      "buy": "m² do kupienia",
+      "rent": "m² do wynajęcia",
+      "diff": "najem minus zakup, m²",
+      "years": "lata dochodu",
+      "share": "czynsz, % dochodu"
+    },
+    "text": {
+      "buy": "metry kwadratowe do kupienia",
+      "rent": "metry kwadratowe do wynajęcia",
+      "diff": "metry kwadratowe do wynajęcia minus metry kwadratowe do kupienia",
+      "years": "lata dochodu za {basket}",
+      "share": "czynsz za {basket} jako udział w dochodzie"
+    },
+    "noAreaTitle": "Dane USA ({units}) nie obejmują powierzchni – zob. „Skąd biorą się liczby”"
+  },
+  "legend": {
+    "classes": [
+      "poniżej 50 m²",
+      "50–75 m²",
+      "76–100 m²",
+      "101–150 m²",
+      "powyżej 150 m²"
+    ],
+    "diff": [
+      "zakup daje ponad 20 m² więcej",
+      "zakup daje o 5–20 m² więcej",
+      "różnica do 5 m²",
+      "najem daje o 5–20 m² więcej",
+      "najem daje ponad 20 m² więcej"
+    ],
+    "years": [
+      "poniżej 3 lat",
+      "3–5",
+      "5–8",
+      "8–12",
+      "powyżej 12"
+    ],
+    "share": [
+      "poniżej 20% dochodu",
+      "20–30%",
+      "30–40%",
+      "40–50%",
+      "powyżej 50%"
+    ],
+    "headFor": "{title}: {basket}",
+    "noData": "brak danych",
+    "noDataUnder": "brak danych lub poniżej {m2}"
+  },
+  "map": {
+    "aria": "Mapa – {label}: kraje wypełnione kolorem, jednostki ({units}) zaznaczone kropkami; kolor: {mode}"
+  },
+  "tip": {
+    "yearsFor": "lata dochodu za {basket}",
+    "rentOf": "czynsz za {basket}",
+    "buy": "zakup",
+    "rent": "najem",
+    "price": "cena",
+    "rentp": "czynsz",
+    "noListings": "brak danych z ogłoszeń",
+    "medianHome": "medianowy dom",
+    "medianRent": "mediana czynszu",
+    "income": "dochód"
+  },
+  "search": {
+    "country": "kraj",
+    "none": "Nic nie pasuje. Spróbuj miejscowej pisowni: Wien, Praha, København."
+  },
+  "move": {
+    "empty": "Wybierz oba miejsca, żeby zobaczyć odpowiedź. Wszystko inne na tej stronie już obowiązuje: twój okres kredytu, wkład własny i część dochodu, którą chcesz wydawać.",
+    "noIncome": "Brak danych o dochodzie dla: {place}. Wpisz własny dochód powyżej i przełącz na „Mój dochód”.",
+    "rentSame": "żeby wynająć tyle samo metrów",
+    "rentShare": "żeby czynsz pochłaniał tę samą część dochodu",
+    "rentDetailSame": "te same {m2} co u siebie wymagają tam {money} dochodu miesięcznie",
+    "rentDetail": "u siebie: {home}, tam: {there} – {moneyHome} wobec {moneyThere} miesięcznie",
+    "noRent": "Brak danych o czynszu dla: {place}, więc najmu nie da się porównać.",
+    "buySame": "żeby kupić tyle samo metrów",
+    "buyShare": "żeby rata pochłaniała tę samą część dochodu",
+    "buyDetailSame": "{m2} jak u siebie; kredyt na {term}: tam {rateThere}, u siebie {rateHome}",
+    "buyDetail": "u siebie: {home}, tam: {there}; kredyt na {term}: tam {rateThere}, u siebie {rateHome}",
+    "noBuy": "Dla jednego z dwóch miejsc brakuje ceny albo oprocentowania kredytu, więc zakupu nie da się porównać.",
+    "layers": "Obie warstwy nie są mierzone w tej samej jednostce: Europa ma cenę za metr kwadratowy, Stany Zjednoczone nie publikują powierzchni, więc porównanie utrzymuje równy udział dochodu, a nie metraż. Część różnicy wynika zatem z wielkości, a nie z ceny – amerykański koszyk to cały dom, a to, jak jest duży, jest właśnie tym, czego dane nie mówią.",
+    "medianHome": "medianowy dom",
+    "medianRental": "medianowe mieszkanie na wynajem",
+    "head": "Skąd: <b>{from}</b> · dokąd: <b>{to}</b> · dochód {income} netto miesięcznie",
+    "more": "+{n}%",
+    "less": "−{n}%",
+    "aboutSame": "mniej więcej tyle samo",
+    "needLabel": "Oferta musi wynosić",
+    "what": "netto miesięcznie, {what}: <b>{verdict}</b>",
+    "offerAbove": "Twoja oferta {offer} jest o {gap} wyższa",
+    "offerShort": "Twojej ofercie {offer} brakuje {gap}",
+    "gotBuy": "{m2} do kupienia",
+    "gotRent": "{m2} do wynajęcia",
+    "eitherOr": "{a} albo {b}",
+    "gotHome": ", a u siebie masz {buy} i {rent}",
+    "gotM2": "{place}, oferta {offer}: możesz mieć {options}{home}.",
+    "gotYears": {
+      "one": "medianowy dom kosztuje {n} rok tej oferty",
+      "few": "medianowy dom kosztuje {n} lata tej oferty",
+      "many": "medianowy dom kosztuje {n} lat tej oferty",
+      "other": "medianowy dom kosztuje {n} roku tej oferty"
+    },
+    "gotShare": "medianowy czynsz pochłania {pct} tej oferty",
+    "both": "{a}, a {b}",
+    "gotUS": "{place}, oferta {offer}: {options}.",
+    "mortgageShare": "<b>Ile z tego to kredyt, a nie samo mieszkanie.</b> Gdyby oba kraje miały to samo oprocentowanie, oferta musiałaby wynosić {flat} ({delta}), {what} – to sama różnica cen. Różnica oprocentowania przesuwa ją o {rate} miesięcznie. {vintage}",
+    "flatShare": "żeby utrzymać tę samą część dochodu",
+    "vintageEu": "Stopy europejskie to krajowe średnie użyte w badaniu, głównie z 2023, a nie dzisiejsze. Jeśli znasz lepsze, wpisz własne w polu oprocentowania powyżej.",
+    "vintageNa": "Stopa dla USA to średnia 30-letnia Freddie Mac za 2024 – rok, w którego dolarach są szacunki ACS. Jeśli znasz lepszą, wpisz własną w polu oprocentowania powyżej.",
+    "vintageBoth": "Stopy europejskie to krajowe średnie użyte w badaniu, głównie z 2023, a nie dzisiejsze; stopa dla USA to średnia 30-letnia Freddie Mac za 2024 – rok, w którego dolarach są szacunki ACS. Jeśli znasz lepsze, wpisz własne w polu oprocentowania powyżej."
+  },
+  "card": {
+    "label": "Wybrane miejsce",
+    "empty": "Wyszukaj miejscowość powyżej albo kliknij region na mapie. Karta pokaże, co twoje ustawienia oznaczają w tym miejscu i czego by tam trzeba.",
+    "coastal": "{deg}, nad morzem",
+    "coverage": "dane o cenach sprzedaży dla {pct} ludności",
+    "countryKind": "kraj",
+    "countryLabel": "Kraj",
+    "moe": "mediana wartości domu ±{pct}",
+    "moeWide": "mediana wartości domu ±{pct}, szeroki przedział jak na medianę",
+    "bigYears": "lata dochodu: tyle kosztuje medianowy dom",
+    "bigShare": "dochodu na medianowy czynsz",
+    "bigBuy": "m² do kupienia",
+    "bigBuyTerm": {
+      "one": "m² do kupienia, kredyt na {n} rok",
+      "few": "m² do kupienia, kredyt na {n} lata",
+      "many": "m² do kupienia, kredyt na {n} lat",
+      "other": "m² do kupienia, kredyt na {n} roku"
+    },
+    "bigRent": "m² do wynajęcia",
+    "yourBudget": "Twój budżet na mieszkanie",
+    "thirdLocal": "Jedna trzecia miejscowego dochodu",
+    "loan": "Kredyt, który udźwignie ten budżet",
+    "plusDeposit": "Plus wkład własny {pct}",
+    "homePrice": "Cena domu w zasięgu",
+    "medianValue": "Mediana wartości domu, szacunek właściciela",
+    "medianRent": "Mediana czynszu z mediami",
+    "pricePerM2": "Cena za m²",
+    "notPublished": "niepublikowana dla hrabstw USA",
+    "salePrice": "Cena sprzedaży z podatkami i opłatami",
+    "rent": "Czynsz",
+    "incomeUS": "Mediana dochodu gospodarstwa domowego, przed podatkiem",
+    "incomeEU": "Przeciętny dochód na jednostkę ekwiwalentną dorosłego",
+    "rateUsed": "Przyjęte oprocentowanie kredytu",
+    "rateYours": "{rate} (twoje)",
+    "study": "Liczby z samego badania",
+    "studyValue": "{buy} m² zakup · {rent} m² najem",
+    "vsMedian": "Twój dochód a miejscowa mediana",
+    "vsAverage": "Twój dochód a miejscowa średnia",
+    "ratioUS": "{ratio}× mediany gospodarstwa domowego, przed podatkiem",
+    "ratioEU": "{ratio}× na jednostkę ekwiwalentną dorosłego",
+    "whatItTakes": "Czego by trzeba",
+    "withDeposit": " z wkładem własnym {pct}",
+    "haveEnough": " – masz {money}, to wystarczy",
+    "haveShort": " – masz {money}, brakuje {pct}",
+    "netMonth": "{money} netto miesięcznie",
+    "buyNeed": "Żeby kupić tu {input} m² na kredyt na {years}{deposit}, gdy na ratę idzie {share} dochodu, potrzebujesz <b>{need}</b>{have}.",
+    "depositSave": "Wkład własny {pct} na {m2} to <b>{amount}</b>. Przy oszczędzaniu {input} € miesięcznie potrwa to <b>{time}</b>.",
+    "rentNeed": "Żeby wynająć tu {m2}, gdy na czynsz idzie {share} dochodu, potrzebujesz <b>{need}</b>.",
+    "buyMedianNeed": "Żeby kupić tu medianowy dom ({price}) na kredyt na {years}{deposit}, gdy na ratę idzie {share} dochodu, potrzebujesz <b>{need}</b>{have}.",
+    "depositSaveMedian": "Wkład własny {pct} na taki dom to <b>{amount}</b>. Przy oszczędzaniu {input} € miesięcznie potrwa to <b>{time}</b>.",
+    "rentMedianNeed": "Żeby wynająć tu medianowe mieszkanie ({rent} miesięcznie), gdy na czynsz idzie {share} dochodu, potrzebujesz <b>{need}</b>.",
+    "around": "W okolicy",
+    "inCmp": "✓ W porównaniu",
+    "addCmp": "+ Porównaj",
+    "showOnMap": "Pokaż na mapie",
+    "clear": "Wyczyść",
+    "summaryM2": "{buy} · {rent} m²",
+    "summaryUS": "{years} · {share}",
+    "shareLocal": "{share} miejscowego dochodu"
+  },
+  "cmp": {
+    "converted": " · kwoty przeliczone na euro po kursie EBC z {date}",
+    "groups": {
+      "settings": "Z twoimi ustawieniami{conv}",
+      "sameMine": "Te same warunki dla wszystkich (twój dochód)",
+      "sameLocal": "Te same warunki dla wszystkich (miejscowy dochód)",
+      "study": "Liczby z samego badania",
+      "market": "Rynek{conv}",
+      "both": "Obie warstwy · w Europie koszyk to {m2}, w Stanach Zjednoczonych medianowy dom – dla hrabstw USA nie publikuje się powierzchni{conv}",
+      "euOnly": "Tylko Europa · to wymaga ceny za metr kwadratowy",
+      "usOnly": "Tylko Stany Zjednoczone · to wymaga mediany dla całego domu"
+    },
+    "rows": {
+      "buy": "m² do kupienia",
+      "rent": "m² do wynajęcia",
+      "budget": "Miesięczny budżet na mieszkanie, {sym}",
+      "needBuy": "Dochód potrzebny na zakup {m2}, {sym}/mies.",
+      "needRent": "Dochód potrzebny na wynajem {m2}, {sym}/mies.",
+      "buy20": "m² do kupienia, 20 lat",
+      "buy30": "m² do kupienia, 30 lat",
+      "buy25": "m² do kupienia przy 25% dochodu",
+      "buyThird": "m² do kupienia przy jednej trzeciej dochodu",
+      "rent25": "m² do wynajęcia przy 25% dochodu",
+      "rentThird": "m² do wynajęcia przy jednej trzeciej dochodu",
+      "studyBuy": "m² do kupienia, przeciętny miejscowy dochód, 30 lat",
+      "studyRent": "m² do wynajęcia, przeciętny miejscowy dochód",
+      "salePrice": "Cena sprzedaży z podatkami i opłatami, {sym}/m²",
+      "rentPrice": "Czynsz, {sym}/m²/mies.",
+      "avgIncome": "Przeciętny miejscowy dochód, {sym}/mies.",
+      "rate": "Przyjęte oprocentowanie, %",
+      "population": "Ludność",
+      "yearsMedian": "Lata dochodu za medianowy dom",
+      "shareMedian": "Mediana czynszu jako udział w dochodzie, %",
+      "needBuyMedian": "Dochód potrzebny na zakup medianowego domu, {sym}/mies.",
+      "needRentMedian": "Dochód potrzebny na wynajem medianowego mieszkania, {sym}/mies.",
+      "medianValue": "Mediana wartości domu, {sym}",
+      "medianRent": "Mediana czynszu, {sym}/mies.",
+      "medianIncome": "Mediana dochodu gospodarstwa domowego, {sym}/mies.",
+      "years": "Lata dochodu",
+      "share": "Czynsz jako udział w dochodzie, %",
+      "localIncome": "Miejscowy dochód, {sym}/mies."
+    },
+    "remove": "Usuń",
+    "addMore": {
+      "one": "dodaj jeszcze najwyżej {n}",
+      "few": "dodaj jeszcze najwyżej {n}",
+      "many": "dodaj jeszcze najwyżej {n}",
+      "other": "dodaj jeszcze najwyżej {n}"
+    },
+    "nothing": "jeszcze nic nie wybrano – dodaj miejsce z karty albo z rankingów"
+  },
+  "rank": {
+    "coast": "tylko wybrzeże",
+    "coastTitle": "Gminy UE-27 oznaczone przez Eurostat jako nadmorskie",
+    "cols": {
+      "country": "Kraj",
+      "buy": "m² zakup",
+      "rent": "m² najem",
+      "price": "Cena {sym}/m²",
+      "rentp": "Czynsz {sym}/m²·mies.",
+      "years": "Lata dochodu",
+      "share": "Czynsz, % dochodu",
+      "val": "Mediana domu {sym}",
+      "rnt": "Mediana czynszu {sym}/mies.",
+      "inc": "Dochód {sym}/mies.",
+      "rate": "Oproc. %",
+      "pop": "Ludność"
+    },
+    "addCmp": "Dodaj do porównania",
+    "removeCmp": "Usuń z porównania",
+    "shown": "{count}{within}{coastal}.",
+    "countOfCountries": {
+      "one": "{shown} z {n} kraju",
+      "few": "{shown} z {n} krajów",
+      "many": "{shown} z {n} krajów",
+      "other": "{shown} z {n} krajów"
+    },
+    "within": ", w których w zasięgu jest {m2}",
+    "coastal": ", tylko nadmorskie",
+    "onYours": "Przy twoim dochodzie {money} miesięcznie.",
+    "onOwn": "Każde miejsce na własnym przeciętnym dochodzie.",
+    "layerOnly": "Tylko {label}: obie warstwy używają różnych definicji dochodu i nie należą do jednego rankingu.",
+    "countryMeans": "Wartości krajów to średnie ważone liczbą ludności (jednostki: {units}).",
+    "clickRow": "Kliknij wiersz, żeby otworzyć miejsce na mapie."
+  },
+  "hist": {
+    "labels": [
+      "<50",
+      "50–75",
+      "76–100",
+      "101–150",
+      ">150",
+      "brak danych"
+    ],
+    "kinds": [
+      "miasta",
+      "mniejsze miasta i przedmieścia",
+      "obszary wiejskie",
+      "bez klasyfikacji"
+    ],
+    "tip": "{kind}: {pct} ludności ({m} mln)",
+    "axis": "metry kwadratowe w zasięgu za jedną trzecią miejscowego przeciętnego dochodu"
+  },
+  "share": {
+    "copied": "Link skopiowany",
+    "inBar": "Link jest w pasku adresu"
+  },
+  "export": {
+    "income": "Dochód",
+    "terms": "Warunki",
+    "map": "Mapa",
+    "source": "Źródło",
+    "incomeMine": "{income} netto miesięcznie{orig}, gospodarstwo domowe: {household}",
+    "incomeLocal": "przeciętny miejscowy dochód każdego miejsca",
+    "termsText": "{share} dochodu na mieszkanie, kredyt na {term} {rate}, wkład własny {deposit}",
+    "mapGreyed": "{mode}; miejsca, gdzie {m2} jest poza zasięgiem, są wyszarzone",
+    "sourceEu": "Sielker & Banabak 2026, Journal of Maps; usługa danych ESPON HOUSE4ALL, 14.09.2026; kontury Natural Earth, domena publiczna",
+    "sourceNa": "US Census Bureau, American Community Survey 2020-2024 (domena publiczna); Freddie Mac PMMS 2024; kontury Natural Earth, domena publiczna",
+    "csvLine": "{label}: {text}",
+    "mapCaptionMine": "{mode} przy dochodzie {income} netto miesięcznie, według krajów i miejscowości",
+    "mapCaptionLocal": "{mode} przy przeciętnym miejscowym dochodzie, według krajów i miejscowości",
+    "sideBySide": "Porównanie: {places}",
+    "pngSaved": "PNG zapisany",
+    "pngCopied": "PNG skopiowany",
+    "csvSaved": "CSV zapisany",
+    "needPlace": "Najpierw dodaj miejsce do porównania",
+    "imageFailed": "Nie udało się utworzyć obrazka"
+  },
+  "csv": {
+    "rank": "pozycja",
+    "country": "kraj",
+    "metric": "wskaźnik",
+    "place": "{name} ({country})"
+  },
+  "print": {
+    "withMap": "{setup} · mapa: {mode}",
+    "withRank": "{setup} · {note}"
+  },
+  "sentSep": " "
+}

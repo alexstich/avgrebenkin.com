@@ -26,7 +26,7 @@ research/
   ai-and-work/index.html         исследование №3, английский
   ai-and-work/<код>/index.html   оно же на остальных двенадцати языках
   ai-and-work/src/               из чего оно собирается
-  housing/index.html      исследование №5, пока только английский
+  housing/index.html      исследование №5; переводы — в подпапках по коду языка
   housing/src/            из чего оно собирается, включая выгрузку данных
   AUTHORING.md             свод правил для следующего исследования
   README.md                этот файл
@@ -713,7 +713,10 @@ Statistics (27 августа 2026), Anthropic Economic Index, панель Stan
 |---|---|
 | `housing/index.html` | Собранная страница — **результат сборки**, ~1,4 МБ: 1,07 МБ данных и 132 КБ контуров |
 | `housing/src/page.tmpl`, `page.css`, `page.js` | Каркас, стили, поведение |
-| `housing/src/strings/en.json` | Заголовки и метаданные страницы |
+| `housing/src/strings/<l>.json` | Всё, что переводится в разметке: метаданные, проза (`t.*`), короткая версия (`t.tldr`), интерфейс (`t.ui`); английский — канон |
+| `housing/src/strings/js-<l>.json` | Строки, которые рисует скрипт: карточка, сравнение, рейтинги, легенда, экспорт; формы числа — по CLDR |
+| `housing/src/check.py` | Сверка каталога языка с английским: ключи, разметка, подстановки, ссылки |
+| `housing/src/tldr.js` | Окно короткой версии: копирование текстом и Markdown, печать одного листа |
 | `housing/src/build.py` | Сборка: вшивает `data.json`, `geo.json`, считает доли населения для текста |
 | `housing/src/extract.py` | Сырая выгрузка ESPON + таблица LAU Евростата → `research/data/house4all-lau-2024.csv` |
 | `housing/src/extract_us.py` | ACS (через открытый API Census Reporter) + Natural Earth + TIGER 2024 + Freddie Mac → `research/data/us-counties.csv`, `us-gaps.csv`, `us-meta.json` |

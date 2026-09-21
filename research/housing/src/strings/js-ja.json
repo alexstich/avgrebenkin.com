@@ -1,0 +1,450 @@
+{
+  "numLocale": "ja-JP",
+  "fxDate": "2026年9月11日",
+  "noData": "データなし",
+  "units": {
+    "m2": "{n}m²",
+    "pct": "{n}%",
+    "money": "{sym}{n}",
+    "moneyCode": "{n} {sym}",
+    "amountCode": "{n} {cur}",
+    "perM2": "{money}/m²",
+    "perM2Mo": "{money}/m²·月",
+    "perMo": "{money}/月",
+    "perMonth": "月{money}",
+    "perM2Long": "{money}/m²",
+    "perM2Month": "{money}/m²（月額）",
+    "years": {
+      "other": "{n}年"
+    },
+    "yrs": {
+      "other": "{n}年"
+    },
+    "people": {
+      "other": "{n}人"
+    },
+    "forever": "無限",
+    "aThird": "3分の1"
+  },
+  "place": {
+    "city": "都市",
+    "town": "町・郊外",
+    "rural": "農村部"
+  },
+  "frames": {
+    "eu": {
+      "label": "ヨーロッパ",
+      "unit": "自治体",
+      "units": "自治体",
+      "reg": "地域",
+      "regs": "NUTS 3地域",
+      "home": "住まい",
+      "rental": "賃貸住宅",
+      "unitLabel": "自治体",
+      "regLabel": "地域",
+      "regKind": "NUTS 3地域",
+      "inReg": "地域：{name}",
+      "regNamed": "地域：{name}",
+      "unitsInReg": "この地域の自治体",
+      "largest": "人口の多い自治体",
+      "count": {
+        "other": "{n}自治体"
+      },
+      "rankName": "都市",
+      "rankTab": "都市",
+      "countOfBig": {
+        "other": "人口{min}人以上の{n}自治体のうち{shown}"
+      }
+    },
+    "na": {
+      "label": "米国",
+      "unit": "郡",
+      "units": "郡",
+      "reg": "州",
+      "regs": "州",
+      "home": "中央値の住宅",
+      "rental": "中央値の賃貸住宅",
+      "unitLabel": "郡",
+      "regLabel": "州",
+      "regKind": "州",
+      "inReg": "州：{name}",
+      "regNamed": "州：{name}",
+      "unitsInReg": "この州の郡",
+      "largest": "人口の多い郡",
+      "count": {
+        "other": "{n}郡"
+      },
+      "rankName": "郡",
+      "rankTab": "郡",
+      "countOfBig": {
+        "other": "人口{min}人以上の{n}郡のうち{shown}"
+      }
+    }
+  },
+  "groups": {
+    "eu": {
+      "north": "北欧・バルト",
+      "west": "西欧",
+      "south": "南欧",
+      "east": "東欧"
+    },
+    "na": {
+      "ne": "北東部",
+      "mw": "中西部",
+      "so": "南部",
+      "we": "西部"
+    }
+  },
+  "presets": [
+    {
+      "name": "研究そのままの設定",
+      "desc": "地域の平均収入、30年、頭金なし"
+    },
+    {
+      "name": "若手の開発者",
+      "desc": "手取り€{inc}、単身、30年"
+    },
+    {
+      "name": "子ども1人の夫婦",
+      "desc": "手取り€{inc}、75m²希望"
+    },
+    {
+      "name": "リモートワーカー、海辺",
+      "desc": "手取り€{inc}、海沿いの都市"
+    },
+    {
+      "name": "貯蓄を使って購入",
+      "desc": "手取り€{inc}、大人2人、頭金40%、15年"
+    },
+    {
+      "name": "学生、賃貸",
+      "desc": "手取り€{inc}、賃貸の地図"
+    }
+  ],
+  "setup": {
+    "hhHint": "等価係数{factor}（OECD修正尺度：最初の大人が1、それ以降の大人は1人0.5、子どもは1人0.3）。あなたの収入を地域の平均と比べる行にだけ使います。比べる相手は、ヨーロッパでは成人等価1人あたり、米国では世帯あたりの所得です。",
+    "wantNoArea": "米国のデータには床面積がありません",
+    "wantAny": "指定なし",
+    "mineDisabled": "上で収入を入力してください",
+    "incHint": "税引き後、稼ぎ手全員の合計。空欄なら、どの場所もその地域の平均収入で示します。",
+    "incHintFx": "税引き後、稼ぎ手全員の合計。{amount} = {eur}（{date}のECB参照レート）。",
+    "rateAll": "一律{rate}",
+    "rateOwn": "国ごと",
+    "adults": {
+      "other": "大人{n}人"
+    },
+    "kids": {
+      "other": "子ども{n}人"
+    },
+    "adultsKids": "{adults}・{kids}",
+    "termAdj": {
+      "other": "{n}年"
+    },
+    "orig": "（{amount}）",
+    "mine": "手取り月<b>{income}</b>{orig} · 住まいに<b>{share}</b> = 月<b>{budget}</b> · <b>{term}</b>ローン、金利：{rate} · 頭金<b>{deposit}</b> · 世帯：{household}（係数{factor}）",
+    "local": "どの場所も<b>その地域の平均収入</b> · 住まいに<b>{share}</b> · <b>{term}</b>ローン、金利：{rate} · 頭金<b>{deposit}</b>{tail}",
+    "published": "——公表された地図そのもの",
+    "studyTerms": "——研究の条件をここに適用",
+    "want": " · 希望の広さ<b>{m2}</b>"
+  },
+  "modes": {
+    "title": {
+      "buy": "買えるm²",
+      "rent": "借りられるm²",
+      "diff": "賃貸−購入、m²",
+      "years": "収入の何年分か",
+      "share": "家賃負担率（%）"
+    },
+    "text": {
+      "buy": "購入できる平方メートル数",
+      "rent": "賃貸できる平方メートル数",
+      "diff": "賃貸できる平方メートル数と購入できる平方メートル数の差",
+      "years": "{basket}の購入に要する収入の年数",
+      "share": "{basket}の家賃が収入に占める割合"
+    },
+    "noAreaTitle": "米国の{units}については床面積が公表されていません。「数字の出どころ」を参照してください"
+  },
+  "legend": {
+    "classes": [
+      "50m²未満",
+      "50–75m²",
+      "76–100m²",
+      "101–150m²",
+      "150m²超"
+    ],
+    "diff": [
+      "購入のほうが20m²超広い",
+      "購入のほうが5–20m²広い",
+      "差は5m²以内",
+      "賃貸のほうが5–20m²広い",
+      "賃貸のほうが20m²超広い"
+    ],
+    "years": [
+      "3年未満",
+      "3–5",
+      "5–8",
+      "8–12",
+      "12超"
+    ],
+    "share": [
+      "収入の20%未満",
+      "20–30%",
+      "30–40%",
+      "40–50%",
+      "50%超"
+    ],
+    "headFor": "{title}（{basket}）",
+    "noData": "データなし",
+    "noDataUnder": "データなし、または{m2}未満"
+  },
+  "map": {
+    "aria": "{label}の地図：国を塗り分け、{units}を点で示し、色は{mode}"
+  },
+  "tip": {
+    "yearsFor": "収入の年数（{basket}）",
+    "rentOf": "家賃（{basket}）",
+    "buy": "購入",
+    "rent": "賃貸",
+    "price": "価格",
+    "rentp": "家賃",
+    "noListings": "物件広告のデータなし",
+    "medianHome": "住宅の中央値",
+    "medianRent": "家賃の中央値",
+    "income": "収入"
+  },
+  "search": {
+    "country": "国",
+    "none": "一致するものがありません。現地の綴りを試してください：Wien、Praha、København。"
+  },
+  "move": {
+    "empty": "両方の場所を選ぶと答えが出ます。このページのほかの設定、つまりローン期間、頭金、住まいに充てる収入の割合は、すでに反映されています。",
+    "noIncome": "{place}には収入の記録がありません。上で自分の収入を入力し、「自分の収入」に切り替えてください。",
+    "rentSame": "同じ広さを借りる場合",
+    "rentShare": "家賃を収入の同じ割合に保つ場合",
+    "rentDetailSame": "いまの場所と同じ{m2}を向こうで借りるには、月{money}の収入が必要です",
+    "rentDetail": "いまの場所は{home}、向こうは{there}。家賃は月{moneyHome}と月{moneyThere}です",
+    "noRent": "{place}には家賃の記録がないため、賃貸は比較できません。",
+    "buySame": "同じ広さを買う場合",
+    "buyShare": "購入を収入の同じ割合に保つ場合",
+    "buyDetailSame": "いまの場所で買える{m2}、{term}ローン。金利は向こうが{rateThere}、いまの場所が{rateHome}",
+    "buyDetail": "いまの場所は{home}、向こうは{there}、{term}ローン。金利は向こうが{rateThere}、いまの場所が{rateHome}",
+    "noBuy": "どちらかの場所に価格か住宅ローン金利がないため、購入は比較できません。",
+    "layers": "2つの層は同じ単位で測られていません。ヨーロッパには1平方メートルあたりの価格がありますが、米国は床面積を公表していないので、この比較は広さではなく収入に占める割合を同じに保っています。したがって差の一部は価格ではなく広さによるものです。米国の基準は住宅1戸全体で、それがどれだけの広さかこそ、データが語らない点です。",
+    "medianHome": "中央値の住宅",
+    "medianRental": "中央値の賃貸住宅",
+    "head": "手取り月{income}で<b>{from}</b>から<b>{to}</b>へ移る場合",
+    "more": "+{n}%",
+    "less": "−{n}%",
+    "aboutSame": "ほぼ同じ",
+    "needLabel": "オファーに必要な額",
+    "what": "手取り月額（{what}）<b>{verdict}</b>",
+    "offerAbove": "あなたのオファー{offer}は{gap}上回っています",
+    "offerShort": "あなたのオファー{offer}は{gap}足りません",
+    "gotBuy": "{m2}の購入",
+    "gotRent": "{m2}の賃貸",
+    "eitherOr": "{a}か{b}",
+    "gotHome": "（いまの場所では購入{buy}、賃貸{rent}）",
+    "gotM2": "{place}で月{offer}なら、{options}ができます{home}。",
+    "gotYears": {
+      "other": "中央値の住宅はその{n}年分にあたります"
+    },
+    "gotShare": "中央値の家賃はその{pct}を占めます",
+    "both": "{a}。{b}",
+    "gotUS": "{place}で月{offer}なら、{options}。",
+    "mortgageShare": "<b>このうち、住まいではなく住宅ローンによる部分。</b>両国の金利が同じなら、オファーは{what}、{flat}（{delta}）で足ります。これが価格差だけの分です。金利の差が、それを月{rate}動かしています。{vintage}",
+    "flatShare": "収入の同じ割合を保つ場合",
+    "vintageEu": "ヨーロッパの金利は研究が用いた国ごとの平均で、多くは2023年のものであり、今日の金利ではありません。より良い数字を知っていれば、上の金利欄に入力してください。",
+    "vintageNa": "米国の金利はFreddie Macの30年固定の2024年平均で、ACSの推計が金額を示している年のものです。より良い数字を知っていれば、上の金利欄に入力してください。",
+    "vintageBoth": "ヨーロッパの金利は研究が用いた国ごとの平均で、多くは2023年のものであり、今日の金利ではありません。米国の金利はFreddie Macの30年固定の2024年平均で、ACSの推計が金額を示している年のものです。より良い数字を知っていれば、上の金利欄に入力してください。"
+  },
+  "card": {
+    "label": "選んだ場所",
+    "empty": "上で町を検索するか、地図上の地域をクリックしてください。カードには、あなたの設定がそこで何を意味するか、そして何が必要になるかが表示されます。",
+    "coastal": "{deg}、沿岸部",
+    "coverage": "人口の{pct}に売却価格のデータあり",
+    "countryKind": "国",
+    "countryLabel": "国",
+    "moe": "住宅価値の中央値 ±{pct}",
+    "moeWide": "住宅価値の中央値 ±{pct}（中央値としては広い区間）",
+    "bigYears": "中央値の住宅に要する収入の年数",
+    "bigShare": "中央値の家賃が収入に占める割合",
+    "bigBuy": "買えるm²",
+    "bigBuyTerm": {
+      "other": "買えるm²（{n}年）"
+    },
+    "bigRent": "借りられるm²",
+    "yourBudget": "あなたの住居費予算",
+    "thirdLocal": "地域の収入の3分の1",
+    "loan": "予算で返済できるローン額",
+    "plusDeposit": "頭金{pct}を加えると",
+    "homePrice": "届く住宅価格",
+    "medianValue": "住宅価値の中央値（所有者の見積もり）",
+    "medianRent": "家賃の中央値（光熱費など込み）",
+    "pricePerM2": "1m²あたりの価格",
+    "notPublished": "米国の郡では非公表",
+    "salePrice": "売却価格（税・手数料込み）",
+    "rent": "家賃",
+    "incomeUS": "世帯所得の中央値（税引き前）",
+    "incomeEU": "成人等価1人あたりの平均所得",
+    "rateUsed": "使用した住宅ローン金利",
+    "rateYours": "{rate}（あなたの設定）",
+    "study": "研究自身の数字",
+    "studyValue": "購入{buy}m² · 賃貸{rent}m²",
+    "vsMedian": "地域の中央値と比べたあなたの収入",
+    "vsAverage": "地域の平均と比べたあなたの収入",
+    "ratioUS": "税引き前の中央値の世帯の{ratio}倍",
+    "ratioEU": "成人等価1人あたりで{ratio}倍",
+    "whatItTakes": "何が必要か",
+    "withDeposit": "・頭金{pct}",
+    "haveEnough": "（あなたは{money}なので足ります）",
+    "haveShort": "（あなたは{money}で、{pct}足りません）",
+    "netMonth": "手取り月{money}",
+    "buyNeed": "ここで{input}m²を、収入の{share}、{years}のローン{deposit}で買うには、<b>{need}</b>が必要です{have}。",
+    "depositSave": "{m2}に対する頭金{pct}は<b>{amount}</b>です。毎月{input}€ずつ貯めた場合、かかる期間は<b>{time}</b>です。",
+    "rentNeed": "ここで{m2}を収入の{share}で借りるには、<b>{need}</b>が必要です。",
+    "buyMedianNeed": "ここで中央値の住宅（{price}）を、収入の{share}、{years}のローン{deposit}で買うには、<b>{need}</b>が必要です{have}。",
+    "depositSaveMedian": "その頭金{pct}は<b>{amount}</b>です。毎月{input}€ずつ貯めた場合、かかる期間は<b>{time}</b>です。",
+    "rentMedianNeed": "ここで中央値の住宅（月{rent}）を収入の{share}で借りるには、<b>{need}</b>が必要です。",
+    "around": "周辺",
+    "inCmp": "✓ 比較に追加済み",
+    "addCmp": "+ 比較",
+    "showOnMap": "地図で表示",
+    "clear": "クリア",
+    "summaryM2": "{buy} · {rent}m²",
+    "summaryUS": "{years} · {share}",
+    "shareLocal": "地域の収入の{share}"
+  },
+  "cmp": {
+    "converted": " · 金額は{date}のECBレートでユーロに換算",
+    "groups": {
+      "settings": "あなたの設定で{conv}",
+      "sameMine": "全員に同じ条件（あなたの収入）",
+      "sameLocal": "全員に同じ条件（地域の収入）",
+      "study": "研究自身の数字",
+      "market": "市場{conv}",
+      "both": "両方の層 · ヨーロッパの基準は{m2}、米国は中央値の住宅。米国の郡には床面積が公表されていません{conv}",
+      "euOnly": "ヨーロッパのみ · 1平方メートルあたりの価格が必要な項目",
+      "usOnly": "米国のみ · 住宅全体の中央値が必要な項目"
+    },
+    "rows": {
+      "buy": "買えるm²",
+      "rent": "借りられるm²",
+      "budget": "住まいの月予算、{sym}",
+      "needBuy": "{m2}の購入に必要な収入、{sym}/月",
+      "needRent": "{m2}の賃貸に必要な収入、{sym}/月",
+      "buy20": "買えるm²、20年",
+      "buy30": "買えるm²、30年",
+      "buy25": "収入の25%で買えるm²",
+      "buyThird": "収入の3分の1で買えるm²",
+      "rent25": "収入の25%で借りられるm²",
+      "rentThird": "収入の3分の1で借りられるm²",
+      "studyBuy": "買えるm²、地域の平均収入、30年",
+      "studyRent": "借りられるm²、地域の平均収入",
+      "salePrice": "売却価格（税・手数料込み）、{sym}/m²",
+      "rentPrice": "家賃、{sym}/m²/月",
+      "avgIncome": "地域の平均収入、{sym}/月",
+      "rate": "使用した住宅ローン金利、%",
+      "population": "人口",
+      "yearsMedian": "中央値の住宅に要する収入の年数",
+      "shareMedian": "中央値の家賃が収入に占める割合、%",
+      "needBuyMedian": "中央値の住宅の購入に必要な収入、{sym}/月",
+      "needRentMedian": "中央値の住宅の賃貸に必要な収入、{sym}/月",
+      "medianValue": "住宅価値の中央値、{sym}",
+      "medianRent": "家賃の中央値、{sym}/月",
+      "medianIncome": "世帯所得の中央値、{sym}/月",
+      "years": "収入の年数",
+      "share": "家賃負担率、%",
+      "localIncome": "地域の収入、{sym}/月"
+    },
+    "remove": "外す",
+    "addMore": {
+      "other": "あと{n}か所まで追加できます"
+    },
+    "nothing": "まだ何も選んでいません。カードかランキングから場所を追加してください"
+  },
+  "rank": {
+    "coast": "沿岸のみ",
+    "coastTitle": "Eurostatが沿岸と分類したEU27か国の自治体",
+    "cols": {
+      "country": "国",
+      "buy": "買えるm²",
+      "rent": "借りられるm²",
+      "price": "価格 {sym}/m²",
+      "rentp": "家賃 {sym}/m²·月",
+      "years": "収入の年数",
+      "share": "家賃負担率 %",
+      "val": "住宅中央値 {sym}",
+      "rnt": "家賃中央値 {sym}/月",
+      "inc": "収入 {sym}/月",
+      "rate": "金利 %",
+      "pop": "人口"
+    },
+    "addCmp": "比較に追加",
+    "removeCmp": "比較から外す",
+    "shown": "{count}{within}{coastal}。",
+    "countOfCountries": {
+      "other": "{n}か国のうち{shown}か国"
+    },
+    "within": "（{m2}に手が届く場所）",
+    "coastal": "（沿岸のみ）",
+    "onYours": "月{money}のあなたの収入で計算しています。",
+    "onOwn": "各場所をその地域の平均収入で計算しています。",
+    "layerOnly": "{label}のみ：2つの層は所得の定義が違うため、一つのランキングには入れません。",
+    "countryMeans": "国の値は{units}の人口加重平均です。",
+    "clickRow": "行をクリックすると、地図上でその場所が開きます。"
+  },
+  "hist": {
+    "labels": [
+      "<50",
+      "50–75",
+      "76–100",
+      "101–150",
+      ">150",
+      "データなし"
+    ],
+    "kinds": [
+      "都市",
+      "町と郊外",
+      "農村部",
+      "分類なし"
+    ],
+    "tip": "{kind}：人口の{pct}（{m}百万人）",
+    "axis": "地域の平均収入の3分の1で手の届く平方メートル数"
+  },
+  "share": {
+    "copied": "リンクをコピーしました",
+    "inBar": "リンクはアドレスバーにあります"
+  },
+  "export": {
+    "income": "収入",
+    "terms": "条件",
+    "map": "地図",
+    "source": "出典",
+    "incomeMine": "手取り月{income}{orig}、世帯：{household}",
+    "incomeLocal": "各場所の地域の平均収入",
+    "termsText": "住まいに収入の{share}、{term}ローン、金利：{rate}、頭金{deposit}",
+    "mapGreyed": "{mode}。{m2}に手が届かない場所は灰色",
+    "sourceEu": "Sielker & Banabak 2026, Journal of Maps；ESPON HOUSE4ALLフィーチャーサービス、2026年9月14日；輪郭はNatural Earth、パブリックドメイン",
+    "sourceNa": "US Census Bureau, American Community Survey 2020-2024（パブリックドメイン）；Freddie Mac PMMS 2024；輪郭はNatural Earth、パブリックドメイン",
+    "csvLine": "{label}：{text}",
+    "mapCaptionMine": "{mode}、手取り月{income}、国・町別",
+    "mapCaptionLocal": "{mode}、地域の平均収入、国・町別",
+    "sideBySide": "並べて比較：{places}",
+    "pngSaved": "PNGを保存しました",
+    "pngCopied": "PNGをコピーしました",
+    "csvSaved": "CSVを保存しました",
+    "needPlace": "先に比較する場所を追加してください",
+    "imageFailed": "画像を作成できませんでした"
+  },
+  "csv": {
+    "rank": "順位",
+    "country": "国",
+    "metric": "指標",
+    "place": "{name}（{country}）"
+  },
+  "print": {
+    "withMap": "{setup} · 地図：{mode}",
+    "withRank": "{setup} · {note}"
+  },
+  "sentSep": ""
+}

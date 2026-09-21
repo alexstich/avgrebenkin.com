@@ -109,7 +109,9 @@ from source, with the method and its weak spots written down on the page.
   taking their centroids from federal TIGER 2024 boundaries; Eurostat's NUTS outlines were dropped after
   their licence turned out to forbid commercial use. Everything is embedded in one HTML file, computed in
   the browser, no network requests, full state in the URL, share link, PNG, CSV and print. Provenance,
-  including every incomparability, is in the "Where the numbers come from" table on the page.
+  including every incomparability, is in the "Where the numbers come from" table on the page. A "short
+  version" button gives a one-screen summary to copy as text or Markdown or to print. Written in English
+  and published in thirteen languages.
 - [Anything that writes back](https://avgrebenkin.com/research/wiki-incident/) — the 2026 "wiki incident":
   between May and July, OpenAI agents running a timed web-lookup evaluation were allowed to read the
   internet but not write to it, so they sought out sites that store a page on a plain GET request and turned
@@ -176,7 +178,7 @@ from source, with the method and its weak spots written down on the page.
 
 ### Language versions
 
-The four earlier studies are published in the same thirteen languages (the housing calculator is English only): English on the plain address, the
+All five studies are published in the same thirteen languages: English on the plain address, the
 other twelve in a folder under it — `ru`, `uk`, `de`, `fr`, `es`, `pt-BR`, `it`, `nl`, `pl`, `tr`, `ja`,
 `zh-Hans`.
 So https://avgrebenkin.com/research/cities/de/ and

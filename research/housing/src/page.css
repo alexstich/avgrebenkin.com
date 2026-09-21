@@ -61,7 +61,11 @@
            border: 1px solid var(--border-soft); border-radius: 12px; aspect-ratio: 1600/560;
            object-fit: cover; }
   :root[data-theme="cyber"] .cover { border-radius: 0; }
-  .htop { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+  /* Заголовок и кнопка «поделиться» делят строку, пока помещаются; на узком
+     экране кнопка уходит под заголовок. Без переноса длинная подпись кнопки
+     (украинская — 290 px) распирала страницу вбок на 375 px. */
+  .htop { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 4px 16px; }
+  .htop h1 { flex: 1 1 18rem; min-width: 0; }
   .hero h1 { font-size: clamp(1.7rem, 4.6vw, 2.5rem); font-weight: 700; letter-spacing: -.03em;
              line-height: 1.12; }
   .sub { margin: 0; font-size: 1.05rem; color: var(--ink-2); line-height: 1.55; }
@@ -74,7 +78,7 @@
               background: rgba(var(--accent-rgb), .12); color: var(--accent);
               font-family: var(--font-head), system-ui, sans-serif; font-size: 13.5px;
               font-weight: 600; letter-spacing: -.01em; cursor: pointer;
-              transition: background .18s, color .18s; margin-top: 6px; }
+              transition: background .18s, color .18s; margin-top: 6px; max-width: 100%; }
   .wrap .sharebtn svg { display: block; width: 14px; height: 14px; fill: none; stroke: currentColor;
                         stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
   .sharebtn:hover { background: rgba(var(--accent-rgb), .2); }
@@ -116,7 +120,7 @@
      горизонтали на узком экране — как и у остальных таблиц страницы. */
   .prov { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 560px; }
   .prov th, .prov td { text-align: left; vertical-align: top; padding: 9px 12px;
-                       border-bottom: 1px solid var(--hair-soft); line-height: 1.5; }
+                       border-bottom: 1px solid var(--hair-soft); line-height: 1.5; white-space: normal; }
   .prov thead th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em;
                    color: var(--ink-3); font-weight: 600; }
   .prov th[scope="row"] { color: var(--ink); font-weight: 600; white-space: nowrap; }
@@ -238,14 +242,21 @@
   #printespon { font-size: 10px; color: #444; margin-top: 4px; }
 
   /* Блок переезда: три поля в ряд на десктопе, столбиком на телефоне. */
-  .moverow { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 16px; }
+  /* Ряд держит те же поля 20 px, что и остальные тела панелей. Поиск внутри
+     поля — тот же .gsearch, что над картой, но его собственные поля и потолок
+     ширины здесь снимаются: иначе поле уезжало на 20 px вправо от подписи и
+     выпирало за карточку вместе с выбором валюты. */
+  .moverow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;
+             padding: 16px 20px 0; margin-bottom: 16px; }
+  .moverow .gsearch { margin: 0; max-width: none; }
   .mfield label { display: block; font-family: var(--mono); font-size: 12px; color: var(--ink-2); margin-bottom: 6px; }
   .mfield .opt { color: var(--ink-3); }
   .mgs { position: relative; }
+  .mfield { min-width: 0; }
   .mrow { display: flex; gap: 6px; }
   .mrow input { flex: 1; min-width: 0; -moz-appearance: textfield; }
   .mrow select { flex: 0 0 auto; }
-  .moveout { min-height: 40px; }
+  .moveout { min-height: 40px; padding: 0 20px 18px; }
   .mempty, .mnote { color: var(--ink-2); font-size: 14px; }
   .mhead { margin-bottom: 12px; }
   .mgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
@@ -324,7 +335,10 @@
           border: 1px solid var(--border); background: var(--panel); color: var(--ink);
           font-size: 16px; font-family: var(--mono); display: grid; place-items: center; }
   :root[data-theme="cyber"] .zbtn { border-radius: 0; }
-  .ghint { position: absolute; left: 18px; bottom: 18px; z-index: 2; padding: 3px 9px; border-radius: 999px;
+  /* Подсказка идёт в потоке под легендой, а не поверх карты: легенда
+     переносится на вторую строку, и плашка в левом нижнем углу ложилась прямо
+     на её подписи. */
+  .ghint { display: inline-block; margin: 8px 4px 0; padding: 3px 9px; border-radius: 999px;
            background: var(--panel); border: 1px solid var(--hair-soft); font-family: var(--mono);
            font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
   :root[data-theme="cyber"] .ghint { border-radius: 0; }
@@ -491,6 +505,155 @@
     :root[data-print] .wrap { max-width: none; padding: 0; }
     :root[data-print="map"] #p-map, :root[data-print="cmp"] #p-cmp, :root[data-print="rank"] #p-rank,
     :root[data-print="hist"] #p-hist { transform-origin: top left; transform: scale(var(--pscale, 1)); width: var(--pwidth, auto); }
+  }
+
+
+  /* ── строка под шапкой: «коротко» слева, выбор языка справа ─────────── */
+  .modebar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
+             margin: 0 0 40px; }
+
+  /* Выбор языка на нативном <details>: открывается и без скрипта, закрывается
+     Esc, и в списке лежат обычные ссылки — их видит и поисковик, и читалка. */
+  .langpick { position: relative; margin-inline-start: auto; }
+  .langpick > summary {
+    display: inline-flex; align-items: center; gap: .4rem; cursor: pointer;
+    list-style: none; padding: .45rem .7rem; border: 1px solid var(--hair);
+    border-radius: 9px; font-family: var(--font-body); font-size: .8rem; font-weight: 500;
+    color: var(--ink); transition: color .18s, background .18s;
+  }
+  .langpick > summary::-webkit-details-marker { display: none; }
+  .langpick > summary:hover { color: var(--ink); background: rgba(var(--accent-rgb),.08); }
+  .langpick > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .langpick .globe { font-size: .7rem; color: var(--accent); }
+  .langpick[open] > summary { color: var(--accent); background: rgba(var(--accent-rgb),.12); }
+  .langpick ul {
+    position: absolute; z-index: 30; inset-inline-end: 0; top: calc(100% + 6px);
+    margin: 0; padding: 6px; list-style: none; min-width: 11rem;
+    background: var(--bg-elev); border: 1px solid var(--hair);
+    border-radius: 10px; box-shadow: var(--shadow);
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px;
+  }
+  .langpick li a {
+    display: block; padding: .4rem .55rem; border-radius: 6px;
+    font-family: var(--font-body); font-size: .8rem;
+    color: var(--ink-2); text-decoration: none; white-space: nowrap;
+  }
+  .langpick li a:hover { background: rgba(var(--accent-rgb),.10); color: var(--ink); }
+  .langpick li.is-current a { color: var(--accent); background: rgba(var(--accent-rgb),.12); }
+  :root[data-theme="cyber"] .langpick > summary,
+  :root[data-theme="cyber"] .langpick ul,
+  :root[data-theme="cyber"] .langpick li a { border-radius: 0; }
+  /* Примечание переводчика стоит последним в списке источников и отбивается
+     от него: это не источник, а оговорка о самом переводе. */
+  .transnote { margin-top: 18px; border-top: 1px dashed var(--hair); padding-top: 12px; }
+
+  /* ── короткая версия ────────────────────────────────────────────────── */
+  .tldr-open {
+    display: inline-flex; align-items: center; gap: .55rem;
+    padding: 10px 16px; border: 1px solid var(--accent); border-radius: 10px;
+    background: rgba(var(--accent-rgb),.12); color: var(--accent); cursor: pointer;
+    font-family: var(--font-body); font-size: .88rem; font-weight: 600; letter-spacing: -.01em;
+    transition: background .18s;
+  }
+  .tldr-open:hover { background: rgba(var(--accent-rgb),.22); }
+  .tldr-open svg { width: 15px; height: 15px; fill: none; stroke: currentColor;
+                   stroke-width: 1.9; stroke-linecap: round; }
+  .tldr-open-sub { color: var(--ink-2); font-weight: 400; }
+  :root[data-theme="cyber"] .tldr-open {
+    border-radius: 0; text-transform: uppercase; letter-spacing: .08em; font-size: .78rem;
+    font-family: var(--mono);
+    clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px));
+  }
+
+  .tldr {
+    width: min(680px, calc(100vw - 32px)); max-height: calc(100vh - 48px);
+    padding: 0; border: 1px solid var(--hair); border-radius: 14px;
+    background: var(--bg-elev); color: var(--ink); overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .tldr::backdrop { background: rgba(0,0,0,.62); backdrop-filter: blur(2px); }
+  :root[data-theme="cyber"] .tldr { border-radius: 0; border-color: var(--accent); }
+  /* Шапка окна не переносится ни при какой длине подписей: три кнопки и крестик
+     всегда в одну строку. Иначе на 375 px подпись внутри кнопки переламывалась
+     надвое и ряд разъезжался по высоте — по-английски «Copy» короткое, а
+     «Kopieren», «Скопировать» и «Kopiëren» уже нет. Ужимаются подписи, а не
+     кнопки: `min-width: 0` разрешает флексу сжаться, многоточие ставит span. */
+  .tldr-bar {
+    display: flex; flex-wrap: nowrap; align-items: center; gap: 8px; padding: 12px 14px;
+    border-bottom: 1px solid var(--hair); background: var(--bg-elev);
+    position: sticky; top: 0; z-index: 2;
+  }
+  .tldr-kicker {
+    flex: 1 1 auto; min-width: 0; margin: 0; font-family: var(--font-body); font-size: .7rem;
+    font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .tldr-btn {
+    display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px;
+    flex: 0 1 auto; min-width: 0;
+    border: 1px solid var(--hair); border-radius: 8px; background: var(--bg);
+    color: var(--ink); cursor: pointer; font-family: var(--font-body); font-size: .8rem;
+    font-weight: 500; transition: background .18s, color .18s, border-color .18s;
+  }
+  .tldr-btn span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tldr-btn:hover { border-color: var(--accent); }
+  .tldr-btn svg { flex: 0 0 auto; width: 14px; height: 14px; fill: none; stroke: currentColor;
+                  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .tldr-btn.done { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  /* Крестик не ужимается: из четырёх кнопок он единственный, без которого
+     окно не закрыть мышью. */
+  .tldr-x { flex: 0 0 auto; padding: 7px 9px; }
+  :root[data-theme="cyber"] .tldr-btn { border-radius: 0; }
+  /* На узком экране подписи снимаются целиком, а не ужимаются многоточием:
+     «Ско…» вместо «Скопировать» не читается, а четыре иконки в ряд — читаются.
+     Название кнопки при этом никуда не девается, оно в aria-label и title.
+     Порог — 500 px: без «КРАТКО» (его снимает правило на 600 px) самый длинный
+     набор подписей, украинский, требует 478 px, и до этой ширины они читаются
+     целиком. */
+  @media (max-width: 500px) {
+    .tldr-bar { padding: 10px; gap: 6px; }
+    .tldr-btn { padding: 7px 9px; }
+    .tldr-btn span { display: none; }
+  }
+
+  .tldr-doc { padding: 22px 26px 28px; overflow-y: auto;
+              max-height: calc(100vh - 48px - 57px); font-size: .95rem; line-height: 1.6; }
+  .tldr-doc h2 { font-size: 1.5rem; margin: 0 0 8px; letter-spacing: -.02em; }
+  .tldr-sub { font-family: var(--font-body); font-size: .9rem; color: var(--ink-2); margin: 0 0 18px; }
+  .tldr-doc ul { margin: 0 0 18px; padding-left: 20px; font-family: var(--font-body);
+                 font-size: .88rem; line-height: 1.6; color: var(--ink-2); }
+
+  /* Длинный пункт краткой версии дробится на абзацы, как и проза статьи. */
+  .tldr-doc li > p { margin: 0 0 .5em; }
+  .tldr-doc li > p:last-child { margin-bottom: 0; }
+  @media (max-width: 600px) {
+    .tldr-kicker { display: none; }
+    .tldr-bar { justify-content: flex-end; }
+    .tldr-doc { padding: 18px 18px 24px; }
+  }
+  /* У этой страницы строка под шапкой стоит между обложкой-заголовком и
+     ключевыми числами, а не перед статьёй, поэтому отступ меньше, чем у соседей. */
+  .modebar { margin: 18px 0 22px; }
+
+  /* Печать короткой версии: её тело уезжает прямо в body, всё прочее снимается.
+     Лист светлый при любой теме — тёмный фон на бумаге даёт чёрный прямоугольник. */
+  @media print {
+    :root[data-print="tldr"] body > *:not(#tldrDoc) { display: none !important; }
+    :root[data-print="tldr"] body::before,
+    :root[data-print="tldr"] body::after { display: none !important; }
+    :root[data-print="tldr"] body { background: #fff !important; }
+    :root[data-print="tldr"] #tldrDoc {
+      display: block !important; max-height: none; overflow: visible;
+      padding: 0; background: #fff; color: #14161f; font-size: 11pt;
+    }
+    :root[data-print="tldr"] #tldrDoc h2 { color: #14161f; }
+    :root[data-print="tldr"] #tldrDoc ul,
+    :root[data-print="tldr"] .tldr-sub { color: #3f4454; }
+    :root[data-print="tldr"] #tldrDoc li b { color: #14161f; }
+    :root[data-print="tldr"] .tldr-src,
+    :root[data-print="tldr"] .tldr-link { color: #5b6172; }
+    :root[data-print="tldr"] #tldrDoc li { break-inside: avoid; }
+    .modebar { display: none !important; }
   }
 
   /* ── Оформление: тёплый ведущий акцент статьи, под её обложку ──────────
