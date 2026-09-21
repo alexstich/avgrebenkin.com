@@ -1241,8 +1241,16 @@
       var depAmt = N * pl.sp * (S.dep || 20) / 100;
       var bs = ps[1].querySelectorAll("b");
       bs[0].textContent = fmtLoc(pl, depAmt);
-      bs[1].textContent = S.sav > 0 ? (depAmt / S.sav / 12).toFixed(1) + " years" : "forever";
+      var savLoc = S.sav * (FX[curOf(pl)] || 1);   // как в drawCard: евро → валюта места
+      bs[1].textContent = savLoc > 0 ? (depAmt / savLoc / 12).toFixed(1) + " years" : "forever";
       ps[1].firstChild.nodeValue = "A " + (S.dep || 20) + " % deposit on " + N + " m² is ";
+    }
+    // У американского округа площади нет, и абзац про взнос свой — к целому дому.
+    var xs = EX[pid(pl)], savIn = $("c-sav");
+    if (!pl.sp && xs && xs.val && savIn) {
+      var depUS = xs.val * (S.dep || 20) / 100, savUS = S.sav * (FX[curOf(pl)] || 1);
+      var bu = savIn.parentNode.querySelectorAll("b");
+      bu[bu.length - 1].textContent = savUS > 0 ? (depUS / savUS / 12).toFixed(1) + " years" : "forever";
     }
     if (pl.rp) { var last = ps[ps.length - 1]; last.innerHTML = "To rent " + N + " m² here on " + shareText() + " of income you need <b>" + fmtLoc(pl, N * pl.rp / (S.share / 100)) + " net a month</b>."; }
   }

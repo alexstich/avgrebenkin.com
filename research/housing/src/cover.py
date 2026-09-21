@@ -20,7 +20,10 @@ geo = json.load(open(os.path.join(HERE, 'geo.json'), encoding='utf-8'))
 data = json.load(open(os.path.join(HERE, 'data.json'), encoding='utf-8'))
 
 RAMP = ['#f43f5e', '#fb923c', '#facc15', '#a3e635', '#3ecf8e']   # <50 … >150, тёмная тема
-BG, INK, MUTED, ND = '#0b0c11', '#e9eaf0', '#9298a8', '#1a1d27'
+BG, INK, MUTED, DIM, ND = '#0e1116', '#ffffff', '#aeb6c2', '#8a93a0', '#1c2029'
+ACCENT = '#ff8a1e'   # ведущий акцент статьи, тот же, что в page.css
+SANS = 'Helvetica Neue, Helvetica, Arial, sans-serif'
+MONO = 'Menlo, monospace'
 
 
 def cls(v):
@@ -150,17 +153,17 @@ def map_svg(key, x0, y0, w, h, dots=900):
 
 def frame_label(key, box, text, dy=-10):
     x, y, w, _ = frame_box(key, *box)
-    return ('<text x="%.0f" y="%.0f" text-anchor="middle" font-family="JetBrains Mono, Menlo, monospace" '
+    return ('<text x="%.0f" y="%.0f" text-anchor="middle" font-family="%s" '
             'font-size="12" fill="%s" letter-spacing="1.5">%s</text>'
-            % (x + w / 2, y + dy, MUTED, text.upper()))
+            % (x + w / 2, y + dy, MONO, MUTED, text.upper()))
 
 
 def legend(x, y):
     labels = ['under 50 m²', '50–75', '76–100', '101–150', 'over 150']
     out = []
     for i, t in enumerate(labels):
-        out.append('<rect x="%d" y="%d" width="22" height="14" rx="3" fill="%s"/>' % (x, y + i * 24, RAMP[i]))
-        out.append('<text x="%d" y="%d" font-family="JetBrains Mono, Menlo, monospace" font-size="13" fill="%s">%s</text>' % (x + 30, y + i * 24 + 12, MUTED, t))
+        out.append('<rect x="%d" y="%d" width="22" height="14" rx="3" fill="%s"/>' % (x, y + i * 22, RAMP[i]))
+        out.append('<text x="%d" y="%d" font-family="%s" font-size="13" fill="%s">%s</text>' % (x + 30, y + i * 22 + 12, MONO, MUTED, t))
     return ''.join(out)
 
 
@@ -172,17 +175,18 @@ def cover():
          frame_label('na', (560, 44, 620, 268), 'United States'),
          map_svg('eu', 560, 352, 620, 258, 520),
          frame_label('eu', (560, 352, 620, 258), 'Europe'),
-         '<text x="56" y="150" font-family="Space Grotesk, Inter, system-ui, sans-serif" font-size="52" font-weight="700" fill="%s" letter-spacing="-1.5">How many</text>' % INK,
-         '<text x="56" y="208" font-family="Space Grotesk, Inter, system-ui, sans-serif" font-size="52" font-weight="700" fill="%s" letter-spacing="-1.5">square metres</text>' % INK,
-         '<text x="56" y="266" font-family="Space Grotesk, Inter, system-ui, sans-serif" font-size="52" font-weight="700" fill="%s" letter-spacing="-1.5">can you afford?</text>' % INK,
-         '<text x="56" y="316" font-family="Inter, system-ui, sans-serif" font-size="19" fill="%s">Your income against 8,489 European towns</text>' % MUTED,
-         '<text x="56" y="344" font-family="Inter, system-ui, sans-serif" font-size="19" fill="%s">and 3,141 US counties.</text>' % MUTED,
-         '<text x="56" y="386" font-family="JetBrains Mono, Menlo, monospace" font-size="12" fill="%s" letter-spacing="1.5">EUROPE — M² A THIRD OF THE INCOME BUYS</text>' % MUTED,
-         legend(56, 400),
-         '<text x="56" y="542" font-family="JetBrains Mono, Menlo, monospace" font-size="12" fill="%s" letter-spacing="1.5">UNITED STATES — YEARS OF INCOME, SAME COLOURS</text>' % MUTED,
-         '<text x="56" y="564" font-family="JetBrains Mono, Menlo, monospace" font-size="13" fill="%s">no floor area is published for US counties, so no m² there</text>' % MUTED,
-         '<text x="56" y="586" font-family="JetBrains Mono, Menlo, monospace" font-size="13" fill="%s">data: ESPON HOUSE4ALL · US Census Bureau ACS · Freddie Mac</text>' % MUTED,
-         '<text x="56" y="76" font-family="JetBrains Mono, Menlo, monospace" font-size="14" fill="#8b7cff" letter-spacing="2">AVGREBENKIN.COM / RESEARCH</text>',
+         '<text font-family="%s" font-size="62" font-weight="800" fill="%s" letter-spacing="-1.8">'
+         '<tspan x="56" y="120">How many</tspan>'
+         '<tspan x="56" y="188" fill="%s">square metres</tspan>'
+         '<tspan x="56" y="256">can you afford?</tspan></text>' % (SANS, INK, ACCENT),
+         '<rect x="56" y="282" width="70" height="5" rx="2.5" fill="%s"/>' % ACCENT,
+         '<text x="56" y="326" font-family="%s" font-size="22" fill="%s">What a third of your income buys, place by place.</text>' % (SANS, MUTED),
+         '<text x="56" y="372" font-family="%s" font-size="12" fill="%s" letter-spacing="1.5">EUROPE — M² A THIRD OF THE INCOME BUYS</text>' % (MONO, MUTED),
+         legend(56, 386),
+         '<text x="56" y="514" font-family="%s" font-size="12" fill="%s" letter-spacing="1.5">UNITED STATES — YEARS OF INCOME, SAME COLOURS</text>' % (MONO, MUTED),
+         '<text x="56" y="534" font-family="%s" font-size="12" fill="%s">no floor area is published for US counties</text>' % (MONO, DIM),
+         '<text x="56" y="570" font-family="%s" font-size="14.5" fill="%s" letter-spacing="1.5">8,489 TOWNS · 3,141 COUNTIES · ESPON · ACS</text>' % (MONO, MUTED),
+         '<text x="56" y="604" font-family="%s" font-size="14" fill="%s" letter-spacing="1">avgrebenkin.com/research</text>' % (MONO, DIM),
          '</svg>']
     return '\n'.join(s)
 
