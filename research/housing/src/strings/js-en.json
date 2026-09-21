@@ -1,0 +1,464 @@
+{
+  "numLocale": "en-US",
+  "fxDate": "11 Sep 2026",
+  "noData": "no data",
+  "units": {
+    "m2": "{n} m²",
+    "pct": "{n} %",
+    "money": "{sym}{n}",
+    "moneyCode": "{sym} {n}",
+    "amountCode": "{n} {cur}",
+    "perM2": "{money}/m²",
+    "perM2Mo": "{money}/m²·mo",
+    "perMo": "{money}/mo",
+    "perMonth": "{money} / month",
+    "perM2Long": "{money} / m²",
+    "perM2Month": "{money} / m² / month",
+    "years": {
+      "one": "{n} year",
+      "other": "{n} years"
+    },
+    "yrs": {
+      "one": "{n} yr",
+      "other": "{n} yrs"
+    },
+    "people": {
+      "one": "{n} person",
+      "other": "{n} people"
+    },
+    "forever": "forever",
+    "aThird": "a third"
+  },
+  "place": {
+    "city": "city",
+    "town": "town or suburb",
+    "rural": "rural"
+  },
+  "frames": {
+    "eu": {
+      "label": "Europe",
+      "unit": "municipality",
+      "units": "municipalities",
+      "reg": "region",
+      "regs": "NUTS 3 regions",
+      "home": "home",
+      "rental": "rental",
+      "unitLabel": "Municipality",
+      "regLabel": "Region",
+      "regKind": "NUTS 3 region",
+      "inReg": "region {name}",
+      "regNamed": "Region {name}",
+      "unitsInReg": "Municipalities in the region",
+      "largest": "Largest municipalities",
+      "count": {
+        "one": "{n} municipality",
+        "other": "{n} municipalities"
+      },
+      "rankName": "City",
+      "rankTab": "Cities",
+      "countOfBig": {
+        "one": "{shown} of {n} municipality of {min} people or more",
+        "other": "{shown} of {n} municipalities of {min} people or more"
+      }
+    },
+    "na": {
+      "label": "United States",
+      "unit": "county",
+      "units": "counties",
+      "reg": "state",
+      "regs": "states",
+      "home": "the median home",
+      "rental": "the median rental",
+      "unitLabel": "County",
+      "regLabel": "State",
+      "regKind": "state",
+      "inReg": "state {name}",
+      "regNamed": "State {name}",
+      "unitsInReg": "Counties in the state",
+      "largest": "Largest counties",
+      "count": {
+        "one": "{n} county",
+        "other": "{n} counties"
+      },
+      "rankName": "County",
+      "rankTab": "Counties",
+      "countOfBig": {
+        "one": "{shown} of {n} county of {min} people or more",
+        "other": "{shown} of {n} counties of {min} people or more"
+      }
+    }
+  },
+  "groups": {
+    "eu": {
+      "north": "North & Baltics",
+      "west": "West",
+      "south": "South",
+      "east": "East"
+    },
+    "na": {
+      "ne": "Northeast",
+      "mw": "Midwest",
+      "so": "South",
+      "we": "West"
+    }
+  },
+  "presets": [
+    {
+      "name": "The study's own view",
+      "desc": "average local income, 30 years, no deposit"
+    },
+    {
+      "name": "Junior developer",
+      "desc": "{inc} € net, alone, 30 years"
+    },
+    {
+      "name": "Couple with a child",
+      "desc": "{inc} € net, wants 75 m²"
+    },
+    {
+      "name": "Remote worker, coast",
+      "desc": "{inc} € net, cities on the coast"
+    },
+    {
+      "name": "Buying with savings",
+      "desc": "{inc} € net, two adults, 40 % deposit, 15 years"
+    },
+    {
+      "name": "Student, renting",
+      "desc": "{inc} € net, rent map"
+    }
+  ],
+  "setup": {
+    "hhHint": "Equivalence factor {factor} (OECD-modified scale: first adult 1, each further adult 0.5, each child 0.3). Used only for the line comparing your income with the local average — which is per adult-equivalent in Europe and per household in the United States.",
+    "wantNoArea": "no floor area in US data",
+    "wantAny": "any",
+    "mineDisabled": "Enter your income above",
+    "incHint": "After tax, all earners together. Leave empty to see every place on its own average income.",
+    "incHintFx": "After tax, all earners together. {amount} = {eur} at the ECB reference rate of {date}.",
+    "rateAll": "{rate} everywhere",
+    "rateOwn": "each country's own rate",
+    "adults": {
+      "one": "{n} adult",
+      "other": "{n} adults"
+    },
+    "kids": {
+      "one": "{n} child",
+      "other": "{n} children"
+    },
+    "adultsKids": "{adults} and {kids}",
+    "termAdj": {
+      "one": "{n}-year",
+      "other": "{n}-year"
+    },
+    "orig": " ({amount})",
+    "mine": "<b>{income}</b> net per month{orig} · <b>{share}</b> for housing = <b>{budget}</b> a month · <b>{term}</b> mortgage at {rate} · deposit <b>{deposit}</b> · household of {household} (factor {factor})",
+    "local": "Every place on its <b>own average income</b> · <b>{share}</b> for housing · <b>{term}</b> mortgage at {rate} · deposit <b>{deposit}</b>{tail}",
+    "published": " — the published map exactly",
+    "studyTerms": " — the study's terms, applied here",
+    "want": " · looking for <b>{m2}</b>"
+  },
+  "modes": {
+    "title": {
+      "buy": "m² to buy",
+      "rent": "m² to rent",
+      "diff": "rent minus buy, m²",
+      "years": "years of income",
+      "share": "rent, % of income"
+    },
+    "text": {
+      "buy": "square metres to buy",
+      "rent": "square metres to rent",
+      "diff": "square metres to rent minus square metres to buy",
+      "years": "years of income for {basket}",
+      "share": "rent of {basket} as a share of income"
+    },
+    "noAreaTitle": "No floor area is published for US {units} — see “Where the numbers come from”"
+  },
+  "legend": {
+    "classes": [
+      "under 50 m²",
+      "50–75 m²",
+      "76–100 m²",
+      "101–150 m²",
+      "over 150 m²"
+    ],
+    "diff": [
+      "buying gives over 20 m² more",
+      "buying gives 5–20 m² more",
+      "within 5 m²",
+      "renting gives 5–20 m² more",
+      "renting gives over 20 m² more"
+    ],
+    "years": [
+      "under 3 years",
+      "3–5",
+      "5–8",
+      "8–12",
+      "over 12"
+    ],
+    "share": [
+      "under 20 % of income",
+      "20–30 %",
+      "30–40 %",
+      "40–50 %",
+      "over 50 %"
+    ],
+    "headFor": "{title} for {basket}",
+    "noData": "no data",
+    "noDataUnder": "no data or under {m2}"
+  },
+  "map": {
+    "aria": "Map of {label}: countries filled and {units} marked as dots, coloured by {mode}"
+  },
+  "tip": {
+    "yearsFor": "years of income for {basket}",
+    "rentOf": "rent of {basket}",
+    "buy": "to buy",
+    "rent": "to rent",
+    "price": "price",
+    "rentp": "rent",
+    "noListings": "no listings data",
+    "medianHome": "median home",
+    "medianRent": "median rent",
+    "income": "income"
+  },
+  "search": {
+    "country": "country",
+    "none": "Nothing matches. Try the local spelling: Wien, Praha, København."
+  },
+  "move": {
+    "empty": "Pick both places to see the answer. Everything else on this page already applies: your term, deposit and the share of income you are willing to spend.",
+    "noIncome": "No income on record for {place}. Enter your own above and switch to “My income”.",
+    "rentSame": "to rent the same space",
+    "rentShare": "to keep rent at the same share of income",
+    "rentDetailSame": "the same {m2} as at home needs {money} a month of income there",
+    "rentDetail": "{home} at home against {there} there — {moneyHome} a month against {moneyThere}",
+    "noRent": "No rent on record for {place}, so renting cannot be compared.",
+    "buySame": "to buy the same space",
+    "buyShare": "to keep buying at the same share of income",
+    "buyDetailSame": "{m2} at home, on a {term} mortgage at {rateThere} there against {rateHome} at home",
+    "buyDetail": "{home} at home against {there} there, on a {term} mortgage at {rateThere} there against {rateHome} at home",
+    "noBuy": "No price or no mortgage rate for one of the two, so buying cannot be compared.",
+    "layers": "The two layers are not measured in the same unit: Europe has a price per square metre, the United States does not publish floor area, so the comparison keeps the share of income equal rather than the space. Part of the gap is therefore size and not price — the American basket is a whole home, and how big it is, is exactly what the data does not say.",
+    "medianHome": "the median home",
+    "medianRental": "the median rental",
+    "head": "Moving from <b>{from}</b> to <b>{to}</b> on {income} net a month",
+    "more": "+{n} %",
+    "less": "−{n} %",
+    "aboutSame": "about the same",
+    "needLabel": "The offer needs to be",
+    "what": "net per month {what} <b>{verdict}</b>",
+    "offerAbove": "Your offer of {offer} is {gap} above",
+    "offerShort": "Your offer of {offer} is {gap} short",
+    "gotBuy": "{m2} to buy",
+    "gotRent": "{m2} to rent",
+    "eitherOr": "{a} or {b}",
+    "gotHome": ", against {buy} and {rent} at home",
+    "gotM2": "On {offer} in {place} you could take {options}{home}.",
+    "gotYears": {
+      "one": "the median home costs {n} year of it",
+      "other": "the median home costs {n} years of it"
+    },
+    "gotShare": "the median rent takes {pct} of it",
+    "both": "{a}, and {b}",
+    "gotUS": "On {offer} in {place}, {options}.",
+    "mortgageShare": "<b>How much of this is the mortgage, not the housing.</b> If both countries charged the same interest, the offer would need to be {flat} ({delta}) {what} — that is the price difference alone. The rate difference moves it by {rate} a month. {vintage}",
+    "flatShare": "to keep the same share of income",
+    "vintageEu": "European rates are the national averages the study used, mostly 2023, not today's. Put your own in the rate field above if you know better ones.",
+    "vintageNa": "The US rate is the Freddie Mac 30-year average for 2024, the year whose dollars the ACS estimates are in. Put your own in the rate field above if you know better ones.",
+    "vintageBoth": "European rates are the national averages the study used, mostly 2023, not today's; the US rate is the Freddie Mac 30-year average for 2024, the year whose dollars the ACS estimates are in. Put your own in the rate field above if you know better ones."
+  },
+  "card": {
+    "label": "Selected place",
+    "empty": "Search a town above or click a region on the map. The card shows what your settings mean there, and what it would take.",
+    "coastal": "{deg}, coastal",
+    "coverage": "sale data for {pct} of the population",
+    "countryKind": "country",
+    "countryLabel": "Country",
+    "moe": "median home value ±{pct}",
+    "moeWide": "median home value ±{pct}, a wide interval for a median",
+    "bigYears": "years of income for the median home",
+    "bigShare": "of income for the median rent",
+    "bigBuy": "m² to buy",
+    "bigBuyTerm": {
+      "one": "m² to buy, {n} year",
+      "other": "m² to buy, {n} years"
+    },
+    "bigRent": "m² to rent",
+    "yourBudget": "Your housing budget",
+    "thirdLocal": "A third of the local income",
+    "loan": "Loan the budget carries",
+    "plusDeposit": "Plus a {pct} deposit",
+    "homePrice": "Home price that reaches",
+    "medianValue": "Median home value, owner's estimate",
+    "medianRent": "Median rent, utilities included",
+    "pricePerM2": "Price per m²",
+    "notPublished": "not published for US counties",
+    "salePrice": "Sale price, taxes and fees in",
+    "rent": "Rent",
+    "incomeUS": "Median household income, before tax",
+    "incomeEU": "Average income per adult-equivalent",
+    "rateUsed": "Mortgage rate used",
+    "rateYours": "{rate} (yours)",
+    "study": "The study's own figures",
+    "studyValue": "{buy} m² buy · {rent} m² rent",
+    "vsMedian": "Your income vs the local median",
+    "vsAverage": "Your income vs the local average",
+    "ratioUS": "{ratio}× of a median household, before tax",
+    "ratioEU": "{ratio}× per adult-equivalent",
+    "whatItTakes": "What it would take",
+    "withDeposit": " with a {pct} deposit",
+    "haveEnough": " — you have {money}, enough",
+    "haveShort": " — you have {money}, {pct} short",
+    "netMonth": "{money} net a month",
+    "buyNeed": "To buy {input} m² here on {share} of income over {years}{deposit} you need <b>{need}</b>{have}.",
+    "depositSave": "A {pct} deposit on {m2} is <b>{amount}</b>. Saving {input} € a month, that takes <b>{time}</b>.",
+    "rentNeed": "To rent {m2} here on {share} of income you need <b>{need}</b>.",
+    "buyMedianNeed": "To buy the median home here ({price}) on {share} of income over {years}{deposit} you need <b>{need}</b>{have}.",
+    "depositSaveMedian": "A {pct} deposit on it is <b>{amount}</b>. Saving {input} € a month, that takes <b>{time}</b>.",
+    "rentMedianNeed": "To rent the median home here ({rent} a month) on {share} of income you need <b>{need}</b>.",
+    "around": "Around it",
+    "inCmp": "✓ In the comparison",
+    "addCmp": "+ Compare",
+    "showOnMap": "Show on the map",
+    "clear": "Clear",
+    "summaryM2": "{buy} · {rent} m²",
+    "summaryUS": "{years} · {share}",
+    "shareLocal": "{share} of the local income"
+  },
+  "cmp": {
+    "converted": " · money converted to euro at the ECB rate of {date}",
+    "groups": {
+      "settings": "With your settings{conv}",
+      "sameMine": "Same terms for everyone (your income)",
+      "sameLocal": "Same terms for everyone (local income)",
+      "study": "The study's own figures",
+      "market": "The market{conv}",
+      "both": "Both layers · in Europe the basket is {m2}, in the United States the median home — floor area is not published for US counties{conv}",
+      "euOnly": "Europe only · these need a price per square metre",
+      "usOnly": "United States only · these need a whole-home median"
+    },
+    "rows": {
+      "buy": "m² to buy",
+      "rent": "m² to rent",
+      "budget": "Monthly housing budget, {sym}",
+      "needBuy": "Income needed for {m2} to buy, {sym}/month",
+      "needRent": "Income needed for {m2} to rent, {sym}/month",
+      "buy20": "m² to buy, 20 years",
+      "buy30": "m² to buy, 30 years",
+      "buy25": "m² to buy at 25 % of income",
+      "buyThird": "m² to buy at a third of income",
+      "rent25": "m² to rent at 25 % of income",
+      "rentThird": "m² to rent at a third of income",
+      "studyBuy": "m² to buy, average local income, 30 years",
+      "studyRent": "m² to rent, average local income",
+      "salePrice": "Sale price incl. taxes and fees, {sym}/m²",
+      "rentPrice": "Rent, {sym}/m²/month",
+      "avgIncome": "Average local income, {sym}/month",
+      "rate": "Mortgage rate used, %",
+      "population": "Population",
+      "yearsMedian": "Years of income for the median home",
+      "shareMedian": "Median rent as a share of income, %",
+      "needBuyMedian": "Income needed to buy the median home, {sym}/month",
+      "needRentMedian": "Income needed to rent the median home, {sym}/month",
+      "medianValue": "Median home value, {sym}",
+      "medianRent": "Median rent, {sym}/month",
+      "medianIncome": "Median household income, {sym}/month",
+      "years": "Years of income",
+      "share": "Rent as a share of income, %",
+      "localIncome": "Local income, {sym}/month"
+    },
+    "remove": "Remove",
+    "addMore": {
+      "one": "add up to {n} more",
+      "other": "add up to {n} more"
+    },
+    "nothing": "nothing selected yet — add a place from the card or the rankings"
+  },
+  "rank": {
+    "coast": "coast only",
+    "coastTitle": "EU-27 municipalities flagged coastal by Eurostat",
+    "cols": {
+      "country": "Country",
+      "buy": "m² to buy",
+      "rent": "m² to rent",
+      "price": "Price {sym}/m²",
+      "rentp": "Rent {sym}/m²·mo",
+      "years": "Years of income",
+      "share": "Rent, % of income",
+      "val": "Median home {sym}",
+      "rnt": "Median rent {sym}/mo",
+      "inc": "Income {sym}/mo",
+      "rate": "Rate %",
+      "pop": "People"
+    },
+    "addCmp": "Add to the comparison",
+    "removeCmp": "Remove from the comparison",
+    "shown": "{count}{within}{coastal}.",
+    "countOfCountries": {
+      "one": "{shown} of {n} country",
+      "other": "{shown} of {n} countries"
+    },
+    "within": " where {m2} are within reach",
+    "coastal": ", coastal only",
+    "onYours": "On your income of {money} a month.",
+    "onOwn": "Each on its own average income.",
+    "layerOnly": "{label} only: the two layers use different income definitions and do not belong in one ranking.",
+    "countryMeans": "Country values are population-weighted means of {units}.",
+    "clickRow": "Click a row to open the place on the map."
+  },
+  "hist": {
+    "labels": [
+      "<50",
+      "50–75",
+      "76–100",
+      "101–150",
+      ">150",
+      "no data"
+    ],
+    "kinds": [
+      "cities",
+      "towns and suburbs",
+      "rural",
+      "not classified"
+    ],
+    "tip": "{kind}: {pct} of population ({m} M)",
+    "axis": "affordable square metres on a third of the local average income"
+  },
+  "share": {
+    "copied": "Link copied",
+    "inBar": "Address bar holds the link"
+  },
+  "export": {
+    "income": "Income",
+    "terms": "Terms",
+    "map": "Map",
+    "source": "Source",
+    "incomeMine": "{income} net a month{orig}, household of {household}",
+    "incomeLocal": "the average local income of each place",
+    "termsText": "{share} of income for housing, {term} mortgage at {rate}, deposit {deposit}",
+    "mapGreyed": "{mode}; places where {m2} are out of reach are greyed",
+    "sourceEu": "Sielker & Banabak 2026, Journal of Maps; ESPON HOUSE4ALL feature service, 14 Sep 2026; outlines Natural Earth, public domain",
+    "sourceNa": "US Census Bureau, American Community Survey 2020-2024 (public domain); Freddie Mac PMMS 2024; outlines Natural Earth, public domain",
+    "csvLine": "{label}: {text}",
+    "mapCaptionMine": "{mode} on {income} net a month, by country and town",
+    "mapCaptionLocal": "{mode} on the average local income, by country and town",
+    "sideBySide": "Side by side: {places}",
+    "pngSaved": "PNG saved",
+    "pngCopied": "PNG copied",
+    "csvSaved": "CSV saved",
+    "needPlace": "Add a place to compare first",
+    "imageFailed": "Could not build the image"
+  },
+  "csv": {
+    "rank": "rank",
+    "country": "country",
+    "metric": "metric",
+    "place": "{name} ({country})"
+  },
+  "print": {
+    "withMap": "{setup} · map: {mode}",
+    "withRank": "{setup} · {note}"
+  },
+  "sentSep": " "
+}

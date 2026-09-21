@@ -5,9 +5,10 @@
     python3 research/housing/src/build.py
 
 Что откуда:
-  strings/en.json — заголовки и метаданные страницы; пока один язык, но каркас
-                    тот же, что у соседних исследований, чтобы переводы легли
-                    без перестройки;
+  strings/<l>.json — всё, что переводится: метаданные, проза страницы (t.*),
+                    короткая версия (t.tldr), интерфейс (t.ui) и строки, которые
+                    рисует скрипт (js). Английский — канон, остальные от него;
+  tldr.js — окно короткой версии, одно на все языки;
   page.tmpl, page.css, page.js — разметка, стили и поведение;
   data.json — датасет (см. data.py), geo.json — контуры (см. geo.py).
 
@@ -24,7 +25,7 @@ OUTDIR = os.path.normpath(os.path.join(HERE, '..'))
 SITE = 'https://avgrebenkin.com'
 BASE = '/research/housing/'
 DEFAULT = 'en'
-ORDER = ['en']
+ORDER = ['en', 'ru', 'uk', 'de', 'fr', 'es', 'pt-BR', 'it', 'nl', 'pl', 'tr', 'ja', 'zh-Hans']
 
 ICONS = {
     'svgShare': '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.4 10.8 15.6 6.4M8.4 13.2l7.2 4.4"/></svg>',
@@ -45,6 +46,65 @@ def render_hreflang(langs):
     return out + '<link rel="alternate" hreflang="x-default" href="%s%s">' % (SITE, BASE)
 
 
+def render_langpicker(L, code, langs):
+    """Список языков — на нативном <details>: работает и без скрипта."""
+    items = ''.join(
+        '<li%s><a href="%s" hreflang="%s" lang="%s"%s>%s</a></li>'
+        % (' class="is-current"' if c == code else '', path_for(c), c, c,
+           ' aria-current="true"' if c == code else '', html.escape(langs[c]['endonym']))
+        for c in ORDER if c in langs)
+    return ('<details class="langpick"><summary aria-label="%s"><span class="globe" '
+            'aria-hidden="true">◍</span>%s</summary><ul>%s</ul></details>'
+            % (html.escape(L['t']['ui']['langGroup']), html.escape(L['endonym']), items))
+
+
+def render_og_alt(code, langs):
+    return '\n'.join('<meta property="og:locale:alternate" content="%s">' % langs[c]['htmlLocale']
+                     for c in ORDER if c in langs and c != code)
+
+
+def render_ld_translations(code, langs):
+    """Кто оригинал, а кто перевод: hreflang говорит только о равноправии языков."""
+    if code == DEFAULT:
+        items = ', '.join('{ "@type": "WebPage", "@id": "%s%s#webpage", "inLanguage": "%s" }'
+                          % (SITE, path_for(c), c) for c in ORDER if c in langs and c != DEFAULT)
+        return '"workTranslation": [ %s ],' % items if items else ''
+    return ('"translationOfWork": { "@type": "WebPage", "@id": "%s%s#webpage", "inLanguage": "%s" },'
+            % (SITE, path_for(DEFAULT), DEFAULT))
+
+
+def at(L, path):
+    cur = L['t']
+    for part in path.split('.'):
+        if part not in cur:
+            raise SystemExit('%s: нет строки t.%s' % (L['lang'], path))
+        cur = cur[part]
+    return cur
+
+
+def plain(s):
+    """Строка каталога без разметки — для буфера обмена."""
+    s = re.sub(r'<[^>]+>', '', s)
+    return html.unescape(s)
+
+
+def md(s):
+    s = re.sub(r'</?b>', '**', s)
+    s = re.sub(r'</?i>', '*', s)
+    return plain(s)
+
+
+def tldr_parts(L, url):
+    bul = [at(L, 'tldr.b%d' % i) for i in range(1, 8)]
+    text = '\n\n'.join([plain(L['title']), plain(at(L, 'tldr.sub'))]
+                        + ['— ' + plain(b) for b in bul]
+                        + [plain(at(L, 'tldr.src')), '%s %s' % (plain(at(L, 'tldr.full')), url)])
+    md_out = '\n'.join(['# %s' % L['title'], '', '*%s*' % md(at(L, 'tldr.sub')), '']
+                        + ['- %s' % md(b) for b in bul]
+                        + ['', md(at(L, 'tldr.src')), '', '%s <%s>' % (md(at(L, 'tldr.full')), url)])
+    return text, md_out
+
+
 def stats(data):
     """Доли населения 31 страны по классам, в процентах с одним знаком."""
     total = data['popTotal'] / 1e6
@@ -59,6 +119,7 @@ def stats(data):
     espon = [c for c in data['countries'] if c.get('espon')]
     out['statOwnCurve'] = str(len([c for c in own if any(e['c'] == c for e in espon)]))
     out['statCountries'] = str(len(espon))
+    out['statOtherCurve'] = str(len(espon) - int(out['statOwnCurve']))
     return out
 
 
@@ -78,14 +139,31 @@ def build(code, langs):
     geo = json.load(open(os.path.join(HERE, 'geo.json'), encoding='utf-8'))
 
     js = re.sub(r'\{\{js:(\w+)\}\}', lambda m: json.dumps(L[m.group(1)], ensure_ascii=False), js)
+    # Строки интерфейса, которые рисует сам скрипт: карточка, сравнение, легенда.
+    T = L.get('js')
+    if T is None and os.path.exists(os.path.join(HERE, 'strings', 'js-' + code + '.json')):
+        T = json.load(open(os.path.join(HERE, 'strings', 'js-' + code + '.json'), encoding='utf-8'))
+    js = js.replace('{{i18n}}', json.dumps(T or {}, ensure_ascii=False, separators=(',', ':')))
     js = js.replace('{{data}}', json.dumps(data, ensure_ascii=False, separators=(',', ':')))
     js = js.replace('{{geo}}', json.dumps(geo, ensure_ascii=False, separators=(',', ':')))
     # </script> внутри строки данных закрыл бы тег раньше времени
     js = js.replace('</script', '<\\/script')
 
     url = SITE + path_for(code)
+    # Проза каталога: {{t:раздел.ключ}} — HTML как есть, {{ta:…}} — в атрибут.
+    # Внутри строк бывают свои подстановки ({{statSale50}}, {{up}}), поэтому
+    # эта замена идёт первой, а общая — после неё.
+    tmpl = re.sub(r'\{\{t:([\w.-]+)\}\}', lambda m: at(L, m.group(1)), tmpl)
+    tmpl = re.sub(r'\{\{ta:([\w.-]+)\}\}', lambda m: html.escape(plain(at(L, m.group(1))), quote=True), tmpl)
+    text, md_out = tldr_parts(L, url)
+    tl = {'copied': plain(at(L, 'ui.copied')), 'copyManual': plain(at(L, 'ui.copyManual')),
+          'text': text, 'md': md_out}
+    tldrjs = open(os.path.join(HERE, 'tldr.js'), encoding='utf-8').read().rstrip('\n')
+    tldrjs = tldrjs.replace('{{tldrI18n}}', json.dumps(tl, ensure_ascii=False).replace('</', '<\\/'))
+    note = at(L, 'ui.translationNote')
     inattr = attr_keys(tmpl)
-    fields = {k: (html.escape(v) if k in inattr and isinstance(v, str) else v) for k, v in L.items()}
+    fields = {k: (html.escape(v) if k in inattr and isinstance(v, str) else v) for k, v in L.items()
+              if isinstance(v, str)}
     fields.update(ICONS)
     fields.update(stats(data))
     fields.update({
@@ -93,6 +171,11 @@ def build(code, langs):
         'up': '../' if code == DEFAULT else '../../',
         'canonical': url,
         'hreflang': render_hreflang(langs),
+        'ogLocaleAlt': render_og_alt(code, langs),
+        'ldTranslations': render_ld_translations(code, langs),
+        'langpicker': render_langpicker(L, code, langs),
+        'translationNote': '<p class="fine transnote">%s</p>' % note if note else '',
+        'tldrjs': tldrjs,
         'printUrl': url.replace('https://', ''),
         'ldTitle': json.dumps(L['htmlTitle'], ensure_ascii=False)[1:-1],
         'ldName': json.dumps(L['title'], ensure_ascii=False)[1:-1],
@@ -123,7 +206,10 @@ def build(code, langs):
 
 
 def main():
-    avail = sorted(f[:-5] for f in os.listdir(os.path.join(HERE, 'strings')) if f.endswith('.json'))
+    avail = sorted(f[:-5] for f in os.listdir(os.path.join(HERE, 'strings')) if f.endswith('.json') and not f.startswith('js-'))
+    unknown = [c for c in avail if c not in ORDER]
+    if unknown:
+        raise SystemExit('язык не объявлен в ORDER: %s' % ', '.join(unknown))
     want = sys.argv[1:] or [c for c in ORDER if c in avail]
     langs = {c: json.load(open(os.path.join(HERE, 'strings', c + '.json'), encoding='utf-8')) for c in avail}
     os.chdir(ROOT)

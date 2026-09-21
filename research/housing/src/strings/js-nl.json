@@ -1,0 +1,464 @@
+{
+  "numLocale": "nl-NL",
+  "fxDate": "11 sep. 2026",
+  "noData": "geen data",
+  "units": {
+    "m2": "{n} m²",
+    "pct": "{n}%",
+    "money": "{sym} {n}",
+    "moneyCode": "{sym} {n}",
+    "amountCode": "{n} {cur}",
+    "perM2": "{money}/m²",
+    "perM2Mo": "{money}/m²·mnd",
+    "perMo": "{money}/mnd",
+    "perMonth": "{money} per maand",
+    "perM2Long": "{money} / m²",
+    "perM2Month": "{money} / m² / maand",
+    "years": {
+      "one": "{n} jaar",
+      "other": "{n} jaar"
+    },
+    "yrs": {
+      "one": "{n} jr",
+      "other": "{n} jr"
+    },
+    "people": {
+      "one": "{n} inwoner",
+      "other": "{n} inwoners"
+    },
+    "forever": "eeuwig",
+    "aThird": "een derde"
+  },
+  "place": {
+    "city": "stad",
+    "town": "kleinere stad of voorstad",
+    "rural": "platteland"
+  },
+  "frames": {
+    "eu": {
+      "label": "Europa",
+      "unit": "gemeente",
+      "units": "gemeenten",
+      "reg": "regio",
+      "regs": "NUTS 3-regio’s",
+      "home": "woning",
+      "rental": "huurwoning",
+      "unitLabel": "Gemeente",
+      "regLabel": "Regio",
+      "regKind": "NUTS 3-regio",
+      "inReg": "regio {name}",
+      "regNamed": "Regio {name}",
+      "unitsInReg": "Gemeenten in de regio",
+      "largest": "Grootste gemeenten",
+      "count": {
+        "one": "{n} gemeente",
+        "other": "{n} gemeenten"
+      },
+      "rankName": "Stad",
+      "rankTab": "Steden",
+      "countOfBig": {
+        "one": "{shown} van {n} gemeente met {min} inwoners of meer",
+        "other": "{shown} van {n} gemeenten met {min} inwoners of meer"
+      }
+    },
+    "na": {
+      "label": "Verenigde Staten",
+      "unit": "county",
+      "units": "county’s",
+      "reg": "staat",
+      "regs": "staten",
+      "home": "de mediane woning",
+      "rental": "de mediane huurwoning",
+      "unitLabel": "County",
+      "regLabel": "Staat",
+      "regKind": "staat",
+      "inReg": "staat {name}",
+      "regNamed": "Staat {name}",
+      "unitsInReg": "County’s in de staat",
+      "largest": "Grootste county’s",
+      "count": {
+        "one": "{n} county",
+        "other": "{n} county’s"
+      },
+      "rankName": "County",
+      "rankTab": "County’s",
+      "countOfBig": {
+        "one": "{shown} van {n} county met {min} inwoners of meer",
+        "other": "{shown} van {n} county’s met {min} inwoners of meer"
+      }
+    }
+  },
+  "groups": {
+    "eu": {
+      "north": "Noord & Baltische staten",
+      "west": "West",
+      "south": "Zuid",
+      "east": "Oost"
+    },
+    "na": {
+      "ne": "Noordoost",
+      "mw": "Middenwesten",
+      "so": "Zuid",
+      "we": "West"
+    }
+  },
+  "presets": [
+    {
+      "name": "Zoals in de studie",
+      "desc": "gemiddeld lokaal inkomen, 30 jaar, geen eigen inbreng"
+    },
+    {
+      "name": "Junior developer",
+      "desc": "€ {inc} netto, alleenstaand, 30 jaar"
+    },
+    {
+      "name": "Stel met een kind",
+      "desc": "€ {inc} netto, wil 75 m²"
+    },
+    {
+      "name": "Thuiswerker aan de kust",
+      "desc": "€ {inc} netto, steden aan de kust"
+    },
+    {
+      "name": "Kopen met spaargeld",
+      "desc": "€ {inc} netto, twee volwassenen, 40% eigen inbreng, 15 jaar"
+    },
+    {
+      "name": "Student die huurt",
+      "desc": "€ {inc} netto, huurkaart"
+    }
+  ],
+  "setup": {
+    "hhHint": "Equivalentiefactor {factor} (gewijzigde OESO-schaal: eerste volwassene 1, elke volgende volwassene 0,5, elk kind 0,3). Alleen gebruikt voor de regel die jouw inkomen vergelijkt met het lokale gemiddelde — dat in Europa per volwassenenequivalent is en in de Verenigde Staten per huishouden.",
+    "wantNoArea": "geen woonoppervlak in Amerikaanse data",
+    "wantAny": "geen",
+    "mineDisabled": "Vul hierboven je inkomen in",
+    "incHint": "Na belasting, alle verdieners samen. Laat leeg om elke plaats op haar eigen gemiddelde inkomen te zien.",
+    "incHintFx": "Na belasting, alle verdieners samen. {amount} = {eur} tegen de referentiekoers van de ECB van {date}.",
+    "rateAll": "{rate} overal",
+    "rateOwn": "de eigen rente van elk land",
+    "adults": {
+      "one": "{n} volwassene",
+      "other": "{n} volwassenen"
+    },
+    "kids": {
+      "one": "{n} kind",
+      "other": "{n} kinderen"
+    },
+    "adultsKids": "{adults} en {kids}",
+    "termAdj": {
+      "one": "{n} jaar",
+      "other": "{n} jaar"
+    },
+    "orig": " ({amount})",
+    "mine": "<b>{income}</b> netto per maand{orig} · <b>{share}</b> voor wonen = <b>{budget}</b> per maand · hypotheek over <b>{term}</b> tegen {rate} · eigen inbreng <b>{deposit}</b> · huishouden van {household} (factor {factor})",
+    "local": "Elke plaats op haar <b>eigen gemiddelde inkomen</b> · <b>{share}</b> voor wonen · hypotheek over <b>{term}</b> tegen {rate} · eigen inbreng <b>{deposit}</b>{tail}",
+    "published": " — precies de gepubliceerde kaart",
+    "studyTerms": " — de voorwaarden van de studie, hier toegepast",
+    "want": " · gezocht: <b>{m2}</b>"
+  },
+  "modes": {
+    "title": {
+      "buy": "m² kopen",
+      "rent": "m² huren",
+      "diff": "huren min kopen, m²",
+      "years": "jaren inkomen",
+      "share": "huur, % van inkomen"
+    },
+    "text": {
+      "buy": "vierkante meters om te kopen",
+      "rent": "vierkante meters om te huren",
+      "diff": "vierkante meters huren min vierkante meters kopen",
+      "years": "jaren inkomen voor {basket}",
+      "share": "huur van {basket} als aandeel van het inkomen"
+    },
+    "noAreaTitle": "Voor Amerikaanse {units} wordt geen woonoppervlak gepubliceerd — zie “Waar de cijfers vandaan komen”"
+  },
+  "legend": {
+    "classes": [
+      "onder 50 m²",
+      "50–75 m²",
+      "76–100 m²",
+      "101–150 m²",
+      "boven 150 m²"
+    ],
+    "diff": [
+      "kopen geeft meer dan 20 m² meer",
+      "kopen geeft 5–20 m² meer",
+      "binnen 5 m²",
+      "huren geeft 5–20 m² meer",
+      "huren geeft meer dan 20 m² meer"
+    ],
+    "years": [
+      "onder 3 jaar",
+      "3–5",
+      "5–8",
+      "8–12",
+      "boven 12"
+    ],
+    "share": [
+      "onder 20% van het inkomen",
+      "20–30%",
+      "30–40%",
+      "40–50%",
+      "boven 50%"
+    ],
+    "headFor": "{title} — {basket}",
+    "noData": "geen data",
+    "noDataUnder": "geen data of onder {m2}"
+  },
+  "map": {
+    "aria": "Kaart van {label}: landen ingekleurd en {units} als stippen, gekleurd naar {mode}"
+  },
+  "tip": {
+    "yearsFor": "jaren inkomen voor {basket}",
+    "rentOf": "huur van {basket}",
+    "buy": "kopen",
+    "rent": "huren",
+    "price": "prijs",
+    "rentp": "huur",
+    "noListings": "geen advertentiedata",
+    "medianHome": "mediane woning",
+    "medianRent": "mediane huur",
+    "income": "inkomen"
+  },
+  "search": {
+    "country": "land",
+    "none": "Niets gevonden. Probeer de lokale spelling: Wien, Praha, København."
+  },
+  "move": {
+    "empty": "Kies beide plaatsen om het antwoord te zien. Al het andere op deze pagina geldt al: je looptijd, eigen inbreng en het deel van het inkomen dat je wilt uitgeven.",
+    "noIncome": "Geen inkomen bekend voor {place}. Vul hierboven je eigen inkomen in en kies “Mijn inkomen”.",
+    "rentSame": "om dezelfde ruimte te huren",
+    "rentShare": "om de huur op hetzelfde deel van het inkomen te houden",
+    "rentDetailSame": "dezelfde {m2} als thuis vraagt daar {money} inkomen per maand",
+    "rentDetail": "{home} thuis tegenover {there} daar — {moneyHome} per maand tegenover {moneyThere}",
+    "noRent": "Geen huur bekend voor {place}, dus huren is niet te vergelijken.",
+    "buySame": "om dezelfde ruimte te kopen",
+    "buyShare": "om te kopen voor hetzelfde deel van het inkomen",
+    "buyDetailSame": "{m2} zoals thuis, met een hypotheek over {term} tegen {rateThere} daar en {rateHome} thuis",
+    "buyDetail": "{home} thuis tegenover {there} daar, met een hypotheek over {term} tegen {rateThere} daar en {rateHome} thuis",
+    "noBuy": "Voor een van de twee ontbreekt een prijs of een hypotheekrente, dus kopen is niet te vergelijken.",
+    "layers": "De twee lagen zijn niet in dezelfde eenheid gemeten: Europa heeft een prijs per vierkante meter, de Verenigde Staten publiceren geen woonoppervlak, dus de vergelijking houdt het deel van het inkomen gelijk in plaats van de ruimte. Een deel van het verschil is daarom oppervlakte en geen prijs — het Amerikaanse pakket is een hele woning, en hoe groot die is, is precies wat de data niet zeggen.",
+    "medianHome": "de mediane woning",
+    "medianRental": "de mediane huurwoning",
+    "head": "Verhuizen van <b>{from}</b> naar <b>{to}</b> met {income} netto per maand",
+    "more": "+{n}%",
+    "less": "−{n}%",
+    "aboutSame": "ongeveer gelijk",
+    "needLabel": "Het aanbod moet zijn",
+    "what": "netto per maand {what}: <b>{verdict}</b>",
+    "offerAbove": "Je aanbod van {offer} ligt {gap} hoger",
+    "offerShort": "Je aanbod van {offer} komt {gap} tekort",
+    "gotBuy": "{m2} kopen",
+    "gotRent": "{m2} huren",
+    "eitherOr": "{a} of {b}",
+    "gotHome": ", tegenover {buy} en {rent} thuis",
+    "gotM2": "Met {offer} in {place} kun je {options}{home}.",
+    "gotYears": {
+      "one": "de mediane woning kost {n} jaar daarvan",
+      "other": "de mediane woning kost {n} jaar daarvan"
+    },
+    "gotShare": "de mediane huur slokt {pct} daarvan op",
+    "both": "{a}, en {b}",
+    "gotUS": "Met {offer} in {place}: {options}.",
+    "mortgageShare": "<b>Hoeveel hiervan de hypotheek is, en niet het wonen.</b> Als beide landen dezelfde rente rekenden, zou het aanbod {flat} ({delta}) moeten zijn {what} — dat is alleen het prijsverschil. Het renteverschil verschuift het met {rate} per maand. {vintage}",
+    "flatShare": "om hetzelfde deel van het inkomen te houden",
+    "vintageEu": "Europese rentes zijn de nationale gemiddelden die de studie gebruikte, meestal van 2023, niet van nu. Vul hierboven in het rentevak je eigen rente in als je betere cijfers kent.",
+    "vintageNa": "De Amerikaanse rente is het 30-jaarsgemiddelde van Freddie Mac voor 2024, het jaar waarin de dollars van de ACS-ramingen zijn uitgedrukt. Vul hierboven in het rentevak je eigen rente in als je betere cijfers kent.",
+    "vintageBoth": "Europese rentes zijn de nationale gemiddelden die de studie gebruikte, meestal van 2023, niet van nu; de Amerikaanse rente is het 30-jaarsgemiddelde van Freddie Mac voor 2024, het jaar waarin de dollars van de ACS-ramingen zijn uitgedrukt. Vul hierboven in het rentevak je eigen rente in als je betere cijfers kent."
+  },
+  "card": {
+    "label": "Gekozen plaats",
+    "empty": "Zoek hierboven een plaats of klik op een regio op de kaart. De infokaart toont wat jouw instellingen daar betekenen, en wat ervoor nodig zou zijn.",
+    "coastal": "{deg}, aan de kust",
+    "coverage": "koopprijsdata voor {pct} van de bevolking",
+    "countryKind": "land",
+    "countryLabel": "Land",
+    "moe": "mediane woningwaarde ±{pct}",
+    "moeWide": "mediane woningwaarde ±{pct}, een breed interval voor een mediaan",
+    "bigYears": "jaar inkomen voor de mediane woning",
+    "bigShare": "van het inkomen voor de mediane huur",
+    "bigBuy": "m² kopen",
+    "bigBuyTerm": {
+      "one": "m² kopen, {n} jaar",
+      "other": "m² kopen, {n} jaar"
+    },
+    "bigRent": "m² huren",
+    "yourBudget": "Jouw woonbudget",
+    "thirdLocal": "Een derde van het lokale inkomen",
+    "loan": "Lening die het budget kan dragen",
+    "plusDeposit": "Plus {pct} eigen inbreng",
+    "homePrice": "Woningprijs die binnen bereik komt",
+    "medianValue": "Mediane woningwaarde, schatting van de eigenaar",
+    "medianRent": "Mediane huur, inclusief nutsvoorzieningen",
+    "pricePerM2": "Prijs per m²",
+    "notPublished": "niet gepubliceerd voor Amerikaanse county’s",
+    "salePrice": "Koopprijs, incl. belastingen en kosten",
+    "rent": "Huur",
+    "incomeUS": "Mediaan huishoudinkomen, vóór belasting",
+    "incomeEU": "Gemiddeld inkomen per volwassenenequivalent",
+    "rateUsed": "Gebruikte hypotheekrente",
+    "rateYours": "{rate} (van jou)",
+    "study": "De eigen cijfers van de studie",
+    "studyValue": "{buy} m² kopen · {rent} m² huren",
+    "vsMedian": "Jouw inkomen t.o.v. de lokale mediaan",
+    "vsAverage": "Jouw inkomen t.o.v. het lokale gemiddelde",
+    "ratioUS": "{ratio}× een mediaan huishouden, vóór belasting",
+    "ratioEU": "{ratio}× per volwassenenequivalent",
+    "whatItTakes": "Wat ervoor nodig is",
+    "withDeposit": " met {pct} eigen inbreng",
+    "haveEnough": " — je hebt {money}, genoeg",
+    "haveShort": " — je hebt {money}, {pct} te weinig",
+    "netMonth": "{money} netto per maand",
+    "buyNeed": "Om hier {input} m² te kopen voor {share} van het inkomen over {years}{deposit}, heb je <b>{need}</b> nodig{have}.",
+    "depositSave": "Een eigen inbreng van {pct} op {m2} is <b>{amount}</b>. Als je € {input} per maand spaart, duurt dat <b>{time}</b>.",
+    "rentNeed": "Om hier {m2} te huren voor {share} van het inkomen, heb je <b>{need}</b> nodig.",
+    "buyMedianNeed": "Om hier de mediane woning ({price}) te kopen voor {share} van het inkomen over {years}{deposit}, heb je <b>{need}</b> nodig{have}.",
+    "depositSaveMedian": "Een eigen inbreng van {pct} daarop is <b>{amount}</b>. Als je € {input} per maand spaart, duurt dat <b>{time}</b>.",
+    "rentMedianNeed": "Om hier de mediane woning te huren ({rent} per maand) voor {share} van het inkomen, heb je <b>{need}</b> nodig.",
+    "around": "In de omgeving",
+    "inCmp": "✓ In de vergelijking",
+    "addCmp": "+ Vergelijken",
+    "showOnMap": "Toon op de kaart",
+    "clear": "Wissen",
+    "summaryM2": "{buy} · {rent} m²",
+    "summaryUS": "{years} · {share}",
+    "shareLocal": "{share} van het lokale inkomen"
+  },
+  "cmp": {
+    "converted": " · bedragen omgerekend naar euro tegen de ECB-koers van {date}",
+    "groups": {
+      "settings": "Met jouw instellingen{conv}",
+      "sameMine": "Dezelfde voorwaarden voor iedereen (jouw inkomen)",
+      "sameLocal": "Dezelfde voorwaarden voor iedereen (lokaal inkomen)",
+      "study": "De eigen cijfers van de studie",
+      "market": "De markt{conv}",
+      "both": "Beide lagen · in Europa is het pakket {m2}, in de Verenigde Staten de mediane woning — voor Amerikaanse county’s wordt geen woonoppervlak gepubliceerd{conv}",
+      "euOnly": "Alleen Europa · hiervoor is een prijs per vierkante meter nodig",
+      "usOnly": "Alleen Verenigde Staten · hiervoor is een mediaan voor de hele woning nodig"
+    },
+    "rows": {
+      "buy": "m² kopen",
+      "rent": "m² huren",
+      "budget": "Woonbudget per maand, {sym}",
+      "needBuy": "Inkomen nodig om {m2} te kopen, {sym}/mnd",
+      "needRent": "Inkomen nodig om {m2} te huren, {sym}/mnd",
+      "buy20": "m² kopen, 20 jaar",
+      "buy30": "m² kopen, 30 jaar",
+      "buy25": "m² kopen voor 25% van het inkomen",
+      "buyThird": "m² kopen voor een derde van het inkomen",
+      "rent25": "m² huren voor 25% van het inkomen",
+      "rentThird": "m² huren voor een derde van het inkomen",
+      "studyBuy": "m² kopen, gemiddeld lokaal inkomen, 30 jaar",
+      "studyRent": "m² huren, gemiddeld lokaal inkomen",
+      "salePrice": "Koopprijs incl. belastingen en kosten, {sym}/m²",
+      "rentPrice": "Huur, {sym}/m²/mnd",
+      "avgIncome": "Gemiddeld lokaal inkomen, {sym}/mnd",
+      "rate": "Gebruikte hypotheekrente, %",
+      "population": "Inwoners",
+      "yearsMedian": "Jaren inkomen voor de mediane woning",
+      "shareMedian": "Mediane huur als aandeel van het inkomen, %",
+      "needBuyMedian": "Inkomen nodig om de mediane woning te kopen, {sym}/mnd",
+      "needRentMedian": "Inkomen nodig om de mediane woning te huren, {sym}/mnd",
+      "medianValue": "Mediane woningwaarde, {sym}",
+      "medianRent": "Mediane huur, {sym}/mnd",
+      "medianIncome": "Mediaan huishoudinkomen, {sym}/mnd",
+      "years": "Jaren inkomen",
+      "share": "Huur als aandeel van het inkomen, %",
+      "localIncome": "Lokaal inkomen, {sym}/mnd"
+    },
+    "remove": "Verwijderen",
+    "addMore": {
+      "one": "nog maximaal {n} toevoegen",
+      "other": "nog maximaal {n} toevoegen"
+    },
+    "nothing": "nog niets gekozen — voeg een plaats toe via de infokaart of de ranglijsten"
+  },
+  "rank": {
+    "coast": "alleen kust",
+    "coastTitle": "Gemeenten in de EU-27 die Eurostat als kustgemeente aanmerkt",
+    "cols": {
+      "country": "Land",
+      "buy": "m² kopen",
+      "rent": "m² huren",
+      "price": "Prijs {sym}/m²",
+      "rentp": "Huur {sym}/m²·mnd",
+      "years": "Jaren inkomen",
+      "share": "Huur, % van inkomen",
+      "val": "Mediane woning {sym}",
+      "rnt": "Mediane huur {sym}/mnd",
+      "inc": "Inkomen {sym}/mnd",
+      "rate": "Rente %",
+      "pop": "Inwoners"
+    },
+    "addCmp": "Aan de vergelijking toevoegen",
+    "removeCmp": "Uit de vergelijking verwijderen",
+    "shown": "{count}{within}{coastal}.",
+    "countOfCountries": {
+      "one": "{shown} van {n} land",
+      "other": "{shown} van {n} landen"
+    },
+    "within": " waar {m2} binnen bereik ligt",
+    "coastal": ", alleen kust",
+    "onYours": "Op jouw inkomen van {money} per maand.",
+    "onOwn": "Elk op het eigen gemiddelde inkomen.",
+    "layerOnly": "Alleen {label}: de twee lagen gebruiken verschillende inkomensdefinities en horen niet in één ranglijst.",
+    "countryMeans": "Waarden per land zijn naar bevolking gewogen gemiddelden van {units}.",
+    "clickRow": "Klik op een rij om de plaats op de kaart te openen."
+  },
+  "hist": {
+    "labels": [
+      "<50",
+      "50–75",
+      "76–100",
+      "101–150",
+      ">150",
+      "geen data"
+    ],
+    "kinds": [
+      "steden",
+      "kleinere steden en voorsteden",
+      "platteland",
+      "niet ingedeeld"
+    ],
+    "tip": "{kind}: {pct} van de bevolking ({m} mln)",
+    "axis": "betaalbare vierkante meters voor een derde van het lokale gemiddelde inkomen"
+  },
+  "share": {
+    "copied": "Link gekopieerd",
+    "inBar": "De link staat in de adresbalk"
+  },
+  "export": {
+    "income": "Inkomen",
+    "terms": "Voorwaarden",
+    "map": "Kaart",
+    "source": "Bron",
+    "incomeMine": "{income} netto per maand{orig}, huishouden van {household}",
+    "incomeLocal": "het gemiddelde lokale inkomen van elke plaats",
+    "termsText": "{share} van het inkomen voor wonen, hypotheek over {term} tegen {rate}, eigen inbreng {deposit}",
+    "mapGreyed": "{mode}; plaatsen waar {m2} buiten bereik ligt, zijn grijs",
+    "sourceEu": "Sielker & Banabak 2026, Journal of Maps; ESPON HOUSE4ALL-feature service, 14 sep. 2026; contouren Natural Earth, publiek domein",
+    "sourceNa": "US Census Bureau, American Community Survey 2020-2024 (publiek domein); Freddie Mac PMMS 2024; contouren Natural Earth, publiek domein",
+    "csvLine": "{label}: {text}",
+    "mapCaptionMine": "{mode} met {income} netto per maand, per land en plaats",
+    "mapCaptionLocal": "{mode} op het gemiddelde lokale inkomen, per land en plaats",
+    "sideBySide": "Naast elkaar: {places}",
+    "pngSaved": "PNG opgeslagen",
+    "pngCopied": "PNG gekopieerd",
+    "csvSaved": "CSV opgeslagen",
+    "needPlace": "Voeg eerst een plaats toe om te vergelijken",
+    "imageFailed": "De afbeelding kon niet worden gemaakt"
+  },
+  "csv": {
+    "rank": "plaats",
+    "country": "land",
+    "metric": "maat",
+    "place": "{name} ({country})"
+  },
+  "print": {
+    "withMap": "{setup} · kaart: {mode}",
+    "withRank": "{setup} · {note}"
+  },
+  "sentSep": " "
+}
