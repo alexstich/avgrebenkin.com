@@ -159,16 +159,16 @@
   },
   "modes": {
     "title": {
-      "buy": "m² da comprare",
-      "rent": "m² in affitto",
+      "buy": "m² acquistabili",
+      "rent": "m² affittabili",
       "diff": "affitto meno acquisto, m²",
       "years": "anni di reddito",
       "share": "affitto, % del reddito"
     },
     "text": {
-      "buy": "metri quadrati da comprare",
-      "rent": "metri quadrati in affitto",
-      "diff": "metri quadrati in affitto meno metri quadrati da comprare",
+      "buy": "metri quadrati acquistabili",
+      "rent": "metri quadrati affittabili",
+      "diff": "metri quadrati affittabili meno metri quadrati acquistabili",
       "years": "anni di reddito per {basket}",
       "share": "affitto per {basket} come quota del reddito"
     },
@@ -176,7 +176,7 @@
     "hint": {
       "buy": "Quanti metri quadrati compra la quota di reddito destinata alla casa ({share}), con un mutuo a {term} anni al tasso locale e al prezzo locale al metro quadrato. Verde vuol dire tanto spazio, rosso poco.",
       "rent": "Quanti metri quadrati affitta la quota di reddito destinata alla casa ({share}), all’affitto locale al metro quadrato. Verde vuol dire tanto spazio, rosso poco.",
-      "diff": "Metri quadrati in affitto meno metri quadrati da comprare, entrambi con la stessa quota di reddito ({share}): quale delle due strade ti dà più spazio qui. La legenda dice quale lato favorisce ciascun colore.",
+      "diff": "Metri quadrati affittabili meno metri quadrati acquistabili, entrambi con la stessa quota di reddito ({share}): quale delle due strade ti dà più spazio qui. La legenda dice quale lato favorisce ciascun colore.",
       "years": "Quanti anni dell’intero reddito costa {basket}, a pagare tutto subito e senza alcun mutuo. Meno è meglio, quindi qui il verde significa pochi anni e il rosso molti: questa scala va al contrario rispetto ai metri.",
       "share": "Quanto del reddito di un mese se ne va in affitto, per {basket}. Meno è meglio, quindi il verde significa una quota piccola e il rosso una grande."
     }
@@ -241,8 +241,8 @@
   "tip": {
     "yearsFor": "anni di reddito per {basket}",
     "rentOf": "affitto per {basket}",
-    "buy": "da comprare",
-    "rent": "in affitto",
+    "buy": "acquistabili",
+    "rent": "affittabili",
     "price": "prezzo",
     "rentp": "affitto",
     "noListings": "nessun dato sugli annunci",
@@ -278,8 +278,8 @@
     "what": "netti al mese {what}: <b>{verdict}</b>",
     "offerAbove": "La tua offerta di {offer} supera questa soglia di {gap}",
     "offerShort": "Alla tua offerta di {offer} mancano {gap}",
-    "gotBuy": "{m2} da comprare",
-    "gotRent": "{m2} in affitto",
+    "gotBuy": "{m2} acquistabili",
+    "gotRent": "{m2} affittabili",
     "eitherOr": "{a} oppure {b}",
     "gotHome": ", contro {buy} e {rent} dove vivi ora",
     "gotM2": "{place}, con {offer}: potresti avere {options}{home}.",
@@ -307,12 +307,12 @@
     "moeWide": "valore mediano della casa ±{pct}, un intervallo ampio per una mediana",
     "bigYears": "anni di reddito per la casa mediana",
     "bigShare": "del reddito per l’affitto mediano",
-    "bigBuy": "m² da comprare",
+    "bigBuy": "m² acquistabili",
     "bigBuyTerm": {
-      "one": "m² da comprare, {n} anno",
-      "other": "m² da comprare, {n} anni"
+      "one": "m² acquistabili, mutuo di {n} anno",
+      "other": "m² acquistabili, mutuo di {n} anni"
     },
-    "bigRent": "m² in affitto",
+    "bigRent": "m² affittabili",
     "yourBudget": "Il tuo budget per la casa",
     "thirdLocal": "Un terzo del reddito locale",
     "loan": "Prestito sostenibile con il budget",
@@ -346,10 +346,11 @@
     "depositSaveMedian": "L’anticipo ({pct}) è di <b>{amount}</b>. Mettendo da parte {input} € al mese, tempo necessario: <b>{time}</b>.",
     "rentMedianNeed": "Per affittare qui l’alloggio mediano ({rent} al mese) — quota di reddito {share} — ti servono <b>{need}</b>.",
     "around": "Nei dintorni",
-    "inCmp": "✓ Nel confronto",
-    "addCmp": "+ Confronta",
+    "inCmp": "✓ Nel confronto · togli",
+    "addCmp": "+ Aggiungi al confronto",
     "showOnMap": "Mostra sulla mappa",
-    "clear": "Cancella",
+    "clear": "Cancella la selezione",
+    "cmpHint": "Il confronto mette fino a quattro luoghi fianco a fianco in una tabella subito sotto la mappa.",
     "summaryM2": "{buy} · {rent} m²",
     "summaryUS": "{years} · {share}",
     "shareLocal": "{share} del reddito locale"
@@ -367,19 +368,19 @@
       "usOnly": "Solo Stati Uniti · richiedono una mediana per l’intera casa"
     },
     "rows": {
-      "buy": "m² da comprare",
-      "rent": "m² in affitto",
+      "buy": "m² acquistabili",
+      "rent": "m² affittabili",
       "budget": "Budget mensile per la casa, {sym}",
       "needBuy": "Reddito necessario per comprare {m2}, {sym}/mese",
       "needRent": "Reddito necessario per affittare {m2}, {sym}/mese",
-      "buy20": "m² da comprare, 20 anni",
-      "buy30": "m² da comprare, 30 anni",
-      "buy25": "m² da comprare con il 25% del reddito",
-      "buyThird": "m² da comprare con un terzo del reddito",
-      "rent25": "m² in affitto con il 25% del reddito",
-      "rentThird": "m² in affitto con un terzo del reddito",
-      "studyBuy": "m² da comprare, reddito medio locale, 30 anni",
-      "studyRent": "m² in affitto, reddito medio locale",
+      "buy20": "m² acquistabili, mutuo di 20 anni",
+      "buy30": "m² acquistabili, mutuo di 30 anni",
+      "buy25": "m² acquistabili con il 25% del reddito",
+      "buyThird": "m² acquistabili con un terzo del reddito",
+      "rent25": "m² affittabili con il 25% del reddito",
+      "rentThird": "m² affittabili con un terzo del reddito",
+      "studyBuy": "m² acquistabili, reddito medio locale, mutuo di 30 anni",
+      "studyRent": "m² affittabili, reddito medio locale",
       "salePrice": "Prezzo di vendita con tasse e spese, {sym}/m²",
       "rentPrice": "Affitto, {sym}/m²/mese",
       "avgIncome": "Reddito medio locale, {sym}/mese",
@@ -401,15 +402,15 @@
       "one": "puoi aggiungerne ancora {n}",
       "other": "puoi aggiungerne ancora {n}"
     },
-    "nothing": "nessun luogo selezionato: aggiungine uno con + Confronta sulla sua scheda, o con il + nelle classifiche"
+    "nothing": "nessun luogo selezionato: aggiungine uno con + Aggiungi al confronto sulla sua scheda, o con il + nelle classifiche"
   },
   "rank": {
     "coast": "solo costa",
     "coastTitle": "Comuni dell’UE a 27 classificati da Eurostat come costieri",
     "cols": {
       "country": "Paese",
-      "buy": "m² da comprare",
-      "rent": "m² in affitto",
+      "buy": "m² acquistabili",
+      "rent": "m² affittabili",
       "price": "Prezzo {sym}/m²",
       "rentp": "Affitto {sym}/m²·mese",
       "years": "Anni di reddito",
@@ -456,8 +457,8 @@
   "latam": {
     "legendPrice": "Prezzo al m², dollari USA",
     "legendRentPrice": "Affitto al m² al mese, dollari USA",
-    "legendBuy": "m² da comprare, quota di reddito {share}",
-    "legendRent": "m² in affitto, quota di reddito {share}",
+    "legendBuy": "m² acquistabili con {share} del tuo reddito",
+    "legendRent": "m² affittabili con {share} del tuo reddito",
     "range": "{lo}–{hi}",
     "setupPrice": "Ogni mappa è colorata all’interno della propria città: <b>il verde è il quinto più economico</b> dei suoi distretti, il rosso il più caro. Le due scale sono diverse di proposito.",
     "needIncome": "Inserisci il tuo reddito mensile nel calcolatore qui sopra: lo strato non ha un reddito locale, quindi i metri quadrati si possono contare solo a partire dal tuo.",
@@ -465,21 +466,18 @@
     "setupRent": "<b>{income}</b> al mese, convertiti in dollari USA al tasso BCE · quota per l’affitto <b>{share}</b> = <b>{budget}</b> al mese",
     "rateMine": "entrambe le città al tuo tasso del <b>{rate}</b>",
     "noRent": "Per Buenos Aires questo strato non ha affitti, solo prezzi richiesti per la vendita.",
-    "noRate": "Nessuna delle due città ha un tasso ipotecario con licenza aperta, e non se ne prende in prestito uno da altrove. Inserisci un tasso nel calcolatore qui sopra per vedere cosa potresti comprare.",
+    "noRate": "Lo strato non ha un tasso ipotecario per nessuna delle due città, e non se ne prende in prestito uno da altrove. Inserisci un tasso nel calcolatore qui sopra per vedere cosa potresti comprare.",
     "rentHow": "L’affitto è ricavato: il prezzo del distretto diviso per il rapporto prezzo/affitto della banca centrale.",
     "notInLayer": "non presente nello strato",
     "gapsLine": "{n} barrios su {all} non hanno un prezzo in questa fetta e restano grigi: {names}.",
     "gap": {
-      "none": "Nessun prezzo richiesto nel secondo trimestre del 2019",
-      "stratum": "Nessun prezzo per i trilocali usati nel secondo trimestre del 2019, solo per altri tipi di appartamento",
+      "none": "Troppo pochi appartamenti in vendita nel secondo trimestre del 2026: l’istituto pubblica un barrio solo sopra un numero minimo di annunci",
       "lima": "Non presente nello strato: la banca centrale pubblica {n} distretti"
     },
     "tip": {
       "price": "Prezzo",
       "rent": "Affitto",
       "ptr": "Prezzo in anni d’affitto",
-      "r2": "Bilocale usato",
-      "r3n": "Trilocale nuovo",
       "youBuy": "Potresti comprare",
       "youRent": "Potresti affittare"
     },

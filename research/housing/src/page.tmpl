@@ -133,7 +133,7 @@
         "Eurostat EU-SILC mean equivalised disposable income (ilc_di03) disaggregated with the Mikou, Vallet and Guivarch (2024) subnational income dataset",
         "Affordable floor area: one third of the mean equivalised income on a 30-year annuity mortgage at the DG ECFIN national fixed rate, price including transfer tax, VAT, notary and registry",
         "United States: American Community Survey five-year estimates 2020-2024 by county; no floor area is collected at county level by any US federal survey, so affordable square metres are not computed for the United States",
-        "Lima: Banco Central de Reserva del Perú, transaction prices in US dollars per square metre and price-to-annual-rent ratios for 12 districts, fourth quarter of 2025. Buenos Aires: Buenos Aires Data, Instituto de Vivienda, asking prices in US dollars per square metre by barrio, second quarter of 2019. No local income: affordable area is computed from the reader's own income only",
+        "Lima: Banco Central de Reserva del Perú, transaction prices in US dollars per square metre and price-to-annual-rent ratios for 12 districts, fourth quarter of 2025. Buenos Aires: Instituto de Estadística y Censos de la Ciudad de Buenos Aires, asking prices in US dollars per square metre by barrio for two-room resale flats, second quarter of 2026. No local income: affordable area is computed from the reader's own income only",
         "OECD Affordable Housing Database HC1.2: median share of mortgage or rent payments in income for Chile, Colombia, Costa Rica and Mexico"
       ],
       "variableMeasured": [
@@ -155,7 +155,7 @@
         "https://www.espon.eu/projects/access-affordable-and-quality-housing-all-people-house4all",
         "https://doi.org/10.1038/s41597-024-03138-x",
         "https://estadisticas.bcrp.gob.pe/estadisticas/series/",
-        "https://data.buenosaires.gob.ar/dataset/mercado-inmobiliario",
+        "https://www.estadisticaciudad.gob.ar/eyc/banco-datos/precio-promedio-de-publicacion-del-metro-cuadrado-dolares-de-departamentos-en-venta-de-2-ambientes-usados-por-barrio-ciudad-de-buenos-aires-4to-trimestre-de-2006-2do-trimestre-de-2024/",
         "https://www.oecd.org/en/data/datasets/oecd-affordable-housing-database.html"
       ],
       "isAccessibleForFree": true,
@@ -427,7 +427,21 @@
         <p class="cempty">{{t:map.30}}</p>
       </div>
     </div>
+    <p class="espon">{{t:map.32}}</p>
     <p class="espon">{{t:map.31}}</p>
+  </section>
+
+  <!-- ─── compare: сразу после карты и только когда есть что сравнивать;
+       пустым блок не показывается, его открывает скрипт (drawCmp). ────────────────────────────────────────────────── -->
+  <section class="panel" id="p-cmp" aria-labelledby="cmp-h" hidden>
+    <div class="phead">
+      <div class="pactions"><button type="button" class="ibtn" data-share title="{{ta:calc.01}}" aria-label="{{ta:calc.01}}">{{svgShare}}</button><button type="button" class="ibtn" data-png="cmp" title="{{ta:cmp.01}}" aria-label="{{ta:cmp.01}}">{{svgPng}}</button><button type="button" class="ibtn" data-png-dl="cmp" title="{{ta:cmp.02}}" aria-label="{{ta:cmp.02}}">{{svgDl}}</button><button type="button" class="ibtn" data-csv="cmp" title="{{ta:cmp.03}}" aria-label="{{ta:cmp.03}}">{{svgCsv}}</button><button type="button" class="ibtn" data-print="cmp" title="{{ta:cmp.04}}" aria-label="{{ta:cmp.04}}">{{svgPrint}}</button></div>
+      <h2 id="cmp-h">{{t:cmp.05}}</h2>
+      <p>{{t:cmp.06}}</p>
+    </div>
+    <div class="chips" id="chips"></div>
+    <p class="fhint chint">{{t:cmp.07}}</p>
+    <div class="tablescroll"><table class="cmptable" id="cmptable"></table></div>
   </section>
 
   <!-- ─── переезд за работой ─────────────────────────────────────── -->
@@ -459,7 +473,7 @@
       <div class="mfield mfield-inc">
         <label for="minc">{{t:move.11}}</label>
         <div class="mrow">
-          <input id="minc" type="number" min="0" step="50" inputmode="numeric" placeholder="{{ta:move.05}}">
+          <input id="minc" type="number" min="0" step="50" inputmode="numeric">
           <select id="mcur" aria-label="{{ta:move.06}}"></select>
         </div>
         <p class="fhint">{{t:move.14}}</p>
@@ -468,17 +482,6 @@
     <div class="moveout" id="moveout"></div>
   </section>
 
-  <!-- ─── compare ────────────────────────────────────────────────── -->
-  <section class="panel" id="p-cmp" aria-labelledby="cmp-h">
-    <div class="phead">
-      <div class="pactions"><button type="button" class="ibtn" data-share title="{{ta:calc.01}}" aria-label="{{ta:calc.01}}">{{svgShare}}</button><button type="button" class="ibtn" data-png="cmp" title="{{ta:cmp.01}}" aria-label="{{ta:cmp.01}}">{{svgPng}}</button><button type="button" class="ibtn" data-png-dl="cmp" title="{{ta:cmp.02}}" aria-label="{{ta:cmp.02}}">{{svgDl}}</button><button type="button" class="ibtn" data-csv="cmp" title="{{ta:cmp.03}}" aria-label="{{ta:cmp.03}}">{{svgCsv}}</button><button type="button" class="ibtn" data-print="cmp" title="{{ta:cmp.04}}" aria-label="{{ta:cmp.04}}">{{svgPrint}}</button></div>
-      <h2 id="cmp-h">{{t:cmp.05}}</h2>
-      <p>{{t:cmp.06}}</p>
-    </div>
-    <div class="chips" id="chips"></div>
-    <p class="fhint chint">{{t:cmp.07}}</p>
-    <div class="tablescroll"><table class="cmptable" id="cmptable"></table></div>
-  </section>
 
   <!-- ─── rankings ───────────────────────────────────────────────── -->
   <section class="panel" id="p-rank" aria-labelledby="rank-h">
@@ -560,7 +563,6 @@
         <li>{{t:latam.p19}}</li>
         <li>{{t:latam.p20}}</li>
         <li>{{t:latam.p21}}</li>
-        <li>{{t:latam.p22}}</li>
         <li>{{t:latam.p23}}</li>
       </ul>
     </div>
@@ -623,7 +625,6 @@
     <p>{{t:found-latam.05}}</p>
     <p>{{t:found-latam.06}}</p>
     <p>{{t:found-latam.07}}</p>
-    <p>{{t:found-latam.08}}</p>
   </section>
 
   <details class="panel method" id="method">
@@ -660,6 +661,7 @@
 
   <section class="prose" id="limits">
     <h2>{{t:limits.01}}</h2>
+    <p>{{t:limits.16}}</p>
     <p>{{t:limits.02}}</p>
     <p>{{t:limits.03}}</p>
     <p>{{t:limits.04}}</p>
@@ -731,8 +733,6 @@
 
     <p>{{t:sources.45}}</p>
     <p>{{t:sources.46}}</p>
-    <p>{{t:sources.47}}</p>
-    <p>{{t:sources.48}}</p>
     <p>{{t:sources.49}}</p>
     <p>{{t:sources.50}}</p>
     <p>{{t:sources.51}}</p>
@@ -751,8 +751,6 @@
       <li>{{t:refs.05}}</li>
       <li>{{t:refs.06}}</li>
       <li>{{t:refs.07}}</li>
-      <li>{{t:refs.08}}</li>
-      <li>{{t:refs.09}}</li>
       <li>{{t:refs.10}}</li>
       <li>{{t:refs.11}}</li>
       <li>{{t:refs.12}}</li>

@@ -346,10 +346,11 @@
     "depositSaveMedian": "A {pct} deposit on it is <b>{amount}</b>. Saving {input} € a month, that takes <b>{time}</b>.",
     "rentMedianNeed": "To rent the median home here ({rent} a month) on {share} of income you need <b>{need}</b>.",
     "around": "Around it",
-    "inCmp": "✓ In the comparison",
-    "addCmp": "+ Compare",
+    "inCmp": "✓ In the comparison · remove",
+    "addCmp": "+ Add to comparison",
     "showOnMap": "Show on the map",
-    "clear": "Clear",
+    "clear": "Clear the selection",
+    "cmpHint": "The comparison lays up to four places side by side in a table right under the map.",
     "summaryM2": "{buy} · {rent} m²",
     "summaryUS": "{years} · {share}",
     "shareLocal": "{share} of the local income"
@@ -401,7 +402,7 @@
       "one": "add up to {n} more",
       "other": "add up to {n} more"
     },
-    "nothing": "nothing selected yet: add a place with + Compare on its card, or with the + in the rankings"
+    "nothing": "nothing selected yet: add a place with + Add to comparison on its card, or with the + in the rankings"
   },
   "rank": {
     "coast": "coast only",
@@ -465,21 +466,18 @@
     "setupRent": "<b>{income}</b> a month, converted to US dollars at the ECB rate · <b>{share}</b> for rent = <b>{budget}</b> a month",
     "rateMine": "both cities at your rate of <b>{rate}</b>",
     "noRent": "No rents for Buenos Aires in this layer, only asking prices for sale.",
-    "noRate": "Neither city has a mortgage rate under an open licence, and none is borrowed from elsewhere. Type a rate in the calculator above to see what you could buy.",
+    "noRate": "The layer has no mortgage rate for either city, and none is borrowed from elsewhere. Type a rate in the calculator above to see what you could buy.",
     "rentHow": "Rent is derived: the district's price divided by the central bank's price-to-rent ratio.",
     "notInLayer": "not in the layer",
     "gapsLine": "{n} of {all} barrios have no price in this slice and stay grey: {names}.",
     "gap": {
-      "none": "No asking price at all in the second quarter of 2019",
-      "stratum": "No price for three-room resale flats in the second quarter of 2019, only for other kinds of flat",
+      "none": "Too few flats on offer in the second quarter of 2026: the institute publishes a barrio only above a minimum number of listings",
       "lima": "Not in the layer: the central bank publishes {n} districts"
     },
     "tip": {
       "price": "Price",
       "rent": "Rent",
       "ptr": "Price in years of rent",
-      "r2": "Two-room resale",
-      "r3n": "Three-room new build",
       "youBuy": "You could buy",
       "youRent": "You could rent"
     },

@@ -204,7 +204,7 @@ def latam():
         return list(csv.DictReader(open(LATAM[k], encoding='utf-8')))
 
     def period(s):
-        # «T4.25» у BCRP и «2019 Q2» у портала Буэнос-Айреса — в один вид.
+        # «T4.25» у BCRP и «2026 Q2» у файла IDECBA — в один вид.
         if s.startswith('T'):
             q, y = s[1:].split('.')
             return [2000 + int(y), int(q)]
@@ -216,8 +216,7 @@ def latam():
 
     pe = [[r['district'], n(r['usd_m2']), n(r['rent_usd_m2_month']), n(r['price_to_rent_years'])]
           for r in rows('pe-lima.csv')]
-    ar = [[r['district'], n(r['usd_m2']), int(r['comuna']), n(r['usd_m2_2amb_used']), n(r['usd_m2_3amb_new'])]
-          for r in rows('ar-caba.csv')]
+    ar = [[r['district'], n(r['usd_m2'])] for r in rows('ar-caba.csv')]
     # Причина пропуска — кодом, а не русской фразой из CSV: страница переводит
     # её сама. Незнакомая формулировка роняет сборку, а не превращается молча в
     # «нет данных» без объяснения.
@@ -227,8 +226,6 @@ def latam():
             continue
         if g['reason'].startswith('ни одной цены'):
             gaps[g['item']] = 'none'
-        elif g['reason'].startswith('нет среза'):
-            gaps[g['item']] = 'stratum'
         else:
             raise SystemExit('latam-gaps.csv: незнакомая причина «%s»' % g['reason'])
     oecd = []
@@ -240,7 +237,7 @@ def latam():
         'PE': {'period': period(L['PE']['period']), 'kind': 'deal', 'rate': None,
                'rows': pe, 'fields': ['name', 'usd_m2', 'rent_m2_mo', 'ptr_years']},
         'AR': {'period': period(L['AR']['period']), 'kind': 'offer', 'rate': None,
-               'rows': ar, 'gaps': gaps, 'fields': ['name', 'usd_m2', 'comuna', 'usd_m2_2amb', 'usd_m2_3amb_new']},
+               'rows': ar, 'gaps': gaps, 'fields': ['name', 'usd_m2']},
         'oecd': oecd,
     }
 

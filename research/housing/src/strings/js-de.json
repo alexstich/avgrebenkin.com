@@ -159,16 +159,16 @@
   },
   "modes": {
     "title": {
-      "buy": "m² zum Kaufen",
-      "rent": "m² zur Miete",
+      "buy": "m² beim Kaufen",
+      "rent": "m² beim Mieten",
       "diff": "Miete minus Kauf, m²",
       "years": "Jahreseinkommen",
       "share": "Miete, % des Einkommens"
     },
     "text": {
-      "buy": "Quadratmeter zum Kaufen",
-      "rent": "Quadratmeter zur Miete",
-      "diff": "Quadratmeter zur Miete minus Quadratmeter zum Kaufen",
+      "buy": "Quadratmeter beim Kaufen",
+      "rent": "Quadratmeter beim Mieten",
+      "diff": "Quadratmeter beim Mieten minus Quadratmeter beim Kaufen",
       "years": "Jahreseinkommen für {basket}",
       "share": "Miete für {basket} als Anteil am Einkommen"
     },
@@ -176,7 +176,7 @@
     "hint": {
       "buy": "Wie viele Quadratmeter {share} des Einkommens mit einer Hypothek über {term} Jahre zum örtlichen Zins und zum örtlichen Preis pro Quadratmeter kauft. Grün ist viel Platz, Rot wenig.",
       "rent": "Wie viele Quadratmeter {share} des Einkommens zur örtlichen Miete pro Quadratmeter mietet. Grün ist viel Platz, Rot wenig.",
-      "diff": "Quadratmeter zur Miete minus Quadratmeter zum Kaufen, beides für {share} des Einkommens: welches von beiden dir hier mehr Platz bringt. Die Legende sagt, für welche Seite jede Farbe steht.",
+      "diff": "Quadratmeter beim Mieten minus Quadratmeter beim Kaufen, beides für {share} des Einkommens: welches von beiden dir hier mehr Platz bringt. Die Legende sagt, für welche Seite jede Farbe steht.",
       "years": "Wie viele Jahre des gesamten Einkommens es für {basket} braucht, auf einen Schlag bezahlt und ganz ohne Hypothek. Weniger ist besser, hier heißt Grün also wenige Jahre und Rot viele: Diese Skala läuft andersherum als die Quadratmeter.",
       "share": "Welchen Teil eines Monatseinkommens die Miete nimmt, für {basket}. Kleiner ist besser, Grün heißt also ein kleiner Anteil und Rot ein großer."
     }
@@ -278,8 +278,8 @@
     "what": "netto im Monat, {what}: <b>{verdict}</b>",
     "offerAbove": "Dein Angebot von {offer} liegt {gap} darüber",
     "offerShort": "Deinem Angebot von {offer} fehlen {gap}",
-    "gotBuy": "{m2} zum Kaufen",
-    "gotRent": "{m2} zur Miete",
+    "gotBuy": "{m2} beim Kaufen",
+    "gotRent": "{m2} beim Mieten",
     "eitherOr": "{a} oder {b}",
     "gotHome": ", gegenüber {buy} und {rent} zu Hause",
     "gotM2": "{place}: Mit {offer} bekämst du dort {options}{home}.",
@@ -307,12 +307,12 @@
     "moeWide": "Medianwert des Hauses ±{pct}, ein breites Intervall für einen Median",
     "bigYears": "Jahreseinkommen für das mittlere Haus",
     "bigShare": "des Einkommens für die mittlere Miete",
-    "bigBuy": "m² zum Kaufen",
+    "bigBuy": "m² beim Kaufen",
     "bigBuyTerm": {
-      "one": "m² zum Kaufen, {n} Jahr",
-      "other": "m² zum Kaufen, {n} Jahre"
+      "one": "m² beim Kaufen, {n} Jahr",
+      "other": "m² beim Kaufen, {n} Jahre"
     },
-    "bigRent": "m² zur Miete",
+    "bigRent": "m² beim Mieten",
     "yourBudget": "Dein Wohnbudget",
     "thirdLocal": "Ein Drittel des örtlichen Einkommens",
     "loan": "Kredit, den das Budget trägt",
@@ -329,7 +329,7 @@
     "rateUsed": "Verwendeter Hypothekenzins",
     "rateYours": "{rate} (deiner)",
     "study": "Die Werte der Studie",
-    "studyValue": "{buy} m² Kauf · {rent} m² Miete",
+    "studyValue": "{buy} m² beim Kaufen · {rent} m² beim Mieten",
     "vsMedian": "Dein Einkommen gegenüber dem örtlichen Median",
     "vsAverage": "Dein Einkommen gegenüber dem örtlichen Durchschnitt",
     "ratioUS": "{ratio}× eines Median-Haushalts, vor Steuern",
@@ -346,10 +346,11 @@
     "depositSaveMedian": "{pct} Eigenkapital dafür sind <b>{amount}</b>. Wenn du {input} € im Monat sparst, dauert das <b>{time}</b>.",
     "rentMedianNeed": "Um hier die mittlere Mietwohnung für {rent} im Monat zu mieten (Einkommensanteil: {share}), brauchst du <b>{need}</b>.",
     "around": "In der Umgebung",
-    "inCmp": "✓ Im Vergleich",
-    "addCmp": "+ Vergleichen",
+    "inCmp": "✓ Im Vergleich · entfernen",
+    "addCmp": "+ Zum Vergleich hinzufügen",
     "showOnMap": "Auf der Karte zeigen",
-    "clear": "Leeren",
+    "clear": "Auswahl aufheben",
+    "cmpHint": "Der Vergleich stellt bis zu vier Orte nebeneinander, in einer Tabelle direkt unter der Karte.",
     "summaryM2": "{buy} · {rent} m²",
     "summaryUS": "{years} · {share}",
     "shareLocal": "{share} des örtlichen Einkommens"
@@ -367,19 +368,19 @@
       "usOnly": "Nur USA · dafür braucht es einen Median für ganze Häuser"
     },
     "rows": {
-      "buy": "m² zum Kaufen",
-      "rent": "m² zur Miete",
+      "buy": "m² beim Kaufen",
+      "rent": "m² beim Mieten",
       "budget": "Monatliches Wohnbudget, {sym}",
-      "needBuy": "Nötiges Einkommen für {m2} zum Kaufen, {sym}/Monat",
-      "needRent": "Nötiges Einkommen für {m2} zur Miete, {sym}/Monat",
-      "buy20": "m² zum Kaufen, 20 Jahre",
-      "buy30": "m² zum Kaufen, 30 Jahre",
-      "buy25": "m² zum Kaufen bei 25 % des Einkommens",
-      "buyThird": "m² zum Kaufen bei einem Drittel des Einkommens",
-      "rent25": "m² zur Miete bei 25 % des Einkommens",
-      "rentThird": "m² zur Miete bei einem Drittel des Einkommens",
-      "studyBuy": "m² zum Kaufen, örtliches Durchschnittseinkommen, 30 Jahre",
-      "studyRent": "m² zur Miete, örtliches Durchschnittseinkommen",
+      "needBuy": "Nötiges Einkommen, um {m2} zu kaufen, {sym}/Monat",
+      "needRent": "Nötiges Einkommen, um {m2} zu mieten, {sym}/Monat",
+      "buy20": "m² beim Kaufen, 20 Jahre",
+      "buy30": "m² beim Kaufen, 30 Jahre",
+      "buy25": "m² beim Kaufen mit 25 % des Einkommens",
+      "buyThird": "m² beim Kaufen mit einem Drittel des Einkommens",
+      "rent25": "m² beim Mieten mit 25 % des Einkommens",
+      "rentThird": "m² beim Mieten mit einem Drittel des Einkommens",
+      "studyBuy": "m² beim Kaufen, örtliches Durchschnittseinkommen, 30 Jahre",
+      "studyRent": "m² beim Mieten, örtliches Durchschnittseinkommen",
       "salePrice": "Kaufpreis inkl. Steuern und Gebühren, {sym}/m²",
       "rentPrice": "Miete, {sym}/m²/Monat",
       "avgIncome": "Örtliches Durchschnittseinkommen, {sym}/Monat",
@@ -401,15 +402,15 @@
       "one": "noch bis zu {n} hinzufügen",
       "other": "noch bis zu {n} hinzufügen"
     },
-    "nothing": "noch nichts ausgewählt: Füge einen Ort mit + Vergleichen in seinem Steckbrief hinzu oder mit dem + in den Ranglisten"
+    "nothing": "noch nichts ausgewählt: Wähle einen Ort und drück + Zum Vergleich hinzufügen in seinem Steckbrief, oder nutz das + in den Ranglisten"
   },
   "rank": {
     "coast": "nur Küste",
     "coastTitle": "Gemeinden der EU-27, die Eurostat als Küstengemeinden kennzeichnet",
     "cols": {
       "country": "Land",
-      "buy": "m² Kauf",
-      "rent": "m² Miete",
+      "buy": "m² beim Kaufen",
+      "rent": "m² beim Mieten",
       "price": "Preis {sym}/m²",
       "rentp": "Miete {sym}/m²·Mon.",
       "years": "Jahreseinkommen",
@@ -465,21 +466,18 @@
     "setupRent": "<b>{income}</b> im Monat, zum EZB-Kurs in US-Dollar umgerechnet · <b>{share}</b> für die Miete = <b>{budget}</b> im Monat",
     "rateMine": "beide Städte zu deinem Zins von <b>{rate}</b>",
     "noRent": "Für Buenos Aires hat diese Ebene keine Mieten, nur Angebotspreise für den Kauf.",
-    "noRate": "Keine der beiden Städte hat einen Hypothekenzins unter offener Lizenz, und es wird auch keiner von anderswo geborgt. Trag oben im Rechner einen Zins ein, um zu sehen, was du kaufen könntest.",
+    "noRate": "Die Ebene hat für keine der beiden Städte einen Hypothekenzins, und es wird auch keiner von anderswo geborgt. Trag oben im Rechner einen Zins ein, um zu sehen, was du kaufen könntest.",
     "rentHow": "Die Miete ist abgeleitet: der Preis des Distrikts geteilt durch das Preis-Miete-Verhältnis der Zentralbank.",
     "notInLayer": "nicht in der Ebene",
     "gapsLine": "{n} von {all} Barrios haben in diesem Ausschnitt keinen Preis und bleiben grau: {names}.",
     "gap": {
-      "none": "Im zweiten Quartal 2019 überhaupt kein Angebotspreis",
-      "stratum": "Im zweiten Quartal 2019 kein Preis für Dreizimmerwohnungen aus dem Bestand, nur für andere Wohnungsarten",
+      "none": "Zu wenige Wohnungen im Angebot im zweiten Quartal 2026: Das Institut veröffentlicht ein Barrio erst ab einer Mindestzahl von Inseraten",
       "lima": "Nicht in der Ebene: Die Zentralbank veröffentlicht {n} Distrikte"
     },
     "tip": {
       "price": "Preis",
       "rent": "Miete",
       "ptr": "Preis in Jahresmieten",
-      "r2": "Zwei Zimmer, Bestand",
-      "r3n": "Drei Zimmer, Neubau",
       "youBuy": "Du könntest kaufen",
       "youRent": "Du könntest mieten"
     },

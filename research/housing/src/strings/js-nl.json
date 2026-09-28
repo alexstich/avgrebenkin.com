@@ -159,8 +159,8 @@
   },
   "modes": {
     "title": {
-      "buy": "m² kopen",
-      "rent": "m² huren",
+      "buy": "m² om te kopen",
+      "rent": "m² om te huren",
       "diff": "huren min kopen, m²",
       "years": "jaren inkomen",
       "share": "huur, % van inkomen"
@@ -307,12 +307,12 @@
     "moeWide": "mediane woningwaarde ±{pct}, een breed interval voor een mediaan",
     "bigYears": "jaar inkomen voor de mediane woning",
     "bigShare": "van het inkomen voor de mediane huur",
-    "bigBuy": "m² kopen",
+    "bigBuy": "m² om te kopen",
     "bigBuyTerm": {
-      "one": "m² kopen, {n} jaar",
-      "other": "m² kopen, {n} jaar"
+      "one": "m² om te kopen, {n} jaar",
+      "other": "m² om te kopen, {n} jaar"
     },
-    "bigRent": "m² huren",
+    "bigRent": "m² om te huren",
     "yourBudget": "Jouw woonbudget",
     "thirdLocal": "Een derde van het lokale inkomen",
     "loan": "Lening die het budget kan dragen",
@@ -329,7 +329,7 @@
     "rateUsed": "Gebruikte hypotheekrente",
     "rateYours": "{rate} (van jou)",
     "study": "De eigen cijfers van de studie",
-    "studyValue": "{buy} m² kopen · {rent} m² huren",
+    "studyValue": "{buy} m² om te kopen · {rent} m² om te huren",
     "vsMedian": "Jouw inkomen t.o.v. de lokale mediaan",
     "vsAverage": "Jouw inkomen t.o.v. het lokale gemiddelde",
     "ratioUS": "{ratio}× een mediaan huishouden, vóór belasting",
@@ -346,10 +346,11 @@
     "depositSaveMedian": "Een eigen inbreng van {pct} daarop is <b>{amount}</b>. Als je € {input} per maand spaart, duurt dat <b>{time}</b>.",
     "rentMedianNeed": "Om hier de mediane woning te huren ({rent} per maand) voor {share} van het inkomen, heb je <b>{need}</b> nodig.",
     "around": "In de omgeving",
-    "inCmp": "✓ In de vergelijking",
-    "addCmp": "+ Vergelijken",
+    "inCmp": "✓ In de vergelijking · verwijderen",
+    "addCmp": "+ Toevoegen aan vergelijking",
     "showOnMap": "Toon op de kaart",
-    "clear": "Wissen",
+    "clear": "Keuze wissen",
+    "cmpHint": "De vergelijking zet maximaal vier plaatsen naast elkaar in een tabel direct onder de kaart.",
     "summaryM2": "{buy} · {rent} m²",
     "summaryUS": "{years} · {share}",
     "shareLocal": "{share} van het lokale inkomen"
@@ -367,19 +368,19 @@
       "usOnly": "Alleen Verenigde Staten · hiervoor is een mediaan voor de hele woning nodig"
     },
     "rows": {
-      "buy": "m² kopen",
-      "rent": "m² huren",
+      "buy": "m² om te kopen",
+      "rent": "m² om te huren",
       "budget": "Woonbudget per maand, {sym}",
       "needBuy": "Inkomen nodig om {m2} te kopen, {sym}/mnd",
       "needRent": "Inkomen nodig om {m2} te huren, {sym}/mnd",
-      "buy20": "m² kopen, 20 jaar",
-      "buy30": "m² kopen, 30 jaar",
-      "buy25": "m² kopen voor 25% van het inkomen",
-      "buyThird": "m² kopen voor een derde van het inkomen",
-      "rent25": "m² huren voor 25% van het inkomen",
-      "rentThird": "m² huren voor een derde van het inkomen",
-      "studyBuy": "m² kopen, gemiddeld lokaal inkomen, 30 jaar",
-      "studyRent": "m² huren, gemiddeld lokaal inkomen",
+      "buy20": "m² om te kopen, 20 jaar",
+      "buy30": "m² om te kopen, 30 jaar",
+      "buy25": "m² om te kopen met 25% van het inkomen",
+      "buyThird": "m² om te kopen met een derde van het inkomen",
+      "rent25": "m² om te huren met 25% van het inkomen",
+      "rentThird": "m² om te huren met een derde van het inkomen",
+      "studyBuy": "m² om te kopen, gemiddeld lokaal inkomen, 30 jaar",
+      "studyRent": "m² om te huren, gemiddeld lokaal inkomen",
       "salePrice": "Koopprijs incl. belastingen en kosten, {sym}/m²",
       "rentPrice": "Huur, {sym}/m²/mnd",
       "avgIncome": "Gemiddeld lokaal inkomen, {sym}/mnd",
@@ -401,15 +402,15 @@
       "one": "nog maximaal {n} toevoegen",
       "other": "nog maximaal {n} toevoegen"
     },
-    "nothing": "nog niets gekozen: voeg een plaats toe met + Vergelijken op haar infokaart, of met de + in de ranglijsten"
+    "nothing": "nog niets gekozen: voeg een plaats toe met + Toevoegen aan vergelijking op haar infokaart, of met de + in de ranglijsten"
   },
   "rank": {
     "coast": "alleen kust",
     "coastTitle": "Gemeenten in de EU-27 die Eurostat als kustgemeente aanmerkt",
     "cols": {
       "country": "Land",
-      "buy": "m² kopen",
-      "rent": "m² huren",
+      "buy": "m² om te kopen",
+      "rent": "m² om te huren",
       "price": "Prijs {sym}/m²",
       "rentp": "Huur {sym}/m²·mnd",
       "years": "Jaren inkomen",
@@ -456,8 +457,8 @@
   "latam": {
     "legendPrice": "Prijs per m², US-dollars",
     "legendRentPrice": "Huur per m² per maand, US-dollars",
-    "legendBuy": "m² die {share} van je inkomen koopt",
-    "legendRent": "m² die {share} van je inkomen huurt",
+    "legendBuy": "m² die je met {share} van je inkomen koopt",
+    "legendRent": "m² die je met {share} van je inkomen huurt",
     "range": "{lo}–{hi}",
     "setupPrice": "Elke kaart is gekleurd binnen haar eigen stad: <b>groen is het goedkoopste vijfde</b> van de districten, rood het duurste. De twee schalen verschillen met opzet.",
     "needIncome": "Vul hierboven in de rekenhulp je maandinkomen in: de laag heeft geen lokaal inkomen, dus de vierkante meters kunnen alleen vanuit het jouwe worden berekend.",
@@ -465,21 +466,18 @@
     "setupRent": "<b>{income}</b> per maand, omgerekend naar US-dollars tegen de ECB-koers · <b>{share}</b> voor huur = <b>{budget}</b> per maand",
     "rateMine": "beide steden tegen jouw rente van <b>{rate}</b>",
     "noRent": "Geen huren voor Buenos Aires in deze laag, alleen vraagprijzen voor koop.",
-    "noRate": "Geen van beide steden heeft een hypotheekrente onder een open licentie, en er wordt er geen van elders geleend. Vul hierboven in de rekenhulp een rente in om te zien wat je zou kunnen kopen.",
+    "noRate": "De laag heeft voor geen van beide steden een hypotheekrente, en er wordt er geen van elders geleend. Vul hierboven in de rekenhulp een rente in om te zien wat je zou kunnen kopen.",
     "rentHow": "De huur is afgeleid: de prijs van het district gedeeld door de prijs-huurverhouding van de centrale bank.",
     "notInLayer": "niet in de laag",
     "gapsLine": "{n} van {all} barrio’s hebben in deze doorsnede geen prijs en blijven grijs: {names}.",
     "gap": {
-      "none": "Helemaal geen vraagprijs in het tweede kwartaal van 2019",
-      "stratum": "Geen prijs voor driekamerappartementen in de bestaande bouw in het tweede kwartaal van 2019, alleen voor andere soorten appartementen",
+      "none": "Te weinig appartementen te koop in het tweede kwartaal van 2026: het bureau publiceert een barrio pas boven een minimumaantal advertenties",
       "lima": "Niet in de laag: de centrale bank publiceert {n} districten"
     },
     "tip": {
       "price": "Prijs",
       "rent": "Huur",
       "ptr": "Prijs in jaren huur",
-      "r2": "Tweekamer, bestaande bouw",
-      "r3n": "Driekamer, nieuwbouw",
       "youBuy": "Je zou kunnen kopen",
       "youRent": "Je zou kunnen huren"
     },

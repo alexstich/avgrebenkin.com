@@ -12,15 +12,15 @@
       "kind": "цена сделок"
     },
     "AR": {
-      "rows": 37,
-      "period": "2019 Q2",
+      "rows": 43,
+      "period": "2026 Q2",
       "city": "Buenos Aires",
-      "source": "Buenos Aires Data, Instituto de Vivienda",
-      "url": "https://data.buenosaires.gob.ar/dataset/mercado-inmobiliario",
-      "licence": "CC-BY-2.5-AR",
-      "licence_url": "https://creativecommons.org/licenses/by/2.5/ar/",
+      "source": "Instituto de Estadística y Censos de la Ciudad Autónoma de Buenos Aires (IDECBA), serie MI_DVP_AX03, sobre la base de datos de Argenprop",
+      "url": "https://www.estadisticaciudad.gob.ar/eyc/banco-datos/precio-promedio-de-publicacion-del-metro-cuadrado-dolares-de-departamentos-en-venta-de-2-ambientes-usados-por-barrio-ciudad-de-buenos-aires-4to-trimestre-de-2006-2do-trimestre-de-2024/",
+      "file": "https://www.estadisticaciudad.gob.ar/eyc/wp-content/uploads/2026/01/MI_DVP_AX03.xlsx",
       "kind": "цена предложения",
-      "stratum": "3 ambientes, Usado (главная колонка usd_m2)"
+      "stratum": "2 ambientes usados",
+      "provisional": true
     },
     "OECD": {
       "rows": 4,
@@ -55,5 +55,5 @@
       "modified": "контуры упрощены"
     }
   },
-  "gaps": 24
+  "gaps": 20
 }

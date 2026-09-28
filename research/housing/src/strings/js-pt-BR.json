@@ -346,10 +346,11 @@
     "depositSaveMedian": "Uma entrada de {pct} sobre ele é <b>{amount}</b>. Poupando € {input} por mês, isso leva <b>{time}</b>.",
     "rentMedianNeed": "Para alugar o imóvel mediano daqui ({rent} por mês) com {share} da renda, você precisa de <b>{need}</b>.",
     "around": "Em volta",
-    "inCmp": "✓ Na comparação",
-    "addCmp": "+ Comparar",
+    "inCmp": "✓ Na comparação · remover",
+    "addCmp": "+ Adicionar à comparação",
     "showOnMap": "Mostrar no mapa",
-    "clear": "Limpar",
+    "clear": "Limpar a seleção",
+    "cmpHint": "A comparação põe até quatro lugares lado a lado numa tabela logo abaixo do mapa.",
     "summaryM2": "{buy} · {rent} m²",
     "summaryUS": "{years} · {share}",
     "shareLocal": "{share} da renda local"
@@ -401,15 +402,15 @@
       "one": "dá para adicionar mais {n}",
       "other": "dá para adicionar até mais {n}"
     },
-    "nothing": "nada selecionado ainda: adicione um lugar com + Comparar no cartão dele, ou com o + nos rankings"
+    "nothing": "nada selecionado ainda: adicione um lugar com + Adicionar à comparação no cartão dele, ou com o + nos rankings"
   },
   "rank": {
     "coast": "só litoral",
     "coastTitle": "Municípios da UE-27 marcados como litorâneos pelo Eurostat",
     "cols": {
       "country": "País",
-      "buy": "m² compra",
-      "rent": "m² aluguel",
+      "buy": "m² para comprar",
+      "rent": "m² para alugar",
       "price": "Preço {sym}/m²",
       "rentp": "Aluguel {sym}/m²·mês",
       "years": "Anos de renda",
@@ -465,21 +466,18 @@
     "setupRent": "<b>{income}</b> por mês, convertidos em dólares americanos pela taxa do BCE · <b>{share}</b> para o aluguel = <b>{budget}</b> por mês",
     "rateMine": "as duas cidades à sua taxa de <b>{rate}</b>",
     "noRent": "Não há aluguéis de Buenos Aires nesta camada, só preços pedidos de venda.",
-    "noRate": "Nenhuma das duas cidades tem taxa de financiamento com licença aberta, e nenhuma é emprestada de outro lugar. Digite uma taxa na calculadora acima para ver o que você poderia comprar.",
+    "noRate": "A camada não tem taxa de financiamento para nenhuma das duas cidades, e nenhuma é emprestada de outro lugar. Digite uma taxa na calculadora acima para ver o que você poderia comprar.",
     "rentHow": "O aluguel é derivado: o preço do distrito dividido pela relação preço/aluguel do banco central.",
     "notInLayer": "fora da camada",
     "gapsLine": "{n} de {all} barrios não têm preço neste recorte e ficam cinza: {names}.",
     "gap": {
-      "none": "Nenhum preço pedido no segundo trimestre de 2019",
-      "stratum": "Sem preço para apartamentos usados de três ambientes no segundo trimestre de 2019, só para outros tipos de apartamento",
+      "none": "Poucos apartamentos à venda no segundo trimestre de 2026: o instituto só publica um barrio acima de um número mínimo de anúncios",
       "lima": "Fora da camada: o banco central publica {n} distritos"
     },
     "tip": {
       "price": "Preço",
       "rent": "Aluguel",
       "ptr": "Preço em anos de aluguel",
-      "r2": "Usado, dois ambientes",
-      "r3n": "Novo, três ambientes",
       "youBuy": "Você poderia comprar",
       "youRent": "Você poderia alugar"
     },
