@@ -67,7 +67,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="{{imageAlt}}">
 <meta property="article:published_time" content="2026-09-14">
-<meta property="article:modified_time" content="2026-09-21">
+<meta property="article:modified_time" content="2026-09-28">
 <meta property="article:author" content="https://avgrebenkin.com/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{htmlTitle}}">
@@ -107,7 +107,7 @@
       "isPartOf": { "@id": "https://avgrebenkin.com/#website" },
       "author": { "@id": "https://avgrebenkin.com/#person" },
       "datePublished": "2026-09-14",
-      "dateModified": "2026-09-21",
+      "dateModified": "2026-09-28",
       "inLanguage": "{{lang}}",
       {{ldTranslations}}
       "breadcrumb": { "@id": "{{canonical}}#breadcrumb" },
@@ -290,6 +290,9 @@
     <p>{{t:intro.03}}</p>
     <p>{{t:intro.04}}</p>
     <p>{{t:intro.05}}</p>
+    <p>{{t:intro.06}}</p>
+    <p>{{t:intro.07}}</p>
+    <p>{{t:intro.08}}</p>
   </section>
 
   <!-- ─── calculator ─────────────────────────────────────────────── -->
@@ -300,6 +303,7 @@
       <p>{{t:calc.12}}</p>
     </div>
     <div class="presets" id="presets" role="group" aria-label="{{ta:calc.02}}"></div>
+    <p class="fhint phint">{{t:calc.35}}</p>
     <div class="calc">
       <div class="field f-income">
         <label for="inc">{{t:calc.13}}</label>
@@ -359,14 +363,23 @@
       <p>{{t:map.17}}</p>
       <p>{{t:map.18}}</p>
     </div>
-    <div class="bar">
-      <div class="seg" role="group" aria-label="{{ta:map.04}}" id="frame"></div>
-      <div class="seg" role="group" aria-label="{{ta:map.05}}" id="mapmode">
-        <button type="button" data-v="buy" aria-pressed="true">{{t:map.19}}</button><button type="button" data-v="rent" aria-pressed="false">{{t:map.20}}</button><button type="button" data-v="diff" aria-pressed="false">{{t:map.21}}</button><button type="button" data-v="years" aria-pressed="false">{{t:map.22}}</button><button type="button" data-v="share" aria-pressed="false">{{t:map.23}}</button>
+    <div class="bar ctlbar">
+      <div class="ctl">
+        <div class="seg" role="group" aria-label="{{ta:map.04}}" id="frame"></div>
+        <p class="fhint" id="framehint"></p>
       </div>
-      <p class="fhint" id="modehint" hidden>{{t:map.24}}</p>
-      <div class="seg" role="group" aria-label="{{ta:map.06}}" id="basis">
-        <button type="button" data-v="local" aria-pressed="true">{{t:map.25}}</button><button type="button" data-v="mine" aria-pressed="false" disabled title="{{ta:map.07}}">{{t:map.26}}</button>
+      <div class="ctl ctl-mode">
+        <div class="seg" role="group" aria-label="{{ta:map.05}}" id="mapmode">
+          <button type="button" data-v="buy" aria-pressed="true">{{t:map.19}}</button><button type="button" data-v="rent" aria-pressed="false">{{t:map.20}}</button><button type="button" data-v="diff" aria-pressed="false">{{t:map.21}}</button><button type="button" data-v="years" aria-pressed="false">{{t:map.22}}</button><button type="button" data-v="share" aria-pressed="false">{{t:map.23}}</button>
+        </div>
+        <p class="fhint" id="modehint"></p>
+        <p class="fhint" id="noareahint" hidden>{{t:map.24}}</p>
+      </div>
+      <div class="ctl">
+        <div class="seg" role="group" aria-label="{{ta:map.06}}" id="basis">
+          <button type="button" data-v="local" aria-pressed="true">{{t:map.25}}</button><button type="button" data-v="mine" aria-pressed="false" disabled title="{{ta:map.07}}">{{t:map.26}}</button>
+        </div>
+        <p class="fhint" id="basishint"></p>
       </div>
     </div>
     <div class="gsearch">
@@ -384,6 +397,7 @@
           </g>
         </svg>
         <div class="legend" id="legend" aria-label="{{ta:map.12}}"></div>
+        <p class="fhint maphow" id="maphow"></p>
         <div class="zoombar">
           <button type="button" class="zbtn" id="zin" aria-label="{{ta:map.13}}">+</button>
           <button type="button" class="zbtn" id="zout" aria-label="{{ta:map.14}}">−</button>
@@ -415,6 +429,7 @@
           <button type="button" class="gq-clear" id="mfromx" hidden aria-label="{{ta:move.03}}">×</button>
           <ul class="gsug" id="mfromsug" role="listbox" aria-label="{{ta:move.04}}" hidden></ul>
         </div>
+        <p class="fhint">{{t:move.12}}</p>
       </div>
       <div class="mfield">
         <label for="mto">{{t:move.10}}</label>
@@ -423,6 +438,7 @@
           <button type="button" class="gq-clear" id="mtox" hidden aria-label="{{ta:move.03}}">×</button>
           <ul class="gsug" id="mtosug" role="listbox" aria-label="{{ta:move.04}}" hidden></ul>
         </div>
+        <p class="fhint">{{t:move.13}}</p>
       </div>
       <div class="mfield mfield-inc">
         <label for="minc">{{t:move.11}}</label>
@@ -430,6 +446,7 @@
           <input id="minc" type="number" min="0" step="50" inputmode="numeric" placeholder="{{ta:move.05}}">
           <select id="mcur" aria-label="{{ta:move.06}}"></select>
         </div>
+        <p class="fhint">{{t:move.14}}</p>
       </div>
     </div>
     <div class="moveout" id="moveout"></div>
@@ -443,6 +460,7 @@
       <p>{{t:cmp.06}}</p>
     </div>
     <div class="chips" id="chips"></div>
+    <p class="fhint chint">{{t:cmp.07}}</p>
     <div class="tablescroll"><table class="cmptable" id="cmptable"></table></div>
   </section>
 
@@ -459,6 +477,7 @@
       </div>
       <div class="regs" role="group" aria-label="{{ta:rank.04}}" id="regs"></div>
     </div>
+    <p class="fhint rhint" id="rankhint"></p>
     <div class="tablescroll"><table class="ranktable" id="ranktable"><thead><tr id="rankhead"></tr></thead><tbody id="rankbody"></tbody></table></div>
     <p class="note" id="ranknote"></p>
   </section>

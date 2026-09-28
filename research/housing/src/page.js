@@ -115,6 +115,12 @@
     if (S.mode === "years") return fill(T.modes.text.years, { basket: m2Here() ? m2n(mapN()) : fr().home });
     return fill(T.modes.text.share, { basket: m2Here() ? m2n(mapN()) : fr().rental });
   }
+  // Подсказка под кнопками режима: что значит цвет прямо сейчас, с той долей
+  // дохода, сроком и корзиной, которые выбраны.
+  function modeHint() {
+    var basket = m2Here() ? m2n(mapN()) : S.mode === "share" ? fr().rental : fr().home;
+    return fill(T.modes.hint[S.mode], { share: shareText(), term: fmtPlain(S.term), basket: basket });
+  }
   function modeLabels() {
     if (S.mode === "years") return T.legend.years;
     if (S.mode === "share") return T.legend.share;
@@ -542,7 +548,13 @@
     wantEl.disabled = !m2Here();
     // Подсказка при наведении объясняет только тем, у кого есть мышь. Причина
     // обязана быть видна и на телефоне, поэтому она ещё и строкой под кнопками.
-    $("modehint").hidden = m2Here();
+    $("noareahint").hidden = m2Here();
+    $("modehint").innerHTML = modeHint();
+    $("framehint").innerHTML = fill(T.hints.frame[S.frame], {
+      n: fmtInt(L.filter(inFrame).length),
+      countries: fmtInt(C.filter(function (c) { return inFrame(c) && c.espon && (c.sp || c.rp); }).length) });
+    $("basishint").innerHTML = !(S.inc > 0) ? T.hints.basis.mineOff
+      : mine() ? fill(T.hints.basis.mine, { income: fmtEur(incEUR()) }) : T.hints.basis.local;
     segSet("basis", S.basis); segSet("rankwhat", S.rank);
     var mineBtn = document.querySelector('#basis [data-v="mine"]');
     mineBtn.disabled = !(S.inc > 0);
@@ -764,6 +776,7 @@
     var dimmed = S.want && S.mode !== "years" && S.mode !== "share";
     html += "<span><i class=\"nd\"></i>" + (dimmed ? fill(T.legend.noDataUnder, { m2: m2n(S.want) }) : T.legend.noData) + "</span>";
     lg.innerHTML = html;
+    $("maphow").innerHTML = T.hints.read.base + (dimmed ? T.sentSep + fill(T.hints.read.dimmed, { m2: m2n(S.want) }) : "");
   }
 
   // зум и панорама: transform на группе, точка под курсором остаётся на месте
@@ -1650,6 +1663,11 @@
       S.rank === "countries" ? fill(T.rank.countryMeans, { units: fr().units }) : T.rank.clickRow
     ].join(T.sentSep);
     $("ranknote").textContent = note;
+    $("rankhint").innerHTML = [
+      S.rank === "countries" ? T.hints.rank.countries : fill(T.hints.rank.cities, { min: fmtInt(100000) }),
+      $("regs").children.length ? T.hints.rank.regs : "",
+      T.hints.rank.sort
+    ].filter(Boolean).join(T.sentSep);
   }
   $("rankhead").addEventListener("click", function (e) {
     var th = e.target.closest("th[data-sort]"); if (!th) return;
