@@ -346,10 +346,11 @@
     "depositSaveMedian": "Un apport de {pct} sur ce logement représente <b>{amount}</b>. En épargnant {input} € par mois, il faut <b>{time}</b>.",
     "rentMedianNeed": "Pour louer ici le logement médian ({rent} par mois) en y consacrant {share} du revenu, il vous faut <b>{need}</b>.",
     "around": "Alentour",
-    "inCmp": "✓ Dans la comparaison",
-    "addCmp": "+ Comparer",
+    "inCmp": "✓ Dans la comparaison · retirer",
+    "addCmp": "+ Ajouter à la comparaison",
     "showOnMap": "Voir sur la carte",
-    "clear": "Effacer",
+    "clear": "Effacer la sélection",
+    "cmpHint": "La comparaison met jusqu’à quatre lieux côte à côte dans un tableau, juste sous la carte.",
     "summaryM2": "{buy} · {rent} m²",
     "summaryUS": "{years} · {share}",
     "shareLocal": "{share} du revenu local"
@@ -401,7 +402,7 @@
       "one": "encore {n} au plus",
       "other": "encore {n} au plus"
     },
-    "nothing": "rien de sélectionné pour l’instant : ajoutez un lieu avec + Comparer sur sa fiche, ou avec le + dans les classements"
+    "nothing": "rien de sélectionné pour l’instant : ajoutez un lieu avec + Ajouter à la comparaison sur sa fiche, ou avec le + dans les classements"
   },
   "rank": {
     "coast": "côte seulement",
@@ -465,21 +466,18 @@
     "setupRent": "<b>{income}</b> par mois, convertis en dollars US au cours de la BCE · <b>{share}</b> pour le loyer = <b>{budget}</b> par mois",
     "rateMine": "les deux villes à votre taux de <b>{rate}</b>",
     "noRent": "Pas de loyers pour Buenos Aires dans cette couche, seulement des prix de vente demandés.",
-    "noRate": "Aucune des deux villes n’a de taux hypothécaire sous licence ouverte, et aucun n’est emprunté ailleurs. Saisissez un taux dans le calculateur plus haut pour voir ce que vous pourriez acheter.",
+    "noRate": "La couche n’a de taux hypothécaire pour aucune des deux villes, et aucun n’est emprunté ailleurs. Saisissez un taux dans le calculateur plus haut pour voir ce que vous pourriez acheter.",
     "rentHow": "Le loyer est déduit : le prix du district divisé par le rapport prix/loyer publié par la banque centrale.",
     "notInLayer": "absent de la couche",
     "gapsLine": "{n} barrios sur {all} n’ont pas de prix dans cette tranche et restent en gris : {names}.",
     "gap": {
-      "none": "Aucun prix demandé au deuxième trimestre 2019",
-      "stratum": "Pas de prix pour les appartements anciens de trois pièces au deuxième trimestre 2019, seulement pour d’autres types d’appartements",
+      "none": "Trop peu d’appartements en vente au deuxième trimestre 2026 : l’institut ne publie un barrio qu’au-delà d’un nombre minimal d’annonces",
       "lima": "Absent de la couche : la banque centrale publie {n} districts"
     },
     "tip": {
       "price": "Prix",
       "rent": "Loyer",
       "ptr": "Prix en années de loyer",
-      "r2": "Deux pièces, ancien",
-      "r3n": "Trois pièces, neuf",
       "youBuy": "Vous pourriez acheter",
       "youRent": "Vous pourriez louer"
     },

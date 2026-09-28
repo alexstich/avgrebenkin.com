@@ -132,7 +132,7 @@ LATAM_META = os.path.join(ROOT, 'research', 'data', 'latam-meta.json')
 # Проза называет период словами, а не подстановкой: «четвёртый квартал 2025»
 # склоняется по-своему в каждом языке. Поэтому новый выпуск данных обязан
 # остановить сборку, пока текст не перечитан.
-LATAM_PERIODS = {'PE': [2025, 4], 'AR': [2019, 2]}
+LATAM_PERIODS = {'PE': [2025, 4], 'AR': [2026, 2]}
 
 
 def num(code, L, v, dec=0):
@@ -199,14 +199,15 @@ def latam_fields(code, L, T, data, geo):
     a = lambda href, text: '<a href="%s" target="_blank" rel="noopener">%s</a>' % (html.escape(href, quote=True), html.escape(text))
     lic = lambda m: at(L, 'latam.a07').replace('{licence}', a(m['licence_url'], m['licence']))
     quote = lambda m: at(L, 'latam.a07').replace('{licence}', a(m['licence_url'], at(L, 'latam.a10').replace('{q}', m['licence'])))
+    # У IDECBA лицензии нет: источник называется, и всё (решение автора страницы).
     items = [
         (at(L, 'latam.a01'), a(ly['PE']['url'], ly['PE']['source']), quote(ly['PE'])),
-        (at(L, 'latam.a03'), a(ly['AR']['url'], ly['AR']['source']), lic(ly['AR'])),
+        (at(L, 'latam.a03'), a(ly['AR']['url'], ly['AR']['source']), ''),
         (at(L, 'latam.a04'), a(ly['OECD']['url'], ly['OECD']['source']), lic(ly['OECD'])),
         (at(L, 'latam.a05'), a(gm['PE']['url'], gm['PE']['source']), lic(gm['PE']) + ' ' + at(L, 'latam.a08')),
         (at(L, 'latam.a06'), a(gm['AR']['url'], gm['AR']['source']), lic(gm['AR']) + ' ' + at(L, 'latam.a09')),
     ]
-    out['latAttrib'] = ''.join('<li><b>%s</b> %s. %s</li>' % it for it in items)
+    out['latAttrib'] = ''.join('<li><b>%s</b> %s.%s</li>' % (l, s, ' ' + t if t else '') for l, s, t in items)
     return out
 
 

@@ -370,10 +370,11 @@
     "depositSaveMedian": "Wkład własny {pct} na taki dom to <b>{amount}</b>. Przy oszczędzaniu {input} € miesięcznie potrwa to <b>{time}</b>.",
     "rentMedianNeed": "Żeby wynająć tu medianowe mieszkanie ({rent} miesięcznie), gdy na czynsz idzie {share} dochodu, potrzebujesz <b>{need}</b>.",
     "around": "W okolicy",
-    "inCmp": "✓ W porównaniu",
-    "addCmp": "+ Porównaj",
+    "inCmp": "✓ W porównaniu · usuń",
+    "addCmp": "+ Dodaj do porównania",
     "showOnMap": "Pokaż na mapie",
-    "clear": "Wyczyść",
+    "clear": "Wyczyść wybór",
+    "cmpHint": "Porównanie zestawia do czterech miejsc obok siebie w tabeli tuż pod mapą.",
     "summaryM2": "{buy} · {rent} m²",
     "summaryUS": "{years} · {share}",
     "shareLocal": "{share} miejscowego dochodu"
@@ -427,15 +428,15 @@
       "many": "dodaj jeszcze najwyżej {n}",
       "other": "dodaj jeszcze najwyżej {n}"
     },
-    "nothing": "jeszcze nic nie wybrano: dodaj miejsce przyciskiem + Porównaj na jego karcie albo plusem w rankingach"
+    "nothing": "jeszcze nic nie wybrano: dodaj miejsce przyciskiem + Dodaj do porównania na jego karcie albo plusem w rankingach"
   },
   "rank": {
     "coast": "tylko wybrzeże",
     "coastTitle": "Gminy UE-27 oznaczone przez Eurostat jako nadmorskie",
     "cols": {
       "country": "Kraj",
-      "buy": "m² zakup",
-      "rent": "m² najem",
+      "buy": "m² do kupienia",
+      "rent": "m² do wynajęcia",
       "price": "Cena {sym}/m²",
       "rentp": "Czynsz {sym}/m²·mies.",
       "years": "Lata dochodu",
@@ -493,21 +494,18 @@
     "setupRent": "<b>{income}</b> miesięcznie, w przeliczeniu na dolary po kursie EBC · <b>{share}</b> na czynsz = <b>{budget}</b> miesięcznie",
     "rateMine": "oba miasta po twojej stopie <b>{rate}</b>",
     "noRent": "W tej warstwie nie ma czynszów dla Buenos Aires, są tylko ceny ofertowe sprzedaży.",
-    "noRate": "Żadne z dwóch miast nie ma oprocentowania kredytu na otwartej licencji, a żadnego nie pożycza się skądinąd. Wpisz stopę w kalkulatorze powyżej, żeby zobaczyć, co dałoby się kupić.",
+    "noRate": "Warstwa nie ma oprocentowania kredytu dla żadnego z dwóch miast, a żadnego nie pożycza się skądinąd. Wpisz stopę w kalkulatorze powyżej, żeby zobaczyć, co dałoby się kupić.",
     "rentHow": "Czynsz jest wyliczony: cena w dzielnicy podzielona przez podawany przez bank centralny wskaźnik ceny do czynszu.",
     "notInLayer": "poza warstwą",
     "gapsLine": "W {n} z {all} barrios w tym wycinku nie ma ceny, więc zostają szare: {names}.",
     "gap": {
-      "none": "Brak jakiejkolwiek ceny ofertowej w II kwartale 2019",
-      "stratum": "Brak ceny trzypokojowych mieszkań z rynku wtórnego w II kwartale 2019, są tylko ceny innych rodzajów mieszkań",
+      "none": "Za mało mieszkań w ofercie w II kwartale 2026: instytut publikuje barrio dopiero powyżej minimalnej liczby ogłoszeń",
       "lima": "Poza warstwą: bank centralny publikuje {n} dzielnic"
     },
     "tip": {
       "price": "Cena",
       "rent": "Czynsz",
       "ptr": "Cena w latach czynszu",
-      "r2": "Dwupokojowe, rynek wtórny",
-      "r3n": "Trzypokojowe, rynek pierwotny",
       "youBuy": "Możesz kupić",
       "youRent": "Możesz wynająć"
     },

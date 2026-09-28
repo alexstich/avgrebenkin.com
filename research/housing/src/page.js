@@ -892,15 +892,27 @@
     if (e.pointerType === "touch") return;
     hoverId = pid(t); showTipAt(t, e.clientX, e.clientY);
   }
+  // Цель клика ищется по координатам, а не по e.target: pointerdown захватывает
+  // указатель (setPointerCapture — ради перетаскивания за край карты), а при
+  // захвате Chrome адресует pointerup и click захватившему элементу, то есть
+  // самому <svg>. Обработчик на группе контуров этого click не видел, и страну
+  // на карте нельзя было выбрать вообще.
+  function targetAt(x, y) {
+    var el = document.elementFromPoint(x, y);
+    el = el && el.closest ? el.closest("circle[data-id], path[data-id]") : null;
+    if (!el || !mapEl.contains(el)) return null;
+    var id = el.getAttribute("data-id");
+    return id.indexOf("c:") === 0 ? C[CI[id.slice(2)]] : L[LI[id]];
+  }
   function onMapClick(e) {
     if (moved > 6) return;
-    var t = targetOf(e); if (!t) return;
+    var t = targetAt(e.clientX, e.clientY); if (!t) return;
     select(pid(t), false);
     if (e.pointerType === "touch" || matchMedia("(hover: none)").matches) showTipAt(t, e.clientX, e.clientY);
   }
+  mapEl.addEventListener("click", onMapClick);
   [regionsG, dotsG].forEach(function (g) {
     g.addEventListener("pointermove", onMapMove);
-    g.addEventListener("click", onMapClick);
     g.addEventListener("pointerleave", function () { tip.style.opacity = "0"; hoverId = null; });
   });
   mapEl.addEventListener("keydown", function (e) {
@@ -1343,7 +1355,8 @@
     var inCmp = S.cmp.indexOf(pid(pl)) >= 0;
     h += "<div class=\"cbtns\"><button type=\"button\" class=\"cbtn" + (inCmp ? " on" : "") + "\" data-cmp=\"" + esc(pid(pl)) + "\">" + (inCmp ? T.card.inCmp : T.card.addCmp) + "</button>" +
          (pl.kind !== "cc" ? "<button type=\"button\" class=\"cbtn\" data-fly>" + T.card.showOnMap + "</button>" : "") +
-         "<button type=\"button\" class=\"cbtn\" data-unsel>" + T.card.clear + "</button></div>";
+         "<button type=\"button\" class=\"cbtn\" data-unsel>" + T.card.clear + "</button></div>" +
+         "<p class=\"fhint\">" + T.card.cmpHint + "</p>";
     cardEl.innerHTML = h;
   }
   function netMonth(pl, v) { return fill(T.card.netMonth, { money: fmtLoc(pl, v) }); }
@@ -1519,6 +1532,9 @@
     chipsEl.innerHTML = P.map(function (p) {
       return "<span class=\"chip\">" + esc(p.name) + (p.kind !== "cc" ? " <small>" + esc(p.cc) + "</small>" : "") + "<button type=\"button\" data-rm=\"" + esc(pid(p)) + "\" aria-label=\"" + esc(T.cmp.remove) + "\">×</button></span>";
     }).join("") + (P.length < 4 ? "<span class=\"chip empty\">" + (P.length ? plural(T.cmp.addMore, 4 - P.length, 0) : T.cmp.nothing) + "</span>" : "");
+    // Пустой блок не показывается: он стоит сразу под картой и появляется с
+    // первым местом, добавленным кнопкой в карточке или плюсом в рейтинге.
+    $("p-cmp").hidden = !P.length;
     if (!P.length) { cmpEl.innerHTML = ""; return; }
     var cr = cmpRows();
     var h = "<thead><tr><th></th>" + P.map(function (p) { return "<th>" + esc(p.name) + "<br><small style=\"color:var(--ink-3);font-weight:400\">" + esc(ccName(p.cc)) + "</small></th>"; }).join("") + "</tr></thead><tbody>";
@@ -1720,7 +1736,7 @@
   // ======================================================================
   // Местного дохода у слоя нет, поэтому «метры» здесь только от дохода
   // читателя, а цена за метр красится внутри своего города: цена сделок в
-  // Лиме 2025 года и цена объявлений в Буэнос-Айресе 2019-го на одной шкале
+  // Лиме и цена объявлений в Буэнос-Айресе на одной шкале
   // читались бы как сравнение, которого данные не позволяют.
   var LA = DATA.latam, LG = GEO.latam, TL = T.latam;
   var LA_CITIES = ["PE", "AR"];
@@ -1729,15 +1745,12 @@
     var f = LA[cc].fields, by = {};
     LA[cc].rows.forEach(function (a) {
       var o = {}; f.forEach(function (k, i) { o[k] = a[i]; });
-      // Ноль в дополнительных колонках — «среза нет», а не бесплатное жильё.
-      by[o.name] = { name: o.name, price: o.usd_m2 || null, rent: o.rent_m2_mo || null, ptr: o.ptr_years || null,
-                     r2: o.usd_m2_2amb || null, r3n: o.usd_m2_3amb_new || null };
+      by[o.name] = { name: o.name, price: o.usd_m2 || null, rent: o.rent_m2_mo || null, ptr: o.ptr_years || null };
     });
     LAD[cc] = by;
   });
   // Ставка — только читателя, номинальная годовая, как на всей странице.
-  // Своей ставки у слоя нет: у Лимы она есть лишь у банковского надзора SBS,
-  // без открытой лицензии, у Буэнос-Айреса нет вовсе.
+  // Своей ставки у слоя нет ни для одного из двух городов.
   function laMonthlyRate() { return S.rate !== null ? S.rate / 100 / 12 : null; }
   function laAnn(i, years) { var n = years * 12; return i > 0 ? (1 - Math.pow(1 + i, -n)) / i : n; }
   function laBudget() { return S.inc > 0 ? incEUR() * FX.USD * S.share / 100 : 0; }
@@ -1777,8 +1790,8 @@
     if (S.lt === "rent" && cc === "AR") out.push(TL.noRent);
     if (S.lt === "rent" && cc === "PE") out.push(TL.rentHow);
     if (cc === "AR") {
-      // Имена пропусков — из контуров, а не из файла цен: там квартал Paternal
-      // записан как «Paterl», и повторять опечатку источника незачем.
+      // Имена пропусков — из контуров: у пропущенного barrio в файле цен есть
+      // только строка «///», а на карте он и так подписан.
       var g = LG.AR.paths.filter(function (p) { return !p[1]; }).map(function (p) { return p[0]; });
       out.push(fill(TL.gapsLine, { n: fmtInt(g.length), all: fmtInt(LG.AR.paths.length), names: listOf(g) }));
     }
@@ -1798,8 +1811,6 @@
     row(TL.tip.price, fill(U.perM2, { money: laMoney(d.price) }));
     if (d.rent) row(TL.tip.rent, fill(U.perM2Mo, { money: laMoney(d.rent, 1) }));
     if (d.ptr) row(TL.tip.ptr, plural(U.yrs, d.ptr, 1));
-    if (d.r2) row(TL.tip.r2, fill(U.perM2, { money: laMoney(d.r2) }));
-    if (d.r3n) row(TL.tip.r3n, fill(U.perM2, { money: laMoney(d.r3n) }));
     if (S.lm === "area") {
       var v = laValue(cc, d);
       row(S.lt === "rent" ? TL.tip.youRent : TL.tip.youBuy, v === null ? "—" : m2s(fmtM2(v)));

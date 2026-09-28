@@ -259,13 +259,20 @@
      поля — тот же .gsearch, что над картой, но его собственные поля и потолок
      ширины здесь снимаются: иначе поле уезжало на 20 px вправо от подписи и
      выпирало за карточку вместе с выбором валюты. */
-  .moverow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;
-             padding: 16px 20px 0; margin-bottom: 16px; }
+  /* Два ряда: «где живёте» и «где работа» рядом, предложение отдельной строкой
+     под ними. В один ряд из трёх поля не выравнивались: подпись у предложения
+     длиннее и переносилась, и её поле стояло ниже соседних. Подпись, поле и
+     подсказка у обоих полей ряда лежат в общих строках сетки (subgrid), поэтому
+     поля стоят на одной линии, даже если подпись у одного из них в две строки. */
+  .moverow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto auto auto;
+             gap: 14px; padding: 16px 20px 0; margin-bottom: 16px; }
   .moverow .gsearch { margin: 0; max-width: none; }
   .mfield label { display: block; font-family: var(--mono); font-size: 12px; color: var(--ink-2); margin-bottom: 6px; }
   .mfield .opt { color: var(--ink-3); }
   .mgs { position: relative; }
-  .mfield { min-width: 0; }
+  .mfield { min-width: 0; display: grid; grid-template-rows: subgrid; grid-row: span 3; row-gap: 0; align-content: start; }
+  .mfield label { align-self: end; }
+  .mfield-inc { grid-column: 1 / -1; grid-row: auto / span 3; max-width: 460px; }
   .mrow { display: flex; gap: 6px; }
   .mrow input { flex: 1; min-width: 0; -moz-appearance: textfield; }
   .mrow select { flex: 0 0 auto; }
@@ -283,11 +290,16 @@
   .mverdict.ok { color: var(--m5); }
   .mverdict.no { color: var(--m1); }
   .mnote { margin-top: 12px; }
-  @media (max-width: 720px) { .moverow { grid-template-columns: 1fr; } }
+  @media (max-width: 720px) { .moverow { grid-template-columns: 1fr; grid-template-rows: none; }
+                              .mfield { grid-template-rows: auto; grid-row: auto; } }
 
   .tip .r.lead { font-weight: 600; border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 4px; }
 
   .espon { font-size: 14px; border-top: 1px solid var(--line); margin-top: 14px; padding-top: 10px; color: var(--ink-2); }
+  /* Внутри панели абзац держит те же поля 20 px, что и остальное её тело:
+     без них строка «Европейские данные: © ESPON…» стояла вплотную к рамке. */
+  .panel > .espon { margin: 14px 20px 0; padding: 10px 0 16px; }
+  .panel > .espon + .espon { border-top: 0; margin-top: 0; padding-top: 0; }
 
   .gsug li em { font-style: normal; color: var(--sug-em); font-size: 12px; }
   .gsug li .cy { margin-left: auto; color: var(--ink-3); font-size: 11px; font-family: var(--mono);
@@ -383,8 +395,10 @@
   :root[data-theme="cyber"] .cbig div { border-radius: 0; }
   .crow { display: flex; justify-content: space-between; gap: 10px; font-size: 12.5px; padding: 3px 0;
           border-bottom: 1px solid var(--hair-soft); color: var(--ink-2); }
+  /* Длинное значение («2,38× в расчёте на эквивалентного взрослого») переносится,
+     а не уезжает за край карточки: nowrap здесь стоял и ломал узкую колонку. */
   .crow span:last-child { color: var(--ink); font-family: var(--mono); font-size: 12px; text-align: right;
-                          font-variant-numeric: tabular-nums; white-space: nowrap; }
+                          font-variant-numeric: tabular-nums; flex: 0 1 auto; min-width: 0; overflow-wrap: anywhere; }
   .csub { margin: 12px 0 6px; font-family: var(--mono); font-size: 10px; letter-spacing: .12em;
           text-transform: uppercase; color: var(--ink-3); }
   .cwhat { font-size: 12.5px; color: var(--ink-2); line-height: 1.55; margin: 0 0 6px; }
@@ -401,7 +415,7 @@
   .clist li { display: flex; justify-content: space-between; gap: 8px; padding: 3px 0; cursor: pointer;
               border-bottom: 1px solid var(--hair-soft); color: var(--ink-2); }
   .clist li:hover { color: var(--ink); }
-  .clist li span:last-child { font-family: var(--mono); font-size: 11.5px; color: var(--ink); white-space: nowrap; }
+  .clist li span:last-child { font-family: var(--mono); font-size: 11.5px; color: var(--ink); text-align: right; flex: 0 1 auto; min-width: 0; overflow-wrap: anywhere; }
 
   /* ── сравнение и рейтинги ───────────────────────────────────────── */
   .chips { display: flex; flex-wrap: wrap; gap: 7px; padding: 14px 20px 4px; min-height: 20px; }

@@ -55,11 +55,17 @@ CEPALSTAT, Межамериканский банк развития, Всеми�
    на estadisticas.bcrp.gob.pe, обычным JSON без всякой защиты. Этот скрипт
    берёт данные оттуда.
 
-2. АРГЕНТИНА. Buenos Aires Data, Instituto de Vivienda: средняя цена предложения
-   в долларах за квадратный метр по кварталам города (barrios), с разбивкой по
-   числу комнат и по новостройкам/вторичке. Лицензия в поле «Licencia» карточки
-   набора: CC-BY-2.5-AR (Creative Commons Atribución 2.5 Argentina) — коммерческое
-   использование и производные разрешены при указании авторства.
+2. АРГЕНТИНА. Instituto de Estadística y Censos de la Ciudad Autónoma de
+   Buenos Aires (IDECBA), серия MI_DVP_AX03: средняя цена предложения в долларах
+   за квадратный метр двухкомнатных квартир вторичного рынка по кварталам
+   города (barrios), поквартально с IV квартала 2006 по II квартал 2026, по
+   объявлениям Argenprop. Лицензии на страницах института нет; по решению
+   автора страницы (28 сентября 2026) ряд берётся с указанием источника, без
+   обсуждения условий. Прежний источник — портал Buenos Aires Data, Instituto
+   de Vivienda, CC-BY-2.5-AR — обрывался на II квартале 2019 года.
+   Из рядов института по barrios есть только 1 и 2 комнаты; трёхкомнатные
+   публикуются по comunas. Берётся срез «2 ambientes usados» — самый длинный
+   и с наибольшим покрытием.
 
 3. OECD Affordable Housing Database, лист HC1.2.1.a: медианная доля платежей
    по ипотеке (тело и проценты) или аренды в доходе домохозяйства, по годам.
@@ -85,11 +91,11 @@ CEPALSTAT, Межамериканский банк развития, Всеми�
 банком у застройщиков и агентств. Аргентина — цена ПРЕДЛОЖЕНИЯ из объявлений,
 то есть то же, что в европейском слое. Сравнивать их напрямую нельзя.
 
-ОГОВОРКА ТРЕТЬЯ: свежесть разная и у Аргентины плохая. Перу доведено до IV
-квартала 2025. Аргентинский ряд на портале обрывается на II квартале 2019:
-свежая серия (до II квартала 2026) публикуется городским статистическим
-институтом на estadisticaciudad.gob.ar, и там нет ни слова о лицензии — я
-проверял страницу целиком. По правилу страницы она не берётся.
+ОГОВОРКА ТРЕТЬЯ: последний квартал у института помечен звёздочкой — «dato
+provisorio», предварительная цифра, которую следующий выпуск может пересмотреть.
+Перу доведено до IV квартала 2025, Аргентина — до II квартала 2026.
+Институт показывает barrio только при достаточном числе объявлений в квартале;
+остальные идут в latam-gaps.csv.
 
 ОГОВОРКА ЧЕТВЁРТАЯ: местного дохода в этом слое нет. У Перу доход по районам
 Лимы есть только в обследовании ENAHO (INEI), где текст условий найти не
@@ -138,10 +144,12 @@ UA = 'avgrebenkin.com/research/housing (+https://avgrebenkin.com/research/housin
 
 BCRP_META = 'https://estadisticas.bcrp.gob.pe/estadisticas/series/metadata'
 BCRP_API = 'https://estadisticas.bcrp.gob.pe/estadisticas/series/api'
-AR_SALE = ('https://cdn.buenosaires.gob.ar/datosabiertos/datasets/'
-           'instituto-de-vivienda/mercado-inmobiliario/precio-venta-deptos.csv')
-AR_RENT = ('https://cdn.buenosaires.gob.ar/datosabiertos/datasets/'
-           'instituto-de-vivienda/mercado-inmobiliario/precio-alquiler-deptos.csv')
+AR_IDEC_XLSX = 'https://www.estadisticaciudad.gob.ar/eyc/wp-content/uploads/2026/01/MI_DVP_AX03.xlsx'
+AR_IDEC_PAGE = ('https://www.estadisticaciudad.gob.ar/eyc/banco-datos/precio-promedio-de-publicacion-'
+                'del-metro-cuadrado-dolares-de-departamentos-en-venta-de-2-ambientes-usados-por-barrio-'
+                'ciudad-de-buenos-aires-4to-trimestre-de-2006-2do-trimestre-de-2024/')
+AR_SOURCE = ('Instituto de Estadística y Censos de la Ciudad Autónoma de Buenos Aires (IDECBA), '
+             'serie MI_DVP_AX03, sobre la base de datos de Argenprop')
 OECD_HC12 = ('https://webfs.oecd.org/els-com/Affordable_Housing_Database/'
              'HC1-2-Housing-costs-over-income.xlsx')
 # Ссылка на ресурс берётся из API карточки HDX, а не вшивается: у ресурса в
@@ -254,54 +262,48 @@ def peru(src):
 # вторичка, 3 комнаты новостройка («A estrer» — так в файле). Среднее по
 # срезам делало кварталы несравнимыми: где новостроек нет, цена занижена.
 # Главная цифра — один срез с самым широким охватом, остальные — колонками.
-AR_MAIN = ('3 ambientes', 'Usado')
-AR_EXTRA = {'usd_m2_2amb_used': ('2 ambientes', 'Usado'),
-            'usd_m2_3amb_new': ('3 ambientes', 'A estrer')}
-
-
 def argentina(src):
-    """Кварталы Буэнос-Айреса: доллары за м² предложения, последний непустой срез."""
-    path = fetch(AR_SALE, os.path.join(src, 'caba-venta.csv'))
-    rd = list(csv.DictReader(open(path, encoding='utf-8-sig'), delimiter=';'))
-    if not rd:
-        raise SystemExit('CABA: пустой файл цен продажи')
-
-    def price(r):
-        try:
-            return float(r['precio_prom'])
-        except ValueError:
-            return None
-
-    filled = [r for r in rd if price(r) is not None]
-    if not filled:
-        raise SystemExit('CABA: во всём файле нет ни одной цены')
-    y = max(int(r['año']) for r in filled)
-    q = max(int(r['trimestre']) for r in filled if int(r['año']) == y)
-    period = f'{y} Q{q}'
-
-    cell, comuna = {}, {}
-    for r in filled:
-        if int(r['año']) == y and int(r['trimestre']) == q:
-            b = r['barrio'].strip()
-            cell[(b, r['ambientes'], r['estado'])] = price(r)
-            comuna[b] = r['comuna'].strip()
+    """Кварталы Буэнос-Айреса: доллары за м² предложения двухкомнатных квартир
+    вторичного рынка, последний опубликованный квартал файла IDECBA."""
+    try:
+        import openpyxl
+    except ImportError:
+        raise SystemExit('CABA: нужен openpyxl, файл IDECBA — xlsx')
+    path = fetch(AR_IDEC_XLSX, os.path.join(src, 'idecba-MI_DVP_AX03.xlsx'))
+    ws = openpyxl.load_workbook(path, read_only=True, data_only=True).worksheets[0]
+    grid = [list(r) for r in ws.iter_rows(values_only=True)]
+    # Лист: заголовок, строка годов (год стоит в первой ячейке объединённого
+    # блока, дальше None), строка кварталов «1er. trim.» … со звёздочкой у
+    # предварительных, затем «Total» и barrios, а в хвосте — примечания.
+    iy = next(i for i, r in enumerate(grid) if r and r[0] == 'Barrio')
+    years, quarters = grid[iy], grid[iy + 1]
+    yy, cur = [], None
+    for v in years:
+        if isinstance(v, int):
+            cur = v
+        yy.append(cur)
+    last = max(i for i, q in enumerate(quarters) if isinstance(q, str) and 'trim' in q)
+    period = f'{yy[last]} Q{quarters[last].strip()[0]}'
+    provisional = '*' in quarters[last]
 
     out = []
-    for b in sorted({r['barrio'].strip() for r in rd}):
-        if b not in comuna:
-            note('AR', b, f'ни одной цены в {period}')
+    for r in grid[iy + 2:]:
+        name = r[0]
+        if not isinstance(name, str) or name == 'Total':
             continue
-        main = cell.get((b, *AR_MAIN))
-        if main is None:
-            note('AR', b, f'нет среза «3 комнаты, вторичка» в {period} — есть только другие')
+        if not any(isinstance(c, (int, float)) or c == '///' for c in r[1:]):
+            break                                   # пошли примечания под таблицей
+        v = r[last] if last < len(r) else None
+        if not isinstance(v, (int, float)):
+            # «///» — институт не публикует barrio, где объявлений в квартале
+            # меньше своего порога («cantidad mínima de unidades ofertadas»).
+            note('AR', name.strip(), f'ни одной цены в {period}: объявлений меньше порога института')
             continue
-        row = {'city': 'Buenos Aires', 'country': 'AR', 'district': b,
-               'comuna': comuna[b], 'period': period, 'usd_m2': round(main, 2)}
-        for col, key in AR_EXTRA.items():
-            v = cell.get((b, *key))
-            row[col] = round(v, 2) if v is not None else ''
-        out.append(row)
-    return out, period
+        out.append({'city': 'Buenos Aires', 'country': 'AR', 'district': name.strip(),
+                    'period': period, 'usd_m2': round(v, 2)})
+    if not out:
+        raise SystemExit(f'CABA: в квартале {period} нет ни одной цены')
+    return out, period, provisional
 
 
 # ---------------------------------------------------------------- OECD
@@ -362,7 +364,7 @@ def fold(s):
 # так квартал Paternal записан в самом файле цен, это не ошибка извлечения.
 GEO_ALIAS = {
     'PE': {'Magdalena': 'Magdalena del Mar', 'Surco': 'Santiago de Surco'},
-    'AR': {'Boca': 'La Boca', 'Paterl': 'Paternal'},
+    'AR': {'Boca': 'La Boca', 'La Paternal': 'Paternal', 'Montserrat': 'Monserrat'},
 }
 
 
@@ -524,7 +526,7 @@ def main():
     os.makedirs(DATA, exist_ok=True)
 
     pe, pe_period = peru(src)
-    ar, ar_period = argentina(src)
+    ar, ar_period, ar_prov = argentina(src)
     oe, oe_tag = oecd(src)
     geo, geo_meta = boundaries(src, pe, ar)
     note('ставка', 'PE', 'ряд BCRP PN07857NM взят у SBS, а у SBS открытой лицензии нет («Todos los derechos '
@@ -544,8 +546,7 @@ def main():
 
     n1 = write(OUT_PE, pe, ['city', 'country', 'district', 'period', 'usd_m2',
                             'price_to_rent_years', 'rent_usd_m2_month'])
-    n2 = write(OUT_AR, ar, ['city', 'country', 'district', 'comuna', 'period',
-                            'usd_m2', *AR_EXTRA])
+    n2 = write(OUT_AR, ar, ['city', 'country', 'district', 'period', 'usd_m2'])
     n3 = write(OUT_OECD, oe, ['country', 'year', 'share', 'income_basis', 'series'])
     write(GAPS, gaps, ['scope', 'item', 'reason'])
 
@@ -559,13 +560,11 @@ def main():
                               'expresa, siempre y cuando se cite la fuente',
                    'licence_url': 'https://www.bcrp.gob.pe/condiciones-de-uso.html',
                    'kind': 'цена сделок'},
+            # Лицензии у института нет: атрибуция без строки «Лицензия: …».
             'AR': {'rows': n2, 'period': ar_period, 'city': 'Buenos Aires',
-                   'source': 'Buenos Aires Data, Instituto de Vivienda',
-                   'url': 'https://data.buenosaires.gob.ar/dataset/mercado-inmobiliario',
-                   'licence': 'CC-BY-2.5-AR',
-                   'licence_url': 'https://creativecommons.org/licenses/by/2.5/ar/',
-                   'kind': 'цена предложения',
-                   'stratum': '3 ambientes, Usado (главная колонка usd_m2)'},
+                   'source': AR_SOURCE, 'url': AR_IDEC_PAGE, 'file': AR_IDEC_XLSX,
+                   'kind': 'цена предложения', 'stratum': '2 ambientes usados',
+                   'provisional': ar_prov},
             'OECD': {'rows': n3, 'indicator': oe_tag,
                      # Цитата — в формате, которого требуют условия OECD для данных.
                      'source': 'OECD (%s), OECD Affordable Housing Database, HC1.2 Housing costs over income, '

@@ -346,10 +346,11 @@
     "depositSaveMedian": "Bunun için {pct} peşinat <b>{amount}</b> eder. Ayda {input} € biriktirirseniz gereken süre: <b>{time}</b>.",
     "rentMedianNeed": "Buradaki medyan konutu (ayda {rent}) kiralamak için — konut payı {share} — <b>{need}</b> gerekiyor.",
     "around": "Çevresi",
-    "inCmp": "✓ Karşılaştırmada",
-    "addCmp": "+ Karşılaştır",
+    "inCmp": "✓ Karşılaştırmada · çıkar",
+    "addCmp": "+ Karşılaştırmaya ekle",
     "showOnMap": "Haritada göster",
-    "clear": "Temizle",
+    "clear": "Seçimi temizle",
+    "cmpHint": "Karşılaştırma, en çok dört yeri haritanın hemen altındaki bir tabloda yan yana koyuyor.",
     "summaryM2": "{buy} · {rent} m²",
     "summaryUS": "{years} · {share}",
     "shareLocal": "Yerel gelirin {share} kadarı"
@@ -401,14 +402,14 @@
       "one": "en fazla {n} yer daha ekleyebilirsiniz",
       "other": "en fazla {n} yer daha ekleyebilirsiniz"
     },
-    "nothing": "henüz seçim yok: bir yeri kartındaki + Karşılaştır düğmesiyle ya da sıralamalardaki + ile ekleyin"
+    "nothing": "henüz seçim yok: bir yeri kartındaki + Karşılaştırmaya ekle düğmesiyle ya da sıralamalardaki + ile ekleyin"
   },
   "rank": {
     "coast": "yalnızca kıyı",
     "coastTitle": "Eurostat’ın kıyı olarak işaretlediği AB-27 belediyeleri",
     "cols": {
       "country": "Ülke",
-      "buy": "Alınabilen m²",
+      "buy": "Satın alınabilen m²",
       "rent": "Kiralanabilen m²",
       "price": "Fiyat {sym}/m²",
       "rentp": "Kira {sym}/m²·ay",
@@ -465,21 +466,18 @@
     "setupRent": "Ayda <b>{income}</b>, ECB kuruyla ABD dolarına çevrilmiş · kira payı <b>{share}</b> = ayda <b>{budget}</b>",
     "rateMine": "iki şehirde de sizin <b>{rate}</b> faiziniz",
     "noRent": "Bu katmanda Buenos Aires için kira yok, yalnızca satılık konutların ilan fiyatları var.",
-    "noRate": "İki şehrin hiçbirinde açık lisanslı bir konut kredisi faizi yok ve başka bir yerden de ödünç alınmıyor. Ne satın alabileceğinizi görmek için yukarıdaki hesaplayıcıya bir faiz yazın.",
+    "noRate": "Katmanda iki şehrin hiçbiri için konut kredisi faizi yok ve başka bir yerden de ödünç alınmıyor. Ne satın alabileceğinizi görmek için yukarıdaki hesaplayıcıya bir faiz yazın.",
     "rentHow": "Kira türetilmiş: ilçenin fiyatı, merkez bankasının fiyat/kira oranına bölünüyor.",
     "notInLayer": "katmanda yok",
     "gapsLine": "{all} barrio’dan {n} tanesinin bu dilimde fiyatı yok ve gri kalıyor: {names}.",
     "gap": {
-      "none": "2019’un ikinci çeyreğinde hiç ilan fiyatı yok",
-      "stratum": "2019’un ikinci çeyreğinde üç odalı (2+1) ikinci el daireler için fiyat yok, yalnızca başka tür daireler için var",
+      "none": "2026’nın ikinci çeyreğinde satışa çıkan daire çok azdı: enstitü bir barrio’yu yalnızca ilan sayısı belirli bir eşiğin üstündeyse yayımlıyor",
       "lima": "Katmanda yok: merkez bankası {n} ilçe yayımlıyor"
     },
     "tip": {
       "price": "Fiyat",
       "rent": "Kira",
       "ptr": "Fiyat, kaç yıllık kira",
-      "r2": "İki odalı (1+1), ikinci el",
-      "r3n": "Üç odalı (2+1), yeni yapı",
       "youBuy": "Satın alabileceğiniz",
       "youRent": "Kiralayabileceğiniz"
     },
