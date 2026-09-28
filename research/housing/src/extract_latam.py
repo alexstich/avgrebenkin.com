@@ -68,7 +68,15 @@ CEPALSTAT, Межамериканский банк развития, Всеми�
    делит на доход ДО налогов, для Коста-Рики — на располагаемый (сноска 2
    листа): между собой эти четыре цифры сравниваются с оговоркой. Чилийский
    2020 год (0,32) — пандемийный выпуск обследования CASEN, выброс, а не тренд.
-   Лицензия OECD по умолчанию — CC BY 4.0.
+   Лицензия — НЕ CC BY 4.0: так OECD лицензирует тексты, выпущенные после
+   1 июля 2024. Для данных действует раздел 3 «Data» условий OECD
+   (https://www.oecd.org/en/about/terms-conditions.html), дословно: «you can
+   extract from, download, copy, adapt, print, distribute, share and embed
+   Data for any purpose, even for commercial use. You must give appropriate
+   credit to the OECD…» в формате «OECD (year), (dataset name), (data source)
+   DOI or URL (accessed on (date))». Там же оговорка о правах третьих лиц;
+   сноска листа называет показатель «OECD calculations based on» национальных
+   обследований — это расчёт самой OECD, и других ограничений лист не ставит.
 
 ОГОВОРКА ПЕРВАЯ: это два города, а не континент. Лима и Буэнос-Айрес — столицы,
 и цены в них не говорят ничего о стране. Подписывать надо городом, а не флагом.
@@ -90,13 +98,14 @@ CEPALSTAT, Межамериканский банк развития, Всеми�
 местного. Но «средний местный житель» для этих городов не показывается, и в
 latam-gaps.csv записано почему.
 
-СТАВКА ИПОТЕКИ. Режим «сколько метров можно купить» без ставки не считается.
-Для Лимы она берётся из того же центрального банка и под той же лицензией:
-серия PN07857NM — средняя ставка банков по ипотеке в долларах (ME, moneda
-extranjera), в эффективных годовых процентах (TEA), усреднённая по трём месяцам
-того же квартала, что и цены. Доллары выбраны потому, что в долларах и цены.
-У Буэнос-Айреса своей ставки в слое нет, и чужая не подставляется: страница
-считает там покупку только по ставке, которую читатель ввёл сам.
+СТАВКА ИПОТЕКИ. Режим «сколько метров можно купить» без ставки не считается,
+а своей ставки у слоя нет ни для одного города. У BCRP есть серия PN07857NM —
+средняя ставка банков по долларовой ипотеке, — но в карточке серии источником
+указан банковский надзор SBS (Superintendencia de Banca, Seguros y AFP), а на
+сайте SBS открытой лицензии нет: «Todos los derechos reservados». Разрешение
+BCRP перепечатывать «свою» информацию чужой ряд не покрывает. У Буэнос-Айреса
+ставки нет вовсе. Чужая ставка не подставляется: покупка в обоих городах
+считается только по ставке, которую читатель ввёл сам.
 
 КОНТУРЫ РАЙОНОВ. Лицензия каждого прочитана в первоисточнике, а не в пересказе:
   * Лима — «Peru - Subnational Administrative Boundaries» на HDX (OCHA),
@@ -135,7 +144,6 @@ AR_RENT = ('https://cdn.buenosaires.gob.ar/datosabiertos/datasets/'
            'instituto-de-vivienda/mercado-inmobiliario/precio-alquiler-deptos.csv')
 OECD_HC12 = ('https://webfs.oecd.org/els-com/Affordable_Housing_Database/'
              'HC1-2-Housing-costs-over-income.xlsx')
-BCRP_RATE = 'PN07857NM'
 # Ссылка на ресурс берётся из API карточки HDX, а не вшивается: у ресурса в
 # адресе его uuid, и при новом выпуске он меняется.
 HDX_PER = 'https://data.humdata.org/api/3/action/package_show?id=cod-ab-per'
@@ -343,28 +351,6 @@ def oecd(src):
     return out, OECD_SHEET
 
 
-# ------------------------------------------------------- ставка Перу
-
-def peru_rate(src, period):
-    """Средняя TEA по долларовой ипотеке за три месяца квартала цен.
-
-    Серия запрашивается одна: интерфейс BCRP возвращает несколько серий не в
-    том порядке, в каком их просили (проверено на паре MN/ME), и сопоставлять
-    их по позиции нельзя.
-    """
-    q, yy = period[1], period.split('.')[1]          # «T4.25»
-    y, m0 = 2000 + int(yy), (int(q) - 1) * 3 + 1
-    url = f'{BCRP_API}/{BCRP_RATE}/json/{y}-{m0}/{y}-{m0 + 2}'
-    raw = json.load(open(fetch(url, os.path.join(src, f'bcrp-rate-{y}q{q}.json')), encoding='utf-8'))
-    name = raw['config']['series'][0]['name']
-    if 'ME - Hipotecario' not in name:
-        raise SystemExit(f'BCRP: вместо долларовой ипотечной ставки пришло «{name}»')
-    vals = [float(p['values'][0]) for p in raw['periods'] if p['values'][0] not in ('n.d.', '')]
-    if len(vals) != 3:
-        raise SystemExit(f'BCRP: за {period} нашлось {len(vals)} месяцев ставки из 3')
-    return round(sum(vals) / 3, 4), name
-
-
 # ------------------------------------------------------------ контуры
 
 def fold(s):
@@ -538,10 +524,11 @@ def main():
     os.makedirs(DATA, exist_ok=True)
 
     pe, pe_period = peru(src)
-    pe_rate, pe_rate_name = peru_rate(src, pe_period)
     ar, ar_period = argentina(src)
     oe, oe_tag = oecd(src)
     geo, geo_meta = boundaries(src, pe, ar)
+    note('ставка', 'PE', 'ряд BCRP PN07857NM взят у SBS, а у SBS открытой лицензии нет («Todos los derechos '
+                         'reservados»); покупка считается только по ставке, введённой читателем')
     note('ставка', 'AR', 'своей ставки ипотеки у слоя нет; покупка считается только по ставке, введённой читателем')
 
     # Страны, проверенные и не вошедшие: причина записывается всегда.
@@ -571,10 +558,7 @@ def main():
                    'licence': 'Puede reproducirse total o parcialmente, sin autorización '
                               'expresa, siempre y cuando se cite la fuente',
                    'licence_url': 'https://www.bcrp.gob.pe/condiciones-de-uso.html',
-                   'kind': 'цена сделок',
-                   # TEA — эффективная годовая: месячная ставка из неё
-                   # (1 + TEA)^(1/12) − 1, а не TEA / 12.
-                   'rate_tea': pe_rate, 'rate_series': BCRP_RATE, 'rate_name': pe_rate_name},
+                   'kind': 'цена сделок'},
             'AR': {'rows': n2, 'period': ar_period, 'city': 'Buenos Aires',
                    'source': 'Buenos Aires Data, Instituto de Vivienda',
                    'url': 'https://data.buenosaires.gob.ar/dataset/mercado-inmobiliario',
@@ -583,12 +567,15 @@ def main():
                    'kind': 'цена предложения',
                    'stratum': '3 ambientes, Usado (главная колонка usd_m2)'},
             'OECD': {'rows': n3, 'indicator': oe_tag,
-                     'source': 'OECD Affordable Housing Database, HC1.2',
+                     # Цитата — в формате, которого требуют условия OECD для данных.
+                     'source': 'OECD (%s), OECD Affordable Housing Database, HC1.2 Housing costs over income, '
+                               'accessed %s' % (__import__('datetime').date.today().year,
+                                                __import__('datetime').date.today().isoformat()),
                      'url': 'https://www.oecd.org/en/data/datasets/oecd-affordable-housing-database.html',
-                     'licence': 'CC BY 4.0',
+                     'licence': 'OECD Terms and Conditions, 3. Data',
                      'measure': 'медиана доли ипотеки (тело и проценты) или аренды в доходе',
                      'caveat': 'Чили, Колумбия, Мексика — доход до налогов, Коста-Рика — располагаемый',
-                     'licence_url': 'https://creativecommons.org/licenses/by/4.0/',
+                     'licence_url': 'https://www.oecd.org/en/about/terms-conditions.html',
                      'countries': OECD_LATAM},
         },
         'geo': geo_meta,
@@ -602,7 +589,6 @@ def main():
     print(f'Перу, районы Лимы:        {n1:3}  ({pe_period})')
     print(f'Аргентина, кварталы CABA: {n2:3}  ({ar_period})')
     print(f'OECD, страны региона:     {n3:3}')
-    print(f'ставка Лимы, TEA:       {pe_rate:6.3f}  ({BCRP_RATE})')
     for cc in geo:
         print(f'контуры {cc}: {len(geo[cc])} районов, {sum(1 for d in geo[cc] if d["key"])} с ценой')
     print(f'latam-geo.json: {os.path.getsize(OUT_GEO)} байт')

@@ -133,7 +133,7 @@
         "Eurostat EU-SILC mean equivalised disposable income (ilc_di03) disaggregated with the Mikou, Vallet and Guivarch (2024) subnational income dataset",
         "Affordable floor area: one third of the mean equivalised income on a 30-year annuity mortgage at the DG ECFIN national fixed rate, price including transfer tax, VAT, notary and registry",
         "United States: American Community Survey five-year estimates 2020-2024 by county; no floor area is collected at county level by any US federal survey, so affordable square metres are not computed for the United States",
-        "Lima: Banco Central de Reserva del Perú, transaction prices in US dollars per square metre and price-to-annual-rent ratios for 12 districts, fourth quarter of 2025; mortgage rate from BCRP series PN07857NM. Buenos Aires: Buenos Aires Data, Instituto de Vivienda, asking prices in US dollars per square metre by barrio, second quarter of 2019. No local income: affordable area is computed from the reader's own income only",
+        "Lima: Banco Central de Reserva del Perú, transaction prices in US dollars per square metre and price-to-annual-rent ratios for 12 districts, fourth quarter of 2025. Buenos Aires: Buenos Aires Data, Instituto de Vivienda, asking prices in US dollars per square metre by barrio, second quarter of 2019. No local income: affordable area is computed from the reader's own income only",
         "OECD Affordable Housing Database HC1.2: median share of mortgage or rent payments in income for Chile, Colombia, Costa Rica and Mexico"
       ],
       "variableMeasured": [
@@ -299,6 +299,17 @@
     <p>{{t:intro.07}}</p>
     <p>{{t:intro.08}}</p>
   </section>
+
+  <!-- Баннер Speak-Y стоит дважды: здесь, на втором экране перед калькулятором,
+       и ниже, между инструментами и статьёй. Текст один и тот же (ui.syText). -->
+  <aside class="sy-strip" aria-label="Speak-Y">
+    <span class="sy-brand">
+      <img class="sy-icon" src="{{up}}../images/icons/speak-y.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+      <span class="sy-name">Speak-<i>Y</i></span>
+    </span>
+      <p>{{t:ui.syText}}</p>
+      <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">{{t:ui.syCta}} <span aria-hidden="true">→</span></a>
+    </aside>
 
   <!-- ─── calculator ─────────────────────────────────────────────── -->
   <section class="panel" id="p-calc" aria-labelledby="calc-h">

@@ -173,7 +173,6 @@ def latam_fields(code, L, T, data, geo):
         'latPeHi': num(code, L, hi(pe, 1)[1]), 'latPeHiName': hi(pe, 1)[0],
         'latPeRentLo': num(code, L, lo(pe, 2)[2], 1), 'latPeRentLoName': lo(pe, 2)[0],
         'latPeRentHi': num(code, L, hi(pe, 2)[2], 1), 'latPeRentHiName': hi(pe, 2)[0],
-        'latRate': num(code, L, la['PE']['rate'], 2),
         'latArLo': num(code, L, lo(ar, 1)[1]), 'latArLoName': lo(ar, 1)[0],
         'latArHi': num(code, L, hi(ar, 1)[1]), 'latArHiName': hi(ar, 1)[0],
         'latClShare': pct(oe['Chile'][2]), 'latClYear': str(oe['Chile'][1]),
@@ -202,9 +201,8 @@ def latam_fields(code, L, T, data, geo):
     quote = lambda m: at(L, 'latam.a07').replace('{licence}', a(m['licence_url'], at(L, 'latam.a10').replace('{q}', m['licence'])))
     items = [
         (at(L, 'latam.a01'), a(ly['PE']['url'], ly['PE']['source']), quote(ly['PE'])),
-        (at(L, 'latam.a02'), a(ly['PE']['url'], ly['PE']['source'] + ', ' + ly['PE']['rate_series']), quote(ly['PE'])),
         (at(L, 'latam.a03'), a(ly['AR']['url'], ly['AR']['source']), lic(ly['AR'])),
-        (at(L, 'latam.a04'), a(ly['OECD']['url'], ly['OECD']['source'] + ' (' + ly['OECD']['indicator'] + ')'), lic(ly['OECD'])),
+        (at(L, 'latam.a04'), a(ly['OECD']['url'], ly['OECD']['source']), lic(ly['OECD'])),
         (at(L, 'latam.a05'), a(gm['PE']['url'], gm['PE']['source']), lic(gm['PE']) + ' ' + at(L, 'latam.a08')),
         (at(L, 'latam.a06'), a(gm['AR']['url'], gm['AR']['source']), lic(gm['AR']) + ' ' + at(L, 'latam.a09')),
     ]

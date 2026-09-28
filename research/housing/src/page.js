@@ -52,7 +52,7 @@
   function capFirst(t) { return t.charAt(0).toLocaleUpperCase(LOC) + t.slice(1); }
   // Перечень через запятую по правилам языка; без Intl.ListFormat — через «, ».
   function listOf(a) {
-    try { return new Intl.ListFormat(LOC, { type: "unit", style: "short" }).format(a); } catch (e) { return a.join(", "); }
+    try { return new Intl.ListFormat(LOC, { type: "conjunction" }).format(a); } catch (e) { return a.join(", "); }
   }
 
   // ---- расшифровка компактных массивов
@@ -1735,14 +1735,10 @@
     });
     LAD[cc] = by;
   });
-  // Ставка читателя, если он её ввёл, — номинальная годовая, как на всей
-  // странице. Своя ставка слоя есть только у Лимы, и она эффективная (TEA):
-  // месячная из неё — корень двенадцатой степени, а не деление на 12.
-  function laMonthlyRate(cc) {
-    if (S.rate !== null) return S.rate / 100 / 12;
-    var tea = LA[cc].rate;
-    return tea === null || tea === undefined ? null : Math.pow(1 + tea / 100, 1 / 12) - 1;
-  }
+  // Ставка — только читателя, номинальная годовая, как на всей странице.
+  // Своей ставки у слоя нет: у Лимы она есть лишь у банковского надзора SBS,
+  // без открытой лицензии, у Буэнос-Айреса нет вовсе.
+  function laMonthlyRate() { return S.rate !== null ? S.rate / 100 / 12 : null; }
   function laAnn(i, years) { var n = years * 12; return i > 0 ? (1 - Math.pow(1 + i, -n)) / i : n; }
   function laBudget() { return S.inc > 0 ? incEUR() * FX.USD * S.share / 100 : 0; }
   // null значит «величины нет», и причина у каждого null своя — её называет
@@ -1753,7 +1749,7 @@
     if (S.lm === "price") return rent ? d.rent : d.price;
     var b = laBudget(); if (!b) return null;
     if (rent) return b / d.rent;
-    var i = laMonthlyRate(cc); if (i === null) return null;
+    var i = laMonthlyRate(); if (i === null) return null;
     return b * laAnn(i, S.term) / (1 - S.dep / 100) / d.price;
   }
   // Шкала цены — пятые доли районов своего же города: зелёный — самая дешёвая
@@ -1779,7 +1775,6 @@
   function laNote(cc, vals) {
     var out = [];
     if (S.lt === "rent" && cc === "AR") out.push(TL.noRent);
-    else if (S.lm === "area" && S.lt === "buy" && cc === "AR" && S.rate === null && S.inc > 0) out.push(TL.noRate);
     if (S.lt === "rent" && cc === "PE") out.push(TL.rentHow);
     if (cc === "AR") {
       // Имена пропусков — из контуров, а не из файла цен: там квартал Paternal
@@ -1902,10 +1897,11 @@
     var st;
     if (S.lm === "price") st = TL.setupPrice;
     else if (!(S.inc > 0)) st = TL.needIncome;
+    else if (S.lt === "buy" && S.rate === null) st = TL.noRate;
     else st = fill(S.lt === "rent" ? TL.setupRent : TL.setupBuy, {
       income: laMoney(incEUR() * FX.USD), budget: laMoney(laBudget()), share: shareText(), term: termAdj(),
       deposit: pctS(fmtPlain(S.dep)),
-      rate: S.rate !== null ? fill(TL.rateMine, { rate: fmtRate(S.rate) }) : fill(TL.rateLima, { rate: fmtRate(LA.PE.rate) }) });
+      rate: fill(TL.rateMine, { rate: fmtRate(S.rate) }) });
     $("latsetup").innerHTML = st;
   }
   // Доля платежей за жильё в доходе по OECD: четыре страны, у одной из них

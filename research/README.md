@@ -720,7 +720,7 @@ Statistics (27 августа 2026), Anthropic Economic Index, панель Stan
 | `housing/src/build.py` | Сборка: вшивает `data.json`, `geo.json`, считает доли населения для текста |
 | `housing/src/extract.py` | Сырая выгрузка ESPON + таблица LAU Евростата → `research/data/house4all-lau-2024.csv` |
 | `housing/src/extract_us.py` | ACS (через открытый API Census Reporter) + Natural Earth + TIGER 2024 + Freddie Mac → `research/data/us-counties.csv`, `us-gaps.csv`, `us-meta.json` |
-| `housing/src/extract_latam.py` | BCRP (цены, отношение цены к аренде и ставка по долларовой ипотеке Лимы) + Buenos Aires Data (цены и контуры barrios) + HDX/IGN (районы Лимы) + OECD HC1.2 → `research/data/latam-*.csv`, `latam-geo.json`, `latam-meta.json`, `latam-gaps.csv` |
+| `housing/src/extract_latam.py` | BCRP (цены и отношение цены к аренде в Лиме) + Buenos Aires Data (цены и контуры barrios) + HDX/IGN (районы Лимы) + OECD HC1.2 → `research/data/latam-*.csv`, `latam-geo.json`, `latam-meta.json`, `latam-gaps.csv` |
 | `housing/src/names.py` | Кодлист GEO Евростата → `region-names.json`, имена регионов NUTS |
 | `housing/src/data.py` | CSV → `data.json`: страны, регионы, 11 630 мест (8 489 муниципалитетов и 3 141 округ), рисунок 3 |
 | `housing/src/geo.py` | Natural Earth 1:50 млн → `geo.json`: два кадра, `eu` и `na`, каждый со своей проекцией Ламберта |
@@ -732,7 +732,7 @@ Statistics (27 августа 2026), Anthropic Economic Index, панель Stan
 | `data/us-meta.json` | Выпуск ACS и его период, ставка PMMS за 2024, покрытие, погрешности, медианы штатов и страны |
 | `data/latam-pe-lima.csv`, `latam-ar-caba.csv`, `latam-oecd.csv` | 12 районов Лимы (цена сделок, IV кв. 2025), 37 кварталов Буэнос-Айреса (цена предложения, II кв. 2019), четыре страны OECD |
 | `data/latam-geo.json` | Упрощённые контуры районов обоих городов (lon/lat), с ключом к строке цен |
-| `data/latam-gaps.csv`, `latam-meta.json` | Пропуски и решения с причиной; источники, лицензии дословно, ставка Лимы |
+| `data/latam-gaps.csv`, `latam-meta.json` | Пропуски и решения с причиной; источники, лицензии дословно |
 | `../images/research/housing.jpg` | Обложка 1200×630 для og:image и соцсетей (+ `.webp` для карточки индекса) |
 | `../images/research/housing-page.webp` | Обложка 1600×560 без слов в шапке страницы |
 
@@ -1018,10 +1018,11 @@ Copper River.
 2025 года и объявления Буэнос-Айреса 2019-го на одной шкале читались бы как
 сравнение, которого данные не позволяют.
 
-- **Ставка.** Лима — средняя ставка банков по долларовой ипотеке за тот же квартал,
-  серия BCRP PN07857NM. Она эффективная годовая (TEA), месячная из неё —
-  `(1 + TEA)^(1/12) − 1`. У Буэнос-Айреса ставки нет, и чужая не подставляется:
-  покупка там считается только по ставке, введённой читателем.
+- **Ставка.** Своей у слоя нет ни для одного города. Ряд BCRP PN07857NM (средняя
+  ставка банков по долларовой ипотеке) взят у банковского надзора SBS, а у SBS
+  открытой лицензии нет — «Todos los derechos reservados». У Буэнос-Айреса ставки
+  нет вовсе. Чужая не подставляется: покупка считается только по ставке,
+  введённой читателем, а пока её нет, над картами просьба её ввести.
 - **Контуры.** geoBoundaries для Перу даёт только провинции (ADM2), районов нет; взяты
   районы IGN из набора HDX `cod-ab-per` (поле license_id — `cc-by-igo`, CC BY 3.0 IGO,
   раздел 3 требует пометить изменения — пометка стоит в атрибуции). Barrios — набор
