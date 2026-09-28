@@ -236,10 +236,8 @@ def latam():
         ser = [[int(a), round(float(b), 4)] for a, b in (x.split(':') for x in r['series'].split())]
         oecd.append([r['country'], int(r['year']), round(float(r['share']), 4), r['income_basis'], ser])
     L = meta['layers']
-    if not L['PE'].get('rate_tea'):
-        raise SystemExit('latam-meta.json: нет ставки Лимы — перезапустить extract_latam.py')
     return {
-        'PE': {'period': period(L['PE']['period']), 'kind': 'deal', 'rate': L['PE']['rate_tea'],
+        'PE': {'period': period(L['PE']['period']), 'kind': 'deal', 'rate': None,
                'rows': pe, 'fields': ['name', 'usd_m2', 'rent_m2_mo', 'ptr_years']},
         'AR': {'period': period(L['AR']['period']), 'kind': 'offer', 'rate': None,
                'rows': ar, 'gaps': gaps, 'fields': ['name', 'usd_m2', 'comuna', 'usd_m2_2amb', 'usd_m2_3amb_new']},
