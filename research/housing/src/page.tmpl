@@ -127,12 +127,14 @@
       "creator": { "@id": "https://avgrebenkin.com/#person" },
       "datePublished": "2026-09-14",
       "temporalCoverage": "2024-03/2025-03",
-      "spatialCoverage": { "@type": "Place", "name": "31 European countries (EU-27, Switzerland, Norway, Iceland, Liechtenstein) at LAU and NUTS 3 level, and the United States at county level" },
+      "spatialCoverage": { "@type": "Place", "name": "31 European countries (EU-27, Switzerland, Norway, Iceland, Liechtenstein) at LAU and NUTS 3 level, the United States at county level, and two Latin American cities: Lima by district and Buenos Aires by barrio" },
       "measurementTechnique": [
         "Weekly web scraping of housing listings, March 2024 to March 2025, aggregated by municipality and size class with listing-duration weights and cubic spline interpolation (ESPON HOUSE4ALL, TU Wien)",
         "Eurostat EU-SILC mean equivalised disposable income (ilc_di03) disaggregated with the Mikou, Vallet and Guivarch (2024) subnational income dataset",
         "Affordable floor area: one third of the mean equivalised income on a 30-year annuity mortgage at the DG ECFIN national fixed rate, price including transfer tax, VAT, notary and registry",
-        "United States: American Community Survey five-year estimates 2020-2024 by county; no floor area is collected at county level by any US federal survey, so affordable square metres are not computed for the United States"
+        "United States: American Community Survey five-year estimates 2020-2024 by county; no floor area is collected at county level by any US federal survey, so affordable square metres are not computed for the United States",
+        "Lima: Banco Central de Reserva del Perú, transaction prices in US dollars per square metre and price-to-annual-rent ratios for 12 districts, fourth quarter of 2025; mortgage rate from BCRP series PN07857NM. Buenos Aires: Buenos Aires Data, Instituto de Vivienda, asking prices in US dollars per square metre by barrio, second quarter of 2019. No local income: affordable area is computed from the reader's own income only",
+        "OECD Affordable Housing Database HC1.2: median share of mortgage or rent payments in income for Chile, Colombia, Costa Rica and Mexico"
       ],
       "variableMeasured": [
         { "@type": "PropertyValue", "name": "sa_m2", "description": "Square metres a third of the local mean equivalised income buys on a 30-year mortgage at the national fixed rate, price including transaction costs" },
@@ -151,7 +153,10 @@
       "citation": [
         "Sielker, F., & Banabak, S. (2026). Where can you still afford to live? – a comparative perspective on European housing affordability. Journal of Maps, 22(1), 2695777. https://doi.org/10.1080/17445647.2026.2695777",
         "https://www.espon.eu/projects/access-affordable-and-quality-housing-all-people-house4all",
-        "https://doi.org/10.1038/s41597-024-03138-x"
+        "https://doi.org/10.1038/s41597-024-03138-x",
+        "https://estadisticas.bcrp.gob.pe/estadisticas/series/",
+        "https://data.buenosaires.gob.ar/dataset/mercado-inmobiliario",
+        "https://www.oecd.org/en/data/datasets/oecd-affordable-housing-database.html"
       ],
       "isAccessibleForFree": true,
       "keywords": ["housing affordability", "Europe", "rent", "house prices", "mortgage", "ESPON", "TU Wien", "LAU", "NUTS 3"],
@@ -497,6 +502,72 @@
     <p class="note">{{t:hist.09}}</p>
   </section>
 
+  <!-- ─── Latin America ──────────────────────────────────────────────
+       Отдельная панель, а не третий кадр большой карты: у слоя нет местного
+       дохода, цены в долларах и разной природы, и в рейтинги с Европой ему
+       нельзя. Каждый город — своя врезка своей шкалой (см. data.py, latam()). -->
+  <section class="panel" id="p-latam" aria-labelledby="latam-h">
+    <div class="phead">
+      <div class="pactions"><button type="button" class="ibtn" data-share title="{{ta:calc.01}}" aria-label="{{ta:calc.01}}">{{svgShare}}</button><button type="button" class="ibtn" data-print="latam" title="{{ta:latam.p01}}" aria-label="{{ta:latam.p01}}">{{svgPrint}}</button></div>
+      <h2 id="latam-h">{{t:latam.p02}}</h2>
+      <p>{{t:latam.p03}}</p>
+      <p>{{t:latam.p04}}</p>
+    </div>
+    <div class="bar ctlbar">
+      <div class="ctl">
+        <div class="seg" role="group" aria-label="{{ta:latam.p05}}" id="lmetric">
+          <button type="button" data-v="price" aria-pressed="true">{{t:latam.p06}}</button><button type="button" data-v="area" aria-pressed="false">{{t:latam.p07}}</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <div class="seg" role="group" aria-label="{{ta:latam.p08}}" id="ltenure">
+          <button type="button" data-v="buy" aria-pressed="true">{{t:latam.p09}}</button><button type="button" data-v="rent" aria-pressed="false">{{t:latam.p10}}</button>
+        </div>
+      </div>
+    </div>
+    <p class="fhint latsetup" id="latsetup" aria-live="polite"></p>
+    <div class="latgrid">
+      <figure class="latcity" id="lat-PE">
+        <figcaption><b>{{t:latam.p11}}</b><span>{{t:latam.p12}}</span></figcaption>
+        <div class="latmap"><svg viewBox="0 0 {{latPeW}} {{latPeH}}" role="img" aria-label="{{ta:latam.p13}}"></svg><div class="tip" role="status"></div></div>
+        <div class="legend"></div>
+        <p class="fhint latnote"></p>
+        <ol class="latlist"></ol>
+      </figure>
+      <figure class="latcity" id="lat-AR">
+        <figcaption><b>{{t:latam.p14}}</b><span>{{t:latam.p15}}</span></figcaption>
+        <div class="latmap"><svg viewBox="0 0 {{latArW}} {{latArH}}" role="img" aria-label="{{ta:latam.p16}}"></svg><div class="tip" role="status"></div></div>
+        <div class="legend"></div>
+        <p class="fhint latnote"></p>
+        <ol class="latlist"></ol>
+      </figure>
+    </div>
+    <div class="latcav">
+      <h3>{{t:latam.p17}}</h3>
+      <ul>
+        <li>{{t:latam.p18}}</li>
+        <li>{{t:latam.p19}}</li>
+        <li>{{t:latam.p20}}</li>
+        <li>{{t:latam.p21}}</li>
+        <li>{{t:latam.p22}}</li>
+        <li>{{t:latam.p23}}</li>
+      </ul>
+    </div>
+    <div class="latoecd">
+      <h3>{{t:latam.p24}}</h3>
+      <p>{{t:latam.p25}}</p>
+      <svg id="oecdchart" viewBox="0 0 480 250" role="img" aria-label="{{ta:latam.p26}}"></svg>
+      <div class="tablescroll"><table class="oecdtab">
+        <thead><tr><th scope="col">{{t:latam.p27}}</th><th scope="col">{{t:latam.p28}}</th><th scope="col">{{t:latam.p29}}</th><th scope="col">{{t:latam.p30}}</th></tr></thead>
+        <tbody>{{latOecdRows}}</tbody>
+      </table></div>
+    </div>
+    <div class="latsrc">
+      <p><b>{{t:latam.p31}}</b></p>
+      <ul>{{latAttrib}}</ul>
+    </div>
+  </section>
+
   <aside class="sy-strip" aria-label="Speak-Y">
     <span class="sy-brand">
       <img class="sy-icon" src="{{up}}../images/icons/speak-y.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
@@ -531,6 +602,17 @@
     <p>{{t:found-us.06}}</p>
     <p>{{t:found-us.07}}</p>
     <p>{{t:found-us.08}}</p>
+  </section>
+
+  <section class="prose" id="found-latam">
+    <h2>{{t:found-latam.01}}</h2>
+    <p>{{t:found-latam.02}}</p>
+    <p>{{t:found-latam.03}}</p>
+    <p>{{t:found-latam.04}}</p>
+    <p>{{t:found-latam.05}}</p>
+    <p>{{t:found-latam.06}}</p>
+    <p>{{t:found-latam.07}}</p>
+    <p>{{t:found-latam.08}}</p>
   </section>
 
   <details class="panel method" id="method">

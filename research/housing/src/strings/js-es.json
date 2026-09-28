@@ -454,6 +454,39 @@
     "tip": "{kind}: {pct} de la población ({m} mill.)",
     "axis": "metros cuadrados asequibles con un tercio de la renta media local"
   },
+  "latam": {
+    "legendPrice": "Precio por m², en dólares estadounidenses",
+    "legendRentPrice": "Alquiler por m² al mes, en dólares estadounidenses",
+    "legendBuy": "m² que compra {share} de tus ingresos",
+    "legendRent": "m² que alquila {share} de tus ingresos",
+    "range": "{lo}–{hi}",
+    "setupPrice": "Cada mapa se colorea dentro de su propia ciudad: <b>el verde es la quinta parte más barata</b> de sus distritos; el rojo, la más cara. Las dos escalas son distintas a propósito.",
+    "needIncome": "Escribe tus ingresos mensuales en la calculadora de arriba: la capa no tiene ingresos locales, así que los metros cuadrados solo se pueden calcular a partir de los tuyos.",
+    "setupBuy": "<b>{income}</b> netos al mes, convertidos a dólares estadounidenses al tipo del BCE · <b>{share}</b> para vivienda = <b>{budget}</b> al mes · hipoteca a <b>{term}</b> · entrada <b>{deposit}</b> · {rate}",
+    "setupRent": "<b>{income}</b> netos al mes, convertidos a dólares estadounidenses al tipo del BCE · <b>{share}</b> para el alquiler = <b>{budget}</b> al mes",
+    "rateLima": "Lima, al tipo medio de los bancos peruanos para hipotecas en dólares en el mismo trimestre, un <b>{rate}</b> anual; Buenos Aires no tiene aquí un tipo propio",
+    "rateMine": "las dos ciudades, a tu tipo del <b>{rate}</b>",
+    "noRent": "Esta capa no tiene alquileres de Buenos Aires, solo precios de oferta de venta.",
+    "noRate": "Esta capa no tiene tipo hipotecario para Buenos Aires, y no se toma prestado ninguno de otra parte. Escribe un tipo en la calculadora de arriba para ver qué podrías comprar aquí.",
+    "rentHow": "El alquiler se deduce: el precio del distrito dividido entre la relación precio/alquiler que publica el banco central.",
+    "notInLayer": "no está en la capa",
+    "gapsLine": "{n} de {all} barrios no tienen precio en este corte y quedan en gris: {names}.",
+    "gap": {
+      "none": "Ningún precio de oferta en el segundo trimestre de 2019",
+      "stratum": "Sin precio para departamentos usados de tres ambientes en el segundo trimestre de 2019, solo para otros tipos de departamento",
+      "lima": "No está en la capa: el banco central publica {n} distritos"
+    },
+    "tip": {
+      "price": "Precio",
+      "rent": "Alquiler",
+      "ptr": "Precio en años de alquiler",
+      "r2": "Dos ambientes, usado",
+      "r3n": "Tres ambientes, a estrenar",
+      "youBuy": "Podrías comprar",
+      "youRent": "Podrías alquilar"
+    },
+    "outlier": "2020: encuesta en pandemia"
+  },
   "share": {
     "copied": "Enlace copiado",
     "inBar": "El enlace está en la barra de direcciones"

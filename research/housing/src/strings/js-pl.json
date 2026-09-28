@@ -481,6 +481,39 @@
     "tip": "{kind}: {pct} ludności ({m} mln)",
     "axis": "metry kwadratowe w zasięgu za jedną trzecią miejscowego przeciętnego dochodu"
   },
+  "latam": {
+    "legendPrice": "Cena za m², USD",
+    "legendRentPrice": "Czynsz za m² miesięcznie, USD",
+    "legendBuy": "m², które kupuje {share} twojego dochodu",
+    "legendRent": "m², które pozwala wynająć {share} twojego dochodu",
+    "range": "{lo}–{hi}",
+    "setupPrice": "Każda mapa jest pokolorowana w obrębie własnego miasta: <b>zieleń to najtańsza piąta część</b> jego dzielnic, czerwień – najdroższa. Obie skale różnią się celowo.",
+    "needIncome": "Wpisz swój miesięczny dochód w kalkulatorze powyżej: ta warstwa nie ma miejscowego dochodu, więc metry kwadratowe da się policzyć tylko z twojego.",
+    "setupBuy": "<b>{income}</b> miesięcznie, w przeliczeniu na dolary po kursie EBC · <b>{share}</b> na mieszkanie = <b>{budget}</b> miesięcznie · kredyt na <b>{term}</b> · wkład własny <b>{deposit}</b> · {rate}",
+    "setupRent": "<b>{income}</b> miesięcznie, w przeliczeniu na dolary po kursie EBC · <b>{share}</b> na czynsz = <b>{budget}</b> miesięcznie",
+    "rateLima": "Lima po średnim oprocentowaniu dolarowych kredytów hipotecznych w peruwiańskich bankach z tego samego kwartału, <b>{rate}</b> rocznie; Buenos Aires nie ma tu własnej stopy",
+    "rateMine": "oba miasta po twojej stopie <b>{rate}</b>",
+    "noRent": "W tej warstwie nie ma czynszów dla Buenos Aires, są tylko ceny ofertowe sprzedaży.",
+    "noRate": "W tej warstwie nie ma oprocentowania kredytu dla Buenos Aires i żadnego nie pożycza się skądinąd. Wpisz stopę w kalkulatorze powyżej, żeby zobaczyć, co dałoby się tu kupić.",
+    "rentHow": "Czynsz jest wyliczony: cena w dzielnicy podzielona przez podawany przez bank centralny wskaźnik ceny do czynszu.",
+    "notInLayer": "poza warstwą",
+    "gapsLine": "W {n} z {all} barrios w tym wycinku nie ma ceny, więc zostają szare: {names}.",
+    "gap": {
+      "none": "Brak jakiejkolwiek ceny ofertowej w II kwartale 2019",
+      "stratum": "Brak ceny trzypokojowych mieszkań z rynku wtórnego w II kwartale 2019, są tylko ceny innych rodzajów mieszkań",
+      "lima": "Poza warstwą: bank centralny publikuje {n} dzielnic"
+    },
+    "tip": {
+      "price": "Cena",
+      "rent": "Czynsz",
+      "ptr": "Cena w latach czynszu",
+      "r2": "Dwupokojowe, rynek wtórny",
+      "r3n": "Trzypokojowe, rynek pierwotny",
+      "youBuy": "Możesz kupić",
+      "youRent": "Możesz wynająć"
+    },
+    "outlier": "2020: badanie w pandemii"
+  },
   "share": {
     "copied": "Link skopiowany",
     "inBar": "Link jest w pasku adresu"

@@ -453,6 +453,39 @@
     "tip": "{kind}: {pct} van de bevolking ({m} mln)",
     "axis": "betaalbare vierkante meters voor een derde van het lokale gemiddelde inkomen"
   },
+  "latam": {
+    "legendPrice": "Prijs per m², US-dollars",
+    "legendRentPrice": "Huur per m² per maand, US-dollars",
+    "legendBuy": "m² die {share} van je inkomen koopt",
+    "legendRent": "m² die {share} van je inkomen huurt",
+    "range": "{lo}–{hi}",
+    "setupPrice": "Elke kaart is gekleurd binnen haar eigen stad: <b>groen is het goedkoopste vijfde</b> van de districten, rood het duurste. De twee schalen verschillen met opzet.",
+    "needIncome": "Vul hierboven in de rekenhulp je maandinkomen in: de laag heeft geen lokaal inkomen, dus de vierkante meters kunnen alleen vanuit het jouwe worden berekend.",
+    "setupBuy": "<b>{income}</b> per maand, omgerekend naar US-dollars tegen de ECB-koers · <b>{share}</b> voor wonen = <b>{budget}</b> per maand · hypotheek over <b>{term}</b> · eigen inbreng <b>{deposit}</b> · {rate}",
+    "setupRent": "<b>{income}</b> per maand, omgerekend naar US-dollars tegen de ECB-koers · <b>{share}</b> voor huur = <b>{budget}</b> per maand",
+    "rateLima": "Lima tegen de gemiddelde rente van Peruaanse banken op dollarhypotheken in hetzelfde kwartaal, <b>{rate}</b> per jaar; Buenos Aires heeft hier geen eigen rente",
+    "rateMine": "beide steden tegen jouw rente van <b>{rate}</b>",
+    "noRent": "Geen huren voor Buenos Aires in deze laag, alleen vraagprijzen voor koop.",
+    "noRate": "Geen hypotheekrente voor Buenos Aires in deze laag, en er wordt er ook geen van elders geleend. Vul hierboven in de rekenhulp een rente in om te zien wat je hier zou kunnen kopen.",
+    "rentHow": "De huur is afgeleid: de prijs van het district gedeeld door de prijs-huurverhouding van de centrale bank.",
+    "notInLayer": "niet in de laag",
+    "gapsLine": "{n} van {all} barrio’s hebben in deze doorsnede geen prijs en blijven grijs: {names}.",
+    "gap": {
+      "none": "Helemaal geen vraagprijs in het tweede kwartaal van 2019",
+      "stratum": "Geen prijs voor driekamerappartementen in de bestaande bouw in het tweede kwartaal van 2019, alleen voor andere soorten appartementen",
+      "lima": "Niet in de laag: de centrale bank publiceert {n} districten"
+    },
+    "tip": {
+      "price": "Prijs",
+      "rent": "Huur",
+      "ptr": "Prijs in jaren huur",
+      "r2": "Tweekamer, bestaande bouw",
+      "r3n": "Driekamer, nieuwbouw",
+      "youBuy": "Je zou kunnen kopen",
+      "youRent": "Je zou kunnen huren"
+    },
+    "outlier": "2020: pandemie-enquête"
+  },
   "share": {
     "copied": "Link gekopieerd",
     "inBar": "De link staat in de adresbalk"

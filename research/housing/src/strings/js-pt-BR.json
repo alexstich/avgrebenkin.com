@@ -453,6 +453,39 @@
     "tip": "{kind}: {pct} da população ({m} mi)",
     "axis": "metros quadrados ao alcance com um terço da renda média local"
   },
+  "latam": {
+    "legendPrice": "Preço por m², em dólares americanos",
+    "legendRentPrice": "Aluguel por m² ao mês, em dólares americanos",
+    "legendBuy": "m² que {share} da sua renda compra",
+    "legendRent": "m² que {share} da sua renda aluga",
+    "range": "{lo}–{hi}",
+    "setupPrice": "Cada mapa é colorido dentro da própria cidade: <b>verde é a quinta parte mais barata</b> dos seus distritos, vermelho, a mais cara. As duas escalas são diferentes de propósito.",
+    "needIncome": "Digite sua renda mensal na calculadora acima: a camada não tem renda local, então os metros quadrados só podem ser calculados a partir da sua.",
+    "setupBuy": "<b>{income}</b> por mês, convertidos em dólares americanos pela taxa do BCE · <b>{share}</b> para moradia = <b>{budget}</b> por mês · financiamento de <b>{term}</b> · entrada: <b>{deposit}</b> · {rate}",
+    "setupRent": "<b>{income}</b> por mês, convertidos em dólares americanos pela taxa do BCE · <b>{share}</b> para o aluguel = <b>{budget}</b> por mês",
+    "rateLima": "Lima à taxa média dos bancos peruanos para financiamentos em dólares no mesmo trimestre, <b>{rate}</b> ao ano; Buenos Aires não tem taxa própria aqui",
+    "rateMine": "as duas cidades à sua taxa de <b>{rate}</b>",
+    "noRent": "Não há aluguéis de Buenos Aires nesta camada, só preços pedidos de venda.",
+    "noRate": "Não há taxa de financiamento de Buenos Aires nesta camada, e nenhuma é emprestada de outro lugar. Digite uma taxa na calculadora acima para ver o que você poderia comprar aqui.",
+    "rentHow": "O aluguel é derivado: o preço do distrito dividido pela relação preço/aluguel do banco central.",
+    "notInLayer": "fora da camada",
+    "gapsLine": "{n} de {all} barrios não têm preço neste recorte e ficam cinza: {names}.",
+    "gap": {
+      "none": "Nenhum preço pedido no segundo trimestre de 2019",
+      "stratum": "Sem preço para apartamentos usados de três ambientes no segundo trimestre de 2019, só para outros tipos de apartamento",
+      "lima": "Fora da camada: o banco central publica {n} distritos"
+    },
+    "tip": {
+      "price": "Preço",
+      "rent": "Aluguel",
+      "ptr": "Preço em anos de aluguel",
+      "r2": "Usado, dois ambientes",
+      "r3n": "Novo, três ambientes",
+      "youBuy": "Você poderia comprar",
+      "youRent": "Você poderia alugar"
+    },
+    "outlier": "2020: pesquisa na pandemia"
+  },
   "share": {
     "copied": "Link copiado",
     "inBar": "O link está na barra de endereço"

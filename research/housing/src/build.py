@@ -123,6 +123,95 @@ def stats(data):
     return out
 
 
+# Разделитель разрядов по языку — тот же, что даёт Intl.NumberFormat в
+# скрипте страницы, чтобы число в прозе и число на карте выглядели одинаково.
+# Испанский и польский четырёхзначные не делят (у Intl minimumGroupingDigits 2).
+GROUP = {'en': ',', 'ja': ',', 'zh-Hans': ',', 'de': '.', 'es': '.', 'it': '.', 'nl': '.',
+         'pt-BR': '.', 'tr': '.', 'ru': ' ', 'uk': ' ', 'pl': ' ', 'fr': ' '}
+LATAM_META = os.path.join(ROOT, 'research', 'data', 'latam-meta.json')
+# Проза называет период словами, а не подстановкой: «четвёртый квартал 2025»
+# склоняется по-своему в каждом языке. Поэтому новый выпуск данных обязан
+# остановить сборку, пока текст не перечитан.
+LATAM_PERIODS = {'PE': [2025, 4], 'AR': [2019, 2]}
+
+
+def num(code, L, v, dec=0):
+    s = '%.*f' % (dec, v)
+    whole, _, frac = s.partition('.')
+    neg = whole.startswith('-')
+    whole = whole.lstrip('-')
+    g = GROUP[code]
+    if not (code in ('es', 'pl') and len(whole) <= 4):
+        parts = []
+        while len(whole) > 3:
+            parts.insert(0, whole[-3:]); whole = whole[:-3]
+        whole = g.join([whole] + parts)
+    return ('-' if neg else '') + whole + (L['decimal'] + frac if frac else '')
+
+
+def latam_fields(code, L, T, data, geo):
+    la = data.get('latam')
+    if not la:
+        raise SystemExit('data.json: нет слоя latam — запустить data.py')
+    for cc, want in LATAM_PERIODS.items():
+        if la[cc]['period'] != want:
+            raise SystemExit('latam %s: период данных %s, а текст написан про %s — перечитать прозу'
+                             % (cc, la[cc]['period'], want))
+    pe, ar = la['PE']['rows'], la['AR']['rows']
+    lo = lambda rows, i: min(rows, key=lambda r: r[i])
+    hi = lambda rows, i: max(rows, key=lambda r: r[i])
+    oe = {r[0]: r for r in la['oecd']}
+    cl = oe['Chile'][4]
+    pct = lambda v: num(code, L, v * 100, 1)
+    out = {
+        'latPeW': geo['latam']['PE']['w'], 'latPeH': geo['latam']['PE']['h'],
+        'latArW': geo['latam']['AR']['w'], 'latArH': geo['latam']['AR']['h'],
+        'latPeN': str(len(pe)), 'latArN': str(len(ar)),
+        'latArAll': str(len(geo['latam']['AR']['paths'])),
+        'latArMiss': str(len(la['AR'].get('gaps') or {})),
+        'latPeLo': num(code, L, lo(pe, 1)[1]), 'latPeLoName': lo(pe, 1)[0],
+        'latPeHi': num(code, L, hi(pe, 1)[1]), 'latPeHiName': hi(pe, 1)[0],
+        'latPeRentLo': num(code, L, lo(pe, 2)[2], 1), 'latPeRentLoName': lo(pe, 2)[0],
+        'latPeRentHi': num(code, L, hi(pe, 2)[2], 1), 'latPeRentHiName': hi(pe, 2)[0],
+        'latRate': num(code, L, la['PE']['rate'], 2),
+        'latArLo': num(code, L, lo(ar, 1)[1]), 'latArLoName': lo(ar, 1)[0],
+        'latArHi': num(code, L, hi(ar, 1)[1]), 'latArHiName': hi(ar, 1)[0],
+        'latClShare': pct(oe['Chile'][2]), 'latClYear': str(oe['Chile'][1]),
+        'latCl2020': pct(dict(cl)[2020]),
+        'latCoShare': pct(oe['Colombia'][2]), 'latCoYear': str(oe['Colombia'][1]),
+        'latCrShare': pct(oe['Costa Rica'][2]), 'latCrYear': str(oe['Costa Rica'][1]),
+        'latMxShare': pct(oe['Mexico'][2]), 'latMxYear': str(oe['Mexico'][1]),
+    }
+    # Таблица OECD — статикой, чтобы цифры были на странице и без скрипта;
+    # график поверх неё берёт имена стран отсюда же (data-cc), чтобы у страны
+    # было одно имя, а не два из разных словарей.
+    ISO = {'Chile': 'CL', 'Colombia': 'CO', 'Costa Rica': 'CR', 'Mexico': 'MX'}
+    rows = []
+    for r in la['oecd']:
+        cc = ISO[r[0]]
+        rows.append('<tr data-cc="%s"><th scope="row">%s</th><td>%s</td><td>%s</td><td>%s</td></tr>'
+                    % (cc, at(L, 'latam.c' + cc), r[1], T['units']['pct'].replace('{n}', pct(r[2])),
+                       at(L, 'latam.gross' if r[3] == 'gross' else 'latam.disposable')))
+    out['latOecdRows'] = ''.join(rows)
+    # Атрибуция — из latam-meta.json: имена источников, адреса и лицензии как их
+    # записал извлекатель. Словарь даёт только подписи вокруг них.
+    meta = json.load(open(LATAM_META, encoding='utf-8'))
+    ly, gm = meta['layers'], meta['geo']
+    a = lambda href, text: '<a href="%s" target="_blank" rel="noopener">%s</a>' % (html.escape(href, quote=True), html.escape(text))
+    lic = lambda m: at(L, 'latam.a07').replace('{licence}', a(m['licence_url'], m['licence']))
+    quote = lambda m: at(L, 'latam.a07').replace('{licence}', a(m['licence_url'], at(L, 'latam.a10').replace('{q}', m['licence'])))
+    items = [
+        (at(L, 'latam.a01'), a(ly['PE']['url'], ly['PE']['source']), quote(ly['PE'])),
+        (at(L, 'latam.a02'), a(ly['PE']['url'], ly['PE']['source'] + ', ' + ly['PE']['rate_series']), quote(ly['PE'])),
+        (at(L, 'latam.a03'), a(ly['AR']['url'], ly['AR']['source']), lic(ly['AR'])),
+        (at(L, 'latam.a04'), a(ly['OECD']['url'], ly['OECD']['source'] + ' (' + ly['OECD']['indicator'] + ')'), lic(ly['OECD'])),
+        (at(L, 'latam.a05'), a(gm['PE']['url'], gm['PE']['source']), lic(gm['PE']) + ' ' + at(L, 'latam.a08')),
+        (at(L, 'latam.a06'), a(gm['AR']['url'], gm['AR']['source']), lic(gm['AR']) + ' ' + at(L, 'latam.a09')),
+    ]
+    out['latAttrib'] = ''.join('<li><b>%s</b> %s. %s</li>' % it for it in items)
+    return out
+
+
 def attr_keys(tmpl):
     out = set()
     for m in re.finditer(r'=\s*"[^"]*"', tmpl):
@@ -179,6 +268,7 @@ def build(code, langs):
               if isinstance(v, str)}
     fields.update(ICONS)
     fields.update(stats(data))
+    fields.update(latam_fields(code, L, T or {}, data, geo))
     fields.update({
         'css': css, 'js': js,
         'up': '../' if code == DEFAULT else '../../',

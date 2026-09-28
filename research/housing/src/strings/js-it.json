@@ -453,6 +453,39 @@
     "tip": "{kind}: {pct} della popolazione ({m} mln)",
     "axis": "metri quadrati alla portata con un terzo del reddito medio locale"
   },
+  "latam": {
+    "legendPrice": "Prezzo al m², dollari USA",
+    "legendRentPrice": "Affitto al m² al mese, dollari USA",
+    "legendBuy": "m² da comprare, quota di reddito {share}",
+    "legendRent": "m² in affitto, quota di reddito {share}",
+    "range": "{lo}–{hi}",
+    "setupPrice": "Ogni mappa è colorata all’interno della propria città: <b>il verde è il quinto più economico</b> dei suoi distretti, il rosso il più caro. Le due scale sono diverse di proposito.",
+    "needIncome": "Inserisci il tuo reddito mensile nel calcolatore qui sopra: lo strato non ha un reddito locale, quindi i metri quadrati si possono contare solo a partire dal tuo.",
+    "setupBuy": "<b>{income}</b> al mese, convertiti in dollari USA al tasso BCE · quota per la casa <b>{share}</b> = <b>{budget}</b> al mese · mutuo a <b>{term}</b> · anticipo <b>{deposit}</b> · {rate}",
+    "setupRent": "<b>{income}</b> al mese, convertiti in dollari USA al tasso BCE · quota per l’affitto <b>{share}</b> = <b>{budget}</b> al mese",
+    "rateLima": "Lima al tasso medio dei mutui in dollari delle banche peruviane nello stesso trimestre, <b>{rate}</b> annuo; per Buenos Aires qui non c’è un tasso proprio",
+    "rateMine": "entrambe le città al tuo tasso del <b>{rate}</b>",
+    "noRent": "Per Buenos Aires questo strato non ha affitti, solo prezzi richiesti per la vendita.",
+    "noRate": "Per Buenos Aires questo strato non ha un tasso ipotecario, e non se ne prende in prestito uno da altrove. Inserisci un tasso nel calcolatore qui sopra per vedere cosa potresti comprare qui.",
+    "rentHow": "L’affitto è ricavato: il prezzo del distretto diviso per il rapporto prezzo/affitto della banca centrale.",
+    "notInLayer": "non presente nello strato",
+    "gapsLine": "{n} barrios su {all} non hanno un prezzo in questa fetta e restano grigi: {names}.",
+    "gap": {
+      "none": "Nessun prezzo richiesto nel secondo trimestre del 2019",
+      "stratum": "Nessun prezzo per i trilocali usati nel secondo trimestre del 2019, solo per altri tipi di appartamento",
+      "lima": "Non presente nello strato: la banca centrale pubblica {n} distretti"
+    },
+    "tip": {
+      "price": "Prezzo",
+      "rent": "Affitto",
+      "ptr": "Prezzo in anni d’affitto",
+      "r2": "Bilocale usato",
+      "r3n": "Trilocale nuovo",
+      "youBuy": "Potresti comprare",
+      "youRent": "Potresti affittare"
+    },
+    "outlier": "2020: indagine in pandemia"
+  },
   "share": {
     "copied": "Link copiato",
     "inBar": "Il link è nella barra degli indirizzi"

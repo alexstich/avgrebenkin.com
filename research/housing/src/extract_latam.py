@@ -90,10 +90,30 @@ CEPALSTAT, Межамериканский банк развития, Всеми�
 местного. Но «средний местный житель» для этих городов не показывается, и в
 latam-gaps.csv записано почему.
 
+СТАВКА ИПОТЕКИ. Режим «сколько метров можно купить» без ставки не считается.
+Для Лимы она берётся из того же центрального банка и под той же лицензией:
+серия PN07857NM — средняя ставка банков по ипотеке в долларах (ME, moneda
+extranjera), в эффективных годовых процентах (TEA), усреднённая по трём месяцам
+того же квартала, что и цены. Доллары выбраны потому, что в долларах и цены.
+У Буэнос-Айреса своей ставки в слое нет, и чужая не подставляется: страница
+считает там покупку только по ставке, которую читатель ввёл сам.
+
+КОНТУРЫ РАЙОНОВ. Лицензия каждого прочитана в первоисточнике, а не в пересказе:
+  * Лима — «Peru - Subnational Administrative Boundaries» на HDX (OCHA),
+    источник Instituto Geográfico Nacional. Поле license_id карточки набора:
+    cc-by-igo, то есть CC BY 3.0 IGO; раздел 3 текста лицензии разрешает
+    воспроизводить и делать производные работы при пометке, что оригинал
+    изменён, — контуры упрощены, и страница об этом говорит. geoBoundaries,
+    первый кандидат, не подошёл не по лицензии, а по содержанию: у Перу там
+    есть только провинции (ADM2), районов (ADM3) нет вовсе;
+  * Буэнос-Айрес — набор «Barrios» того же портала Buenos Aires Data, поле
+    «Licencia» карточки и license_id его метаданных: CC-BY-2.5-AR, как у цен.
+Контуры упрощаются здесь же, чтобы в репозиторий не ложились 74 МБ исходника.
+
 Непокрытое НЕ отбрасывается молча: каждый пропуск попадает в latam-gaps.csv
-с причиной.
+с причиной — и решения о контурах тоже.
 """
-import csv, io, json, os, sys, urllib.request, zipfile
+import csv, io, json, math, os, sys, unicodedata, urllib.request, zipfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
@@ -103,6 +123,7 @@ OUT_AR = os.path.join(DATA, 'latam-ar-caba.csv')
 OUT_OECD = os.path.join(DATA, 'latam-oecd.csv')
 GAPS = os.path.join(DATA, 'latam-gaps.csv')
 META = os.path.join(DATA, 'latam-meta.json')
+OUT_GEO = os.path.join(DATA, 'latam-geo.json')
 
 UA = 'avgrebenkin.com/research/housing (+https://avgrebenkin.com/research/housing/)'
 
@@ -114,6 +135,14 @@ AR_RENT = ('https://cdn.buenosaires.gob.ar/datosabiertos/datasets/'
            'instituto-de-vivienda/mercado-inmobiliario/precio-alquiler-deptos.csv')
 OECD_HC12 = ('https://webfs.oecd.org/els-com/Affordable_Housing_Database/'
              'HC1-2-Housing-costs-over-income.xlsx')
+BCRP_RATE = 'PN07857NM'
+# Ссылка на ресурс берётся из API карточки HDX, а не вшивается: у ресурса в
+# адресе его uuid, и при новом выпуске он меняется.
+HDX_PER = 'https://data.humdata.org/api/3/action/package_show?id=cod-ab-per'
+HDX_PER_PAGE = 'https://data.humdata.org/dataset/cod-ab-per'
+AR_BARRIOS = ('https://cdn.buenosaires.gob.ar/datosabiertos/datasets/'
+              'innovacion-transformacion-digital/barrios/barrios.geojson')
+AR_BARRIOS_PAGE = 'https://data.buenosaires.gob.ar/dataset/barrios'
 
 # Из Латинской Америки в базе OECD есть только эти четыре страны-члена.
 OECD_LATAM = ['Chile', 'Colombia', 'Costa Rica', 'Mexico']
@@ -314,6 +343,185 @@ def oecd(src):
     return out, OECD_SHEET
 
 
+# ------------------------------------------------------- ставка Перу
+
+def peru_rate(src, period):
+    """Средняя TEA по долларовой ипотеке за три месяца квартала цен.
+
+    Серия запрашивается одна: интерфейс BCRP возвращает несколько серий не в
+    том порядке, в каком их просили (проверено на паре MN/ME), и сопоставлять
+    их по позиции нельзя.
+    """
+    q, yy = period[1], period.split('.')[1]          # «T4.25»
+    y, m0 = 2000 + int(yy), (int(q) - 1) * 3 + 1
+    url = f'{BCRP_API}/{BCRP_RATE}/json/{y}-{m0}/{y}-{m0 + 2}'
+    raw = json.load(open(fetch(url, os.path.join(src, f'bcrp-rate-{y}q{q}.json')), encoding='utf-8'))
+    name = raw['config']['series'][0]['name']
+    if 'ME - Hipotecario' not in name:
+        raise SystemExit(f'BCRP: вместо долларовой ипотечной ставки пришло «{name}»')
+    vals = [float(p['values'][0]) for p in raw['periods'] if p['values'][0] not in ('n.d.', '')]
+    if len(vals) != 3:
+        raise SystemExit(f'BCRP: за {period} нашлось {len(vals)} месяцев ставки из 3')
+    return round(sum(vals) / 3, 4), name
+
+
+# ------------------------------------------------------------ контуры
+
+def fold(s):
+    s = unicodedata.normalize('NFD', s.lower())
+    return ''.join(c for c in s if unicodedata.category(c) != 'Mn').strip()
+
+
+# Имена, которые источник цен и источник контуров пишут по-разному. «Paterl» —
+# так квартал Paternal записан в самом файле цен, это не ошибка извлечения.
+GEO_ALIAS = {
+    'PE': {'Magdalena': 'Magdalena del Mar', 'Surco': 'Santiago de Surco'},
+    'AR': {'Boca': 'La Boca', 'Paterl': 'Paternal'},
+}
+
+
+def outer_rings(geom):
+    polys = geom['coordinates'] if geom['type'] == 'MultiPolygon' else [geom['coordinates']]
+    return [p[0] for p in polys]
+
+
+def clip(ring, box):
+    """Сазерленд — Ходжмен по прямоугольнику: соседи за рамкой врезки не нужны."""
+    x0, y0, x1, y1 = box
+    edges = [(lambda p: p[0] >= x0, lambda a, b: (x0, a[1] + (b[1] - a[1]) * (x0 - a[0]) / (b[0] - a[0]))),
+             (lambda p: p[0] <= x1, lambda a, b: (x1, a[1] + (b[1] - a[1]) * (x1 - a[0]) / (b[0] - a[0]))),
+             (lambda p: p[1] >= y0, lambda a, b: (a[0] + (b[0] - a[0]) * (y0 - a[1]) / (b[1] - a[1]), y0)),
+             (lambda p: p[1] <= y1, lambda a, b: (a[0] + (b[0] - a[0]) * (y1 - a[1]) / (b[1] - a[1]), y1))]
+    pts = [tuple(p[:2]) for p in ring]
+    for inside, cut in edges:
+        if not pts:
+            break
+        out, prev = [], pts[-1]
+        for cur in pts:
+            if inside(cur):
+                if not inside(prev):
+                    out.append(cut(prev, cur))
+                out.append(cur)
+            elif inside(prev):
+                out.append(cut(prev, cur))
+            prev = cur
+        pts = out
+    return pts
+
+
+def simplify(pts, tol_m, lat):
+    """Дуглас — Пекер в метрах: градус долготы у экватора и в Буэнос-Айресе разный."""
+    kx, ky = 111320 * math.cos(math.radians(lat)), 110540
+    xy = [(p[0] * kx, p[1] * ky) for p in pts]
+
+    def dp(a, b):
+        (ax, ay), (bx, by) = xy[a], xy[b]
+        dx, dy = bx - ax, by - ay
+        ln = math.hypot(dx, dy) or 1e-9
+        best, idx = 0.0, None
+        for i in range(a + 1, b):
+            d = abs(dy * xy[i][0] - dx * xy[i][1] + bx * ay - by * ax) / ln
+            if d > best:
+                best, idx = d, i
+        if idx is None or best <= tol_m:
+            return [a]
+        return dp(a, idx) + dp(idx, b)
+
+    if len(pts) < 4:
+        return pts
+    # У замкнутого кольца первая точка совпадает с последней, отрезок между
+    # ними нулевой, и алгоритм выбросил бы всё. Кольцо режется надвое в точке,
+    # самой далёкой от начала.
+    far = max(range(len(xy)), key=lambda i: math.hypot(xy[i][0] - xy[0][0], xy[i][1] - xy[0][1]))
+    keep = dp(0, far) + dp(far, len(pts) - 1) + [len(pts) - 1]
+    return [pts[i] for i in keep]
+
+
+def bbox(rings):
+    xs = [p[0] for r in rings for p in r]
+    ys = [p[1] for r in rings for p in r]
+    return min(xs), min(ys), max(xs), max(ys)
+
+
+def city_geo(feats, name_of, keys, cc, tol_m, pad):
+    """Районы города: ключ — имя района в CSV цен, None — района в слое нет.
+
+    Окно — рамка районов с ценами плюс поле pad с каждой стороны: соседи без
+    данных рисуются фоном, иначе врезка висела бы в пустоте.
+    """
+    names = GEO_ALIAS.get(cc, {})
+    alias = {fold(k): fold(v) for k, v in names.items()}
+    want = {alias.get(fold(k), fold(k)): k for k in keys}
+    rows, matched = [], set()
+    for f in feats:
+        nm = name_of(f)
+        key = want.get(fold(nm))
+        if key:
+            matched.add(key)
+        rows.append((nm, key, outer_rings(f['geometry'])))
+    for k in keys:
+        if k not in matched:
+            raise SystemExit(f'{cc}: район «{k}» из цен не нашёл контура')
+    for k, v in names.items():
+        note('контуры', cc, f'«{k}» в ценах = «{v}» в контурах')
+    x0, y0, x1, y1 = bbox([r for _, key, rs in rows if key for r in rs])
+    px, py = (x1 - x0) * pad, (y1 - y0) * pad
+    win = (x0 - px, y0 - py, x1 + px, y1 + py)
+    lat = (y0 + y1) / 2
+    out = []
+    for nm, key, rs in rows:
+        rings = []
+        for r in rs:
+            c = clip(r, win)
+            if len(c) < 3:
+                continue
+            s = simplify(c + [c[0]], tol_m, lat)
+            if len(s) >= 4:
+                rings.append([[round(p[0], 5), round(p[1], 5)] for p in s])
+        if rings:
+            # «as» — как район пишет файл цен, даже когда цены у него нет: по
+            # этому имени страница находит причину пропуска в latam-gaps.csv.
+            spelled = key or {fold(v): k for k, v in names.items()}.get(fold(nm), nm)
+            out.append({'name': nm, 'key': key, 'as': spelled, 'rings': rings})
+    out.sort(key=lambda d: d['name'])
+    return out
+
+
+def boundaries(src, pe_rows, ar_rows):
+    pkg = json.load(open(fetch(HDX_PER, os.path.join(src, 'hdx-cod-ab-per.json')), encoding='utf-8'))['result']
+    if pkg.get('license_id') != 'cc-by-igo':
+        raise SystemExit(f'HDX: лицензия набора сменилась на {pkg.get("license_id")} — перечитать до сборки')
+    res = next(r for r in pkg['resources'] if r['format'] == 'GeoJSON')
+    zp = fetch(res['url'], os.path.join(src, 'per_admin_boundaries.geojson.zip'))
+    with zipfile.ZipFile(zp) as z:
+        per = json.load(z.open('per_admin3.geojson'))
+    # Провинции Лима и Кальяо: это один город, и Кальяо ограничивает
+    # Сан-Мигель и Магдалену с запада.
+    lima_feats = [f for f in per['features']
+                  if (f['properties']['adm1_name'], f['properties']['adm2_name']) in {('Lima', 'Lima'), ('Callao', 'Callao')}]
+    lima = city_geo(lima_feats, lambda f: f['properties']['adm3_name'],
+                    [r['district'] for r in pe_rows], 'PE', tol_m=25, pad=0.12)
+    note('контуры', 'PE', 'geoBoundaries не подошёл: у Перу там только провинции (ADM2), районов (ADM3) нет; '
+         'взяты районы IGN из набора HDX cod-ab-per, CC BY 3.0 IGO, упрощены')
+    n_lima = sum(1 for d in lima if not d['key'])
+    note('контуры', 'PE', f'{n_lima} соседних районов без цены рисуются фоном: BCRP публикует только 12 районов')
+
+    ba = json.load(open(fetch(AR_BARRIOS, os.path.join(src, 'caba-barrios.geojson')), encoding='utf-8'))
+    ar = city_geo(ba['features'], lambda f: f['properties']['nombre'],
+                  [r['district'] for r in ar_rows], 'AR', tol_m=15, pad=0.02)
+    note('контуры', 'AR', 'barrios с портала Buenos Aires Data, CC-BY-2.5-AR (поле «Licencia» набора), упрощены')
+    meta = {
+        'PE': {'source': 'Instituto Geográfico Nacional (IGN), via OCHA / HDX «Peru - Subnational Administrative Boundaries»',
+               'url': HDX_PER_PAGE, 'licence': 'CC BY 3.0 IGO',
+               'licence_url': 'https://creativecommons.org/licenses/by/3.0/igo/legalcode',
+               'modified': 'контуры упрощены и обрезаны рамкой врезки'},
+        'AR': {'source': 'Buenos Aires Data, «Barrios»', 'url': AR_BARRIOS_PAGE, 'licence': 'CC-BY-2.5-AR',
+               'licence_url': 'https://creativecommons.org/licenses/by/2.5/ar/',
+               'modified': 'контуры упрощены'},
+    }
+    return {'PE': lima, 'AR': ar}, meta
+
+
 # ---------------------------------------------------------------- сборка
 
 def write(path, rows, cols):
@@ -330,8 +538,11 @@ def main():
     os.makedirs(DATA, exist_ok=True)
 
     pe, pe_period = peru(src)
+    pe_rate, pe_rate_name = peru_rate(src, pe_period)
     ar, ar_period = argentina(src)
     oe, oe_tag = oecd(src)
+    geo, geo_meta = boundaries(src, pe, ar)
+    note('ставка', 'AR', 'своей ставки ипотеки у слоя нет; покупка считается только по ставке, введённой читателем')
 
     # Страны, проверенные и не вошедшие: причина записывается всегда.
     for c, why in [
@@ -360,7 +571,10 @@ def main():
                    'licence': 'Puede reproducirse total o parcialmente, sin autorización '
                               'expresa, siempre y cuando se cite la fuente',
                    'licence_url': 'https://www.bcrp.gob.pe/condiciones-de-uso.html',
-                   'kind': 'цена сделок'},
+                   'kind': 'цена сделок',
+                   # TEA — эффективная годовая: месячная ставка из неё
+                   # (1 + TEA)^(1/12) − 1, а не TEA / 12.
+                   'rate_tea': pe_rate, 'rate_series': BCRP_RATE, 'rate_name': pe_rate_name},
             'AR': {'rows': n2, 'period': ar_period, 'city': 'Buenos Aires',
                    'source': 'Buenos Aires Data, Instituto de Vivienda',
                    'url': 'https://data.buenosaires.gob.ar/dataset/mercado-inmobiliario',
@@ -377,14 +591,21 @@ def main():
                      'licence_url': 'https://creativecommons.org/licenses/by/4.0/',
                      'countries': OECD_LATAM},
         },
+        'geo': geo_meta,
         'gaps': len(gaps),
     }
     with open(META, 'w', encoding='utf-8') as f:
         json.dump(meta, f, ensure_ascii=False, indent=2)
+    with open(OUT_GEO, 'w', encoding='utf-8') as f:
+        json.dump(geo, f, ensure_ascii=False, separators=(',', ':'))
 
     print(f'Перу, районы Лимы:        {n1:3}  ({pe_period})')
     print(f'Аргентина, кварталы CABA: {n2:3}  ({ar_period})')
     print(f'OECD, страны региона:     {n3:3}')
+    print(f'ставка Лимы, TEA:       {pe_rate:6.3f}  ({BCRP_RATE})')
+    for cc in geo:
+        print(f'контуры {cc}: {len(geo[cc])} районов, {sum(1 for d in geo[cc] if d["key"])} с ценой')
+    print(f'latam-geo.json: {os.path.getsize(OUT_GEO)} байт')
     print(f'пропусков с причиной:     {len(gaps):3}  → {os.path.relpath(GAPS, ROOT)}')
 
 

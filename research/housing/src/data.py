@@ -182,6 +182,71 @@ def wmean(rows, key, weight='pop', where=None):
     return num / den if den else 0.0
 
 
+LATAM = {k: os.path.join(ROOT, 'research', 'data', 'latam-%s' % k) for k in
+         ('pe-lima.csv', 'ar-caba.csv', 'oecd.csv', 'gaps.csv', 'meta.json')}
+
+
+def latam():
+    """Латиноамериканский слой (см. extract_latam.py): два города и четыре страны OECD.
+
+    Живёт отдельно от countries / regions / places, и это не небрежность. У этих
+    строк нет местного дохода, а вся модель страницы — места, их регионы,
+    рейтинги, сравнение — стоит на нём: Лима в рейтинге рядом с Веной означала
+    бы сравнение цены сделок в долларах с ценой объявлений в евро на доходе,
+    которого у Лимы нет. Поэтому у слоя своя карта-врезка и своя арифметика, и
+    считает она только от дохода читателя.
+    """
+    if not os.path.exists(LATAM['meta.json']):
+        return None
+    meta = json.load(open(LATAM['meta.json'], encoding='utf-8'))
+
+    def rows(k):
+        return list(csv.DictReader(open(LATAM[k], encoding='utf-8')))
+
+    def period(s):
+        # «T4.25» у BCRP и «2019 Q2» у портала Буэнос-Айреса — в один вид.
+        if s.startswith('T'):
+            q, y = s[1:].split('.')
+            return [2000 + int(y), int(q)]
+        y, q = s.split(' Q')
+        return [int(y), int(q)]
+
+    def n(v):
+        return round(float(v), 2) if v not in ('', None) else 0
+
+    pe = [[r['district'], n(r['usd_m2']), n(r['rent_usd_m2_month']), n(r['price_to_rent_years'])]
+          for r in rows('pe-lima.csv')]
+    ar = [[r['district'], n(r['usd_m2']), int(r['comuna']), n(r['usd_m2_2amb_used']), n(r['usd_m2_3amb_new'])]
+          for r in rows('ar-caba.csv')]
+    # Причина пропуска — кодом, а не русской фразой из CSV: страница переводит
+    # её сама. Незнакомая формулировка роняет сборку, а не превращается молча в
+    # «нет данных» без объяснения.
+    gaps = {}
+    for g in rows('gaps.csv'):
+        if g['scope'] != 'AR':
+            continue
+        if g['reason'].startswith('ни одной цены'):
+            gaps[g['item']] = 'none'
+        elif g['reason'].startswith('нет среза'):
+            gaps[g['item']] = 'stratum'
+        else:
+            raise SystemExit('latam-gaps.csv: незнакомая причина «%s»' % g['reason'])
+    oecd = []
+    for r in rows('oecd.csv'):
+        ser = [[int(a), round(float(b), 4)] for a, b in (x.split(':') for x in r['series'].split())]
+        oecd.append([r['country'], int(r['year']), round(float(r['share']), 4), r['income_basis'], ser])
+    L = meta['layers']
+    if not L['PE'].get('rate_tea'):
+        raise SystemExit('latam-meta.json: нет ставки Лимы — перезапустить extract_latam.py')
+    return {
+        'PE': {'period': period(L['PE']['period']), 'kind': 'deal', 'rate': L['PE']['rate_tea'],
+               'rows': pe, 'fields': ['name', 'usd_m2', 'rent_m2_mo', 'ptr_years']},
+        'AR': {'period': period(L['AR']['period']), 'kind': 'offer', 'rate': None,
+               'rows': ar, 'gaps': gaps, 'fields': ['name', 'usd_m2', 'comuna', 'usd_m2_2amb', 'usd_m2_3amb_new']},
+        'oecd': oecd,
+    }
+
+
 def main():
     rows = []
     with open(CSV, encoding='utf-8') as fh:
@@ -443,6 +508,7 @@ def main():
         'usmeta': {k: meta.get(k) for k in
                    ('release', 'releaseName', 'years', 'rateYear', 'counties',
                     'moeMedian', 'moeP90')} if meta else {},
+        'latam': latam(),
     }
     p = os.path.join(HERE, 'data.json')
     json.dump(out, open(p, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))

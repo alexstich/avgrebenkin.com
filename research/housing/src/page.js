@@ -177,7 +177,7 @@
   // на этот самый 1 % — при этом обещая точное совпадение. С третью расхождение
   // 7.7e-10 на 78 758 строках продажи и 4.9e-9 на 47 154 строках аренды.
   var THIRD = 100 / 3;
-  var S = { inc: 0, cur: "EUR", share: THIRD, term: 30, rate: null, dep: 0, adults: 1, kids: 0,
+  var S = { inc: 0, cur: "EUR", share: THIRD, term: 30, rate: null, dep: 0, adults: 1, kids: 0, lm: "price", lt: "buy",
             mode: "buy", basis: "local", want: 0, cmp: [], frame: GEO.order[0], reg: allRegOn(),
             sort: "buy", dir: "desc", mf: null, mt: null, mi: 0, mc: null, rank: "countries", sel: null, coast: 0, sav: 500 };
   var DEFAULTS = JSON.parse(JSON.stringify(S));
@@ -212,6 +212,8 @@
     S.mt = placeById(p.get("mt")) ? p.get("mt") : null;
     S.mi = num("mi", 0, 1e7, 0);
     S.mc = FX[p.get("mc")] ? p.get("mc") : null;
+    S.lm = p.get("lm") === "area" ? "area" : "price";
+    S.lt = p.get("lt") === "rent" ? "rent" : "buy";
     // Ссылка может нести место одного слоя и кадр другого — например «?p=us48453»
     // без «f». Кадр идёт за выбранным местом: показывать метку там, где её на
     // карте нет, хуже, чем переключить карту.
@@ -229,6 +231,7 @@
     put("o", (S.dir === "asc" ? "-" : "") + S.sort, "buy"); put("v", S.rank, "countries");
     put("p", S.sel, null); put("z", S.coast, 0); put("sv", S.sav, 500);
     put("mf", S.mf, null); put("mt", S.mt, null); put("mi", S.mi, 0); put("mc", S.mc, null);
+    put("lm", S.lm, "price"); put("lt", S.lt, "buy");
     return location.origin + location.pathname + (q.length ? "?" + q.join("&") : "");
   }
   var urlTimer = null;
@@ -1713,6 +1716,265 @@
   drawHist("hist-sale", DATA.hist.sale); drawHist("hist-rent", DATA.hist.rent);
 
   // ======================================================================
+  // Латинская Америка: два города, каждый своей врезкой и своей шкалой
+  // ======================================================================
+  // Местного дохода у слоя нет, поэтому «метры» здесь только от дохода
+  // читателя, а цена за метр красится внутри своего города: цена сделок в
+  // Лиме 2025 года и цена объявлений в Буэнос-Айресе 2019-го на одной шкале
+  // читались бы как сравнение, которого данные не позволяют.
+  var LA = DATA.latam, LG = GEO.latam, TL = T.latam;
+  var LA_CITIES = ["PE", "AR"];
+  var LAD = {};
+  LA_CITIES.forEach(function (cc) {
+    var f = LA[cc].fields, by = {};
+    LA[cc].rows.forEach(function (a) {
+      var o = {}; f.forEach(function (k, i) { o[k] = a[i]; });
+      // Ноль в дополнительных колонках — «среза нет», а не бесплатное жильё.
+      by[o.name] = { name: o.name, price: o.usd_m2 || null, rent: o.rent_m2_mo || null, ptr: o.ptr_years || null,
+                     r2: o.usd_m2_2amb || null, r3n: o.usd_m2_3amb_new || null };
+    });
+    LAD[cc] = by;
+  });
+  // Ставка читателя, если он её ввёл, — номинальная годовая, как на всей
+  // странице. Своя ставка слоя есть только у Лимы, и она эффективная (TEA):
+  // месячная из неё — корень двенадцатой степени, а не деление на 12.
+  function laMonthlyRate(cc) {
+    if (S.rate !== null) return S.rate / 100 / 12;
+    var tea = LA[cc].rate;
+    return tea === null || tea === undefined ? null : Math.pow(1 + tea / 100, 1 / 12) - 1;
+  }
+  function laAnn(i, years) { var n = years * 12; return i > 0 ? (1 - Math.pow(1 + i, -n)) / i : n; }
+  function laBudget() { return S.inc > 0 ? incEUR() * FX.USD * S.share / 100 : 0; }
+  // null значит «величины нет», и причина у каждого null своя — её называет
+  // laNote, а не прочерк молча.
+  function laValue(cc, d) {
+    var rent = S.lt === "rent";
+    if (rent && !d.rent) return null;
+    if (S.lm === "price") return rent ? d.rent : d.price;
+    var b = laBudget(); if (!b) return null;
+    if (rent) return b / d.rent;
+    var i = laMonthlyRate(cc); if (i === null) return null;
+    return b * laAnn(i, S.term) / (1 - S.dep / 100) / d.price;
+  }
+  // Шкала цены — пятые доли районов своего же города: зелёный — самая дешёвая
+  // пятая часть, красный — самая дорогая. Ступени метров — те же, что на
+  // большой карте, потому что это вопрос о читателе, а не о городе.
+  function laBreaks(vals) {
+    var v = vals.slice().sort(function (a, b) { return a - b; });
+    return [0.2, 0.4, 0.6, 0.8].map(function (q) { return v[Math.min(v.length - 1, Math.floor(q * v.length))]; });
+  }
+  function laClass(v, br) {
+    if (v === null || v === undefined || !(v > 0)) return -1;
+    if (S.lm === "area") return cls(v);
+    var i = 0; while (i < br.length && v >= br[i]) i++;
+    return 4 - i;
+  }
+  function laFmt(v) {
+    if (v === null || v === undefined) return "—";
+    if (S.lm === "area") return m2s(fmtM2(v));
+    return S.lt === "rent" ? fill(U.perM2Mo, { money: money("USD", fmtNum(v, 1)) })
+      : fill(U.perM2, { money: money("USD", fmtInt(v)) });
+  }
+  function laMoney(v, dec) { return money("USD", dec ? fmtNum(v, dec) : fmtInt(v)); }
+  function laNote(cc, vals) {
+    var out = [];
+    if (S.lt === "rent" && cc === "AR") out.push(TL.noRent);
+    else if (S.lm === "area" && S.lt === "buy" && cc === "AR" && S.rate === null && S.inc > 0) out.push(TL.noRate);
+    if (S.lt === "rent" && cc === "PE") out.push(TL.rentHow);
+    if (cc === "AR") {
+      // Имена пропусков — из контуров, а не из файла цен: там квартал Paternal
+      // записан как «Paterl», и повторять опечатку источника незачем.
+      var g = LG.AR.paths.filter(function (p) { return !p[1]; }).map(function (p) { return p[0]; });
+      out.push(fill(TL.gapsLine, { n: fmtInt(g.length), all: fmtInt(LG.AR.paths.length), names: listOf(g) }));
+    }
+    return out.join(" ");
+  }
+  var laTipOf = {};
+  function laTip(cc, p) {
+    // Район с ценой зовётся так, как его пишет источник цен (и CSV, и проза):
+    // «Jesús María», а не «Jesus Maria» из контуров без ударений.
+    var key = p[1], d = LAD[cc][key], name = d ? d.name : p[0];
+    var h = "<b>" + esc(name) + "</b>";
+    function row(a, b) { h += '<div class="r"><span>' + esc(a) + "</span><span>" + b + "</span></div>"; }
+    if (!d) {
+      var reason = cc === "PE" ? fill(TL.gap.lima, { n: fmtInt(LA.PE.rows.length) }) : TL.gap[(LA.AR.gaps || {})[p[2]]] || TL.gap.none;
+      return h + '<div class="r"><span>' + esc(reason) + "</span></div>";
+    }
+    row(TL.tip.price, fill(U.perM2, { money: laMoney(d.price) }));
+    if (d.rent) row(TL.tip.rent, fill(U.perM2Mo, { money: laMoney(d.rent, 1) }));
+    if (d.ptr) row(TL.tip.ptr, plural(U.yrs, d.ptr, 1));
+    if (d.r2) row(TL.tip.r2, fill(U.perM2, { money: laMoney(d.r2) }));
+    if (d.r3n) row(TL.tip.r3n, fill(U.perM2, { money: laMoney(d.r3n) }));
+    if (S.lm === "area") {
+      var v = laValue(cc, d);
+      row(S.lt === "rent" ? TL.tip.youRent : TL.tip.youBuy, v === null ? "—" : m2s(fmtM2(v)));
+    }
+    return h;
+  }
+  function laHot(cc, key, on, evt) {
+    var box = $("lat-" + cc), tip = box.querySelector(".tip");
+    Array.prototype.forEach.call(box.querySelectorAll(".hot"), function (n) { n.classList.remove("hot"); });
+    if (!on) { tip.classList.remove("on"); tip.style.opacity = ""; return; }
+    var path = box.querySelector('path[data-n="' + cssEsc(key) + '"]');
+    var li = box.querySelector('li[data-n="' + cssEsc(key) + '"]');
+    if (path) path.classList.add("hot");
+    if (li) li.classList.add("hot");
+    if (!path) return;
+    tip.innerHTML = laTip(cc, laTipOf[cc][key]);
+    var wrap = box.querySelector(".latmap").getBoundingClientRect(), r = path.getBoundingClientRect();
+    var x = evt && evt.clientX ? evt.clientX : r.left + r.width / 2, y = evt && evt.clientY ? evt.clientY : r.top + r.height / 2;
+    // Подсказка не вылезает за край врезки: на телефоне край врезки — край экрана.
+    var w = tip.offsetWidth || 180;
+    x = Math.max(wrap.left + w / 2 + 4, Math.min(wrap.right - w / 2 - 4, x));
+    tip.style.left = (x - wrap.left) + "px"; tip.style.top = Math.max(tip.offsetHeight + 6, y - wrap.top - 10) + "px";
+    tip.style.opacity = "1";
+  }
+  function cssEsc(s) { return String(s).replace(/["\\]/g, "\\$&"); }
+  function buildLatam() {
+    LA_CITIES.forEach(function (cc) {
+      var box = $("lat-" + cc), svg = box.querySelector("svg"), map = LG[cc];
+      laTipOf[cc] = {};
+      map.paths.forEach(function (p) {
+        var n = p[1] || "~" + p[0];
+        laTipOf[cc][n] = p;
+        var a = { d: p[3], "data-n": n };
+        a["class"] = p[1] ? "" : cc === "AR" ? "gap" : "ctx";
+        svg.appendChild(svgel("path", a));
+      });
+      function on(e) {
+        var t = e.target.closest("[data-n]"); if (!t) return;
+        laHot(cc, t.getAttribute("data-n"), true, e.type === "focusin" ? null : e);
+      }
+      // После касания пальцем pointerleave приходит сразу же, и подсказка
+      // гасла бы, не успев показаться. Её гасит следующее касание.
+      function off(e) { if (e && e.pointerType === "touch") return; laHot(cc, null, false); }
+      box.querySelector(".latmap").addEventListener("pointermove", on);
+      box.querySelector(".latmap").addEventListener("pointerleave", off);
+      var list = box.querySelector(".latlist");
+      list.addEventListener("pointerover", on); list.addEventListener("pointerleave", off);
+      list.addEventListener("focusin", on); list.addEventListener("focusout", off);
+    });
+  }
+  function drawLatam() {
+    segSet("lmetric", S.lm); segSet("ltenure", S.lt);
+    LA_CITIES.forEach(function (cc) {
+      var box = $("lat-" + cc), by = LAD[cc];
+      var keys = Object.keys(by), vals = {};
+      keys.forEach(function (k) { vals[k] = laValue(cc, by[k]); });
+      var have = keys.filter(function (k) { return vals[k] !== null; });
+      var br = laBreaks(have.map(function (k) { return vals[k]; }));
+      Array.prototype.forEach.call(box.querySelectorAll("path[data-n]"), function (path) {
+        var k = path.getAttribute("data-n"); if (!by[k]) return;
+        var c = laClass(vals[k], br);
+        path.setAttribute("class", c < 0 ? "" : "c" + c);
+      });
+      // Легенда: метры — общими ступенями страницы, цена — диапазонами
+      // своего города, от дорогой пятой части к дешёвой.
+      var leg = box.querySelector(".legend"), lh = "";
+      if (have.length) {
+        if (S.lm === "area") {
+          lh = "<b>" + esc(fill(S.lt === "rent" ? TL.legendRent : TL.legendBuy, { share: shareText() })) + "</b>";
+          CLASS_LABEL.forEach(function (t, i) { lh += '<span><i class="c' + i + '"></i>' + esc(t) + "</span>"; });
+        } else {
+          lh = "<b>" + esc(S.lt === "rent" ? TL.legendRentPrice : TL.legendPrice) + "</b>";
+          for (var c = 0; c <= 4; c++) {
+            var inC = have.filter(function (k) { return laClass(vals[k], br) === c; }).map(function (k) { return vals[k]; });
+            if (!inC.length) continue;
+            var lo = Math.min.apply(null, inC), hi = Math.max.apply(null, inC), dec = S.lt === "rent" ? 1 : 0;
+            lh += '<span><i class="c' + c + '"></i>' + esc(lo === hi ? laMoney(lo, dec) : fill(TL.range, { lo: laMoney(lo, dec), hi: fmtNum(hi, dec, !dec) })) + "</span>";
+          }
+        }
+        if (cc === "AR") lh += '<span><i class="nd"></i>' + esc(T.legend.noData) + "</span>";
+        else lh += '<span><i class="ctx"></i>' + esc(TL.notInLayer) + "</span>";
+      }
+      leg.innerHTML = lh;
+      box.querySelector(".latnote").textContent = laNote(cc);
+      // Список: лучшее для читателя сверху — дешёвый метр или больше метров.
+      var list = box.querySelector(".latlist"), max = 0;
+      have.forEach(function (k) { if (vals[k] > max) max = vals[k]; });
+      var order = have.slice().sort(function (a, b) { return S.lm === "area" ? vals[b] - vals[a] : vals[a] - vals[b]; });
+      list.innerHTML = order.map(function (k) {
+        var c = laClass(vals[k], br);
+        return '<li tabindex="0" data-n="' + esc(k) + '"><span>' + esc(k) + "</span><b>" + esc(laFmt(vals[k]))
+          + '</b><i class="c' + c + '" style="width:' + (max ? Math.max(4, vals[k] / max * 100).toFixed(1) : 0) + '%"></i></li>';
+      }).join("");
+    });
+    var st;
+    if (S.lm === "price") st = TL.setupPrice;
+    else if (!(S.inc > 0)) st = TL.needIncome;
+    else st = fill(S.lt === "rent" ? TL.setupRent : TL.setupBuy, {
+      income: laMoney(incEUR() * FX.USD), budget: laMoney(laBudget()), share: shareText(), term: termAdj(),
+      deposit: pctS(fmtPlain(S.dep)),
+      rate: S.rate !== null ? fill(TL.rateMine, { rate: fmtRate(S.rate) }) : fill(TL.rateLima, { rate: fmtRate(LA.PE.rate) }) });
+    $("latsetup").innerHTML = st;
+  }
+  // Доля платежей за жильё в доходе по OECD: четыре страны, у одной из них
+  // (Коста-Рика) знаменатель другой — располагаемый доход, а не доход до
+  // налогов. Поэтому её линия пунктиром, а подпись говорит почему.
+  // Правое поле под подписи линий меряется, а не угадывается: «Costa Rica
+  // 17.0 %» и «Колумбия 20,5 %» разной длины, и на узком рисунке подпись
+  // уезжала за край. Первый проход рисует, второй — с полем по самой длинной.
+  function drawOecd(r0) {
+    var svg = $("oecdchart"); if (!svg) return; svg.innerHTML = "";
+    // Сетка рисунка — по его фактической ширине: 480 единиц, ужатые в 300
+    // пикселов телефона, дали бы подписи в шесть пикселов. Узкий рисунок
+    // короче и реже подписывает годы, а шрифт остаётся читаемым.
+    var cw = svg.getBoundingClientRect().width || 480;
+    var W = Math.max(330, Math.min(480, Math.round(cw))), H = W < 420 ? 230 : 250;
+    var L0 = 34, R0 = r0 || 118, T0 = 12, B0 = 26, x0 = 2010, x1 = 2024, yMax = 35, step = W < 420 ? 4 : 2;
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    function x(yr) { return L0 + (W - L0 - R0) * (yr - x0) / (x1 - x0); }
+    function y(v) { return T0 + (H - T0 - B0) * (1 - v / yMax); }
+    for (var g = 0; g <= 30; g += 10) {
+      svg.appendChild(svgel("line", { "class": "g", x1: L0, x2: W - R0, y1: y(g), y2: y(g) }));
+      var t = svgel("text", { x: L0 - 6, y: y(g) + 3.5, "text-anchor": "end" }); t.textContent = pctS(fmtNum(g, 0)); svg.appendChild(t);
+    }
+    for (var yr = x0; yr <= x1; yr += step) {
+      var tx = svgel("text", { x: x(yr), y: H - 8, "text-anchor": "middle" }); tx.textContent = String(yr); svg.appendChild(tx);
+    }
+    var ISO = { "Chile": "CL", "Colombia": "CO", "Costa Rica": "CR", "Mexico": "MX" };
+    LA.oecd.forEach(function (r) {
+      var cc = ISO[r[0]], ser = r[4];
+      var th = document.querySelector('.oecdtab tr[data-cc="' + cc + '"] th');
+      var name = th ? th.textContent : r[0];
+      var d = ser.map(function (p, i) { return (i ? "L" : "M") + x(p[0]).toFixed(1) + " " + y(p[1] * 100).toFixed(1); }).join("");
+      svg.appendChild(svgel("path", { d: d, "class": "o-" + cc + (r[3] === "disposable" ? " dash" : "") }));
+      ser.forEach(function (p) {
+        var c = svgel("circle", { cx: x(p[0]).toFixed(1), cy: y(p[1] * 100).toFixed(1), r: 2.4, "class": "o-" + cc });
+        var tt = svgel("title"); tt.textContent = name + ", " + p[0] + ": " + pctS(fmtNum(p[1] * 100, 1)); c.appendChild(tt);
+        svg.appendChild(c);
+        // Чили 2020: выпуск обследования CASEN, собранный в пандемию, — выброс, а не тренд.
+        if (cc === "CL" && p[0] === 2020) {
+          svg.appendChild(svgel("circle", { cx: x(p[0]).toFixed(1), cy: y(p[1] * 100).toFixed(1), r: 7, "class": "out" }));
+          // Подпись — над пиком, где линий нет, и сдвинута внутрь рисунка по
+          // своей измеренной ширине: «2020 : enquête en pandémie» длиннее
+          // английской и слева уходила за рамку.
+          var at = svgel("text", { x: x(p[0]), y: y(p[1] * 100) - 11, "text-anchor": "middle" }); at.textContent = TL.outlier; svg.appendChild(at);
+          try { var bw = at.getBBox().width; at.setAttribute("x", Math.max(bw / 2 + 2, Math.min(W - bw / 2 - 2, x(p[0])))); } catch (e) {}
+        }
+      });
+      var last = ser[ser.length - 1];
+      var lb = svgel("text", { x: x(last[0]) + 7, y: y(last[1] * 100) + 4, "class": "lab" });
+      lb.textContent = name + " " + pctS(fmtNum(last[1] * 100, 1));
+      svg.appendChild(lb);
+    });
+    if (r0) return;
+    var need = 0;
+    Array.prototype.forEach.call(svg.querySelectorAll("text.lab"), function (t) {
+      try { need = Math.max(need, t.getBBox().x + t.getBBox().width - (W - 4)); } catch (e) {}
+    });
+    if (need > 0) drawOecd(R0 + Math.ceil(need));
+  }
+  buildLatam(); drawOecd();
+  var oecdW = 0;
+  window.addEventListener("resize", function () {
+    var w = Math.round(($("oecdchart") || { getBoundingClientRect: function () { return { width: 0 }; } }).getBoundingClientRect().width);
+    if (w && Math.abs(w - oecdW) > 20) { oecdW = w; drawOecd(); }
+  });
+  segBind("lmetric", function (v) { S.lm = v; });
+  segBind("ltenure", function (v) { S.lt = v; });
+
+  // ======================================================================
   // поделиться, картинка, CSV, печать
   // ======================================================================
   function flash(btn, msg) {
@@ -1924,7 +2186,8 @@
     // печатаются словами в шапке — иначе распечатку не прочесть без экрана.
     var ps = $("setupline").textContent;
     $("printsetup").textContent = part === "map" ? fill(T.print.withMap, { setup: ps, mode: modeText() })
-      : part === "rank" ? fill(T.print.withRank, { setup: ps, note: $("ranknote").textContent }) : ps;
+      : part === "rank" ? fill(T.print.withRank, { setup: ps, note: $("ranknote").textContent })
+      : part === "latam" ? $("latsetup").textContent : ps;
     var root = document.documentElement;
     printedTheme = root.getAttribute("data-theme");
     if (printedTheme !== "light") root.setAttribute("data-theme", "light");
@@ -1950,7 +2213,7 @@
   });
 
   // ======================================================================
-  function update() { paintMap(); drawCard(); drawCmp(); drawRank(); drawMove(); setupLine(); }
+  function update() { paintMap(); drawCard(); drawCmp(); drawRank(); drawMove(); setupLine(); drawLatam(); }
   document.addEventListener("themechange", function () { paintMap(); });
   readURL();
   buildRegButtons();

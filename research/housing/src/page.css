@@ -452,6 +452,69 @@
   .note:empty { display: none; }
   :root[data-theme="cyber"] .note { border-radius: 0; }
 
+  /* ── Латинская Америка ───────────────────────────────────────────
+     Два города рядом, но каждый своей шкалой: подпись над врезкой — город, а
+     не флаг, и легенда своя под каждой. Район города без цены — серый «нет
+     данных», как на большой карте; сосед за пределами слоя — только контур. */
+  .latsetup { margin: 10px 20px 0; max-width: none; }
+  .latgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 22px; padding: 12px 20px 6px; }
+  @media (max-width: 760px) { .latgrid { grid-template-columns: minmax(0, 1fr); } }
+  .latcity { margin: 0; min-width: 0; }
+  .latcity figcaption { display: flex; flex-direction: column; gap: 2px; margin: 0 0 8px; }
+  .latcity figcaption b { font-family: var(--font-head); font-size: 16px; color: var(--ink); }
+  .latcity figcaption span { font-family: var(--mono); font-size: 11.5px; color: var(--ink-2); line-height: 1.45; }
+  .latmap { position: relative; }
+  .latmap svg { display: block; width: 100%; height: auto; }
+  .latmap path { fill: var(--nd); stroke: var(--panel); stroke-width: .8; vector-effect: non-scaling-stroke;
+                 transition: fill .25s; }
+  .latmap path.ctx { fill: transparent; stroke: var(--hair); }
+  .latmap path.gap { fill: var(--nd); stroke: var(--hair); }
+  .latmap path.c0 { fill: var(--m1); } .latmap path.c1 { fill: var(--m2); } .latmap path.c2 { fill: var(--m3); }
+  .latmap path.c3 { fill: var(--m4); } .latmap path.c4 { fill: var(--m5); }
+  .latmap path[data-k] { cursor: pointer; }
+  .latmap path.hot { stroke: var(--pick); stroke-width: 2; }
+  .latcity .legend { padding: 8px 0 0; }
+  .latcity .legend i.ctx { background: transparent; border: 1px solid var(--ink-3); }
+  .latnote { min-height: 0; }
+  .latnote:empty { display: none; }
+  .latlist { list-style: none; margin: 10px 0 0; padding: 0; font-family: var(--mono); font-size: 11.5px;
+             columns: 2; column-gap: 18px; }
+  @media (max-width: 420px) { .latlist { columns: 1; } }
+  .latlist li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1px 8px; padding: 3px 4px;
+                break-inside: avoid; border-radius: 4px; cursor: default; }
+  .latlist li.hot { background: var(--accent-soft); }
+  .latlist li span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink-2); }
+  .latlist li b { font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .latlist li i { grid-column: 1 / -1; height: 3px; border-radius: 2px; background: var(--nd); }
+  .latlist li i.c0 { background: var(--m1); } .latlist li i.c1 { background: var(--m2); } .latlist li i.c2 { background: var(--m3); }
+  .latlist li i.c3 { background: var(--m4); } .latlist li i.c4 { background: var(--m5); }
+  .latlist li.nd b { color: var(--ink-3); }
+  .latcav, .latoecd, .latsrc { margin: 12px 20px 0; padding-top: 12px; border-top: 1px solid var(--hair-soft); }
+  .latcav h3, .latoecd h3 { font-family: var(--font-head); font-size: 15px; margin: 0 0 6px; color: var(--ink); }
+  .latcav ul, .latsrc ul { margin: 0; padding-left: 18px; color: var(--ink-2); font-size: 13.5px; line-height: 1.5; }
+  .latcav li + li, .latsrc li + li { margin-top: 5px; }
+  .latcav b { color: var(--ink); font-weight: 600; }
+  .latoecd > p { margin: 0 0 8px; color: var(--ink-2); font-size: 13.5px; line-height: 1.5; }
+  #oecdchart { display: block; width: 100%; height: auto; max-width: 720px; overflow: visible; }
+  #oecdchart text { font-family: var(--mono); font-size: 10.5px; fill: var(--ink-3); }
+  #oecdchart text.lab { font-size: 11.5px; fill: var(--ink); font-weight: 600; }
+  #oecdchart line.g { stroke: var(--hair); }
+  #oecdchart path { fill: none; stroke-width: 2.2; stroke-linejoin: round; }
+  #oecdchart .dash { stroke-dasharray: 5 4; }
+  #oecdchart circle.out { fill: none; stroke: var(--ink); stroke-width: 1.3; }
+  #oecdchart .o-CL { stroke: var(--deg1); fill: var(--deg1); } #oecdchart .o-CO { stroke: var(--deg3); fill: var(--deg3); }
+  #oecdchart .o-CR { stroke: var(--d1); fill: var(--d1); } #oecdchart .o-MX { stroke: var(--d5); fill: var(--d5); }
+  #oecdchart path[class^="o-"] { fill: none; }
+  .oecdtab { border-collapse: collapse; margin-top: 8px; font-family: var(--mono); font-size: 12px; min-width: 100%; }
+  .oecdtab th, .oecdtab td { text-align: left; padding: 5px 10px 5px 0; border-bottom: 1px solid var(--hair-soft);
+                             white-space: normal; vertical-align: top; }
+  .oecdtab thead th { color: var(--ink-3); font-weight: 500; font-size: 11px; }
+  .oecdtab tbody th { color: var(--ink); font-weight: 600; }
+  .oecdtab td { color: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .latsrc { padding-bottom: 16px; }
+  .latsrc p { margin: 0 0 6px; font-size: 13.5px; color: var(--ink); }
+  .latsrc ul { font-size: 12.5px; overflow-wrap: anywhere; }
+
   /* ── рисунок 3 ──────────────────────────────────────────────────── */
   .histwrap { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 14px 16px 4px; }
   @media (max-width: 720px) { .histwrap { grid-template-columns: 1fr; } }
@@ -487,6 +550,8 @@
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
              clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
   html:not(.js) .pactions, html:not(.js) .sharebtn, html:not(.js) .zoombar, html:not(.js) .gsearch { display: none; }
+  /* Врезки Латинской Америки рисует скрипт; без него остаются оговорки, таблица OECD и источники. */
+  html:not(.js) #p-latam .ctlbar, html:not(.js) .latsetup, html:not(.js) .latgrid, html:not(.js) #oecdchart { display: none; }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 
   /* ── печать: один блок на лист, светлая палитра ─────────────────── */
@@ -506,7 +571,7 @@
     :root[data-print] .wrap > .printhead { display: block !important; }
     :root[data-print="map"] #p-map, :root[data-print="cmp"] #p-cmp,
     :root[data-print="rank"] #p-rank, :root[data-print="hist"] #p-hist,
-    :root[data-print="move"] #p-move { display: block !important; }
+    :root[data-print="move"] #p-move, :root[data-print="latam"] #p-latam { display: block !important; }
     /* На бумаге поля выбора уже ничего не выбирают — остаётся только ответ. */
     :root[data-print="move"] .moverow { display: none !important; }
     :root[data-print] .panel { box-shadow: none; border-color: #bbb; }
@@ -519,7 +584,7 @@
     @page wide { size: A4 landscape; }
     :root[data-print] .wrap { max-width: none; padding: 0; }
     :root[data-print="map"] #p-map, :root[data-print="cmp"] #p-cmp, :root[data-print="rank"] #p-rank,
-    :root[data-print="hist"] #p-hist { transform-origin: top left; transform: scale(var(--pscale, 1)); width: var(--pwidth, auto); }
+    :root[data-print="hist"] #p-hist, :root[data-print="latam"] #p-latam { transform-origin: top left; transform: scale(var(--pscale, 1)); width: var(--pwidth, auto); }
   }
 
 

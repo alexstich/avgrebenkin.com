@@ -453,6 +453,39 @@
     "tip": "{kind}: {pct} of population ({m} M)",
     "axis": "affordable square metres on a third of the local average income"
   },
+  "latam": {
+    "legendPrice": "Price per m², US dollars",
+    "legendRentPrice": "Rent per m² a month, US dollars",
+    "legendBuy": "m² that {share} of your income buys",
+    "legendRent": "m² that {share} of your income rents",
+    "range": "{lo}–{hi}",
+    "setupPrice": "Each map is coloured within its own city: <b>green is the cheapest fifth</b> of its districts, red the dearest. The two scales differ on purpose.",
+    "needIncome": "Type your monthly income in the calculator above: the layer has no local income, so the square metres can only be counted from yours.",
+    "setupBuy": "<b>{income}</b> a month, converted to US dollars at the ECB rate · <b>{share}</b> for housing = <b>{budget}</b> a month · <b>{term}</b> mortgage · deposit <b>{deposit}</b> · {rate}",
+    "setupRent": "<b>{income}</b> a month, converted to US dollars at the ECB rate · <b>{share}</b> for rent = <b>{budget}</b> a month",
+    "rateLima": "Lima at the Peruvian banks' average dollar mortgage rate for the same quarter, <b>{rate}</b> a year; Buenos Aires has no rate of its own here",
+    "rateMine": "both cities at your rate of <b>{rate}</b>",
+    "noRent": "No rents for Buenos Aires in this layer, only asking prices for sale.",
+    "noRate": "No mortgage rate for Buenos Aires in this layer, and none is borrowed from elsewhere. Type a rate in the calculator above to see what you could buy here.",
+    "rentHow": "Rent is derived: the district's price divided by the central bank's price-to-rent ratio.",
+    "notInLayer": "not in the layer",
+    "gapsLine": "{n} of {all} barrios have no price in this slice and stay grey: {names}.",
+    "gap": {
+      "none": "No asking price at all in the second quarter of 2019",
+      "stratum": "No price for three-room resale flats in the second quarter of 2019, only for other kinds of flat",
+      "lima": "Not in the layer: the central bank publishes {n} districts"
+    },
+    "tip": {
+      "price": "Price",
+      "rent": "Rent",
+      "ptr": "Price in years of rent",
+      "r2": "Two-room resale",
+      "r3n": "Three-room new build",
+      "youBuy": "You could buy",
+      "youRent": "You could rent"
+    },
+    "outlier": "2020: pandemic survey"
+  },
   "share": {
     "copied": "Link copied",
     "inBar": "Address bar holds the link"
