@@ -132,6 +132,7 @@
               letter-spacing: -.01em; line-height: 1.25; }
   .phead p { margin: 0; color: var(--ink-2); font-size: 13.5px; line-height: 1.5; max-width: 82ch; }
   .phead p b { color: var(--ink); font-weight: 600; }
+  .phead p + p { margin-top: 8px; }
   .pactions { float: right; display: flex; gap: 2px; padding: 3px; margin: 0 0 6px 14px;
               border: 1px solid var(--hair); border-radius: 9px;
               background: rgba(var(--accent-rgb), .07); }
@@ -219,6 +220,18 @@
   /* ── карта ──────────────────────────────────────────────────────── */
   .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
          gap: 10px 12px; padding: 12px 20px 4px; }
+  /* Под каждой группой кнопок — строка, которая объясняет, что именно сейчас
+     выбрано. Группа и её подпись — один столбец, чтобы подпись не уезжала
+     под чужие кнопки при переносе. */
+  .ctlbar { align-items: flex-start; }
+  .ctl { display: flex; flex-direction: column; flex: 1 1 200px; min-width: 0; max-width: 100%; }
+  .ctl-mode { flex: 2 1 300px; }
+  .ctl .fhint { max-width: 52ch; }
+  .maphow { margin: 6px 4px 0; max-width: 78ch; }
+  .phint, .chint, .rhint { margin: 6px 20px 0; max-width: 82ch; }
+  .chint { margin-top: 0; }
+  .rhint { margin-bottom: 6px; }
+  .mfield .fhint { margin-top: 5px; }
   .gsearch { position: relative; margin: 10px 20px 4px; max-width: 460px; }
   .gsearch input { width: 100%; padding: 9px 34px 9px 32px; border-radius: 999px; font-size: 13px; }
   /* Свой крестик очистки уже есть — родной у type=search прячем, чтобы не было двух. */
@@ -467,6 +480,8 @@
   .methodbody dt { font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
                    color: var(--ink); margin-top: 14px; }
   .methodbody dd { margin: 3px 0 0; color: var(--ink-2); line-height: 1.6; }
+  .methodbody dd p { margin: 0 0 8px; }
+  .methodbody dd p:last-child { margin-bottom: 0; }
   .methodbody dd b { color: var(--ink); font-weight: 600; }
 
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;

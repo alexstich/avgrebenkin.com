@@ -129,12 +129,12 @@
     }
   ],
   "setup": {
-    "hhHint": "Fattore di equivalenza {factor} (scala OCSE modificata: primo adulto 1, ogni altro adulto 0,5, ogni bambino 0,3). Serve solo per la riga che confronta il tuo reddito con la media locale, che in Europa è per adulto equivalente e negli Stati Uniti per famiglia.",
+    "hhHint": "Fattore di equivalenza {factor}: la scala OCSE conta il primo adulto come 1, ogni altro adulto come 0,5 e ogni bambino come 0,3. Serve solo per la riga che confronta il tuo reddito con la media locale, che in Europa è per adulto equivalente e negli Stati Uniti per famiglia.",
     "wantNoArea": "nessuna superficie nei dati USA",
     "wantAny": "qualsiasi",
     "mineDisabled": "Inserisci il tuo reddito qui sopra",
-    "incHint": "Dopo le tasse, tutti i percettori insieme. Lascia vuoto per vedere ogni luogo con il suo reddito medio.",
-    "incHintFx": "Dopo le tasse, tutti i percettori insieme. {amount} = {eur} al tasso di riferimento BCE ({date}).",
+    "incHint": "Dopo le tasse, tutti i componenti della famiglia insieme. Lascialo vuoto e ogni luogo viene mostrato con il suo reddito medio; inseriscilo e mappe, schede e classifiche passano ai tuoi soldi.",
+    "incHintFx": "Dopo le tasse, tutti i componenti della famiglia insieme. {amount} = {eur} al tasso di riferimento BCE ({date}).",
     "rateAll": "{rate} ovunque",
     "rateOwn": "nazionale di ciascun paese",
     "adults": {
@@ -172,7 +172,35 @@
       "years": "anni di reddito per {basket}",
       "share": "affitto per {basket} come quota del reddito"
     },
-    "noAreaTitle": "Superficie non pubblicata negli Stati Uniti (livello: {units}) — vedi «Da dove vengono i numeri»"
+    "noAreaTitle": "Superficie non pubblicata negli Stati Uniti (livello: {units}) — vedi «Da dove vengono i numeri»",
+    "hint": {
+      "buy": "Quanti metri quadrati compra la quota di reddito destinata alla casa ({share}), con un mutuo a {term} anni al tasso locale e al prezzo locale al metro quadrato. Verde vuol dire tanto spazio, rosso poco.",
+      "rent": "Quanti metri quadrati affitta la quota di reddito destinata alla casa ({share}), all’affitto locale al metro quadrato. Verde vuol dire tanto spazio, rosso poco.",
+      "diff": "Metri quadrati in affitto meno metri quadrati da comprare, entrambi con la stessa quota di reddito ({share}): quale delle due strade ti dà più spazio qui. La legenda dice quale lato favorisce ciascun colore.",
+      "years": "Quanti anni dell’intero reddito costa {basket}, a pagare tutto subito e senza alcun mutuo. Meno è meglio, quindi qui il verde significa pochi anni e il rosso molti: questa scala va al contrario rispetto ai metri.",
+      "share": "Quanto del reddito di un mese se ne va in affitto, per {basket}. Meno è meglio, quindi il verde significa una quota piccola e il rosso una grande."
+    }
+  },
+  "hints": {
+    "frame": {
+      "eu": "{n} comuni in {countries} paesi, dalla tabella ESPON HOUSE4ALL: prezzi richiesti al metro quadrato contro reddito al netto delle tasse per adulto equivalente.",
+      "na": "{n} contee dall’American Community Survey: valori delle case stimati dai proprietari e affitti contro reddito delle famiglie al lordo delle tasse. Una misura diversa da quella europea, per questo le due mappe non condividono mai una scala."
+    },
+    "basis": {
+      "local": "Ogni luogo è colorato sul suo reddito medio: la mappa dice se la gente del posto può permettersi di viverci.",
+      "mine": "Ogni luogo è colorato sul tuo reddito di {income} al mese: la mappa dice dove potresti permetterti di vivere.",
+      "mineOff": "Inserisci il tuo reddito nel calcolatore qui sopra per colorare la mappa sui tuoi soldi invece che sulla media locale."
+    },
+    "read": {
+      "base": "Ogni punto è un luogo, grande in proporzione alla popolazione; ogni paese è campito con il suo dato nazionale. Passa il mouse o tocca per vedere i numeri. Il grigio significa nessun dato.",
+      "dimmed": "Il grigio segna anche i luoghi in cui {m2} sono fuori portata."
+    },
+    "rank": {
+      "countries": "Ogni paese è la media dei suoi luoghi ponderata per la popolazione, quindi una capitale grande e cara trascina in basso il suo paese in classifica.",
+      "cities": "Singoli luoghi da {min} abitanti in su, ciascuno con i propri numeri.",
+      "regs": "I pulsanti delle regioni tengono solo alcune parti della mappa; se ne possono attivare più d’uno insieme.",
+      "sort": "Fai clic sull’intestazione di una colonna per ordinare in base a quella."
+    }
   },
   "legend": {
     "classes": [
@@ -270,7 +298,7 @@
   },
   "card": {
     "label": "Luogo selezionato",
-    "empty": "Cerca un comune qui sopra o fai clic su una regione della mappa. La scheda mostra cosa significano lì le tue impostazioni, e cosa servirebbe.",
+    "empty": "Cerca un comune qui sopra o fai clic su un paese della mappa. La scheda mostra cosa compra lì un terzo del reddito alle tue condizioni, e quale reddito servirebbe per avere la superficie che vuoi.",
     "coastal": "{deg}, sulla costa",
     "coverage": "dati di vendita: {pct} della popolazione",
     "countryKind": "paese",
@@ -373,7 +401,7 @@
       "one": "puoi aggiungerne ancora {n}",
       "other": "puoi aggiungerne ancora {n}"
     },
-    "nothing": "nessun luogo selezionato — aggiungine uno dalla scheda o dalle classifiche"
+    "nothing": "nessun luogo selezionato: aggiungine uno con + Confronta sulla sua scheda, o con il + nelle classifiche"
   },
   "rank": {
     "coast": "solo costa",

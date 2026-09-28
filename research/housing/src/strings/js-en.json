@@ -129,12 +129,12 @@
     }
   ],
   "setup": {
-    "hhHint": "Equivalence factor {factor} (OECD-modified scale: first adult 1, each further adult 0.5, each child 0.3). Used only for the line comparing your income with the local average — which is per adult-equivalent in Europe and per household in the United States.",
+    "hhHint": "Equivalence factor {factor}: the OECD scale counts the first adult as 1, each further adult as 0.5 and each child as 0.3. Used only for the line that compares your income with the local average, which is per adult-equivalent in Europe and per household in the United States.",
     "wantNoArea": "no floor area in US data",
     "wantAny": "any",
     "mineDisabled": "Enter your income above",
-    "incHint": "After tax, all earners together. Leave empty to see every place on its own average income.",
-    "incHintFx": "After tax, all earners together. {amount} = {eur} at the ECB reference rate of {date}.",
+    "incHint": "After tax, everyone in the household together. Leave it empty and every place is shown on its own average income; type it and the maps, cards and rankings switch to your money.",
+    "incHintFx": "After tax, everyone in the household together. {amount} = {eur} at the ECB reference rate of {date}.",
     "rateAll": "{rate} everywhere",
     "rateOwn": "each country's own rate",
     "adults": {
@@ -172,7 +172,35 @@
       "years": "years of income for {basket}",
       "share": "rent of {basket} as a share of income"
     },
-    "noAreaTitle": "No floor area is published for US {units} — see “Where the numbers come from”"
+    "noAreaTitle": "No floor area is published for US {units} — see “Where the numbers come from”",
+    "hint": {
+      "buy": "How many square metres {share} of the income buys with a {term}-year mortgage at the local rate and the local price per square metre. Green is a lot of space, red is little.",
+      "rent": "How many square metres {share} of the income rents at the local rent per square metre. Green is a lot of space, red is little.",
+      "diff": "Square metres to rent minus square metres to buy, both on {share} of the income: which of the two gets you more space here. The legend says which side each colour favours.",
+      "years": "How many years of the whole income {basket} costs outright, with no mortgage at all. Fewer is better, so here green means few years and red means many: this scale runs the other way from the metres.",
+      "share": "What part of a month's income the rent takes, for {basket}. Smaller is better, so green means a small share and red a large one."
+    }
+  },
+  "hints": {
+    "frame": {
+      "eu": "{n} municipalities in {countries} countries, from the ESPON HOUSE4ALL table: asking prices per square metre against income after tax per adult-equivalent.",
+      "na": "{n} counties from the American Community Survey: owners' home values and rents against household income before tax. A different measurement from Europe's, so the two maps never share one scale."
+    },
+    "basis": {
+      "local": "Each place is coloured on its own average income: the map answers whether the locals can afford to live there.",
+      "mine": "Every place is coloured on your income of {income} a month: the map answers where you could afford to live.",
+      "mineOff": "Type your income in the calculator above to colour the map on your money instead of the local average."
+    },
+    "read": {
+      "base": "Each dot is a place, sized by population; each country is filled with its national figure. Hover or tap for the numbers. Grey means no data.",
+      "dimmed": "Grey also marks the places where {m2} are out of reach."
+    },
+    "rank": {
+      "countries": "Each country is the population-weighted average of its places, so a big expensive capital pulls its country down the ranking.",
+      "cities": "Single places of {min} people or more, each on its own numbers.",
+      "regs": "The region buttons keep only parts of the map; several can be on at once.",
+      "sort": "Click a column heading to sort by it."
+    }
   },
   "legend": {
     "classes": [
@@ -270,7 +298,7 @@
   },
   "card": {
     "label": "Selected place",
-    "empty": "Search a town above or click a region on the map. The card shows what your settings mean there, and what it would take.",
+    "empty": "Search a town above or click a country on the map. The card shows what a third of the income buys there on your terms, and what income it would take to get the size you want.",
     "coastal": "{deg}, coastal",
     "coverage": "sale data for {pct} of the population",
     "countryKind": "country",
@@ -373,7 +401,7 @@
       "one": "add up to {n} more",
       "other": "add up to {n} more"
     },
-    "nothing": "nothing selected yet — add a place from the card or the rankings"
+    "nothing": "nothing selected yet: add a place with + Compare on its card, or with the + in the rankings"
   },
   "rank": {
     "coast": "coast only",

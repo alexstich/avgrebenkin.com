@@ -153,6 +153,19 @@ def build(code, langs):
     # Проза каталога: {{t:раздел.ключ}} — HTML как есть, {{ta:…}} — в атрибут.
     # Внутри строк бывают свои подстановки ({{statSale50}}, {{up}}), поэтому
     # эта замена идёт первой, а общая — после неё.
+    # Пустая строка внутри значения — новый абзац (AUTHORING §3). Работает только
+    # там, где строка и так целиком занимает <p> или <dd>: абзац в абзац не вложишь.
+    def para(m):
+        tag, attrs, val = m.group(1), m.group(2), at(L, m.group(3))
+        parts = [x.strip() for x in re.split(r'\n\s*\n', val) if x.strip()]
+        # Абзац с id (подсказка, которую переписывает скрипт) не размножается:
+        # два элемента с одним id — это уже ошибка разметки.
+        if len(parts) < 2 or ' id=' in attrs:
+            return '<%s%s>%s</%s>' % (tag, attrs, ' '.join(parts) if parts else val, tag)
+        if tag == 'dd':
+            return '<dd%s>%s</dd>' % (attrs, ''.join('<p>%s</p>' % x for x in parts))
+        return '\n'.join('<%s%s>%s</%s>' % (tag, attrs, x, tag) for x in parts)
+    tmpl = re.sub(r'<(p|dd)((?:\s[^>]*)?)>\{\{t:([\w.-]+)\}\}</\1>', para, tmpl)
     tmpl = re.sub(r'\{\{t:([\w.-]+)\}\}', lambda m: at(L, m.group(1)), tmpl)
     tmpl = re.sub(r'\{\{ta:([\w.-]+)\}\}', lambda m: html.escape(plain(at(L, m.group(1))), quote=True), tmpl)
     text, md_out = tldr_parts(L, url)

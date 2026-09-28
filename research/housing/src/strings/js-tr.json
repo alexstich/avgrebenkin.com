@@ -129,12 +129,12 @@
     }
   ],
   "setup": {
-    "hhHint": "Eşdeğerlik katsayısı {factor} (OECD’nin değiştirilmiş ölçeği: ilk yetişkin 1, her ek yetişkin 0,5, her çocuk 0,3). Yalnızca gelirinizi yerel ortalamayla karşılaştıran satırda kullanılır — bu ortalama Avrupa’da yetişkin eşdeğeri başına, ABD’de hane başınadır.",
+    "hhHint": "Eşdeğerlik katsayısı {factor}: OECD ölçeği ilk yetişkini 1, her ek yetişkini 0,5, her çocuğu 0,3 sayar. Yalnızca gelirinizi yerel ortalamayla karşılaştıran satırda kullanılır; bu ortalama Avrupa’da yetişkin eşdeğeri başına, ABD’de hane başınadır.",
     "wantNoArea": "ABD verilerinde taban alanı yok",
     "wantAny": "fark etmez",
     "mineDisabled": "Gelirinizi yukarıya girin",
-    "incHint": "Vergi sonrası, çalışanların hepsi birlikte. Her yeri kendi ortalama geliriyle görmek için boş bırakın.",
-    "incHintFx": "Vergi sonrası, çalışanların hepsi birlikte. ECB’nin {date} tarihli referans kuruyla {amount} = {eur}.",
+    "incHint": "Vergi sonrası, hanedeki herkesinki birlikte. Boş bırakırsanız her yer kendi ortalama geliriyle gösterilir; yazarsanız haritalar, kartlar ve sıralamalar sizin paranıza geçer.",
+    "incHintFx": "Vergi sonrası, hanedeki herkesinki birlikte. ECB’nin {date} tarihli referans kuruyla {amount} = {eur}.",
     "rateAll": "her yerde {rate}",
     "rateOwn": "her ülkenin kendi faizi",
     "adults": {
@@ -172,7 +172,35 @@
       "years": "kaç yıllık gelir: {basket}",
       "share": "kiranın gelire oranı: {basket}"
     },
-    "noAreaTitle": "ABD’de {units} için taban alanı yayımlanmıyor — bkz. “Rakamlar nereden geliyor”"
+    "noAreaTitle": "ABD’de {units} için taban alanı yayımlanmıyor — bkz. “Rakamlar nereden geliyor”",
+    "hint": {
+      "buy": "Gelirden konuta ayrılan {share} pay, yerel faizle {term} yıllık bir konut kredisiyle yerel metrekare fiyatından kaç metrekare satın alıyor. Yeşil çok yer, kırmızı az yer demek.",
+      "rent": "Gelirden konuta ayrılan {share} pay, yerel metrekare kirasıyla kaç metrekare kiralıyor. Yeşil çok yer, kırmızı az yer demek.",
+      "diff": "Kiralanabilen metrekare eksi satın alınabilen metrekare, ikisi de gelirden ayrılan {share} payla: burada hangisi size daha çok yer veriyor. Hangi rengin hangi tarafı gösterdiğini harita açıklaması söylüyor.",
+      "years": "Hiç kredi olmadan, peşin alındığında {basket} bütün gelirin kaç yılına mal oluyor. Az olan iyi; bu yüzden burada yeşil az yıl, kırmızı çok yıl demek — bu ölçek metrekare ölçeğinin tersine işliyor.",
+      "share": "Kira bir aylık gelirin ne kadarını götürüyor: {basket} için. Küçük olan iyi; bu yüzden yeşil küçük pay, kırmızı büyük pay demek."
+    }
+  },
+  "hints": {
+    "frame": {
+      "eu": "{countries} ülkede {n} belediye, ESPON HOUSE4ALL tablosundan: metrekare başına ilan fiyatları, yetişkin eşdeğeri başına vergi sonrası gelir karşısında.",
+      "na": "American Community Survey’den {n} kontluk: ev sahiplerinin konut değerleri ve kiralar, vergi öncesi hane geliri karşısında. Avrupa’nınkinden farklı bir ölçüm; bu yüzden iki harita hiçbir zaman tek ölçek paylaşmıyor."
+    },
+    "basis": {
+      "local": "Her yer kendi ortalama geliriyle renklendiriliyor: harita, yerel halkın orada yaşamaya gücünün yetip yetmediğini yanıtlıyor.",
+      "mine": "Her yer sizin aylık {income} gelirinizle renklendiriliyor: harita, nerede yaşamaya gücünüzün yeteceğini yanıtlıyor.",
+      "mineOff": "Haritayı yerel ortalama yerine kendi paranızla renklendirmek için gelirinizi yukarıdaki hesaplayıcıya yazın."
+    },
+    "read": {
+      "base": "Her nokta bir yer, büyüklüğü nüfusa göre; her ülke ulusal rakamıyla boyanıyor. Rakamlar için üzerine gelin ya da dokunun. Gri, veri yok demek.",
+      "dimmed": "Gri ayrıca {m2} büyüklüğüne ulaşılamayan yerleri işaretliyor."
+    },
+    "rank": {
+      "countries": "Her ülke, yerlerinin nüfusa göre ağırlıklı ortalaması; bu yüzden büyük ve pahalı bir başkent ülkesini sıralamada aşağı çeker.",
+      "cities": "{min} ve üzeri nüfuslu tek tek yerler, her biri kendi rakamlarıyla.",
+      "regs": "Bölge düğmeleri haritanın yalnızca bazı bölümlerini tutar; birkaçı aynı anda açık olabilir.",
+      "sort": "Sıralamak için bir sütun başlığına tıklayın."
+    }
   },
   "legend": {
     "classes": [
@@ -270,7 +298,7 @@
   },
   "card": {
     "label": "Seçilen yer",
-    "empty": "Yukarıdan bir kasaba arayın ya da haritada bir bölgeye tıklayın. Kart, ayarlarınızın orada ne anlama geldiğini ve neyin gerektiğini gösterir.",
+    "empty": "Yukarıdan bir kasaba arayın ya da haritada bir ülkeye tıklayın. Kart, gelirin üçte birinin sizin koşullarınızla orada ne kadar yer aldığını ve istediğiniz büyüklük için ne kadar gelir gerektiğini gösterir.",
     "coastal": "{deg}, kıyıda",
     "coverage": "nüfusun {pct} kadarı için satış verisi var",
     "countryKind": "ülke",
@@ -373,7 +401,7 @@
       "one": "en fazla {n} yer daha ekleyebilirsiniz",
       "other": "en fazla {n} yer daha ekleyebilirsiniz"
     },
-    "nothing": "henüz seçim yok — karttan ya da sıralamalardan bir yer ekleyin"
+    "nothing": "henüz seçim yok: bir yeri kartındaki + Karşılaştır düğmesiyle ya da sıralamalardaki + ile ekleyin"
   },
   "rank": {
     "coast": "yalnızca kıyı",

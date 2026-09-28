@@ -129,11 +129,11 @@
     }
   ],
   "setup": {
-    "hhHint": "Coefficient d’équivalence {factor} (échelle de l’OCDE modifiée : 1 pour le premier adulte, 0,5 pour chaque adulte supplémentaire, 0,3 par enfant). Il ne sert qu’à la ligne qui compare votre revenu à la moyenne locale — calculée par équivalent-adulte en Europe et par ménage aux États-Unis.",
+    "hhHint": "Coefficient d’équivalence {factor} : l’échelle de l’OCDE compte 1 pour le premier adulte, 0,5 pour chaque adulte supplémentaire et 0,3 par enfant. Il ne sert qu’à la ligne qui compare votre revenu à la moyenne locale, calculée par équivalent-adulte en Europe et par ménage aux États-Unis.",
     "wantNoArea": "pas de surface dans les données américaines",
     "wantAny": "aucune",
     "mineDisabled": "Saisissez votre revenu plus haut",
-    "incHint": "Après impôts, tous les revenus du foyer réunis. Laissez vide pour voir chaque lieu sur son propre revenu moyen.",
+    "incHint": "Après impôts, tous les revenus du foyer réunis. Laissez le champ vide, et chaque lieu est calculé sur son propre revenu moyen ; saisissez-le, et les cartes, les fiches et les classements passent à votre argent.",
     "incHintFx": "Après impôts, tous les revenus du foyer réunis. {amount} = {eur} au cours de référence de la BCE du {date}.",
     "rateAll": "{rate} partout",
     "rateOwn": "propre à chaque pays",
@@ -172,7 +172,35 @@
       "years": "années de revenu pour {basket}",
       "share": "loyer pour {basket}, en part du revenu"
     },
-    "noAreaTitle": "Aucune surface n’est publiée pour les {units} américains — voir « D’où viennent les chiffres »"
+    "noAreaTitle": "Aucune surface n’est publiée pour les {units} américains — voir « D’où viennent les chiffres »",
+    "hint": {
+      "buy": "Combien de mètres carrés {share} du revenu achète avec un prêt sur {term} ans au taux local et au prix local du mètre carré. Vert, c’est beaucoup d’espace ; rouge, c’est peu.",
+      "rent": "Combien de mètres carrés {share} du revenu permet de louer au loyer local du mètre carré. Vert, c’est beaucoup d’espace ; rouge, c’est peu.",
+      "diff": "Mètres carrés en location moins mètres carrés à l’achat, tous deux sur {share} du revenu : lequel des deux vous donne le plus d’espace ici. La légende dit quel côté chaque couleur favorise.",
+      "years": "Combien d’années du revenu entier il faut pour payer {basket} comptant, sans aucun prêt. Moins, c’est mieux : ici, le vert signifie peu d’années et le rouge beaucoup, cette échelle est donc inversée par rapport aux mètres carrés.",
+      "share": "Quelle part du revenu d’un mois prélève le loyer, pour {basket}. Moins, c’est mieux : le vert signifie une petite part, le rouge une grande."
+    }
+  },
+  "hints": {
+    "frame": {
+      "eu": "{n} communes dans {countries} pays, tirées du tableau ESPON HOUSE4ALL : prix demandés au mètre carré, rapportés au revenu après impôts par équivalent-adulte.",
+      "na": "{n} comtés tirés de l’American Community Survey : valeurs des logements estimées par leurs propriétaires et loyers, rapportés au revenu des ménages avant impôts. Une mesure différente de celle de l’Europe, si bien que les deux cartes ne partagent jamais une même échelle."
+    },
+    "basis": {
+      "local": "Chaque lieu est coloré sur son propre revenu moyen : la carte dit si ses habitants ont les moyens d’y vivre.",
+      "mine": "Chaque lieu est coloré sur votre revenu de {income} par mois : la carte dit où vous auriez les moyens de vivre.",
+      "mineOff": "Saisissez votre revenu dans le calculateur plus haut pour colorer la carte sur votre argent plutôt que sur la moyenne locale."
+    },
+    "read": {
+      "base": "Chaque point est un lieu, dimensionné selon sa population ; chaque pays est coloré selon son chiffre national. Survolez ou touchez pour voir les chiffres. Le gris signifie : pas de données.",
+      "dimmed": "Le gris marque aussi les lieux où {m2} sont hors de portée."
+    },
+    "rank": {
+      "countries": "Chaque pays est la moyenne de ses lieux pondérée par la population : une grande capitale chère tire donc son pays vers le bas du classement.",
+      "cities": "Des lieux pris un par un, de {min} habitants ou plus, chacun sur ses propres chiffres.",
+      "regs": "Les boutons de région ne gardent que certaines parties de la carte ; plusieurs peuvent être actifs à la fois.",
+      "sort": "Cliquez sur l’en-tête d’une colonne pour trier selon elle."
+    }
   },
   "legend": {
     "classes": [
@@ -270,7 +298,7 @@
   },
   "card": {
     "label": "Lieu sélectionné",
-    "empty": "Cherchez une ville plus haut ou cliquez sur une région de la carte. La fiche montre ce que vos réglages signifient à cet endroit, et ce qu’il faudrait pour y arriver.",
+    "empty": "Cherchez une ville plus haut ou cliquez sur un pays de la carte. La fiche montre ce qu’un tiers du revenu achète à cet endroit à vos conditions, et quel revenu il faudrait pour obtenir la surface que vous voulez.",
     "coastal": "{deg}, sur la côte",
     "coverage": "données de vente pour {pct} de la population",
     "countryKind": "pays",
@@ -373,7 +401,7 @@
       "one": "encore {n} au plus",
       "other": "encore {n} au plus"
     },
-    "nothing": "rien de sélectionné pour l’instant — ajoutez un lieu depuis la fiche ou les classements"
+    "nothing": "rien de sélectionné pour l’instant : ajoutez un lieu avec + Comparer sur sa fiche, ou avec le + dans les classements"
   },
   "rank": {
     "coast": "côte seulement",

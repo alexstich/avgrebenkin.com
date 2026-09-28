@@ -129,12 +129,12 @@
     }
   ],
   "setup": {
-    "hhHint": "Äquivalenzfaktor {factor} (modifizierte OECD-Skala: erste erwachsene Person 1, jede weitere 0,5, jedes Kind 0,3). Wird nur für die Zeile gebraucht, die dein Einkommen mit dem örtlichen Durchschnitt vergleicht – der in Europa pro Erwachsenenäquivalent und in den USA pro Haushalt gilt.",
+    "hhHint": "Äquivalenzfaktor {factor}: Die OECD-Skala zählt die erste erwachsene Person als 1, jede weitere als 0,5 und jedes Kind als 0,3. Wird nur für die Zeile gebraucht, die dein Einkommen mit dem örtlichen Durchschnitt vergleicht – der in Europa pro Erwachsenenäquivalent und in den USA pro Haushalt gilt.",
     "wantNoArea": "keine Wohnfläche in US-Daten",
     "wantAny": "beliebig",
     "mineDisabled": "Gib oben dein Einkommen ein",
-    "incHint": "Nach Steuern, alle Verdienenden zusammen. Leer lassen, um jeden Ort mit seinem eigenen Durchschnittseinkommen zu sehen.",
-    "incHintFx": "Nach Steuern, alle Verdienenden zusammen. {amount} = {eur} zum EZB-Referenzkurs vom {date}.",
+    "incHint": "Nach Steuern, alle im Haushalt zusammen. Lass es leer, und jeder Ort wird mit seinem eigenen Durchschnittseinkommen gezeigt; trag es ein, und Karten, Steckbriefe und Ranglisten rechnen mit deinem Geld.",
+    "incHintFx": "Nach Steuern, alle im Haushalt zusammen. {amount} = {eur} zum EZB-Referenzkurs vom {date}.",
     "rateAll": "{rate} überall",
     "rateOwn": "je nach Land",
     "adults": {
@@ -172,7 +172,35 @@
       "years": "Jahreseinkommen für {basket}",
       "share": "Miete für {basket} als Anteil am Einkommen"
     },
-    "noAreaTitle": "Für US-{units} wird keine Wohnfläche veröffentlicht – siehe „Woher die Zahlen kommen“"
+    "noAreaTitle": "Für US-{units} wird keine Wohnfläche veröffentlicht – siehe „Woher die Zahlen kommen“",
+    "hint": {
+      "buy": "Wie viele Quadratmeter {share} des Einkommens mit einer Hypothek über {term} Jahre zum örtlichen Zins und zum örtlichen Preis pro Quadratmeter kauft. Grün ist viel Platz, Rot wenig.",
+      "rent": "Wie viele Quadratmeter {share} des Einkommens zur örtlichen Miete pro Quadratmeter mietet. Grün ist viel Platz, Rot wenig.",
+      "diff": "Quadratmeter zur Miete minus Quadratmeter zum Kaufen, beides für {share} des Einkommens: welches von beiden dir hier mehr Platz bringt. Die Legende sagt, für welche Seite jede Farbe steht.",
+      "years": "Wie viele Jahre des gesamten Einkommens es für {basket} braucht, auf einen Schlag bezahlt und ganz ohne Hypothek. Weniger ist besser, hier heißt Grün also wenige Jahre und Rot viele: Diese Skala läuft andersherum als die Quadratmeter.",
+      "share": "Welchen Teil eines Monatseinkommens die Miete nimmt, für {basket}. Kleiner ist besser, Grün heißt also ein kleiner Anteil und Rot ein großer."
+    }
+  },
+  "hints": {
+    "frame": {
+      "eu": "{n} Gemeinden in {countries} Ländern, aus der ESPON-HOUSE4ALL-Tabelle: Angebotspreise pro Quadratmeter, gemessen am Einkommen nach Steuern pro Erwachsenenäquivalent.",
+      "na": "{n} Countys aus dem American Community Survey: Hauswerte nach Schätzung der Eigentümer und Mieten, gemessen am Haushaltseinkommen vor Steuern. Eine andere Messung als in Europa, deshalb teilen die beiden Karten nie eine Skala."
+    },
+    "basis": {
+      "local": "Jeder Ort ist nach seinem eigenen Durchschnittseinkommen eingefärbt: Die Karte beantwortet, ob sich die Einheimischen das Wohnen dort leisten können.",
+      "mine": "Jeder Ort ist nach deinem Einkommen von {income} im Monat eingefärbt: Die Karte beantwortet, wo du dir das Wohnen leisten könntest.",
+      "mineOff": "Gib oben im Rechner dein Einkommen ein, um die Karte nach deinem Geld statt nach dem örtlichen Durchschnitt einzufärben."
+    },
+    "read": {
+      "base": "Jeder Punkt ist ein Ort, seine Größe die Bevölkerung; jedes Land ist mit seinem Landeswert gefüllt. Fahr mit der Maus darüber oder tipp darauf, um die Zahlen zu sehen. Grau heißt: keine Daten.",
+      "dimmed": "Grau markiert außerdem die Orte, an denen {m2} außer Reichweite liegen."
+    },
+    "rank": {
+      "countries": "Jedes Land ist das bevölkerungsgewichtete Mittel seiner Orte, eine große teure Hauptstadt zieht ihr Land also in der Rangliste nach unten.",
+      "cities": "Einzelne Orte ab {min} Einwohnern, jeder mit seinen eigenen Zahlen.",
+      "regs": "Die Schaltflächen für die Regionen beschränken die Liste auf Teile der Karte; mehrere dürfen gleichzeitig aktiv sein.",
+      "sort": "Klick auf eine Spaltenüberschrift, um danach zu sortieren."
+    }
   },
   "legend": {
     "classes": [
@@ -270,7 +298,7 @@
   },
   "card": {
     "label": "Ausgewählter Ort",
-    "empty": "Such oben einen Ort oder klick auf der Karte auf eine Region. Der Steckbrief zeigt, was deine Einstellungen dort bedeuten und was es bräuchte.",
+    "empty": "Such oben einen Ort oder klick auf der Karte auf ein Land. Der Steckbrief zeigt, was ein Drittel des Einkommens dort zu deinen Bedingungen kauft und welches Einkommen es für die gewünschte Größe bräuchte.",
     "coastal": "{deg}, an der Küste",
     "coverage": "Kaufpreisdaten für {pct} der Bevölkerung",
     "countryKind": "Land",
@@ -373,7 +401,7 @@
       "one": "noch bis zu {n} hinzufügen",
       "other": "noch bis zu {n} hinzufügen"
     },
-    "nothing": "noch nichts ausgewählt – füge einen Ort über den Steckbrief oder die Ranglisten hinzu"
+    "nothing": "noch nichts ausgewählt: Füge einen Ort mit + Vergleichen in seinem Steckbrief hinzu oder mit dem + in den Ranglisten"
   },
   "rank": {
     "coast": "nur Küste",
