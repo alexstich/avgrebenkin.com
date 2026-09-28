@@ -147,6 +147,52 @@ def build(g, fr, core):
 
 FR_NAME = {f['key']: f['name'] for f in FRAMES}
 
+# ---- врезки Латинской Америки
+# Два города, а не материк: у каждого своя маленькая карта районов, а не кадр
+# общей. Контуры уже упрощены и обрезаны в extract_latam.py (там же лицензии);
+# здесь — только проекция. На масштабе города в 20 км равнопромежуточная
+# проекция с поправкой на косинус широты расходится с равновеликой меньше, чем
+# на пиксел, и считать Ламберта ради неё незачем.
+LATAM_GEO = os.path.join(HERE, '..', '..', 'data', 'latam-geo.json')
+INSET_W = 600
+# Поле вокруг районов с ценами: в Лиме видно, что город продолжается, а у
+# Буэнос-Айреса граница города и есть граница данных.
+INSET_PAD = {'PE': 0.05, 'AR': 0.015}
+
+
+def latam_insets():
+    if not os.path.exists(LATAM_GEO):
+        return None
+    src = json.load(open(LATAM_GEO, encoding='utf-8'))
+    out = {}
+    for cc, feats in src.items():
+        core = [p for f in feats if f['key'] for r in f['rings'] for p in r]
+        lat0 = sum(p[1] for p in core) / len(core)
+        kx = math.cos(math.radians(lat0))
+        xs = [p[0] * kx for p in core]
+        ys = [p[1] for p in core]
+        x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+        pad = INSET_PAD.get(cc, 0.03) * max(x1 - x0, y1 - y0)
+        x0, x1, y0, y1 = x0 - pad, x1 + pad, y0 - pad, y1 + pad
+        sc = INSET_W / (x1 - x0)
+        h = int(math.ceil((y1 - y0) * sc))
+        paths = []
+        for f in feats:
+            d = ''
+            for r in f['rings']:
+                pts, last = [], None
+                for lon, lat in r:
+                    q = (round((lon * kx - x0) * sc, 1), round((y1 - lat) * sc, 1))
+                    if q != last:
+                        pts.append(q); last = q
+                if len(pts) < 4:
+                    continue
+                d += 'M%g %g' % pts[0] + ''.join('L%g %g' % p for p in pts[1:-1]) + 'z'
+            if d:
+                paths.append([f['name'], f['key'] or '', f['as'], d])
+        out[cc] = {'w': INSET_W, 'h': h, 'paths': paths}
+    return out
+
 
 def main():
     src = sys.argv[1] if len(sys.argv) > 1 else HERE
@@ -166,11 +212,16 @@ def main():
         frames[fr['key']] = out
         order.append(fr['key'])
     p = os.path.join(HERE, 'geo.json')
-    json.dump({'order': order, 'frames': frames}, open(p, 'w', encoding='utf-8'),
-              ensure_ascii=False, separators=(',', ':'))
+    out = {'order': order, 'frames': frames}
+    insets = latam_insets()
+    if insets:
+        out['latam'] = insets
+    json.dump(out, open(p, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
     for k in order:
         f = frames[k]
         print('  %-3s %-17s %d стран, %d×%d' % (k, FR_NAME[k], len(f['countries']), f['w'], f['h']))
+    for k, f in (insets or {}).items():
+        print('  врезка %s: %d районов, %d×%d' % (k, len(f['paths']), f['w'], f['h']))
     print('geo.json: %d кадров, %d байт' % (len(order), os.path.getsize(p)))
 
 

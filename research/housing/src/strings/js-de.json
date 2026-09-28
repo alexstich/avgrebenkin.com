@@ -453,6 +453,39 @@
     "tip": "{kind}: {pct} der Bevölkerung ({m} Mio.)",
     "axis": "erschwingliche Quadratmeter für ein Drittel des örtlichen Durchschnittseinkommens"
   },
+  "latam": {
+    "legendPrice": "Preis pro m², US-Dollar",
+    "legendRentPrice": "Miete pro m² im Monat, US-Dollar",
+    "legendBuy": "m², die {share} deines Einkommens kauft",
+    "legendRent": "m², die {share} deines Einkommens mietet",
+    "range": "{lo}–{hi}",
+    "setupPrice": "Jede Karte ist innerhalb ihrer eigenen Stadt eingefärbt: <b>Grün ist das günstigste Fünftel</b> ihrer Viertel, Rot das teuerste. Die beiden Skalen unterscheiden sich mit Absicht.",
+    "needIncome": "Gib oben im Rechner dein Monatseinkommen ein: Die Ebene hat kein örtliches Einkommen, also lassen sich die Quadratmeter nur aus deinem berechnen.",
+    "setupBuy": "<b>{income}</b> im Monat, zum EZB-Kurs in US-Dollar umgerechnet · <b>{share}</b> fürs Wohnen = <b>{budget}</b> im Monat · Hypothek über <b>{term}</b> · Eigenkapital <b>{deposit}</b> · {rate}",
+    "setupRent": "<b>{income}</b> im Monat, zum EZB-Kurs in US-Dollar umgerechnet · <b>{share}</b> für die Miete = <b>{budget}</b> im Monat",
+    "rateLima": "Lima zum durchschnittlichen Zins peruanischer Banken für Hypotheken in Dollar im selben Quartal, <b>{rate}</b> pro Jahr; Buenos Aires hat hier keinen eigenen Zins",
+    "rateMine": "beide Städte zu deinem Zins von <b>{rate}</b>",
+    "noRent": "Für Buenos Aires hat diese Ebene keine Mieten, nur Angebotspreise für den Kauf.",
+    "noRate": "Für Buenos Aires hat diese Ebene keinen Hypothekenzins, und es wird auch keiner von anderswo geborgt. Trag oben im Rechner einen Zins ein, um zu sehen, was du hier kaufen könntest.",
+    "rentHow": "Die Miete ist abgeleitet: der Preis des Distrikts geteilt durch das Preis-Miete-Verhältnis der Zentralbank.",
+    "notInLayer": "nicht in der Ebene",
+    "gapsLine": "{n} von {all} Barrios haben in diesem Ausschnitt keinen Preis und bleiben grau: {names}.",
+    "gap": {
+      "none": "Im zweiten Quartal 2019 überhaupt kein Angebotspreis",
+      "stratum": "Im zweiten Quartal 2019 kein Preis für Dreizimmerwohnungen aus dem Bestand, nur für andere Wohnungsarten",
+      "lima": "Nicht in der Ebene: Die Zentralbank veröffentlicht {n} Distrikte"
+    },
+    "tip": {
+      "price": "Preis",
+      "rent": "Miete",
+      "ptr": "Preis in Jahresmieten",
+      "r2": "Zwei Zimmer, Bestand",
+      "r3n": "Drei Zimmer, Neubau",
+      "youBuy": "Du könntest kaufen",
+      "youRent": "Du könntest mieten"
+    },
+    "outlier": "2020: Pandemie-Erhebung"
+  },
   "share": {
     "copied": "Link kopiert",
     "inBar": "Der Link steht in der Adresszeile"

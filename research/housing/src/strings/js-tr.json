@@ -453,6 +453,39 @@
     "tip": "{kind}: nüfusun {pct} kadarı ({m} milyon)",
     "axis": "yerel ortalama gelirin üçte biriyle ulaşılabilen metrekare"
   },
+  "latam": {
+    "legendPrice": "m² fiyatı, ABD doları",
+    "legendRentPrice": "Aylık m² kirası, ABD doları",
+    "legendBuy": "Gelirinizden ayrılan {share} payla satın alınabilen m²",
+    "legendRent": "Gelirinizden ayrılan {share} payla kiralanabilen m²",
+    "range": "{lo}–{hi}",
+    "setupPrice": "Her harita kendi şehri içinde renklendiriliyor: <b>yeşil, semtlerin en ucuz beşte biri</b>, kırmızı en pahalı beşte biri. İki ölçek bilerek farklı.",
+    "needIncome": "Yukarıdaki hesaplayıcıya aylık gelirinizi yazın: bu katmanda yerel gelir yok, bu yüzden metrekareler yalnızca sizin gelirinizden hesaplanabilir.",
+    "setupBuy": "Ayda <b>{income}</b>, ECB kuruyla ABD dolarına çevrilmiş · konut payı <b>{share}</b> = ayda <b>{budget}</b> · <b>{term}</b> kredi · peşinat <b>{deposit}</b> · {rate}",
+    "setupRent": "Ayda <b>{income}</b>, ECB kuruyla ABD dolarına çevrilmiş · kira payı <b>{share}</b> = ayda <b>{budget}</b>",
+    "rateLima": "Lima’da Perulu bankaların aynı çeyrekteki ortalama dolar konut kredisi faizi, yıllık <b>{rate}</b>; Buenos Aires’in burada kendi faizi yok",
+    "rateMine": "iki şehirde de sizin <b>{rate}</b> faiziniz",
+    "noRent": "Bu katmanda Buenos Aires için kira yok, yalnızca satılık konutların ilan fiyatları var.",
+    "noRate": "Bu katmanda Buenos Aires için konut kredisi faizi yok ve başka bir yerden de ödünç alınmıyor. Burada ne satın alabileceğinizi görmek için yukarıdaki hesaplayıcıya bir faiz yazın.",
+    "rentHow": "Kira türetilmiş: ilçenin fiyatı, merkez bankasının fiyat/kira oranına bölünüyor.",
+    "notInLayer": "katmanda yok",
+    "gapsLine": "{all} barrio’dan {n} tanesinin bu dilimde fiyatı yok ve gri kalıyor: {names}.",
+    "gap": {
+      "none": "2019’un ikinci çeyreğinde hiç ilan fiyatı yok",
+      "stratum": "2019’un ikinci çeyreğinde üç odalı (2+1) ikinci el daireler için fiyat yok, yalnızca başka tür daireler için var",
+      "lima": "Katmanda yok: merkez bankası {n} ilçe yayımlıyor"
+    },
+    "tip": {
+      "price": "Fiyat",
+      "rent": "Kira",
+      "ptr": "Fiyat, kaç yıllık kira",
+      "r2": "İki odalı (1+1), ikinci el",
+      "r3n": "Üç odalı (2+1), yeni yapı",
+      "youBuy": "Satın alabileceğiniz",
+      "youRent": "Kiralayabileceğiniz"
+    },
+    "outlier": "2020: pandemi anketi"
+  },
   "share": {
     "copied": "Bağlantı kopyalandı",
     "inBar": "Bağlantı adres çubuğunda"

@@ -1,0 +1,62 @@
+{
+  "built": "2026-09-28",
+  "layers": {
+    "PE": {
+      "rows": 12,
+      "period": "T4.25",
+      "city": "Lima",
+      "source": "Banco Central de Reserva del Perú, series «Mercado inmobiliario»",
+      "url": "https://estadisticas.bcrp.gob.pe/estadisticas/series/",
+      "licence": "Puede reproducirse total o parcialmente, sin autorización expresa, siempre y cuando se cite la fuente",
+      "licence_url": "https://www.bcrp.gob.pe/condiciones-de-uso.html",
+      "kind": "цена сделок",
+      "rate_tea": 6.2952,
+      "rate_series": "PN07857NM",
+      "rate_name": "Tasas de interés activas promedio de las empresas bancarias por modalidad (términos efectivos anuales) - ME - Hipotecario"
+    },
+    "AR": {
+      "rows": 37,
+      "period": "2019 Q2",
+      "city": "Buenos Aires",
+      "source": "Buenos Aires Data, Instituto de Vivienda",
+      "url": "https://data.buenosaires.gob.ar/dataset/mercado-inmobiliario",
+      "licence": "CC-BY-2.5-AR",
+      "licence_url": "https://creativecommons.org/licenses/by/2.5/ar/",
+      "kind": "цена предложения",
+      "stratum": "3 ambientes, Usado (главная колонка usd_m2)"
+    },
+    "OECD": {
+      "rows": 4,
+      "indicator": "HC12_A1_a",
+      "source": "OECD Affordable Housing Database, HC1.2",
+      "url": "https://www.oecd.org/en/data/datasets/oecd-affordable-housing-database.html",
+      "licence": "CC BY 4.0",
+      "measure": "медиана доли ипотеки (тело и проценты) или аренды в доходе",
+      "caveat": "Чили, Колумбия, Мексика — доход до налогов, Коста-Рика — располагаемый",
+      "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+      "countries": [
+        "Chile",
+        "Colombia",
+        "Costa Rica",
+        "Mexico"
+      ]
+    }
+  },
+  "geo": {
+    "PE": {
+      "source": "Instituto Geográfico Nacional (IGN), via OCHA / HDX «Peru - Subnational Administrative Boundaries»",
+      "url": "https://data.humdata.org/dataset/cod-ab-per",
+      "licence": "CC BY 3.0 IGO",
+      "licence_url": "https://creativecommons.org/licenses/by/3.0/igo/legalcode",
+      "modified": "контуры упрощены и обрезаны рамкой врезки"
+    },
+    "AR": {
+      "source": "Buenos Aires Data, «Barrios»",
+      "url": "https://data.buenosaires.gob.ar/dataset/barrios",
+      "licence": "CC-BY-2.5-AR",
+      "licence_url": "https://creativecommons.org/licenses/by/2.5/ar/",
+      "modified": "контуры упрощены"
+    }
+  },
+  "gaps": 24
+}

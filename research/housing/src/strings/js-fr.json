@@ -453,6 +453,39 @@
     "tip": "{kind} : {pct} de la population ({m} millions)",
     "axis": "mètres carrés abordables avec un tiers du revenu moyen local"
   },
+  "latam": {
+    "legendPrice": "Prix au m², en dollars US",
+    "legendRentPrice": "Loyer au m² par mois, en dollars US",
+    "legendBuy": "m² qu’achète {share} de votre revenu",
+    "legendRent": "m² que loue {share} de votre revenu",
+    "range": "{lo}–{hi}",
+    "setupPrice": "Chaque carte est colorée à l’intérieur de sa propre ville : <b>le vert, c’est le cinquième le moins cher</b> de ses districts, le rouge le plus cher. Les deux échelles diffèrent à dessein.",
+    "needIncome": "Saisissez votre revenu mensuel dans le calculateur plus haut : cette couche n’a pas de revenu local, les mètres carrés ne peuvent donc être comptés que sur le vôtre.",
+    "setupBuy": "<b>{income}</b> par mois, convertis en dollars US au cours de la BCE · <b>{share}</b> pour le logement = <b>{budget}</b> par mois · prêt sur <b>{term}</b> · apport <b>{deposit}</b> · {rate}",
+    "setupRent": "<b>{income}</b> par mois, convertis en dollars US au cours de la BCE · <b>{share}</b> pour le loyer = <b>{budget}</b> par mois",
+    "rateLima": "Lima au taux moyen des banques péruviennes pour les prêts immobiliers en dollars au même trimestre, <b>{rate}</b> par an ; Buenos Aires n’a pas ici de taux propre",
+    "rateMine": "les deux villes à votre taux de <b>{rate}</b>",
+    "noRent": "Pas de loyers pour Buenos Aires dans cette couche, seulement des prix de vente demandés.",
+    "noRate": "Pas de taux hypothécaire pour Buenos Aires dans cette couche, et aucun n’est emprunté ailleurs. Saisissez un taux dans le calculateur plus haut pour voir ce que vous pourriez acheter ici.",
+    "rentHow": "Le loyer est déduit : le prix du district divisé par le rapport prix/loyer publié par la banque centrale.",
+    "notInLayer": "absent de la couche",
+    "gapsLine": "{n} barrios sur {all} n’ont pas de prix dans cette tranche et restent en gris : {names}.",
+    "gap": {
+      "none": "Aucun prix demandé au deuxième trimestre 2019",
+      "stratum": "Pas de prix pour les appartements anciens de trois pièces au deuxième trimestre 2019, seulement pour d’autres types d’appartements",
+      "lima": "Absent de la couche : la banque centrale publie {n} districts"
+    },
+    "tip": {
+      "price": "Prix",
+      "rent": "Loyer",
+      "ptr": "Prix en années de loyer",
+      "r2": "Deux pièces, ancien",
+      "r3n": "Trois pièces, neuf",
+      "youBuy": "Vous pourriez acheter",
+      "youRent": "Vous pourriez louer"
+    },
+    "outlier": "2020 : enquête en pandémie"
+  },
   "share": {
     "copied": "Lien copié",
     "inBar": "Le lien est dans la barre d’adresse"
