@@ -158,8 +158,10 @@ def build(code, langs):
     def para(m):
         tag, attrs, val = m.group(1), m.group(2), at(L, m.group(3))
         parts = [x.strip() for x in re.split(r'\n\s*\n', val) if x.strip()]
-        if len(parts) < 2:
-            return '<%s%s>%s</%s>' % (tag, attrs, val, tag)
+        # Абзац с id (подсказка, которую переписывает скрипт) не размножается:
+        # два элемента с одним id — это уже ошибка разметки.
+        if len(parts) < 2 or ' id=' in attrs:
+            return '<%s%s>%s</%s>' % (tag, attrs, ' '.join(parts) if parts else val, tag)
         if tag == 'dd':
             return '<dd%s>%s</dd>' % (attrs, ''.join('<p>%s</p>' % x for x in parts))
         return '\n'.join('<%s%s>%s</%s>' % (tag, attrs, x, tag) for x in parts)

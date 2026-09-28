@@ -129,12 +129,12 @@
     }
   ],
   "setup": {
-    "hhHint": "Fator de equivalência {factor} (escala da OCDE modificada: primeiro adulto 1, cada adulto a mais 0,5, cada criança 0,3). Usado só na linha que compara sua renda com a média local — que na Europa é por adulto equivalente e nos Estados Unidos é por domicílio.",
+    "hhHint": "Fator de equivalência {factor}: a escala da OCDE conta o primeiro adulto como 1, cada adulto a mais como 0,5 e cada criança como 0,3. Usado só na linha que compara sua renda com a média local, que na Europa é por adulto equivalente e nos Estados Unidos é por domicílio.",
     "wantNoArea": "não há área nos dados dos EUA",
     "wantAny": "qualquer",
     "mineDisabled": "Digite sua renda acima",
-    "incHint": "Depois dos impostos, somando todos que têm renda. Deixe vazio para ver cada lugar com sua própria renda média.",
-    "incHintFx": "Depois dos impostos, somando todos que têm renda. {amount} = {eur} pela taxa de referência do BCE de {date}.",
+    "incHint": "Depois dos impostos, somando todos do domicílio. Deixe vazio e cada lugar aparece com sua própria renda média; digite e os mapas, os cartões e os rankings passam a usar o seu dinheiro.",
+    "incHintFx": "Depois dos impostos, somando todos do domicílio. {amount} = {eur} pela taxa de referência do BCE de {date}.",
     "rateAll": "{rate} em todo lugar",
     "rateOwn": "a taxa própria de cada país",
     "adults": {
@@ -172,7 +172,35 @@
       "years": "anos de renda para {basket}",
       "share": "aluguel como parcela da renda, para {basket}"
     },
-    "noAreaTitle": "Não há área publicada para os {units} dos EUA — veja “De onde vêm os números”"
+    "noAreaTitle": "Não há área publicada para os {units} dos EUA — veja “De onde vêm os números”",
+    "hint": {
+      "buy": "Quantos metros quadrados {share} da renda compra com um financiamento de {term} anos à taxa local e ao preço local do metro quadrado. Verde é muito espaço, vermelho é pouco.",
+      "rent": "Quantos metros quadrados {share} da renda aluga ao aluguel local por metro quadrado. Verde é muito espaço, vermelho é pouco.",
+      "diff": "Metros quadrados para alugar menos metros quadrados para comprar, ambos com {share} da renda: qual dos dois dá mais espaço aqui. A legenda diz que lado cada cor favorece.",
+      "years": "Quantos anos da renda inteira leva para comprar {basket} à vista, sem financiamento nenhum. Menos é melhor, então aqui verde significa poucos anos e vermelho, muitos: esta escala corre ao contrário da dos metros.",
+      "share": "Que parte da renda de um mês o aluguel leva, para {basket}. Menor é melhor, então verde significa uma parcela pequena e vermelho, uma grande."
+    }
+  },
+  "hints": {
+    "frame": {
+      "eu": "{n} municípios em {countries} países, da tabela ESPON HOUSE4ALL: preços pedidos por metro quadrado contra a renda depois dos impostos por adulto equivalente.",
+      "na": "{n} condados da American Community Survey: valores dos imóveis segundo os proprietários e aluguéis contra a renda do domicílio antes dos impostos. Uma medição diferente da europeia, por isso os dois mapas nunca compartilham uma escala."
+    },
+    "basis": {
+      "local": "Cada lugar é colorido pela própria renda média: o mapa responde se quem mora ali consegue pagar para morar ali.",
+      "mine": "Todos os lugares são coloridos pela sua renda de {income} por mês: o mapa responde onde você conseguiria pagar para morar.",
+      "mineOff": "Digite sua renda na calculadora acima para colorir o mapa pelo seu dinheiro, e não pela média local."
+    },
+    "read": {
+      "base": "Cada ponto é um lugar, com tamanho proporcional à população; cada país é preenchido com seu número nacional. Passe o mouse ou toque para ver os números. Cinza significa sem dados.",
+      "dimmed": "O cinza também marca os lugares onde {m2} estão fora de alcance."
+    },
+    "rank": {
+      "countries": "Cada país é a média de seus lugares ponderada pela população, então uma capital grande e cara puxa o país para baixo no ranking.",
+      "cities": "Lugares individuais com {min} habitantes ou mais, cada um com seus próprios números.",
+      "regs": "Os botões de região mantêm só partes do mapa; vários podem ficar ligados ao mesmo tempo.",
+      "sort": "Clique no cabeçalho de uma coluna para ordenar por ela."
+    }
   },
   "legend": {
     "classes": [
@@ -270,7 +298,7 @@
   },
   "card": {
     "label": "Lugar selecionado",
-    "empty": "Busque uma cidade acima ou clique numa região do mapa. O cartão mostra o que suas configurações significam ali e o que seria preciso.",
+    "empty": "Busque uma cidade acima ou clique num país do mapa. O cartão mostra o que um terço da renda compra ali nas suas condições, e que renda seria preciso para ter o tamanho que você quer.",
     "coastal": "{deg}, no litoral",
     "coverage": "dados de venda para {pct} da população",
     "countryKind": "país",
@@ -373,7 +401,7 @@
       "one": "dá para adicionar mais {n}",
       "other": "dá para adicionar até mais {n}"
     },
-    "nothing": "nada selecionado ainda — adicione um lugar pelo cartão ou pelos rankings"
+    "nothing": "nada selecionado ainda: adicione um lugar com + Comparar no cartão dele, ou com o + nos rankings"
   },
   "rank": {
     "coast": "só litoral",

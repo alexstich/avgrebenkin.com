@@ -130,12 +130,12 @@
     }
   ],
   "setup": {
-    "hhHint": "Factor de equivalencia {factor} (escala de la OCDE modificada: primer adulto 1, cada adulto más 0,5, cada niño 0,3). Solo se usa en la línea que compara tus ingresos con la media local, que en Europa es por adulto equivalente y en Estados Unidos, por hogar.",
+    "hhHint": "Factor de equivalencia {factor}: la escala de la OCDE cuenta al primer adulto como 1, a cada adulto más como 0,5 y a cada niño como 0,3. Solo se usa en la línea que compara tus ingresos con la media local, que en Europa es por adulto equivalente y en Estados Unidos, por hogar.",
     "wantNoArea": "sin superficie en los datos de EE. UU.",
     "wantAny": "cualquiera",
     "mineDisabled": "Introduce tus ingresos arriba",
-    "incHint": "Después de impuestos, sumando a todos los que aportan ingresos. Déjalo vacío para ver cada lugar con su propia renta media.",
-    "incHintFx": "Después de impuestos, sumando a todos los que aportan ingresos. {amount} = {eur} al tipo de referencia del BCE del {date}.",
+    "incHint": "Después de impuestos, sumando a todos los miembros del hogar. Déjalo vacío y cada lugar se muestra con su propia renta media; escribe tus ingresos y los mapas, las fichas y las clasificaciones pasan a calcularse con tu dinero.",
+    "incHintFx": "Después de impuestos, sumando a todos los miembros del hogar. {amount} = {eur} al tipo de referencia del BCE del {date}.",
     "rateAll": "{rate} en todas partes",
     "rateOwn": "el propio de cada país",
     "adults": {
@@ -173,7 +173,35 @@
       "years": "años de ingresos por {basket}",
       "share": "alquiler de {basket} como parte de los ingresos"
     },
-    "noAreaTitle": "No se publica la superficie de los {units} de EE. UU.; ver «De dónde salen las cifras»"
+    "noAreaTitle": "No se publica la superficie de los {units} de EE. UU.; ver «De dónde salen las cifras»",
+    "hint": {
+      "buy": "Cuántos metros cuadrados compra {share} de los ingresos con una hipoteca a {term} años al tipo local y al precio local por metro cuadrado. El verde es mucho espacio; el rojo, poco.",
+      "rent": "Cuántos metros cuadrados alquila {share} de los ingresos al alquiler local por metro cuadrado. El verde es mucho espacio; el rojo, poco.",
+      "diff": "Metros cuadrados para alquilar menos metros cuadrados para comprar, ambos con {share} de los ingresos: cuál de las dos opciones te da aquí más espacio. La leyenda dice a qué lado favorece cada color.",
+      "years": "Cuántos años de ingresos íntegros hacen falta para pagar {basket} al contado, sin ninguna hipoteca. Cuantos menos, mejor, así que aquí el verde significa pocos años y el rojo, muchos: esta escala va al revés que la de los metros.",
+      "share": "Qué parte de un mes de ingresos se lleva el alquiler, para {basket}. Cuanto menor, mejor, así que el verde significa una parte pequeña y el rojo, una grande."
+    }
+  },
+  "hints": {
+    "frame": {
+      "eu": "{n} municipios de {countries} países, de la tabla de ESPON HOUSE4ALL: precios de oferta por metro cuadrado frente a ingresos después de impuestos por adulto equivalente.",
+      "na": "{n} condados de la American Community Survey: el valor de la vivienda según sus propietarios y los alquileres frente a los ingresos del hogar antes de impuestos. Es una medición distinta de la europea, así que los dos mapas nunca comparten escala."
+    },
+    "basis": {
+      "local": "Cada lugar se colorea según su propia renta media: el mapa responde si la gente de allí puede permitirse vivir allí.",
+      "mine": "Todos los lugares se colorean según tus ingresos de {income} al mes: el mapa responde dónde podrías permitirte vivir tú.",
+      "mineOff": "Escribe tus ingresos en la calculadora de arriba para colorear el mapa con tu dinero en lugar de con la renta media local."
+    },
+    "read": {
+      "base": "Cada punto es un lugar, con un tamaño según su población; cada país se rellena con su cifra nacional. Pasa el cursor o toca para ver las cifras. El gris significa que no hay datos.",
+      "dimmed": "El gris marca también los lugares donde {m2} quedan fuera de alcance."
+    },
+    "rank": {
+      "countries": "Cada país es la media de sus lugares ponderada por población, así que una capital grande y cara arrastra a su país hacia abajo en la clasificación.",
+      "cities": "Lugares individuales de {min} habitantes o más, cada uno con sus propias cifras.",
+      "regs": "Los botones de regiones dejan solo partes del mapa; puede haber varios activos a la vez.",
+      "sort": "Haz clic en el encabezado de una columna para ordenar por ella."
+    }
   },
   "legend": {
     "classes": [
@@ -271,7 +299,7 @@
   },
   "card": {
     "label": "Lugar seleccionado",
-    "empty": "Busca un municipio arriba o haz clic en una región del mapa. La ficha muestra qué significan allí tus ajustes y qué haría falta.",
+    "empty": "Busca un municipio arriba o haz clic en un país del mapa. La ficha muestra qué compra allí un tercio de los ingresos con tus condiciones y qué ingresos harían falta para conseguir el tamaño que quieres.",
     "coastal": "{deg} · en la costa",
     "coverage": "datos de venta para el {pct} de la población",
     "countryKind": "país",
@@ -374,7 +402,7 @@
       "one": "puedes añadir {n} más",
       "other": "puedes añadir {n} más"
     },
-    "nothing": "todavía no hay nada seleccionado: añade un lugar desde la ficha o las clasificaciones"
+    "nothing": "todavía no hay nada seleccionado: añade un lugar con + Comparar en su ficha o con el + de las clasificaciones"
   },
   "rank": {
     "coast": "solo costa",

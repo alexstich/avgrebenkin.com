@@ -143,12 +143,12 @@
     }
   ],
   "setup": {
-    "hhHint": "Współczynnik ekwiwalentności {factor} (zmodyfikowana skala OECD: pierwsza osoba dorosła 1, każda kolejna 0,5, każde dziecko 0,3). Używany tylko w wierszu, który porównuje twój dochód z miejscową średnią – liczoną w Europie na jednostkę ekwiwalentną dorosłego, a w Stanach Zjednoczonych na gospodarstwo domowe.",
+    "hhHint": "Współczynnik ekwiwalentności {factor}: skala OECD liczy pierwszą osobę dorosłą jako 1, każdą kolejną jako 0,5, a każde dziecko jako 0,3. Używany tylko w wierszu, który porównuje twój dochód z miejscową średnią – liczoną w Europie na jednostkę ekwiwalentną dorosłego, a w Stanach Zjednoczonych na gospodarstwo domowe.",
     "wantNoArea": "dane USA nie podają powierzchni",
     "wantAny": "dowolny",
     "mineDisabled": "Wpisz dochód powyżej",
-    "incHint": "Po podatku, wszystkie zarabiające osoby razem. Zostaw puste, żeby zobaczyć każde miejsce na jego własnym przeciętnym dochodzie.",
-    "incHintFx": "Po podatku, wszystkie zarabiające osoby razem. {amount} = {eur} po kursie referencyjnym EBC z {date}.",
+    "incHint": "Po podatku, wszystkie osoby w gospodarstwie razem. Zostaw pole puste, a każde miejsce będzie pokazane na własnym przeciętnym dochodzie; wpisz kwotę, a mapy, karty i rankingi przełączą się na twoje pieniądze.",
+    "incHintFx": "Po podatku, wszystkie osoby w gospodarstwie razem. {amount} = {eur} po kursie referencyjnym EBC z {date}.",
     "rateAll": "przy oprocentowaniu {rate} wszędzie",
     "rateOwn": "przy krajowym oprocentowaniu każdego kraju",
     "adults": {
@@ -192,7 +192,35 @@
       "years": "lata dochodu za {basket}",
       "share": "czynsz za {basket} jako udział w dochodzie"
     },
-    "noAreaTitle": "Dane USA ({units}) nie obejmują powierzchni – zob. „Skąd biorą się liczby”"
+    "noAreaTitle": "Dane USA ({units}) nie obejmują powierzchni – zob. „Skąd biorą się liczby”",
+    "hint": {
+      "buy": "Ile metrów kwadratowych kupuje {share} dochodu przy {term}-letnim kredycie hipotecznym po miejscowym oprocentowaniu i miejscowej cenie za metr kwadratowy. Zieleń to dużo przestrzeni, czerwień – mało.",
+      "rent": "Ile metrów kwadratowych pozwala wynająć {share} dochodu po miejscowym czynszu za metr kwadratowy. Zieleń to dużo przestrzeni, czerwień – mało.",
+      "diff": "Metry kwadratowe do wynajęcia minus metry kwadratowe do kupienia, gdy w obu przypadkach na mieszkanie idzie {share} dochodu: co daje tu więcej przestrzeni, najem czy zakup. Legenda mówi, której stronie sprzyja każdy kolor.",
+      "years": "Ile lat całego dochodu kosztuje {basket} przy zakupie za gotówkę, bez żadnego kredytu. Mniej znaczy lepiej, więc tutaj zieleń to mało lat, a czerwień – dużo: ta skala biegnie odwrotnie niż metry.",
+      "share": "Jaką część miesięcznego dochodu pochłania czynsz za {basket}. Mniej znaczy lepiej, więc zieleń to mały udział, a czerwień – duży."
+    }
+  },
+  "hints": {
+    "frame": {
+      "eu": "{n} gmin w {countries} krajach, z tabeli ESPON HOUSE4ALL: ceny ofertowe za metr kwadratowy wobec dochodu po podatku na jednostkę ekwiwalentną dorosłego.",
+      "na": "{n} hrabstw z American Community Survey: wartości domów według właścicieli i czynsze wobec dochodu gospodarstwa domowego przed podatkiem. To inny pomiar niż w Europie, więc obie mapy nigdy nie mają wspólnej skali."
+    },
+    "basis": {
+      "local": "Każde miejsce jest pokolorowane według własnego przeciętnego dochodu: mapa odpowiada, czy miejscowych stać na mieszkanie u siebie.",
+      "mine": "Każde miejsce jest pokolorowane według twojego dochodu {income} miesięcznie: mapa odpowiada, gdzie byłoby cię stać na mieszkanie.",
+      "mineOff": "Wpisz swój dochód w kalkulatorze powyżej, żeby pokolorować mapę według twoich pieniędzy zamiast miejscowej średniej."
+    },
+    "read": {
+      "base": "Każda kropka to jedno miejsce, tym większa, im więcej ludności; każdy kraj jest wypełniony swoim krajowym wynikiem. Najedź albo dotknij, by zobaczyć liczby. Szary oznacza brak danych.",
+      "dimmed": "Szary oznacza też miejsca, w których {m2} jest poza zasięgiem."
+    },
+    "rank": {
+      "countries": "Każdy kraj to średnia jego miejsc ważona liczbą ludności, więc duża i droga stolica ciągnie swój kraj w dół rankingu.",
+      "cities": "Pojedyncze miejsca liczące co najmniej {min} mieszkańców, każde na własnych liczbach.",
+      "regs": "Przyciski regionów zostawiają tylko części mapy; kilka może być włączonych naraz.",
+      "sort": "Kliknij nagłówek kolumny, żeby według niej posortować."
+    }
   },
   "legend": {
     "classes": [
@@ -292,7 +320,7 @@
   },
   "card": {
     "label": "Wybrane miejsce",
-    "empty": "Wyszukaj miejscowość powyżej albo kliknij region na mapie. Karta pokaże, co twoje ustawienia oznaczają w tym miejscu i czego by tam trzeba.",
+    "empty": "Wyszukaj miejscowość powyżej albo kliknij kraj na mapie. Karta pokaże, ile na twoich warunkach kupuje tam trzecia część dochodu i jaki dochód byłby potrzebny na metraż, którego szukasz.",
     "coastal": "{deg}, nad morzem",
     "coverage": "dane o cenach sprzedaży dla {pct} ludności",
     "countryKind": "kraj",
@@ -399,7 +427,7 @@
       "many": "dodaj jeszcze najwyżej {n}",
       "other": "dodaj jeszcze najwyżej {n}"
     },
-    "nothing": "jeszcze nic nie wybrano – dodaj miejsce z karty albo z rankingów"
+    "nothing": "jeszcze nic nie wybrano: dodaj miejsce przyciskiem + Porównaj na jego karcie albo plusem w rankingach"
   },
   "rank": {
     "coast": "tylko wybrzeże",

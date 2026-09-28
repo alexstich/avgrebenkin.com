@@ -178,12 +178,12 @@
       "rent": "How many square metres {share} of the income rents at the local rent per square metre. Green is a lot of space, red is little.",
       "diff": "Square metres to rent minus square metres to buy, both on {share} of the income: which of the two gets you more space here. The legend says which side each colour favours.",
       "years": "How many years of the whole income {basket} costs outright, with no mortgage at all. Fewer is better, so here green means few years and red means many: this scale runs the other way from the metres.",
-      "share": "What part of a month's income the rent of {basket} takes. Smaller is better, so green means a small share and red a large one."
+      "share": "What part of a month's income the rent takes, for {basket}. Smaller is better, so green means a small share and red a large one."
     }
   },
   "hints": {
     "frame": {
-      "eu": "{n} municipalities in {countries} countries, from the ESPON HOUSE4ALL table: asking prices per square metre against income after tax per adult.",
+      "eu": "{n} municipalities in {countries} countries, from the ESPON HOUSE4ALL table: asking prices per square metre against income after tax per adult-equivalent.",
       "na": "{n} counties from the American Community Survey: owners' home values and rents against household income before tax. A different measurement from Europe's, so the two maps never share one scale."
     },
     "basis": {
@@ -196,9 +196,9 @@
       "dimmed": "Grey also marks the places where {m2} are out of reach."
     },
     "rank": {
-      "countries": "Each country is the population-weighted average of its places, so a big expensive capital pulls its country down.",
+      "countries": "Each country is the population-weighted average of its places, so a big expensive capital pulls its country down the ranking.",
       "cities": "Single places of {min} people or more, each on its own numbers.",
-      "regs": "The buttons on the right keep only parts of the map; several can be on at once.",
+      "regs": "The region buttons keep only parts of the map; several can be on at once.",
       "sort": "Click a column heading to sort by it."
     }
   },

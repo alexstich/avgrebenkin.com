@@ -129,12 +129,12 @@
     }
   ],
   "setup": {
-    "hhHint": "Equivalentiefactor {factor} (gewijzigde OESO-schaal: eerste volwassene 1, elke volgende volwassene 0,5, elk kind 0,3). Alleen gebruikt voor de regel die jouw inkomen vergelijkt met het lokale gemiddelde — dat in Europa per volwassenenequivalent is en in de Verenigde Staten per huishouden.",
+    "hhHint": "Equivalentiefactor {factor}: de OESO-schaal telt de eerste volwassene als 1, elke volgende volwassene als 0,5 en elk kind als 0,3. Alleen gebruikt voor de regel die jouw inkomen vergelijkt met het lokale gemiddelde, dat in Europa per volwassenenequivalent is en in de Verenigde Staten per huishouden.",
     "wantNoArea": "geen woonoppervlak in Amerikaanse data",
     "wantAny": "geen",
     "mineDisabled": "Vul hierboven je inkomen in",
-    "incHint": "Na belasting, alle verdieners samen. Laat leeg om elke plaats op haar eigen gemiddelde inkomen te zien.",
-    "incHintFx": "Na belasting, alle verdieners samen. {amount} = {eur} tegen de referentiekoers van de ECB van {date}.",
+    "incHint": "Na belasting, iedereen in het huishouden samen. Laat het leeg en elke plaats staat op haar eigen gemiddelde inkomen; vul het in en de kaarten, infokaarten en ranglijsten schakelen over op jouw geld.",
+    "incHintFx": "Na belasting, iedereen in het huishouden samen. {amount} = {eur} tegen de referentiekoers van de ECB van {date}.",
     "rateAll": "{rate} overal",
     "rateOwn": "de eigen rente van elk land",
     "adults": {
@@ -172,7 +172,35 @@
       "years": "jaren inkomen voor {basket}",
       "share": "huur van {basket} als aandeel van het inkomen"
     },
-    "noAreaTitle": "Voor Amerikaanse {units} wordt geen woonoppervlak gepubliceerd — zie “Waar de cijfers vandaan komen”"
+    "noAreaTitle": "Voor Amerikaanse {units} wordt geen woonoppervlak gepubliceerd — zie “Waar de cijfers vandaan komen”",
+    "hint": {
+      "buy": "Hoeveel vierkante meter {share} van het inkomen koopt met een hypotheek over {term} jaar tegen de lokale rente en de lokale prijs per vierkante meter. Groen is veel ruimte, rood weinig.",
+      "rent": "Hoeveel vierkante meter {share} van het inkomen huurt tegen de lokale huur per vierkante meter. Groen is veel ruimte, rood weinig.",
+      "diff": "Vierkante meters huren min vierkante meters kopen, beide op {share} van het inkomen: welke van de twee je hier meer ruimte geeft. De legenda zegt welke kant elke kleur bevoordeelt.",
+      "years": "Hoeveel jaar van het hele inkomen {basket} kost als je in één keer betaalt, zonder enige hypotheek. Minder is beter, dus hier betekent groen weinig jaren en rood veel: deze schaal loopt andersom dan de meters.",
+      "share": "Welk deel van een maandinkomen de huur opslokt, voor {basket}. Kleiner is beter, dus groen betekent een klein aandeel en rood een groot."
+    }
+  },
+  "hints": {
+    "frame": {
+      "eu": "{n} gemeenten in {countries} landen, uit de ESPON HOUSE4ALL-tabel: vraagprijzen per vierkante meter, afgezet tegen inkomen na belasting per volwassenenequivalent.",
+      "na": "{n} county’s uit de American Community Survey: woningwaarden volgens de eigenaren en huren, afgezet tegen huishoudinkomen vóór belasting. Een andere meting dan de Europese, dus de twee kaarten delen nooit één schaal."
+    },
+    "basis": {
+      "local": "Elke plaats is gekleurd op haar eigen gemiddelde inkomen: de kaart laat zien of de inwoners hun eigen woonplaats kunnen betalen.",
+      "mine": "Elke plaats is gekleurd op jouw inkomen van {income} per maand: de kaart laat zien waar jij zou kunnen wonen.",
+      "mineOff": "Vul hierboven in de rekenhulp je inkomen in om de kaart op jouw geld te kleuren in plaats van op het lokale gemiddelde."
+    },
+    "read": {
+      "base": "Elke stip is een plaats, hoe groter hoe meer inwoners; elk land is ingekleurd met zijn landelijke cijfer. Beweeg erover of tik erop voor de cijfers. Grijs betekent geen data.",
+      "dimmed": "Grijs markeert ook de plaatsen waar {m2} buiten bereik ligt."
+    },
+    "rank": {
+      "countries": "Elk land is het naar bevolking gewogen gemiddelde van zijn plaatsen, dus een grote dure hoofdstad trekt haar land omlaag in de ranglijst.",
+      "cities": "Afzonderlijke plaatsen van {min} inwoners of meer, elk op zijn eigen cijfers.",
+      "regs": "De regioknoppen houden alleen delen van de kaart over; er kunnen er meerdere tegelijk aan staan.",
+      "sort": "Klik op een kolomkop om daarop te sorteren."
+    }
   },
   "legend": {
     "classes": [
@@ -270,7 +298,7 @@
   },
   "card": {
     "label": "Gekozen plaats",
-    "empty": "Zoek hierboven een plaats of klik op een regio op de kaart. De infokaart toont wat jouw instellingen daar betekenen, en wat ervoor nodig zou zijn.",
+    "empty": "Zoek hierboven een plaats of klik op een land op de kaart. De infokaart toont wat een derde van het inkomen daar op jouw voorwaarden koopt, en welk inkomen nodig is voor de oppervlakte die je wilt.",
     "coastal": "{deg}, aan de kust",
     "coverage": "koopprijsdata voor {pct} van de bevolking",
     "countryKind": "land",
@@ -373,7 +401,7 @@
       "one": "nog maximaal {n} toevoegen",
       "other": "nog maximaal {n} toevoegen"
     },
-    "nothing": "nog niets gekozen — voeg een plaats toe via de infokaart of de ranglijsten"
+    "nothing": "nog niets gekozen: voeg een plaats toe met + Vergelijken op haar infokaart, of met de + in de ranglijsten"
   },
   "rank": {
     "coast": "alleen kust",

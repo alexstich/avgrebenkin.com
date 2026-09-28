@@ -26,7 +26,7 @@
       "04": "<b>44 %</b><span>of Europeans live in a place where a third of the average income, paid into a 30-year mortgage, buys <b>under 50 m²</b></span>",
       "05": "<b>4.1</b><span>years of a typical household's income is what a typical American home costs. In <b>Brooklyn it is 11.3 years</b>, and 9.7 % of Americans live where it is 8 or more</span>",
       "06": "<b>11,630</b><span>places to search: <b>8,489</b> European municipalities and <b>3,141</b> US counties, each with its own prices, income and mortgage rate</span>",
-      "07": "<b>0</b><span>US counties with an openly licensed price per square metre. No federal survey measures floor area at that level, so the US map answers in <b>years of income</b> instead of metres</span>"
+      "07": "<b>0</b><span>US counties with an openly licensed price per square metre. No federal survey measures floor area at that level, so the US map answers in <b>years of income</b> and rent share instead of metres</span>"
     },
     "calc": {
       "01": "Copy a link to this setup",
@@ -40,7 +40,7 @@
       "09": "Fewer children",
       "10": "More children",
       "11": "Your income and your terms",
-      "12": "Every field here drives both maps, the cards, the comparison and the rankings. <b>Leave the income empty</b> and each place is shown on its own average income, which in Europe reproduces the published study exactly. <b>Type your income</b> and every place is recomputed for you: your money, your terms, the local price.",
+      "12": "Every field here drives both maps, the cards, the comparison and the rankings. <b>Leave the income empty</b> and each place is shown on its own average income, which in Europe matches the published study. <b>Type your income</b> and every place is recomputed for you: your money, your terms, the local price.",
       "13": "Net income of the household per month",
       "14": "After tax, everyone in the household together. Leave it empty and every place is shown on its own average income; type it and the maps, cards and rankings switch to your money.",
       "15": "Share of income for housing <output for=\"share\" id=\"share-o\">a third</output>",
@@ -62,7 +62,7 @@
       "31": "children under 14",
       "32": "Equivalence factor 1.0 (OECD scale). Used only for the line that compares your income with the local average.",
       "33": "Minimum size <output for=\"want\" id=\"want-o\">—</output>",
-      "34": "Zero switches the filter off. Name a size and three things happen: the map greys out every place where that size is out of reach on your terms, the rankings keep only the places where it is not, and years of income and rent share are measured on that size, at the price flats of that size actually fetch.",
+      "34": "Zero switches the filter off. Name a size and three things happen: the map greys out every place where that size is out of reach on your terms, the rankings keep only the places where it is not, and years of income and rent share are measured on that size, at the price asked for flats of that size.\n\nIn the US frame, where no floor area is published, the slider is off.",
       "35": "Each example fills in the fields below with one situation. Change anything afterwards; the line under the fields always says exactly what is being computed."
     },
     "map": {
@@ -82,14 +82,14 @@
       "14": "Zoom out",
       "15": "Reset the view",
       "16": "The map",
-      "17": "Two maps, shown one at a time: <b>Europe by municipality</b> and the <b>United States by county</b>. They do not share one scale, because the incomes underneath them are measured differently; the sources section is blunt about it. Countries are filled with their national figure, and each dot is a place, coloured on the same scale as the fill.",
+      "17": "Two maps, shown one at a time: <b>Europe by municipality</b> and the <b>United States by county</b>. They do not share one scale, because the incomes underneath them are measured differently; the <a href=\"#sources\">sources</a> section is blunt about it. Countries are filled with their national figure, and each dot is a place, coloured on the same scale as the fill.",
       "18": "Hover or tap a dot or a country for its numbers, zoom in for more places, and use the search to jump straight to one: it covers both maps and switches between them. The card next to the map shows what your settings mean in the selected place, and what income it would take to live there.",
       "19": "m² to buy",
       "20": "m² to rent",
       "21": "Rent − buy",
       "22": "Years of income",
       "23": "Rent share",
-      "24": "The three square-metre modes are off in this frame: no US source publishes the floor area of housing by county, so years of income and rent share are measured on the county's typical home and typical rental instead. <a href=\"#sources\">Where the numbers come from</a>.",
+      "24": "The three square-metre modes are off in this frame: no US source publishes the floor area of housing by county, so years of income and rent share are measured on the county's median home and median rental instead. <a href=\"#sources\">Where the numbers come from</a>.",
       "25": "Local average income",
       "26": "My income",
       "27": "Search a town, region or country",
@@ -120,7 +120,7 @@
       "03": "Download the comparison as CSV",
       "04": "Print the comparison",
       "05": "Side by side",
-      "06": "Up to four places, and they may be towns, counties, regions or countries from either map. The first block of rows follows your settings. The second holds the terms fixed, so the places can be compared the way the study compares them: a third of the local income, 30 years, no deposit.",
+      "06": "Up to four places, and they may be towns, counties, regions or countries from either map. The first block of rows follows your settings. The next two hold the terms fixed: first the same share of income and the same term for every place, then the study's own figures, so the places can be compared the way the paper compares them.",
       "07": "Add a place with <b>+ Compare</b> on its card or with the + at the end of a row in the rankings. Mix Europe and the United States and the table keeps only the rows both sides have, names the basket each is measured on, and marks no cell as best: the two incomes are different measurements."
     },
     "rank": {
@@ -150,8 +150,8 @@
       "03": "The idea is not mine. In September 2026 Franziska Sielker and Selim Banabak of TU Wien published a pair of such maps in the <i>Journal of Maps</i>, covering every municipality in Europe and built from 22 million listings gathered for the ESPON HOUSE4ALL project. Their table is the European layer here, <b>reproduced to a part in a billion</b>.",
       "04": "What is new is everything around it. <b>The United States sits alongside</b>, built from the Census Bureau's American Community Survey for all 3,141 counties.\n\nA calculator answers for <b>your income</b> rather than the local average, on your own terms. And a job-offer block works out what a salary abroad has to be for you to live no worse than now.",
       "05": "<b>The American half is missing the unit, and that turned out to be a finding.</b> To say how many square metres an income buys you need a price per square metre, and American public statistics have none.\n\nThe Census Bureau asks what a home is worth and what the rent is, but never how big it is. County-level floor area exists only in private listing databases, and none of their owners allows it to be republished.",
-      "06": "So the American map answers with the two measures public data does support. <b>Years of income</b>: how many years of a household's income the typical home costs outright. <b>Rent share</b>: what part of a month's income the typical rent takes. There the three square-metre modes are switched off rather than filled with a plausible guess.",
-      "07": "<b>Europe and America are never put in one ranking.</b> Europe's income is measured after tax and per adult; America's before tax and per household. Europe's price is what sellers asked per square metre; America's is what owners think their whole home is worth.\n\nLine the two up by local income and you would be comparing two statistical offices, not two housing markets. Type your own income, though, and both sides answer the identical question.",
+      "06": "So the American map answers with the two measures public data does support. <b>Years of income</b>: how many years of a household's income the county's median home costs outright; the median is the middle one, with half the homes worth more and half less.\n\n<b>Rent share</b>: what part of a month's income the median rent takes. There the three square-metre modes are switched off rather than filled with a plausible guess.",
+      "07": "<b>Europe and America are never put in one ranking.</b> Europe's income is measured after tax and per adult-equivalent; America's before tax and per household. Europe's price is what sellers asked per square metre; America's is what owners think their whole home is worth.\n\nLine the two up by local income and you would be comparing two statistical offices, not two housing markets. Type your own income, though, and both sides answer the identical question.",
       "08": "Everything is computed in your browser from one embedded table: no request leaves the page, and it works from a downloaded file. The section <b>Where the numbers come from</b> says what was taken from where, what was checked, and what could not be made comparable."
     },
     "found": {
@@ -169,8 +169,8 @@
     "found-us": {
       "01": "What the American data shows",
       "02": "The American layer rests on a single survey: the Census Bureau's <b>American Community Survey</b>, five-year estimates for 2020–2024. It gives every county four numbers: the median home value, the median household income, the median rent and the population. A median is the middle value: half are above it, half below.\n\nThat is 3,141 counties and <b>100 % of the population</b> of the fifty states and the District of Columbia. It is a survey of households, not a record of sales, and every number below inherits that.",
-      "03": "<b>Nationally the median home costs 4.1 years of the median household income</b>, and the median rent takes 21 % of the median monthly income.\n\nWhat the map adds is how unevenly that is spread: <b>29 %</b> of Americans live in a county where the home costs five years of income or more, <b>9.7 %</b> where it costs eight or more, and 1.8 % where it costs ten or more.",
-      "04": "<b>Where it costs most.</b> By years of income the top of the list is Teton County, Wyoming, at 13.2: that is Jackson Hole, where housing is priced for buyers who do not earn the local income. Then Nantucket at 11.4.\n\nRight behind them sit two of the three most densely populated counties in the country, <b>Brooklyn at 11.3</b> and <b>the Bronx at 10.9</b>, and those two hold four million people between them, against twenty-three thousand in Teton. Manhattan is 10.5, San Francisco 9.9, Los Angeles 9.3.\n\nThe cheapest big counties are in the industrial North and along the Rio Grande: Pittsburgh's Allegheny County and Detroit's Wayne County at 2.9, Hidalgo County on the Texas border at 2.6. A median home costs about one year of income only in a handful of thinly populated counties in Kansas and Texas.",
+      "03": "<b>Nationally the median home costs 4.1 years of the median household income</b>, and the median rent takes 21 % of the median monthly income.\n\nWhat the map adds is how unevenly that is spread: <b>29 % of Americans</b> live in a county where the home costs five years of income or more, and <b>9.7 % live where it costs eight</b> or more; 1.8 % live where it costs ten or more.",
+      "04": "<b>Where it costs most.</b> By years of income the top of the list is Teton County, Wyoming, at 13.2: that is Jackson Hole, where housing is priced for buyers who do not earn the local income. Then Nantucket at 11.4.\n\nRight behind them sit two of the three most densely populated counties in the country, <b>Brooklyn at 11.3</b> and <b>the Bronx at 10.9</b>, and those two hold four million people between them, against twenty-three thousand in Teton. Manhattan is 10.5, San Francisco 9.9, Los Angeles 9.3.\n\nThe cheapest big counties are in the industrial North and along the Rio Grande: Pittsburgh's Allegheny County and Detroit's Wayne County at 2.9, Hidalgo County on the Mexican border at 2.6. A median home costs about one year of income only in a handful of thinly populated counties in Kansas and Texas.",
       "05": "<b>The rent share needs a warning printed next to it.</b> Only 1.2 % of Americans live in a county where the median rent takes 30 % or more of the median income, and that sounds like good news only until you notice what it measures: the middle rent divided by the middle income of all households, <b>owners included</b>.\n\nAsk the question household by household instead, as the same survey does, and 51 % of American renters pay 30 % or more of their income in rent. Both numbers are correct; they answer different questions, and a county map can only draw the first.",
       "06": "<b>Where the square metre stops.</b> Everything above avoids the word \"area\", not by choice. The survey asks an owner what the home is worth and a tenant what the rent is; it does not ask how big the place is, and no other federal survey asks it county by county. That gap is why the three square-metre modes are off in this frame.\n\nWhether an American home is expensive <i>per square metre</i> is a question American public statistics cannot answer. The number exists only in private listing databases, whose owners do not license it for republication.\n\nThis page does not ask them for it: it is built only on data anyone may reuse, and <b>where that data ends, the page ends too</b>.",
       "07": "<b>Five years in one number, and an owner's opinion in another.</b> The five-year estimate is not a snapshot of 2024 but an average of interviews spread over 2020 to 2024, expressed in 2024 dollars. It is the only edition that covers every county, because the one-year survey publishes only places above 65,000 people.\n\nAnd the value is what the owner says the home would sell for, not what anyone paid: <b>a self-assessment, not a sale price</b>. Neither is a defect to be corrected; both are facts to be stated before the map is read.",
@@ -324,7 +324,7 @@
       "b3": "<b>The capital region of nearly every country</b> sits in the least affordable class and pulls its neighbours with it; the coasts and the tourist valleys of the Alps are far less affordable than the countryside behind them.",
       "b4": "In the United States <b>the typical home costs 4.1 years of the typical household's income</b>, and 9.7 % of Americans live in a county where it is eight years or more: Brooklyn 11.3, the Bronx 10.9.",
       "b5": "<b>The American half is missing the unit.</b> No American public source measures the floor area of housing county by county, so the American map shows years of income and rent share instead of square metres.",
-      "b6": "<b>Europe and America are never put in one ranking.</b> Europe measures asking prices against income after tax per adult; America measures owners' estimates against income before tax per household. Type your own income, and both sides answer the same question.",
+      "b6": "<b>Europe and America are never put in one ranking.</b> Europe measures asking prices against income after tax per adult-equivalent; America measures owners' estimates against income before tax per household. Type your own income, and both sides answer the same question.",
       "b7": "Enter your income, term, rate and down payment, and all 11,630 places are recomputed in your browser; the job-offer block works out what a move abroad has to pay.",
       "src": "Europe: Sielker &amp; Banabak, TU Wien, Journal of Maps 2026; © ESPON · Origin of data: ESPON EGTC. The interpretation of ESPON material does not necessarily reflect the opinion of the ESPON Monitoring Committee. United States: U.S. Census Bureau, American Community Survey 2020–2024; Freddie Mac.",
       "full": "The full interactive page:"
