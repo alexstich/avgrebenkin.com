@@ -1,0 +1,1366 @@
+<!doctype html>
+<html lang="ru" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Население планеты — девять вариантов</title>
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/research/shell.css?v=5">
+<style>
+  body { font-family: var(--font-body); background: var(--bg); color: var(--text); }
+  .lab { max-width: 1180px; margin: 0 auto; padding: 0 24px 90px; position: relative; z-index: 1; }
+  @media (max-width: 600px) { .lab { padding: 0 16px 70px; } }
+
+  /* ── панель управления ─────────────────────────────────────────── */
+  .labbar { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: 10px 16px;
+            align-items: center; padding: 12px 0; margin-bottom: 8px;
+            background: var(--bg); border-bottom: 1px solid var(--border-soft); }
+  .labbar h1 { font-family: var(--font-head); font-size: 1.05rem; margin: 0 auto 0 0; }
+  .ctl { display: flex; align-items: center; gap: 6px; }
+  .ctl > span { font-family: var(--font-mono); font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+  .seg { display: flex; gap: 2px; padding: 3px; border-radius: 9px;
+         background: rgba(var(--accent-rgb), .08); border: 1px solid var(--border-soft); }
+  .seg button { border: 0; border-radius: 6px; background: transparent; color: var(--muted);
+                padding: 5px 10px; font-family: var(--font-mono); font-size: 12px; cursor: pointer; white-space: nowrap; }
+  .seg button[aria-pressed="true"] { background: var(--bg-elev); color: var(--accent); }
+  @media (max-width: 760px) { .labbar { position: static; } }
+
+  /* ── вступление ────────────────────────────────────────────────── */
+  .intro { padding: 30px 0 10px; }
+  .intro h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); letter-spacing: -.02em; margin-bottom: 14px; }
+  .intro p, .notes p, .outro p, .outro li { max-width: 760px; color: var(--text); }
+  .intro p { margin: 0 0 12px; }
+  .muted { color: var(--muted); }
+  .pace-legend { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 18px 0 8px; }
+  @media (max-width: 760px) { .pace-legend { grid-template-columns: 1fr; } }
+  .pace-legend div { border: 1px solid var(--border-soft); border-radius: 12px; padding: 12px 14px; background: var(--card-bg); font-size: 14px; }
+  .pace-legend b { font-family: var(--font-mono); font-size: 12px; color: var(--accent); display: block; margin-bottom: 4px; text-transform: uppercase; letter-spacing: .06em; }
+
+  /* ── карточка варианта ─────────────────────────────────────────── */
+  .case { margin: 56px 0 0; }
+  .case > h2 { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em;
+               text-transform: uppercase; color: var(--accent); margin: 0 0 4px; }
+  .case > h3 { font-size: clamp(1.3rem, 2.6vw, 1.7rem); letter-spacing: -.015em; margin: 0 0 14px; }
+  .stage { position: relative; border-radius: 18px; overflow: hidden; background: var(--v-bg);
+           border: 1px solid var(--border-soft); color: var(--v-ink); }
+  .stage canvas.globe { display: block; width: 100%; height: 480px; touch-action: none; cursor: grab; }
+  .stage canvas.globe.drag { cursor: grabbing; }
+  @media (max-width: 600px) { .stage canvas.globe { height: 360px; } }
+  .ov { position: absolute; pointer-events: none; }
+  .ov-tl { top: 18px; left: 20px; }
+  .ov-bl { bottom: 16px; left: 20px; }
+  .ov-br { bottom: 16px; right: 20px; text-align: right; }
+  .ov-tr { top: 18px; right: 20px; text-align: right; }
+  .stage > .ov-bl, .stage > .ov-br { bottom: 74px; }
+  .big { font-family: var(--font-head); font-weight: 700; font-size: clamp(1.7rem, 4vw, 2.6rem);
+         letter-spacing: -.02em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .yr { font-family: var(--font-mono); font-size: 13px; color: var(--v-mute); margin-top: 6px; letter-spacing: .04em; }
+  .chip { display: inline-flex; gap: 6px; align-items: center; font-family: var(--font-mono); font-size: 11.5px;
+          padding: 4px 9px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--v-ink) 22%, transparent);
+          color: var(--v-ink); background: color-mix(in srgb, var(--v-bg) 70%, transparent); pointer-events: auto; }
+  .chip i { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+  .tiny { font-family: var(--font-mono); font-size: 11px; color: var(--v-mute); }
+  .tip { position: absolute; z-index: 3; pointer-events: none; background: var(--bg-elev); color: var(--text);
+         border: 1px solid var(--border-soft); border-radius: 10px; padding: 8px 11px; font-size: 13px;
+         box-shadow: var(--shadow); opacity: 0; transition: opacity .12s; min-width: 150px; }
+  .tip.in { opacity: 1; }
+  .tip b { font-family: var(--font-head); }
+  .tip .tiny { color: var(--muted); }
+
+  /* плеер */
+  .player { display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+            border-top: 1px solid color-mix(in srgb, var(--v-ink) 12%, transparent); background: var(--v-bar, transparent); }
+  .player button { flex: 0 0 auto; width: 34px; height: 34px; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--v-ink) 30%, transparent);
+                   background: transparent; color: var(--v-ink); cursor: pointer; display: grid; place-items: center; }
+  .player button svg { width: 14px; height: 14px; fill: currentColor; }
+  .player input[type=range] { flex: 1 1 auto; min-width: 0; accent-color: var(--v-acc, var(--accent)); }
+  .player output { flex: 0 0 auto; min-width: 92px; text-align: right; font-family: var(--font-mono); font-size: 12.5px; color: var(--v-ink); }
+
+  .notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 22px; margin-top: 14px; font-size: 14.5px; }
+  .notes > div > b { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+  .notes p { margin: 0; }
+  .notes .idea { grid-column: 1 / -1; font-size: 15.5px; }
+  @media (max-width: 760px) { .notes { grid-template-columns: 1fr; } }
+
+  /* ── палитры вариантов: у каждого свой язык ───────────────────── */
+  .v1 { --v-bg:#070a12; --v-s1:#17233d; --v-s2:#080d1a; --v-land:rgba(120,150,215,.10); --v-line:rgba(150,175,235,.20);
+        --v-dot:#ffd76a; --v-ink:#f3f5fa; --v-mute:#8d97ad; --v-acc:#ffd76a; --v-star:rgba(255,255,255,.55); }
+  :root[data-theme="light"] .v1 { --v-bg:#eef0f3; --v-s1:#ffffff; --v-s2:#d9dfe9; --v-land:rgba(20,40,80,.07); --v-line:rgba(20,40,80,.18);
+        --v-dot:#c2410c; --v-ink:#15161a; --v-mute:#5b616b; --v-acc:#c2410c; --v-star:rgba(0,0,0,0); }
+
+  .v2 { --v-bg:#0b0b0d; --v-s1:#1b1b21; --v-s2:#0c0c10; --v-r0:#2b2432; --v-r1:#ff5a3c; --v-r2:#ffe7a8; --v-line:rgba(255,255,255,.10);
+        --v-ink:#f3f3f5; --v-mute:#9a9aa6; --v-acc:#ff5a3c; }
+  :root[data-theme="light"] .v2 { --v-bg:#ffffff; --v-s1:#f3f4f7; --v-s2:#dfe2e8; --v-r0:#f6e3e7; --v-r1:#ff5a3c; --v-r2:#4a0b18; --v-line:rgba(0,0,0,.12);
+        --v-ink:#15161a; --v-mute:#5b616b; --v-acc:#e0412a; }
+
+  .v3 { --v-bg:#0e1116; --v-s1:#1a202b; --v-s2:#10141b; --v-grat:rgba(255,255,255,.06); --v-land:rgba(255,255,255,.07); --v-line:rgba(255,255,255,.14);
+        --v-sa:#ffb020; --v-sb:#ff5da2; --v-ink:#f2f3f6; --v-mute:#9aa2b1; --v-acc:#ff5da2; }
+  :root[data-theme="light"] .v3 { --v-bg:#ffffff; --v-s1:#f7f8fa; --v-s2:#e7eaef; --v-grat:rgba(0,0,0,.07); --v-land:rgba(0,0,0,.06); --v-line:rgba(0,0,0,.16);
+        --v-sa:#ff8a1e; --v-sb:#d6246e; --v-ink:#15161a; --v-mute:#5b616b; --v-acc:#d6246e; }
+
+  .v4 { --v-bg:#101218; --v-s1:#1a1e28; --v-s2:#11141b; --v-land:rgba(255,255,255,.06); --v-line:rgba(255,255,255,.12);
+        --v-ink:#eef0f4; --v-mute:#99a0ae; --v-ring:#101218; --v-acc:#ffb020; }
+  :root[data-theme="light"] .v4 { --v-bg:#fbfbfc; --v-s1:#ffffff; --v-s2:#e9ecf1; --v-land:rgba(0,0,0,.06); --v-line:rgba(0,0,0,.14);
+        --v-ink:#15161a; --v-mute:#5b616b; --v-ring:#ffffff; --v-acc:#d97706; }
+
+  .v5 { --v-bg:#0e1116; --v-s1:#161b24; --v-s2:#0e1116; --v-land:rgba(255,255,255,.05); --v-line:rgba(255,255,255,.14);
+        --v-dot:#e9eaf0; --v-acc:#17c0a6; --v-ink:#e9eaf0; --v-mute:#8b93a3; }
+  :root[data-theme="light"] .v5 { --v-bg:#ffffff; --v-s1:#f5f6f8; --v-s2:#e6e9ee; --v-land:rgba(0,0,0,.05); --v-line:rgba(0,0,0,.14);
+        --v-dot:#15161a; --v-acc:#0f8f7c; --v-ink:#15161a; --v-mute:#5b616b; }
+
+  .v6 { --v-bg:var(--bg-elev); --v-ink:var(--text); --v-mute:var(--muted); --v-acc:#ff8a1e; --v-grid:rgba(127,127,140,.18);
+        --v-band:rgba(255,138,30,.16); --v-est:#aeb6c2; --s-hyde:#ffb020; --s-gap:#17c0a6; --s-un:#2f7de0; }
+  :root[data-theme="light"] .v6 { --v-acc:#d9480f; --v-band:rgba(217,72,15,.12); --v-est:#6b7480; --s-hyde:#d98e00; --s-gap:#0f8f7c; --s-un:#1f5fb8; }
+
+  .v7 { --v-bg:#0a0e16; --v-s1:#152034; --v-s2:#0a0f1a; --v-land:rgba(255,255,255,.06); --v-line:rgba(255,255,255,.14);
+        --v-dot:rgba(210,220,240,.35); --v-acc:#17c0a6; --v-ink:#eef1f6; --v-mute:#8e98ab; }
+  :root[data-theme="light"] .v7 { --v-bg:#eef0f3; --v-s1:#ffffff; --v-s2:#dde2ea; --v-land:rgba(0,0,0,.06); --v-line:rgba(0,0,0,.16);
+        --v-dot:rgba(30,40,60,.28); --v-acc:#0f8f7c; --v-ink:#15161a; --v-mute:#5b616b; }
+
+  .v8 { --v-bg:#000000; --v-s1:#101010; --v-s2:#000000; --v-dot:#ff5a3c; --v-line:rgba(255,255,255,.10); --v-land:rgba(255,255,255,.04);
+        --v-ink:#ffffff; --v-mute:#8a8a8a; --v-acc:#ff5a3c; }
+  :root[data-theme="light"] .v8 { --v-bg:#ffffff; --v-s1:#f6f6f6; --v-s2:#e8e8e8; --v-dot:#e0412a; --v-line:rgba(0,0,0,.12); --v-land:rgba(0,0,0,.05);
+        --v-ink:#0a0a0a; --v-mute:#6b6b6b; --v-acc:#e0412a; }
+
+  .v9 { --v-bg:#0e1116; --v-land:rgba(255,255,255,.07); --v-dot:#6fb1ff; --v-ink:#eef0f4; --v-mute:#8b93a3; --v-acc:#6fb1ff; }
+  :root[data-theme="light"] .v9 { --v-bg:#ffffff; --v-land:rgba(0,0,0,.07); --v-dot:#1f5fb8; --v-ink:#15161a; --v-mute:#5b616b; --v-acc:#1f5fb8; }
+
+  /* 04 — легенда-полоса */
+  .shares { display: flex; height: 8px; border-radius: 4px; overflow: hidden; gap: 2px; width: min(340px, 60vw); margin-left: auto; }
+  .shares span { display: block; height: 100%; transition: flex-grow .2s linear; }
+  .keys { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px 12px; margin-top: 7px; font-size: 12px; color: var(--v-mute); }
+  .keys i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; }
+  .keys b { color: var(--v-ink); font-weight: 600; font-variant-numeric: tabular-nums; margin-left: 3px; }
+
+  /* 03 — переключатель */
+  .stage .seg { pointer-events: auto; background: color-mix(in srgb, var(--v-ink) 7%, transparent); border-color: color-mix(in srgb, var(--v-ink) 14%, transparent); }
+  .stage .seg button { color: var(--v-mute); }
+  .stage .seg button[aria-pressed="true"] { background: var(--v-bg); color: var(--v-acc); }
+
+  /* 05 — часы удвоений */
+  .v5 .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); }
+  .v5 .split canvas.globe { height: 520px; }
+  @media (max-width: 860px) { .v5 .split { grid-template-columns: 1fr; } .v5 .split canvas.globe { height: 320px; } }
+  .dbl { padding: 20px 22px 18px 6px; display: flex; flex-direction: column; gap: 4px; }
+  @media (max-width: 860px) { .dbl { padding: 4px 16px 16px; } }
+  .dbl h4 { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--v-mute); margin: 0 0 8px; font-weight: 500; }
+  .drow { display: grid; grid-template-columns: 112px minmax(0, 1fr) 92px; gap: 10px; align-items: center; font-size: 13px; }
+  .drow .lv { font-family: var(--font-mono); font-size: 12px; color: var(--v-mute); white-space: nowrap; }
+  .drow .bar { height: 18px; border-radius: 4px; background: color-mix(in srgb, var(--v-ink) 7%, transparent); position: relative; overflow: hidden; }
+  .drow .bar span { position: absolute; inset: 0 auto 0 0; background: var(--v-acc); border-radius: 4px; }
+  .drow .bar em { position: absolute; left: 8px; top: 0; line-height: 18px; font-style: normal; font-size: 11.5px; font-family: var(--font-mono); color: var(--v-ink); mix-blend-mode: normal; white-space: nowrap; }
+  .drow .dur { white-space: nowrap; font-family: var(--font-mono); font-size: 12.5px; text-align: right; font-variant-numeric: tabular-nums; }
+  .drow.now .lv, .drow.now .dur { color: var(--v-acc); }
+  .dbl .foot { margin-top: 10px; font-size: 13px; color: var(--v-mute); }
+
+  /* 06 — паспорт цифры */
+  .v6 .split { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); }
+  @media (max-width: 860px) { .v6 .split { grid-template-columns: 1fr; } }
+  .v6 canvas.chart { display: block; width: 100%; height: 360px; cursor: crosshair; }
+  .pass { padding: 20px 22px; border-left: 1px solid var(--border-soft); font-size: 14px; }
+  @media (max-width: 860px) { .pass { border-left: 0; border-top: 1px solid var(--border-soft); } }
+  .pass .yr { margin: 0 0 2px; }
+  .pass .num { font-family: var(--font-head); font-weight: 700; font-size: 1.9rem; letter-spacing: -.02em; line-height: 1.1; }
+  .pass .src { margin: 10px 0 6px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .pass .src .chip { color: var(--text); background: transparent; border-color: var(--border-soft); }
+  .pass .cite { font-size: 12.5px; color: var(--muted); margin: 0 0 8px; }
+  .pass .how { font-size: 13px; margin: 0 0 14px; padding: 8px 10px; border-radius: 8px; background: rgba(var(--accent-rgb), .07); }
+  .pass h4 { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; font-weight: 500; }
+  .estrip { position: relative; height: 26px; margin: 6px 0 4px; }
+  .estrip::before { content: ""; position: absolute; left: 0; right: 0; top: 12px; height: 2px; background: var(--v-grid); border-radius: 1px; }
+  .estrip .e { position: absolute; top: 7px; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: var(--v-est); border: 2px solid var(--v-bg); }
+  .estrip .e.rng { height: 6px; top: 10px; border-radius: 3px; margin-left: 0; border: 0; opacity: .7; }
+  .estrip .o { position: absolute; top: 2px; width: 3px; height: 22px; margin-left: -1.5px; background: var(--v-acc); border-radius: 2px; }
+  .estl { list-style: none; padding: 0; margin: 6px 0 0; font-size: 12.5px; columns: 2; column-gap: 16px; }
+  .estl li { break-inside: avoid; display: flex; justify-content: space-between; gap: 8px; padding: 1px 0; color: var(--muted); }
+  .estl li b { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .spread { font-size: 13px; margin: 8px 0 0; }
+
+  /* 07 — страна */
+  .v7 .split { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+  @media (max-width: 860px) { .v7 .split { grid-template-columns: 1fr; } }
+  .filters { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: end; padding: 14px 16px; border-bottom: 1px solid color-mix(in srgb, var(--v-ink) 12%, transparent); }
+  .filters label { display: flex; flex-direction: column; gap: 4px; font-family: var(--font-mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--v-mute); }
+  .filters select { font: 14px var(--font-body); color: var(--v-ink); background: color-mix(in srgb, var(--v-ink) 6%, var(--v-bg));
+                    border: 1px solid color-mix(in srgb, var(--v-ink) 18%, transparent); border-radius: 8px; padding: 6px 8px; min-width: 120px; }
+  .cpanel { padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; }
+  .cpanel .cname { font-family: var(--font-head); font-size: 1.3rem; font-weight: 700; }
+  .kv { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .kv div { border: 1px solid color-mix(in srgb, var(--v-ink) 12%, transparent); border-radius: 10px; padding: 8px 10px; }
+  .kv b { display: block; font-family: var(--font-head); font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+  .kv span { font-size: 11.5px; color: var(--v-mute); }
+  .v7 canvas.mini { width: 100%; height: 130px; display: block; }
+
+  /* 08 — большая цифра */
+  .v8 .scroller { height: 320vh; position: relative; }
+  .v8 .sticky { position: sticky; top: 70px; height: calc(100vh - 90px); min-height: 460px; overflow: hidden; border-radius: 18px; }
+  @media (max-width: 760px) { .v8 .sticky { top: 10px; height: calc(100vh - 20px); } }
+  .v8 canvas.globe { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .9; cursor: default; }
+  .v8 .center { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); text-align: center; pointer-events: none; }
+  .v8 .huge { font-family: var(--font-head); font-weight: 700; font-size: clamp(3rem, 12vw, 9rem); letter-spacing: -.045em; line-height: .9;
+              font-variant-numeric: tabular-nums; text-shadow: 0 0 40px var(--v-bg), 0 0 10px var(--v-bg); }
+  .v8 .unit { font-family: var(--font-mono); font-size: clamp(12px, 1.5vw, 15px); letter-spacing: .2em; text-transform: uppercase; color: var(--v-mute); margin-top: 12px; }
+  .v8 .when { font-family: var(--font-head); font-size: clamp(1.1rem, 2.4vw, 1.6rem); margin-top: 8px; color: var(--v-acc); }
+  .v8 .miles { position: absolute; right: 22px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 6px;
+               font-family: var(--font-mono); font-size: 12px; color: var(--v-mute); text-align: right; }
+  .v8 .miles div { transition: color .2s, opacity .2s; opacity: .45; }
+  .v8 .miles div.on { color: var(--v-ink); opacity: 1; }
+  .v8 .miles div.on b { color: var(--v-acc); }
+  .v8 .cap { position: absolute; left: 24px; bottom: 22px; max-width: 360px; font-size: 14.5px; color: var(--v-ink); }
+  .v8 .cap .tiny { display: block; margin-bottom: 4px; }
+  .v8 .prog { position: absolute; left: 0; top: 0; height: 3px; background: var(--v-acc); }
+  @media (max-width: 760px) { .v8 .miles { display: none; } }
+
+  /* 09 — раскадровка */
+  .v9 .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; padding: 2px; }
+  @media (max-width: 760px) { .v9 .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .v9 figure { margin: 0; position: relative; background: var(--v-bg); }
+  .v9 figure canvas { width: 100%; aspect-ratio: 2 / 1; display: block; }
+  .v9 figcaption { position: absolute; left: 10px; bottom: 6px; font-size: 12px; color: var(--v-mute); font-family: var(--font-mono); }
+  .v9 figcaption b { font-family: var(--font-head); font-size: 15px; color: var(--v-ink); display: block; }
+
+  /* ── данные и план поста ───────────────────────────────────────── */
+  .outro { margin-top: 70px; }
+  .outro h2 { font-size: 1.6rem; letter-spacing: -.015em; margin: 0 0 12px; }
+  .outro h3 { font-size: 1.15rem; margin: 26px 0 8px; }
+  .tbl { width: 100%; border-collapse: collapse; font-size: 14px; margin: 10px 0 6px; }
+  .tbl th, .tbl td { text-align: left; vertical-align: top; padding: 9px 10px; border-bottom: 1px solid var(--border-soft); }
+  .tbl th { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+  .tblwrap { overflow-x: auto; }
+  .outro ol li, .outro ul li { margin-bottom: 6px; }
+  .rec { border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; background: rgba(var(--accent-rgb), .06); margin-top: 18px; }
+</style>
+</head>
+<body>
+<div class="lab">
+
+<div class="labbar">
+  <h1>Население планеты · 9 вариантов</h1>
+  <div class="ctl"><span>С</span><div class="seg" id="c-start">
+    <button data-v="-10000">−10 000</button><button data-v="-5000" aria-pressed="true">−5000</button><button data-v="0">1 н. э.</button><button data-v="1800">1800</button></div></div>
+  <div class="ctl"><span>Темп</span><div class="seg" id="c-mode">
+    <button data-v="linear">линейно</button><button data-v="log">логарифм</button><button data-v="doubling" aria-pressed="true">удвоения</button></div></div>
+  <div class="ctl"><span>Круг</span><div class="seg" id="c-dur">
+    <button data-v="20">20 с</button><button data-v="40" aria-pressed="true">40 с</button><button data-v="80">80 с</button></div></div>
+  <div class="ctl"><div class="seg" id="c-theme">
+    <button data-v="dark">dark</button><button data-v="light">light</button><button data-v="cyber">cyber</button></div></div>
+</div>
+
+<section class="intro">
+  <h2>Как быстро нас стало восемь миллиардов</h2>
+  <p>Девять способов показать одно и то же: население Земли от выбранного года до 2023-го. Все варианты живые и работают
+    на настоящих данных — ряд <b>Our World in Data</b> по 165 странам в сегодняшних границах (до 1800 года это модель
+    HYDE, 1800–1949 — Gapminder, с 1950-го — оценки ООН) и таблица независимых оценок девяти историков-демографов.
+    Глобусы крутятся мышью, анимация идёт, пока вариант на экране.</p>
+  <p class="muted">Панель вверху общая для всех вариантов: с какого года начинать, с каким темпом идти и за сколько секунд
+    проходить весь путь. Темп — главный вопрос всей затеи, поэтому три режима:</p>
+  <div class="pace-legend">
+    <div><b>линейно</b>каждый год занимает одинаковое время. Честно, но 90 % круга шар почти пуст, а всё интересное
+      укладывается в последние секунды.</div>
+    <div><b>логарифм</b>время идёт по логарифму «сколько лет назад»: от 7000 до 700 лет назад — столько же, сколько
+      от 700 до 70. Чем ближе к нам, тем медленнее.</div>
+    <div><b>удвоения</b>каждое удвоение населения занимает одинаковое время. Прошлое пролетает, потому что удваивались
+      долго; последние 50 лет замедляются. Рекомендую его — он и есть сюжет поста.</div>
+  </div>
+</section>
+
+<!-- 01 ─────────────────────────────────────────────────────────── -->
+<section class="case v1" id="v1">
+  <h2>01 · Пыль</h2>
+  <h3>Одна точка — миллион человек</h3>
+  <div class="stage">
+    <canvas class="globe" aria-label="Глобус: каждая точка — миллион человек"></canvas>
+    <div class="ov ov-tl"><div class="big" data-num></div><div class="yr" data-year></div></div>
+    <div class="ov ov-bl"><span class="chip" data-src></span></div>
+    <div class="ov ov-br tiny">1 dot = 1 million people<br><span data-dots></span></div>
+    <div class="player"></div>
+  </div>
+  <div class="notes">
+    <div class="idea"><p>Самое прямое ощущение масштаба: за 5000 лет до нашей эры на всём шаре горит около двадцати точек,
+      к 2023-му — больше восьми тысяч. Считать ничего не надо — видно, как шар заполняется.</p></div>
+    <div><b>Сильное</b><p>Честная единица, объясняется одной строкой. Гипнотично, хорошо смотрится на обложке.</p></div>
+    <div><b>Слабое</b><p>Точки внутри страны разбросаны равномерно: тайга «заселена» так же, как Подмосковье. Лечится
+      сеткой HYDE (ячейки ~10 км) вместо границ — тогда точки лягут в долины Нила и Хуанхэ.</p></div>
+    <div><b>Работа</b><p>Средняя. С сеткой HYDE — выше: нужно заранее разложить точки по ячейкам для каждого кадра.</p></div>
+  </div>
+</section>
+
+<!-- 02 ─────────────────────────────────────────────────────────── -->
+<section class="case v2" id="v2">
+  <h2>02 · Огни</h2>
+  <h3>Не сколько, а насколько тесно</h3>
+  <div class="stage">
+    <canvas class="globe" aria-label="Глобус: страны закрашены по плотности населения"></canvas>
+    <div class="ov ov-tl"><div class="big" data-num></div><div class="yr" data-year></div></div>
+    <div class="ov ov-bl"><span class="chip" data-src></span></div>
+    <div class="ov ov-br"><div class="tiny" style="margin-bottom:6px">people per km²</div><canvas class="ramp" width="220" height="30" style="width:220px;height:30px"></canvas></div>
+    <div class="tip"></div>
+    <div class="player"></div>
+  </div>
+  <div class="notes">
+    <div class="idea"><p>Каждая страна закрашена по плотности — сколько человек на квадратный километр, по логарифмической
+      шкале. Похоже на снимок Земли ночью: сначала тлеют долины великих рек, потом разгорается всё.</p></div>
+    <div><b>Сильное</b><p>Сразу видно, где тесно: Бангладеш, Нидерланды, Япония. Красиво на тёмном.</p></div>
+    <div><b>Слабое</b><p>Маленькие страны теряются, большие и пустые остаются тёмными. Границы современные, и Египет
+      «светится» контуром, которого 7000 лет назад не было. Наведение на страну — подсказка.</p></div>
+    <div><b>Работа</b><p>Низкая. Та же геометрия, что у 01, только заливка.</p></div>
+  </div>
+</section>
+
+<!-- 03 ─────────────────────────────────────────────────────────── -->
+<section class="case v3" id="v3">
+  <h2>03 · Шипы</h2>
+  <h3>Столбик из каждой страны</h3>
+  <div class="stage">
+    <canvas class="globe" aria-label="Глобус: из каждой страны растёт столбик высотой по населению"></canvas>
+    <div class="ov ov-tl"><div class="big" data-num></div><div class="yr" data-year></div></div>
+    <div class="ov ov-tr"><div class="seg" id="v3-mode"><button data-v="abs">people</button><button data-v="share" aria-pressed="true">share of world</button></div></div>
+    <div class="ov ov-bl"><span class="chip" data-src></span></div>
+    <div class="player"></div>
+  </div>
+  <div class="notes">
+    <div class="idea"><p>Из центра каждой страны растёт столбик. Два режима: высота — число людей, или доля страны
+      в населении мира. Во втором режиме древность не пустая: видно, что Китай и Индия вдвоём держали около половины
+      человечества почти всё время.</p></div>
+    <div><b>Сильное</b><p>Объём и пропорции читаются мгновенно, при повороте шар выглядит объёмным.</p></div>
+    <div><b>Слабое</b><p>В режиме «люди» до 1800 года все столбики почти нулевые. Столбики заслоняют друг друга
+      у горизонта.</p></div>
+    <div><b>Работа</b><p>Низкая.</p></div>
+  </div>
+</section>
+
+<!-- 04 ─────────────────────────────────────────────────────────── -->
+<section class="case v4" id="v4">
+  <h2>04 · Пузыри</h2>
+  <h3>Кружок на страну, цвет — часть света</h3>
+  <div class="stage">
+    <canvas class="globe" aria-label="Глобус: у каждой страны круг, площадь по населению"></canvas>
+    <div class="ov ov-tl"><div class="big" data-num></div><div class="yr" data-year></div></div>
+    <div class="ov ov-bl"><span class="chip" data-src></span></div>
+    <div class="ov ov-br"><div class="shares" data-shares></div><div class="keys" data-keys></div></div>
+    <div class="tip"></div>
+    <div class="player"></div>
+  </div>
+  <div class="notes">
+    <div class="idea"><p>Площадь круга — численность, цвет — часть света. Легенда сама работает как диаграмма: полоса
+      внизу показывает доли континентов в этот момент. Наведите на круг — страна, число и откуда оно.</p></div>
+    <div><b>Сильное</b><p>Читается любая страна, даже маленькая. Есть подсказки, есть вторая история — сдвиг
+      от Азии и Европы к Африке.</p></div>
+    <div><b>Слабое</b><p>Круги перекрываются в Европе и в Южной Азии. Шар менее «живой», чем с точками.</p></div>
+    <div><b>Работа</b><p>Низкая.</p></div>
+  </div>
+</section>
+
+<!-- 05 ─────────────────────────────────────────────────────────── -->
+<section class="case v5" id="v5">
+  <h2>05 · Часы удвоений</h2>
+  <h3>Каждое удвоение — одинаковый шаг</h3>
+  <div class="stage">
+    <div class="split">
+      <div style="position:relative">
+        <canvas class="globe" aria-label="Глобус с точками населения"></canvas>
+        <div class="ov ov-tl"><div class="big" data-num></div><div class="yr" data-year></div></div>
+      </div>
+      <div class="dbl"><h4>World population doubled</h4><div data-rows></div>
+        <p class="foot" data-foot></p></div>
+    </div>
+    <div class="player"></div>
+  </div>
+  <div class="notes">
+    <div class="idea"><p>Этот вариант всегда идёт в темпе «удвоения» — и показывает, почему он честный. Справа каждое
+      удвоение населения — строка одинаковой ширины, а число справа от неё — сколько календарных лет оно заняло.
+      Первые шли больше тысячи лет, последнее — меньше полувека.</p></div>
+    <div><b>Сильное</b><p>Прямой ответ на «чем ближе, тем медленнее» и готовый главный тезис поста.</p></div>
+    <div><b>Слабое</b><p>Нужно объяснить, что такое удвоение, — одна фраза. Провалы (чума, кризис III века) в этом темпе
+      проскакивают мгновенно.</p></div>
+    <div><b>Работа</b><p>Низкая, список считается из того же ряда.</p></div>
+  </div>
+</section>
+
+<!-- 06 ─────────────────────────────────────────────────────────── -->
+<section class="case v6" id="v6">
+  <h2>06 · Паспорт цифры</h2>
+  <h3>Откуда взялось это число</h3>
+  <div class="stage">
+    <div class="split">
+      <canvas class="chart" aria-label="График населения мира с коридором независимых оценок"></canvas>
+      <div class="pass">
+        <p class="yr" data-year></p>
+        <div class="num" data-num></div>
+        <div class="src" data-src></div>
+        <p class="cite" data-cite></p>
+        <p class="how" data-how></p>
+        <h4 data-esth>Other published estimates</h4>
+        <div class="estrip" data-strip></div>
+        <ul class="estl" data-estl></ul>
+        <p class="spread" data-spread></p>
+      </div>
+    </div>
+    <div class="player"></div>
+  </div>
+  <div class="notes">
+    <div class="idea"><p>Блок, который ставится под любым глобусом. Линия — ряд, который рисует анимацию; закрашенный
+      коридор — от самой низкой до самой высокой оценки девяти авторов; полоса под графиком — чей это отрезок данных.
+      Наведите на график — справа паспорт этого года: число, источник, точка данных это или пересчёт между двумя
+      точками, и что говорят другие.</p></div>
+    <div><b>Сильное</b><p>Отвечает на «откуда эта цифра» в каждый момент и честно показывает, что в древности оценки
+      расходятся вдвое.</p></div>
+    <div><b>Слабое</b><p>Это не глобус, а приложение к нему. Сам по себе суховат.</p></div>
+    <div><b>Работа</b><p>Средняя: вручную собрать таблицу оценок со ссылками на первоисточники.</p></div>
+  </div>
+</section>
+
+<!-- 07 ─────────────────────────────────────────────────────────── -->
+<section class="case v7" id="v7">
+  <h2>07 · Страна в мире</h2>
+  <h3>Выбрать страну и период</h3>
+  <div class="stage">
+    <div class="filters">
+      <label>Country<select id="v7-c"></select></label>
+      <label>From<select id="v7-from"></select></label>
+      <label>To<select id="v7-to"></select></label>
+    </div>
+    <div class="split">
+      <div style="position:relative"><canvas class="globe" aria-label="Глобус с выбранной страной"></canvas>
+        <div class="ov ov-bl"><span class="chip" data-src></span></div></div>
+      <div class="cpanel">
+        <div><div class="cname" data-cname></div><div class="yr" data-year style="margin-top:2px"></div></div>
+        <div class="kv">
+          <div><b data-cpop></b><span>people</span></div>
+          <div><b data-cshare></b><span>of the world</span></div>
+          <div><b data-crank></b><span>rank among 165 countries</span></div>
+          <div><b data-cgrow></b><span data-cgrowl>since start</span></div>
+        </div>
+        <div><div class="tiny" style="margin-bottom:4px">Share of world population, %</div><canvas class="mini"></canvas></div>
+      </div>
+    </div>
+    <div class="player"></div>
+  </div>
+  <div class="notes">
+    <div class="idea"><p>Фильтры, о которых вы писали: страна и период. Глобус сам поворачивается к стране, её точки
+      подсвечены, справа — её число, доля в мире, место среди стран и рост с начала периода. Страну можно выбрать и кликом
+      по глобусу. Настройка, как в «городах», должна жить в адресе страницы.</p></div>
+    <div><b>Сильное</b><p>Даёт поиграть: «а что было с моей страной». Отвечает на «сравнить с миром».</p></div>
+    <div><b>Слабое</b><p>Страна в сегодняшних границах в 3000 году до н. э. — условность; надо сказать об этом прямо
+      у фильтра.</p></div>
+    <div><b>Работа</b><p>Средняя.</p></div>
+  </div>
+</section>
+
+<!-- 08 ─────────────────────────────────────────────────────────── -->
+<section class="case v8" id="v8">
+  <h2>08 · Большая цифра</h2>
+  <h3>Прокрутка двигает время</h3>
+  <p class="muted" style="margin:0 0 12px;max-width:760px">Крутите страницу вниз — время идёт вместе с прокруткой. Короткий пост и анимация здесь одно
+    и то же: текст появляется подписями в нужные моменты.</p>
+  <div class="scroller">
+    <div class="sticky stage">
+      <canvas class="globe" aria-label="Глобус фоном за большим числом"></canvas>
+      <div class="prog"></div>
+      <div class="center"><div class="huge" data-num></div><div class="unit" data-unit>people</div><div class="when" data-year></div></div>
+      <div class="miles" data-miles></div>
+      <div class="cap"><span class="tiny" data-src></span><span data-cap></span></div>
+    </div>
+  </div>
+  <div class="notes">
+    <div class="idea"><p>Огромное число в центре, глобус фоном, справа загораются вехи миллиардов, снизу подпись к эпохе.
+      Читатель не нажимает «плей» — он просто читает вниз.</p></div>
+    <div><b>Сильное</b><p>Самый «постовый» вариант: работает на телефоне, не требует объяснять управление.</p></div>
+    <div><b>Слабое</b><p>Страны и фильтры сюда не встроить — их придётся ставить отдельным блоком ниже.</p></div>
+    <div><b>Работа</b><p>Средняя; подписи к эпохам — отдельная работа с текстом.</p></div>
+  </div>
+</section>
+
+<!-- 09 ─────────────────────────────────────────────────────────── -->
+<section class="case v9" id="v9">
+  <h2>09 · Раскадровка</h2>
+  <h3>Девять кадров вместо анимации</h3>
+  <div class="stage"><div class="grid" data-grid></div></div>
+  <div class="notes">
+    <div class="idea"><p>Девять плоских карт в ключевые годы, по точке на миллион человек. Ничего не движется — глаз сам
+      сравнивает кадры. Годится для печати, для картинки в соцсети и как запасной вид для читателя без анимации.</p></div>
+    <div><b>Сильное</b><p>Печатается, делится одной картинкой, не требует ни клика.</p></div>
+    <div><b>Слабое</b><p>Нет игры и нет «откуда цифра» в каждый момент — только в выбранные.</p></div>
+    <div><b>Работа</b><p>Низкая; хорошая основа для обложки.</p></div>
+  </div>
+</section>
+
+<!-- ── данные и пост ────────────────────────────────────────────── -->
+<section class="outro">
+  <h2>Где брать данные</h2>
+  <div class="tblwrap"><table class="tbl">
+    <thead><tr><th>Источник</th><th>Что даёт</th><th>Годы</th><th>Роль в посте</th></tr></thead>
+    <tbody>
+      <tr><td><b>Our World in Data</b>, «Population»</td><td>Готовая сшивка по 240+ странам в сегодняшних границах; по ней собраны все варианты выше</td><td>−10 000 … 2023</td><td>основной ряд</td></tr>
+      <tr><td><b>HYDE 3.3</b> (PBL Нидерланды, Утрехтский университет)</td><td>Сетка населения с ячейкой ~10 км: где именно жили люди, а не только в какой стране</td><td>−10 000 … 2023</td><td>положение точек на глобусе (01, 02, 05)</td></tr>
+      <tr><td><b>UN World Population Prospects 2024</b></td><td>Ежегодно по странам; прогноз до 2100 в трёх вариантах</td><td>1950 … 2100</td><td>последние 70 лет и, при желании, пунктир в будущее</td></tr>
+      <tr><td><b>Gapminder</b>, Population v7</td><td>Страны между 1800 и 1950 годом</td><td>1800 … 1949</td><td>внутри сшивки OWID</td></tr>
+      <tr><td><b>US Census Bureau</b>, Historical Estimates of World Population; та же таблица в Википедии</td><td>Оценки мира у разных авторов: McEvedy &amp; Jones, Biraben, Durand, Clark, Maddison, HYDE, PRB, ООН</td><td>−10 000 … 1950</td><td>коридор неопределённости (06)</td></tr>
+      <tr><td><b>Maddison Project 2023</b></td><td>Население по странам с 1 года н. э. — независимый второй ряд</td><td>1 … 2022</td><td>сверка</td></tr>
+    </tbody>
+  </table></div>
+  <p class="muted" style="font-size:14px">Лицензии проверить до публикации: OWID и ООН — открытые с указанием источника, у HYDE условия
+    указаны в репозитории выпуска. В макете сетка HYDE ещё не используется — точки брошены в границы стран случайно.</p>
+
+  <h3>Каким мог бы быть пост</h3>
+  <ol>
+    <li><b>Заголовок-вопрос и один абзац.</b> «Сколько лет понадобилось, чтобы людей стало вдвое больше? Сначала —
+      больше тысячи, в последний раз — 48».</li>
+    <li><b>Глобус на первом экране</b> (01 или 04) с плеером и общим управлением: темп, начало периода, страна.</li>
+    <li><b>Паспорт цифры под глобусом</b> (06) — синхронно с анимацией.</li>
+    <li><b>Три коротких абзаца:</b> почему удвоения сжимаются; провалы (кризис III века, Чёрная смерть); что изменилось
+      после 1950.</li>
+    <li><b>Страна в мире</b> (07) — блок «поиграть»: своя страна, свой период, ссылка с настройкой.</li>
+    <li><b>Откуда цифры и где они слабы:</b> до 1950 это реконструкции, в античности оценки расходятся вдвое; границы
+      сегодняшние.</li>
+  </ol>
+  <div class="rec"><b>Что я бы взял:</b> глобус из 01 (точки) с подсказками из 04, темп «удвоения» по умолчанию и список
+    удвоений из 05 рядом, паспорт из 06 под ним, фильтры из 07. Раскадровка 09 — обложка и запасной вид для печати.
+    Вариант 08 — если хочется совсем короткий пост, который читается прокруткой.</div>
+</section>
+
+</div>
+
+<script src="population-data.js"></script>
+<script>
+(function () {
+  'use strict';
+  var P = POP, Y = P.years, N = Y.length, END = 2023, PRESENT = 2030, D2R = Math.PI / 180;
+  var root = document.documentElement;
+  var CODES = Object.keys(P.pop);
+  var LANDCODES = Object.keys(P.shapes);
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── числа ─────────────────────────────────────────────────────── */
+  function seek(year) {
+    if (year <= Y[0]) return [0, 0, 0];
+    if (year >= Y[N - 1]) return [N - 1, N - 1, 0];
+    var lo = 0, hi = N - 1;
+    while (hi - lo > 1) { var m = (lo + hi) >> 1; if (Y[m] <= year) lo = m; else hi = m; }
+    return [lo, hi, (year - Y[lo]) / (Y[hi] - Y[lo])];
+  }
+  function interp(arr, year) {
+    var s = seek(year), a = arr[s[0]], b = arr[s[1]], f = s[2];
+    if (s[0] === s[1]) return a;
+    return (a > 0 && b > 0) ? a * Math.pow(b / a, f) : a + (b - a) * f;
+  }
+  function worldAt(y) { return interp(P.world, y); }
+  function popAt(c, y) { return interp(P.pop[c], y); }
+  function fmtPop(v) {
+    if (v >= 1e9) return (v / 1e9).toFixed(2) + ' billion';
+    if (v >= 1e8) return Math.round(v / 1e6) + ' million';
+    if (v >= 1e6) return (v / 1e6).toFixed(v < 1e7 ? 1 : 0) + ' million';
+    return Math.round(v / 1e3) + ' thousand';
+  }
+  function fmtShort(v) {
+    if (v >= 1e9) return (v / 1e9).toFixed(v >= 1e10 ? 0 : 2) + 'B';
+    if (v >= 1e6) return (v >= 1e8 ? Math.round(v / 1e6) : (v / 1e6).toFixed(v < 1e7 ? 1 : 0)) + 'M';
+    return Math.round(v / 1e3) + 'K';
+  }
+  function fmtInt(v) { return Math.round(v).toLocaleString('en-US'); }
+  function fmtYear(y) {
+    y = Math.round(y);
+    if (y < 0) return (-y).toLocaleString('en-US') + ' BCE';
+    if (y === 0) return '1 CE';
+    if (y < 1000) return y + ' CE';
+    return String(y);
+  }
+  function fmtSpan(n) { n = Math.round(n); return n.toLocaleString('en-US') + (n === 1 ? ' year' : ' years'); }
+
+  var SOURCES = [
+    { key: 'hyde', to: 1800, name: 'HYDE 3.3', kind: 'model reconstruction',
+      cite: 'Klein Goldewijk et al., History Database of the Global Environment 3.3, PBL Netherlands Environmental Assessment Agency (2023) — via Our World in Data' },
+    { key: 'gap', to: 1950, name: 'Gapminder v7', kind: 'compiled estimates',
+      cite: 'Gapminder, Population v7 — built on Maddison, HYDE and national censuses — via Our World in Data' },
+    { key: 'un', to: 99999, name: 'UN WPP 2024', kind: 'census-based estimates',
+      cite: 'United Nations, World Population Prospects 2024 — via Our World in Data' }
+  ];
+  function sourceAt(y) { for (var i = 0; i < SOURCES.length; i++) if (y < SOURCES[i].to) return SOURCES[i]; return SOURCES[2]; }
+
+  /* ── темп: доля круга u → год ──────────────────────────────────── */
+  var SET = { start: -5000, mode: 'doubling', dur: 40 };
+  var maps = {};
+  function makeMap(y0, y1, mode) {
+    var key = y0 + '|' + y1 + '|' + mode;
+    if (maps[key]) return maps[key];
+    var m;
+    if (mode === 'linear') {
+      m = { toYear: function (u) { return y0 + u * (y1 - y0); }, toU: function (y) { return (y - y0) / (y1 - y0); } };
+    } else if (mode === 'log') {
+      var A = Math.log(PRESENT - y0), B = Math.log(PRESENT - y1);
+      m = { toYear: function (u) { return PRESENT - Math.exp(A + (B - A) * u); },
+            toU: function (y) { return (Math.log(PRESENT - y) - A) / (B - A); } };
+    } else {
+      var lg = makeMap(y0, y1, 'log'), S = 1600, ys = [], gs = [], run = 0, i;
+      for (i = 0; i <= S; i++) {
+        var y = lg.toYear(i / S); ys.push(y);
+        run = Math.max(run, worldAt(y)); gs.push(Math.log(run));
+      }
+      var g0 = gs[0], span = gs[S] - g0 || 1, eps = 0.05;
+      for (i = 0; i <= S; i++) gs[i] = ((gs[i] - g0) / span + eps * i / S) / (1 + eps);
+      var find = function (arr, v) { var lo = 0, hi = arr.length - 1; while (hi - lo > 1) { var k = (lo + hi) >> 1; if (arr[k] <= v) lo = k; else hi = k; } return lo; };
+      m = { toYear: function (u) { if (u <= 0) return ys[0]; if (u >= 1) return ys[S]; var k = find(gs, u), f = (u - gs[k]) / (gs[k + 1] - gs[k] || 1); return ys[k] + (ys[k + 1] - ys[k]) * f; },
+            toU: function (y) { if (y <= ys[0]) return 0; if (y >= ys[S]) return 1; var k = find(ys, y), f = (y - ys[k]) / (ys[k + 1] - ys[k] || 1); return gs[k] + (gs[k + 1] - gs[k]) * f; } };
+    }
+    maps[key] = m;
+    return m;
+  }
+
+  /* ── геометрия: всё переводим в точки на единичной сфере один раз ── */
+  function xyz(lon, lat, out, k) {
+    var l = lon * D2R, p = lat * D2R, c = Math.cos(p);
+    out[k] = c * Math.sin(l); out[k + 1] = Math.sin(p); out[k + 2] = c * Math.cos(l);
+  }
+  var GEO = {};
+  LANDCODES.forEach(function (c) {
+    var rings = [], bb = [180, 90, -180, -90];
+    P.shapes[c].forEach(function (poly) {
+      poly.forEach(function (r) {
+        var n = r.length / 2, f = new Float32Array(n * 3);
+        for (var i = 0; i < n; i++) {
+          var lon = r[2 * i], lat = r[2 * i + 1];
+          xyz(lon, lat, f, 3 * i);
+          if (lon < bb[0]) bb[0] = lon; if (lat < bb[1]) bb[1] = lat; if (lon > bb[2]) bb[2] = lon; if (lat > bb[3]) bb[3] = lat;
+        }
+        rings.push({ xyz: f, ll: r });
+      });
+    });
+    GEO[c] = { rings: rings, bb: bb };
+  });
+  var DOTS = {}, CEN = {}, AREA = {}, REGION = {}, NAME = {};
+  CODES.forEach(function (c) {
+    var d = P.dots[c] || [], n = d.length / 2, f = new Float32Array(n * 3);
+    for (var i = 0; i < n; i++) xyz(d[2 * i], d[2 * i + 1], f, 3 * i);
+    DOTS[c] = f;
+    var nm = P.names[c];
+    var ce = new Float32Array(3); xyz(nm[2], nm[1], ce, 0); CEN[c] = ce;
+    AREA[c] = nm[3] || 1; REGION[c] = nm[4]; NAME[c] = nm[0];
+  });
+  CODES.sort(function (a, b) { return P.pop[b][N - 1] - P.pop[a][N - 1]; });
+  var GRAT = [];
+  (function () {
+    var lon, lat, pts, f, i;
+    for (lon = -180; lon < 180; lon += 30) { pts = []; for (lat = -90; lat <= 90; lat += 3) pts.push(lon, lat); GRAT.push(pts); }
+    for (lat = -60; lat <= 60; lat += 30) { pts = []; for (lon = -180; lon <= 180; lon += 3) pts.push(lon, lat); GRAT.push(pts); }
+    GRAT = GRAT.map(function (r) { f = new Float32Array(r.length / 2 * 3); for (i = 0; i < r.length / 2; i++) xyz(r[2 * i], r[2 * i + 1], f, 3 * i); return f; });
+  })();
+
+  function inRing(x, y, r) {
+    var ins = false, n = r.length / 2;
+    for (var i = 0, j = n - 1; i < n; j = i++) {
+      var xi = r[2 * i], yi = r[2 * i + 1], xj = r[2 * j], yj = r[2 * j + 1];
+      if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) ins = !ins;
+    }
+    return ins;
+  }
+  function countryAt(lon, lat) {
+    for (var k = 0; k < LANDCODES.length; k++) {
+      var c = LANDCODES[k], g = GEO[c], b = g.bb;
+      if (lon < b[0] || lon > b[2] || lat < b[1] || lat > b[3]) continue;
+      var ins = false;
+      for (var i = 0; i < g.rings.length; i++) if (inRing(lon, lat, g.rings[i].ll)) ins = !ins;
+      if (ins) return c;
+    }
+    return null;
+  }
+
+  /* ── глобус ────────────────────────────────────────────────────── */
+  function Globe(cv, o) {
+    o = o || {};
+    this.cv = cv; this.ctx = cv.getContext('2d');
+    this.a = o.a != null ? o.a : -60; this.b = o.b != null ? o.b : 22;
+    this.spin = o.spin != null ? o.spin : 5; this.scale = o.scale || 0.42;
+    this.target = null; this.drag = null; this.onclick = null; this.onhover = null;
+    this.resize();
+    var self = this;
+    if (o.interactive !== false) {
+      cv.addEventListener('pointerdown', function (e) {
+        self.drag = { x: e.clientX, y: e.clientY, a: self.a, b: self.b, moved: 0 };
+        cv.setPointerCapture(e.pointerId); cv.classList.add('drag'); self.target = null;
+      });
+      cv.addEventListener('pointermove', function (e) {
+        if (self.drag) {
+          var dx = e.clientX - self.drag.x, dy = e.clientY - self.drag.y, k = 57 / (self.R / self.dpr);
+          self.drag.moved = Math.max(self.drag.moved, Math.abs(dx) + Math.abs(dy));
+          self.a = self.drag.a + dx * k; self.b = Math.max(-80, Math.min(80, self.drag.b + dy * k));
+        } else if (self.onhover) self.onhover(e);
+      });
+      var up = function (e) {
+        if (!self.drag) return;
+        var click = self.drag.moved < 5; self.drag = null; cv.classList.remove('drag');
+        if (click && self.onclick) self.onclick(e);
+      };
+      cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+      cv.addEventListener('pointerleave', function (e) { if (!self.drag && self.onhover) self.onhover(null); });
+    }
+  }
+  Globe.prototype.resize = function () {
+    var r = this.cv.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
+    var w = Math.max(10, Math.round(r.width * dpr)), h = Math.max(10, Math.round(r.height * dpr));
+    if (this.cv.width !== w || this.cv.height !== h) { this.cv.width = w; this.cv.height = h; }
+    this.dpr = dpr; this.W = w; this.H = h; this.cx = w / 2; this.cy = h / 2;
+    this.R = Math.min(w, h) * this.scale;
+  };
+  Globe.prototype.step = function (dt) {
+    if (this.drag) return;
+    if (this.target) {
+      var da = ((this.target[0] - this.a + 540) % 360) - 180, db = this.target[1] - this.b, k = Math.min(1, dt * 3.5);
+      this.a += da * k; this.b += db * k;
+      if (Math.abs(da) < 0.05 && Math.abs(db) < 0.05) this.target = null;
+    } else if (!reduce) this.a += this.spin * dt;
+  };
+  Globe.prototype.setup = function () {
+    var a = this.a * D2R, b = this.b * D2R;
+    this.ca = Math.cos(a); this.sa = Math.sin(a); this.cb = Math.cos(b); this.sb = Math.sin(b);
+  };
+  /* проекция: пишет x, y, z в out */
+  Globe.prototype.p = function (x, y, z, out) {
+    var X1 = x * this.ca + z * this.sa, Z1 = z * this.ca - x * this.sa;
+    out[0] = this.cx + this.R * X1;
+    out[1] = this.cy - this.R * (y * this.cb - Z1 * this.sb);
+    out[2] = y * this.sb + Z1 * this.cb;
+  };
+  Globe.prototype.inv = function (clientX, clientY) {
+    var r = this.cv.getBoundingClientRect();
+    var x = ((clientX - r.left) * this.dpr - this.cx) / this.R, y = -((clientY - r.top) * this.dpr - this.cy) / this.R;
+    var r2 = x * x + y * y; if (r2 > 1) return null;
+    var z = Math.sqrt(1 - r2);
+    var Y1 = y * this.cb + z * this.sb, Z1 = -y * this.sb + z * this.cb;
+    var X = x * this.ca - Z1 * this.sa, Z = x * this.sa + Z1 * this.ca;
+    return [Math.atan2(X, Z) / D2R, Math.asin(Math.max(-1, Math.min(1, Y1))) / D2R];
+  };
+  Globe.prototype.sphere = function (c1, c2, glow) {
+    var g = this.ctx, R = this.R;
+    if (glow) {
+      var hg = g.createRadialGradient(this.cx, this.cy, R * 0.95, this.cx, this.cy, R * 1.25);
+      hg.addColorStop(0, glow); hg.addColorStop(1, 'rgba(0,0,0,0)');
+      g.fillStyle = hg; g.beginPath(); g.arc(this.cx, this.cy, R * 1.25, 0, 7); g.fill();
+    }
+    var gr = g.createRadialGradient(this.cx - R * 0.35, this.cy - R * 0.4, R * 0.1, this.cx, this.cy, R);
+    gr.addColorStop(0, c1); gr.addColorStop(1, c2);
+    g.fillStyle = gr; g.beginPath(); g.arc(this.cx, this.cy, R, 0, 7); g.fill();
+  };
+  var TMP = [0, 0, 0];
+  /* путь страны; невидимые точки прижимаются к краю диска, чтобы заливка не рвалась */
+  Globe.prototype.countryPath = function (c) {
+    var g = this.ctx, rings = GEO[c].rings, any = false;
+    g.beginPath();
+    for (var i = 0; i < rings.length; i++) {
+      var f = rings[i].xyz, n = f.length / 3, vis = false, j;
+      for (j = 0; j < n; j++) { this.p(f[3 * j], f[3 * j + 1], f[3 * j + 2], TMP); if (TMP[2] > 0) { vis = true; break; } }
+      if (!vis) continue;
+      any = true;
+      for (j = 0; j < n; j++) {
+        this.p(f[3 * j], f[3 * j + 1], f[3 * j + 2], TMP);
+        var x = TMP[0], y = TMP[1];
+        if (TMP[2] < 0) { var dx = x - this.cx, dy = y - this.cy, L = Math.sqrt(dx * dx + dy * dy) || 1; x = this.cx + dx / L * this.R; y = this.cy + dy / L * this.R; }
+        if (j === 0) g.moveTo(x, y); else g.lineTo(x, y);
+      }
+      g.closePath();
+    }
+    return any;
+  };
+  Globe.prototype.land = function (fill, stroke, lw, skip) {
+    var g = this.ctx;
+    g.lineWidth = (lw || 0.8) * this.dpr; g.lineJoin = 'round';
+    for (var k = 0; k < LANDCODES.length; k++) {
+      var c = LANDCODES[k];
+      if (skip && skip[c]) continue;
+      if (!this.countryPath(c)) continue;
+      var fs = typeof fill === 'function' ? fill(c) : fill;
+      if (fs) { g.fillStyle = fs; g.fill('evenodd'); }
+      if (stroke) { g.strokeStyle = stroke; g.stroke(); }
+    }
+  };
+  Globe.prototype.graticule = function (stroke) {
+    var g = this.ctx; g.strokeStyle = stroke; g.lineWidth = this.dpr;
+    for (var i = 0; i < GRAT.length; i++) {
+      var f = GRAT[i], n = f.length / 3, pen = false;
+      g.beginPath();
+      for (var j = 0; j < n; j++) {
+        this.p(f[3 * j], f[3 * j + 1], f[3 * j + 2], TMP);
+        if (TMP[2] > 0) { if (pen) g.lineTo(TMP[0], TMP[1]); else g.moveTo(TMP[0], TMP[1]); pen = true; } else pen = false;
+      }
+      g.stroke();
+    }
+  };
+  /* точки: одна = unit человек, последняя неполная — прозрачнее */
+  Globe.prototype.dots = function (codes, year, color, size, unit, alphaMul) {
+    var g = this.ctx, s = size * this.dpr, h = s / 2, total = 0;
+    g.fillStyle = color;
+    for (var k = 0; k < codes.length; k++) {
+      var c = codes[k], f = DOTS[c], n = popAt(c, year) / unit, full = Math.floor(n), m = Math.min(Math.ceil(n), f.length / 3);
+      total += n;
+      for (var j = 0; j < m; j++) {
+        this.p(f[3 * j], f[3 * j + 1], f[3 * j + 2], TMP);
+        if (TMP[2] <= 0) continue;
+        var a = (j < full ? 1 : n - full) * Math.min(1, 0.25 + TMP[2] * 1.6) * (alphaMul || 1);
+        g.globalAlpha = a; g.fillRect(TMP[0] - h, TMP[1] - h, s, s);
+      }
+    }
+    g.globalAlpha = 1;
+    return total;
+  };
+  Globe.prototype.clear = function (bg) {
+    var g = this.ctx; g.setTransform(1, 0, 0, 1, 0, 0);
+    if (bg) { g.fillStyle = bg; g.fillRect(0, 0, this.W, this.H); } else g.clearRect(0, 0, this.W, this.H);
+    this.setup();
+  };
+
+  /* ── палитра варианта из CSS ───────────────────────────────────── */
+  function palette(el) {
+    var cs = getComputedStyle(el), o = {};
+    ['bg', 's1', 's2', 'land', 'line', 'dot', 'ink', 'mute', 'acc', 'star', 'r0', 'r1', 'r2', 'grat', 'sa', 'sb', 'ring', 'grid', 'band', 'est']
+      .forEach(function (k) { o[k] = cs.getPropertyValue('--v-' + k).trim(); });
+    ['hyde', 'gap', 'un'].forEach(function (k) { o[k] = cs.getPropertyValue('--s-' + k).trim(); });
+    return o;
+  }
+  function hex(c) {
+    c = c.replace('#', ''); if (c.length === 3) c = c.replace(/./g, '$&$&');
+    return [parseInt(c.slice(0, 2), 16), parseInt(c.slice(2, 4), 16), parseInt(c.slice(4, 6), 16)];
+  }
+  function mix(a, b, t) { return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t]; }
+  function rgb(c, al) { return 'rgba(' + Math.round(c[0]) + ',' + Math.round(c[1]) + ',' + Math.round(c[2]) + ',' + (al == null ? 1 : al) + ')'; }
+
+  /* ── плеер ─────────────────────────────────────────────────────── */
+  var ICON_PLAY = '<svg viewBox="0 0 16 16"><path d="M4 2.5v11l9-5.5z"/></svg>';
+  var ICON_PAUSE = '<svg viewBox="0 0 16 16"><path d="M3.5 2.5h3v11h-3zM9.5 2.5h3v11h-3z"/></svg>';
+  function Player(box, o) {
+    o = o || {};
+    this.u = o.u0 || 0; this.playing = !reduce; this.hold = 0; this.mode = o.mode || null; this.range = o.range || null;
+    var self = this;
+    this.btn = document.createElement('button'); this.btn.type = 'button';
+    this.slider = document.createElement('input'); this.slider.type = 'range'; this.slider.min = 0; this.slider.max = 1000; this.slider.step = 1;
+    this.slider.setAttribute('aria-label', 'Time');
+    this.out = document.createElement('output');
+    box.appendChild(this.btn); box.appendChild(this.slider); box.appendChild(this.out);
+    this.btn.addEventListener('click', function () { self.playing = !self.playing; if (self.playing && self.u >= 1) self.u = 0; self.sync(); });
+    this.slider.addEventListener('input', function () { self.playing = false; self.hold = 0; self.u = self.slider.value / 1000; self.sync(); });
+    this.sync();
+  }
+  Player.prototype.span = function () { return this.range ? this.range() : [SET.start, END]; };
+  Player.prototype.map = function () { var s = this.span(); return makeMap(s[0], s[1], this.mode || SET.mode); };
+  Player.prototype.year = function () { return this.map().toYear(this.u); };
+  Player.prototype.setYear = function (y) { this.u = Math.max(0, Math.min(1, this.map().toU(y))); this.sync(); };
+  Player.prototype.step = function (dt) {
+    if (!this.playing) return;
+    if (this.hold > 0) { this.hold -= dt; if (this.hold <= 0) this.u = 0; }
+    else { this.u += dt / SET.dur; if (this.u >= 1) { this.u = 1; this.hold = 2.5; } }
+    this.sync();
+  };
+  Player.prototype.sync = function () {
+    this.btn.innerHTML = this.playing ? ICON_PAUSE : ICON_PLAY;
+    this.btn.setAttribute('aria-label', this.playing ? 'Pause' : 'Play');
+    this.slider.value = Math.round(this.u * 1000);
+    this.out.textContent = fmtYear(this.year());
+  };
+
+  function chipHTML(y, color) {
+    var s = sourceAt(y), exact = Y.indexOf(Math.round(y)) !== -1;
+    return '<i style="background:' + (color || 'currentColor') + '"></i>' + s.name + ' · ' + (exact ? 'data point' : 'interpolated');
+  }
+
+  /* ── общий цикл: рисуем только то, что на экране ───────────────── */
+  var STAGES = [];
+  function stage(el, tick, onResize) {
+    var s = { el: el, tick: tick, visible: false, pal: null, onResize: onResize };
+    STAGES.push(s);
+    return s;
+  }
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { STAGES.forEach(function (s) { if (s.el === e.target) s.visible = e.isIntersecting; }); });
+  }, { rootMargin: '80px' });
+  var last = 0;
+  function loop(ts) {
+    var dt = last ? Math.min(0.1, (ts - last) / 1000) : 0; last = ts;
+    STAGES.forEach(function (s) { if (s.visible) { if (!s.pal) s.pal = palette(s.el); s.tick(dt); } });
+    requestAnimationFrame(loop);
+  }
+
+  /* ══ 01 · Пыль ═════════════════════════════════════════════════ */
+  (function () {
+    var sec = document.getElementById('v1'), cv = sec.querySelector('canvas.globe');
+    var G = new Globe(cv, { a: -70, b: 24 }), pl = new Player(sec.querySelector('.player'));
+    var numEl = sec.querySelector('[data-num]'), yrEl = sec.querySelector('[data-year]'), srcEl = sec.querySelector('[data-src]'), dEl = sec.querySelector('[data-dots]');
+    var stars = []; for (var i = 0; i < 160; i++) stars.push([Math.random(), Math.random(), Math.random()]);
+    var s = stage(sec, function (dt) {
+      var p = s.pal; pl.step(dt); G.step(dt); G.resize(); G.clear(p.bg);
+      var g = G.ctx, y = pl.year();
+      g.fillStyle = p.star;
+      stars.forEach(function (st) { g.globalAlpha = 0.3 + st[2] * 0.7; g.fillRect(st[0] * G.W, st[1] * G.H, G.dpr * (st[2] > 0.8 ? 1.6 : 1), G.dpr * (st[2] > 0.8 ? 1.6 : 1)); });
+      g.globalAlpha = 1;
+      G.sphere(p.s1, p.s2, 'rgba(90,130,220,.10)');
+      G.land(p.land, p.line, 0.7);
+      var w = worldAt(y), size = Math.max(1.3, Math.min(3.4, 4.6 - 1.05 * Math.log10(w / 5e6)));
+      var n = G.dots(CODES, y, p.dot, size, 1e6);
+      numEl.textContent = fmtPop(w); yrEl.textContent = fmtYear(y);
+      srcEl.innerHTML = chipHTML(y, p.dot);
+      dEl.textContent = fmtInt(n) + ' dots on the planet';
+    });
+    io.observe(sec);
+  })();
+
+  /* ══ 02 · Огни ═════════════════════════════════════════════════ */
+  (function () {
+    var sec = document.getElementById('v2'), cv = sec.querySelector('canvas.globe');
+    var G = new Globe(cv, { a: -40, b: 28, spin: 4 }), pl = new Player(sec.querySelector('.player'));
+    var numEl = sec.querySelector('[data-num]'), yrEl = sec.querySelector('[data-year]'), srcEl = sec.querySelector('[data-src]');
+    var tip = sec.querySelector('.tip'), ramp = sec.querySelector('canvas.ramp');
+    var LO = -1, HI = 3; // 0.1 … 1000 человек на км²
+    function col(p, d) {
+      var t = (Math.log10(Math.max(d, 1e-3)) - LO) / (HI - LO); t = Math.max(0, Math.min(1, t));
+      var a = hex(p.r0), b = hex(p.r1), c = hex(p.r2);
+      return t < 0.5 ? mix(a, b, t * 2) : mix(b, c, (t - 0.5) * 2);
+    }
+    var hover = null, lastRampTheme = '';
+    G.onhover = function (e) {
+      if (!e) { hover = null; tip.classList.remove('in'); return; }
+      var ll = G.inv(e.clientX, e.clientY), c = ll && countryAt(ll[0], ll[1]);
+      hover = c && P.pop[c] ? { c: c, x: e.clientX, y: e.clientY } : null;
+      if (!hover) tip.classList.remove('in');
+    };
+    var s = stage(sec, function (dt) {
+      var p = s.pal; pl.step(dt); if (!hover) G.step(dt); G.resize(); G.clear(p.bg);
+      var y = pl.year();
+      G.sphere(p.s1, p.s2);
+      G.land(function (c) { return P.pop[c] ? rgb(col(p, popAt(c, y) / AREA[c])) : p.line; }, p.line, 0.6);
+      numEl.textContent = fmtPop(worldAt(y)); yrEl.textContent = fmtYear(y); srcEl.innerHTML = chipHTML(y, p.r1);
+      if (lastRampTheme !== root.getAttribute('data-theme')) {
+        lastRampTheme = root.getAttribute('data-theme');
+        var rg = ramp.getContext('2d'), W = ramp.width; rg.clearRect(0, 0, W, 30);
+        for (var x = 0; x < W; x++) { rg.fillStyle = rgb(col(p, Math.pow(10, LO + (HI - LO) * x / W))); rg.fillRect(x, 0, 1, 12); }
+        rg.fillStyle = p.mute; rg.font = '10px JetBrains Mono, monospace'; rg.textAlign = 'center';
+        ['0.1', '1', '10', '100', '1000'].forEach(function (t, i) { var x = i / 4 * (W - 1); rg.textAlign = i === 0 ? 'left' : i === 4 ? 'right' : 'center'; rg.fillText(t, x, 26); });
+      }
+      if (hover) {
+        var c = hover.c, r = sec.querySelector('.stage').getBoundingClientRect(), v = popAt(c, y);
+        tip.innerHTML = '<b>' + NAME[c] + '</b><br>' + fmtPop(v) + ' · ' + (v / AREA[c]).toFixed(v / AREA[c] < 10 ? 1 : 0) + ' per km²<br><span class="tiny">' + sourceAt(y).name + '</span>';
+        tip.style.left = Math.min(hover.x - r.left + 14, r.width - 190) + 'px'; tip.style.top = (hover.y - r.top + 14) + 'px';
+        tip.classList.add('in');
+      }
+    });
+    io.observe(sec);
+  })();
+
+  /* ══ 03 · Шипы ═════════════════════════════════════════════════ */
+  (function () {
+    var sec = document.getElementById('v3'), cv = sec.querySelector('canvas.globe');
+    var G = new Globe(cv, { a: -85, b: 18, spin: 6, scale: 0.34 }), pl = new Player(sec.querySelector('.player'));
+    var numEl = sec.querySelector('[data-num]'), yrEl = sec.querySelector('[data-year]'), srcEl = sec.querySelector('[data-src]');
+    var mode = 'share', seg = document.getElementById('v3-mode');
+    seg.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return; mode = b.dataset.v;
+      [].forEach.call(seg.children, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+    });
+    var A = [0, 0, 0], B = [0, 0, 0];
+    var s = stage(sec, function (dt) {
+      var p = s.pal; pl.step(dt); G.step(dt); G.resize(); G.clear(p.bg);
+      var g = G.ctx, y = pl.year(), w = worldAt(y);
+      G.sphere(p.s1, p.s2); G.graticule(p.grat); G.land(p.land, p.line, 0.6);
+      var list = [];
+      CODES.forEach(function (c) {
+        var v = popAt(c, y), h = mode === 'abs' ? v / 1.45e9 * 0.62 : v / w * 1.25, ce = CEN[c];
+        if (h < 0.002) return;
+        G.p(ce[0], ce[1], ce[2], A);
+        if (A[2] < -0.05) return;
+        G.p(ce[0] * (1 + h), ce[1] * (1 + h), ce[2] * (1 + h), B);
+        var tipZ = B[2], dx = B[0] - G.cx, dy = B[1] - G.cy;
+        if (A[2] < 0 && dx * dx + dy * dy < G.R * G.R) return; /* основание за шаром, вершина за диском */
+        list.push({ c: c, ax: A[0], ay: A[1], bx: B[0], by: B[1], z: A[2], v: v, h: h, vis: A[2] > 0 || tipZ > 0 });
+      });
+      list.sort(function (a, b) { return a.z - b.z; });
+      var ca = hex(p.sa), cb = hex(p.sb);
+      g.lineCap = 'round';
+      list.forEach(function (o) {
+        var t = Math.min(1, o.h / 0.5), gr = g.createLinearGradient(o.ax, o.ay, o.bx, o.by);
+        gr.addColorStop(0, rgb(ca, 0.9)); gr.addColorStop(1, rgb(mix(ca, cb, 0.35 + t * 0.65)));
+        g.strokeStyle = gr; g.lineWidth = Math.max(1.5, Math.min(5, 1.5 + o.h * 7)) * G.dpr;
+        g.beginPath(); g.moveTo(o.ax, o.ay); g.lineTo(o.bx, o.by); g.stroke();
+      });
+      var top = list.filter(function (o) { return o.z > 0.15; }).sort(function (a, b) { return b.v - a.v; }).slice(0, 4);
+      g.font = (12 * G.dpr) + 'px Inter, system-ui, sans-serif'; g.fillStyle = p.ink; g.textAlign = 'left';
+      top.forEach(function (o) { if (o.h > 0.04) g.fillText(NAME[o.c] + ' ' + fmtShort(o.v), o.bx + 6 * G.dpr, o.by + 4 * G.dpr); });
+      numEl.textContent = fmtPop(w); yrEl.textContent = fmtYear(y); srcEl.innerHTML = chipHTML(y, p.sb);
+    });
+    io.observe(sec);
+  })();
+
+  /* ══ 04 · Пузыри ═══════════════════════════════════════════════ */
+  (function () {
+    var sec = document.getElementById('v4'), cv = sec.querySelector('canvas.globe');
+    var G = new Globe(cv, { a: -60, b: 20, spin: 4 }), pl = new Player(sec.querySelector('.player'));
+    var numEl = sec.querySelector('[data-num]'), yrEl = sec.querySelector('[data-year]'), srcEl = sec.querySelector('[data-src]');
+    var tip = sec.querySelector('.tip'), shEl = sec.querySelector('[data-shares]'), kEl = sec.querySelector('[data-keys]');
+    var REG = [['Asia', '#ff5a3c'], ['Africa', '#ffb020'], ['Europe', '#2f7de0'], ['Americas', '#17c0a6'], ['Oceania', '#ff5da2']];
+    var RC = {}; REG.forEach(function (r) { RC[r[0]] = r[1]; });
+    shEl.innerHTML = REG.map(function (r) { return '<span style="background:' + r[1] + '"></span>'; }).join('');
+    kEl.innerHTML = REG.map(function (r) { return '<span><i style="background:' + r[1] + '"></i>' + r[0] + '<b></b></span>'; }).join('');
+    var bars = shEl.children, keys = kEl.querySelectorAll('b');
+    var drawn = [], hover = null, A = [0, 0, 0];
+    G.onhover = function (e) {
+      if (!e) { hover = null; tip.classList.remove('in'); return; }
+      var r = cv.getBoundingClientRect(), x = (e.clientX - r.left) * G.dpr, y = (e.clientY - r.top) * G.dpr, best = null;
+      for (var i = drawn.length - 1; i >= 0; i--) { var o = drawn[i], dx = x - o.x, dy = y - o.y; if (dx * dx + dy * dy <= Math.max(o.r, 6 * G.dpr) * Math.max(o.r, 6 * G.dpr)) { best = o; break; } }
+      hover = best ? { c: best.c, x: e.clientX, y: e.clientY } : null;
+      if (!hover) tip.classList.remove('in');
+    };
+    var s = stage(sec, function (dt) {
+      var p = s.pal; pl.step(dt); if (!hover) G.step(dt); G.resize(); G.clear(p.bg);
+      var g = G.ctx, y = pl.year(), w = worldAt(y), sum = {};
+      G.sphere(p.s1, p.s2); G.land(p.land, p.line, 0.6);
+      drawn = [];
+      CODES.forEach(function (c) {
+        var v = popAt(c, y); sum[REGION[c]] = (sum[REGION[c]] || 0) + v;
+        var ce = CEN[c]; G.p(ce[0], ce[1], ce[2], A); if (A[2] <= 0.02) return;
+        var r = G.R * 0.2 * Math.sqrt(v / 1.45e9);
+        if (r < 0.6 * G.dpr) return;
+        drawn.push({ c: c, x: A[0], y: A[1], r: r, z: A[2] });
+      });
+      drawn.sort(function (a, b) { return b.r - a.r; });
+      g.lineWidth = 1.2 * G.dpr;
+      drawn.forEach(function (o) {
+        g.beginPath(); g.arc(o.x, o.y, o.r, 0, 7);
+        g.globalAlpha = 0.8 * Math.min(1, 0.4 + o.z); g.fillStyle = RC[REGION[o.c]] || '#999'; g.fill();
+        g.globalAlpha = 1; g.strokeStyle = p.ring; g.stroke();
+        if (hover && hover.c === o.c) { g.strokeStyle = p.ink; g.lineWidth = 2 * G.dpr; g.stroke(); g.lineWidth = 1.2 * G.dpr; }
+      });
+      g.font = '600 ' + (11.5 * G.dpr) + 'px Inter, system-ui, sans-serif'; g.textAlign = 'center'; g.fillStyle = p.ink;
+      drawn.slice(0, 5).forEach(function (o) { if (o.r > 14 * G.dpr) g.fillText(NAME[o.c], o.x, o.y + 4 * G.dpr); });
+      var tot = 0; REG.forEach(function (r) { tot += sum[r[0]] || 0; });
+      REG.forEach(function (r, i) { var sh = (sum[r[0]] || 0) / tot; bars[i].style.flexGrow = Math.max(0.001, sh); keys[i].textContent = Math.round(sh * 100) + '%'; });
+      numEl.textContent = fmtPop(w); yrEl.textContent = fmtYear(y); srcEl.innerHTML = chipHTML(y, p.acc);
+      if (hover) {
+        var c = hover.c, rr = sec.querySelector('.stage').getBoundingClientRect(), v = popAt(c, y);
+        tip.innerHTML = '<b>' + NAME[c] + '</b><br>' + fmtPop(v) + ' · ' + (v / w * 100).toFixed(1) + '% of world<br><span class="tiny">' + sourceAt(y).name + ', ' + (Y.indexOf(Math.round(y)) !== -1 ? 'data point' : 'interpolated') + '</span>';
+        tip.style.left = Math.min(hover.x - rr.left + 14, rr.width - 200) + 'px'; tip.style.top = (hover.y - rr.top + 14) + 'px';
+        tip.classList.add('in');
+      }
+    });
+    io.observe(sec);
+  })();
+
+  /* ══ 05 · Часы удвоений ════════════════════════════════════════ */
+  (function () {
+    var sec = document.getElementById('v5'), cv = sec.querySelector('canvas.globe');
+    var G = new Globe(cv, { a: -75, b: 22, spin: 5, scale: 0.4 }), pl = new Player(sec.querySelector('.player'), { mode: 'doubling' });
+    var numEl = sec.querySelector('[data-num]'), yrEl = sec.querySelector('[data-year]'), rowsEl = sec.querySelector('[data-rows]'), footEl = sec.querySelector('[data-foot]');
+    var built = '', rows = [];
+    function firstYear(level, y0) {
+      /* первый год, когда население мира достигло level: поиск по плотной сетке */
+      var lo = y0, hi = END;
+      if (worldAt(hi) < level) return null;
+      for (var y = y0; y <= END; y += (y < 1500 ? 10 : 1)) if (worldAt(y) >= level) { hi = y; break; }
+      lo = hi - (hi < 1500 ? 10 : 1);
+      for (var k = 0; k < 20; k++) { var m = (lo + hi) / 2; if (worldAt(m) >= level) hi = m; else lo = m; }
+      return hi;
+    }
+    function build() {
+      var y0 = SET.start, p0 = worldAt(y0), html = '', t0 = y0;
+      rows = [];
+      for (var k = 1; ; k++) {
+        var lv = p0 * Math.pow(2, k), yk = firstYear(lv, y0);
+        if (yk == null) break;
+        rows.push({ from: p0 * Math.pow(2, k - 1), to: lv, y0: t0, y1: yk });
+        t0 = yk;
+      }
+      rows.forEach(function (r) {
+        html += '<div class="drow"><span class="lv">' + fmtShort(r.from) + ' → ' + fmtShort(r.to) + '</span>' +
+          '<div class="bar"><span style="width:0"></span><em>' + fmtYear(r.y0) + ' → ' + fmtYear(r.y1) + '</em></div>' +
+          '<span class="dur">' + fmtSpan(r.y1 - r.y0) + '</span></div>';
+      });
+      rowsEl.innerHTML = html;
+      var a = rows[0], b = rows[rows.length - 1];
+      footEl.textContent = rows.length ? 'Every row is one doubling and gets the same screen time. The first took ' + fmtSpan(a.y1 - a.y0) +
+        ', the latest ' + fmtSpan(b.y1 - b.y0) + '. After ' + fmtYear(b.y1) + ' the world has grown ' + ((worldAt(END) / b.to - 1) * 100).toFixed(0) + '% more.' : '';
+      built = String(SET.start);
+    }
+    var s = stage(sec, function (dt) {
+      var p = s.pal; if (built !== String(SET.start)) build();
+      pl.step(dt); G.step(dt); G.resize(); G.clear(p.bg);
+      var y = pl.year(), w = worldAt(y);
+      G.sphere(p.s1, p.s2); G.land(p.land, p.line, 0.6);
+      G.dots(CODES, y, p.dot, Math.max(1.2, Math.min(3, 4.2 - Math.log10(w / 5e6))), 1e6);
+      numEl.textContent = fmtPop(w); yrEl.textContent = fmtYear(y) + ' · ' + sourceAt(y).name;
+      var bars = rowsEl.children;
+      rows.forEach(function (r, i) {
+        var f = w <= r.from ? 0 : w >= r.to ? 1 : Math.log(w / r.from) / Math.LN2;
+        bars[i].querySelector('.bar span').style.width = (f * 100).toFixed(1) + '%';
+        bars[i].classList.toggle('now', f > 0 && f < 1);
+      });
+    });
+    io.observe(sec);
+  })();
+
+  /* ══ 06 · Паспорт цифры ════════════════════════════════════════ */
+  (function () {
+    var sec = document.getElementById('v6'), cv = sec.querySelector('canvas.chart'), g = cv.getContext('2d');
+    var pl = new Player(sec.querySelector('.player'));
+    var $ = function (k) { return sec.querySelector('[data-' + k + ']'); };
+    var AUTH = { PRB: 'PRB (Haub 1995)', UN: 'UN (1999)', Maddison: 'Maddison (2010)', HYDE: 'HYDE 3.1 (2010)', Biraben: 'Biraben (1980)',
+                 McEvedy: 'McEvedy & Jones (1978)', Thomlinson: 'Thomlinson (1975)', Durand: 'Durand (1974)', Clark: 'Clark (1967)', Gapminder: 'Gapminder (early)' };
+    var EST = P.est.map(function (r) {
+      var lo = Infinity, hi = 0, n = 0;
+      Object.keys(r[1]).forEach(function (k) { lo = Math.min(lo, r[1][k][0]); hi = Math.max(hi, r[1][k][1]); n++; });
+      return { y: r[0], v: r[1], lo: lo, hi: hi, n: n };
+    });
+    var hoverU = null, M = { l: 54, r: 14, t: 16, b: 58 };
+    var W, H, dpr;
+    function size() {
+      var r = cv.getBoundingClientRect(); dpr = Math.min(2, window.devicePixelRatio || 1);
+      W = Math.round(r.width * dpr); H = Math.round(r.height * dpr);
+      if (cv.width !== W || cv.height !== H) { cv.width = W; cv.height = H; }
+    }
+    var LY0 = 6, LY1 = 10;
+    function sx(u) { return (M.l + u * ((W / dpr) - M.l - M.r)) * dpr; }
+    function sy(v) { return (M.t + (1 - (Math.log10(v) - LY0) / (LY1 - LY0)) * ((H / dpr) - M.t - M.b)) * dpr; }
+    cv.addEventListener('pointermove', function (e) {
+      var r = cv.getBoundingClientRect(), x = e.clientX - r.left;
+      var u = (x - M.l) / (r.width - M.l - M.r); if (u < 0 || u > 1) return;
+      hoverU = u; pl.playing = false; pl.u = u; pl.sync();
+    });
+    cv.addEventListener('pointerleave', function () { hoverU = null; });
+    function nearestEst(map, y) {
+      var u = map.toU(y), best = null, bd = 0.035;
+      EST.forEach(function (e) { if (e.y < SET.start) return; var d = Math.abs(map.toU(e.y) - u); if (d < bd) { bd = d; best = e; } });
+      return best;
+    }
+    var s = stage(sec, function (dt) {
+      var p = s.pal; pl.step(dt); size();
+      var map = pl.map(), y = pl.year(), w = worldAt(y), i;
+      g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, W, H);
+      g.font = (10.5 * dpr) + 'px JetBrains Mono, monospace'; g.lineWidth = dpr;
+      /* сетка */
+      for (i = LY0; i <= LY1; i++) {
+        var yy = sy(Math.pow(10, i)); g.strokeStyle = p.grid; g.beginPath(); g.moveTo(sx(0), yy); g.lineTo(sx(1), yy); g.stroke();
+        g.fillStyle = p.mute; g.textAlign = 'right'; g.fillText(fmtShort(Math.pow(10, i)), sx(0) - 8 * dpr, yy + 3.5 * dpr);
+      }
+      var cand = [-10000, -8000, -5000, -3000, -1000, 0, 500, 1000, 1300, 1500, 1700, 1800, 1900, 1950, 1975, 2000, 2023], lastX = -1e9;
+      g.textAlign = 'center';
+      cand.forEach(function (cy) {
+        if (cy < SET.start) return; var x = sx(map.toU(cy)); if (x - lastX < 46 * dpr) return; lastX = x;
+        g.strokeStyle = p.grid; g.beginPath(); g.moveTo(x, sy(1e10)); g.lineTo(x, sy(1e6)); g.stroke();
+        g.fillStyle = p.mute; g.fillText(cy < 0 ? '−' + (-cy) : cy === 0 ? '1' : String(cy), x, sy(1e6) + 14 * dpr);
+      });
+      /* коридор оценок */
+      var ests = EST.filter(function (e) { return e.y >= SET.start && e.n >= 2; });
+      if (ests.length > 1) {
+        g.fillStyle = p.band; g.beginPath();
+        ests.forEach(function (e, k) { var x = sx(map.toU(e.y)); if (k) g.lineTo(x, sy(e.hi)); else g.moveTo(x, sy(e.hi)); });
+        for (i = ests.length - 1; i >= 0; i--) g.lineTo(sx(map.toU(ests[i].y)), sy(ests[i].lo));
+        g.closePath(); g.fill();
+      }
+      g.fillStyle = p.est; g.globalAlpha = 0.75;
+      EST.forEach(function (e) {
+        if (e.y < SET.start) return; var x = sx(map.toU(e.y));
+        Object.keys(e.v).forEach(function (k) { var v = e.v[k]; if (v[0] === v[1]) { g.beginPath(); g.arc(x, sy(v[0]), 2.2 * dpr, 0, 7); g.fill(); } else g.fillRect(x - dpr, sy(v[1]), 2 * dpr, sy(v[0]) - sy(v[1])); });
+      });
+      g.globalAlpha = 1;
+      /* основная линия */
+      g.strokeStyle = p.acc; g.lineWidth = 2 * dpr; g.lineJoin = 'round'; g.beginPath();
+      for (i = 0; i <= 400; i++) { var u = i / 400, x = sx(u), v = worldAt(map.toYear(u)); if (i) g.lineTo(x, sy(v)); else g.moveTo(x, sy(v)); }
+      g.stroke();
+      /* полоса источника */
+      var by = sy(1e6) + 26 * dpr, bh = 8 * dpr, prev = SET.start;
+      SOURCES.forEach(function (src) {
+        var a = Math.max(prev, SET.start), b = Math.min(src.to, END); prev = src.to;
+        if (b <= a) return;
+        var x0 = sx(map.toU(a)), x1 = sx(map.toU(b));
+        g.fillStyle = p[src.key]; g.fillRect(x0, by, Math.max(1, x1 - x0 - 2 * dpr), bh);
+        if (x1 - x0 > 70 * dpr) { g.fillStyle = p.ink; g.textAlign = 'left'; g.fillText(src.name, x0 + 2 * dpr, by + bh + 13 * dpr); }
+      });
+      /* курсор */
+      var cx = sx(pl.u);
+      g.strokeStyle = p.ink; g.globalAlpha = 0.5; g.lineWidth = dpr; g.beginPath(); g.moveTo(cx, sy(1e10)); g.lineTo(cx, sy(1e6)); g.stroke(); g.globalAlpha = 1;
+      g.fillStyle = p.acc; g.beginPath(); g.arc(cx, sy(w), 5 * dpr, 0, 7); g.fill();
+      g.strokeStyle = p.bg; g.lineWidth = 2 * dpr; g.stroke();
+
+      /* паспорт */
+      var src = sourceAt(y), sk = seek(y), exact = sk[2] === 0 || Math.abs(y - Y[sk[0]]) < 0.5;
+      $('year').textContent = fmtYear(y);
+      $('num').textContent = fmtPop(w);
+      $('src').innerHTML = '<span class="chip"><i style="background:' + p[src.key] + '"></i>' + src.name + '</span><span class="chip">' + src.kind + '</span>';
+      $('cite').textContent = src.cite;
+      $('how').textContent = exact ? 'A published data point for ' + fmtYear(Y[sk[0]]) + '.' :
+        'Between two data points — ' + fmtYear(Y[sk[0]]) + ' (' + fmtShort(P.world[sk[0]]) + ') and ' + fmtYear(Y[sk[1]]) + ' (' + fmtShort(P.world[sk[1]]) + '). The animation fills the gap assuming steady growth.';
+      var e = nearestEst(map, y), strip = $('strip'), list = $('estl'), sp = $('spread');
+      if (e) {
+        $('esth').textContent = 'Other estimates for ' + fmtYear(e.y);
+        var lo = Math.log10(Math.min(e.lo, worldAt(e.y)) * 0.8), hi = Math.log10(Math.max(e.hi, worldAt(e.y)) * 1.2);
+        var pos = function (v) { return ((Math.log10(v) - lo) / (hi - lo) * 100).toFixed(1) + '%'; };
+        var sh = '', lh = '';
+        Object.keys(e.v).sort(function (a, b) { return e.v[a][0] - e.v[b][0]; }).forEach(function (k) {
+          var v = e.v[k];
+          sh += v[0] === v[1] ? '<span class="e" style="left:' + pos(v[0]) + '" title="' + AUTH[k] + '"></span>'
+                              : '<span class="e rng" style="left:' + pos(v[0]) + ';width:calc(' + pos(v[1]) + ' - ' + pos(v[0]) + ')"></span>';
+          lh += '<li>' + AUTH[k] + ' <b>' + (v[0] === v[1] ? fmtShort(v[0]) : fmtShort(v[0]) + '–' + fmtShort(v[1])) + '</b></li>';
+        });
+        sh += '<span class="o" style="left:' + pos(worldAt(e.y)) + '" title="Our World in Data"></span>';
+        strip.innerHTML = sh; list.innerHTML = lh;
+        sp.innerHTML = e.n > 1 ? 'Spread: <b>' + fmtShort(e.lo) + ' – ' + fmtShort(e.hi) + '</b>, the highest is ×' + (e.hi / e.lo).toFixed(1) + ' the lowest. Orange mark — the figure in the animation.' : 'Only one independent estimate for this year.';
+      } else {
+        $('esth').textContent = 'Other estimates';
+        strip.innerHTML = ''; list.innerHTML = '';
+        sp.textContent = y >= 1950 ? 'After 1950 figures come from censuses and registries; revisions between UN editions are usually within 1–2%.' : 'No independent estimate published close to this moment.';
+      }
+    });
+    io.observe(sec);
+  })();
+
+  /* ══ 07 · Страна в мире ════════════════════════════════════════ */
+  (function () {
+    var sec = document.getElementById('v7'), cv = sec.querySelector('canvas.globe');
+    var selC = document.getElementById('v7-c'), selF = document.getElementById('v7-from'), selT = document.getElementById('v7-to');
+    var FROM = [-10000, -5000, -3000, -1000, 0, 500, 1000, 1500, 1700, 1800, 1900, 1950, 2000];
+    var TO = [-1000, 0, 1000, 1500, 1800, 1900, 1950, 2000, 2023];
+    selC.innerHTML = CODES.slice().sort(function (a, b) { return NAME[a] < NAME[b] ? -1 : 1; }).map(function (c) { return '<option value="' + c + '">' + NAME[c] + '</option>'; }).join('');
+    selF.innerHTML = FROM.map(function (y) { return '<option value="' + y + '">' + fmtYear(y) + '</option>'; }).join('');
+    selT.innerHTML = TO.map(function (y) { return '<option value="' + y + '">' + fmtYear(y) + '</option>'; }).join('');
+    selC.value = 'RUS'; selF.value = '1500'; selT.value = '2023';
+    var cur = 'RUS';
+    var span = function () { var a = +selF.value, b = +selT.value; if (b <= a) b = TO.filter(function (t) { return t > a; })[0] || END; return [a, b]; };
+    var G = new Globe(cv, { scale: 0.4, spin: 0 }), pl = new Player(sec.querySelector('.player'), { range: span });
+    var $ = function (k) { return sec.querySelector('[data-' + k + ']'); };
+    var mini = sec.querySelector('canvas.mini'), mg = mini.getContext('2d');
+    function aim() { var nm = P.names[cur]; G.target = [-nm[2], Math.max(-45, Math.min(55, nm[1]))]; }
+    function pick(c) { if (!P.pop[c]) return; cur = c; selC.value = c; aim(); }
+    selC.addEventListener('change', function () { pick(selC.value); });
+    [selF, selT].forEach(function (s) { s.addEventListener('change', function () { pl.u = 0; pl.playing = true; pl.sync(); }); });
+    G.onclick = function (e) { var ll = G.inv(e.clientX, e.clientY), c = ll && countryAt(ll[0], ll[1]); if (c) pick(c); };
+    G.a = -P.names[cur][2]; G.b = 40;
+    var one = [];
+    var s = stage(sec, function (dt) {
+      var p = s.pal; pl.step(dt); G.step(dt); G.resize(); G.clear(p.bg);
+      var y = pl.year(), w = worldAt(y), v = popAt(cur, y), sp = span();
+      G.sphere(p.s1, p.s2);
+      var skip = {}; skip[cur] = 1;
+      G.land(p.land, p.line, 0.6, skip);
+      var g = G.ctx;
+      if (G.countryPath(cur)) { g.fillStyle = p.acc; g.globalAlpha = 0.28; g.fill('evenodd'); g.globalAlpha = 1; g.strokeStyle = p.acc; g.lineWidth = 1.4 * G.dpr; g.stroke(); }
+      var others = CODES.filter(function (c) { return c !== cur; });
+      G.dots(others, y, p.dot, 1.4, 1e6);
+      one[0] = cur; G.dots(one, y, p.acc, 2.2, 1e6);
+      $('cname').textContent = NAME[cur];
+      $('year').textContent = fmtYear(y) + ' · ' + sourceAt(y).name;
+      $('cpop').textContent = fmtPop(v);
+      $('cshare').textContent = (v / w * 100).toFixed(v / w < 0.01 ? 2 : 1) + '%';
+      var rank = 1; CODES.forEach(function (c) { if (c !== cur && popAt(c, y) > v) rank++; });
+      $('crank').textContent = '#' + rank;
+      var v0 = popAt(cur, sp[0]); $('cgrow').textContent = '×' + (v / v0).toFixed(v / v0 < 10 ? 1 : 0);
+      $('cgrowl').textContent = 'since ' + fmtYear(sp[0]);
+      sec.querySelector('[data-src]').innerHTML = chipHTML(y, p.acc);
+      /* доля мира за период */
+      var r = mini.getBoundingClientRect(), dpr = G.dpr, MW = Math.round(r.width * dpr), MH = Math.round(r.height * dpr);
+      if (mini.width !== MW || mini.height !== MH) { mini.width = MW; mini.height = MH; }
+      mg.clearRect(0, 0, MW, MH);
+      var map = pl.map(), mx = 0, i, pts = [];
+      for (i = 0; i <= 160; i++) { var yy = map.toYear(i / 160), sh = popAt(cur, yy) / worldAt(yy); pts.push(sh); mx = Math.max(mx, sh); }
+      mx = mx * 1.15 || 1;
+      var X = function (u) { return 4 * dpr + u * (MW - 8 * dpr); }, Yp = function (sh) { return MH - 16 * dpr - sh / mx * (MH - 26 * dpr); };
+      mg.fillStyle = p.acc; mg.globalAlpha = 0.15; mg.beginPath(); mg.moveTo(X(0), Yp(0));
+      pts.forEach(function (sh, k) { mg.lineTo(X(k / 160), Yp(sh)); }); mg.lineTo(X(1), Yp(0)); mg.fill(); mg.globalAlpha = 1;
+      mg.strokeStyle = p.acc; mg.lineWidth = 2 * dpr; mg.beginPath(); pts.forEach(function (sh, k) { if (k) mg.lineTo(X(k / 160), Yp(sh)); else mg.moveTo(X(0), Yp(sh)); }); mg.stroke();
+      mg.fillStyle = p.mute; mg.font = (10 * dpr) + 'px JetBrains Mono, monospace'; mg.textAlign = 'left';
+      mg.fillText(fmtYear(sp[0]), X(0), MH - 3 * dpr); mg.textAlign = 'right'; mg.fillText(fmtYear(sp[1]), X(1), MH - 3 * dpr);
+      mg.textAlign = 'left'; mg.fillText((mx / 1.15 * 100).toFixed(1) + '% max', X(0), 10 * dpr);
+      var cx = X(pl.u); mg.strokeStyle = p.ink; mg.globalAlpha = 0.5; mg.lineWidth = dpr; mg.beginPath(); mg.moveTo(cx, 12 * dpr); mg.lineTo(cx, MH - 16 * dpr); mg.stroke(); mg.globalAlpha = 1;
+    });
+    io.observe(sec);
+  })();
+
+  /* ══ 08 · Большая цифра ════════════════════════════════════════ */
+  (function () {
+    var sec = document.getElementById('v8'), sc = sec.querySelector('.scroller'), cv = sec.querySelector('canvas.globe');
+    var G = new Globe(cv, { a: -80, b: 18, spin: 3, scale: 0.46, interactive: false });
+    var $ = function (k) { return sec.querySelector('[data-' + k + ']'); };
+    var prog = sec.querySelector('.prog');
+    var MILES = [[1e9, 1804], [2e9, 1927], [3e9, 1960], [4e9, 1974], [5e9, 1987], [6e9, 1999], [7e9, 2011], [8e9, 2022]];
+    $('miles').innerHTML = MILES.map(function (m) { return '<div><b>' + (m[0] / 1e9) + 'B</b> · ' + m[1] + '</div>'; }).join('');
+    var mEls = $('miles').children;
+    var CAPS = [
+      [-99999, 'Farming spreads. Almost everyone alive lives within a few river valleys and grasslands.'],
+      [-3000, 'The first cities and states: the Nile, Mesopotamia, the Indus, the Yellow River.'],
+      [-500, 'Classical empires. In the Mediterranean and in China growth is fast — and easy to reverse.'],
+      [1300, 'The Black Death. For the next hundred years the world gets smaller, not bigger.'],
+      [1500, 'Growth returns, slowly: roughly half a billion people.'],
+      [1800, 'One billion, around 1804. It took the whole of human history to get here.'],
+      [1900, 'Medicine, sanitation and more food. Each billion now takes decades, not centuries.'],
+      [1960, 'The fastest growth ever: a new billion every 12–14 years.'],
+      [2000, 'Growth is slowing down, but from a very large base. 8 billion in 2022.']
+    ];
+    var s = stage(sec, function (dt) {
+      var p = s.pal, r = sc.getBoundingClientRect(), vh = window.innerHeight;
+      var u = Math.max(0, Math.min(1, -r.top / Math.max(1, r.height - vh * 0.9)));
+      var y = makeMap(SET.start, END, SET.mode).toYear(u), w = worldAt(y);
+      G.step(dt); G.resize(); G.clear(p.bg);
+      G.sphere(p.s1, p.s2); G.land(p.land, p.line, 0.5);
+      G.dots(CODES, y, p.dot, Math.max(1.3, Math.min(3.2, 4.4 - Math.log10(w / 5e6))), 1e6, 0.9);
+      $('num').textContent = w >= 1e9 ? (w / 1e9).toFixed(2) : Math.round(w / 1e6);
+      $('unit').textContent = w >= 1e9 ? 'billion people' : 'million people';
+      $('year').textContent = fmtYear(y);
+      $('src').textContent = sourceAt(y).name + ' · via Our World in Data';
+      var cap = CAPS[0][1]; CAPS.forEach(function (c) { if (y >= c[0]) cap = c[1]; }); $('cap').textContent = cap;
+      MILES.forEach(function (m, i) { mEls[i].classList.toggle('on', w >= m[0] * 0.995); });
+      prog.style.width = (u * 100).toFixed(2) + '%';
+    });
+    io.observe(sec);
+  })();
+
+  /* ══ 09 · Раскадровка ══════════════════════════════════════════ */
+  var drawStory = (function () {
+    var sec = document.getElementById('v9'), grid = sec.querySelector('[data-grid]');
+    var YEARS = [-5000, -1000, 0, 1000, 1500, 1800, 1900, 1950, 2023];
+    grid.innerHTML = YEARS.map(function (y) { return '<figure><canvas></canvas><figcaption><b>' + fmtYear(y) + '</b>' + fmtPop(worldAt(y)) + '</figcaption></figure>'; }).join('');
+    var cvs = grid.querySelectorAll('canvas');
+    function draw() {
+      var p = palette(sec);
+      YEARS.forEach(function (y, i) {
+        var cv = cvs[i], r = cv.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
+        var W = Math.round(r.width * dpr), H = Math.round(r.height * dpr); if (!W) return;
+        cv.width = W; cv.height = H;
+        var g = cv.getContext('2d'); g.fillStyle = p.bg; g.fillRect(0, 0, W, H);
+        var X = function (lon) { return (lon + 180) / 360 * W; }, Yl = function (lat) { return (82 - lat) / 140 * H; };
+        g.fillStyle = p.land;
+        LANDCODES.forEach(function (c) {
+          g.beginPath();
+          GEO[c].rings.forEach(function (rg) { var ll = rg.ll; for (var k = 0; k < ll.length; k += 2) { if (k) g.lineTo(X(ll[k]), Yl(ll[k + 1])); else g.moveTo(X(ll[k]), Yl(ll[k + 1])); } g.closePath(); });
+          g.fill('evenodd');
+        });
+        g.fillStyle = p.dot; var s = Math.max(1, 1.1 * dpr);
+        CODES.forEach(function (c) {
+          var d = P.dots[c], n = popAt(c, y) / 1e6, m = Math.min(Math.ceil(n), d.length / 2), full = Math.floor(n);
+          for (var k = 0; k < m; k++) { g.globalAlpha = k < full ? 0.9 : (n - full) * 0.9; g.fillRect(X(d[2 * k]) - s / 2, Yl(d[2 * k + 1]) - s / 2, s, s); }
+        });
+        g.globalAlpha = 1;
+      });
+    }
+    return draw;
+  })();
+
+  /* ── панель ────────────────────────────────────────────────────── */
+  function segCtl(id, cur, fn) {
+    var el = document.getElementById(id);
+    [].forEach.call(el.children, function (b) { b.setAttribute('aria-pressed', String(b.dataset.v === String(cur))); });
+    el.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      [].forEach.call(el.children, function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      fn(b.dataset.v);
+    });
+  }
+  segCtl('c-start', SET.start, function (v) { SET.start = +v; });
+  segCtl('c-mode', SET.mode, function (v) { SET.mode = v; });
+  segCtl('c-dur', SET.dur, function (v) { SET.dur = +v; });
+  segCtl('c-theme', root.getAttribute('data-theme') || 'dark', function (v) {
+    root.setAttribute('data-theme', v); try { localStorage.setItem('theme', v); } catch (e) {}
+    STAGES.forEach(function (s) { s.pal = null; }); drawStory();
+  });
+  var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(drawStory, 150); });
+  drawStory();
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

@@ -15,8 +15,8 @@
   используются, и страница говорит об этом прямо.
 
 Больше никому писать не нужно: остальные источники (Eurostat, ЕЦБ, Freddie Mac,
-ACS через Census Reporter, Natural Earth) открыты под одну атрибуцию и уведомления
-не требуют.
+ACS через Census Reporter, Natural Earth, центробанк Перу, статистический институт
+Буэнос-Айреса, OECD) уведомления не требуют.
 
 ---
 
@@ -29,7 +29,7 @@ Your legal notice asks that a copy of any web-based report or project using ESPO
 
 The page is https://avgrebenkin.com/research/housing/
 
-It is a free interactive research page, with no advertising except a banner for my own product. A reader enters their own net income, mortgage term, interest rate and down payment and sees how many square metres that buys or rents in each European municipality, region and country. The European figures come from the public feature service HOUSE4ALL_data_at_LAU_level on gis-server.espon.eu, read on 14 September 2026; it is the service the ESPON HOUSE4ALL StoryMap draws its maps from, and the page credits the project and the Journal of Maps paper by Franziska Sielker and Selim Banabak in full. The page also has a separate layer for the United States built from US Census Bureau data; no ESPON material is used there.
+It is a free interactive research page, with no advertising except a banner for my own product. A reader enters their own net income, mortgage term, interest rate and down payment and sees how many square metres that buys or rents in each European municipality, region and country. The European figures come from the public feature service HOUSE4ALL_data_at_LAU_level on gis-server.espon.eu, read on 14 September 2026; it is the service the ESPON HOUSE4ALL StoryMap draws its maps from, and the page credits the project and the Journal of Maps paper by Franziska Sielker and Selim Banabak in full. The page also has separate layers for the United States, built from US Census Bureau data, and for Lima and Buenos Aires, built from the Central Reserve Bank of Peru and the Buenos Aires city statistics institute; no ESPON material is used in them.
 
 On the requirements of the notice:
 
