@@ -6,7 +6,7 @@
   "htmlTitle": "Huit milliards d’humains, doublement après doublement",
   "metaDescription": "La population mondiale de 10 000 av. J.-C. à 2023 sur un globe à faire tourner : chaque doublement dure autant à l’écran, chaque chiffre dit sa source.",
   "ogDescription": "Un doublement de l’humanité a pris 1 442 ans, un autre, plus tard, 37 ans. Parcourez 12 000 ans sur un globe, choisissez un pays, voyez d’où vient chaque chiffre.",
-  "imageAlt": "Huit barres horizontales, une par doublement de la population mondiale depuis 5000 av. J.-C., de plus en plus courtes, de 1 652 ans à 37, à côté d’un globe semé de points dorés",
+  "imageAlt": "Huit barres horizontales, une par doublement de la population mondiale depuis 5000 av. J.-C., presque toujours de plus en plus courtes, de 1 652 ans à 37, à côté d’un globe semé de points dorés",
   "title": "Huit milliards, doublement après doublement",
   "ldDescription": "Une histoire interactive de la population mondiale de 10 000 av. J.-C. à 2023 : un globe où chaque point vaut un million de personnes, ou coloré selon la densité, un rythme où chaque doublement dure le même temps, l’éventail des estimations historiques indépendantes, et chaque pays face au monde.",
   "ldDatasetName": "Population mondiale par pays, de 10 000 av. J.-C. à 2023, avec des estimations historiques indépendantes",
@@ -21,7 +21,7 @@
       "shareTitle": "Copier un lien qui rouvre exactement ces réglages",
       "share": "Partager ces réglages",
       "sub": "Entre 560 av. J.-C. et 882 apr. J.-C., le nombre d’humains sur Terre a doublé une fois, et il lui a fallu 1 442 ans. Entre 1948 et 1985, il a encore doublé, en 37 ans seulement.\n\n<b>Faites défiler pour voir la chose se produire, puis prenez les commandes</b> : choisissez une vue, un point de départ et un pays, et chaque chiffre de la page vous dira d’où il vient.",
-      "meta": "Données : HYDE (2023) ; Gapminder (2022) ; UN WPP (2024), avec un traitement important par <a href=\"https://ourworldindata.org/grapher/population\" target=\"_blank\" rel=\"noopener\">Our World in Data</a> · autres estimations : <a href=\"https://www.census.gov/data/tables/time-series/demo/international-programs/historical-est-worldpop.html\" target=\"_blank\" rel=\"noopener\">compilation du Bureau du recensement des États-Unis</a>"
+      "meta": "Données : HYDE (2023) ; Gapminder (2022) ; UN WPP (2024), avec un traitement important par <a href=\"https://ourworldindata.org/grapher/population\" target=\"_blank\" rel=\"noopener\">Our World in Data</a> · autres estimations : <a href=\"https://en.wikipedia.org/wiki/Estimates_of_historical_world_population\" target=\"_blank\" rel=\"noopener\">compilation de Wikipédia</a>, vérifiée à l’aide du <a href=\"https://www.census.gov/data/tables/time-series/demo/international-programs/historical-est-worldpop.html\" target=\"_blank\" rel=\"noopener\">tableau du Bureau du recensement des États-Unis</a>"
     },
     "scroll": {
       "h2": "Toute l’histoire d’un seul défilement",
@@ -76,25 +76,25 @@
     },
     "weak": {
       "h2": "Là où les chiffres sont fragiles",
-      "p1": "<b>Avant 1950, chaque chiffre est une reconstitution.</b> La plus grande partie du monde ne connaissait pas le recensement. Les historiens remontent le temps à partir des registres fiscaux, des terres cultivées, de la taille des villes et du nombre de personnes qu’un hectare pouvait nourrir.\n\nPour l’an 1, les estimations publiées vont d’environ 170 à 400 millions, et la plupart se situent entre 170 et 330.",
-      "p2": "Avant 1700, la série donne un chiffre par siècle, et avant l’an 1, un par millénaire. Entre deux, la page suppose une croissance régulière : <b>les épidémies et les guerres plus courtes que l’intervalle n’apparaissent pas</b>. La peste noire, si, car elle a laissé le monde moins peuplé en 1400 qu’en 1300.",
-      "p3": "Les points disent combien de personnes vivaient dans un pays, pas où elles vivaient à l’intérieur : <b>la Sibérie reçoit autant de points au kilomètre carré que Moscou</b>.\n\nLa page couvre les 165 pays dont la série remonte jusqu’à 10 000 av. J.-C. ; les pays laissés de côté totalisent aujourd’hui environ 75 millions d’habitants.",
+      "p1": "<b>Avant 1950, chaque chiffre est une reconstitution.</b> La plus grande partie du monde ne connaissait pas le recensement. Les historiens remontent le temps à partir des registres fiscaux, des terres cultivées, de la taille des villes et du nombre de personnes qu’un hectare pouvait nourrir.\n\nPour l’an 1, les neuf estimations présentées ici vont de 170 à 330 millions, et la synthèse du Bureau du recensement des États-Unis monte jusqu’à 400.",
+      "p2": "Avant 1700, la série donne un chiffre par siècle, et avant l’an 1, un par millénaire. Entre deux, la page suppose une croissance régulière : <b>les épidémies et les guerres plus courtes que l’intervalle n’apparaissent pas</b>. La peste noire, si, car elle a laissé le monde moins peuplé en 1400 qu’en 1300.\n\nLà où la source change, en 1800 et 1950, la courbe d’un pays peut sauter : l’Éthiopie passe de 2,8 à 12 millions entre 1790 et 1800, l’Inde tombe de 374 à 346 millions entre 1940 et 1950. <b>C’est un changement de méthode, pas un événement.</b> Avant 1700, c’est plus grossier encore : l’Inde croît en ligne droite de l’an 1 à 1600.",
+      "p3": "Les points disent combien de personnes vivaient dans un pays, pas où elles vivaient à l’intérieur : <b>la Sibérie reçoit autant de points au kilomètre carré que Moscou</b>.\n\nLa page couvre les 165 pays dont la série remonte jusqu’à 10 000 av. J.-C. ; les autres, dont l’Irlande, la Serbie et Haïti, totalisent aujourd’hui environ 75 millions d’habitants et restent vides sur le globe.",
       "srcH": "Sources",
       "s1": "<a href=\"https://ourworldindata.org/grapher/population\" target=\"_blank\" rel=\"noopener\">Our World in Data, Population</a> — la série de chaque globe et de chaque graphique.",
-      "s2": "Kees Klein Goldewijk, <a href=\"https://doi.org/10.24416/UU01-AEZZIT\" target=\"_blank\" rel=\"noopener\">HYDE 3.3, History Database of the Global Environment</a>, université d’Utrecht, 2023 — jusqu’en 1800.",
-      "s3": "<a href=\"http://gapm.io/dpop\" target=\"_blank\" rel=\"noopener\">Gapminder, Population v7</a>, 2022 — de 1800 à 1949.",
+      "s2": "Kees Klein Goldewijk, <a href=\"https://doi.org/10.24416/UU01-AEZZIT\" target=\"_blank\" rel=\"noopener\">HYDE 3.3, History Database of the Global Environment</a>, université d’Utrecht, 2023 — avant 1800.",
+      "s3": "<a href=\"http://gapm.io/dpop\" target=\"_blank\" rel=\"noopener\">Gapminder, Population v7</a>, 2022 — de 1800 à 1949 ; le lien mène désormais à la documentation de la v8.",
       "s4": "<a href=\"https://population.un.org/wpp/\" target=\"_blank\" rel=\"noopener\">Nations unies, World Population Prospects 2024</a> — à partir de 1950.",
-      "s5": "<a href=\"https://www.census.gov/data/tables/time-series/demo/international-programs/historical-est-worldpop.html\" target=\"_blank\" rel=\"noopener\">Bureau du recensement des États-Unis, Historical Estimates of World Population</a>, et le même tableau sur Wikipédia — la bande des autres estimations.",
-      "s6": "Contours des pays : Natural Earth, 1:110 millions, domaine public. Licences : HYDE, Gapminder et Our World in Data sous CC BY 4.0 ; World Population Prospects des Nations unies sous CC BY 3.0 IGO."
+      "s5": "<a href=\"https://en.wikipedia.org/wiki/Estimates_of_historical_world_population\" target=\"_blank\" rel=\"noopener\">Wikipédia, Estimates of historical world population</a>, tableau « Before 1950 » — la bande des autres estimations, vérifiée à l’aide des <a href=\"https://www.census.gov/data/tables/time-series/demo/international-programs/historical-est-worldpop.html\" target=\"_blank\" rel=\"noopener\">Historical Estimates of World Population du Bureau du recensement des États-Unis</a> ; ses lignes pour l’an 1, 1500 et 1700 sont corrigées d’après ce tableau.",
+      "s6": "Contours des pays : Natural Earth, 1:110 millions, domaine public. Superficies et centres des pays : <a href=\"https://github.com/mledoze/countries\" target=\"_blank\" rel=\"noopener\">mledoze/countries</a>, ODbL. Licences : HYDE, Gapminder et Our World in Data sous CC BY 4.0 ; World Population Prospects des Nations unies sous CC BY 3.0 IGO ; Wikipédia sous CC BY-SA 4.0."
     },
     "tldr": {
       "sub": "Entre 560 av. J.-C. et 882 apr. J.-C., le nombre d’humains sur Terre a doublé une fois, et il lui a fallu 1 442 ans. Entre 1948 et 1985, il a encore doublé, en 37 ans seulement.",
       "b1": "Un milliard vers 1805, deux milliards dès 1926, huit milliards en 2022.",
       "b2": "La peste noire : en 1400, le monde comptait moins d’habitants qu’en 1300.",
       "b3": "La croissance la plus rapide de l’histoire : plus de 2 % par an dans les années 1960, puis un milliard de plus environ tous les 12 ans.",
-      "b4": "<b>Avant 1950, chaque chiffre est une reconstitution.</b> Pour l’an 1, les estimations publiées vont d’environ 170 à 400 millions.",
+      "b4": "<b>Avant 1950, chaque chiffre est une reconstitution.</b> Pour l’an 1, les estimations publiées vont d’environ 170 à 330 millions, et l’une d’elles atteint 400.",
       "b5": "<b>Les frontières sont celles d’aujourd’hui</b>, et les points y sont placés au hasard.",
-      "src": "Données : Our World in Data, à partir de HYDE 3.3, Gapminder et World Population Prospects 2024 des Nations unies ; autres estimations : compilation du Bureau du recensement des États-Unis.",
+      "src": "Données : Our World in Data, à partir de HYDE 3.3, Gapminder et World Population Prospects 2024 des Nations unies ; autres estimations : compilation de Wikipédia, vérifiée à l’aide du tableau du Bureau du recensement des États-Unis.",
       "full": "La page interactive complète :"
     },
     "ui": {
@@ -119,7 +119,7 @@
     "ce1": "1 apr. J.-C.",
     "big": [
       [
-        1000000000.0,
+        2000000000.0,
         2,
         "milliards d’habitants"
       ],
@@ -136,10 +136,10 @@
     "kindGap": "estimations compilées",
     "kindUn": "estimations fondées sur les recensements",
     "citeHyde": "Kees Klein Goldewijk, History Database of the Global Environment 3.3, université d’Utrecht (2023) — via Our World in Data",
-    "citeGap": "Gapminder, Population v7 (2022), établi à partir de Maddison, de HYDE et des recensements nationaux — via Our World in Data",
+    "citeGap": "Gapminder, Population v7 (2022), établi surtout à partir des estimations de Maddison révisées par Clio Infra — via Our World in Data",
     "citeUn": "Nations unies, World Population Prospects 2024 — via Our World in Data",
     "exact": "Une valeur publiée pour {y}.",
-    "between": "Entre deux valeurs publiées : {a} ({av}) et {b} ({bv}). La page comble l’écart en supposant une croissance régulière.",
+    "between": "Entre deux des points que conserve cette page : {a} ({av}) et {b} ({bv}). La page comble l’écart en supposant une croissance régulière.",
     "estFor": "Autres estimations pour {y}",
     "estNone": "Autres estimations",
     "spread": "De <b>{lo}</b> à <b>{hi}</b> : la plus haute vaut {x} fois la plus basse. Le repère orange correspond au chiffre de cette page.",
@@ -168,14 +168,14 @@
     "copied": "Lien copié",
     "copyManual": "Copiez l’adresse dans la barre du navigateur",
     "caps": [
-      "L’agriculture se répand. Environ 19 millions de personnes vivent sur toute la planète.",
+      "L’agriculture se répand. La planète entière compte moins d’habitants qu’un pays de taille moyenne aujourd’hui.",
       "Vers 3200 av. J.-C., les premières villes et la première écriture apparaissent en Mésopotamie et en Égypte.",
       "Vers l’an 1 : quelque 230 millions de personnes, moins qu’il n’en vit aujourd’hui en Indonésie.",
-      "Environ 320 millions de personnes en l’an 1000. La croissance est lente, et une mauvaise récolte ou une épidémie peut anéantir un siècle de progrès.",
+      "Environ 320 millions de personnes en l’an 1000. La croissance est lente, et une mauvaise récolte ou une épidémie peut anéantir un siècle de croissance.",
       "La peste noire. En 1400, le monde compte moins d’habitants qu’en 1300.",
       "La croissance reprend, lentement : un demi-milliard en 1500.",
       "Un milliard, vers 1805. Il a fallu toute l’histoire humaine pour en arriver là.",
-      "Deux milliards en 1926 : le deuxième milliard a pris 121 ans.",
+      "Deux milliards en 1926 : le deuxième milliard a pris environ 120 ans.",
       "La croissance la plus rapide de l’histoire : plus de 2 % par an dans les années 1960, puis un milliard de plus environ tous les 12 ans.",
       "La croissance ralentit, mais à partir d’une base immense : 8 milliards en 2022."
     ],

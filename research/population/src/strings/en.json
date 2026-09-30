@@ -6,7 +6,7 @@
   "htmlTitle": "Eight billion, one doubling at a time",
   "metaDescription": "World population from 10,000 BCE to 2023 on a globe you can turn: every doubling gets the same screen time, and every number says where it came from.",
   "ogDescription": "One doubling of humanity took 1,442 years; a later one took 37. Scroll 12,000 years on a globe, pick a country, see where each number comes from.",
-  "imageAlt": "Eight horizontal bars, one for each doubling of the world population since 5000 BCE, shrinking from 1,652 years to 37, next to a globe of golden dots",
+  "imageAlt": "Eight horizontal bars, one for each doubling of the world population since 5000 BCE, mostly shrinking, from 1,652 years to 37, next to a globe of golden dots",
   "title": "Eight billion, one doubling at a time",
   "ldDescription": "An interactive history of world population from 10,000 BCE to 2023: a globe with one dot per million people or coloured by density, a pace where each doubling takes equal time, the range of independent historical estimates, and every country against the world.",
   "ldDatasetName": "World population by country, 10,000 BCE to 2023, with independent historical estimates",
@@ -21,7 +21,7 @@
       "shareTitle": "Copy a link that reopens this exact setup",
       "share": "Share this setup",
       "sub": "Between 560 BCE and 882 CE the number of people on Earth doubled once, and it took 1,442 years. Between 1948 and 1985 it doubled again in 37. <b>Scroll to watch it happen, then take the controls</b>: pick a view, a starting point and a country, and every number on the page tells you where it came from.",
-      "meta": "Data: HYDE (2023); Gapminder (2022); UN WPP (2024), with major processing by <a href=\"https://ourworldindata.org/grapher/population\" target=\"_blank\" rel=\"noopener\">Our World in Data</a> · other estimates: <a href=\"https://www.census.gov/data/tables/time-series/demo/international-programs/historical-est-worldpop.html\" target=\"_blank\" rel=\"noopener\">US Census Bureau compilation</a>"
+      "meta": "Data: HYDE (2023); Gapminder (2022); UN WPP (2024), with major processing by <a href=\"https://ourworldindata.org/grapher/population\" target=\"_blank\" rel=\"noopener\">Our World in Data</a> · other estimates: <a href=\"https://en.wikipedia.org/wiki/Estimates_of_historical_world_population\" target=\"_blank\" rel=\"noopener\">Wikipedia’s compilation</a>, checked against the <a href=\"https://www.census.gov/data/tables/time-series/demo/international-programs/historical-est-worldpop.html\" target=\"_blank\" rel=\"noopener\">US Census Bureau table</a>"
     },
     "scroll": {
       "h2": "All of history in one scroll",
@@ -76,25 +76,25 @@
     },
     "weak": {
       "h2": "Where the numbers are weak",
-      "p1": "<b>Before 1950 every figure is a reconstruction.</b> Most of the world had no census. Historians work back from tax records, farmland, the size of cities and how many people a hectare could feed. For the year 1 CE, published estimates run from about 170 to 400 million, and most of them fall between 170 and 330.",
-      "p2": "Before 1700 the series has one figure per century, and before 1 CE one per thousand years. Between them the page assumes steady growth, so <b>plagues and wars shorter than the gap do not show</b>. The Black Death does, because it left the world smaller in 1400 than it had been in 1300.",
-      "p3": "The dots say how many people lived in a country, not where inside it: <b>Siberia gets as many dots per square kilometre as Moscow</b>. The page covers the 165 countries whose series goes all the way back to 10,000 BCE; the countries left out add up to about 75 million people today.",
+      "p1": "<b>Before 1950 every figure is a reconstruction.</b> Most of the world had no census. Historians work back from tax records, farmland, the size of cities and how many people a hectare could feed. For the year 1 CE, the nine estimates shown here run from 170 to 330 million, and the US Census Bureau’s summary reaches 400.",
+      "p2": "Before 1700 the series has one figure per century, and before 1 CE one per thousand years. Between them the page assumes steady growth, so <b>plagues and wars shorter than the gap do not show</b>. The Black Death does, because it left the world smaller in 1400 than it had been in 1300.\n\nWhere the source changes, in 1800 and 1950, a country’s line can jump: Ethiopia goes from 2.8 to 12 million between 1790 and 1800, and India falls from 374 to 346 million between 1940 and 1950. <b>That is a change of method, not an event.</b> Before 1700 countries are coarser still: India grows in a straight line from 1 CE to 1600.",
+      "p3": "The dots say how many people lived in a country, not where inside it: <b>Siberia gets as many dots per square kilometre as Moscow</b>. The page covers the 165 countries whose series goes all the way back to 10,000 BCE; the rest, among them Ireland, Serbia and Haiti, add up to about 75 million people today and stay blank on the globe.",
       "srcH": "Sources",
       "s1": "<a href=\"https://ourworldindata.org/grapher/population\" target=\"_blank\" rel=\"noopener\">Our World in Data, Population</a> — the series on every globe and chart.",
-      "s2": "Kees Klein Goldewijk, <a href=\"https://doi.org/10.24416/UU01-AEZZIT\" target=\"_blank\" rel=\"noopener\">HYDE 3.3, History Database of the Global Environment</a>, Utrecht University, 2023 — up to 1800.",
-      "s3": "<a href=\"http://gapm.io/dpop\" target=\"_blank\" rel=\"noopener\">Gapminder, Population v7</a>, 2022 — 1800 to 1949.",
+      "s2": "Kees Klein Goldewijk, <a href=\"https://doi.org/10.24416/UU01-AEZZIT\" target=\"_blank\" rel=\"noopener\">HYDE 3.3, History Database of the Global Environment</a>, Utrecht University, 2023 — before 1800.",
+      "s3": "<a href=\"http://gapm.io/dpop\" target=\"_blank\" rel=\"noopener\">Gapminder, Population v7</a>, 2022 — 1800 to 1949; the link now leads to the v8 documentation.",
       "s4": "<a href=\"https://population.un.org/wpp/\" target=\"_blank\" rel=\"noopener\">United Nations, World Population Prospects 2024</a> — from 1950.",
-      "s5": "<a href=\"https://www.census.gov/data/tables/time-series/demo/international-programs/historical-est-worldpop.html\" target=\"_blank\" rel=\"noopener\">US Census Bureau, Historical Estimates of World Population</a>, and the same table on Wikipedia — the band of other estimates.",
-      "s6": "Country outlines: Natural Earth, 1:110 million, public domain. Licences: HYDE, Gapminder and Our World in Data CC BY 4.0; UN World Population Prospects CC BY 3.0 IGO."
+      "s5": "<a href=\"https://en.wikipedia.org/wiki/Estimates_of_historical_world_population\" target=\"_blank\" rel=\"noopener\">Wikipedia, Estimates of historical world population</a>, table “Before 1950” — the band of other estimates, checked against the <a href=\"https://www.census.gov/data/tables/time-series/demo/international-programs/historical-est-worldpop.html\" target=\"_blank\" rel=\"noopener\">US Census Bureau’s Historical Estimates of World Population</a>; its rows for 1 CE, 1500 and 1700 are corrected from that table.",
+      "s6": "Country outlines: Natural Earth, 1:110 million, public domain. Country areas and centres: <a href=\"https://github.com/mledoze/countries\" target=\"_blank\" rel=\"noopener\">mledoze/countries</a>, ODbL. Licences: HYDE, Gapminder and Our World in Data CC BY 4.0; UN World Population Prospects CC BY 3.0 IGO; Wikipedia CC BY-SA 4.0."
     },
     "tldr": {
       "sub": "Between 560 BCE and 882 CE the number of people on Earth doubled once, and it took 1,442 years. Between 1948 and 1985 it doubled again in 37.",
       "b1": "One billion around 1805, two billion by 1926, eight billion in 2022.",
       "b2": "The Black Death: by 1400 the world had fewer people than in 1300.",
       "b3": "The fastest growth ever: more than 2% a year in the 1960s, and a new billion roughly every 12 years after that.",
-      "b4": "<b>Before 1950 every figure is a reconstruction.</b> For the year 1 CE, published estimates run from about 170 to 400 million.",
+      "b4": "<b>Before 1950 every figure is a reconstruction.</b> For the year 1 CE, published estimates run from about 170 to 330 million, and one reaches 400.",
       "b5": "<b>Borders are today’s</b>, and the dots are dropped at random inside them.",
-      "src": "Data: Our World in Data, built from HYDE 3.3, Gapminder and UN World Population Prospects 2024; other estimates: US Census Bureau compilation.",
+      "src": "Data: Our World in Data, built from HYDE 3.3, Gapminder and UN World Population Prospects 2024; other estimates: Wikipedia’s compilation, checked against the US Census Bureau table.",
       "full": "The full interactive page:"
     },
     "ui": {
@@ -136,10 +136,10 @@
     "kindGap": "compiled estimates",
     "kindUn": "census-based estimates",
     "citeHyde": "Kees Klein Goldewijk, History Database of the Global Environment 3.3, Utrecht University (2023) — via Our World in Data",
-    "citeGap": "Gapminder, Population v7 (2022), built on Maddison, HYDE and national censuses — via Our World in Data",
+    "citeGap": "Gapminder, Population v7 (2022), built mainly on Maddison’s estimates as revised by Clio Infra — via Our World in Data",
     "citeUn": "United Nations, World Population Prospects 2024 — via Our World in Data",
     "exact": "A published data point for {y}.",
-    "between": "Between two data points: {a} ({av}) and {b} ({bv}). The page fills the gap assuming steady growth.",
+    "between": "Between two of the points this page keeps: {a} ({av}) and {b} ({bv}). The page fills the gap assuming steady growth.",
     "estFor": "Other estimates for {y}",
     "estNone": "Other estimates",
     "spread": "From <b>{lo}</b> to <b>{hi}</b>: the highest is {x} times the lowest. The orange mark is the figure on this page.",
@@ -168,14 +168,14 @@
     "copied": "Link copied",
     "copyManual": "Copy the address bar",
     "caps": [
-      "Farming spreads. About 19 million people live on the whole planet.",
+      "Farming spreads. The whole planet holds fewer people than a mid-sized country does today.",
       "By 3200 BCE the first cities and the first writing appear in Mesopotamia and Egypt.",
       "Around 1 CE: some 230 million people, fewer than live in Indonesia today.",
       "About 320 million people by the year 1000. Growth is slow, and a bad harvest or an epidemic can undo a century of it.",
       "The Black Death. By 1400 the world has fewer people than it had in 1300.",
       "Growth returns, slowly: half a billion by 1500.",
       "One billion, around 1805. It took all of human history to get here.",
-      "Two billion by 1926: the second billion took 121 years.",
+      "Two billion by 1926: the second billion took about 120 years.",
       "The fastest growth ever: more than 2% a year in the 1960s, and a new billion roughly every 12 years after that.",
       "Growth is slowing, but from a very large base: 8 billion in 2022."
     ],
