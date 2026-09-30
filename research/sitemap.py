@@ -21,6 +21,9 @@ ORDER = ['en', 'ru', 'uk', 'de', 'fr', 'es', 'pt-BR', 'it', 'nl', 'pl', 'tr', 'j
 DEFAULT = 'en'
 
 STUDIES = [
+    dict(base='/research/population/', dirname='population',
+         image='/images/research/population.jpg',
+         title=lambda L: L['htmlTitle']),
     dict(base='/research/housing/', dirname='housing',
          image='/images/research/housing.jpg',
          title=lambda L: L['htmlTitle']),
@@ -90,7 +93,10 @@ def main():
     # Начало блока ищется от <loc> назад, а не вперёд от точки «минус столько-то
     # символов»: у записей разная длина, и фиксированный отступ рано или поздно
     # промахнётся мимо своего <url>.
-    first = s.rindex('<url>', 0, s.index('<loc>%s</loc>' % url_for(STUDIES[0]['base'], DEFAULT)))
+    # Новое исследование в карте ещё не стоит: блок начинается с первого из тех,
+    # что в ней уже есть, и новое встаёт на своё место по порядку STUDIES.
+    head = next(st for st in STUDIES if '<loc>%s</loc>' % url_for(st['base'], DEFAULT) in s)
+    first = s.rindex('<url>', 0, s.index('<loc>%s</loc>' % url_for(head['base'], DEFAULT)))
     last_loc = url_for(STUDIES[-1]['base'], ORDER[-1])
     last = s.index('</url>', s.index('<loc>%s</loc>' % last_loc)) + len('</url>')
 
