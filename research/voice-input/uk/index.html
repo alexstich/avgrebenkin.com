@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="uk" dir="ltr" data-theme="dark" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Тихе повернення голосу — говорити чи друкувати</title>
+<meta name="description" content="Чи швидше говорити з комп’ютером, ніж друкувати? Утричі, коли переписуєш, у 1,4 раза, коли пишеш сам. Що кажуть дослідження про голос, втому й сором.">
+<link rel="canonical" href="https://avgrebenkin.com/research/voice-input/uk/">
+<link rel="alternate" hreflang="en" href="https://avgrebenkin.com/research/voice-input/">
+<link rel="alternate" hreflang="ru" href="https://avgrebenkin.com/research/voice-input/ru/">
+<link rel="alternate" hreflang="uk" href="https://avgrebenkin.com/research/voice-input/uk/">
+<link rel="alternate" hreflang="de" href="https://avgrebenkin.com/research/voice-input/de/">
+<link rel="alternate" hreflang="fr" href="https://avgrebenkin.com/research/voice-input/fr/">
+<link rel="alternate" hreflang="es" href="https://avgrebenkin.com/research/voice-input/es/">
+<link rel="alternate" hreflang="pt-BR" href="https://avgrebenkin.com/research/voice-input/pt-BR/">
+<link rel="alternate" hreflang="it" href="https://avgrebenkin.com/research/voice-input/it/">
+<link rel="alternate" hreflang="nl" href="https://avgrebenkin.com/research/voice-input/nl/">
+<link rel="alternate" hreflang="pl" href="https://avgrebenkin.com/research/voice-input/pl/">
+<link rel="alternate" hreflang="tr" href="https://avgrebenkin.com/research/voice-input/tr/">
+<link rel="alternate" hreflang="ja" href="https://avgrebenkin.com/research/voice-input/ja/">
+<link rel="alternate" hreflang="zh-Hans" href="https://avgrebenkin.com/research/voice-input/zh-Hans/">
+<link rel="alternate" hreflang="x-default" href="https://avgrebenkin.com/research/voice-input/">
+
+<script>
+  /* Язык читателя — до первой отрисовки. Голый адрес /research/voice-input/
+     нейтральный, и браузер, просящий один из опубликованных языков, уезжает
+     на него. Адрес с /xx/ — чей-то осознанный выбор, присланная ссылка, — и
+     остаётся где стоит. Список альтернатив выше и есть весь каталог, поэтому
+     руками его здесь держать не приходится. */
+  (function () {
+    if (location.protocol !== 'http:' && location.protocol !== 'https:') return;
+    var links = document.querySelectorAll('link[rel="alternate"][hreflang]');
+    var have = {}, neutral = '';
+    for (var i = 0; i < links.length; i++) {
+      var path = new URL(links[i].href).pathname;
+      if (links[i].hreflang === 'x-default') neutral = path;
+      else have[links[i].hreflang.toLowerCase()] = path;
+    }
+    if (!neutral || location.pathname !== neutral) return;
+
+    function match(tag) {
+      tag = String(tag).toLowerCase();
+      if (have[tag]) return tag;
+      var base = tag.split('-')[0];
+      /* опубликован только упрощённый китайский, поэтому нужен явный признак:
+         zh-Hans или регион, который так пишет. Голое 'zh' не говорит ничего,
+         zh-TW и zh-HK читают традиционный — и те и другие проваливаются
+         дальше по списку читателя, в конце концов к английскому. */
+      if (base === 'zh') return /hans|^zh-(cn|sg|my)$/.test(tag) ? 'zh-hans' : '';
+      if (have[base]) return base;
+      for (var k in have) if (k.split('-')[0] === base) return k;   /* pt → pt-br */
+      return '';
+    }
+
+    var want = '';
+    try { want = (localStorage.getItem('lang') || '').toLowerCase(); } catch (e) {}
+    if (!have[want]) {
+      var prefs = navigator.languages || [navigator.language || ''];
+      for (var j = 0; j < prefs.length && !have[want]; j++) want = match(prefs[j]);
+    }
+    /* английский живёт на нейтральном адресе, выбрать его — остаться на месте */
+    var to = have[want];
+    if (to && to !== neutral) location.replace(to + location.search + location.hash);
+  })();
+</script>
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Aleksei Grebenkin">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0a1112" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f3f6f5" media="(prefers-color-scheme: light)">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f8f7c'/%3E%3Cg fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M16 8v8'/%3E%3Cpath d='M11 12v4'/%3E%3Cpath d='M21 12v4'/%3E%3Cpath d='M16 20v4'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Aleksei Grebenkin">
+<meta property="og:locale" content="uk_UA">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="ru_RU">
+<meta property="og:locale:alternate" content="de_DE">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta property="og:locale:alternate" content="es_ES">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta property="og:locale:alternate" content="it_IT">
+<meta property="og:locale:alternate" content="nl_NL">
+<meta property="og:locale:alternate" content="pl_PL">
+<meta property="og:locale:alternate" content="tr_TR">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta property="og:title" content="Тихе повернення голосу">
+<meta property="og:description" content="Мовлення обганяє клавіатуру втричі, коли переписуєш, і в 1,4 раза, коли пишеш сам. Наодинці голос прийнятний у 96 % відповідей, при чужих — у 16 %.">
+<meta property="og:url" content="https://avgrebenkin.com/research/voice-input/uk/">
+<meta property="og:image" content="https://avgrebenkin.com/images/research/voice-input.jpg">
+<meta property="og:image:secure_url" content="https://avgrebenkin.com/images/research/voice-input.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Звукова хвиля ліворуч перетворюється на рядки тексту праворуч; на обкладинці англійська назва The quiet comeback of voice.">
+<meta property="article:published_time" content="2026-10-01">
+<meta property="article:modified_time" content="2026-10-01">
+<meta property="article:author" content="https://avgrebenkin.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Тихе повернення голосу">
+<meta name="twitter:description" content="Голосове введення повертається. І найшвидше змінюється не сміливість людей, а сам голос: він стає тихішим.">
+<meta name="twitter:image" content="https://avgrebenkin.com/images/research/voice-input.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Instrument+Serif:ital@0;1&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&amp;display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;family=Instrument+Serif:ital@0;1&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&amp;display=swap"></noscript>
+<link rel="stylesheet" href="../../shell.css?v=5">
+
+<script>
+  /* Тема — до первой отрисовки, чтобы страница не моргала. */
+  (function () {
+    var r = document.documentElement;
+    r.classList.remove('no-js');
+    try {
+      var t = localStorage.getItem('theme');
+      if (['dark', 'light', 'cyber'].indexOf(t) === -1) {
+        t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      r.setAttribute('data-theme', t);
+    } catch (e) {}
+  })();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://avgrebenkin.com/research/voice-input/uk/#webpage",
+      "url": "https://avgrebenkin.com/research/voice-input/uk/",
+      "name": "Тихе повернення голосу — говорити чи друкувати",
+      "description": "Чи швидше говорити з комп’ютером, ніж друкувати? Утричі, коли переписуєш, у 1,4 раза, коли пишеш сам. Що кажуть дослідження про голос, втому й сором.",
+      "isPartOf": { "@id": "https://avgrebenkin.com/#website" },
+      "author": { "@id": "https://avgrebenkin.com/#person" },
+      "datePublished": "2026-10-01",
+      "dateModified": "2026-10-01",
+      "inLanguage": "uk",
+      "breadcrumb": { "@id": "https://avgrebenkin.com/research/voice-input/uk/#breadcrumb" },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://avgrebenkin.com/images/research/voice-input.jpg",
+        "width": 1200,
+        "height": 630
+      },
+      "mainEntity": { "@id": "https://avgrebenkin.com/research/voice-input/uk/#article" }
+    },
+    {
+      "@type": "Article",
+      "@id": "https://avgrebenkin.com/research/voice-input/uk/#article",
+      "url": "https://avgrebenkin.com/research/voice-input/uk/",
+      "headline": "Тихе повернення голосу",
+      "description": "Огляд даних про голосове введення у 2024–2026 роках: поширення, швидкість, точність розпізнавання, втома голосу, когнітивне навантаження, соціальна прийнятність і звикання — а також прогалини, яких досі не заповнило жодне дослідження.",
+      "articleSection": "Interfaces and human behaviour",
+      "isPartOf": { "@id": "https://avgrebenkin.com/#website" },
+      "author": { "@id": "https://avgrebenkin.com/#person" },
+      "publisher": { "@id": "https://avgrebenkin.com/#person" },
+      "datePublished": "2026-10-01",
+      "dateModified": "2026-10-01",
+      "inLanguage": "uk",
+      "translationOfWork": { "@type": "Article", "@id": "https://avgrebenkin.com/research/voice-input/#article", "inLanguage": "en" },
+      "isAccessibleForFree": true,
+      "image": "https://avgrebenkin.com/images/research/voice-input.jpg",
+      "keywords": ["voice input", "dictation", "speech recognition", "voice user interface", "social acceptability", "vocal fatigue", "cognitive load", "human-computer interaction"],
+      "citation": ["https://ssrs.com/insights/uk-smart-speaker-ownership-outpaces-u-s/", "https://ssrs.com/insights/the-infinite-dial-uk-2025/", "https://audioxpress.com/news/new-2022-smart-audio-report-from-npr-edison-research-shows-slowing-smart-speaker-and-voice-assistant-adoption", "https://www.geekwire.com/2024/report-details-financial-pressure-on-amazon-alexa-confirms-plans-for-paid-tier-and-ai-revamp/", "https://techcrunch.com/2026/08/17/wispr-raises-280m-at-2b-valuation-as-it-looks-beyond-dictation/", "https://www.searchenginejournal.com/google-gemini-passes-1b-monthly-users-63-now-use-voice/585624/", "https://om.co/2024/10/23/siri-sucks-even-by-apples-numbers/", "https://ssrs.com/insights/the-infinite-dial-2026/", "https://yougov.com/en-us/articles/54176-how-americans-communicate-in-2026-the-rise-of-messaging-ai-trends", "https://about.fb.com/news/2022/03/new-voice-message-features-on-whatsapp/", "https://dl.acm.org/doi/10.1145/3161187", "https://hal.science/hal-02919659/document", "https://userinterfaces.aalto.fi/136Mkeystrokes/resources/chi-18-analysis.pdf", "https://userinterfaces.aalto.fi/typing37k/resources/Mobile_typing_study.pdf", "https://dl.acm.org/doi/10.1145/302979.303160", "https://arxiv.org/html/2510.06961v1", "https://www.microsoft.com/en-us/research/blog/microsoft-researchers-achieve-new-conversational-speech-recognition-milestone/", "https://arxiv.org/abs/2303.18110", "https://www.pnas.org/doi/10.1073/pnas.1915768117", "https://arxiv.org/abs/2402.08021", "https://dl.acm.org/doi/10.1145/3706598.3713376", "https://arxiv.org/html/2502.05612v1", "https://oandre.gal/files/2015/11/Composing-Letters-long-version.pdf", "https://www.cs.umd.edu/users/ben/papers/Shneiderman2000limits.pdf", "https://pubmed.ncbi.nlm.nih.gov/32442129/", "https://pubmed.ncbi.nlm.nih.gov/29016971/", "https://eric.ed.gov/?id=EJ696633", "https://doi.org/10.1145/3816046.3816224", "https://arxiv.org/abs/2607.05808", "https://pubmed.ncbi.nlm.nih.gov/21090887/", "https://pubmed.ncbi.nlm.nih.gov/17297801/", "https://pubmed.ncbi.nlm.nih.gov/38312372/", "https://pubmed.ncbi.nlm.nih.gov/31543208/", "https://pubmed.ncbi.nlm.nih.gov/19663377/", "https://pubmed.ncbi.nlm.nih.gov/34474937/", "https://pubmed.ncbi.nlm.nih.gov/21704491/", "https://pubmed.ncbi.nlm.nih.gov/15086016/", "https://pubmed.ncbi.nlm.nih.gov/14660208/", "https://strathprints.strath.ac.uk/57622/1/Efthymiou_Halvey_AIRS2016_Social_acceptability_of_voice_based_smartwatch_search.pdf", "https://www.sciencedirect.com/science/article/pii/S2451958824000836", "https://voicebot.ai/2019/03/05/consumers-becoming-more-comfortable-using-voice-commands-in-public-especially-men/", "https://thatlab.umd.edu/papers/2020_UseOf.pdf", "https://ischool.syracuse.edu/wp-content/uploads/2020/06/He-Is-Just-Like-Me-A-Study-of-the-Long-Term-Use-of-Smart-Speakers-by-Parents-and-Children.pdf", "https://dl.acm.org/doi/10.1145/3313831.3376162", "https://yougov.com/articles/48604-do-consumers-prefer-sending-and-receiving-messages-in-audio-or-text-form", "https://ijoc.org/index.php/ijoc/article/download/169/112", "https://www.pewresearch.org/internet/2006/04/03/americans-and-their-cell-phones-4/", "https://www.pewresearch.org/internet/2015/08/26/americans-views-on-mobile-etiquette/", "https://www.bloomberg.com/news/articles/2026-02-06/voice-to-text-ai-lets-office-workers-talk-instead-of-type", "https://www.computerworld.com/article/4193378/talk-talk-talk-the-rise-of-ai-dictation-tools-at-work.html", "https://wisprflow.ai/workflow/whispering-in-an-open-office", "https://www.microsoft.com/en-us/research/publication/silentvoice-unnoticeable-voice-input-by-ingressive-speech/", "https://www.asarif.com/pub/Pandey_CHI2021_Silent_Speech_Acceptability.pdf", "https://news.massgeneralbrigham.org/en/ai-scribes-linked-to-modest-reductions-in-ehr-documentation-time", "https://ai.nejm.org/doi/abs/10.1056/AIoa2501000", "https://www.ama-assn.org/practice-management/physician-health/how-much-can-ambient-ai-scribes-help-cut-doctor-burnout", "https://pubmed.ncbi.nlm.nih.gov/41996389/"]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://avgrebenkin.com/research/voice-input/uk/#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://avgrebenkin.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Research", "item": "https://avgrebenkin.com/research/" },
+        { "@type": "ListItem", "position": 3, "name": "Тихе повернення голосу", "item": "https://avgrebenkin.com/research/voice-input/uk/" }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+  /* ── палитра ──────────────────────────────────────────────────────────
+     Своя у этой статьи, не из соседних: бирюза вместо коралла, оранжевого
+     и розового, которые уже заняты. Краски несут смысл, и у каждой он один:
+       --voice  — голос (он же ведущий акцент страницы);
+       --keys   — клавиатура;
+       штриховка — число, которое компания сообщила о себе сама;
+       серая штриховка — то, чего никто не измерил.
+     Фон страницы тоже свой: чуть зеленее, чем у сайта, чтобы статья не
+     читалась ещё одной карточкой той же серии. Кибертема остаётся своей. */
+  :root {
+    --bg: #0a1112; --bg-elev: #111b1c; --card-bg: rgba(17,27,28,.78);
+    --accent: #3fd9bd; --accent-rgb: 63,217,189; --accent-ink: #061010;
+    --border: rgba(63,217,189,.22);
+    --voice: #3fd9bd; --voice-rgb: 63,217,189;
+    --keys: #e7b54c; --keys-rgb: 231,181,76;
+    --ink-3: #7f9291;
+    --hatch: rgba(255,255,255,.16);
+    --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+    --display: 'Instrument Serif', 'Newsreader', Georgia, serif;
+  }
+  :root[data-theme="light"] {
+    --bg: #f3f6f5; --bg-elev: #ffffff; --card-bg: rgba(255,255,255,.9);
+    --accent: #06675a; --accent-rgb: 6,103,90; --accent-ink: #ffffff;
+    --border: rgba(6,103,90,.24);
+    --voice: #06675a; --voice-rgb: 6,103,90;
+    --keys: #8a5c00; --keys-rgb: 138,92,0;
+    --ink-3: #5c6b6a;
+    --hatch: rgba(10,20,20,.16);
+  }
+  :root[data-theme="cyber"] {
+    --voice: #00f0ff; --voice-rgb: 0,240,255;
+    --keys: #fcee0a; --keys-rgb: 252,238,10;
+    --ink-3: #74848f;
+    --hatch: rgba(0,240,255,.22);
+  }
+  :root {
+    --paper: var(--bg); --rule: var(--border-soft);
+    --ink: var(--text); --ink-2: var(--muted);
+    --sans: var(--font-body); --mono: var(--font-mono);
+    --measure: 100%;
+  }
+  body { background: var(--bg); }
+
+  .wrap { max-width: none; padding: calc(var(--nav-h) + 30px) 0 0;
+          font-family: var(--serif); font-size: 18.5px; line-height: 1.66; }
+  .wrap > * { max-width: var(--measure); margin-left: auto; margin-right: auto; }
+  .crumb { margin: 0 0 26px; font-family: var(--mono); font-size: 11px;
+           letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+  .crumb a { color: var(--accent); }
+  .crumb a:hover { text-decoration: underline; }
+  .wrap p { margin: 0 0 1.1em; }
+  .wrap b { font-weight: 600; color: var(--ink); }
+  .wrap sup { line-height: 0; }
+  .wrap sup a { font-family: var(--sans); font-size: .6rem; font-weight: 600; color: var(--accent);
+                text-decoration: none; padding: 0 1px; }
+  .wrap sup a:hover { text-decoration: underline; }
+
+  /* ── шапка ──────────────────────────────────────────────────────────── */
+  header.hero { padding: 0 0 34px; margin-bottom: 8px; }
+  .eyebrow { font-family: var(--mono); font-size: .7rem; letter-spacing: .16em;
+             text-transform: uppercase; color: var(--accent); margin: 0 0 18px; }
+  .wrap h1 { font-family: var(--display); font-weight: 400; font-size: clamp(2.7rem, 8vw, 4.8rem);
+             line-height: .98; letter-spacing: -.02em; margin: 0 0 22px; text-wrap: balance; }
+  .standfirst { font-size: clamp(1.1rem, 2.2vw, 1.3rem); line-height: 1.5; color: var(--ink-2);
+                margin: 0 0 28px; }
+  .standfirst b { color: var(--ink); }
+  .hero-shot { display: block; width: 100%; height: auto; aspect-ratio: 1200/420;
+               margin: 0 0 22px; border-radius: 14px; border: 1px solid var(--rule); }
+  .disclose { font-family: var(--sans); font-size: .82rem; line-height: 1.55; color: var(--ink-2);
+              border-left: 3px solid var(--accent); padding: 2px 0 2px 14px; margin: 0 0 16px !important; }
+  .byline { font-family: var(--sans); font-size: .78rem; color: var(--ink-3); letter-spacing: .02em;
+            margin: 0 !important; }
+  .byline b { color: var(--ink-2); font-weight: 500; }
+
+  /* ── строка «коротко» и выбор языка ─────────────────────────────────── */
+  .modebar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin: 0 0 18px; }
+  .langpick { position: relative; margin-inline-start: auto; font-family: var(--sans); }
+  .langpick > summary {
+    list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: .45rem;
+    padding: 8px 12px; border-radius: 8px; font-size: .82rem; color: var(--ink-2);
+  }
+  .langpick > summary::-webkit-details-marker { display: none; }
+  .langpick > summary:hover { color: var(--ink); background: rgba(var(--accent-rgb),.08); }
+  .langpick > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .langpick .globe { font-size: .7rem; color: var(--accent); }
+  .langpick[open] > summary { color: var(--accent); background: rgba(var(--accent-rgb),.12); }
+  .langpick ul {
+    position: absolute; right: 0; top: calc(100% + 6px); z-index: 20; margin: 0; padding: 6px;
+    list-style: none; min-width: 180px; background: var(--bg-elev); border: 1px solid var(--rule);
+    border-radius: 10px; box-shadow: var(--shadow);
+  }
+  .langpick li a { display: block; padding: 7px 10px; border-radius: 6px; font-size: .85rem; color: var(--ink-2); }
+  .langpick li a:hover { background: rgba(var(--accent-rgb),.10); color: var(--ink); }
+  .langpick li.is-current a { color: var(--accent); background: rgba(var(--accent-rgb),.12); }
+  .transnote { margin-top: 18px; border-top: 1px dashed var(--rule); padding-top: 12px; }
+
+  .tldr-open {
+    display: inline-flex; align-items: center; gap: .55rem;
+    padding: 10px 16px; border: 1px solid var(--accent); border-radius: 999px;
+    background: rgba(var(--accent-rgb),.12); color: var(--accent); cursor: pointer;
+    font-family: var(--sans); font-size: .88rem; font-weight: 600; letter-spacing: -.01em;
+    transition: background .18s;
+  }
+  .tldr-open:hover { background: rgba(var(--accent-rgb),.22); }
+  .tldr-open svg { width: 15px; height: 15px; fill: none; stroke: currentColor;
+                   stroke-width: 1.9; stroke-linecap: round; }
+  .tldr-open-sub { color: var(--ink-2); font-weight: 400; }
+
+  .tldr {
+    width: min(680px, calc(100vw - 32px)); max-height: calc(100vh - 48px);
+    padding: 0; border: 1px solid var(--rule); border-radius: 16px;
+    background: var(--bg-elev); color: var(--ink); overflow: hidden; box-shadow: var(--shadow);
+  }
+  .tldr::backdrop { background: rgba(0,0,0,.62); backdrop-filter: blur(2px); }
+  .tldr-bar {
+    display: flex; flex-wrap: nowrap; align-items: center; gap: 8px; padding: 12px 14px;
+    border-bottom: 1px solid var(--rule); background: var(--bg-elev);
+    position: sticky; top: 0; z-index: 2;
+  }
+  .tldr-kicker {
+    flex: 1 1 auto; min-width: 0; margin: 0; font-family: var(--sans); font-size: .7rem;
+    font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .tldr-btn {
+    display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px;
+    flex: 0 1 auto; min-width: 0;
+    border: 1px solid var(--rule); border-radius: 8px; background: var(--paper);
+    color: var(--ink); cursor: pointer; font-family: var(--sans); font-size: .8rem;
+    font-weight: 500; transition: background .18s, color .18s, border-color .18s;
+  }
+  .tldr-btn span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tldr-btn:hover { border-color: var(--accent); }
+  .tldr-btn svg { flex: 0 0 auto; width: 14px; height: 14px; fill: none; stroke: currentColor;
+                  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .tldr-btn.done { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .tldr-x { flex: 0 0 auto; padding: 7px 9px; }
+  @media (max-width: 500px) {
+    .tldr-bar { padding: 10px; gap: 6px; }
+    .tldr-btn { padding: 7px 9px; }
+    .tldr-btn span { display: none; }
+  }
+  .tldr-doc { padding: 22px 26px 28px; overflow-y: auto;
+              max-height: calc(100vh - 48px - 57px); font-size: .98rem; line-height: 1.6; }
+  .tldr-doc h2 { font-family: var(--display); font-weight: 400; font-size: 2rem; margin: 0 0 8px; }
+  .tldr-sub { font-family: var(--sans); font-size: .9rem; color: var(--ink-2); margin: 0 0 18px; }
+  .tldr-doc ul { margin: 0 0 18px; padding-left: 20px; font-family: var(--sans);
+                 font-size: .88rem; line-height: 1.6; color: var(--ink-2); }
+  .tldr-doc li { margin-bottom: 11px; }
+  .tldr-doc li b { color: var(--ink); font-weight: 600; }
+  .tldr-doc li > p { margin: 0 0 .5em; }
+  .tldr-doc li > p:last-child { margin-bottom: 0; }
+  .tldr-src, .tldr-link { font-family: var(--sans); font-size: .78rem; color: var(--ink-2);
+                          margin: 0 0 6px; line-height: 1.5; overflow-wrap: anywhere; }
+
+  /* ── разделы ────────────────────────────────────────────────────────── */
+  .wrap section { padding: 52px 0 40px; border-top: 1px solid var(--rule); }
+  .snum { font-family: var(--mono); font-size: .72rem; color: var(--accent);
+          letter-spacing: .12em; text-transform: uppercase; display: block; margin-bottom: 12px; }
+  .wrap h2 { font-family: var(--display); font-weight: 400; font-size: clamp(1.9rem, 4.6vw, 2.7rem);
+             line-height: 1.06; letter-spacing: -.01em; margin: 0 0 22px; text-wrap: balance; }
+  .pull { font-family: var(--display); font-style: italic; font-size: clamp(1.6rem, 4vw, 2.3rem);
+          line-height: 1.15; color: var(--accent); margin: 34px 0 10px !important; text-wrap: balance; }
+  .note { font-family: var(--sans); font-size: .88rem; line-height: 1.6; color: var(--ink-2);
+          background: var(--card-bg); border: 1px solid var(--rule); border-radius: 14px;
+          padding: 16px 18px; margin: 24px 0; }
+  .note p:last-child { margin-bottom: 0; }
+
+  /* ── графики: общее ─────────────────────────────────────────────────── */
+  .fig { margin: 34px 0 34px; font-family: var(--sans); }
+  .fig figcaption, .tool-h { font-family: var(--sans); font-size: .9rem; font-weight: 600;
+                             line-height: 1.45; margin: 0 0 16px; color: var(--ink); }
+  .plotnote { font-family: var(--sans); font-size: .8rem; line-height: 1.5; color: var(--ink-2);
+              margin: 14px 0 0 !important; }
+  .fsrc { font-family: var(--sans); font-size: .74rem; color: var(--ink-3); line-height: 1.5;
+          margin: 10px 0 0 !important; }
+  .fsrc sup a { font-size: .56rem; }
+  .no-js .js-only { display: none; }
+
+  .tool { font-family: var(--sans); background: var(--card-bg); border: 1px solid var(--border);
+          border-radius: 18px; padding: 22px 24px; margin: 30px 0; }
+  .tool-lead { font-size: .84rem; color: var(--ink-2); margin: -6px 0 16px !important; line-height: 1.5; }
+
+  .hatch { background-image: repeating-linear-gradient(135deg, currentColor 0 2px, transparent 2px 7px); }
+  .chip { font-family: var(--sans); font-size: .8rem; padding: 7px 12px; border-radius: 999px;
+          border: 1px solid var(--rule); background: transparent; color: var(--ink-2); cursor: pointer;
+          transition: background .15s, color .15s, border-color .15s; }
+  .chip:hover { border-color: var(--accent); color: var(--ink); }
+  .chip[aria-pressed="true"], .chip[aria-checked="true"] {
+    background: rgba(var(--accent-rgb),.16); border-color: var(--accent); color: var(--ink); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+
+  /* строка-столбик: подпись сверху, полоса и число под ней */
+  .row { margin: 0 0 14px; }
+  .row-lab { font-size: .82rem; color: var(--ink-2); margin: 0 0 5px; line-height: 1.35; }
+  .row-lab small { color: var(--ink-3); font-size: .74rem; }
+  .bar { position: relative; display: flex; align-items: center; gap: 10px; }
+  .bar-track { position: relative; flex: 1 1 auto; min-width: 0; height: 14px; border-radius: 7px;
+               background: rgba(var(--voice-rgb),.07); overflow: hidden; }
+  .bar-fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 7px; background: var(--voice);
+              transform-origin: left center; transition: width .7s cubic-bezier(.2,.8,.2,1); }
+  .bar-fill.was { background: rgba(var(--voice-rgb),.32); }
+  .bar-fill.keys { background: var(--keys); }
+  /* Штриховка задаётся здесь целиком: общее `background` у .bar-fill иначе
+     стирает её, и заявления компаний выглядели бы как данные опросов. */
+  .bar-fill.claim { background: repeating-linear-gradient(135deg, rgba(var(--voice-rgb),.85) 0 2px,
+                     rgba(var(--voice-rgb),.16) 2px 7px); }
+  /* Засечка — прежнее значение ряда поверх нынешнего. */
+  .bar-mark { position: absolute; top: -3px; bottom: -3px; width: 3px; margin-left: -1.5px;
+              background: var(--ink); border-radius: 2px; opacity: 0; transition: opacity .4s .5s; }
+  .bar-track.marked { overflow: visible; }
+  .in .bar-mark, .bar-mark.on { opacity: .85; }
+  .bar-val { flex: 0 0 auto; min-width: 5.2em; font-family: var(--mono); font-size: .8rem;
+             color: var(--ink); text-align: right; font-variant-numeric: tabular-nums; }
+  .bar-val small { color: var(--ink-3); font-size: .72rem; }
+
+  /* ── 01: две волны ──────────────────────────────────────────────────── */
+  .waves { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 18px; }
+  .wave-panel { border: 1px solid var(--rule); border-radius: 14px; padding: 16px 16px 6px; }
+  .wave-panel.claims { border-style: dashed; }
+  .wave-h { font-family: var(--mono); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+            color: var(--ink-3); margin: 0 0 14px !important; }
+  .pair { font-family: var(--mono); font-size: .72rem; color: var(--ink-3); margin: 3px 0 0; }
+  .pair b { color: var(--ink); font-weight: 500; }
+
+  /* ── 02: время одного сообщения и лаборатория ───────────────────────── */
+  .split .row { margin-bottom: 16px; }
+  .stack { display: flex; height: 26px; border-radius: 8px; overflow: hidden; flex: 1 1 auto; min-width: 0; }
+  .stack span { display: block; height: 100%; transition: width .7s cubic-bezier(.2,.8,.2,1); }
+  .stack .prep.v { background: rgba(var(--voice-rgb),.38); }
+  .stack .rest.v { background: var(--voice); }
+  .stack .prep.k { background: rgba(var(--keys-rgb),.38); }
+  .stack .rest.k { background: var(--keys); }
+  .split-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: .76rem; color: var(--ink-2); margin: 4px 0 0; }
+  .split-legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -2px; margin-right: 6px;
+                    background: linear-gradient(90deg, rgba(var(--voice-rgb),.38) 50%, rgba(var(--keys-rgb),.38) 50%); }
+  .split-legend i.full { background: linear-gradient(90deg, var(--voice) 50%, var(--keys) 50%); }
+
+  .step { font-size: .86rem; margin: 18px 0 8px !important; color: var(--ink-2); line-height: 1.5; }
+  .step b { color: var(--ink); }
+  .phrase { font-family: var(--serif); font-size: 1.12rem; line-height: 1.5; color: var(--ink);
+            background: rgba(var(--keys-rgb),.08); border-left: 3px solid var(--keys);
+            padding: 10px 14px; border-radius: 0 10px 10px 0; margin: 0 0 10px !important; }
+  #typeBox { width: 100%; font-family: var(--serif); font-size: 1.05rem; line-height: 1.5; color: var(--ink);
+             background: var(--bg); border: 1px solid var(--rule); border-radius: 10px; padding: 10px 12px;
+             resize: vertical; }
+  #typeBox:focus { outline: 2px solid var(--keys); outline-offset: 1px; border-color: transparent; }
+  .holdrow { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .hold { display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: 999px;
+          border: 1px solid var(--voice); background: rgba(var(--voice-rgb),.12); color: var(--ink);
+          font-family: var(--sans); font-size: .9rem; font-weight: 600; cursor: pointer;
+          user-select: none; -webkit-user-select: none; touch-action: none; }
+  .hold:disabled { opacity: .4; cursor: not-allowed; }
+  .hold-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--voice); }
+  .hold.on { background: var(--voice); color: var(--accent-ink); }
+  .hold.on .hold-dot { background: var(--accent-ink); animation: pulse 1s ease-in-out infinite; }
+  @keyframes pulse { 50% { transform: scale(1.6); opacity: .5; } }
+  .again { font-family: var(--sans); font-size: .82rem; padding: 9px 14px; border-radius: 999px;
+           border: 1px solid var(--rule); background: transparent; color: var(--ink-2); cursor: pointer; }
+  .again:hover { border-color: var(--accent); color: var(--ink); }
+  .labmsg { font-size: .8rem; color: var(--ink-2); min-height: 1.2em; margin: 10px 0 0 !important; }
+  .labmsg:empty { display: none; }
+  .rates { margin: 18px 0 0; }
+  .rates .row { margin-bottom: 9px; }
+  .rates .row.me .row-lab { color: var(--ink); font-weight: 600; }
+  .labsum { font-size: .88rem; line-height: 1.55; color: var(--ink-2); margin: 14px 0 0 !important; }
+  .labsum:empty { display: none; }
+  .labsum b { color: var(--ink); }
+
+
+  /* замер: три шага объяснения, два шага с секундомерами, два крупных числа */
+  .how { list-style: none; margin: 0 0 18px; padding: 0; display: grid; gap: 10px;
+         grid-template-columns: repeat(3, minmax(0, 1fr)); counter-reset: how; }
+  .how li { position: relative; border: 1px solid var(--rule); border-radius: 12px; padding: 12px 14px 12px 44px;
+            font-size: .8rem; line-height: 1.45; color: var(--ink-2); counter-increment: how; }
+  .how li::before { content: counter(how); position: absolute; left: 12px; top: 11px; width: 22px; height: 22px;
+                    border-radius: 50%; background: rgba(var(--accent-rgb),.16); color: var(--accent);
+                    font-family: var(--mono); font-size: .74rem; display: grid; place-items: center; }
+  .how b { display: block; color: var(--ink); font-size: .86rem; margin-bottom: 2px; }
+  .labstep { border-left: 3px solid var(--rule); padding: 2px 0 2px 14px; margin: 16px 0 0; transition: opacity .2s, border-color .2s; }
+  .labstep.off { opacity: .45; }
+  .labstep.done { border-left-color: var(--accent); }
+  .labstep-h { display: flex; align-items: baseline; gap: 10px; font-size: .86rem; color: var(--ink); margin-bottom: 8px; }
+  .labstep-h > span:nth-child(2) { flex: 1 1 auto; min-width: 0; }
+  .labstep-n { flex: 0 0 auto; font-family: var(--mono); font-size: .72rem; color: var(--accent); }
+  .labstep.done .labstep-n::after { content: " ✓"; }
+  .clock { flex: 0 0 auto; font-family: var(--mono); font-size: .9rem; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .holdhint { font-size: .8rem; color: var(--ink-2); }
+  .labres { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 12px; margin: 18px 0 0; }
+  .labres[hidden] { display: none; }
+  .labres-n { border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px;
+              font-size: .8rem; color: var(--ink-2); }
+  .labres-n.keys { background: rgba(var(--keys-rgb),.12); }
+  .labres-n.voice { background: rgba(var(--voice-rgb),.12); }
+  .labres-n .big { font-family: var(--display); font-size: 2.6rem; line-height: 1; color: var(--ink); }
+  .rates-h { font-size: .8rem; color: var(--ink-2); margin: 20px 0 8px !important; }
+  .labfoot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-top: 14px; }
+  .labfoot .fsrc { margin: 0 !important; flex: 1 1 14rem; }
+  @media (max-width: 760px) { .how { grid-template-columns: minmax(0,1fr); } }
+
+  /* ── 03: лестница ошибок ────────────────────────────────────────────── */
+  .ladder { display: grid; gap: 6px; margin: 0 0 16px; }
+  .rung { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) 4.2em; align-items: center; gap: 12px;
+          text-align: left; width: 100%; padding: 7px 10px; border-radius: 10px; border: 1px solid transparent;
+          background: transparent; color: var(--ink-2); cursor: pointer; font: inherit; font-size: .8rem; }
+  .rung:hover { border-color: var(--rule); color: var(--ink); }
+  .rung[aria-checked="true"] { border-color: var(--accent); background: rgba(var(--accent-rgb),.08); color: var(--ink); }
+  .rung .bar-track { height: 10px; }
+  .rung .bar-val { min-width: 0; }
+  .heard { border: 1px solid var(--rule); border-radius: 14px; padding: 16px 18px; background: var(--bg); }
+  .heard-text { font-family: var(--serif); font-size: 1.15rem; line-height: 1.6; color: var(--ink); margin: 0 !important; }
+  .heard-text del { text-decoration: none; }
+  .heard-text .miss { color: #fff; background: #c2413a; border-radius: 4px; padding: 0 4px;
+                      box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+  :root[data-theme="light"] .heard-text .miss { background: #b3261e; }
+  :root[data-theme="cyber"] .heard-text .miss { background: #ff003c; color: #07070a; }
+  .heard-text .made { font-style: italic; color: var(--ink); outline: 2px dashed #c2413a; outline-offset: 2px;
+                      border-radius: 4px; padding: 0 3px; margin-left: 4px; }
+  .heard-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;
+                margin-top: 14px; }
+  .heard-count { font-family: var(--mono); font-size: .76rem; color: var(--ink-2); }
+
+  /* ── 04: спектр задач и промпты ─────────────────────────────────────── */
+  .spec-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .76rem; color: var(--ink-2); margin: 0 0 12px; }
+  .lg::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+                margin-right: 6px; vertical-align: -1px; }
+  .lg-help::before { background: var(--voice); }
+  .lg-same::before { background: transparent; border: 2px solid var(--ink-3); width: 6px; height: 6px; }
+  .lg-hurt::before { background: var(--keys); }
+  .spec { list-style: none; margin: 0; padding: 0; position: relative; }
+  .spec::before { content: ""; position: absolute; left: 15px; top: 10px; bottom: 10px; width: 2px;
+                  background: linear-gradient(var(--voice), var(--keys)); opacity: .45; border-radius: 1px; }
+  .spec li { position: relative; padding: 0 0 12px 40px; font-size: .86rem; line-height: 1.45; color: var(--ink); }
+  .spec li::before { content: ""; position: absolute; left: 9px; top: 4px; width: 14px; height: 14px; border-radius: 50%;
+                     background: var(--bg); border: 2px solid var(--ink-3); }
+  .spec li.e1::before { background: var(--voice); border-color: var(--voice); }
+  .spec li.e-1::before { background: var(--keys); border-color: var(--keys); }
+  .spec li.spec-end::before { display: none; }
+  .spec li.extra { margin-top: 10px; padding-top: 12px; border-top: 1px dashed var(--rule); }
+  .spec small { display: block; font-family: var(--mono); font-size: .7rem; color: var(--ink-3); margin-top: 2px; }
+  .spec-end { font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase;
+              color: var(--ink-3); padding-left: 40px !important; margin: 0 0 10px !important; }
+
+  .prompts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .pgroup h4 { font-family: var(--mono); font-weight: 500; font-size: .72rem; letter-spacing: .08em;
+               text-transform: uppercase; color: var(--ink-3); margin: 0 0 10px; }
+  .pcols { display: flex; align-items: flex-end; gap: 8px; height: 150px; border-bottom: 1px solid var(--rule); }
+  .pcol { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%; }
+  .pcol span { font-family: var(--mono); font-size: .74rem; color: var(--ink); margin-bottom: 4px; }
+  .pcol i { display: block; width: 100%; border-radius: 6px 6px 0 0; transition: height .7s cubic-bezier(.2,.8,.2,1); }
+  .pcol.text i { background: var(--keys); }
+  .pcol.raw i { background: rgba(var(--voice-rgb),.4); }
+  .pcol.edit i { background: var(--voice); }
+  .plegend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .76rem; color: var(--ink-2); margin: 12px 0 0; }
+  .plegend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -2px; }
+  .choice { margin: 22px 0 0; }
+  .choice-h { font-size: .8rem; color: var(--ink-2); margin: 0 0 6px !important; }
+  .choice-bar { display: flex; height: 30px; border-radius: 8px; overflow: hidden; }
+  .choice-bar span { display: flex; align-items: center; padding: 0 8px; font-family: var(--mono); font-size: .72rem;
+                     white-space: nowrap; overflow: hidden; color: var(--accent-ink); }
+  .choice-bar .c-text { background: var(--keys); }
+  .choice-bar .c-voice { background: var(--voice); }
+  .choice-bar .c-both { background: rgba(var(--voice-rgb),.4); color: var(--ink); }
+  .choice-leg { display: flex; flex-wrap: wrap; gap: 4px 16px; font-family: var(--mono); font-size: .72rem;
+                color: var(--ink-2); margin: 6px 0 0; }
+
+  /* ── 05: голос ──────────────────────────────────────────────────────── */
+  .phon-leg { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: .76rem; color: var(--ink-2); margin: 0 0 12px; }
+  .phon-leg i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -2px; }
+  .phon .bar-track { height: 11px; }
+  .phon .row { margin-bottom: 12px; }
+  .phon .bar + .bar { margin-top: 4px; }
+  .rec .axis { stroke: var(--rule); stroke-width: 1; }
+  .rec .tick { font-family: var(--mono); font-size: 11px; fill: var(--ink-3); }
+  .rec .lab { font-family: var(--sans); font-size: 12px; fill: var(--ink-2); }
+  .rec .lab.strong { fill: var(--ink); font-weight: 600; }
+  .rec .load { fill: rgba(var(--voice-rgb),.18); }
+  .rec .curve { fill: none; stroke: var(--voice); stroke-width: 3; stroke-linecap: round; }
+  .rec .band { fill: rgba(var(--voice-rgb),.12); }
+  .rec .unk { fill: url(#recHatch); }
+  .rec .hatchline { stroke: var(--hatch); stroke-width: 2; }
+  .rec .dot { fill: var(--voice); }
+
+  /* ── 06: где и при ком ──────────────────────────────────────────────── */
+  .acc-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 20px; }
+  .acc-h { font-family: var(--mono); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+           color: var(--ink-3); margin: 0 0 8px !important; }
+  .acc { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .acc-btn { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+             padding: 9px 12px; border-radius: 10px; border: 1px solid var(--rule); background: var(--bg);
+             color: var(--ink); font: inherit; font-size: .86rem; cursor: pointer; text-align: left; }
+  .acc-btn:hover { border-color: var(--accent); }
+  .acc-btn .ans { font-family: var(--mono); font-size: .72rem; color: var(--ink-3); flex: 0 0 auto; }
+  .acc-btn.yes { border-color: var(--voice); background: rgba(var(--voice-rgb),.12); }
+  .acc-btn.yes .ans { color: var(--voice); }
+  .acc-btn.no { border-color: var(--keys); background: rgba(var(--keys-rgb),.08); }
+  .acc-btn.no .ans { color: var(--keys); }
+  .acc-study { display: none; padding: 6px 4px 4px; }
+  .acc.show .acc-study { display: block; }
+  .acc-study .bar-track { height: 7px; }
+  .acc-study .bar + .bar { margin-top: 3px; }
+  .acc-study .bar-val { font-size: .7rem; min-width: 5.6em; color: var(--ink-2); }
+  .acc-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; margin: 18px 0 0; }
+  .acc-foot .labsum { margin: 0 !important; flex: 1 1 16rem; }
+
+  /* ── 07: привычка ───────────────────────────────────────────────────── */
+  .habit-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 11rem); gap: 18px; align-items: stretch; }
+  .habit-plot { min-width: 0; }
+  .habit svg { display: block; overflow: visible; }
+  .habit .axis { stroke: var(--rule); }
+  .habit .tick { font-family: var(--mono); font-size: 11px; fill: var(--ink-3); }
+  .habit .lab { font-family: var(--sans); font-size: 12px; fill: var(--ink-2); }
+  .habit .val { font-family: var(--mono); font-size: 12px; fill: var(--ink); }
+  .habit .cmd { fill: var(--voice); }
+  .habit-conf { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 6px;
+                text-align: center; border: 1.5px solid var(--voice); border-radius: 14px;
+                background: rgba(var(--voice-rgb),.12); padding: 16px; font-size: .84rem; color: var(--ink-2); }
+  .habit-confv { font-family: var(--display); font-size: 2.4rem; line-height: 1; color: var(--voice); }
+  .rec svg { display: block; overflow: visible; }
+  .habit-music { margin-top: 16px; }
+  .habit-music .bar + .bar { margin-top: 4px; }
+  .habit-music .bar-val { min-width: 8.5em; }
+  @media (max-width: 640px) { .habit-top { grid-template-columns: minmax(0, 1fr); } }
+
+  /* ── 08: культура ───────────────────────────────────────────────────── */
+  .pref .row { margin-bottom: 8px; }
+  .pref .row.all .row-lab { color: var(--ink); font-weight: 600; }
+  .pref .bar-fill { background: var(--keys); }
+  .pref .row.all .bar-fill { background: var(--ink-2); }
+  .phone .bar-track { background: rgba(var(--keys-rgb),.08); }
+  .phone .bar-fill { background: var(--voice); }
+  .phone .row.low .bar-fill { background: rgba(var(--voice-rgb),.45); }
+  .phone .row.low .row-lab { color: var(--ink); font-weight: 600; }
+
+
+  /* Короткие ряды — подпись и полоса в одну строку: восемь стран столбиком
+     по две строки занимали целый экран ради одного сравнения. */
+  .pref .row, .phone .row { display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr);
+                            align-items: center; gap: 4px 14px; margin-bottom: 8px; }
+  .pref .row-lab, .phone .row-lab { margin: 0; }
+  .habit-music .bar-fill { background: var(--ink-3); }
+  @media (max-width: 640px) {
+    .pref .row, .phone .row { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  /* ── 11: пробелы ────────────────────────────────────────────────────── */
+  .gaps { list-style: none; margin: 26px 0 0; padding: 0; display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 12px; }
+  .gaps li { font-family: var(--sans); font-size: .84rem; line-height: 1.5; color: var(--ink-2);
+             border: 1px dashed var(--ink-3); border-radius: 14px; padding: 16px 16px 14px;
+             background-image: repeating-linear-gradient(135deg, var(--hatch) 0 1px, transparent 1px 9px); }
+  .gaps li p { margin: 0 !important; }
+  .gaps .gap-h { font-family: var(--display); font-size: 1.3rem; line-height: 1.15; color: var(--ink); margin-bottom: 8px !important; }
+
+  /* ── источники ──────────────────────────────────────────────────────── */
+  .sources { padding-bottom: 28px !important; }
+  .wrap .sources h2 { font-family: var(--mono); font-size: .76rem; letter-spacing: .14em;
+                      text-transform: uppercase; color: var(--ink-3); margin-bottom: 16px; }
+  .sources ol { margin: 0; padding-left: 26px; font-family: var(--sans); font-size: .8rem;
+                color: var(--ink-2); line-height: 1.55; }
+  .sources li { margin-bottom: 8px; }
+  .sources li:target { color: var(--ink); }
+  .sources a { color: var(--accent); word-break: break-word; text-decoration: underline; text-underline-offset: 2px; }
+  .wrap .sy-strip { margin: 12px auto 8px; font-family: var(--sans); }
+  .wrap a:not(.sy-go):not(.tldr-open) { color: var(--accent); }
+
+  /* ── появление ──────────────────────────────────────────────────────── */
+  .fig, .tool { transition: opacity .6s ease, transform .6s ease; }
+  .pre { opacity: 0; transform: translateY(14px); }
+  @media (prefers-reduced-motion: reduce) {
+    .pre { opacity: 1; transform: none; }
+    .bar-fill, .stack span, .pcol i { transition: none; }
+    .hold.on .hold-dot { animation: none; }
+  }
+
+  /* ── кибертема ──────────────────────────────────────────────────────── */
+  :root[data-theme="cyber"] .tool, :root[data-theme="cyber"] .note, :root[data-theme="cyber"] .heard,
+  :root[data-theme="cyber"] .wave-panel, :root[data-theme="cyber"] .gaps li, :root[data-theme="cyber"] .hero-shot {
+    border-radius: 0; }
+  :root[data-theme="cyber"] .wrap h1, :root[data-theme="cyber"] .wrap h2 { font-family: var(--font-head); font-weight: 700; letter-spacing: -.02em; }
+  :root[data-theme="cyber"] .snum, :root[data-theme="cyber"] .eyebrow { text-shadow: 0 0 12px rgba(var(--accent-rgb),.45); }
+
+  @media print {
+    :root[data-print="tldr"] body > *:not(#tldrDoc) { display: none !important; }
+    :root[data-print="tldr"] body::before, :root[data-print="tldr"] body::after { display: none !important; }
+    :root[data-print="tldr"] #tldrDoc { display: block !important; max-height: none; overflow: visible;
+      padding: 0; background: #fff; color: #14161f; font-size: 11pt; }
+    :root[data-print="tldr"] #tldrDoc h2 { color: #14161f; }
+    :root[data-print="tldr"] #tldrDoc ul, :root[data-print="tldr"] .tldr-sub { color: #3f4454; }
+    :root[data-print="tldr"] #tldrDoc li b { color: #14161f; }
+    :root[data-print="tldr"] .tldr-src, :root[data-print="tldr"] .tldr-link { color: #5b6172; }
+    :root[data-print="tldr"] #tldrDoc li { break-inside: avoid; }
+    .hero-shot { display: none; }
+    .pre { opacity: 1; transform: none; }
+  }
+
+  @media (max-width: 640px) {
+    .wrap { font-size: 17px; }
+    .waves, .acc-grid { grid-template-columns: minmax(0,1fr); }
+    .prompts { gap: 8px; }
+    .pcols { height: 120px; gap: 4px; }
+    .pcol span { font-size: .66rem; }
+    .tool { padding: 18px 16px; }
+    .rung { grid-template-columns: minmax(0, 1fr) 3.6em; }
+    .rung .bar-track { display: none; }
+    .tldr-kicker { display: none; }
+    .tldr-bar { justify-content: flex-end; }
+    .tldr-doc { padding: 18px 18px 24px; }
+    .wrap section { padding: 40px 0 30px; }
+  }
+
+</style>
+</head>
+<body>
+
+<nav class="site-nav" id="site-nav">
+  <a href="/" class="nav-name">Aleksei Grebenkin</a>
+  <div class="nav-links" id="nav-links">
+    <a href="/#projects" class="nav-link">Projects</a>
+    <a href="/#notes" class="nav-link">Notes</a>
+    <a href="/research/" class="nav-link nav-link-active" aria-current="page">Research</a>
+    <a href="/#speaking" class="nav-link">Speaking</a>
+    <a href="/#certifications" class="nav-link">Certifications</a>
+    <a href="/#journey" class="nav-link">Journey</a>
+    <a href="/#contacts" class="nav-link">Contacts</a>
+  </div>
+  <div class="nav-controls">
+    <div class="theme-switcher" id="theme-switcher" role="radiogroup" aria-label="Color theme">
+      <button type="button" class="theme-btn" data-theme="dark" role="radio" aria-label="Dark theme" aria-checked="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button type="button" class="theme-btn" data-theme="light" role="radio" aria-label="Light theme" aria-checked="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button type="button" class="theme-btn" data-theme="cyber" role="radio" aria-label="Cyberpunk theme" aria-checked="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+      </button>
+    </div>
+    <button type="button" class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+      <span class="nav-burger-line"></span>
+      <span class="nav-burger-line"></span>
+      <span class="nav-burger-line"></span>
+    </button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+
+<p class="crumb"><a href="/research/">← Research</a></p>
+
+<header class="hero">
+  <p class="eyebrow">Дослідження · Інтерфейси · жовтень 2026</p>
+  <h1>Тихе повернення голосу</h1>
+  <p class="standfirst"><b>Голосове введення повернулося — не як Alexa, а як диктування і як розмова зі ШІ.</b> Я прочитав дослідження про те, наскільки воно швидке, як часто недочуває, як сильно втомлює і наскільки ніяково ним користуватися, — за останні два роки, а також старіші, на які ці нові спираються. Несподіванка ось у чому: найшвидше змінюється не сміливість, з якою люди говорять із комп’ютером. Найшвидше тихішає сам голос.</p>
+  <img class="hero-shot" src="../../../images/research/voice-input-page.webp"
+       alt="Звукова хвиля ліворуч перетворюється на рядки тексту праворуч; що ближче до тексту, то нижчі стовпчики хвилі."
+       width="1200" height="420" fetchpriority="high" decoding="async">
+  <p class="disclose"><b>Застереження.</b> Я роблю Speak-Y — застосунок для голосового введення. Щоразу, коли цифра походить від компанії, яка говорить сама про себе, текст про це попереджає, а на графіках вона заштрихована, щоб її не сплутали з незалежними даними.</p>
+  <p class="byline"><b>Олексій Гребенкін</b> · Дані: Edison Research, YouGov, Pew, експерименти з CHI та IMWUT, дослідження голосу з PubMed, JAMA, заяви компаній</p>
+</header>
+
+<div class="modebar">
+  <button type="button" class="tldr-open" id="tldrOpen" aria-haspopup="dialog">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h16M4 11h16M4 16h9"/></svg>
+    Коротко
+    <span class="tldr-open-sub">2 хвилини · скопіювати або надрукувати</span>
+  </button>
+  <details class="langpick"><summary aria-label="Мова сторінки"><span class="globe" aria-hidden="true">◍</span>Українська</summary><ul><li><a href="/research/voice-input/" hreflang="en" lang="en">English</a></li><li><a href="/research/voice-input/ru/" hreflang="ru" lang="ru">Русский</a></li><li class="is-current"><a href="/research/voice-input/uk/" hreflang="uk" lang="uk" aria-current="true">Українська</a></li><li><a href="/research/voice-input/de/" hreflang="de" lang="de">Deutsch</a></li><li><a href="/research/voice-input/fr/" hreflang="fr" lang="fr">Français</a></li><li><a href="/research/voice-input/es/" hreflang="es" lang="es">Español</a></li><li><a href="/research/voice-input/pt-BR/" hreflang="pt-BR" lang="pt-BR">Português (Brasil)</a></li><li><a href="/research/voice-input/it/" hreflang="it" lang="it">Italiano</a></li><li><a href="/research/voice-input/nl/" hreflang="nl" lang="nl">Nederlands</a></li><li><a href="/research/voice-input/pl/" hreflang="pl" lang="pl">Polski</a></li><li><a href="/research/voice-input/tr/" hreflang="tr" lang="tr">Türkçe</a></li><li><a href="/research/voice-input/ja/" hreflang="ja" lang="ja">日本語</a></li><li><a href="/research/voice-input/zh-Hans/" hreflang="zh-Hans" lang="zh-Hans">简体中文</a></li></ul></details>
+</div>
+
+<!-- Короткая версия для тех, кто не будет читать целиком, и для тех, кто хочет
+     унести её к себе. Собрана из фраз и цифр самой статьи — ничего нового здесь
+     не утверждается. Копируется текстом или Markdown и печатается отдельным
+     листом, всегда со ссылкой на исходную страницу. -->
+<dialog class="tldr" id="tldr" aria-labelledby="tldrTitle">
+  <div class="tldr-bar">
+    <p class="tldr-kicker">Коротко про головне</p>
+    <button type="button" class="tldr-btn" data-tldr-copy="text" title="Скопіювати" aria-label="Скопіювати">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
+      <span>Скопіювати</span>
+    </button>
+    <button type="button" class="tldr-btn" data-tldr-copy="md" title="Markdown" aria-label="Markdown">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 15V9l2.5 3L12 9v6M16 9v4.5M16 13.5l2 2 2-2"/></svg>
+      <span>Markdown</span>
+    </button>
+    <button type="button" class="tldr-btn" id="tldrPrint" title="Надрукувати" aria-label="Надрукувати">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.8h10V9"/><path d="M7 17.5H4.6v-6A2.4 2.4 0 0 1 7 9h10a2.4 2.4 0 0 1 2.4 2.4v6H17"/><path d="M7 14.4h10v5.8H7z"/></svg>
+      <span>Надрукувати</span>
+    </button>
+    <button type="button" class="tldr-btn tldr-x" id="tldrClose" title="Закрити" aria-label="Закрити">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+
+  <div class="tldr-doc" id="tldrDoc">
+    <h2 id="tldrTitle">Тихе повернення голосу</h2>
+    <p class="tldr-sub">Що кажуть дослідження про те, щоб говорити з комп’ютером замість друкувати.</p>
+    <ul>
+      <li><p><b>Асистенти застигли. Диктування злетіло — принаймні за власними словами.</b> Розумна колонка у США: 33 % людей у 2021 році, 35 % у 2025-му. Зростання диктування й голосових розмов зі ШІ видно майже лише з того, що компанії розповідають самі про себе.</p></li>
+      <li><p><b>Утричі швидше, коли переписуєш, і приблизно в 1,4 раза — коли складаєш сам.</b> Пишучи власні повідомлення, люди думали перед першим словом удвічі довше, якщо збиралися говорити (11,0 проти 5,3 секунди), а будь-яке виправлення обходилося дорого.</p></li>
+      <li><p><b>Що чує машина, залежить від того, хто говорить.</b> На чистій читаній американській англійській помилка в 2,7 % слів, на розмові з акцентом — у 19,7 %. Whisper вигадував фрази приблизно в 1 % розшифровок.</p></li>
+      <li><p><b>Голос пришвидшує язик, а не планування.</b> Близько двох третин часу на складання тексту йде на планування. Там, де треба розв’язати задачу, голос навантажує розум сильніше. 88,5 % із 919 студентів-програмістів вирішили друкувати промпти для ШІ-інструмента, а не диктувати їх.</p></li>
+      <li><p><b>Голос втомлюється дозою, а дозу диктування ніхто не вимірював.</b> Фізичний маркер голосового напруження зростає вже за 15 хвилин гучного читання, а відчувають це люди через 30. У 33–68 % операторів кол-центрів у якийсь момент кар’єри бувають проблеми з голосом.</p></li>
+      <li><p><b>Справа не в місці, а в тому, хто слухає.</b> Наодинці голос прийнятний у 96 % відповідей; при колегах — у 26 %, при незнайомцях — у 16 %. Новизна вивітрюється за кілька тижнів, а впевненість тим часом зростає.</p></li>
+      <li><p><b>Офіс вчиться шепотіти.</b> Ринок не чекає, поки зміниться норма, — він робить голос тихішим. Так колись і телефонна розмова стала звичною на вулиці, але так і не стала нею на нарадах.</p></li>
+    </ul>
+    <p class="tldr-src">Джерела: Edison Research · YouGov · Pew · експерименти CHI та IMWUT · дослідження голосу · JAMA · заяви компаній, позначені як такі</p>
+    <p class="tldr-link">Повне дослідження, з інтерактивами та всіма джерелами: https://avgrebenkin.com/research/voice-input/uk/</p>
+  </div>
+</dialog>
+
+<section>
+  <span class="snum">01 · Дві хвилі</span>
+  <h2>Асистенти застигли. Диктування злетіло — за власними словами</h2>
+  <p>Скажіть «Окей, Google, постав таймер» — і ви користуєтеся голосовим введенням першого роду. Надиктуйте листа замість того, щоб його друкувати, — і це вже другий рід.</p>
+  <p>Усього родів п’ять, і за останні два роки їхні шляхи розійшлися: <b>команди асистентам</b>, диктування тексту, голосові повідомлення, усні розмови з ШІ-моделями, а ще голос для програмування і для постановки задач ШІ-агентам.</p>
+  <p>Перший рід перестав здобувати нову аудиторію. У США розумну колонку мали 33 % людей у 2021 році й 35 % у 2025-му; сама компанія, що проводить опитування, визнає: за чотири роки цифра майже не зрушила.<sup><a href="#src-ssrsUS">1</a></sup></p>
+  <p>Виняток — Велика Британія: за ті самі роки з 25 % до 45 %, здебільшого завдяки Alexa.<sup><a href="#src-ssrsUK">2</a></sup> А от інтенсивність користування зростала довше: кількість завдань, які власник дає колонці за тиждень, збільшилася з 7,5 у 2017 році до 12,4 у 2022-му.<sup><a href="#src-smartAudio">3</a></sup></p>
+  <p>Проте комерційно <b>перша хвиля провалилася</b>. Підрозділ пристроїв Amazon утратив між 2017 і 2021 роками понад 25 млрд доларів, бо Echo просили поставити будильник і розказати про погоду, а не щось купити.<sup><a href="#src-amazonLoss">4</a></sup></p>
+  <p>Другу хвилю видно майже лише з того, що компанії кажуть самі про себе. Wispr Flow, застосунок для диктування, виріс з оцінки в 700 млн доларів у листопаді 2025 року до 2 млрд у серпні 2026-го.<sup><a href="#src-wispr">5</a></sup></p>
+  <p>Google стверджує, що 63 % із понад мільярда щомісячних користувачів застосунку Gemini «користуються голосом», — і не пояснює, як це рахували.<sup><a href="#src-gemini">6</a></sup> Apple каже, що запитів до Siri стало більше: приблизно 1,5 млрд на день у 2024 році й понад 2,5 млрд у 2026-му.<sup><a href="#src-siri">7</a></sup></p>
+  <p>Великі незалежні опитування — Pew, YouGov, Edison, Ofcom — поки що не питають окремо про диктування чи голосові розмови зі ШІ. Найближче з них показало: 57 % американців віком від 12 років хоч раз користувалися генеративним ШІ-асистентом — текстом чи голосом.<sup><a href="#src-ssrs2026">8</a></sup></p>
+  <p>Отже, <b>криву зростання другої хвилі малюють зацікавлені сторони</b>.</p>
+  <figure class="fig js-only">
+    <figcaption>Ліворуч — незалежні опитування, праворуч — компанії про себе</figcaption>
+    <div class="waves" id="waves"></div>
+    <p class="plotnote">Суцільні стовпчики — опитування з відомою методикою і вибіркою; темна позначка — показник за попередній рік. Заштриховані — цифри, які компанія навела сама про себе і які ззовні не перевірити; позначка — її попередня заява. Дві половини намальовано не в одному масштабі.</p>
+    <p class="fsrc">Edison Research через SSRS<sup><a href="#src-ssrsUS">1</a></sup><sup><a href="#src-ssrsUK">2</a></sup><sup><a href="#src-ssrs2026">8</a></sup> · YouGov<sup><a href="#src-yougov2026">9</a></sup> · Apple за даними преси<sup><a href="#src-siri">7</a></sup> · TechCrunch<sup><a href="#src-wispr">5</a></sup> · Google за даними преси<sup><a href="#src-gemini">6</a></sup></p>
+  </figure>
+  <p>Голосові повідомлення, третій рід, — масова звичка, але вже не та, що зростає. Останній офіційний підрахунок WhatsApp — 7 млрд на день, і датований він березнем 2022 року.<sup><a href="#src-whatsapp">10</a></sup></p>
+  <p>В опитуванні YouGov серед 2442 американців у лютому 2026 року близько 10 % надсилали голосові кілька разів на тиждень, а 41 % відповіли, що цей формат їх не стосується. Тих, хто став користуватися ними рідше (12 %), виявилося стільки ж, скільки тих, хто частіше (11 %).<sup><a href="#src-yougov2026">9</a></sup></p>
+</section>
+
+<section>
+  <span class="snum">02 · Швидкість</span>
+  <h2>Утричі швидше, коли переписуєш. Приблизно в 1,4 раза — коли складаєш</h2>
+  <p>Ось найцитованіша цифра про голос: говорити <b>втричі швидше, ніж друкувати</b>. Це правда — для переписування. В експерименті, звідки вона взялася, 48 людей, по 24 на мову, переписували на iPhone короткі готові фрази.</p>
+  <p>Голосом виходило 153 слова на хвилину проти 52 на екранній клавіатурі англійською і 123 проти 43 — мандаринською.<sup><a href="#src-ruan">11</a></sup> Автори самі називають це верхньою межею, досягнутою в лабораторії. А переписуванням ніхто не пише.</p>
+  <p>2020 року Фолі, Казьє і Фоґель попросили 28 людей <b>скласти власне речення</b> на телефоні, пов’язавши три прості картинки. Поки слова безпосередньо вимовлялися чи набиралися, голос і далі був утричі швидшим: 116,5 проти 35,1 слова на хвилину.</p>
+  <p>Але якщо рахувати всю спробу — подумати, сказати, виправити, — повідомлення голосом забирало 20,8 секунди, а на клавіатурі 29,2. Це приблизно в 1,4 раза, а не втричі.<sup><a href="#src-foley">12</a></sup></p>
+  <figure class="fig js-only">
+    <figcaption>Куди пішов час: одне повідомлення, складене на телефоні, в середньому для 28 людей</figcaption>
+    <div class="split" id="split"></div>
+    <p class="plotnote">Завдання на складання тексту. Бліда частина кожного стовпчика — роздуми до першого слова; суцільна — мовлення чи набір, разом із виправленнями.<sup><a href="#src-foley">12</a></sup></p>
+  </figure>
+  <p>Різницю з’їли дві речі. Перед першим словом люди думали вдвічі довше, коли збиралися говорити: 11,0 секунди проти 5,3. <b>Друкуючи, людина думає на ходу; говорячи — спершу вибудовує речення в голові.</b></p>
+  <p>А будь-яке виправлення обходилося дорого: за обома способами й обома завданнями спроби, де щось доводилося правити, йшли зі швидкістю 54,6 слова на хвилину, а чисті — 141,1.</p>
+  <p>Для масштабу: добровольці в онлайн-тесті на швидкість друку набирали на фізичній клавіатурі в середньому 52 слова на хвилину (вибірка — 168 000 людей),<sup><a href="#src-dhakal">13</a></sup> а на телефоні — 36 (37 000 людей).<sup><a href="#src-palin">14</a></sup></p>
+  <p>Контрольованого порівняння, де люди складали б текст голосом із сучасним розпізнаванням і на настільній клавіатурі, немає. Останнє таке порівняння — 1999 року.</p>
+  <p>Тоді новачки складали текст голосом зі швидкістю 7,8 слова на хвилину з урахуванням виправлень, а клавіатурою й мишею — 19; під час переписування — 13,6 проти 32,5.<sup><a href="#src-karat">15</a></sup></p>
+  <div class="tool js-only" id="lab">
+    <p class="tool-h">Виміряйте себе: пальці проти язика</p>
+    <p class="tool-lead">Два секундоміри й одне речення. Сторінка ніколи не вмикає мікрофон і не може вас почути: вона лише засікає, скільки часу вам знадобилося, і перетворює два результати на дві швидкості.</p>
+    <ol class="how">
+      <li><b>Надрукуйте</b><span>Надрукуйте речення нижче. Перший секундомір іде від першої натиснутої клавіші до Enter.</span></li>
+      <li><b>Скажіть</b><span>Затисніть кнопку або пробіл і прочитайте те саме речення вголос у звичному темпі. Другий секундомір іде, поки ви тримаєте.</span></li>
+      <li><b>Порівняйте</b><span>Те саме речення, два заміри часу. Сторінка перетворить їх на слова за хвилину й поставить поруч із дослідженнями.</span></li>
+    </ol>
+    <p class="phrase" id="phrase">Можеш перенести наш дзвінок у четвер на другу половину дня і ще до нього скинути мені нотатки з минулого тижня?</p>
+    <div class="labstep" id="step1">
+      <div class="labstep-h"><span class="labstep-n">1</span><span>Надрукуйте речення й натисніть Enter</span><span class="clock" id="clock1">0.0 s</span></div>
+      <textarea id="typeBox" rows="2" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Почніть друкувати тут…" aria-label="Надрукуйте речення тут"></textarea>
+    </div>
+    <div class="labstep off" id="step2">
+      <div class="labstep-h"><span class="labstep-n">2</span><span>Затисніть кнопку й прочитайте речення вголос</span><span class="clock" id="clock2">0.0 s</span></div>
+      <div class="holdrow">
+        <button type="button" class="hold" id="holdBtn" disabled><span class="hold-dot" aria-hidden="true"></span><span>Тримайте, поки читаєте вголос</span></button>
+        <span class="holdhint" id="holdHint">Спершу завершіть крок 1</span>
+      </div>
+    </div>
+    <p class="labmsg" id="labMsg" aria-live="polite"></p>
+    <div class="labres" id="labRes" hidden>
+      <div class="labres-n keys"><span class="big" id="resType">—</span><span>слів на хвилину, набір</span></div>
+      <div class="labres-n voice"><span class="big" id="resSpeak">—</span><span>слів на хвилину, мовлення</span></div>
+    </div>
+    <p class="labsum" id="labSum" aria-live="polite"></p>
+    <p class="rates-h">Ваші швидкості поруч із дослідженнями</p>
+    <div class="rates" id="rates"></div>
+    <div class="labfoot">
+      <button type="button" class="again" id="againBtn">Почати заново</button>
+      <p class="fsrc">Ruan et al., n = 48<sup><a href="#src-ruan">11</a></sup> · Foley et al., n = 28<sup><a href="#src-foley">12</a></sup> · Dhakal et al., n ≈ 168 000<sup><a href="#src-dhakal">13</a></sup> · Palin et al., n ≈ 37 000<sup><a href="#src-palin">14</a></sup></p>
+    </div>
+  </div>
+  <p>Ваша швидкість мовлення — це швидкість язика, а не диктування: тут нічого не розпізнається і нічого не треба виправляти. <b>Співвідношення між двома вашими числами — це максимум, який голос у принципі може вам дати.</b></p>
+  <p>В експерименті Фолі саме мовлення було в 3,3 раза швидшим за набір, а вся спроба — в 1,4 раза: після роздумів і виправлень від співвідношення швидкостей лишалося близько 40 %.</p>
+</section>
+
+<section>
+  <span class="snum">03 · Точність</span>
+  <h2>Що чує машина, залежить від того, хто говорить</h2>
+  <p>Скажіть «перенеси нараду на п’ятницю о десятій» у тихій кімнаті з вимовою диктора новин, і добрий розпізнавач запише все правильно. Скажіть те саме з сильним акцентом під гамір кав’ярні — і він може надрукувати «на п’яницю о дев’ятій».</p>
+  <p>Розпізнавання оцінюють за <b>частотою помилок у словах</b>: це частка слів, які система переплутала, пропустила або додала від себе. У жовтні 2025 року найкраща модель на стандартному відкритому рейтингу мала в середньому 5,63 % на всіх його тестових наборах.</p>
+  <p>Whisper large-v3 — відкрита модель, на якій працює чимало застосунків для диктування, — мала в середньому 7,44 %.<sup><a href="#src-openasr">16</a></sup> Для порівняння: ретельна професійна розшифровка записаних телефонних розмов дала 2017 року 5,1 %.<sup><a href="#src-msHuman">17</a></sup></p>
+  <p>Ці середні приховують, хто саме говорить. На збірці розмовної англійської з акцентами з усього світу Whisper помилявся в 19,7 % слів — проти 2,7 % на чистій читаній американській англійській.</p>
+  <p>Для нігерійської та ямайської англійської навіть сильніші моделі перевалювали за 20 %, а академічна модель — за 45 %.<sup><a href="#src-edacc">18</a></sup></p>
+  <p>2020 року п’ять комерційних систем помилялися в 35 % слів чорношкірих мовців і в 19 % слів білих: <b>та сама система, майже вдвічі більше помилок</b>.<sup><a href="#src-koenecke">19</a></sup></p>
+  <figure class="fig js-only">
+    <figcaption>Оберіть рівень помилок і подивіться, що він робить з одним вимовленим реченням</figcaption>
+    <div class="ladder" id="ladder" role="radiogroup" aria-label="Оберіть рівень помилок і подивіться, що він робить з одним вимовленим реченням"></div>
+    <div class="heard">
+      <p class="heard-text" id="heard" aria-live="polite"></p>
+      <div class="heard-foot">
+        <span class="heard-count" id="heardCount"></span>
+        <button type="button" class="chip" id="halluBtn" aria-pressed="false">Додати вигадку в дусі Whisper</button>
+      </div>
+    </div>
+    <p class="plotnote">У реченні 26 слів; помилки розставлено там, де вони шкодять найбільше, — щоб показати, що означає цей відсоток, а не щоб імітувати якусь конкретну систему.</p>
+    <p class="fsrc">Open ASR Leaderboard, жовтень 2025<sup><a href="#src-openasr">16</a></sup> · Microsoft Research, 2017<sup><a href="#src-msHuman">17</a></sup> · EdAcc<sup><a href="#src-edacc">18</a></sup> · Koenecke et al., 2020<sup><a href="#src-koenecke">19</a></sup> · Careless Whisper, 2024<sup><a href="#src-careless">20</a></sup></p>
+  </figure>
+  <p>Генеративне розпізнавання принесло новий вид збою — <b>вигадування</b>. Whisper дописував цілі фрази приблизно в 1 % розшифровок, і 38 % цих вигадок містили щось шкідливе, як-от насильство чи неправдиві твердження.<sup><a href="#src-careless">20</a></sup></p>
+  <p>Довгі паузи, часті в людей з афазією, робили вигадки ймовірнішими. А вигадане речення гірше за недочуте слово, бо читається гладко.</p>
+  <p>Вузьке місце перемістилося з розпізнавання на виправлення. Редагування голосом має дві невирішені проблеми: як відрізнити команду від тексту, який треба записати, і як вказати місце, яке треба виправити.</p>
+  <p>Людина торкається екрана біля помилки й водночас промовляє виправлення, а мовна модель сама розбирається, що куди поставити. У тесті з 16 учасниками це скоротило час на завдання на 16,4 %, а натискання клавіатури — на 47,5 % порівняно з найкращим попереднім методом.<sup><a href="#src-tapsay">21</a></sup></p>
+  <p>Надиктований текст ще й виходить <b>багатослівним і розхристаним</b> — тому нові застосунки переписують його мовною моделлю, перш ніж вставити. У щоденниковому дослідженні з таким інструментом, яке тривало від 7 до 10 днів, 9 із 12 авторів до нього пристосувалися.</p>
+  <p>Медіанна оцінка комфорту склала 5 із 7. Ті, в кого сумніви лишилися, назвали старі складнощі: обмірковувати наступне речення, поки говориш, і ставити курсор туди, куди треба.<sup><a href="#src-rambler">22</a></sup></p>
+</section>
+
+<section>
+  <span class="snum">04 · Мислення</span>
+  <h2>Голос пришвидшує язик, а не планування</h2>
+  <p>Якщо голос утричі швидший, чому писати не стає втричі швидше? Бо більша частина письма — зовсім не набір. Дослідження 1983 року, присвячене написанню листів, показало, що <b>близько двох третин часу на складання тексту йде на планування</b> — від 58 % до 78 % залежно від умов.</p>
+  <p>Листи виходили однаково добрими, хоч би як люди їх створювали: писали від руки, диктували чи промовляли.<sup><a href="#src-gould">23</a></sup> Швидший канал виведення пришвидшує лише решту — одну третину.</p>
+  <p>Бен Шнейдерман запропонував пояснення 2000 року: мовлення і короткочасна пам’ять черпають з одного ресурсу, а рух руки йде паралельно з мисленням.</p>
+  <p>В одному з експериментів його лабораторії голосові команди були на 12–30 % швидшими за мишу, але, промовляючи їх уголос, люди гірше запам’ятовували символи, які згодом треба було ввести знову.<sup><a href="#src-shneiderman">24</a></sup></p>
+  <p>Пізніші дослідження вишиковуються вздовж однієї лінії — від переписування до розв’язування задач. Де треба переписати, голос виграє у швидкості й здається легшим. Де треба скласти текст, голос трохи швидший, а відчуття ті самі.</p>
+  <p><b>Де треба розв’язати задачу, голос навантажує розум сильніше.</b> У 50 людей, які працювали з медичним чат-асистентом, мовлення підвищувало виміряне розумове навантаження і на складних, і на простих завданнях.<sup><a href="#src-chen">25</a></sup></p>
+  <p>35 лікарів невідкладної допомоги, які вели документацію голосом, працювали на 18,1 % повільніше і зробили 138 помилок проти 32.<sup><a href="#src-hodgson">26</a></sup></p>
+  <p>Явно виграють ті, чиє вузьке місце — рука або правопис. Учні з порушеннями навчання писали кращі есе з розпізнаванням мовлення, ніж від руки; для інших учнів різниці не було.<sup><a href="#src-macarthur">27</a></sup></p>
+  <figure class="fig js-only">
+    <figcaption>Від переписування до розв’язування: як голос виглядав поруч із набором, завдання за завданням</figcaption>
+    <div class="spec-legend">
+      <span class="lg lg-help">голос кращий</span>
+      <span class="lg lg-same">без різниці</span>
+      <span class="lg lg-hurt">набір кращий</span>
+    </div>
+    <ol class="spec" id="spec"></ol>
+    <p class="fsrc">Ruan<sup><a href="#src-ruan">11</a></sup> · Foley<sup><a href="#src-foley">12</a></sup> · творчі промпти, 2026<sup><a href="#src-creative">28</a></sup> · Riegel et al.<sup><a href="#src-riegel">29</a></sup> · Chen et al.<sup><a href="#src-chen">25</a></sup> · Hodgson et al.<sup><a href="#src-hodgson">26</a></sup> · Shneiderman<sup><a href="#src-shneiderman">24</a></sup> · MacArthur і Cavalier<sup><a href="#src-macarthur">27</a></sup></p>
+  </figure>
+  <p>Розмова зі ШІ лежить на тій самій лінії. У найбільшому дослідженні, яке я знайшов, 919 студентів вступного курсу програмування могли самі вибрати, як писати промпти для ШІ-інструмента.</p>
+  <p><b>Майже дев’ятеро з десяти вибрали лише текст</b> (88,5 %), 4,8 % — лише голос і 6,7 % — обидва способи.</p>
+  <p>Невідредаговані голосові промпти рідше спрацьовували з першої спроби: 35 % проти 52 % у першому завданні та 38 % проти 58 % у другому. Коли студенти правили розшифровку, розрив переставав бути статистично значущим.<sup><a href="#src-riegel">29</a></sup></p>
+  <p>У творчих завданнях голос давав швидший перший промпт і більше довших уточнень, але не змінював ні відчутних зусиль, ні того, як люди оцінювали результати.<sup><a href="#src-creative">28</a></sup></p>
+  <figure class="fig js-only">
+    <figcaption>Промпт спрацював з першої спроби, частка студентів; у кожній голосовій групі — 26–51 студент</figcaption>
+    <div class="prompts" id="prompts"></div>
+    <div class="choice" id="choice"></div>
+    <p class="fsrc">Riegel et al., ITiCSE 2026, n = 919<sup><a href="#src-riegel">29</a></sup></p>
+  </figure>
+  <p>Популярна думка, що міркувати вголос корисно, справджується лише наполовину. За 94 дослідженнями, просте проговорювання думок не змінювало точності й лише сповільнювало роботу; точність зростала, коли людям доводилося <b>пояснювати</b> свої міркування.<sup><a href="#src-fox">30</a></sup></p>
+  <p>Цілком можливо, що пояснювати задачу ШІ-моделі голосом корисно. Але цього ніхто не перевіряв.</p>
+</section>
+
+<section>
+  <span class="snum">05 · Втома</span>
+  <h2>Голос втомлюється дозою. Дозу диктування ніхто не вимірював</h2>
+  <p>Цілий день за клавіатурою втомлює руки. Цілий день розмов втомлює щось інше, і наукової денної норми, скільки говорити безпечно, не існує. Зате добре виміряно, скільки говорять ті, для кого голос — робочий інструмент.</p>
+  <p>У <b>вчителів</b> — професії з високою частотою розладів голосу — голосові складки звучать 23 % робочого часу, проти 13 % поза роботою і 12 % на вихідних; це дані дослідження 31 вчителя 2007 року.<sup><a href="#src-titze">31</a></sup> Новіша група з 26 вчителів дала 16,2 %, 8,4 % і 8,0 %.<sup><a href="#src-eastman">32</a></sup></p>
+  <p>Цей час звучання називають фонацією: до нього входять лише моменти, коли складки справді коливаються, а паузи між словами — ні.</p>
+  <figure class="fig js-only">
+    <figcaption>Частка часу, коли голосові складки коливаються, вчителі</figcaption>
+    <div class="phon" id="phon"></div>
+    <p class="fsrc">Titze et al., 2007<sup><a href="#src-titze">31</a></sup> · Eastman et al., 2023<sup><a href="#src-eastman">32</a></sup></p>
+  </figure>
+  <p>Тіло помічає це швидко. Під час гучного читання об’єктивний маркер голосового зусилля <b>зростає вже за перші 15 хвилин</b>, а люди відчувають це через 30 — так показало дослідження з 10 учасниками.<sup><a href="#src-xue">33</a></sup></p>
+  <p>Після двох годин читання вголос із гучністю, як у класі, 86 вчителів оцінили свій голос як здебільшого відновлений за 4–8 годин; невеликий залишок тримався добу чи довше.</p>
+  <p>Стаття сама собі суперечить щодо точних цифр: в анотації — 90 % за 4–6 годин і повне відновлення за 12–18.<sup><a href="#src-hunter">34</a></sup></p>
+  <figure class="fig js-only">
+    <figcaption>Дві години інтенсивного навантаження на голос, потім відновлення</figcaption>
+    <div class="rec" id="rec"></div>
+    <p class="plotnote">Частка самооціненої втоми, що минула після двох годин гучного читання. Криву проведено через дві точки з анотації статті: 90 % за 4–6 годин і 100 % за 12–18; у висновках самої статті відновлення повільніше — 50 % і 90 %. Для тихого диктування в близький мікрофон кривої немає взагалі; цю смугу навмисно залишено порожньою.</p>
+    <p class="fsrc">Hunter і Titze, 2009, 86 вчителів, самооцінка, цифри з анотації<sup><a href="#src-hunter">34</a></sup> · Xue et al., 2019, n = 10<sup><a href="#src-xue">33</a></sup></p>
+  </figure>
+  <p>Найближча з наявних професій до цілоденної розмови з комп’ютером — <b>оператор кол-центру</b>. За 15 дослідженнями, у 33–68 % операторів у якийсь момент кар’єри бували проблеми з голосом, а в 27 % — на момент обстеження.<sup><a href="#src-nair">35</a></sup></p>
+  <p>Одне опитування нарахувало 6,8 голосового симптому на оператора проти 1,7 у загальній популяції.<sup><a href="#src-piwowarczyk">36</a></sup></p>
+  <p>Прямі дані про користувачів диктування є лише з 1990-х і 2000-х, коли диктувати означало робити паузу після кожного слова.</p>
+  <p>В одній серії випадків п’ятеро людей, які перейшли на розпізнавання мовлення через біль у руках, перенапружили голос; після голосової терапії та коротших сеансів троє з п’яти пішли на поправку.<sup><a href="#src-olson">37</a></sup></p>
+  <p>Записи м’язової активності в 10 людей вказували, що <b>навантаження переміщується, а не зникає</b>: менше постійного напруження в передпліччі й шиї, певною мірою в плечах, і тенденція до більшого — у перснещитоподібному м’язі, одному з м’язів гортані.<sup><a href="#src-juul">38</a></sup></p>
+  <p>Сучасне диктування усуває ймовірну причину — пласке, машинне мовлення з паузою після кожного слова — і наближає мікрофон до рота, тож говорити можна тихо. Це обґрунтована надія, а не встановлений факт.</p>
+  <p>Жодне дослідження не вимірювало голосового навантаження в людей, які користуються сучасними застосунками для диктування чи голосовими режимами ШІ-моделей.</p>
+</section>
+
+<section>
+  <span class="snum">06 · Ніяковість</span>
+  <h2>Справа не в місці. Справа в тому, хто слухає</h2>
+  <p>Уявіть, що питаєте в телефона дорогу вдома, потім в автобусі, потім за робочим столом серед колег. І для більшості відповідь на питання «а чи не ніяково?» зміниться тричі.</p>
+  <p>Найкращі цифри на цю тему дає невеликий британський експеримент. 20 людей віком 23–32 роки дивилися короткі відео, де чоловік на нейтральному тлі шукає щось голосом або текстом, а потім позначали місця й аудиторії, при яких зробили б так само.</p>
+  <p><b>Голос виграв у тексту лише за кермом</b>, де руки зайняті.<sup><a href="#src-efthymiou">39</a></sup></p>
+  <p>Хто слухає, важило більше, ніж де. Наодинці голос був прийнятним у 96 % відповідей; при друзях — у 83 %, при партнері — у 78 %, при родині — у 71 %. При колегах — у 26 %. При незнайомцях — у 16 %.</p>
+  <p>Серед аудиторій лише колеги й незнайомці робили голос значуще менш прийнятним за текст; серед місць — дім, пасажирське сидіння і робота. Спробуйте на собі, перш ніж дивитися на їхні відповіді.</p>
+  <div class="tool js-only" id="accept">
+    <p class="tool-h">Ви заговорили б тут із пристроєм?</p>
+    <p class="tool-lead">Торкніться кожної ситуації один раз — це «так», двічі — «ні». Потім порівняйте з 20 учасниками дослідження.</p>
+    <div class="acc-grid">
+      <div><p class="acc-h">Де</p><ul class="acc" id="accPlaces"></ul></div>
+      <div><p class="acc-h">При кому</p><ul class="acc" id="accPeople"></ul></div>
+    </div>
+    <div class="acc-foot">
+      <button type="button" class="again" id="accShow" data-show="Порівняти з дослідженням" data-hide="Сховати дослідження">Порівняти з дослідженням</button>
+      <p class="labsum" id="accSum" aria-live="polite"></p>
+    </div>
+    <p class="fsrc">Efthymiou і Halvey, 2016, Британія, n = 20, вік 23–32, оцінки за відео<sup><a href="#src-efthymiou">39</a></sup></p>
+  </div>
+  <p>В опитуванні 860 користувачів асистентів <b>сором знижував намір і далі ними користуватися</b> — саме на людях, тоді як гордість підвищувала його всюди.<sup><a href="#src-kowalczuk">40</a></sup></p>
+  <p>Норма все одно зсунулася. В американських опитуваннях частка тих, хто користується голосом у ресторані з друзями, зросла з приблизно 25 % у 2017 році до понад 40 % у 2019-му.</p>
+  <p>Чоловіки вдавалися до голосових команд у 1,54 раза частіше за жінок, а 46 % казали, що їх дратує, коли так роблять інші.<sup><a href="#src-perficient">41</a></sup></p>
+</section>
+
+<section>
+  <span class="snum">07 · Звичка</span>
+  <h2>Спершу минає новизна. Сором’язливість теж минає</h2>
+  <p>Хто купував розумну колонку, пам’ятає перший тиждень: таймери, жарти, музика, запитання заради забави. Потім новизна вивітрюється, і лишається звичка.</p>
+  <p>Як люди змінюються після початку, вимірюють майже лише на розумних колонках удома. У тритижневому дослідженні 7 літнім людям дали Echo Dot. <b>Команд на тиждень поменшало на третину</b>: 59,6, потім 50,1, потім 39,7.</p>
+  <p>Частка музики впала з 23,9 % команд до 2,9 %, а погоди і списків покупок — зросла. Одна учасниця зізналася, що спершу «почувалася дурною, розмовляючи з цією машиною»; наприкінці всі семеро сказали, що почуваються впевненіше й користуватимуться далі.<sup><a href="#src-pradhan">42</a></sup></p>
+  <figure class="fig js-only">
+    <figcaption>Три тижні з розумною колонкою, 7 людей</figcaption>
+    <div class="habit" id="habit"></div>
+    <p class="fsrc">Pradhan, Lazar і Findlater, 2020, США, n = 7, 1049 команд<sup><a href="#src-pradhan">42</a></sup></p>
+  </figure>
+  <p>Довші журнали виглядають інакше. В історії запитів до Google Home 18 родин, у середньому за 58 тижнів, користування лишалося доволі стабільним.</p>
+  <p>Три родини невдовзі після покупки на тижні закинули колонку — через приватність, марність чи звичку, яка не склалася, — а потім повернулися до неї. Родини, що відмовилися назавжди, не досліджували. Керування домом зростало в міру того, як родини купували нові розумні пристрої.<sup><a href="#src-garg">43</a></sup></p>
+  <p>Якщо люди й відходили, то через користь, надійність чи приватність, а не тому, що говорити вдома було ніяково.</p>
+  <p>Огляд 69 статей про соціальну прийнятність нагадує, що прийнятність змінюється, коли люди звикають до взаємодії, але <b>лише три з них стежили за людьми, які пробують інтерфейс у повсякденному житті</b>. У більшості людей просили уявити ситуацію або давали спробувати один раз у лабораторії.<sup><a href="#src-koelle">44</a></sup></p>
+  <p>Це головна прогалина для цієї сторінки. Я не знайшов жодного дослідження, яке стежило б за людьми, що перейшли на диктування на роботі, і тиждень за тижнем вимірювало б, як змінюється їхня ніяковість.</p>
+</section>
+
+<section>
+  <span class="snum">08 · Культура</span>
+  <h2>Культура вирішує, наскільки гучним дозволено бути голосу</h2>
+  <p>Чи відповісте ви на повідомлення голосовим, чи текстом — багато в чому залежить від того, де ви живете.</p>
+  <p>В опитуванні YouGov 2023 року на 17 ринках 66 % воліли надсилати повідомлення текстом і 7 % — аудіо. Найсильніше текст переважав у Британії (83 %), Данії (80 %) і Швеції (78 %), найслабше — в Об’єднаних Арабських Еміратах (38 %); в Іспанії текст обирали 54 %, аудіо — 13 %.<sup><a href="#src-yougov2023">45</a></sup></p>
+  <figure class="fig js-only">
+    <figcaption>Воліють надсилати повідомлення текстом, 2023</figcaption>
+    <div class="pref" id="pref"></div>
+    <p class="fsrc">YouGov, листопад 2023, 500–2001 особа на ринок; показано лише ринки, названі в опублікованому тексті<sup><a href="#src-yougov2023">45</a></sup></p>
+  </figure>
+  <p>Мобільний телефон пройшов через те саме двадцять років тому. 2007 року порівняли студентів із п’яти культур в одному університеті на Гаваях. <b>Розмову телефоном в автобусі</b> студенти з Японії оцінили на 2,53 бала з 5 — проти 3,50 у студентів зі Швеції та 3,44 з материкової частини США.<sup><a href="#src-campbell">46</a></sup></p>
+  <p>Японія виробила чітке правило — жодних розмов у потязі, а листи писати можна — і відійшла від голосу на людях, щойно з’явилася тиха альтернатива.</p>
+  <figure class="fig js-only">
+    <figcaption>Телефонна розмова тут прийнятна: 1 — зовсім не згоден, 5 — цілком згоден, 2007</figcaption>
+    <div class="chips" id="cplace" role="group" aria-label="Телефонна розмова тут прийнятна: 1 — зовсім не згоден, 5 — цілком згоден, 2007"></div>
+    <div class="phone" id="phone"></div>
+    <p class="fsrc">Campbell, 2007, n = 271 студент одного університету на Гаваях, згруповані за культурою походження<sup><a href="#src-campbell">46</a></sup></p>
+  </figure>
+  <p>У США 2006 року 82 % людей хоча б час від часу дратували гучні телефонні розмови на людях, а частка тих, хто стикався з ними часто, до 2012 року впала з 50 % до 39 %.<sup><a href="#src-pew2006">47</a></sup></p>
+  <p>У 2014 році користуватися телефоном на вулиці вважали нормальним 77 % американців, у громадському транспорті — 75 %, у ресторані — 38 %, а на нараді — 5 %.<sup><a href="#src-pew2015">48</a></sup></p>
+  <p>Зсув ішов з обох боків: оточення стало терпимішим, а ті, хто дзвонить, — тихішими. І <b>зупинився він на порозі переговорної</b>.</p>
+</section>
+
+<section>
+  <span class="snum">09 · Офіс</span>
+  <h2>Офіс вчиться шепотіти</h2>
+  <p>У 2026 році ШІ-диктування дісталося офісів, і перші звістки звідти — це історії, а не цифри. Bloomberg описує, як воно переходить від одного столу до сусіднього: з’являються мікрофони на гнучких ніжках, і починається шепіт.<sup><a href="#src-bloomberg">49</a></sup></p>
+  <p>Аналітик, якого цитує Computerworld, називає ніяковість і страх відволікати колег серйозним поведінковим бар’єром.</p>
+  <p>Thumbtack, компанія, що працює повністю віддалено, дала Wispr Flow понад 200 працівникам, і її технічний директор визнає: звикнути говорити вголос, навіть сам на сам у кімнаті, вдалося не одразу.<sup><a href="#src-computerworld">50</a></sup></p>
+  <p>Ринок не чекає, поки зміниться норма. Він <b>робить голос тихішим</b>. Wispr Flow продає режим шепоту й радить говорити приблизно за сантиметр від мікрофона.<sup><a href="#src-wisprWhisper">51</a></sup></p>
+  <p>Дослідники зайшли далі ще 2018 року: SilentVoice від Microsoft розпізнавав короткі команди, вимовлені на вдиху, коли назовні просочується менш ніж 39 децибелів. Тренований мовець отримував помилку в 1,8 % слів, новий — у 7 %.<sup><a href="#src-silentvoice">52</a></sup></p>
+  <p>Люди готові проміняти точність на тишу. В експерименті 2021 року 12 учасників однаково охоче користувалися беззвучним мовленням — артикулювали слова без звуку — і з навмисно доданими 10–15 % помилок, і без них.</p>
+  <p>А от бажання говорити вголос від помилок падало. Усі 12 пояснили це приватністю та безпекою.<sup><a href="#src-pandey">53</a></sup></p>
+  <p class="pull">Найшвидше змінюється не сміливість людей. Найшвидше тихішає сам голос.</p>
+</section>
+
+<section>
+  <span class="snum">10 · Медицина</span>
+  <h2>Єдине місце, де це виміряно в масштабі: лікарські записи</h2>
+  <p>Медицина — єдина галузь, де голосове введення на основі ШІ-моделей виміряли на тисячах людей. Фонові ШІ-писарі слухають прийом і складають чернетку запису.</p>
+  <p>У найбільшому дослідженні, опублікованому в JAMA у квітні 2026 року, близько 1800 користувачів порівняно з 6770 лікарями, які писарем не користувалися, заощадили 16 хвилин документування на 8 годин прийомів — <b>приблизно 10 %</b>.</p>
+  <p>Часу, який ішов на роботу після закінчення зміни, значуще не поменшало. Лише 32 % вмикали писаря більш ніж на половині прийомів.<sup><a href="#src-jama">54</a></sup></p>
+  <p>У рандомізованому дослідженні з 238 лікарями один писар скоротив час на запис на 41 секунду проти 18 секунд у контрольній групі, а інший значущої різниці не дав.<sup><a href="#src-nejmai">55</a></sup> Вигорання знизилося з 51,9 % до 38,8 % за 30 днів — у дослідженні без контрольної групи.<sup><a href="#src-ama">56</a></sup></p>
+  <p>У перевірених вручну записах пропуски траплялися у 18 % випадків, вигадані деталі — в 11,5 %; у 5,3 % була помилка, здатна завдати серйозної шкоди.<sup><a href="#src-notes">57</a></sup> Голос заощаджував радше увагу, ніж хвилини, а платити за це доводиться перевіркою тексту.</p>
+</section>
+
+<section>
+  <span class="snum">11 · Прогалини</span>
+  <h2>Експерименти, яких ще ніхто не поставив</h2>
+  <p>Це не дрібні дірки. Кожна картка нижче — питання, на яке ця сторінка хотіла відповісти числом і не змогла, бо жодне дослідження його не вимірювало.</p>
+  <ul class="gaps">
+    <li><p class="gap-h">Опитування, яке рахує диктування</p><p>Жодне опитування з випадковою вибіркою не вимірює диктування чи голосові розмови зі ШІ як окрему поведінку. Крива зростання тримається на заявах компаній.</p></li>
+    <li><p class="gap-h">Голосова доза диктування</p><p>Ніхто не вимірював час фонації чи голосове напруження в людей, які годинами диктують у сучасних застосунках.</p></li>
+    <li><p class="gap-h">Безпечна норма на день</p><p>Немає науково обґрунтованої межі, скільки годин мовлення на день безпечно для голосу.</p></li>
+    <li><p class="gap-h">Руки після переходу</p><p>Жодне рандомізоване дослідження не показує, що перехід на голос запобігає травмам рук від перенапруження чи лікує їх.</p></li>
+    <li><p class="gap-h">Складання тексту за столом</p><p>Немає контрольованого порівняння письма голосом і на фізичній клавіатурі із сучасним розпізнаванням. Найкращі дані — з 1983 і 1999 років.</p></li>
+    <li><p class="gap-h">День, проведений у розмовах</p><p>Жодне щоденникове чи довготривале дослідження не стежить за людьми, які працюють переважно голосом, і не вимірює їхньої розумової втоми.</p></li>
+    <li><p class="gap-h">Як минає сором’язливість на роботі</p><p>Жодне польове дослідження не стежить тиждень за тижнем за новими користувачами диктування в офісі. Усі довготривалі дослідження звички — про колонки вдома.</p></li>
+  </ul>
+</section>
+
+<section>
+  <span class="snum">12 · Метод</span>
+  <h2>Як це перевірялося і що я залишив поза текстом</h2>
+  <p>Я роблю <b>Speak-Y</b> — застосунок для голосового введення і запису зустрічей, і внизу цієї сторінки є його банер. Це привід читати дослідження з підозрою.</p>
+  <p>Тому кожна цифра, яку компанія навела сама про себе, — зокрема компанії з диктування, що конкурують із моєю, — позначена в тексті й заштрихована на графіках.</p>
+  <p>Дослідження проведено у вересні 2026 року за чотирма напрямами: поширення, швидкість і точність, втома і мислення, соціальна прийнятність. Кожну цифру, де це було можливо, простежено до першоджерела.</p>
+  <p>Малі вибірки залишено, бо інших даних немає, але розмір вибірки завжди вказано поруч із цифрою.</p>
+  <div class="note"><p>Деякі широко повторювані цифри тут не використано: вони не пережили перевірки або означають не те, заради чого їх цитують. Нібито дані «Gartner», що користування Siri за рік упало на 12 %: жодного джерела Gartner знайти не вдалося.</p>
+  <p>«48 % працівників називають розмови найбільш відволікаючим шумом в офісі»: це опитування 689 фінських офісних працівників 2008 року, і про диктування там немає ані слова.</p>
+  <p>«79 % лікарів відмовилися від ШІ-писаря»: постачальник диктування видав контрольну групу з дослідження JAMA — тих, хто писарем не користувався, — за відмовників. І славнозвісне твердження, що лише 3 % людей користувалися Siri на людях: його оригінальної сторінки вже не існує.</p></div>
+  <p>Моє власне прочитання всієї картини — і це думка: <b>диктування стане нормою вдома, в машині й у кімнаті, де ти сам</b>, лишиться предметом суперечок в опенспейсі й не з’явиться на нарадах — так само, як це сталося з телефонною розмовою. Змінити це здатні не сміливіші люди, а тихіший голос.</p>
+</section>
+
+<section class="sources" id="sources">
+  <h2>Джерела</h2>
+  <ol>
+    <li id="src-ssrsUS">SSRS / Edison Research, The Infinite Dial: володіння розумними колонками у Великій Британії та США, 2021–2025. <a href="https://ssrs.com/insights/uk-smart-speaker-ownership-outpaces-u-s/">ssrs.com/insights/uk-smart-speaker-ownership-outpaces-u-s/</a></li>
+    <li id="src-ssrsUK">SSRS / Edison Research, The Infinite Dial UK 2025. <a href="https://ssrs.com/insights/the-infinite-dial-uk-2025/">ssrs.com/insights/the-infinite-dial-uk-2025/</a></li>
+    <li id="src-smartAudio">NPR і Edison Research, The Smart Audio Report 2022, за повідомленням audioXpress. <a href="https://audioxpress.com/news/new-2022-smart-audio-report-from-npr-edison-research-shows-slowing-smart-speaker-and-voice-assistant-adoption">audioxpress.com/news/new-2022-smart-audio-report-from-npr…</a></li>
+    <li id="src-amazonLoss">GeekWire, 2024, про матеріал The Wall Street Journal щодо збитків підрозділу пристроїв Amazon. <a href="https://www.geekwire.com/2024/report-details-financial-pressure-on-amazon-alexa-confirms-plans-for-paid-tier-and-ai-revamp/">geekwire.com/2024/report-details-financial-pressure-on-am…</a></li>
+    <li id="src-wispr">TechCrunch, листопад 2025 і 17 серпня 2026: раунди фінансування та оцінка Wispr. Дані компанії. <a href="https://techcrunch.com/2026/08/17/wispr-raises-280m-at-2b-valuation-as-it-looks-beyond-dictation/">techcrunch.com/2026/08/17/wispr-raises-280m-at-2b-valuati…</a> · <a href="https://techcrunch.com/2025/11/20/as-its-voice-dectation-app-takes-off-wispr-secures-25m-from-notable-capital/">techcrunch.com/2025/11/20/as-its-voice-dectation-app-take…</a></li>
+    <li id="src-gemini">Search Engine Journal, серпень 2026: Google про щомісячних користувачів Gemini та використання голосу. Дані компанії, методику не вказано. <a href="https://www.searchenginejournal.com/google-gemini-passes-1b-monthly-users-63-now-use-voice/585624/">searchenginejournal.com/google-gemini-passes-1b-monthly-u…</a></li>
+    <li id="src-siri">Om Malik, жовтень 2024, і Search Engine Roundtable, вересень 2026: кількість запитів до Siri на день за словами керівників Apple. <a href="https://om.co/2024/10/23/siri-sucks-even-by-apples-numbers/">om.co/2024/10/23/siri-sucks-even-by-apples-numbers/</a> · <a href="https://www.seroundtable.com/apple-siri-2-5-billion-requests-daily-42060.html">seroundtable.com/apple-siri-2-5-billion-requests-daily-42…</a></li>
+    <li id="src-ssrs2026">SSRS / Edison Research, The Infinite Dial 2026, січень 2026, n = 2050. <a href="https://ssrs.com/insights/the-infinite-dial-2026/">ssrs.com/insights/the-infinite-dial-2026/</a></li>
+    <li id="src-yougov2026">YouGov, лютий 2026, n = 2442: як американці спілкуються у 2026 році. <a href="https://yougov.com/en-us/articles/54176-how-americans-communicate-in-2026-the-rise-of-messaging-ai-trends">yougov.com/en-us/articles/54176-how-americans-communicate…</a></li>
+    <li id="src-whatsapp">Meta Newsroom, березень 2022: голосові повідомлення у WhatsApp. Дані компанії. <a href="https://about.fb.com/news/2022/03/new-voice-message-features-on-whatsapp/">about.fb.com/news/2022/03/new-voice-message-features-on-w…</a></li>
+    <li id="src-ruan">Ruan, Wobbrock, Liou, Ng and Landay. Comparing speech and keyboard text entry for short messages in two languages on touchscreen phones. IMWUT, 2018 (препринт 2016). <a href="https://dl.acm.org/doi/10.1145/3161187">dl.acm.org/doi/10.1145/3161187</a> · <a href="https://arxiv.org/abs/1608.07323">arxiv.org/abs/1608.07323</a></li>
+    <li id="src-foley">Foley, Casiez and Vogel. Comparing smartphone speech recognition and touchscreen typing for composition and transcription. CHI 2020. <a href="https://hal.science/hal-02919659/document">hal.science/hal-02919659/document</a></li>
+    <li id="src-dhakal">Dhakal, Feit, Kristensson and Oulasvirta. Observations on typing from 136 million keystrokes. CHI 2018. <a href="https://userinterfaces.aalto.fi/136Mkeystrokes/resources/chi-18-analysis.pdf">userinterfaces.aalto.fi/136Mkeystrokes/resources/chi-18-a…</a></li>
+    <li id="src-palin">Palin, Feit, Kim, Kristensson and Oulasvirta. How do people type on mobile devices? MobileHCI 2019. <a href="https://userinterfaces.aalto.fi/typing37k/resources/Mobile_typing_study.pdf">userinterfaces.aalto.fi/typing37k/resources/Mobile_typing…</a></li>
+    <li id="src-karat">Karat, Halverson, Horn and Karat. Patterns of entry and correction in large vocabulary continuous speech recognition systems. CHI 1999. <a href="https://dl.acm.org/doi/10.1145/302979.303160">dl.acm.org/doi/10.1145/302979.303160</a></li>
+    <li id="src-openasr">Srivastav et al. Open ASR Leaderboard, жовтень 2025. <a href="https://arxiv.org/html/2510.06961v1">arxiv.org/html/2510.06961v1</a></li>
+    <li id="src-msHuman">Microsoft Research, 2017: віха в розпізнаванні розмовного мовлення, ретельна професійна розшифровка — 5,1 %. <a href="https://www.microsoft.com/en-us/research/blog/microsoft-researchers-achieve-new-conversational-speech-recognition-milestone/">microsoft.com/en-us/research/blog/microsoft-researchers-a…</a></li>
+    <li id="src-edacc">Sanabria et al. The Edinburgh International Accents of English Corpus (EdAcc). ICASSP 2023. <a href="https://arxiv.org/abs/2303.18110">arxiv.org/abs/2303.18110</a></li>
+    <li id="src-koenecke">Koenecke et al. Racial disparities in automated speech recognition. PNAS, 2020. <a href="https://www.pnas.org/doi/10.1073/pnas.1915768117">pnas.org/doi/10.1073/pnas.1915768117</a></li>
+    <li id="src-careless">Koenecke, Choi, Mei, Schellmann and Sloane. Careless Whisper: speech-to-text hallucination harms. FAccT 2024. <a href="https://arxiv.org/abs/2402.08021">arxiv.org/abs/2402.08021</a></li>
+    <li id="src-tapsay">Zhao et al., CHI 2025: Tap&amp;Say — виправлення надиктованого тексту дотиком і голосом за допомогою мовної моделі, n = 16. <a href="https://dl.acm.org/doi/10.1145/3706598.3713376">dl.acm.org/doi/10.1145/3706598.3713376</a></li>
+    <li id="src-rambler">Rambler in the wild, CHI Extended Abstracts 2025: щоденникове дослідження письма голосом із мовною моделлю тривалістю від 7 до 10 днів, n = 12. Продовжує Lin et al., Rambler, CHI 2024. <a href="https://arxiv.org/html/2502.05612v1">arxiv.org/html/2502.05612v1</a></li>
+    <li id="src-gould">Gould, Conti and Hovanyecz. Composing letters with a simulated listening typewriter. Communications of the ACM, 1983. <a href="https://oandre.gal/files/2015/11/Composing-Letters-long-version.pdf">oandre.gal/files/2015/11/Composing-Letters-long-version.pdf</a></li>
+    <li id="src-shneiderman">Shneiderman. The limits of speech recognition. Communications of the ACM, 2000. <a href="https://www.cs.umd.edu/users/ben/papers/Shneiderman2000limits.pdf">cs.umd.edu/users/ben/papers/Shneiderman2000limits.pdf</a></li>
+    <li id="src-chen">Chen, Lyell, Laranjo and Magrabi. Effect of speech recognition on problem solving and recall in consumer digital health tasks. JMIR, 2020, n = 50. <a href="https://pubmed.ncbi.nlm.nih.gov/32442129/">pubmed.ncbi.nlm.nih.gov/32442129/</a></li>
+    <li id="src-hodgson">Hodgson, Magrabi and Coiera. Efficiency and safety of speech recognition for documentation in the electronic health record. JAMIA, 2017, n = 35. <a href="https://pubmed.ncbi.nlm.nih.gov/29016971/">pubmed.ncbi.nlm.nih.gov/29016971/</a></li>
+    <li id="src-macarthur">MacArthur and Cavalier, Exceptional Children, 2004: диктування і розпізнавання мовлення як адаптація на письмових тестах, n = 31. <a href="https://eric.ed.gov/?id=EJ696633">eric.ed.gov/?id=EJ696633</a></li>
+    <li id="src-creative">Rathore, Billakanti, Ceha and Henderson. A comparison of speech and typing input for creative generative AI tasks. ACM CUI 2026, n = 40. <a href="https://doi.org/10.1145/3816046.3816224">doi.org/10.1145/3816046.3816224</a></li>
+    <li id="src-riegel">Riegel, Hua, Denny, Pădurean, Leinonen, Prather and Singla. Say What? Examining text and voice input modalities for prompt-based programming. ITiCSE 2026. <a href="https://arxiv.org/abs/2607.05808">arxiv.org/abs/2607.05808</a></li>
+    <li id="src-fox">Fox, Ericsson and Best. Do procedures for verbal reporting of thinking have to be reactive? Psychological Bulletin, 2011. <a href="https://pubmed.ncbi.nlm.nih.gov/21090887/">pubmed.ncbi.nlm.nih.gov/21090887/</a></li>
+    <li id="src-titze">Titze, Hunter and Švec. Voicing and silence periods in daily and weekly vocalizations of teachers. JASA, 2007. <a href="https://pubmed.ncbi.nlm.nih.gov/17297801/">pubmed.ncbi.nlm.nih.gov/17297801/</a></li>
+    <li id="src-eastman">Eastman et al., Perspectives of the ASHA Special Interest Groups, 2023: фонація вчителів на роботі та поза нею, n = 26. <a href="https://pubmed.ncbi.nlm.nih.gov/38312372/">pubmed.ncbi.nlm.nih.gov/38312372/</a></li>
+    <li id="src-xue">Xue et al., Journal of Voice, 2019: голосове зусилля протягом години гучного читання, n = 10. <a href="https://pubmed.ncbi.nlm.nih.gov/31543208/">pubmed.ncbi.nlm.nih.gov/31543208/</a></li>
+    <li id="src-hunter">Hunter and Titze, Annals of Otology, Rhinology &amp; Laryngology, 2009: відновлення після двогодинного голосового навантаження, n = 86. <a href="https://pubmed.ncbi.nlm.nih.gov/19663377/">pubmed.ncbi.nlm.nih.gov/19663377/</a></li>
+    <li id="src-nair">Nair et al., Journal of Voice, 2024 (онлайн 2021): систематичний огляд проблем із голосом в операторів кол-центрів, 15 досліджень. <a href="https://pubmed.ncbi.nlm.nih.gov/34474937/">pubmed.ncbi.nlm.nih.gov/34474937/</a></li>
+    <li id="src-piwowarczyk">Piwowarczyk et al., Journal of Voice, 2012: голосові симптоми в операторів кол-центрів, n = 157. <a href="https://pubmed.ncbi.nlm.nih.gov/21704491/">pubmed.ncbi.nlm.nih.gov/21704491/</a></li>
+    <li id="src-olson">Olson, Cruz, Izdebski and Baldwin, Ear, Nose &amp; Throat Journal, 2004: п’ять випадків перенапруження голосу після переходу на програми розпізнавання мовлення. <a href="https://pubmed.ncbi.nlm.nih.gov/15086016/">pubmed.ncbi.nlm.nih.gov/15086016/</a></li>
+    <li id="src-juul">Juul-Kristensen et al., Ergonomics, 2004: м’язова активність під час роботи за комп’ютером із розпізнаванням мовлення, n = 10. <a href="https://pubmed.ncbi.nlm.nih.gov/14660208/">pubmed.ncbi.nlm.nih.gov/14660208/</a></li>
+    <li id="src-efthymiou">Efthymiou and Halvey. Evaluating the social acceptability of voice based smartwatch search. AIRS 2016. <a href="https://strathprints.strath.ac.uk/57622/1/Efthymiou_Halvey_AIRS2016_Social_acceptability_of_voice_based_smartwatch_search.pdf">strathprints.strath.ac.uk/57622/1/Efthymiou_Halvey_AIRS20…</a></li>
+    <li id="src-kowalczuk">Kowalczuk and Musial, Computers in Human Behavior Reports, 2024: самосвідомі емоції та подальше користування голосовими асистентами, n = 860. <a href="https://www.sciencedirect.com/science/article/pii/S2451958824000836">sciencedirect.com/science/article/pii/S2451958824000836</a></li>
+    <li id="src-perficient">Voicebot.ai, березень 2019, про опитування Perficient щодо використання голосу на людях, n = 1719. <a href="https://voicebot.ai/2019/03/05/consumers-becoming-more-comfortable-using-voice-commands-in-public-especially-men/">voicebot.ai/2019/03/05/consumers-becoming-more-comfortabl…</a></li>
+    <li id="src-pradhan">Pradhan, Lazar and Findlater. Use of intelligent voice assistants by older adults with low technology use. TOCHI, 2020. <a href="https://thatlab.umd.edu/papers/2020_UseOf.pdf">thatlab.umd.edu/papers/2020_UseOf.pdf</a></li>
+    <li id="src-garg">Garg and Sengupta. He is just like me: a study of the long-term use of smart speakers by parents and children. IMWUT, 2020. <a href="https://ischool.syracuse.edu/wp-content/uploads/2020/06/He-Is-Just-Like-Me-A-Study-of-the-Long-Term-Use-of-Smart-Speakers-by-Parents-and-Children.pdf">ischool.syracuse.edu/wp-content/uploads/2020/06/He-Is-Jus…</a></li>
+    <li id="src-koelle">Koelle, Ananthanarayan and Boll. Social acceptability in HCI: a survey of methods, measures and design strategies. CHI 2020. <a href="https://dl.acm.org/doi/10.1145/3313831.3376162">dl.acm.org/doi/10.1145/3313831.3376162</a></li>
+    <li id="src-yougov2023">YouGov, листопад 2023: do consumers prefer sending and receiving messages in audio or text form? 17 ринків. <a href="https://yougov.com/articles/48604-do-consumers-prefer-sending-and-receiving-messages-in-audio-or-text-form">yougov.com/articles/48604-do-consumers-prefer-sending-and…</a></li>
+    <li id="src-campbell">Campbell. Perceptions of mobile phone use in public settings: a cross-cultural comparison. International Journal of Communication, 2007. <a href="https://ijoc.org/index.php/ijoc/article/download/169/112">ijoc.org/index.php/ijoc/article/download/169/112</a></li>
+    <li id="src-pew2006">Pew Research Center, 2006, і повторне опитування 2013 року: гучні телефонні розмови на людях. <a href="https://www.pewresearch.org/internet/2006/04/03/americans-and-their-cell-phones-4/">pewresearch.org/internet/2006/04/03/americans-and-their-c…</a> · <a href="https://www.pewresearch.org/short-reads/2013/01/17/fewer-frequently-hear-people-being-loud-and-annoying-on-cell-phones/">pewresearch.org/short-reads/2013/01/17/fewer-frequently-h…</a></li>
+    <li id="src-pew2015">Pew Research Center, 2015: погляди американців на мобільний етикет, опитування 2014 року. <a href="https://www.pewresearch.org/internet/2015/08/26/americans-views-on-mobile-etiquette/">pewresearch.org/internet/2015/08/26/americans-views-on-mo…</a></li>
+    <li id="src-bloomberg">Bloomberg, 6 лютого 2026: ШІ для перетворення голосу на текст дає офісним працівникам говорити замість друкувати. <a href="https://www.bloomberg.com/news/articles/2026-02-06/voice-to-text-ai-lets-office-workers-talk-instead-of-type">bloomberg.com/news/articles/2026-02-06/voice-to-text-ai-l…</a></li>
+    <li id="src-computerworld">Computerworld, липень 2026: як на роботі поширюються ШІ-інструменти для диктування. <a href="https://www.computerworld.com/article/4193378/talk-talk-talk-the-rise-of-ai-dictation-tools-at-work.html">computerworld.com/article/4193378/talk-talk-talk-the-rise…</a></li>
+    <li id="src-wisprWhisper">Wispr Flow: шепіт в опенспейсі. Сторінка постачальника. <a href="https://wisprflow.ai/workflow/whispering-in-an-open-office">wisprflow.ai/workflow/whispering-in-an-open-office</a></li>
+    <li id="src-silentvoice">Fukumoto. SilentVoice: unnoticeable voice input by ingressive speech. Microsoft Research, UIST 2018. <a href="https://www.microsoft.com/en-us/research/publication/silentvoice-unnoticeable-voice-input-by-ingressive-speech/">microsoft.com/en-us/research/publication/silentvoice-unno…</a></li>
+    <li id="src-pandey">Pandey, Hasan and Arif. Acceptability of speech and silent speech input methods in private and public. CHI 2021. <a href="https://www.asarif.com/pub/Pandey_CHI2021_Silent_Speech_Acceptability.pdf">asarif.com/pub/Pandey_CHI2021_Silent_Speech_Acceptability…</a></li>
+    <li id="src-jama">Mass General Brigham і STAT, квітень 2026, про дослідження в JAMA щодо фонових ШІ-писарів у п’яти академічних центрах. <a href="https://news.massgeneralbrigham.org/en/ai-scribes-linked-to-modest-reductions-in-ehr-documentation-time">news.massgeneralbrigham.org/en/ai-scribes-linked-to-modes…</a> · <a href="https://www.statnews.com/2026/04/01/ai-ambient-scribes-modest-time-savings-clinical-documentation/">statnews.com/2026/04/01/ai-ambient-scribes-modest-time-sa…</a></li>
+    <li id="src-nejmai">Рандомізоване дослідження фонових ШІ-писарів в UCLA. NEJM AI, 2025, n = 238. <a href="https://ai.nejm.org/doi/abs/10.1056/AIoa2501000">ai.nejm.org/doi/abs/10.1056/AIoa2501000</a></li>
+    <li id="src-ama">American Medical Association, 2025: фонові ШІ-писарі та вигорання лікарів, n = 263. <a href="https://www.ama-assn.org/practice-management/physician-health/how-much-can-ambient-ai-scribes-help-cut-doctor-burnout">ama-assn.org/practice-management/physician-health/how-muc…</a></li>
+    <li id="src-notes">Taylor et al. Quality of clinical notes created by ambient listening generative AI. JMIR Medical Informatics, 2026, 356 записів, перевірених лікарями. PubMed 41996389. <a href="https://pubmed.ncbi.nlm.nih.gov/41996389/">pubmed.ncbi.nlm.nih.gov/41996389/</a></li>
+  </ol>
+  <p class="fsrc">Дослідження проведено у вересні 2026 року. Там, де джерело — компанія, яка розповідає сама про себе, текст про це попереджає, а на графіках такі дані заштриховано.</p>
+  <p class="fsrc transnote">Перекладено з англійського оригіналу. Назви досліджень і джерел залишено англійською. Фразу в досліді з помилками розпізнавання написано наново, зі своїми недочуваннями. Де важливе точне формулювання джерела, звіряйтеся з документами за посиланнями вище.</p>
+</section>
+
+<aside class="sy-strip" aria-label="Speak-Y">
+  <span class="sy-brand">
+    <img class="sy-icon" src="../../../images/icons/speak-y.webp" alt="" width="48" height="48" loading="lazy" decoding="async">
+    <span class="sy-name">Speak-<i>Y</i></span>
+  </span>
+  <p><b>Голосове введення і запис зустрічей.</b> Одна гаряча клавіша, будь-який застосунок, 67+ мов.</p>
+  <a class="sy-go" href="https://speak-y.com/invite/33BW7" target="_blank" rel="noopener">30 днів безкоштовно <span aria-hidden="true">→</span></a>
+</aside>
+
+</div>
+</main>
+
+<footer>
+  <span>© 2026 Aleksei Grebenkin</span>
+  <a class="to-top" href="/">← назад на avgrebenkin.com</a>
+</footer>
+
+<script src="../../shell.js?v=5"></script>
+<script>
+var DATA = {"survey":[{"k":"usSpeaker","a":33,"ay":2021,"b":35,"by":2025,"src":"ssrsUS"},{"k":"ukSpeaker","a":25,"ay":2021,"b":45,"by":2025,"src":"ssrsUK"},{"k":"genai","b":57,"by":2026,"src":"ssrs2026"},{"k":"vmsg","b":10,"by":2026,"src":"yougov2026"}],"vendor":[{"k":"siri","a":1.5,"ay":2024,"b":2.5,"by":2026,"unit":"bnDay","plus":true,"src":"siri"},{"k":"wispr","a":0.7,"ay":2025,"b":2.0,"by":2026,"unit":"usdBn","src":"wispr"},{"k":"gemini","b":63,"by":2026,"unit":"pct","src":"gemini"}],"rates":[{"k":"ruanV","v":153,"who":"v"},{"k":"foleyV","v":116.5,"who":"v"},{"k":"desk","v":52,"who":"k"},{"k":"ruanK","v":52,"who":"k"},{"k":"phone","v":36.2,"who":"k"},{"k":"foleyK","v":35.1,"who":"k"}],"foley":{"v":{"prep":10.96,"total":20.8,"rate":116.5},"k":{"prep":5.28,"total":29.2,"rate":35.1}},"wer":[{"k":"clean","v":2.7},{"k":"human","v":5.1},{"k":"best","v":5.63},{"k":"whisper","v":7.44},{"k":"white","v":19},{"k":"accent","v":19.7},{"k":"black","v":35}],"spectrum":[{"k":"copy","e":1,"n":48,"y":2018},{"k":"compose","e":1,"n":28,"y":2020},{"k":"creative","e":0,"n":40,"y":2026},{"k":"code","e":-1,"n":919,"y":2026},{"k":"problem","e":-1,"n":50,"y":2020},{"k":"ehr","e":-1,"n":35,"y":2017},{"k":"memory","e":-1,"n":16,"y":1993},{"k":"ld","e":1,"n":31,"y":2004}],"prompts":[{"p":1,"text":52,"raw":35,"edit":38},{"p":2,"text":58,"raw":38,"edit":50},{"p":3,"text":36,"raw":31,"edit":26}],"choice":{"text":88.5,"voice":4.8,"both":6.7},"phon":[{"k":"work","a":23,"b":16.2},{"k":"off","a":13,"b":8.4},{"k":"weekend","a":12,"b":8.0}],"accept":{"places":[{"k":"home","v":90,"t":98},{"k":"street","v":47,"t":58},{"k":"driving","v":38,"t":12},{"k":"passenger","v":35,"t":67},{"k":"work","v":22,"t":51},{"k":"pub","v":20,"t":34}],"people":[{"k":"alone","v":96,"t":98},{"k":"friends","v":83,"t":84},{"k":"partner","v":78,"t":77},{"k":"family","v":71,"t":68},{"k":"colleagues","v":26,"t":48},{"k":"strangers","v":16,"t":47}]},"habit":{"cmd":[59.6,50.1,39.7],"music":[23.9,8.8,2.9]},"campbell":{"cultures":["us","hawaii","japan","taiwan","sweden"],"bus":[3.44,3.39,2.53,3.37,3.5],"cinema":[1.36,1.47,1.76,2.21,1.28],"sidewalk":[4.0,3.73,3.34,3.76,4.08]},"textPref":[{"k":"uk","v":83},{"k":"dk","v":80},{"k":"se","v":78},{"k":"us","v":68},{"k":"all","v":66},{"k":"id","v":66},{"k":"es","v":54},{"k":"ae","v":38}]};
+var T = {"survey":{"usSpeaker":"Має розумну колонку, США","ukSpeaker":"Має розумну колонку, Британія","genai":"Хоч раз користувалися генеративним ШІ-асистентом, США, 12+","vmsg":"Голосові повідомлення кілька разів на тиждень, дорослі США"},"vendor":{"siri":"Запитів до Siri на день","wispr":"Оцінка Wispr Flow","gemini":"Щомісячні користувачі Gemini, які «користуються голосом»"},"surveyH":"Незалежні опитування","vendorH":"Компанії про себе","bnDay":"{n} млрд","usdBn":"{n} млрд $","plus":"{n}+","times":"×{n}","noMethod":"методику не вказано","rates":{"ruanV":"Голос, переписування фраз (Ruan)","foleyV":"Голос, складання, під час мовлення (Foley)","desk":"Фізична клавіатура, в середньому (Dhakal)","ruanK":"Клавіатура телефона, переписування (Ruan)","phone":"Клавіатура телефона, в середньому (Palin)","foleyK":"Клавіатура телефона, складання (Foley)"},"wpm":"{n} сл./хв","youType":"Ви надрукували","youSpeak":"Ви промовили","you":"Ви","waiting":"—","ratioYou":"Ваша стеля: говорите ви <b>у {r} раза</b> швидше, ніж друкуєте. Якщо після роздумів і виправлень збережуться ті самі 40 % співвідношення, що й в експерименті Фолі, диктування буде для вас <b>приблизно в {s} раза</b> швидшим.","ratioSlow":"Ви друкуєте приблизно так само швидко, як говорите, або й швидше. Швидкості голос вам майже не додасть; його козирі для вас — зручність і відпочинок для рук.","typedWrong":"Деякі слова відрізняються від речення; швидкість однаково зараховано.","tooShort":"Це надто швидко, щоб прочитати все речення. Спробуйте ще раз.","prep":"Роздуми до першого слова","entry":"Мовлення чи набір, разом із виправленнями","voice":"Голос","keys":"Клавіатура","sec":"{n} с","wer":{"clean":"Чиста читана американська англійська, Whisper","human":"Ретельна професійна розшифровка","best":"Найкраща модель, відкритий рейтинг","whisper":"Whisper large-v3, відкритий рейтинг","white":"Білі мовці, 5 комерційних систем, 2020","accent":"Розмова з акцентом, Whisper","black":"Чорношкірі мовці, 5 комерційних систем, 2020"},"werErrors":"{e} з {n} слів з помилкою","werWords":[["Будь","Буде",19],["ласка,","каска,",11],["перенеси","принеси",7],["нараду","на раду",14],["щодо","щодня",16],["бюджету","буфету",2],["з","із",23],["Анною","Ганною",4],["з","в",24],["вівторка","відерка",8],["на","нам",21],["п’ятницю","п’яницю",1],["о","а",26],["десятій","дев’ятій",3],["ранку","банку",13],["і","ну",20],["попроси","попаси",6],["команду","комоду",9],["дизайнерів","динозаврів",10],["принести","пронести",17],["свіжі","свічі",12],["цифри","шифри",15],["для","дня",22],["запуску","закуски",5],["нового","новому",25],["продукту.","продукти.",18]],"hallu":"Дякую за перегляд!","spec":{"copy":"Переписування коротких фраз: приблизно втричі швидше, нижче навантаження за всіма шістьма шкалами","compose":"Складання коротких повідомлень: загалом приблизно в 1,4 раза швидше, навантаження те саме","creative":"Творчі промпти для ШІ: швидші й довші, ті самі зусилля й ті самі результати","code":"Промпти для програмування, голос без правок: рідше спрацьовували з першої спроби","problem":"Розв’язування задач із чат-асистентом: вище розумове навантаження","ehr":"Лікарі невідкладної допомоги, медичні записи: на 18,1 % повільніше, 138 помилок проти 32","memory":"Голосові команди замість миші: швидше, але страждала пам’ять","ld":"Есе учнів із порушеннями навчання: краще, ніж від руки"},"specCopyEnd":"переписування","specThinkEnd":"розв’язування","specExtra":"інша група","nPeople":"n = {n}","nNa":"n не вказано","prompt":"Завдання {p}","pText":"Надруковано","pRaw":"Голос, без правок","pEdit":"Голос, з правками","choiceH":"Як 919 студентів вирішили писати","cText":"лише текст","cVoice":"лише голос","cBoth":"обидва","phon":{"work":"На роботі","off":"Поза роботою","weekend":"Вихідні"},"phonA":"31 вчитель, 2007","phonB":"26 вчителів, 2023","recLoad":"2 год інтенсивного навантаження","rec90":"90 % відновлення","rec100":"повне відновлення","recHours":"години","recUnknown":"тихе диктування: не виміряно","places":{"home":"Удома","street":"На вулиці","driving":"За кермом","passenger":"Пасажиром в авто","work":"На роботі","pub":"У пабі"},"people":{"alone":"Наодинці","friends":"Друзі","partner":"Партнер","family":"Родина","colleagues":"Колеги","strangers":"Незнайомці"},"yes":"так","no":"ні","voiceOk":"голосом — так","textOk":"текстом — так","acceptSum":"Ви заговорили б у <b>{y} з {n}</b> ситуацій. У дослідженні голос був прийнятним приблизно в половині всіх відповідей — <b>десь у 6 з 12</b>.","acceptNone":"Спершу дайте відповідь для кількох ситуацій — або порівняйте одразу.","acceptRow":"у дослідженні голос прийнятний у {v} відповідей, текст — у {t}","habitCmd":"Команд на тиждень","habitMusic":"Музика, частка команд","habitConf":"Наприкінці почувалися впевненіше","week":"Тиждень {n}","sevenOfSeven":"7 із 7","cultures":{"us":"Материкова частина США","hawaii":"Гаваї","japan":"Японія","taiwan":"Тайвань","sweden":"Швеція"},"cplaces":{"bus":"В автобусі","cinema":"У кінотеатрі","sidewalk":"На тротуарі"},"pref":{"uk":"Британія","dk":"Данія","se":"Швеція","us":"США","all":"Усі 17 ринків","id":"Індонезія","es":"Іспанія","ae":"ОАЕ"},"srcShort":"Джерело","copied":"Скопійовано","copyManual":"Виділіть і скопіюйте","ratioLoss":"Говорите ви в {r} раза швидше, ніж друкуєте. Але з тими самими втратами на роздуми й виправлення, що й в експерименті Фолі, <b>диктування не заощадило б вам нічого</b>.","tooFast":"Так швидко не друкує ніхто — мабуть, текст вставлено або його підставило автозаповнення. Надрукуйте речення самі.","holdReady":"Готово: натисніть і тримайте, читайте, відпустіть","holdNow":"Читаєте… відпустіть на останньому слові","holdAgain":"Готово. Затисніть ще раз, щоб переміряти","typeMore":"Спершу надрукуйте все речення, а тоді натисніть Enter.","decimal":",","percent":"{n} %","tldrText":"Тихе повернення голосу\n\nЩо кажуть дослідження про те, щоб говорити з комп’ютером замість друкувати.\n\n— Асистенти застигли. Диктування злетіло — принаймні за власними словами. Розумна колонка у США: 33 % людей у 2021 році, 35 % у 2025-му. Зростання диктування й голосових розмов зі ШІ видно майже лише з того, що компанії розповідають самі про себе.\n\n— Утричі швидше, коли переписуєш, і приблизно в 1,4 раза — коли складаєш сам. Пишучи власні повідомлення, люди думали перед першим словом удвічі довше, якщо збиралися говорити (11,0 проти 5,3 секунди), а будь-яке виправлення обходилося дорого.\n\n— Що чує машина, залежить від того, хто говорить. На чистій читаній американській англійській помилка в 2,7 % слів, на розмові з акцентом — у 19,7 %. Whisper вигадував фрази приблизно в 1 % розшифровок.\n\n— Голос пришвидшує язик, а не планування. Близько двох третин часу на складання тексту йде на планування. Там, де треба розв’язати задачу, голос навантажує розум сильніше. 88,5 % із 919 студентів-програмістів вирішили друкувати промпти для ШІ-інструмента, а не диктувати їх.\n\n— Голос втомлюється дозою, а дозу диктування ніхто не вимірював. Фізичний маркер голосового напруження зростає вже за 15 хвилин гучного читання, а відчувають це люди через 30. У 33–68 % операторів кол-центрів у якийсь момент кар’єри бувають проблеми з голосом.\n\n— Справа не в місці, а в тому, хто слухає. Наодинці голос прийнятний у 96 % відповідей; при колегах — у 26 %, при незнайомцях — у 16 %. Новизна вивітрюється за кілька тижнів, а впевненість тим часом зростає.\n\n— Офіс вчиться шепотіти. Ринок не чекає, поки зміниться норма, — він робить голос тихішим. Так колись і телефонна розмова стала звичною на вулиці, але так і не стала нею на нарадах.\n\nДжерела: Edison Research · YouGov · Pew · експерименти CHI та IMWUT · дослідження голосу · JAMA · заяви компаній, позначені як такі\n\nПовне дослідження, з інтерактивами та всіма джерелами: https://avgrebenkin.com/research/voice-input/uk/","tldrMd":"# Тихе повернення голосу\n\n*Що кажуть дослідження про те, щоб говорити з комп’ютером замість друкувати.*\n\n- **Асистенти застигли. Диктування злетіло — принаймні за власними словами.** Розумна колонка у США: 33 % людей у 2021 році, 35 % у 2025-му. Зростання диктування й голосових розмов зі ШІ видно майже лише з того, що компанії розповідають самі про себе.\n- **Утричі швидше, коли переписуєш, і приблизно в 1,4 раза — коли складаєш сам.** Пишучи власні повідомлення, люди думали перед першим словом удвічі довше, якщо збиралися говорити (11,0 проти 5,3 секунди), а будь-яке виправлення обходилося дорого.\n- **Що чує машина, залежить від того, хто говорить.** На чистій читаній американській англійській помилка в 2,7 % слів, на розмові з акцентом — у 19,7 %. Whisper вигадував фрази приблизно в 1 % розшифровок.\n- **Голос пришвидшує язик, а не планування.** Близько двох третин часу на складання тексту йде на планування. Там, де треба розв’язати задачу, голос навантажує розум сильніше. 88,5 % із 919 студентів-програмістів вирішили друкувати промпти для ШІ-інструмента, а не диктувати їх.\n- **Голос втомлюється дозою, а дозу диктування ніхто не вимірював.** Фізичний маркер голосового напруження зростає вже за 15 хвилин гучного читання, а відчувають це люди через 30. У 33–68 % операторів кол-центрів у якийсь момент кар’єри бувають проблеми з голосом.\n- **Справа не в місці, а в тому, хто слухає.** Наодинці голос прийнятний у 96 % відповідей; при колегах — у 26 %, при незнайомцях — у 16 %. Новизна вивітрюється за кілька тижнів, а впевненість тим часом зростає.\n- **Офіс вчиться шепотіти.** Ринок не чекає, поки зміниться норма, — він робить голос тихішим. Так колись і телефонна розмова стала звичною на вулиці, але так і не стала нею на нарадах.\n\nДжерела: Edison Research · YouGov · Pew · експерименти CHI та IMWUT · дослідження голосу · JAMA · заяви компаній, позначені як такі\n\nПовне дослідження, з інтерактивами та всіма джерелами: <https://avgrebenkin.com/research/voice-input/uk/>"};
+</script>
+<script>
+/* Графики и инструменты страницы. Всё рисуется DOM-ом и SVG на CSS-переменных:
+   тема сайта переключается без перерисовки. Числа — из DATA (structure.json),
+   подписи — из T (strings/<язык>.json). */
+(function(){
+'use strict';
+
+function $(id){ return document.getElementById(id); }
+function el(tag, cls, html){
+  var e=document.createElement(tag);
+  if(cls) e.className=cls;
+  if(html!=null) e.innerHTML=html;
+  return e;
+}
+function fill(s, o){ return String(s).replace(/\{(\w+)\}/g, function(m,k){ return k in o ? o[k] : m; }); }
+function num(v, dp){
+  var s=(dp==null ? String(v) : v.toFixed(dp));
+  return s.replace('.', T.decimal);
+}
+function pct(v, dp){ return fill(T.percent, {n: num(v, dp)}); }
+/* В китайском и японском слова пишутся слитно: предложение не склеивается
+   пробелами, а скорость печати не делится на пять знаков. */
+var CJK=/^(ja|zh)/.test(document.documentElement.lang), SEP=CJK ? '' : ' ';
+function svgEl(tag, attrs){
+  var e=document.createElementNS('http://www.w3.org/2000/svg', tag);
+  for(var k in attrs) e.setAttribute(k, attrs[k]);
+  return e;
+}
+
+/* Полоса со значением. Ширина ставится при появлении на экране, чтобы полоса
+   дорастала до своего значения на глазах читателя, а не стояла готовой. */
+function bar(w, cls, val){
+  var b=el('div','bar');
+  var tr=el('div','bar-track');
+  var f=el('div','bar-fill'+(cls?' '+cls:''));
+  f.style.width='0%'; f.dataset.w=Math.max(0, Math.min(100, w));
+  tr.appendChild(f); b.appendChild(tr);
+  if(val!=null) b.appendChild(el('span','bar-val',val));
+  return b;
+}
+function mark(track, at){
+  var m=el('span','bar-mark'); m.style.left=at+'%'; track.classList.add('marked'); track.appendChild(m);
+}
+function grow(root){
+  root.classList && root.classList.add('in');
+  [].forEach.call(root.querySelectorAll('[data-w]'), function(f){ f.style.width=f.dataset.w+'%'; });
+  [].forEach.call(root.querySelectorAll('[data-h]'), function(f){ f.style.height=f.dataset.h+'%'; });
+}
+var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(!e.isIntersecting) return;
+    e.target.classList.remove('pre'); grow(e.target); io.unobserve(e.target);
+  });
+}, {rootMargin:'0px 0px -12% 0px'}) : null;
+function watch(node){
+  if(!node) return;
+  if(io && !matchMedia('(prefers-reduced-motion: reduce)').matches){ node.classList.add('pre'); io.observe(node); }
+  else grow(node);
+}
+
+/* ── 01: две волны ───────────────────────────────────────────────────── */
+(function(){
+  var root=$('waves'); if(!root) return;
+  var left=el('div','wave-panel'), right=el('div','wave-panel claims');
+  left.appendChild(el('p','wave-h',T.surveyH));
+  right.appendChild(el('p','wave-h',T.vendorH));
+
+  DATA.survey.forEach(function(r){
+    var row=el('div','row');
+    row.appendChild(el('p','row-lab',T.survey[r.k]));
+    var b=el('div','bar'), tr=el('div','bar-track');
+    var f=el('div','bar-fill'); f.style.width='0%'; f.dataset.w=r.b; tr.appendChild(f);
+    if(r.a!=null) mark(tr, r.a);
+    b.appendChild(tr); b.appendChild(el('span','bar-val',pct(r.b)));
+    row.appendChild(b);
+    row.appendChild(el('p','pair', r.a!=null
+      ? r.ay+' <b>'+pct(r.a)+'</b> → '+r.by+' <b>'+pct(r.b)+'</b>'
+      : r.by));
+    left.appendChild(row);
+  });
+
+  function unit(r, v){
+    if(r.unit==='bnDay') return fill(T.bnDay,{n:num(v)});
+    if(r.unit==='usdBn') return fill(T.usdBn,{n:num(v)});
+    return pct(v);
+  }
+  DATA.vendor.forEach(function(r){
+    var row=el('div','row');
+    row.appendChild(el('p','row-lab',T.vendor[r.k]));
+    var shown=unit(r, r.b); if(r.plus) shown=fill(T.plus,{n:shown});
+    if(r.a!=null){
+      var b=el('div','bar'), tr=el('div','bar-track');
+      var fa=el('div','bar-fill claim'); fa.style.width='0%'; fa.dataset.w=100; tr.appendChild(fa);
+      mark(tr, r.a/r.b*100);
+      b.appendChild(tr); b.appendChild(el('span','bar-val',fill(T.times,{n:num(r.b/r.a,1)})));
+      row.appendChild(b);
+      row.appendChild(el('p','pair', r.ay+' <b>'+unit(r,r.a)+'</b> → '+r.by+' <b>'+shown+'</b>'));
+    } else {
+      row.appendChild(bar(r.b,'claim',shown));
+      row.appendChild(el('p','pair', r.by+' · '+T.noMethod));
+    }
+    right.appendChild(row);
+  });
+  root.appendChild(left); root.appendChild(right);
+  watch(root.parentNode);
+})();
+
+/* ── 02: куда ушло время одного сообщения ────────────────────────────── */
+(function(){
+  var root=$('split'); if(!root) return;
+  var F=DATA.foley, max=Math.max(F.v.total, F.k.total);
+  [['v',T.voice],['k',T.keys]].forEach(function(p){
+    var d=F[p[0]], row=el('div','row');
+    row.appendChild(el('p','row-lab',p[1]));
+    var b=el('div','bar'), st=el('div','stack');
+    var a=el('span','prep '+p[0]); a.style.width='0%'; a.dataset.w=d.prep/max*100;
+    var c=el('span','rest '+p[0]); c.style.width='0%'; c.dataset.w=(d.total-d.prep)/max*100;
+    a.title=T.prep+': '+fill(T.sec,{n:num(d.prep,1)});
+    c.title=T.entry+': '+fill(T.sec,{n:num(d.total-d.prep,1)});
+    st.appendChild(a); st.appendChild(c); b.appendChild(st);
+    b.appendChild(el('span','bar-val',fill(T.sec,{n:num(d.total)})));
+    row.appendChild(b);
+    row.appendChild(el('p','pair', T.prep+' <b>'+fill(T.sec,{n:num(d.prep,1)})+'</b>'));
+    root.appendChild(row);
+  });
+  root.appendChild(el('p','split-legend','<span><i></i>'+T.prep+'</span><span><i class="full"></i>'+T.entry+'</span>'));
+  watch(root.parentNode);
+})();
+
+/* ── 02: замер «рот против пальцев» ──────────────────────────────────── */
+/* Два секундомера над одним предложением. Первый идёт от первой клавиши до
+   Enter, второй — пока нажата кнопка, под которую читатель читает то же
+   предложение вслух. Микрофон не включается: страница ничего не слышит, она
+   только меряет время, и из двух времён выходят две скорости. */
+(function(){
+  var box=$('typeBox'); if(!box) return;
+  var phrase=$('phrase').textContent.trim(), chars=phrase.length;
+  var hold=$('holdBtn'), again=$('againBtn'), msg=$('labMsg'), rates=$('rates'), sum=$('labSum');
+  var c1=$('clock1'), c2=$('clock2'), s1=$('step1'), s2=$('step2'), hint=$('holdHint');
+  var res=$('labRes'), rT=$('resType'), rS=$('resSpeak');
+  var t0=0, typed=null, spoken=null, h0=0, pasted=false, raf=0;
+
+  function norm(x){ return x.toLowerCase().replace(/[^\p{L}\p{N}]+/gu,' ').trim(); }
+  /* Слово в скорости печати — это пять знаков: так считают Ruan и Foley.
+     В китайском и японском знак почти слово, и деление на пять занизило бы
+     скорость впятеро; там слова в предложении считает сегментатор браузера. */
+  var perWord=5;
+  if(CJK){
+    var nw=0;
+    try{ nw=Array.from(new Intl.Segmenter(document.documentElement.lang,{granularity:'word'}).segment(phrase))
+      .filter(function(x){ return x.isWordLike; }).length; }catch(e){}
+    perWord = nw ? chars/nw : 2;
+  }
+  function wpm(n, ms){ return (n/perWord)/(ms/60000); }
+  function sec(ms){ return fill(T.sec,{n:num(ms/1000,1)}); }
+  function tick(){
+    if(t0 && typed==null) c1.textContent=sec(performance.now()-t0);
+    if(h0) c2.textContent=sec(performance.now()-h0);
+    if(!((t0 && typed==null) || h0)){ clearInterval(raf); raf=0; }
+  }
+  /* Обычный таймер, а не requestAnimationFrame: тот замирает, когда вкладка
+     в фоне, и секундомер стоял бы на нуле, хотя время идёт. */
+  function run(){ if(!raf) raf=setInterval(tick, 100); }
+
+  function draw(){
+    rates.innerHTML='';
+    var rows=DATA.rates.map(function(r){ return {lab:T.rates[r.k], v:r.v, who:r.who}; });
+    if(typed) rows.push({lab:T.youType, v:typed, who:'k', me:true});
+    if(spoken) rows.push({lab:T.youSpeak, v:spoken, who:'v', me:true});
+    rows.sort(function(a,b){ return b.v-a.v; });
+    var max=Math.max(200, Math.min(260, rows[0].v));
+    rows.forEach(function(r){
+      var row=el('div','row'+(r.me?' me':''));
+      row.appendChild(el('p','row-lab',r.lab));
+      row.appendChild(bar(r.v/max*100, r.who==='k'?'keys':'', fill(T.wpm,{n:num(Math.round(r.v))})));
+      rates.appendChild(row);
+    });
+    grow(rates);
+    res.hidden = !(typed||spoken);
+    rT.textContent = typed ? num(Math.round(typed)) : '—';
+    rS.textContent = spoken ? num(Math.round(spoken)) : '—';
+    sum.innerHTML='';
+    if(typed && spoken){
+      var ratio=spoken/typed, F=DATA.foley;
+      var kept=(F.k.total/F.v.total)/(F.v.rate/F.k.rate);        /* 1.40 из 3.32 */
+      var s_=ratio*kept;
+      sum.innerHTML = ratio<1.15 ? T.ratioSlow
+        : s_<1.05 ? fill(T.ratioLoss,{r:num(ratio,1)})
+        : fill(T.ratioYou,{r:num(ratio,1), s:num(s_,1)});
+    }
+  }
+
+  box.addEventListener('input', function(){ if(!t0 && box.value.length){ t0=performance.now(); run(); } });
+  box.addEventListener('paste', function(){ pasted=true; });
+  box.addEventListener('keydown', function(e){
+    /* Enter, которым китайская или японская раскладка подтверждает иероглиф,
+       не конец набора. */
+    if(e.key!=='Enter' || e.isComposing || e.keyCode===229) return;
+    e.preventDefault();
+    if(!t0 || box.value.trim().length<chars*0.5){ msg.textContent=T.typeMore; return; }
+    var ms=performance.now()-t0, v=wpm(box.value.trim().length, ms);
+    /* Быстрее 220 слов в минуту не печатает никто: это вставка из буфера
+       или автозаполнение, и такое число испортило бы всё сравнение. */
+    if(pasted || v>220){ msg.textContent=T.tooFast; t0=0; pasted=false; box.value=''; c1.textContent=sec(0); return; }
+    typed=v; c1.textContent=sec(ms);
+    msg.textContent = norm(box.value)!==norm(phrase) ? T.typedWrong : '';
+    box.disabled=true; s1.classList.add('done'); s2.classList.remove('off');
+    hold.disabled=false; hint.textContent=T.holdReady; hold.focus();
+    draw();
+  });
+
+  function start(e){
+    if(hold.disabled || h0) return;
+    if(e) e.preventDefault();
+    h0=performance.now(); hold.classList.add('on'); hint.textContent=T.holdNow; run();
+  }
+  function stop(){
+    if(!h0) return;
+    var ms=performance.now()-h0; h0=0; hold.classList.remove('on'); c2.textContent=sec(ms);
+    /* Меньше полутора секунд — это не чтение предложения из 19 слов вслух. */
+    if(ms<1500){ msg.textContent=T.tooShort; hint.textContent=T.holdReady; return; }
+    msg.textContent=''; hint.textContent=T.holdAgain;
+    spoken=wpm(chars, ms); s2.classList.add('done');
+    draw();
+  }
+  hold.addEventListener('pointerdown', function(e){ hold.setPointerCapture && hold.setPointerCapture(e.pointerId); start(e); });
+  hold.addEventListener('pointerup', stop);
+  hold.addEventListener('pointercancel', stop);
+  hold.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+  document.addEventListener('keydown', function(e){
+    if(e.code!=='Space' || e.repeat || hold.disabled) return;
+    var t=e.target; if(t && (t.tagName==='TEXTAREA' || t.tagName==='INPUT')) return;
+    if(!$('lab').contains(t) && t!==document.body) return;
+    start(e);
+  });
+  document.addEventListener('keyup', function(e){ if(e.code==='Space') stop(); });
+
+  again.addEventListener('click', function(){
+    t0=0; typed=null; spoken=null; pasted=false; box.disabled=false; box.value='';
+    hold.disabled=true; hint.textContent=T.holdWait; c1.textContent=sec(0); c2.textContent=sec(0);
+    s1.classList.remove('done'); s2.classList.remove('done'); s2.classList.add('off');
+    msg.textContent=''; draw(); box.focus();
+  });
+  c1.textContent=sec(0); c2.textContent=sec(0);
+  draw();
+  watch($('lab'));
+})();
+
+/* ── 03: лестница ошибок и одно предложение ──────────────────────────── */
+(function(){
+  var root=$('ladder'); if(!root) return;
+  var words=T.werWords, out=$('heard'), cnt=$('heardCount'), hb=$('halluBtn');
+  var cur='whisper', hallu=false;
+  var max=Math.max.apply(null, DATA.wer.map(function(r){ return r.v; }));
+
+  function esc(s){ var d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+  function render(){
+    var r=DATA.wer.filter(function(x){ return x.k===cur; })[0];
+    var n=words.length, e=Math.max(1, Math.round(n*r.v/100));
+    out.innerHTML=words.map(function(w){
+      return w[2]<=e ? '<span class="miss" title="'+esc(w[0])+'">'+esc(w[1])+'</span>' : esc(w[0]);
+    }).join(SEP)+(hallu ? SEP+'<span class="made">'+T.hallu+'</span>' : '');
+    cnt.textContent=fill(T.werErrors,{e:e, n:n});
+    [].forEach.call(root.children, function(b){ b.setAttribute('aria-checked', b.dataset.k===cur ? 'true':'false'); });
+  }
+  DATA.wer.forEach(function(r){
+    var b=el('button','rung');
+    b.type='button'; b.setAttribute('role','radio'); b.dataset.k=r.k;
+    b.appendChild(el('span','',T.wer[r.k]));
+    var tr=el('span','bar-track'), f=el('span','bar-fill'); f.style.width='0%'; f.dataset.w=r.v/max*100;
+    tr.appendChild(f); b.appendChild(tr);
+    b.appendChild(el('span','bar-val',pct(r.v)));
+    b.addEventListener('click', function(){ cur=r.k; render(); });
+    root.appendChild(b);
+  });
+  root.addEventListener('keydown', function(e){
+    if(['ArrowDown','ArrowUp','ArrowRight','ArrowLeft'].indexOf(e.key)<0) return;
+    e.preventDefault();
+    var ks=DATA.wer.map(function(x){ return x.k; }), i=ks.indexOf(cur);
+    i=(i+(e.key==='ArrowDown'||e.key==='ArrowRight'?1:-1)+ks.length)%ks.length;
+    cur=ks[i]; render(); root.children[i].focus();
+  });
+  hb.addEventListener('click', function(){ hallu=!hallu; hb.setAttribute('aria-pressed', hallu?'true':'false'); render(); });
+  render();
+  watch(root.parentNode);
+})();
+
+/* ── 04: спектр задач ────────────────────────────────────────────────── */
+(function(){
+  var root=$('spec'); if(!root) return;
+  root.appendChild(el('li','spec-end',T.specCopyEnd));
+  DATA.spectrum.forEach(function(r){
+    if(r.k==='ld') root.appendChild(el('li','spec-end',T.specThinkEnd));
+    var li=el('li','e'+r.e+(r.k==='ld'?' extra':''));
+    var meta=(r.n ? fill(T.nPeople,{n:r.n.toLocaleString(document.documentElement.lang)}) : T.nNa)+' · '+r.y+(r.k==='ld' ? ' · '+T.specExtra : '');
+    li.innerHTML=T.spec[r.k]+'<small>'+meta+'</small>';
+    root.appendChild(li);
+  });
+  watch(root.parentNode);
+})();
+
+/* ── 04: промпты, 919 студентов ──────────────────────────────────────── */
+(function(){
+  var root=$('prompts'); if(!root) return;
+  var top=70;
+  DATA.prompts.forEach(function(p){
+    var g=el('div','pgroup');
+    g.appendChild(el('h4','',fill(T.prompt,{p:p.p})));
+    var cols=el('div','pcols');
+    [['text',p.text],['raw',p.raw],['edit',p.edit]].forEach(function(c){
+      var col=el('div','pcol '+c[0]);
+      col.appendChild(el('span','',pct(c[1])));
+      var i=el('i'); i.style.height='0%'; i.dataset.h=c[1]/top*100;
+      col.appendChild(i); cols.appendChild(col);
+    });
+    g.appendChild(cols); root.appendChild(g);
+  });
+  var leg=el('p','plegend',
+    '<span><i style="background:var(--keys)"></i>'+T.pText+'</span>'+
+    '<span><i style="background:rgba(var(--voice-rgb),.4)"></i>'+T.pRaw+'</span>'+
+    '<span><i style="background:var(--voice)"></i>'+T.pEdit+'</span>');
+  root.parentNode.insertBefore(leg, root.nextSibling);
+
+  var ch=$('choice'), C=DATA.choice;
+  ch.appendChild(el('p','choice-h',T.choiceH));
+  var cb=el('div','choice-bar');
+  [['c-text',C.text,T.cText],['c-both',C.both,''],['c-voice',C.voice,'']].forEach(function(s){
+    var sp=el('span',s[0], s[2] ? pct(s[1])+' '+s[2] : ''); sp.style.width=s[1]+'%'; cb.appendChild(sp);
+  });
+  ch.appendChild(cb);
+  ch.appendChild(el('p','choice-leg',
+    '<span>'+pct(C.text)+' '+T.cText+'</span><span>'+pct(C.both)+' '+T.cBoth+'</span><span>'+pct(C.voice)+' '+T.cVoice+'</span>'));
+  watch(root.parentNode);
+})();
+
+/* ── 05: время фонации у учителей ────────────────────────────────────── */
+(function(){
+  var root=$('phon'); if(!root) return;
+  var top=30;
+  root.appendChild(el('p','phon-leg',
+    '<span><i style="background:var(--voice)"></i>'+T.phonA+'</span>'+
+    '<span><i style="background:rgba(var(--voice-rgb),.4)"></i>'+T.phonB+'</span>'));
+  DATA.phon.forEach(function(r){
+    var row=el('div','row');
+    row.appendChild(el('p','row-lab',T.phon[r.k]));
+    row.appendChild(bar(r.a/top*100,'',pct(r.a)));
+    row.appendChild(bar(r.b/top*100,'was',pct(r.b,1)));
+    root.appendChild(row);
+  });
+  watch(root.parentNode);
+})();
+
+/* ── 05: нагрузка и восстановление, SVG ──────────────────────────────── */
+/* Рисуется в ширину колонки, а не масштабируется из одной картинки:
+   сжатый до 343 px вид уменьшал подписи до шести пикселей. */
+function responsive(root, draw){
+  var w=0;
+  function go(){
+    var nw=Math.round(root.clientWidth); if(!nw || nw===w) return;
+    w=nw; root.innerHTML=''; draw(Math.max(300, w));
+  }
+  go();
+  var t; window.addEventListener('resize', function(){ clearTimeout(t); t=setTimeout(go, 150); });
+}
+(function(){
+  var root=$('rec'); if(!root) return;
+  var cap=root.parentNode.querySelector('figcaption').textContent;
+  responsive(root, function(W){
+    var H=250, L=44, R=14, Tp=34, B=78;
+    var X=function(h){ return L+(W-L-R)*h/24; }, Y=function(p){ return Tp+(H-Tp-B)*(1-p/100); };
+    var s=svgEl('svg',{viewBox:'0 0 '+W+' '+H, width:W, height:H, role:'img', 'aria-label':cap});
+    var defs=svgEl('defs',{}), pat=svgEl('pattern',{id:'recHatch', width:8, height:8, patternUnits:'userSpaceOnUse', patternTransform:'rotate(45)'});
+    pat.appendChild(svgEl('line',{x1:0,y1:0,x2:0,y2:8,'class':'hatchline'})); defs.appendChild(pat); s.appendChild(defs);
+    s.appendChild(svgEl('rect',{x:X(0),y:Tp,width:X(2)-X(0),height:H-Tp-B,'class':'load'}));
+    s.appendChild(svgEl('rect',{x:X(6),y:Tp,width:X(8)-X(6),height:H-Tp-B,'class':'band'}));
+    s.appendChild(svgEl('rect',{x:X(14),y:Tp,width:X(20)-X(14),height:H-Tp-B,'class':'band'}));
+    s.appendChild(svgEl('line',{x1:L,y1:H-B,x2:W-R,y2:H-B,'class':'axis'}));
+    var step=W<460 ? 8 : 4;
+    for(var h=0; h<=24; h+=step){
+      var t=svgEl('text',{x:X(h),y:H-B+16,'text-anchor':'middle','class':'tick'}); t.textContent=h; s.appendChild(t);
+    }
+    var hl=svgEl('text',{x:W-R,y:H-B+32,'text-anchor':'end','class':'tick'}); hl.textContent=T.recHours; s.appendChild(hl);
+    [0,50,90,100].forEach(function(p){
+      if(W<460 && p===90) return;
+      var t=svgEl('text',{x:L-6,y:Y(p)+4,'text-anchor':'end','class':'tick'}); t.textContent=pct(p); s.appendChild(t);
+    });
+    var path='M'+X(2)+','+Y(0)+' C'+X(3.5)+','+Y(55)+' '+X(5)+','+Y(84)+' '+X(7)+','+Y(90)
+           +' S'+X(13)+','+Y(99)+' '+X(17)+','+Y(100)+' L'+X(24)+','+Y(100);
+    s.appendChild(svgEl('path',{d:path,'class':'curve'}));
+    s.appendChild(svgEl('circle',{cx:X(7),cy:Y(90),r:5,'class':'dot'}));
+    s.appendChild(svgEl('circle',{cx:X(17),cy:Y(100),r:5,'class':'dot'}));
+    function lab(x,y,txt,anchor,cls){ var t=svgEl('text',{x:x,y:y,'text-anchor':anchor||'start','class':'lab'+(cls?' '+cls:'')}); t.textContent=txt; s.appendChild(t); }
+    lab(X(0)+2, Tp-10, T.recLoad, 'start', 'strong');
+    lab(X(7)+9, Y(90)+22, T.rec90, 'start');
+    lab(Math.min(X(17), W-R-4), Tp-10, T.rec100, W<460 ? 'end' : 'middle');
+    s.appendChild(svgEl('rect',{x:L,y:H-B+42,width:W-L-R,height:22,rx:6,'class':'unk'}));
+    lab(L+10, H-B+57, T.recUnknown, 'start', 'strong');
+    root.appendChild(s);
+  });
+  watch(root.parentNode);
+})();
+
+/* ── 06: где и при ком вы бы заговорили ──────────────────────────────── */
+(function(){
+  var P=$('accPlaces'), Q=$('accPeople'); if(!P) return;
+  var ans={}, shown=false, btnShow=$('accShow'), sum=$('accSum');
+  function list(root, rows, names){
+    rows.forEach(function(r){
+      var li=el('li'), b=el('button','acc-btn');
+      b.type='button';
+      b.innerHTML='<span>'+names[r.k]+'</span><span class="ans">·</span>';
+      b.addEventListener('click', function(){
+        var s=ans[r.k]; ans[r.k] = s==null ? 'yes' : s==='yes' ? 'no' : null;
+        b.className='acc-btn'+(ans[r.k] ? ' '+ans[r.k] : '');
+        b.querySelector('.ans').textContent = ans[r.k] ? T[ans[r.k]] : '·';
+        b.setAttribute('aria-pressed', ans[r.k]==='yes' ? 'true' : ans[r.k]==='no' ? 'mixed' : 'false');
+        summary();
+      });
+      b.setAttribute('aria-pressed','false');
+      li.appendChild(b);
+      var st=el('div','acc-study');
+      st.appendChild(bar(r.v,'',pct(r.v)+' '+T.voiceOk));
+      st.appendChild(bar(r.t,'keys',pct(r.t)+' '+T.textOk));
+      li.appendChild(st);
+      root.appendChild(li);
+    });
+  }
+  list(P, DATA.accept.places, T.places);
+  list(Q, DATA.accept.people, T.people);
+  function summary(){
+    var y=0, n=0; for(var k in ans){ if(ans[k]){ n++; if(ans[k]==='yes') y++; } }
+    sum.innerHTML = n ? fill(T.acceptSum,{y:y, n:n}) : (shown ? '' : T.acceptNone);
+  }
+  btnShow.addEventListener('click', function(){
+    shown=!shown;
+    P.classList.toggle('show', shown); Q.classList.toggle('show', shown);
+    btnShow.textContent = shown ? btnShow.dataset.hide : btnShow.dataset.show;
+    if(shown){ grow(P); grow(Q); }
+    summary();
+  });
+  summary();
+  watch($('accept'));
+})();
+
+/* ── 07: три недели с колонкой ───────────────────────────────────────── */
+(function(){
+  var root=$('habit'); if(!root) return;
+  var H=DATA.habit, cap=root.parentNode.querySelector('figcaption').textContent;
+  var plot=el('div','habit-plot'), conf=el('div','habit-conf');
+  conf.innerHTML='<span class="habit-confv">'+T.sevenOfSeven+'</span><span>'+T.habitConf+'</span>';
+  var top_=el('div','habit-top'); top_.appendChild(plot); top_.appendChild(conf); root.appendChild(top_);
+  responsive(plot, function(W){
+    var Ht=220, B=34, top=70, base=Ht-B, hmax=base-40;
+    var gap=Math.max(14, W*0.06), colW=(W-2*gap)/3;
+    var s=svgEl('svg',{viewBox:'0 0 '+W+' '+Ht, width:W, height:Ht, role:'img', 'aria-label':cap});
+    function t(x,y,txt,cls,anchor){ var e=svgEl('text',{x:x,y:y,'class':cls,'text-anchor':anchor||'middle'}); e.textContent=txt; s.appendChild(e); }
+    t(0, 14, T.habitCmd, 'lab', 'start');
+    s.appendChild(svgEl('line',{x1:0,y1:base,x2:W,y2:base,'class':'axis'}));
+    H.cmd.forEach(function(v,i){
+      var x=i*(colW+gap), h=hmax*v/top;
+      s.appendChild(svgEl('rect',{x:x,y:base-h,width:colW,height:h,rx:6,'class':'cmd'}));
+      t(x+colW/2, base-h-8, num(v), 'val');
+      t(x+colW/2, base+18, fill(T.week,{n:i+1}), 'tick');
+    });
+    plot.appendChild(s);
+  });
+  /* Доля музыки — отдельной строкой: на одной оси с числом команд
+     она читалась как третья величина той же шкалы. */
+  var mu=el('div','row habit-music');
+  mu.appendChild(el('p','row-lab',T.habitMusic));
+  H.music.forEach(function(v,i){
+    if(v==null) return;
+    mu.appendChild(bar(v/30*100,'',fill(T.week,{n:i+1})+' · '+pct(v)));
+  });
+  root.appendChild(mu);
+  watch(root.parentNode);
+})();
+
+/* ── 08: текст или голосовое, по странам ─────────────────────────────── */
+(function(){
+  var root=$('pref'); if(!root) return;
+  DATA.textPref.forEach(function(r){
+    var row=el('div','row'+(r.k==='all'?' all':''));
+    row.appendChild(el('p','row-lab',T.pref[r.k]));
+    row.appendChild(bar(r.v,'',pct(r.v)));
+    root.appendChild(row);
+  });
+  watch(root.parentNode);
+})();
+
+/* ── 08: звонок в автобусе, кино и на улице, пять культур ────────────── */
+(function(){
+  var chips=$('cplace'), root=$('phone'); if(!chips) return;
+  var C=DATA.campbell, cur='bus';
+  function render(){
+    root.innerHTML='';
+    var vals=C[cur], min=Math.min.apply(null, vals);
+    C.cultures.forEach(function(k,i){
+      var row=el('div','row'+(vals[i]===min?' low':''));
+      row.appendChild(el('p','row-lab',T.cultures[k]));
+      row.appendChild(bar((vals[i]-1)/4*100,'',num(vals[i],2)));
+      root.appendChild(row);
+    });
+    [].forEach.call(chips.children, function(b){ b.setAttribute('aria-pressed', b.dataset.k===cur?'true':'false'); });
+    requestAnimationFrame(function(){ grow(root); });
+  }
+  ['bus','cinema','sidewalk'].forEach(function(k){
+    var b=el('button','chip',T.cplaces[k]); b.type='button'; b.dataset.k=k;
+    b.addEventListener('click', function(){ cur=k; render(); });
+    chips.appendChild(b);
+  });
+  render();
+  watch(root.parentNode);
+})();
+
+/* ── короткая версия ─────────────────────────────────────────────────── */
+(function(){
+  var dlg=$('tldr'); if(!dlg) return;
+  var timer;
+  $('tldrOpen').addEventListener('click', function(){ dlg.showModal(); });
+  $('tldrClose').addEventListener('click', function(){ dlg.close(); });
+  dlg.addEventListener('click', function(e){ if(e.target===dlg) dlg.close(); });
+  function flash(btn, text){
+    var label=btn.querySelector('span'), was=label.textContent;
+    btn.classList.add('done'); label.textContent=text;
+    clearTimeout(timer);
+    timer=setTimeout(function(){ btn.classList.remove('done'); label.textContent=was; }, 1800);
+  }
+  function copy(btn, text){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ flash(btn, T.copied); }, fallback);
+    } else fallback();
+    function fallback(){
+      var ta=document.createElement('textarea');
+      ta.value=text; ta.setAttribute('readonly',''); ta.style.cssText='position:fixed;top:-1000px';
+      document.body.appendChild(ta); ta.select();
+      var ok=false; try{ ok=document.execCommand('copy'); }catch(e){}
+      ta.remove(); flash(btn, ok ? T.copied : T.copyManual);
+      if(!ok){ var r=document.createRange(); r.selectNodeContents($('tldrDoc'));
+        var sel=getSelection(); sel.removeAllRanges(); sel.addRange(r); }
+    }
+  }
+  [].forEach.call(document.querySelectorAll('[data-tldr-copy]'), function(btn){
+    btn.addEventListener('click', function(){ copy(btn, btn.dataset.tldrCopy==='md' ? T.tldrMd : T.tldrText); });
+  });
+  var doc=$('tldrDoc'), home=doc.parentNode, root=document.documentElement;
+  function restore(){ if(doc.parentNode!==home) home.appendChild(doc); root.removeAttribute('data-print'); }
+  $('tldrPrint').addEventListener('click', function(){
+    document.body.appendChild(doc); root.setAttribute('data-print','tldr'); window.print(); restore();
+  });
+  window.addEventListener('afterprint', restore);
+})();
+
+})();
+
+</script>
+</body>
+</html>

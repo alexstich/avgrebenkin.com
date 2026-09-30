@@ -1,0 +1,536 @@
+{
+  "lang": "tr",
+  "dir": "ltr",
+  "endonym": "Türkçe",
+  "htmlLocale": "tr_TR",
+  "decimal": ",",
+  "ui": {
+    "crumb": "← Research",
+    "langGroup": "Sayfanın dili",
+    "tldrOpen": "Kısaca",
+    "tldrOpenSub": "2 dakika · kopyala veya yazdır",
+    "tldrHead": "Kısa sürüm",
+    "tldrCopyText": "Kopyala",
+    "tldrCopyMd": "Markdown",
+    "tldrPrint": "Yazdır",
+    "tldrClose": "Kapat",
+    "sourcesH": "Kaynaklar",
+    "sourcesNote": "Araştırma Eylül 2026’da yapıldı. Kaynağın kendi şirketi hakkında konuştuğu yerlerde metin bunu açıkça söylüyor, grafikler de o veriyi taralı çiziyor.",
+    "percent": "%{n}",
+    "translationNote": "İngilizce özgün metinden çevrilmiştir. Çalışma ve kaynak başlıkları İngilizce bırakıldı. Tanıma hataları deneyindeki cümle Türkçe olarak, kendi yanlış duymalarıyla yeniden yazıldı. Kaynağın tam ifadesinin önemli olduğu yerlerde yukarıdaki bağlantılardaki belgelere bakın.",
+    "syText": "**Sesle yazma ve toplantı kaydı.** Tek kısayol, her uygulamada, 67+ dil.",
+    "syCta": "30 gün ücretsiz",
+    "backHome": "← avgrebenkin.com’a dön"
+  },
+  "page": {
+    "htmlTitle": "Sesin sessiz dönüşü — konuşmak mı, yazmak mı?",
+    "title": "Sesin sessiz dönüşü",
+    "eyebrow": "Araştırma · Arayüzler · Ekim 2026",
+    "standfirst": "**Sesle giriş geri döndü — ama Alexa olarak değil, dikte ve yapay zekâyla sohbet olarak.** Ne kadar hızlı olduğuna, ne sıklıkla yanlış duyduğuna, insanı ne kadar yorduğuna ve ne kadar mahcup ettiğine dair son iki yılın araştırmalarını, bir de onların dayandığı eski çalışmaları okudum. Sürpriz şu: en hızlı değişen şey, insanların bilgisayarla konuşmaya cesaret etmesi değil. Sesin alçalması.",
+    "disclosure": "**Açıklama.** Speak-Y adlı bir sesle yazma uygulaması geliştiriyorum. Bir sayı, bir şirketin kendisi hakkında verdiği bilgiden geliyorsa metin bunu belirtiyor; grafikler de onu bağımsız verilerden ayırmak için taralı çiziyor.",
+    "byline": "**Aleksei Grebenkin** · Veriler: Edison Research, YouGov, Pew, CHI ve IMWUT deneyleri, PubMed’deki ses bilimi çalışmaları, JAMA, şirket açıklamaları",
+    "heroAlt": "Solda bir ses dalgası, sağda metin satırlarına dönüşüyor; dalganın çubukları metne yaklaştıkça alçalıyor.",
+    "imageAlt": "Solda bir ses dalgası sağda metin satırlarına dönüşüyor; üzerinde İngilizce The quiet comeback of voice başlığı yazıyor.",
+    "metaDescription": "Bilgisayarla konuşmak yazmaktan hızlı mı? Kopyalarken 3 kat, kendi metninizi yazarken 1,4 kat. Sesle giriş, yorgunluk ve utanç üzerine araştırmalar.",
+    "ogDescription": "Konuşmak, kopyalarken yazmaktan 3 kat, kendi metnini kurarken 1,4 kat hızlı. Yalnızken yanıtların %96’sı sese evet diyor, yabancılar önünde %16’sı.",
+    "twitterDescription": "Sesle giriş geri döndü. En hızlı değişen şey insanların cesareti değil; sesin kendisi: giderek alçalıyor.",
+    "ldDescription": "2024–2026 yıllarında sesle giriş üzerine kanıtların bir incelemesi: yaygınlık, hız, tanıma doğruluğu, ses yorgunluğu, bilişsel yük, toplumsal kabul ve alışma; bir de henüz hiçbir çalışmanın doldurmadığı boşluklar."
+  },
+  "tldr": {
+    "sub": "Klavye yerine bilgisayarla konuşmak üzerine araştırmalar ne söylüyor.",
+    "b1": "**Asistanlar yerinde saydı. Dikte ise yükselişte — kendi anlattığına göre.** ABD’de akıllı hoparlör sahipliği: 2021’de %33, 2025’te %35. Diktenin ve yapay zekâyla sesli sohbetin büyümesi neredeyse yalnızca şirketlerin kendileri hakkında söylediklerinde görünüyor.",
+    "b2": "**Kopyalarken 3 kat, kendi metnini kurarken yaklaşık 1,4 kat hızlı.** Kendi mesajlarını yazan insanlar, konuşacakları zaman ilk kelimeden önce iki kat uzun düşündü (11,0 saniye, yazacakları zaman 5,3) ve her düzeltme pahalıya patladı.",
+    "b3": "**Makinenin ne duyduğu, kimin konuştuğuna bağlı.** Temiz okunmuş Amerikan İngilizcesinde kelimelerin %2,7’si yanlış çıkıyor, aksanlı sohbette %19,7’si. Whisper, dökümlerin yaklaşık %1’inde hiç söylenmemiş cümleler uydurdu.",
+    "b4": "**Ses ağzı hızlandırıyor, planlamayı değil.** Metin yazma süresinin yaklaşık üçte ikisi planlamaya gidiyor. Görev bir problem çözmekse ses zihni daha çok yoruyor. Programlama dersindeki 919 öğrencinin %88,5’i yapay zekâ aracına komutlarını söylemek yerine yazmayı seçti.",
+    "b5": "**Ses dozla yorulur, diktenin dozunu ise kimse ölçmedi.** Yüksek sesle okurken ses zorlanmasının fiziksel bir göstergesi 15 dakika içinde yükseliyor; insanlar bunu 30 dakikadan sonra hissediyor. Çağrı merkezi operatörlerinin %33–68’i kariyerlerinin bir döneminde ses sorunu yaşıyor.",
+    "b6": "**Mesele yer değil, kimin dinlediği.** Yalnızken ses, yanıtların %96’sında kabul edilebilirdi; iş arkadaşlarının yanında %26’sında, yabancıların önünde %16’sında. Yenilik birkaç haftada söner, özgüven ise artar.",
+    "b7": "**Ofis fısıldamayı öğreniyor.** Piyasa normun değişmesini beklemiyor; sesi alçaltıyor — tıpkı telefon görüşmesinin sokakta olağanlaşıp toplantılarda hiçbir zaman olağanlaşmaması gibi.",
+    "src": "Kaynaklar: Edison Research · YouGov · Pew · CHI ve IMWUT deneyleri · ses bilimi çalışmaları · JAMA · şirket açıklamaları, ayrıca işaretlenmiş",
+    "full": "Etkileşimli bölümleri ve bütün kaynaklarıyla tam araştırma:"
+  },
+  "s01": {
+    "num": "01 · İki dalga",
+    "h": "Asistanlar yerinde saydı. Dikte yükselişte — kendi anlattığına göre",
+    "a": "“Alexa, zamanlayıcı kur” dediğiniz an birinci tür sesle girişi kullanıyorsunuz. Bir e-postayı klavyeyle yazmak yerine dikte ettiğinizde ise ikincisini.\n\nToplam beş tür var ve son iki yılda her biri kendi yoluna gitti: **asistanlara verilen komutlar**, metin dikte etmek, sesli mesajlar, yapay zekâ modelleriyle sesli sohbet ve programlama ile yapay zekâ ajanlarına iş vermek için ses.\n\nBirinci türün erişimi büyümeyi bıraktı. ABD’de insanların %33’ünün 2021’de, %35’inin 2025’te akıllı hoparlörü vardı; anketi yapan şirketin kendisi de rakamın dört yılda neredeyse kıpırdamadığını söylüyor.[^ssrsUS]\n\nİstisna Britanya: aynı yıllarda %25’ten %45’e, büyük ölçüde Alexa sayesinde.[^ssrsUK] Sahip başına kullanım ise daha uzun süre artmaya devam etti: hoparlöre haftada verilen iş sayısı 2017’de 7,5 iken 2022’de 12,4’e çıktı.[^smartAudio]\n\nTicari açıdan ise **birinci dalga başarısız oldu**. Amazon’un cihaz birimi 2017–2021 arasında 25 milyar dolardan fazla zarar etti, çünkü insanlar Echo’yu alışveriş için değil, alarm ve hava durumu için kullandı.[^amazonLoss]",
+    "b": "İkinci dalga neredeyse yalnızca şirketlerin kendileri hakkında söylediklerinde görünüyor. Bir dikte uygulaması olan Wispr Flow’un değeri Kasım 2025’te 700 milyon dolardı, Ağustos 2026’da 2 milyar dolara çıktı.[^wispr]\n\nGoogle, aylık 1 milyardan fazla kullanıcısı olan Gemini uygulamasında kullanıcıların %63’ünün “ses kullandığını” söylüyor, ama bunun nasıl sayıldığını açıklamıyor.[^gemini] Apple’a göre Siri’ye gelen istekler 2024’te günde yaklaşık 1,5 milyardan 2026’da 2,5 milyarın üzerine çıktı.[^siri]\n\nBüyük bağımsız anketler — Pew, YouGov, Edison, Ofcom — dikteyi ya da yapay zekâyla sesli sohbeti henüz ayrı bir soru olarak sormuyor. En yakın olanı, 12 yaş ve üzeri Amerikalıların %57’sinin yazarak ya da konuşarak en az bir kez üretken yapay zekâ asistanı kullandığını buldu.[^ssrs2026]\n\nYani **ikinci dalganın büyüme eğrisini, işinde çıkarı olan taraflar çiziyor**.",
+    "figCap": "Solda bağımsız anketler, sağda şirketlerin kendileri hakkında söyledikleri",
+    "figNote": "Düz çubuklar: yöntemi ve örneklemi bilinen anketler; koyu çentik önceki yılı gösteriyor. Taralı çubuklar: bir şirketin kendisi hakkında verdiği, dışarıdan doğrulanamayan sayılar; çentik önceki iddiayı gösteriyor. İki taraf aynı ölçekte değil.",
+    "c": "Üçüncü tür olan sesli mesajlar kitlesel bir alışkanlık, ama büyüyen bir alışkanlık değil. WhatsApp’ın son resmî sayımı Mart 2022’den: günde 7 milyar.[^whatsapp]\n\nYouGov’un Şubat 2026’da 2.442 Amerikalıyla yaptığı ankette katılımcıların yaklaşık %10’u haftada birkaç kez sesli mesaj kullanıyordu, %41’i ise bu biçimin kendisine göre olmadığını söyledi. Sesli mesajı eskisinden az kullananlar (%12), çok kullananlar (%11) kadardı.[^yougov2026]"
+  },
+  "s02": {
+    "num": "02 · Hız",
+    "h": "Kopyalarken 3 kat hızlı. Kendi metnini kurarken yaklaşık 1,4 kat",
+    "a": "Ses hakkında en çok alıntılanan sayı şu: konuşmak **yazmaktan 3 kat hızlı**. Doğru — ama kopyalarken. Bu sayının arkasındaki deneyde her dil için 24 olmak üzere 48 kişi, iPhone’da kısa, hazır cümleleri kopyaladı: İngilizcede sesle dakikada 153 kelime, ekran klavyesinde 52; Mandarin Çincesinde 123 ve 43.[^ruan]\n\nYazarlar bunu laboratuvarda ulaşılmış bir üst sınır olarak niteliyor. Üstelik gerçek hayatta kimse kopyalayarak yazmıyor.\n\n2020’de Foley, Casiez ve Vogel 28 kişiden telefonda, üç basit resmi birbirine bağlayan **kendi cümlelerini kurmalarını** istedi. Kelimeler fiilen söylenir ya da yazılırken ses yine 3 kat hızlıydı: dakikada 116,5 kelime, klavyede ise 35,1.\n\nAma düşünme, konuşma ve düzeltme dahil bütün deneme hesaba katıldığında bir mesaj sesle 20,8 saniye, klavyeyle 29,2 saniye sürdü. Bu 3 kat değil, yaklaşık 1,4 kat.[^foley]",
+    "b": "Aradaki farkı iki şey yedi. İnsanlar konuşacakları zaman ilk kelimeden önce iki kat uzun düşündü: 11,0 saniye; yazacakları zaman 5,3. **Yazarken insan ilerledikçe düşünüyor; konuşurken cümleyi önceden kuruyor.**\n\nÜstelik her düzeltme pahalıydı: iki yöntemde ve iki görevde de düzeltme gerektiren denemeler dakikada 54,6 kelime hızında ilerledi, pürüzsüz geçenler ise 141,1.\n\nKıyas için: çevrimiçi bir yazma testine katılan gönüllüler fiziksel klavyede dakikada ortalama 52 kelime yazdı (168.000 kişi),[^dhakal] telefonda ise 36 (37.000 kişi).[^palin]\n\nBugünün konuşma tanıma teknolojisiyle, sesle metin kurmayı masaüstü klavyeyle karşılaştıran kontrollü bir çalışma yok. Sonuncusu 1999’dan: ilk kez kullananlar sesle, düzeltmeler dahil dakikada 7,8 kelime yazdı, klavye ve fareyle 19; metin kopyalarken sesle 13,6, klavyeyle 32,5.[^karat]",
+    "splitCap": "Zaman nereye gitti: telefonda yazılan tek bir mesaj, 28 kişinin ortalaması",
+    "splitNote": "Metin kurma görevi. Her çubuğun soluk kısmı ilk kelimeden önceki düşünme; koyu kısmı konuşma ya da yazma, artı düzeltmeler.[^foley]",
+    "toolH": "Kendinizi ölçün: parmaklarınız ağzınıza karşı",
+    "toolLead": "İki kronometre ve bir cümle. Sayfa mikrofonu hiç açmaz ve sizi duyamaz: yalnızca ne kadar sürdüğünü ölçer ve iki süreyi iki hıza çevirir.",
+    "step1": "Cümleyi yazın, sonra Enter’a basın",
+    "step2": "Düğmeyi basılı tutup cümleyi sesli okuyun",
+    "phrase": "Perşembe günkü görüşmemizi öğleden sonraya alıp geçen haftanın notlarını bana ondan önce gönderebilir misiniz?",
+    "typeAria": "Cümleyi buraya yazın",
+    "holdBtn": "Sesli okurken basılı tutun",
+    "againBtn": "Baştan başla",
+    "c": "Burada ölçülen konuşma hızı dikte hızı değil, ağzınızın hızı: hiçbir şey tanınmıyor, hiçbir şeyin düzeltilmesi gerekmiyor. **İki sayınız arasındaki oran, sesin size verebileceği en fazla kazanç.**\n\nFoley’nin deneyinde yalnızca konuşma anı yazmaktan 3,3 kat, bütün deneme ise 1,4 kat hızlıydı: düşünme ve düzeltmeden sonra hız oranının yaklaşık %40’ı ayakta kaldı.",
+    "how1h": "Yazın",
+    "how1": "Aşağıdaki cümleyi yazın. İlk kronometre ilk tuşa bastığınız anda başlar, Enter’a bastığınızda durur.",
+    "how2h": "Söyleyin",
+    "how2": "Düğmeyi ya da boşluk tuşunu basılı tutun ve aynı cümleyi normal hızınızda sesli okuyun. İkinci kronometre siz basılı tuttukça çalışır.",
+    "how3h": "Karşılaştırın",
+    "how3": "Aynı cümle, iki süre. Sayfa bunları dakikadaki kelime sayısına çevirir ve araştırmaların yanına koyar.",
+    "typePh": "Buraya yazmaya başlayın…",
+    "holdWait": "Önce 1. adımı bitirin",
+    "resType": "kelime/dakika, yazarak",
+    "resSpeak": "kelime/dakika, konuşarak",
+    "ratesH": "Hızlarınız araştırmaların yanında"
+  },
+  "s03": {
+    "num": "03 · Doğruluk",
+    "h": "Makinenin ne duyduğu, kimin konuştuğuna bağlı",
+    "a": "“Toplantıyı perşembe saat ona alın” cümlesini sessiz bir odada, haber spikeri telaffuzuyla söyleyin; iyi bir tanıma sistemi onu doğru yazar. Aynı cümleyi Lagos aksanıyla, kafe gürültüsünün ortasında söyleyin; ekrana “pek tembel sahte ana” düşebilir.\n\nTanıma, **kelime hata oranıyla** puanlanır: yanlış yazılan, atlanan ya da fazladan eklenen kelimelerin payı. Ekim 2025’te standart bir açık sıralama tablosundaki en iyi model, test setlerinde ortalama %5,63 hata yaptı.\n\nBirçok dikte uygulamasının arkasındaki açık model Whisper large-v3’ün ortalaması %7,44’tü.[^openasr] Karşılaştırma için: 2017’de, kaydedilmiş telefon konuşmalarında dikkatli profesyonel transkripsiyonun hata oranı %5,1 ölçülmüştü.[^msHuman]\n\nBu ortalamalar kimin konuştuğunu gizliyor. Dünyanın dört bir yanından aksanlarla konuşulan İngilizce sohbetlerden oluşan bir derlemde Whisper kelimelerin %19,7’sini yanlış yazdı; temiz okunmuş Amerikan İngilizcesinde bu oran %2,7’ydi.\n\nNijerya ve Jamaika İngilizcesinde daha güçlü modeller bile %20’yi, akademik bir model ise %45’i aştı.[^edacc]\n\n2020’de beş ticari sistem, siyahi konuşmacıların kelimelerinin %35’ini, beyaz konuşmacılarınkinin %19’unu yanlış yazdı: **aynı sistem, neredeyse iki kat hata**.[^koenecke]",
+    "ladderCap": "Bir hata oranı seçin ve söylenmiş tek bir cümleye neler yaptığını görün",
+    "ladderNote": "Cümle 26 kelimeden oluşuyor; hatalar en çok zarar verecekleri yerlere konuldu. Amaç belirli bir sistemi taklit etmek değil, oranın ne anlama geldiğini göstermek.",
+    "halluBtn": "Whisper usulü bir uydurma ekle",
+    "b": "Üretken tanıma yeni bir hata türü getirdi: **uydurmak**. Whisper dökümlerin yaklaşık %1’inde koca cümleler uydurdu ve bu uydurmaların %38’i şiddet ya da asılsız iddialar gibi zararlı bir şey içeriyordu.[^careless]\n\nAfazisi olan insanlarda sık görülen uzun duraklamalar uydurma olasılığını artırdı. Uydurulmuş bir cümle yanlış duyulmuş bir kelimeden daha kötüdür, çünkü akıp giden bir metin gibi okunur.\n\nDarboğaz tanımadan düzeltmeye kaydı. Sesle düzenlemenin çözülmemiş iki sorunu var: bir komutu yazıya geçirilmesi gereken metinden ayırt etmek ve düzeltilecek yeri göstermek.\n\nHatanın yakınına dokunup düzeltmeyi söylemek ve neyin nereye gideceğini bir dil modeline bırakmak, 16 kişilik bir testte önceki en iyi yönteme göre görev süresini %16,4, klavye dokunuşlarını %47,5 azalttı.[^tapsay]\n\nDikte edilen metin ayrıca **uzun ve dağınık** çıkıyor; yeni uygulamalar bu yüzden metni yapıştırmadan önce bir dil modeliyle yeniden yazıyor. Böyle bir aracı 7 ila 10 gün boyunca günlük tutarak izleyen bir çalışmada 12 yazarın 9’u araca uyum sağladı; rahatlık puanlarının medyanı 7 üzerinden 5’ti.\n\nKuşkularını koruyanlar eski zorlukları saydı: konuşurken bir sonraki cümleyi düşünmek ve imleci olması gereken yere getirmek.[^rambler]"
+  },
+  "s04": {
+    "num": "04 · Düşünme",
+    "h": "Ses ağzı hızlandırıyor, planlamayı değil",
+    "a": "Ses 3 kat hızlıysa, yazı yazmak neden 3 kat hızlanmıyor? Çünkü yazmanın büyük kısmı tuşlara basmak değil. 1983’te mektup yazımı üzerine yapılan bir çalışma, **metin kurma süresinin yaklaşık üçte ikisinin planlamaya gittiğini** buldu — denenen düzenlerde %58 ile %78 arasında.\n\nİnsanlar mektupları ister elle yazsın, ister dikte etsin, ister konuşarak anlatsın, mektuplar eşit derecede iyi çıktı.[^gould] Daha hızlı bir çıkış kanalı yalnızca geriye kalan üçte biri hızlandırır.\n\nMekanizmayı 2000’de Ben Shneiderman önerdi: konuşmak ve kısa süreli bellek aynı kaynaktan besleniyor, elin hareketi ise düşünmeyle paralel yürüyor.\n\nLaboratuvarının deneylerinden birinde sesli komutlar fareden %12–30 daha hızlıydı, ama onları yüksek sesle söylemek, daha sonra geri yazılması gereken sembolleri akılda tutmayı zorlaştırdı.[^shneiderman]",
+    "b": "Sonraki çalışmalar, kopyalamadan çözmeye uzanan tek bir çizgi üzerinde diziliyor. İş kopyalamaksa ses hızda kazanıyor ve daha kolay hissettiriyor. İş metin kurmaksa ses biraz daha hızlı, hissettirdiği yük aynı.\n\n**İş bir problemi çözmekse ses zihni daha çok yoruyor.** Tıbbi bir sohbet asistanı kullanan 50 kişide konuşma, hem zor hem basit görevlerde ölçülen zihinsel yükü artırdı.[^chen] Sesle kayıt tutan 35 acil servis hekimi %18,1 daha yavaştı ve klavyedeki 32 hataya karşılık 138 hata yaptı.[^hodgson]\n\nAçık ara kazananlar, darboğazı el ya da yazım olan kişiler. Öğrenme güçlüğü olan öğrenciler konuşma tanımayla, elle yazdıklarından daha iyi kompozisyonlar yazdı; diğer öğrenciler için fark olmadı.[^macarthur]",
+    "specCap": "Kopyalamadan çözmeye: görev görev ses, klavyeye kıyasla nasıl sonuç verdi",
+    "specHelps": "ses daha iyi",
+    "specSame": "fark yok",
+    "specHurts": "klavye daha iyi",
+    "c": "Yapay zekâyla konuşmak da aynı çizgide duruyor. Bulduğum en büyük çalışmada, programlamaya giriş dersindeki 919 öğrenci bir yapay zekâ aracına komutlarını nasıl vereceğini seçebiliyordu. **Neredeyse onda dokuzu yalnızca yazıyı seçti** (%88,5); %4,8’i yalnızca sesi, %6,7’si ikisini birden.\n\nDüzenlenmemiş sesli komutlar ilk denemede daha seyrek işe yaradı: birinci görevde %35 (yazılı komutlarda %52), ikincide %38 (yazılılarda %58). Öğrenciler dökümü düzenlediğinde fark artık anlamlı değildi.[^riegel]\n\nYaratıcı görevlerde ses ilk komutu hızlandırdı, ardından daha çok ve daha uzun ek komut getirdi; ama ne hissedilen çabayı ne de sonuçların nasıl değerlendirildiğini değiştirdi.[^creative]",
+    "promptCap": "Komut ilk denemede işe yaradı, öğrencilerin payı; her ses grubunda 26–51 öğrenci vardı",
+    "d": "Yüksek sesle düşünmenin işe yaradığı yolundaki yaygın fikir ancak yarı yarıya doğru. 94 çalışmanın toplamında düşünceleri yalnızca seslendirmek doğruluğu değiştirmedi, sadece işi yavaşlattı; insanlardan akıl yürütmelerini **açıklamaları** istendiğinde ise doğruluk arttı.[^fox]\n\nBir problemi bir yapay zekâ modeline sesle açıklamak pekâlâ işe yarayabilir. Bunu henüz kimse test etmedi."
+  },
+  "s05": {
+    "num": "05 · Yorgunluk",
+    "h": "Ses dozla yorulur. Diktenin dozunu kimse ölçmedi",
+    "a": "Bütün gün klavyede yazmak ellerinizi yorar. Bütün gün konuşmak başka bir şeyi yorar ve bunun ne kadarının güvenli olduğuna dair bilimsel bir günlük sınır yok. İyi ölçülen şey, sesini meslek olarak kullananların ne kadar konuştuğu.\n\nSes bozukluklarının sık görüldüğü bir meslek olan **öğretmenler**, 31 öğretmenle 2007’de yapılan bir çalışmada ses tellerini iş saatlerinin %23’ünde titreştiriyordu; iş dışında %13, hafta sonları %12.[^titze] Daha yeni, 26 öğretmenlik bir grupta sonuçlar %16,2, %8,4 ve %8,0 çıktı.[^eastman]\n\nBu ses üretme süresine fonasyon deniyor: yalnızca ses tellerinin gerçekten titreştiği anlar sayılıyor, kelimeler arasındaki duraklar değil.",
+    "phonCap": "Ses tellerinin titreştiği zamanın payı, öğretmenler",
+    "b": "Beden bunu çabuk fark ediyor. 10 kişilik bir çalışmada, yüksek sesle okurken ses zorlanmasının nesnel bir göstergesi **ilk 15 dakikada yükselmeye başlıyor**, insanlar ise bunu 30 dakikadan sonra hissediyor.[^xue]\n\nSınıf ses düzeyinde iki saat yüksek sesle okuduktan sonra 86 öğretmen, seslerinin büyük ölçüde 4–8 saat içinde toparlandığını bildirdi; küçük bir kalıntı bir gün ya da daha uzun sürdü.\n\nMakale kesin rakamlarda kendisiyle çelişiyor: özetinde 4–6 saatte %90, 12–18 saatte tam toparlanma yazıyor.[^hunter]",
+    "recCap": "İki saatlik yoğun ses kullanımı, ardından toparlanma",
+    "recNote": "İki saat yüksek sesle okumanın ardından, kişilerin kendi değerlendirdiği yorgunluğun geçen payı. Eğri, makale özetindeki iki noktadan geçiyor: 4–6 saat sonra %90, 12–18 saat sonra %100; sonuç bölümü daha yavaş bir %50 ve %90 veriyor. Mikrofona yakın, alçak sesle dikte için hiç eğri yok; o şerit bilerek boş bırakıldı.",
+    "c": "Bütün gün bilgisayarla konuşmaya en yakın mevcut iş **çağrı merkezi**. 15 çalışmanın toplamında operatörlerin %33–68’i kariyerlerinin bir döneminde ses sorunu yaşamıştı, muayene anında ise %27’si.[^nair]\n\nBir anket, operatör başına 6,8 ses belirtisi saydı; genel nüfusta bu sayı 1,7.[^piwowarczyk]\n\nDikte kullanıcılarına dair doğrudan kanıt yalnızca 1990’lardan ve 2000’lerden geliyor; o zamanlar dikte, her kelimeden sonra durmak demekti. Bir vaka serisinde el ağrısı yüzünden konuşma tanımaya geçen 5 kişinin sesi zorlandı; ses terapisi ve daha kısa oturumlardan sonra 5 kişiden 3’ü düzeldi.[^olson]\n\n10 kişide yapılan kas kayıtları, **yükün kaybolmadığını, yer değiştirdiğini** düşündürdü: önkolda ve boyunda, bir ölçüde de omuzlarda sürekli gerilim azaldı; gırtlağın bir kası olan krikotiroidde ise artışa doğru bir eğilim görüldü.[^juul]\n\nModern dikte, şüphelenilen nedeni — her kelimeden sonra duraklayan, düz, makinemsi konuşmayı — ortadan kaldırıyor ve mikrofonu ağza yaklaştırıyor, böylece insanlar alçak sesle konuşabiliyor. Bu makul bir umut, bir bulgu değil.\n\nBugünün dikte uygulamalarını ya da yapay zekâ modellerinin ses modlarını kullananlarda ses yükünü ölçen hiçbir çalışma yok."
+  },
+  "s06": {
+    "num": "06 · Utanç",
+    "h": "Mesele yer değil. Kimin dinlediği",
+    "a": "Telefonunuza yol tarifini önce evde, sonra otobüste, sonra etrafınızda iş arkadaşlarınız varken masanızda sorduğunuzu düşünün. Çoğu insan için cevap üç kez değişir.\n\nBu konudaki en iyi sayılar küçük bir İngiliz deneyinden geliyor. 23–32 yaş arası 20 kişi, düz bir arka plan önünde bir adamın sesle ya da yazıyla arama yaptığı kısa videolar izledi, sonra kendilerinin de aynısını yapacakları yerleri ve kişileri işaretledi.\n\n**Ses yazıyı yalnızca direksiyon başında geçti**, çünkü orada eller meşgul.[^efthymiou]\n\nNerede olduğundan çok kimin dinlediği önemliydi. Yalnızken ses, yanıtların %96’sında kabul edilebilirdi; arkadaşların yanında %83’ünde, partnerin yanında %78’inde, ailenin yanında %71’inde. İş arkadaşlarının yanında %26’sında. Yabancıların önünde %16’sında.\n\nKişiler arasında sesi yazıya kıyasla anlamlı ölçüde daha az kabul edilebilir kılan yalnızca iş arkadaşları ve yabancılardı; yerler arasında ise ev, yolcu koltuğu ve iş yeri. Onların yanıtlarına bakmadan önce kendinizi deneyin.",
+    "toolH": "Burada bir cihazla konuşur muydunuz?",
+    "toolLead": "Her duruma evet için bir kez, hayır için iki kez dokunun. Sonra araştırmadaki 20 kişiyle karşılaştırın.",
+    "placesH": "Nerede",
+    "peopleH": "Kimin yanında",
+    "showBtn": "Araştırmayla karşılaştır",
+    "hideBtn": "Araştırmayı gizle",
+    "b": "Asistan kullanan 860 kişiyle yapılan bir ankette, özellikle toplum içinde **utanç, asistanı kullanmaya devam etme niyetini düşürdü**; gurur ise bu niyeti her yerde artırdı.[^kowalczuk]\n\nNorm yine de değişti. Amerikan anketlerinde arkadaşlarla restoranda sesli komut kullanmak 2017’de yaklaşık %25’ten 2019’da %40’ın üzerine çıktı.\n\nErkeklerin sesli komut kullanma olasılığı kadınlarınkinin 1,54 katıydı; katılımcıların %46’sı ise başkaları bunu yaptığında rahatsız olduğunu söyledi.[^perficient]"
+  },
+  "s07": {
+    "num": "07 · Alışkanlık",
+    "h": "Önce yeniliğin tadı kaçıyor. Sonra çekingenlik de geçiyor",
+    "a": "Akıllı hoparlör alan herkes ilk haftayı bilir: zamanlayıcılar, fıkralar, müzik, sırf eğlencesine sorulan sorular. Sonra yeniliğin tadı kaçar ve geriye alışkanlık kalır.\n\nİnsanların başladıktan sonra nasıl değiştiği neredeyse yalnızca evdeki akıllı hoparlörlerde ölçülmüş. Üç haftalık bir çalışmada 7 yaşlı yetişkine birer Echo Dot verildi. **Haftalık komut sayısı üçte bir azaldı**: 59,6, sonra 50,1, sonra 39,7.\n\nMüzik, komutların %23,9’undan %2,9’una indi; hava durumu ve alışveriş listeleri ise arttı. Katılımcılardan biri başta “bu makineyle konuşurken kendini aptal gibi hissettiğini” söyledi; sonunda 7 kişinin hepsi kendini daha özgüvenli hissettiğini ve kullanmaya devam edeceğini söyledi.[^pradhan]",
+    "habitCap": "Akıllı hoparlörle üç hafta, 7 kişi",
+    "b": "Daha uzun kayıtlar farklı bir tablo çiziyor. 18 ailenin ortalama 58 haftalık Google Home geçmişlerinde kullanım oldukça istikrarlı kaldı. 3 aile, satın aldıktan kısa süre sonra gizlilik, işe yaramazlık ya da oturmamış bir alışkanlık yüzünden hoparlörü haftalarca kullanmadı, sonra geri döndü.\n\nTamamen bırakan aileler incelenmedi. Aileler daha fazla akıllı cihaz aldıkça evi sesle yönetmek de arttı.[^garg]\n\nİnsanlar uzaklaştığında sebep yararlılık, güvenilirlik ya da gizlilikti; evde bir makineyle konuşmanın tuhaf gelmesi değil.\n\nToplumsal kabul üzerine 69 makaleyi tarayan bir derleme, insanlar bir etkileşime alıştıkça kabulün değiştiğine dikkat çekiyor; oysa **bunlardan yalnızca 3’ü bir arayüzü gündelik hayatta deneyen insanları izlemiş**. Çoğu insanlardan onu hayal etmelerini istemiş ya da laboratuvarda bir kez denetmiş.[^koelle]\n\nBu sayfa için asıl boşluk bu. İş yerinde dikteye geçen insanları izleyip utançlarının hafta hafta nasıl değiştiğini ölçen tek bir çalışma bulamadım."
+  },
+  "s08": {
+    "num": "08 · Kültür",
+    "h": "Sesin ne kadar yüksek olabileceğine kültür karar veriyor",
+    "a": "Bir mesaja sesli notla mı yoksa yazıyla mı cevap vereceğiniz, büyük ölçüde nerede yaşadığınıza bağlı.\n\nYouGov’un 2023’te 17 pazarda yaptığı ankette katılımcıların %66’sı mesajlarını yazıyla, %7’si sesle göndermeyi tercih etti. Yazı tercihi en güçlü Britanya’da (%83), Danimarka’da (%80) ve İsveç’te (%78), en zayıf Birleşik Arap Emirlikleri’ndeydi (%38); İspanya’da %54 yazıyı, %13 sesi seçti.[^yougov2023]",
+    "prefCap": "Mesajları yazıyla göndermeyi tercih edenler, 2023",
+    "b": "Cep telefonu aynı süreçten 20 yıl önce geçti. 2007’de Hawaii’deki tek bir üniversitede 5 kültürden öğrencileri karşılaştıran bir çalışmada **otobüste telefonla konuşmak**, Japonyalı öğrencilerden 5 üzerinden 2,53 puan aldı; İsveçlilerden 3,50, ABD anakarasından gelenlerden 3,44.[^campbell]\n\nJaponya net bir kural koydu — trende ses yok, e-posta serbest — ve sessiz bir alternatif çıkar çıkmaz toplum içinde sesli konuşmaktan uzaklaştı.",
+    "phoneCap": "Burada telefonla konuşmak kabul edilebilir: 1 = kesinlikle katılmıyorum, 5 = kesinlikle katılıyorum, 2007",
+    "c": "ABD’de 2006’da insanların %82’si toplum içindeki yüksek sesli telefon konuşmalarından en azından ara sıra rahatsız oluyordu; bunlarla sık karşılaşanların payı 2012’ye kadar %50’den %39’a düştü.[^pew2006]\n\n2014’e gelindiğinde telefon kullanmak Amerikalıların %77’sine göre sokakta, %75’ine göre toplu taşımada, %38’ine göre restoranda sorun değildi — toplantıda ise yalnızca %5’ine göre.[^pew2015]\n\nDeğişim iki taraftan geldi: çevredekiler hoşgörülü oldu, konuşanlar sesini alçalttı. Ve **toplantı odasının kapısında durdu**."
+  },
+  "s09": {
+    "num": "09 · Ofis",
+    "h": "Ofis fısıldamayı öğreniyor",
+    "a": "2026’da yapay zekâlı dikte ofislere ulaştı ve ilk haberler sayı değil, hikâye. Bloomberg onun masadan masaya yayıldığını, kaz boynu mikrofonların ortaya çıktığını ve fısıldaşmanın başladığını anlatıyor.[^bloomberg]\n\nComputerworld’ün alıntıladığı bir analist, utancı ve iş arkadaşlarının dikkatini dağıtma korkusunu önemli bir davranışsal engel olarak görüyor.\n\nTamamen uzaktan çalışan Thumbtack şirketi 200’den fazla çalışanına Wispr Flow verdi; teknoloji direktörü, odada tek başınayken bile yüksek sesle konuşmaya alışmanın zaman aldığını kabul ediyor.[^computerworld]\n\nPiyasa normun değişmesini beklemiyor. **Sesi alçaltıyor.** Wispr Flow bir fısıltı modu satıyor ve mikrofona yaklaşık 1 santimetre mesafeden konuşmayı öneriyor.[^wisprWhisper]\n\nAraştırma 2018’de daha da ileri gitmişti: Microsoft’un SilentVoice sistemi, nefes alırken söylenen kısa komutları tanıyordu; dışarı 39 desibelden az ses sızıyordu. Kelime hata oranı eğitimli bir konuşmacıda %1,8, yeni birinde %7’ydi.[^silentvoice]\n\nİnsanlar sessizlik için doğruluktan vazgeçmeye razı. 2021’deki bir deneyde 12 kişi, sessiz konuşmayı — kelimeleri sesini çıkarmadan dudaklarla söylemeyi — kasıtlı olarak %10–15 hata eklendiğinde de hiç hata yokken de aynı istekle kullanmak istedi.\n\nYüksek sesle konuşma istekleri ise düştü. 12 kişinin hepsi bunu mahremiyet ve güvenlik kaygısına bağladı.[^pandey]",
+    "pull": "En hızlı ilerleme, insanların cesaretlenmesi değil. Sesin alçalması."
+  },
+  "s10": {
+    "num": "10 · Tıp",
+    "h": "Büyük ölçekte ölçüldüğü tek yer: hekim notları",
+    "a": "Yapay zekâ modellerine dayanan sesle girişin binlerce kişide ölçüldüğü tek alan tıp. Arka planda dinleyen yapay zekâ kâtipleri muayeneyi dinliyor ve notun taslağını çıkarıyor.\n\nNisan 2026’da JAMA’da yayımlanan en büyük çalışmada, kullanmayan 6.770 kişiyle karşılaştırılan yaklaşık 1.800 kullanıcı, 8 saatlik muayene başına 16 dakikalık kayıt işinden kurtuldu — **yani yaklaşık %10** — mesai dışı çalışmada ise anlamlı bir değişiklik olmadı.\n\nKâtibi muayenelerinin yarısından fazlasında kullananlar yalnızca %32’ydi.[^jama]\n\n238 hekimle yapılan randomize bir çalışmada kâtiplerden biri not başına süreyi 41 saniye kısalttı (kontrol grubunda 18 saniye), diğeri anlamlı bir fark yaratmadı.[^nejmai] Kontrol grubu olmayan bir çalışmada tükenmişlik 30 günde %51,9’dan %38,8’e indi.[^ama]\n\nElle kontrol edilen notların %18’inde eksiklik, %11,5’inde uydurulmuş ayrıntı vardı; %5,3’ünde ciddi zarara yol açabilecek bir hata bulundu.[^notes] Ses dakikadan çok dikkat kazandırdı; bedeli ise metni kontrol etmek."
+  },
+  "s11": {
+    "num": "11 · Boşluklar",
+    "h": "Henüz kimsenin yapmadığı deneyler",
+    "a": "Bunlar küçük delikler değil. Aşağıdaki her kart, bu sayfanın bir sayıyla yanıtlamak isteyip yanıtlayamadığı bir soru; çünkü onu henüz hiçbir çalışma ölçmedi.",
+    "g1h": "Dikteyi sayan bir anket",
+    "g1": "Rastgele örneklemli hiçbir anket dikteyi ya da yapay zekâyla sesli sohbeti ayrı bir davranış olarak ölçmüyor. Büyüme eğrisi şirket iddialarına dayanıyor.",
+    "g2h": "Diktenin ses dozu",
+    "g2": "Bugünün uygulamalarıyla saatlerce dikte edenlerde fonasyon süresini ya da ses zorlanmasını kimse ölçmedi.",
+    "g3h": "Günde güvenli miktar",
+    "g3": "Günde kaç saat konuşmanın ses için güvenli olduğuna dair kanıta dayalı bir sınır yok.",
+    "g4h": "Geçişten sonra eller",
+    "g4": "Sese geçmenin ellerdeki zorlanma yaralanmalarını önlediğini ya da iyileştirdiğini gösteren randomize bir çalışma yok.",
+    "g5h": "Masa başında metin kurmak",
+    "g5": "Modern tanıma teknolojisiyle sesle yazmayı fiziksel klavyeyle karşılaştıran kontrollü bir çalışma yok. En iyi veriler 1983 ve 1999’dan.",
+    "g6h": "Konuşarak geçen bir gün",
+    "g6": "Ağırlıklı olarak sesle çalışan insanları izleyip zihinsel yorgunluklarını ölçen hiçbir günlük ya da uzun vadeli çalışma yok.",
+    "g7h": "İş yerinde çekingenliği yenmek",
+    "g7": "Ofiste dikteye yeni başlayanları hafta hafta izleyen bir saha çalışması yok. Alışkanlık üzerine bütün uzun vadeli çalışmalar evdeki hoparlörlerle ilgili."
+  },
+  "s12": {
+    "num": "12 · Yöntem",
+    "h": "Bu nasıl kontrol edildi, neyi dışarıda bıraktım",
+    "a": "**Speak-Y** adlı bir sesle yazma ve toplantı kaydı uygulaması geliştiriyorum; bu sayfanın en altında da onun bir afişi var. Bu, araştırmayı kuşkuyla okumak için bir neden.\n\nBu yüzden bir şirketin kendisi hakkında verdiği her sayı — benimkiyle rekabet eden dikte şirketlerininkiler dahil — metinde işaretlendi ve grafiklerde taralı çizildi.\n\nAraştırma Eylül 2026’da dört soru ekseninde yapıldı: yaygınlık, hız ve doğruluk, yorgunluk ve düşünme, toplumsal kabul. Mümkün olan her yerde her sayı özgün kaynağına kadar izlendi.\n\nKüçük örneklemler dışarıda bırakılmadı, çünkü elde olan bunlar; ama örneklem büyüklüğü her zaman sayının hemen yanında veriliyor.",
+    "b": "Sık tekrarlanan bazı sayılar burada kullanılmadı, çünkü izlendiklerinde ayakta kalmadılar ya da alıntılandıkları anlamı taşımıyorlar. Siri kullanımının bir yılda %12 düştüğüne dair bir “Gartner” bulgusu: hiçbir Gartner kaynağı bulunamadı.\n\n“Çalışanların %48’i konuşmayı ofisteki en dikkat dağıtıcı gürültü olarak görüyor”: bu, 2008’de 689 Finli ofis çalışanıyla yapılmış bir ankete dayanıyor ve dikte hakkında hiçbir şey söylemiyor.\n\n“Hekimlerin %79’u yapay zekâ kâtibini reddetti”: bir dikte şirketi, JAMA çalışmasındaki kullanmayanlardan oluşan karşılaştırma grubunu retlere dönüştürdü. Bir de insanların yalnızca %3’ünün Siri’yi toplum içinde kullandığına dair ünlü iddia; özgün sayfası artık yok.",
+    "c": "Bütün tabloya dair kendi okumam — ve bu bir görüş: **dikte evde, arabada ve insanın kendine ait odasında olağanlaşacak**; açık ofiste tartışmalı kalacak, toplantılarda ise hiç yer bulmayacak, tıpkı telefon görüşmesi gibi. Bunu değiştirecek olan daha cesur insanlar değil, daha alçak bir ses olur."
+  },
+  "js": {
+    "survey": {
+      "usSpeaker": "Akıllı hoparlör sahibi, ABD",
+      "ukSpeaker": "Akıllı hoparlör sahibi, Birleşik Krallık",
+      "genai": "Üretken yapay zekâ asistanı kullanmış, ABD, 12 yaş ve üzeri",
+      "vmsg": "Haftada birkaç kez sesli mesaj, ABD’li yetişkinler"
+    },
+    "vendor": {
+      "siri": "Günlük Siri istekleri",
+      "wispr": "Wispr Flow’un değeri",
+      "gemini": "Gemini’nin “ses kullanan” aylık kullanıcıları"
+    },
+    "surveyH": "Bağımsız anketler",
+    "vendorH": "Şirketler kendileri hakkında",
+    "bnDay": "{n} milyar",
+    "usdBn": "{n} milyar $",
+    "plus": "{n}+",
+    "times": "×{n}",
+    "noMethod": "yöntem belirtilmemiş",
+    "rates": {
+      "ruanV": "Ses, cümle kopyalama (Ruan)",
+      "foleyV": "Ses, metin kurma, konuşma anı (Foley)",
+      "desk": "Fiziksel klavye, ortalama (Dhakal)",
+      "ruanK": "Telefon klavyesi, kopyalama (Ruan)",
+      "phone": "Telefon klavyesi, ortalama (Palin)",
+      "foleyK": "Telefon klavyesi, metin kurma (Foley)"
+    },
+    "wpm": "{n} kelime/dk",
+    "youType": "Yazdınız",
+    "youSpeak": "Konuştunuz",
+    "you": "Siz",
+    "waiting": "—",
+    "ratioYou": "Tavanınız: konuşmak, yazmanızdan **{r} kat** hızlı. Foley’nin deneyindeki gibi oranın %40’ı düşünme ve düzeltmeden sonra ayakta kalırsa, dikte sizin için yaklaşık **{s} kat** daha hızlı olur.",
+    "ratioSlow": "Konuştuğunuz kadar hızlı, hatta daha hızlı yazıyorsunuz. Sesin size kazandıracağı pek bir hız yok; onun lehine geriye konfor ve elleriniz kalıyor.",
+    "typedWrong": "Bazı kelimeler cümleden farklı; hız yine de sayılıyor.",
+    "tooShort": "Bütün cümleyi okumak için bu fazla kısaydı. Tekrar deneyin.",
+    "prep": "İlk kelimeden önce düşünme",
+    "entry": "Konuşma ya da yazma, artı düzeltme",
+    "voice": "Ses",
+    "keys": "Klavye",
+    "sec": "{n} sn",
+    "wer": {
+      "clean": "Temiz okunmuş Amerikan İngilizcesi, Whisper",
+      "human": "Dikkatli profesyonel transkripsiyon",
+      "best": "En iyi model, açık sıralama tablosu",
+      "whisper": "Whisper large-v3, açık sıralama tablosu",
+      "white": "Beyaz konuşmacılar, 5 ticari sistem, 2020",
+      "accent": "Aksanlı sohbet, Whisper",
+      "black": "Siyahi konuşmacılar, 5 ticari sistem, 2020"
+    },
+    "werErrors": "{n} kelimenin {e} tanesi yanlış",
+    "werWords": [
+      [
+        "Lütfen",
+        "Lüfer",
+        18
+      ],
+      [
+        "Ayşe",
+        "Ayça",
+        7
+      ],
+      [
+        "ile",
+        "ille",
+        22
+      ],
+      [
+        "yapacağımız",
+        "yakacağımız",
+        5
+      ],
+      [
+        "bütçe",
+        "büfe",
+        4
+      ],
+      [
+        "toplantısını",
+        "topladığını",
+        16
+      ],
+      [
+        "salı",
+        "sarı",
+        9
+      ],
+      [
+        "gününden",
+        "düğününden",
+        10
+      ],
+      [
+        "perşembe",
+        "pek tembel",
+        1
+      ],
+      [
+        "sabah",
+        "sabun",
+        14
+      ],
+      [
+        "saat",
+        "sahte",
+        8
+      ],
+      [
+        "ona",
+        "ana",
+        3
+      ],
+      [
+        "alın",
+        "alan",
+        17
+      ],
+      [
+        "ve",
+        "be",
+        23
+      ],
+      [
+        "tasarım",
+        "tasarruf",
+        12
+      ],
+      [
+        "ekibinden",
+        "cebinden",
+        13
+      ],
+      [
+        "de",
+        "da",
+        26
+      ],
+      [
+        "lansman",
+        "lanet",
+        11
+      ],
+      [
+        "için",
+        "içim",
+        24
+      ],
+      [
+        "en",
+        "an",
+        25
+      ],
+      [
+        "güncel",
+        "güzel",
+        15
+      ],
+      [
+        "satış",
+        "satır",
+        19
+      ],
+      [
+        "rakamlarını",
+        "rakılarını",
+        2
+      ],
+      [
+        "getirmelerini",
+        "götürmelerini",
+        6
+      ],
+      [
+        "rica",
+        "rıza",
+        20
+      ],
+      [
+        "edin.",
+        "etin.",
+        21
+      ]
+    ],
+    "hallu": "İzlediğiniz için teşekkürler.",
+    "spec": {
+      "copy": "Kısa cümleleri kopyalamak: yaklaşık 3 kat hızlı, altı ölçeğin hepsinde daha düşük yük",
+      "compose": "Kısa mesaj yazmak: toplamda yaklaşık 1,4 kat hızlı, aynı yük",
+      "creative": "Yapay zekâya yaratıcı komutlar: daha hızlı ve daha uzun, aynı çaba ve aynı sonuçlar",
+      "code": "Programlama komutları, düzenlenmemiş ses: ilk denemede daha seyrek işe yaradı",
+      "problem": "Sohbet asistanıyla problem çözmek: daha yüksek zihinsel yük",
+      "ehr": "Acil servis hekimleri, tıbbi kayıtlar: %18,1 daha yavaş, 138 hata (klavyeyle 32)",
+      "memory": "Fare yerine sesli komutlar: daha hızlı, ama bellek zarar gördü",
+      "ld": "Öğrenme güçlüğü olan öğrencilerin kompozisyonları: elle yazılandan daha iyi"
+    },
+    "specCopyEnd": "kopyalama",
+    "specThinkEnd": "çözme",
+    "specExtra": "farklı grup",
+    "nPeople": "n = {n}",
+    "nNa": "n belirtilmemiş",
+    "prompt": "{p}. görev",
+    "pText": "Yazılı",
+    "pRaw": "Ses, düzenlenmemiş",
+    "pEdit": "Ses, düzenlenmiş",
+    "choiceH": "919 öğrenci komutlarını nasıl vermeyi seçti",
+    "cText": "yalnızca yazı",
+    "cVoice": "yalnızca ses",
+    "cBoth": "ikisi birden",
+    "phon": {
+      "work": "İşte",
+      "off": "İş dışında",
+      "weekend": "Hafta sonları"
+    },
+    "phonA": "31 öğretmen, 2007",
+    "phonB": "26 öğretmen, 2023",
+    "recLoad": "2 saat yoğun kullanım",
+    "rec90": "%90 toparlanma",
+    "rec100": "tam toparlanma",
+    "recHours": "saat",
+    "recUnknown": "alçak sesle dikte: ölçülmedi",
+    "places": {
+      "home": "Evde",
+      "street": "Sokakta",
+      "driving": "Araba kullanırken",
+      "passenger": "Yolcu koltuğunda",
+      "work": "İşte",
+      "pub": "Barda"
+    },
+    "people": {
+      "alone": "Yalnız",
+      "friends": "Arkadaşlar",
+      "partner": "Partner",
+      "family": "Aile",
+      "colleagues": "İş arkadaşları",
+      "strangers": "Yabancılar"
+    },
+    "yes": "evet",
+    "no": "hayır",
+    "voiceOk": "ses olur",
+    "textOk": "yazı olur",
+    "acceptSum": "**{n} durumun {y} tanesinde** konuşurdunuz. Araştırmada ses, bütün yanıtların yaklaşık yarısında kabul edilebilirdi: **kabaca 12 durumun 6’sında**.",
+    "acceptNone": "Önce birkaç durumu yanıtlayın ya da hemen karşılaştırın.",
+    "acceptRow": "araştırmada ses için evet: {v}, yazı için: {t}",
+    "habitCmd": "Haftalık komut sayısı",
+    "habitMusic": "Müzik, komutlardaki payı",
+    "habitConf": "Sonunda kendini daha özgüvenli hissetti",
+    "week": "{n}. hafta",
+    "sevenOfSeven": "7 kişiden 7’si",
+    "cultures": {
+      "us": "ABD anakarası",
+      "hawaii": "Hawaii",
+      "japan": "Japonya",
+      "taiwan": "Tayvan",
+      "sweden": "İsveç"
+    },
+    "cplaces": {
+      "bus": "Otobüste",
+      "cinema": "Sinemada",
+      "sidewalk": "Kaldırımda"
+    },
+    "pref": {
+      "uk": "Britanya",
+      "dk": "Danimarka",
+      "se": "İsveç",
+      "us": "ABD",
+      "all": "17 pazarın tümü",
+      "id": "Endonezya",
+      "es": "İspanya",
+      "ae": "Birleşik Arap Emirlikleri"
+    },
+    "srcShort": "Kaynak",
+    "copied": "Kopyalandı",
+    "copyManual": "Seçip kopyalayın",
+    "ratioLoss": "Konuşmak, yazmanızdan {r} kat hızlı. Ama düşünmeye ve düzeltmeye Foley’nin deneyindeki kadar zaman giderse **dikte size hiç zaman kazandırmaz**.",
+    "tooFast": "Bu, kimsenin yazamayacağı kadar hızlı — büyük ihtimalle yapıştırıldı ya da otomatik dolduruldu. Lütfen cümleyi kendiniz yazın.",
+    "holdReady": "Hazır: basılı tutun, okuyun, bırakın",
+    "holdNow": "Okunuyor… son kelimede bırakın",
+    "holdAgain": "Tamam. Yeniden ölçmek için tekrar basılı tutun",
+    "typeMore": "Önce bütün cümleyi yazın, sonra Enter’a basın."
+  },
+  "fig": {
+    "wavesSrc": "Edison Research, SSRS aracılığıyla[^ssrsUS][^ssrsUK][^ssrs2026] · YouGov[^yougov2026] · Apple, basın aracılığıyla[^siri] · TechCrunch[^wispr] · Google, basın aracılığıyla[^gemini]",
+    "speedSrc": "Ruan ve ark., n = 48[^ruan] · Foley ve ark., n = 28[^foley] · Dhakal ve ark., n ≈ 168.000[^dhakal] · Palin ve ark., n ≈ 37.000[^palin]",
+    "werSrc": "Open ASR Leaderboard, Ekim 2025[^openasr] · Microsoft Research, 2017[^msHuman] · EdAcc[^edacc] · Koenecke ve ark., 2020[^koenecke] · Careless Whisper, 2024[^careless]",
+    "specSrc": "Ruan[^ruan] · Foley[^foley] · yaratıcı komutlar, 2026[^creative] · Riegel ve ark.[^riegel] · Chen ve ark.[^chen] · Hodgson ve ark.[^hodgson] · Shneiderman[^shneiderman] · MacArthur ve Cavalier[^macarthur]",
+    "promptSrc": "Riegel ve ark., ITiCSE 2026, n = 919[^riegel]",
+    "phonSrc": "Titze ve ark., 2007[^titze] · Eastman ve ark., 2023[^eastman]",
+    "recSrc": "Hunter ve Titze, 2009, 86 öğretmen, kendi değerlendirmeleri, özetteki rakamlar[^hunter] · Xue ve ark., 2019, n = 10[^xue]",
+    "acceptSrc": "Efthymiou ve Halvey, 2016, Birleşik Krallık, n = 20, 23–32 yaş, videolar üzerinden değerlendirme[^efthymiou]",
+    "habitSrc": "Pradhan, Lazar ve Findlater, 2020, ABD, n = 7, 1.049 komut[^pradhan]",
+    "prefSrc": "YouGov, Kasım 2023, pazar başına 500–2.001 kişi; yalnızca yayımlanan metinde adı geçen pazarlar gösteriliyor[^yougov2023]",
+    "phoneSrc": "Campbell, 2007, Hawaii’deki tek bir üniversiteden n = 271 öğrenci, geldikleri kültüre göre gruplandı[^campbell]"
+  },
+  "src": {
+    "ssrsUS": "SSRS / Edison Research, The Infinite Dial: Birleşik Krallık ve ABD’de akıllı hoparlör sahipliği, 2021–2025.",
+    "ssrsUK": "SSRS / Edison Research, The Infinite Dial UK 2025.",
+    "smartAudio": "NPR ve Edison Research, The Smart Audio Report 2022, audioXpress’in aktardığı şekliyle.",
+    "amazonLoss": "GeekWire, 2024, The Wall Street Journal’ın Amazon cihaz birimindeki zararlara dair haberi üzerine.",
+    "wispr": "TechCrunch, Kasım 2025 ve 17 Ağustos 2026: Wispr’ın yatırım turları ve şirket değeri. Şirket rakamları.",
+    "gemini": "Search Engine Journal, Ağustos 2026: Google, Gemini’nin aylık kullanıcıları ve ses kullanımı hakkında. Şirket rakamı, yöntem belirtilmemiş.",
+    "siri": "Om Malik, Ekim 2024, ve Search Engine Roundtable, Eylül 2026: Apple yöneticilerinin açıkladığı günlük Siri istekleri.",
+    "ssrs2026": "SSRS / Edison Research, The Infinite Dial 2026, Ocak 2026, n = 2.050.",
+    "whatsapp": "Meta Newsroom, Mart 2022: WhatsApp’ta sesli mesajlar. Şirket rakamı.",
+    "yougov2026": "YouGov, Şubat 2026, n = 2.442: Amerikalılar 2026’da nasıl iletişim kuruyor.",
+    "ruan": "Ruan, Wobbrock, Liou, Ng ve Landay. Comparing speech and keyboard text entry for short messages in two languages on touchscreen phones. IMWUT, 2018 (ön baskı 2016).",
+    "foley": "Foley, Casiez ve Vogel. Comparing smartphone speech recognition and touchscreen typing for composition and transcription. CHI 2020.",
+    "dhakal": "Dhakal, Feit, Kristensson ve Oulasvirta. Observations on typing from 136 million keystrokes. CHI 2018.",
+    "palin": "Palin, Feit, Kim, Kristensson ve Oulasvirta. How do people type on mobile devices? MobileHCI 2019.",
+    "karat": "Karat, Halverson, Horn ve Karat. Patterns of entry and correction in large vocabulary continuous speech recognition systems. CHI 1999.",
+    "openasr": "Srivastav ve ark. Open ASR Leaderboard, Ekim 2025.",
+    "msHuman": "Microsoft Research, 2017: konuşma dilinin tanınmasında bir dönüm noktası; dikkatli profesyonel transkripsiyonda hata oranı %5,1.",
+    "edacc": "Sanabria ve ark. The Edinburgh International Accents of English Corpus (EdAcc). ICASSP 2023.",
+    "koenecke": "Koenecke ve ark. Racial disparities in automated speech recognition. PNAS, 2020.",
+    "careless": "Koenecke, Choi, Mei, Schellmann ve Sloane. Careless Whisper: speech-to-text hallucination harms. FAccT 2024.",
+    "tapsay": "Zhao ve ark., CHI 2025: Tap&Say, dikte edilmiş metni dokunma ve sesle, bir dil modeli yardımıyla düzeltmek, n = 16.",
+    "rambler": "Rambler in the wild, CHI Extended Abstracts 2025: bir dil modeli yardımıyla konuşarak yazmayı 7 ila 10 gün boyunca günlüklerle izleyen bir çalışma, n = 12. Lin ve ark., Rambler, CHI 2024 üzerine kurulu.",
+    "gould": "Gould, Conti ve Hovanyecz. Composing letters with a simulated listening typewriter. Communications of the ACM, 1983.",
+    "shneiderman": "Shneiderman. The limits of speech recognition. Communications of the ACM, 2000.",
+    "chen": "Chen, Lyell, Laranjo ve Magrabi. Effect of speech recognition on problem solving and recall in consumer digital health tasks. JMIR, 2020, n = 50.",
+    "hodgson": "Hodgson, Magrabi ve Coiera. Efficiency and safety of speech recognition for documentation in the electronic health record. JAMIA, 2017, n = 35.",
+    "macarthur": "MacArthur ve Cavalier, Exceptional Children, 2004: yazılı sınavlarda kolaylaştırıcı düzenleme olarak dikte ve konuşma tanıma, n = 31.",
+    "riegel": "Riegel, Hua, Denny, Pădurean, Leinonen, Prather ve Singla. Say What? Examining text and voice input modalities for prompt-based programming. ITiCSE 2026.",
+    "creative": "Rathore, Billakanti, Ceha ve Henderson. A comparison of speech and typing input for creative generative AI tasks. ACM CUI 2026, n = 40.",
+    "fox": "Fox, Ericsson ve Best. Do procedures for verbal reporting of thinking have to be reactive? Psychological Bulletin, 2011.",
+    "titze": "Titze, Hunter ve Švec. Voicing and silence periods in daily and weekly vocalizations of teachers. JASA, 2007.",
+    "eastman": "Eastman ve ark., Perspectives of the ASHA Special Interest Groups, 2023: öğretmenlerin iş başında ve iş dışında fonasyonu, n = 26.",
+    "xue": "Xue ve ark., Journal of Voice, 2019: bir saatlik yüksek sesle okuma sırasında ses eforu, n = 10.",
+    "hunter": "Hunter ve Titze, Annals of Otology, Rhinology & Laryngology, 2009: iki saatlik ses yükünün ardından toparlanma, n = 86.",
+    "nair": "Nair ve ark., Journal of Voice, 2024 (çevrimiçi 2021): çağrı merkezi operatörlerinde ses sorunları üzerine sistematik derleme, 15 çalışma.",
+    "piwowarczyk": "Piwowarczyk ve ark., Journal of Voice, 2012: çağrı merkezi operatörlerinde ses belirtileri, n = 157.",
+    "olson": "Olson, Cruz, Izdebski ve Baldwin, Ear, Nose & Throat Journal, 2004: konuşma tanıma yazılımına geçtikten sonra ses zorlanması görülen beş vaka.",
+    "juul": "Juul-Kristensen ve ark., Ergonomics, 2004: konuşma tanımayla bilgisayar başında çalışırken kas etkinliği, n = 10.",
+    "efthymiou": "Efthymiou ve Halvey. Evaluating the social acceptability of voice based smartwatch search. AIRS 2016.",
+    "kowalczuk": "Kowalczuk ve Musial, Computers in Human Behavior Reports, 2024: öz-bilinçli duygular ve sesli asistanları kullanmaya devam etmek, n = 860.",
+    "perficient": "Voicebot.ai, Mart 2019, Perficient’in toplum içinde ses kullanımı anketi üzerine, n = 1.719.",
+    "pradhan": "Pradhan, Lazar ve Findlater. Use of intelligent voice assistants by older adults with low technology use. TOCHI, 2020.",
+    "garg": "Garg ve Sengupta. He is just like me: a study of the long-term use of smart speakers by parents and children. IMWUT, 2020.",
+    "koelle": "Koelle, Ananthanarayan ve Boll. Social acceptability in HCI: a survey of methods, measures and design strategies. CHI 2020.",
+    "yougov2023": "YouGov, Kasım 2023: do consumers prefer sending and receiving messages in audio or text form? 17 pazar.",
+    "campbell": "Campbell. Perceptions of mobile phone use in public settings: a cross-cultural comparison. International Journal of Communication, 2007.",
+    "pew2006": "Pew Research Center, 2006 ve 2013’teki takip çalışması: toplum içinde yüksek sesli telefon konuşmaları.",
+    "pew2015": "Pew Research Center, 2015: Amerikalıların mobil görgü kuralları hakkındaki görüşleri, saha çalışması 2014.",
+    "bloomberg": "Bloomberg, 6 Şubat 2026: sesi metne çeviren yapay zekâ, ofis çalışanlarının yazmak yerine konuşmasını sağlıyor.",
+    "computerworld": "Computerworld, Temmuz 2026: iş yerinde yapay zekâlı dikte araçlarının yükselişi.",
+    "wisprWhisper": "Wispr Flow: açık ofiste fısıldamak. Şirketin kendi sayfası.",
+    "silentvoice": "Fukumoto. SilentVoice: unnoticeable voice input by ingressive speech. Microsoft Research, UIST 2018.",
+    "pandey": "Pandey, Hasan ve Arif. Acceptability of speech and silent speech input methods in private and public. CHI 2021.",
+    "jama": "Mass General Brigham ve STAT, Nisan 2026, beş akademik merkezde arka planda dinleyen yapay zekâ kâtipleri üzerine JAMA çalışması hakkında.",
+    "nejmai": "UCLA’de arka planda dinleyen yapay zekâ kâtipleri üzerine randomize çalışma. NEJM AI, 2025, n = 238.",
+    "ama": "American Medical Association, 2025: arka planda dinleyen yapay zekâ kâtipleri ve hekim tükenmişliği, n = 263.",
+    "notes": "Taylor ve ark. Quality of clinical notes created by ambient listening generative AI. JMIR Medical Informatics, 2026, hekimlerin incelediği 356 not. PubMed 41996389."
+  }
+}

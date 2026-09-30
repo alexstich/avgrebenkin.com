@@ -1,0 +1,536 @@
+{
+  "lang": "zh-Hans",
+  "dir": "ltr",
+  "endonym": "简体中文",
+  "htmlLocale": "zh_CN",
+  "decimal": ".",
+  "ui": {
+    "crumb": "← Research",
+    "langGroup": "页面语言",
+    "tldrOpen": "简版",
+    "tldrOpenSub": "2 分钟 · 可复制或打印",
+    "tldrHead": "简短版本",
+    "tldrCopyText": "复制",
+    "tldrCopyMd": "Markdown",
+    "tldrPrint": "打印",
+    "tldrClose": "关闭",
+    "sourcesH": "资料来源",
+    "sourcesNote": "研究完成于 2026 年 9 月。凡是公司谈论自己的数据，正文都会注明，图表中也用斜线阴影画出。",
+    "percent": "{n}%",
+    "translationNote": "译自英文原文。研究和来源的标题保留英文。识别错误实验中的句子用中文重新写过，误听也换成了中文的谐音。凡需要来源确切措辞之处，请以上方链接中的文件为准。",
+    "syText": "**语音输入与会议记录。**一个快捷键，任何应用，67 种以上语言。",
+    "syCta": "免费试用 30 天",
+    "backHome": "← 返回 avgrebenkin.com"
+  },
+  "page": {
+    "htmlTitle": "语音悄声归来——说话和打字，哪个更快",
+    "title": "语音悄声归来",
+    "eyebrow": "研究 · 界面 · 2026 年 10 月",
+    "standfirst": "**语音输入回来了——不是以 Alexa 的样子，而是以听写和与 AI 对话的形式。** 我读了近两年的相关研究，也读了它们所依托的更早的文献：语音输入有多快，多常听错，有多累人，又有多尴尬。出人意料的是：变化最快的，并不是人们对着电脑说话越来越大胆，而是声音越来越轻。",
+    "disclosure": "**利益声明。** 我在开发语音输入应用 Speak-Y。凡是公司关于自己的数字，正文都会注明，图表中也用斜线阴影画出，与独立数据区分开。",
+    "byline": "**Aleksei Grebenkin** · 数据：Edison Research、YouGov、Pew、CHI 与 IMWUT 上的实验、PubMed 上的嗓音科学研究、JAMA、公司披露",
+    "heroAlt": "左边是一道声波，向右渐渐变成一行行文字；越靠近文字，声波的竖条越低。",
+    "imageAlt": "左边的声波向右渐渐变成一行行文字，图上写着英文标题 The quiet comeback of voice。",
+    "metaDescription": "对电脑说话真的比打字快吗？照着念快 3 倍，自己组织语言只快 1.4 倍。关于语音输入的速度、疲劳与尴尬，研究是怎么说的。",
+    "ogDescription": "照抄文字时，说话比打字快 3 倍；自己写时只快 1.4 倍。独处时 96% 的回答觉得用语音没问题，当着陌生人只有 16%。",
+    "twitterDescription": "语音输入回来了。变化最快的不是人们更敢开口，而是声音越来越轻。",
+    "ldDescription": "梳理 2024–2026 年关于语音输入的证据：普及程度、速度、识别准确率、嗓音疲劳、认知负荷、社会接受度与习惯养成，以及至今没有研究填补的空白。"
+  },
+  "tldr": {
+    "sub": "对着电脑说话而不是打字——研究怎么说。",
+    "b1": "**语音助手停滞了，听写起飞了——据它自己说。** 美国的智能音箱拥有率：2021 年 33%，2025 年 35%。听写和与 AI 语音对话的增长，几乎只体现在公司对自己的说法里。",
+    "b2": "**照抄快 3 倍，自己写只快约 1.4 倍。** 写自己的消息时，人们开口前要多想一倍的时间（11.0 秒对 5.3 秒），而任何修改都代价高昂。",
+    "b3": "**机器听到什么，取决于谁在说。** 干净朗读的美式英语，错词率 2.7%；带口音的对话，19.7%。Whisper 在约 1% 的转写里凭空编出了句子。",
+    "b4": "**语音加快的是嘴，不是构思。** 写作时间大约三分之二花在构思上。在需要解决问题的任务里，语音让大脑负担更重。919 名编程课学生中，88.5% 选择打字，而不是用语音向 AI 工具输入提示词。",
+    "b5": "**嗓子累不累看剂量，而听写的剂量没人量过。** 大声朗读时，一项嗓音负担的生理指标在 15 分钟内就会上升，30 分钟后人自己也能感觉到。呼叫中心接线员中，33–68% 在职业生涯的某个阶段有过嗓音问题。",
+    "b6": "**关键不在地点，而在谁在听。** 独自一人时，96% 的回答认为可以用语音；当着同事是 26%，当着陌生人是 16%。新鲜感几周内就会消退，底气则越来越足。",
+    "b7": "**办公室正在学着悄声说话。** 市场并不等规范改变，而是让语音变轻——就像打电话在街上成了常态，在会议里却从来没有。",
+    "src": "来源：Edison Research · YouGov · Pew · CHI 与 IMWUT 实验 · 嗓音科学研究 · JAMA · 公司披露（均已注明）",
+    "full": "完整研究，含交互部分与全部来源："
+  },
+  "s01": {
+    "num": "01 · 两波浪潮",
+    "h": "语音助手停滞了。听写起飞了——据它自己说",
+    "a": "说一句“Alexa，定个计时器”，你用的是第一种语音输入。把一封邮件口述出来而不是敲出来，用的就是第二种。\n\n语音输入一共有五种，过去两年里它们各走各的路：**对语音助手下指令**、口述文字（也就是听写）、语音消息、与 AI 模型的语音对话，以及用语音编程、给 AI 智能体布置任务。\n\n第一种的覆盖面已经不再扩大。在美国，2021 年有 33% 的人拥有智能音箱，2025 年是 35%；调查机构自己也说，四年来这个数字几乎没动。[^ssrsUS]\n\n英国是例外：同一时期从 25% 升到 45%，主要靠 Alexa。[^ssrsUK] 每位用户的使用量增长得更久一些：每周在音箱上完成的任务，从 2017 年的 7.5 项增加到 2022 年的 12.4 项。[^smartAudio]\n\n但从生意上看，**第一波失败了**。2017 到 2021 年间，亚马逊设备部门亏损超过 250 亿美元，因为人们用 Echo 定闹钟、查天气，却不用它购物。[^amazonLoss]",
+    "b": "第二波几乎只能从公司对自己的说法里看到。听写应用 Wispr Flow 的估值，从 2025 年 11 月的 7 亿美元涨到了 2026 年 8 月的 20 亿美元。[^wispr]\n\n谷歌称，Gemini 应用每月超过 10 亿用户中有 63%“使用语音”，却没说是怎么统计的。[^gemini] 苹果称，Siri 的请求量从 2024 年的每天约 15 亿次，增长到 2026 年的每天超过 25 亿次。[^siri]\n\n大型独立调查——Pew、YouGov、Edison、Ofcom——还没有把听写或与 AI 语音聊天单列成一个问题。最接近的一项发现，12 岁及以上的美国人中有 57% 至少用过一次生成式 AI 助手，打字或说话都算。[^ssrs2026]\n\n所以，**第二波的增长曲线是由利益相关方画出来的**。",
+    "figCap": "左边是独立调查，右边是公司关于自己的说法",
+    "figNote": "实心条：方法和样本已知的调查；深色刻度标出较早年份的数值。斜线阴影条：公司关于自己给出的数字，外界无法核实；刻度标出它较早的说法。左右两边不在同一个刻度上。",
+    "c": "第三种——语音消息——是大众习惯，但并没有在增长。WhatsApp 最后一次官方统计是在 2022 年 3 月：每天 70 亿条。[^whatsapp]\n\nYouGov 在 2026 年 2 月调查了 2442 名美国人：约 10% 每周用几次语音消息，41% 说这种形式与自己无关。用得比以前少的（12%）和用得更多的（11%）差不多一样多。[^yougov2026]"
+  },
+  "s02": {
+    "num": "02 · 速度",
+    "h": "照抄快 3 倍。自己写只快约 1.4 倍",
+    "a": "关于语音，被引用最多的数字是：说话**比打字快 3 倍**。这没错——但只对照抄而言。\n\n这个数字出自一项实验：48 人，每种语言 24 人，在 iPhone 上照抄现成的短句。英语用语音每分钟 153 词，用屏幕键盘 52 词；普通话是 123 对 43。[^ruan]\n\n作者自己也说，这是在实验室里达到的上限。何况没有人是靠照抄来写东西的。\n\n2020 年，Foley、Casiez 和 Vogel 请 28 人在手机上**自己组织一句话**，把三幅简单的图画串起来。在真正说出或敲出字词的那段时间里，语音仍然快 3 倍：每分钟 116.5 词对 35.1 词。\n\n但如果把整次尝试都算上——思考、说话、修改——一条消息用语音要 20.8 秒，用键盘要 29.2 秒。约 1.4 倍，而不是 3 倍。[^foley]",
+    "b": "差距被两件事吃掉了。第一个词出口之前，准备说话的人要多想一倍的时间：11.0 秒对 5.3 秒。**打字时，人边想边写；说话时，人会先把整句想好。**\n\n其次，任何修改都代价高昂：无论哪种方法、哪种任务，需要修改的尝试速度只有每分钟 54.6 词，一次成功的则是 141.1 词。\n\n作为参照：在一个在线打字测试中，16.8 万名志愿者用实体键盘平均每分钟打 52 词，[^dhakal] 3.7 万名志愿者用手机平均打 36 词。[^palin]\n\n至今没有人用如今的语音识别做过对照实验，比较用语音写作和用台式机键盘写作。最近的一次还是 1999 年：初次使用的人用语音写作，算上修改，每分钟 7.8 词，键盘加鼠标是 19 词；照抄文本则是 13.6 对 32.5。[^karat]",
+    "splitCap": "时间花在哪儿：在手机上写一条消息，28 人的平均值",
+    "splitNote": "写作任务。每根条的浅色部分是说出第一个词之前的思考；实色部分是说话或打字，再加上修改。[^foley]",
+    "toolH": "测测自己：手指对嘴巴",
+    "toolLead": "两只秒表，一句话。本页面从不打开麦克风，也听不见你说话：它只记录你用了多长时间，再把两个时间换算成两个速度。",
+    "step1": "输入这句话，然后按回车",
+    "step2": "按住按钮，把这句话念出来",
+    "phrase": "能不能把我们周四的电话改到下午，并在那之前把上周的会议记录发给我？",
+    "typeAria": "在这里输入这句话",
+    "holdBtn": "念的时候一直按住",
+    "againBtn": "重新开始",
+    "c": "你的说话速度是嘴的速度，而不是听写的速度：这里什么都不识别，也没有什么需要修改。**你两个数字之间的比值，就是语音最多能给你的。**\n\n在 Foley 的实验里，单看说话本身比打字快 3.3 倍，整次尝试算下来是 1.4 倍：扣除思考和修改之后，速度比只剩下约 40%。",
+    "how1h": "打出来",
+    "how1": "输入下面这句话。第一只秒表从你按下第一个键开始计时，到你按回车为止。",
+    "how2h": "说出来",
+    "how2": "按住按钮或空格键，用平常的语速把同一句话念出来。按住期间，第二只秒表一直在走。",
+    "how3h": "对比",
+    "how3": "同一句话，两个时间。页面把它们换算成每分钟词数，放在各项研究旁边。",
+    "typePh": "从这里开始输入……",
+    "holdWait": "请先完成第 1 步",
+    "resType": "每分钟词数，打字",
+    "resSpeak": "每分钟词数，说话",
+    "ratesH": "你的速度与各项研究并排"
+  },
+  "s03": {
+    "num": "03 · 准确率",
+    "h": "机器听到什么，取决于谁在说",
+    "a": "在安静的房间里，用播音员的口音说“把会议挪到周四十点”，好的识别器会一字不差。换成拉各斯口音，背景是咖啡馆的嘈杂，它可能打出“把回忆挪到粥食四点”。\n\n识别质量用**词错误率**来衡量：识别错、漏掉或多加的词所占的比例。2025 年 10 月，一个标准公开排行榜上的最佳模型，在各测试集上的平均值是 5.63%。\n\nWhisper large-v3——许多听写应用背后的开源模型——平均是 7.44%。[^openasr] 作为对比，2017 年测得，细致的专业人工转写在录音电话对话上的错误率是 5.1%。[^msHuman]\n\n这些平均值掩盖了说话的人是谁。在一个收录世界各地口音的英语对话语料库上，Whisper 听错了 19.7% 的词，而在干净朗读的美式英语上只有 2.7%。\n\n尼日利亚英语和牙买加英语上，连较强的模型错误率也超过 20%，一个学术模型超过 45%。[^edacc]\n\n2020 年，五个商用系统对黑人说话者的词错误率是 35%，对白人说话者是 19%：**同一个系统，错误几乎翻倍**。[^koenecke]",
+    "ladderCap": "选一个错误率，看看它会把一句口述的话变成什么样",
+    "ladderNote": "这句话有 26 个词；错误放在危害最大的位置，为的是展示这个比率意味着什么，而不是模拟某个具体系统。",
+    "halluBtn": "加一句 Whisper 式的凭空编造",
+    "b": "生成式识别带来了一种新的失误：**无中生有**。Whisper 在约 1% 的转写中编出了整句话，其中 38% 含有有害内容，比如暴力或不实说法。[^careless]\n\n长停顿——在失语症患者中很常见——让编造更容易出现。编出来的一句话比听错的一个词更糟，因为它读起来很通顺。\n\n瓶颈已经从识别转移到了修改。用语音改文字有两个没解决的难题：分清哪句是命令、哪句是要写下来的内容，以及指出要改的位置。\n\n在一项 16 人参加的测试中，点一下错误附近、同时说出正确内容，再让语言模型判断该改哪里——与此前最好的方法相比，任务时间缩短 16.4%，键盘点击减少 47.5%。[^tapsay]\n\n口述出来的文字还**啰嗦、松散**，所以新一代应用在粘贴之前，会先用语言模型把它改写一遍。在一项为期 7 到 10 天、使用这类工具的日记研究中，12 位写作者里有 9 位适应了它，舒适度中位数为 5 分（满分 7 分）。\n\n仍有疑虑的人，说出的还是那些老难题：一边说话一边想下一句，以及把光标放到该放的地方。[^rambler]"
+  },
+  "s04": {
+    "num": "04 · 思考",
+    "h": "语音加快的是嘴，不是构思",
+    "a": "如果说话快 3 倍，为什么写作没有快 3 倍？因为写作的大部分并不是打字。1983 年一项关于写信的研究发现，**写作时间约三分之二花在构思上**——在测试的各种条件下介于 58% 到 78% 之间。\n\n无论手写、口述给人记录还是直接说出来，信的质量都一样好。[^gould] 更快的输出通道，只能加快剩下的那三分之一。\n\n本·施耐德曼（Ben Shneiderman）在 2000 年提出了其中的机制：说话和短时记忆争用同一种资源，而动手可以与思考同时进行。\n\n在他实验室的一项实验中，口头命令比鼠标快 12–30%，但把命令说出口，会让人更难记住之后要重新输入的符号。[^shneiderman]",
+    "b": "后来的研究排成了一条线，一端是照抄，另一端是解决问题。任务是照抄时，语音更快，感觉也更轻松。任务是写作时，语音稍快一点，感觉差不多。\n\n**任务是解决问题时，语音让大脑负担更重。** 50 人使用医疗聊天助手，无论任务难易，说话都让测得的脑力负荷上升。[^chen] 35 名急诊医生用语音写病历，慢了 18.1%，出错 138 处，对照条件下是 32 处。[^hodgson]\n\n明显的赢家，是那些瓶颈在手或拼写上的人。有学习障碍的学生用语音识别写出的作文比手写更好；对其他学生则没有差别。[^macarthur]",
+    "specCap": "从照抄到解决问题：逐项任务看语音与打字相比如何",
+    "specHelps": "语音更好",
+    "specSame": "没有差别",
+    "specHurts": "打字更好",
+    "c": "与 AI 对话也在这条线上。在我找到的规模最大的研究中，一门编程入门课的 919 名学生可以自己选择如何向 AI 工具输入提示词。**近九成只选了文字**（88.5%），4.8% 只用语音，6.7% 两者都用。\n\n未经编辑的语音提示词一次成功的比例更低：第一题 35% 对 52%，第二题 38% 对 58%。学生编辑过转写稿之后，差距就不再显著。[^riegel]\n\n在创意任务中，语音让第一条提示词来得更快，后续追问也更多、更长，但人们感到的费力程度和对结果的评价都没有变化。[^creative]",
+    "promptCap": "提示词一次成功的学生比例；每个语音组 26–51 名学生",
+    "d": "流行的说法是“边想边说有帮助”，这只对了一半。综合 94 项研究，单纯把想法说出来并不改变准确率，只会让做事变慢；当人们必须**解释**自己的推理时，准确率才会提高。[^fox]\n\n用语音向 AI 模型解释一个问题，很可能也有帮助。只是还没有人检验过。"
+  },
+  "s05": {
+    "num": "05 · 疲劳",
+    "h": "嗓子累不累看剂量。听写的剂量没人量过",
+    "a": "整天打字，累的是手。整天说话，累的是别的地方，而科学上并没有一个每天说多少才算安全的上限。能测得很清楚的，是职业用嗓者到底用了多少嗓子。\n\n**教师**是嗓音疾病高发的职业。2007 年一项针对 31 名教师的研究发现，他们工作时有 23% 的时间声带在振动，下班后是 13%，周末是 12%。[^titze] 较新的一组 26 名教师，数据是 16.2%、8.4% 和 8.0%。[^eastman]\n\n这段发声的时间叫作发声时长（phonation）：只计算声带真正振动的时刻，不算词与词之间的停顿。",
+    "phonCap": "声带振动时间所占比例，教师",
+    "b": "身体很快就会察觉。一项 10 人的研究发现，大声朗读时，一项客观的嗓音用力指标**在最初 15 分钟内就会上升**，人在 30 分钟后才感觉到。[^xue]\n\n以教室音量朗读两小时后，86 名教师自评嗓子大多在 4–8 小时内恢复，少量残余疲劳会持续一天或更久。论文对确切数字前后不一：摘要写的是 4–6 小时恢复 90%，12–18 小时完全恢复。[^hunter]",
+    "recCap": "两小时高强度用嗓，然后恢复",
+    "recNote": "大声朗读两小时后，自评疲劳已消退的比例。曲线穿过论文摘要中的两个点：4–6 小时后 90%，12–18 小时后 100%；论文结论给出的 50% 和 90% 来得更慢。对着近处的麦克风轻声听写，根本没有曲线；那一栏特意留空。",
+    "c": "现有职业里，最接近整天对着电脑说话的，是**呼叫中心**。综合 15 项研究，33–68% 的接线员在职业生涯的某个阶段有过嗓音问题，接受检查时正有问题的占 27%。[^nair]\n\n一项调查统计，每位接线员平均有 6.8 种嗓音症状，普通人群则是 1.7 种。[^piwowarczyk]\n\n关于听写用户的直接证据只来自 1990 和 2000 年代，那时的听写意味着每说一个词都要停一下。在一组病例中，5 个人因手痛改用语音识别，结果嗓子劳损；经过嗓音治疗、缩短每次使用时间后，5 人中有 3 人好转。[^olson]\n\n对 10 人的肌电记录显示，**负担是转移了，而不是消失了**：前臂和颈部、某种程度上还有肩部的持续紧张减少了，而喉部的一块肌肉——环甲肌——的负担有增加的趋势。[^juul]\n\n现代听写去掉了被怀疑的病因——平板、机器式、每个词后都停顿的说话方式——还把麦克风放到嘴边，让人可以轻声说话。这是一个合理的期望，而不是研究结论。\n\n还没有任何研究测量过，使用如今的听写应用或 AI 模型语音模式的人，嗓音负荷有多大。"
+  },
+  "s06": {
+    "num": "06 · 尴尬",
+    "h": "关键不在地点。在于谁在听",
+    "a": "想象一下：在家里让手机导航，然后在公交车上，再然后在办公桌前、同事就在周围。对大多数人来说，答案会变三次。\n\n这方面最好的数据来自英国一项小型实验。20 名 23–32 岁的人观看短视频，视频里一名男子在素色背景前用语音或文字搜索，然后勾选自己在哪些地方、当着哪些人也会这样做。**语音只在开车时胜过文字**，因为那时手腾不出来。[^efthymiou]\n\n谁在听，比在哪儿更重要。独自一人时，96% 的回答认为可以用语音；和朋友在一起 83%，和伴侣 78%，和家人 71%。当着同事，26%。当着陌生人，16%。\n\n在听众方面，只有同事和陌生人让语音显著不如文字可接受；在地点方面，则是家里、副驾驶座和工作场所。先自己试试，再看他们的答案。",
+    "toolH": "在这里，你会对着设备说话吗？",
+    "toolLead": "每个情境点一下表示“会”，点两下表示“不会”。然后与研究中的 20 人对比。",
+    "placesH": "在哪里",
+    "peopleH": "当着谁",
+    "showBtn": "与研究对比",
+    "hideBtn": "隐藏研究结果",
+    "b": "在一项针对 860 名语音助手用户的调查中，**羞耻感降低了继续使用的意愿**，但只在公共场合；而自豪感在任何场合都会提高这种意愿。[^kowalczuk]\n\n规范还是变了。在美国的调查中，和朋友在餐厅里使用语音的比例，从 2017 年的约 25% 升到 2019 年的 40% 以上。男性使用语音命令的可能性是女性的 1.54 倍，46% 的人说别人这样做会让他们心烦。[^perficient]"
+  },
+  "s07": {
+    "num": "07 · 习惯",
+    "h": "新鲜感先消退。羞怯也会消退",
+    "a": "买过智能音箱的人都知道第一周是什么样：定计时器、讲笑话、放音乐，为了好玩问各种问题。然后新鲜感消退，剩下的是习惯。\n\n人们开始使用之后怎样变化，几乎只在家用智能音箱上测过。在一项为期三周的研究中，7 位老年人拿到了 Echo Dot。**每周指令数下降了三分之一**：59.6、50.1、39.7。\n\n音乐从指令的 23.9% 降到 2.9%，天气和购物清单则增加了。一位参与者说，起初她“对着这台机器说话觉得自己很傻”；到最后，7 人都说自己更有信心了，并会继续用下去。[^pradhan]",
+    "habitCap": "与智能音箱相处三周，7 人",
+    "b": "更长的记录看起来就不一样了。18 个家庭的 Google Home 使用历史平均长达 58 周，使用量相当稳定。有 3 个家庭买回音箱后不久就停用了几周，原因是隐私、没用，或者习惯没养成，后来又用了回来。\n\n彻底放弃的家庭没有被研究。随着家里的智能设备越来越多，用音箱控制家居的情况也在增加。[^garg]\n\n人们暂时放下音箱，是因为有没有用、可不可靠或隐私，而不是在家里说话觉得别扭。\n\n一篇综述回顾了 69 篇关于社会接受度的论文，指出接受度会随着人们习惯一种交互而变化，但**其中只有 3 篇跟踪了人们在日常生活中试用界面**；大多数是让人想象，或者在实验室里试一次。[^koelle]\n\n这正是本文最核心的空白。我没有找到任何一项研究，跟踪在工作中改用听写的人，逐周测量他们的尴尬感如何变化。"
+  },
+  "s08": {
+    "num": "08 · 文化",
+    "h": "文化决定语音可以多大声",
+    "a": "回消息时发语音还是打字，很大程度上取决于你住在哪里。\n\n在 YouGov 2023 年覆盖 17 个市场的调查中，66% 的人更喜欢用文字发消息，7% 更喜欢语音。偏好文字最强的是英国（83%）、丹麦（80%）和瑞典（78%），最弱的是阿联酋（38%）；在西班牙，54% 偏好文字，13% 偏好语音。[^yougov2023]",
+    "prefCap": "更喜欢用文字发消息，2023 年",
+    "b": "20 年前，手机也经历过同样的事。2007 年，一项研究比较了夏威夷同一所大学里来自五种文化的学生：**在公交车上打电话**这一项，日本学生打分 2.53（满分 5 分），瑞典学生 3.50，美国本土学生 3.44。[^campbell]\n\n日本定下了一条清楚的规矩——电车里不出声，发邮件没问题——一有无声的替代方式，就远离了公共场合的语音。",
+    "phoneCap": "在这里打电话可以接受：1 = 非常不同意，5 = 非常同意，2007 年",
+    "c": "在美国，2006 年有 82% 的人至少偶尔被公共场合大声打电话惹恼过；到 2012 年，经常遇到这种情况的人从 50% 降到了 39%。[^pew2006]\n\n到 2014 年，77% 的美国人认为在街上用手机没问题，在公共交通上是 75%，在餐厅是 38%——在会议中只有 5%。[^pew2015] 变化来自两边：旁观者更宽容了，打电话的人更小声了。而**它止步于会议室门口**。"
+  },
+  "s09": {
+    "num": "09 · 办公室",
+    "h": "办公室正在学着悄声说话",
+    "a": "2026 年，AI 听写进入了办公室，最早的报道讲的是故事，不是数字。彭博社描述了它如何从一张办公桌传到下一张：鹅颈麦克风出现了，窃窃私语开始了。[^bloomberg]\n\nComputerworld 引用的一位分析师称，尴尬和怕打扰同事是一大行为障碍。完全远程办公的公司 Thumbtack 给 200 多名员工配了 Wispr Flow，其技术负责人承认，习惯出声说话——哪怕是独自在房间里——也花了些时间。[^computerworld]\n\n市场并不等规范改变，而是在**让语音变轻**。Wispr Flow 在卖一种耳语模式，并建议在离麦克风约 1 厘米的地方说话。[^wisprWhisper]\n\n研究早在 2018 年就走得更远：微软的 SilentVoice 能识别吸气时说出的简短命令，漏出的声音低于 39 分贝；训练有素的说话者词错误率为 1.8%，新手为 7%。[^silentvoice]\n\n人们愿意用准确率换安静。在 2021 年的一项实验中，12 人对无声语音——只动嘴唇、不出声——的使用意愿，在故意注入 10–15% 错误时和没有错误时一样高，而他们出声说话的意愿却下降了。12 人都把原因归结为隐私和安全。[^pandey]",
+    "pull": "进展最快的，不是人变得更敢开口，而是声音变得更轻。"
+  },
+  "s10": {
+    "num": "10 · 医疗",
+    "h": "唯一大规模测量过的地方：医生的病历",
+    "a": "医学是唯一在数千人身上测量过 AI 模型驱动的语音输入的领域。环境式 AI 记录员（ambient AI scribe）会旁听问诊，并起草病历。\n\n在规模最大的研究中（2026 年 4 月发表于 JAMA），约 1800 名使用者与 6770 名未使用者相比，每 8 小时问诊节省 16 分钟文书时间，**约 10%**，下班后的工作量没有显著变化。只有 32% 的人在一半以上的问诊中用了记录员。[^jama]\n\n在一项 238 名医生参加的随机试验中，一款记录员让每份病历的用时缩短了 41 秒，对照组缩短了 18 秒；另一款没有显著差别。[^nejmai] 在一项没有对照组的研究中，职业倦怠在 30 天内从 51.9% 降到 38.8%。[^ama]\n\n人工核查的病历中，18% 有遗漏，11.5% 有编造的细节；5.3% 含有可能造成严重伤害的错误。[^notes] 语音省下的更多是注意力而不是分钟，代价是得核对文字。"
+  },
+  "s11": {
+    "num": "11 · 空白",
+    "h": "还没有人做过的实验",
+    "a": "这些不是小漏洞。下面每张卡片，都是本文想用一个数字回答却答不了的问题，因为还没有研究测量过。",
+    "g1h": "统计听写的调查",
+    "g1": "没有任何随机抽样调查把听写或与 AI 语音聊天当作单独的行为来测量。增长曲线依赖的是公司的说法。",
+    "g2h": "听写的用嗓剂量",
+    "g2": "没有人测量过用如今的应用一连听写几个小时的人，发声时长或嗓音负担是多少。",
+    "g3h": "每天多少才安全",
+    "g3": "每天说几个小时话对嗓子是安全的，没有基于证据的上限。",
+    "g4h": "改用语音后的手",
+    "g4": "没有随机试验表明，改用语音能预防或治疗手部劳损。",
+    "g5h": "伏案写作",
+    "g5": "没有用现代语音识别比较语音写作和实体键盘写作的对照实验。最好的数据来自 1983 年和 1999 年。",
+    "g6h": "说了一整天话",
+    "g6": "没有日记研究或长期研究跟踪主要靠语音工作的人，测量他们的脑力疲劳。",
+    "g7h": "在工作中克服羞怯",
+    "g7": "没有实地研究逐周跟踪办公室里的听写新用户。所有关于习惯的长期研究，对象都是家里的音箱。"
+  },
+  "s12": {
+    "num": "12 · 方法",
+    "h": "怎么核查的，又略去了什么",
+    "a": "我在开发 **Speak-Y**——一款语音输入和会议记录应用，本页底部就有它的横幅。这是带着怀疑读这篇研究的理由。\n\n所以，每一个来自公司关于自己的数字——包括与我竞争的听写公司——都在正文中注明，并在图表里用斜线阴影画出。\n\n研究于 2026 年 9 月完成，围绕四个问题：普及程度，速度与准确率，疲劳与思考，社会接受度。凡是能追溯的数字，都追到了原始来源。\n\n小样本也保留了，因为现有的就是这些，但数字旁边总会给出样本量。",
+    "b": "有些广为流传的数字这里没有用，因为它们经不起溯源，或者并不是被引用时的那个意思。“Gartner”称 Siri 的使用一年下降 12%：找不到任何 Gartner 的出处。\n\n“48% 的员工认为说话声是办公室里最让人分心的噪音”：它来自 2008 年对 689 名芬兰办公室职员的调查，与听写毫无关系。\n\n“79% 的医生拒绝了 AI 记录员”：一家听写厂商把 JAMA 研究中作为对照组的未使用者说成了拒绝者。还有那个著名说法——只有 3% 的人在公共场合用 Siri，它的原始页面已经不存在了。",
+    "c": "我自己对全局的判断，这是观点：**听写会在家里、车里和独处的房间里成为常态**，在开放式办公室里仍有争议，在会议里则始终缺席，就像打电话那样。能改变这一点的，不是更大胆的人，而是更轻的声音。"
+  },
+  "js": {
+    "survey": {
+      "usSpeaker": "拥有智能音箱，美国",
+      "ukSpeaker": "拥有智能音箱，英国",
+      "genai": "用过生成式 AI 助手，美国，12 岁及以上",
+      "vmsg": "每周用几次语音消息，美国成年人"
+    },
+    "vendor": {
+      "siri": "Siri 每日请求数",
+      "wispr": "Wispr Flow 估值",
+      "gemini": "Gemini 月活用户中“使用语音”的比例"
+    },
+    "surveyH": "独立调查",
+    "vendorH": "公司的自述",
+    "bnDay": "{n} 十亿次",
+    "usdBn": "{n} 十亿美元",
+    "plus": "{n}以上",
+    "times": "×{n}",
+    "noMethod": "未说明方法",
+    "rates": {
+      "ruanV": "语音，照抄短句（Ruan）",
+      "foleyV": "语音，自己写，只算说话时段（Foley）",
+      "desk": "实体键盘，平均（Dhakal）",
+      "ruanK": "手机键盘，照抄（Ruan）",
+      "phone": "手机键盘，平均（Palin）",
+      "foleyK": "手机键盘，自己写（Foley）"
+    },
+    "wpm": "{n} 词/分",
+    "youType": "你打字",
+    "youSpeak": "你说话",
+    "you": "你",
+    "waiting": "—",
+    "ratioYou": "你的上限：说话比你打字快 **{r} 倍**。如果像 Foley 的实验那样，扣除思考和修改后速度比还剩 40%，听写对你来说大约会快 **{s} 倍**。",
+    "ratioSlow": "你打字和说话差不多快，甚至更快。语音在速度上给不了你多少；用它的理由只能是舒适，以及你的手。",
+    "typedWrong": "有些字和原句不一样；速度照样计算。",
+    "tooShort": "这么短，不可能念完整句话。再试一次。",
+    "prep": "说出第一个词前的思考",
+    "entry": "说话或打字，以及修改",
+    "voice": "语音",
+    "keys": "键盘",
+    "sec": "{n} 秒",
+    "wer": {
+      "clean": "干净朗读的美式英语，Whisper",
+      "human": "细致的专业人工转写",
+      "best": "最佳模型，公开排行榜",
+      "whisper": "Whisper large-v3，公开排行榜",
+      "white": "白人说话者，5 个商用系统，2020 年",
+      "accent": "带口音的对话，Whisper",
+      "black": "黑人说话者，5 个商用系统，2020 年"
+    },
+    "werErrors": "{n} 个词中错了 {e} 个",
+    "werWords": [
+      [
+        "麻烦",
+        "马贩",
+        15
+      ],
+      [
+        "把",
+        "爸",
+        23
+      ],
+      [
+        "和",
+        "喝",
+        18
+      ],
+      [
+        "王乐",
+        "忘了",
+        4
+      ],
+      [
+        "的",
+        "得",
+        25
+      ],
+      [
+        "那个",
+        "哪个",
+        20
+      ],
+      [
+        "预算",
+        "运算",
+        6
+      ],
+      [
+        "会议",
+        "回忆",
+        1
+      ],
+      [
+        "从",
+        "葱",
+        14
+      ],
+      [
+        "周二",
+        "猪耳",
+        7
+      ],
+      [
+        "挪到",
+        "落到",
+        10
+      ],
+      [
+        "周四",
+        "粥食",
+        2
+      ],
+      [
+        "上午",
+        "尚武",
+        13
+      ],
+      [
+        "十点，",
+        "四点，",
+        3
+      ],
+      [
+        "再",
+        "在",
+        22
+      ],
+      [
+        "请",
+        "情",
+        17
+      ],
+      [
+        "设计",
+        "射击",
+        5
+      ],
+      [
+        "团队",
+        "糖堆",
+        12
+      ],
+      [
+        "把",
+        "爸",
+        26
+      ],
+      [
+        "发布会",
+        "发福会",
+        9
+      ],
+      [
+        "用的",
+        "用得",
+        24
+      ],
+      [
+        "最新",
+        "醉心",
+        11
+      ],
+      [
+        "数据",
+        "书局",
+        8
+      ],
+      [
+        "一起",
+        "一气",
+        21
+      ],
+      [
+        "带",
+        "戴",
+        19
+      ],
+      [
+        "过来。",
+        "锅来。",
+        16
+      ]
+    ],
+    "hallu": "请不吝点赞、订阅、转发。",
+    "spec": {
+      "copy": "照抄短句：约快 3 倍，六项量表上的负荷都更低",
+      "compose": "写短消息：整体约快 1.4 倍，负荷相同",
+      "creative": "给 AI 的创意提示词：更快、更长，费力程度和结果都相同",
+      "code": "编程提示词，未编辑的语音：一次成功的情况更少",
+      "problem": "借助聊天助手解决问题：脑力负荷更高",
+      "ehr": "急诊医生写病历：慢 18.1%，错误 138 处对 32 处",
+      "memory": "用口头命令代替鼠标：更快，但记忆受损",
+      "ld": "学习障碍学生的作文：比手写更好"
+    },
+    "specCopyEnd": "照抄",
+    "specThinkEnd": "解决问题",
+    "specExtra": "不同人群",
+    "nPeople": "n = {n}",
+    "nNa": "未给出 n",
+    "prompt": "第 {p} 题",
+    "pText": "打字",
+    "pRaw": "语音，未编辑",
+    "pEdit": "语音，已编辑",
+    "choiceH": "919 名学生如何选择输入方式",
+    "cText": "只用文字",
+    "cVoice": "只用语音",
+    "cBoth": "两者都用",
+    "phon": {
+      "work": "工作时",
+      "off": "下班后",
+      "weekend": "周末"
+    },
+    "phonA": "31 名教师，2007 年",
+    "phonB": "26 名教师，2023 年",
+    "recLoad": "2 小时高强度用嗓",
+    "rec90": "恢复 90%",
+    "rec100": "完全恢复",
+    "recHours": "小时",
+    "recUnknown": "轻声听写：没有测量",
+    "places": {
+      "home": "在家",
+      "street": "在街上",
+      "driving": "开车时",
+      "passenger": "坐副驾驶时",
+      "work": "上班时",
+      "pub": "在酒吧"
+    },
+    "people": {
+      "alone": "独自一人",
+      "friends": "朋友",
+      "partner": "伴侣",
+      "family": "家人",
+      "colleagues": "同事",
+      "strangers": "陌生人"
+    },
+    "yes": "会",
+    "no": "不会",
+    "voiceOk": "语音可以",
+    "textOk": "文字可以",
+    "acceptSum": "在 {n} 个情境中，你会在 **{y} 个**里开口。研究中，约一半的回答认为可以用语音，**大约是 12 个中的 6 个**。",
+    "acceptNone": "先回答几个情境，或者直接对比。",
+    "acceptRow": "研究中，{v} 的回答认为可以用语音，文字为 {t}",
+    "habitCmd": "每周指令数",
+    "habitMusic": "音乐占指令的比例",
+    "habitConf": "结束时更有信心",
+    "week": "第 {n} 周",
+    "sevenOfSeven": "7 人中 7 人",
+    "cultures": {
+      "us": "美国本土",
+      "hawaii": "夏威夷",
+      "japan": "日本",
+      "taiwan": "台湾",
+      "sweden": "瑞典"
+    },
+    "cplaces": {
+      "bus": "在公交车上",
+      "cinema": "在电影院",
+      "sidewalk": "在人行道上"
+    },
+    "pref": {
+      "uk": "英国",
+      "dk": "丹麦",
+      "se": "瑞典",
+      "us": "美国",
+      "all": "全部 17 个市场",
+      "id": "印度尼西亚",
+      "es": "西班牙",
+      "ae": "阿联酋"
+    },
+    "srcShort": "来源",
+    "copied": "已复制",
+    "copyManual": "请选中后复制",
+    "ratioLoss": "说话比你打字快 {r} 倍。如果思考和修改的损耗和 Foley 的实验一样，**听写不会给你省下任何时间**。",
+    "tooFast": "这比任何人打字都快——大概是粘贴或自动填充的。请亲手输入这句话。",
+    "holdReady": "准备好了：按住，念，松开",
+    "holdNow": "正在念……念到最后一个字时松开",
+    "holdAgain": "完成。再按住可以重来",
+    "typeMore": "请先输入整句话，再按回车。"
+  },
+  "fig": {
+    "wavesSrc": "Edison Research，经 SSRS[^ssrsUS][^ssrsUK][^ssrs2026] · YouGov[^yougov2026] · 苹果，据媒体报道[^siri] · TechCrunch[^wispr] · 谷歌，据媒体报道[^gemini]",
+    "speedSrc": "Ruan 等，n = 48[^ruan] · Foley 等，n = 28[^foley] · Dhakal 等，n ≈ 16.8 万[^dhakal] · Palin 等，n ≈ 3.7 万[^palin]",
+    "werSrc": "Open ASR Leaderboard，2025 年 10 月[^openasr] · Microsoft Research，2017 年[^msHuman] · EdAcc[^edacc] · Koenecke 等，2020 年[^koenecke] · Careless Whisper，2024 年[^careless]",
+    "specSrc": "Ruan[^ruan] · Foley[^foley] · 创意提示词，2026 年[^creative] · Riegel 等[^riegel] · Chen 等[^chen] · Hodgson 等[^hodgson] · Shneiderman[^shneiderman] · MacArthur 与 Cavalier[^macarthur]",
+    "promptSrc": "Riegel 等，ITiCSE 2026，n = 919[^riegel]",
+    "phonSrc": "Titze 等，2007 年[^titze] · Eastman 等，2023 年[^eastman]",
+    "recSrc": "Hunter 与 Titze，2009 年，86 名教师，自评，摘要中的数字[^hunter] · Xue 等，2019 年，n = 10[^xue]",
+    "acceptSrc": "Efthymiou 与 Halvey，2016 年，英国，n = 20，23–32 岁，根据视频判断[^efthymiou]",
+    "habitSrc": "Pradhan、Lazar 与 Findlater，2020 年，美国，n = 7，1049 条指令[^pradhan]",
+    "prefSrc": "YouGov，2023 年 11 月，每个市场 500–2001 人；只列出公开文本中点名的市场[^yougov2023]",
+    "phoneSrc": "Campbell，2007 年，n = 271，夏威夷同一所大学的学生，按原籍文化分组[^campbell]"
+  },
+  "src": {
+    "ssrsUS": "SSRS / Edison Research, The Infinite Dial：2021–2025 年英国和美国的智能音箱拥有率。",
+    "ssrsUK": "SSRS / Edison Research, The Infinite Dial UK 2025.",
+    "smartAudio": "NPR 与 Edison Research, The Smart Audio Report 2022，据 audioXpress 报道。",
+    "amazonLoss": "GeekWire，2024 年，转述 The Wall Street Journal 关于亚马逊设备部门亏损的报道。",
+    "wispr": "TechCrunch，2025 年 11 月与 2026 年 8 月 17 日：Wispr 的融资轮次与估值。公司数据。",
+    "gemini": "Search Engine Journal，2026 年 8 月：谷歌谈 Gemini 的月活用户与语音使用。公司数据，未说明方法。",
+    "siri": "Om Malik，2024 年 10 月；Search Engine Roundtable，2026 年 9 月：苹果高管所说的 Siri 每日请求数。",
+    "ssrs2026": "SSRS / Edison Research, The Infinite Dial 2026，2026 年 1 月，n = 2050。",
+    "whatsapp": "Meta Newsroom，2022 年 3 月：WhatsApp 上的语音消息。公司数据。",
+    "yougov2026": "YouGov，2026 年 2 月，n = 2442：2026 年的美国人如何沟通。",
+    "ruan": "Ruan, Wobbrock, Liou, Ng and Landay. Comparing speech and keyboard text entry for short messages in two languages on touchscreen phones. IMWUT, 2018（预印本 2016 年）。",
+    "foley": "Foley, Casiez and Vogel. Comparing smartphone speech recognition and touchscreen typing for composition and transcription. CHI 2020.",
+    "dhakal": "Dhakal, Feit, Kristensson and Oulasvirta. Observations on typing from 136 million keystrokes. CHI 2018.",
+    "palin": "Palin, Feit, Kim, Kristensson and Oulasvirta. How do people type on mobile devices? MobileHCI 2019.",
+    "karat": "Karat, Halverson, Horn and Karat. Patterns of entry and correction in large vocabulary continuous speech recognition systems. CHI 1999.",
+    "openasr": "Srivastav et al. Open ASR Leaderboard，2025 年 10 月。",
+    "msHuman": "Microsoft Research，2017 年：对话语音识别的里程碑，细致的专业人工转写错误率为 5.1%。",
+    "edacc": "Sanabria et al. The Edinburgh International Accents of English Corpus (EdAcc). ICASSP 2023.",
+    "koenecke": "Koenecke et al. Racial disparities in automated speech recognition. PNAS, 2020.",
+    "careless": "Koenecke, Choi, Mei, Schellmann and Sloane. Careless Whisper: speech-to-text hallucination harms. FAccT 2024.",
+    "tapsay": "Zhao et al., CHI 2025：Tap&Say，借助语言模型、用触摸加语音修改口述文字，n = 16。",
+    "rambler": "Rambler in the wild, CHI Extended Abstracts 2025：借助语言模型用语音写作的日记研究，为期 7 到 10 天，n = 12。基于 Lin et al., Rambler, CHI 2024。",
+    "gould": "Gould, Conti and Hovanyecz. Composing letters with a simulated listening typewriter. Communications of the ACM, 1983.",
+    "shneiderman": "Shneiderman. The limits of speech recognition. Communications of the ACM, 2000.",
+    "chen": "Chen, Lyell, Laranjo and Magrabi. Effect of speech recognition on problem solving and recall in consumer digital health tasks. JMIR, 2020，n = 50。",
+    "hodgson": "Hodgson, Magrabi and Coiera. Efficiency and safety of speech recognition for documentation in the electronic health record. JAMIA, 2017，n = 35。",
+    "macarthur": "MacArthur and Cavalier, Exceptional Children, 2004：口述与语音识别作为写作测试中的便利措施，n = 31。",
+    "riegel": "Riegel, Hua, Denny, Pădurean, Leinonen, Prather and Singla. Say What? Examining text and voice input modalities for prompt-based programming. ITiCSE 2026.",
+    "creative": "Rathore, Billakanti, Ceha and Henderson. A comparison of speech and typing input for creative generative AI tasks. ACM CUI 2026，n = 40。",
+    "fox": "Fox, Ericsson and Best. Do procedures for verbal reporting of thinking have to be reactive? Psychological Bulletin, 2011.",
+    "titze": "Titze, Hunter and Švec. Voicing and silence periods in daily and weekly vocalizations of teachers. JASA, 2007.",
+    "eastman": "Eastman et al., Perspectives of the ASHA Special Interest Groups, 2023：教师在工作时与工作之外的发声时长，n = 26。",
+    "xue": "Xue et al., Journal of Voice, 2019：一小时大声朗读中的嗓音用力，n = 10。",
+    "hunter": "Hunter and Titze, Annals of Otology, Rhinology & Laryngology, 2009：两小时嗓音负荷后的恢复，n = 86。",
+    "nair": "Nair et al., Journal of Voice, 2024（2021 年在线发表）：呼叫中心接线员嗓音问题的系统综述，15 项研究。",
+    "piwowarczyk": "Piwowarczyk et al., Journal of Voice, 2012：呼叫中心接线员的嗓音症状，n = 157。",
+    "olson": "Olson, Cruz, Izdebski and Baldwin, Ear, Nose & Throat Journal, 2004：开始使用语音识别软件后出现嗓音劳损的 5 个病例。",
+    "juul": "Juul-Kristensen et al., Ergonomics, 2004：使用语音识别进行电脑工作时的肌肉活动，n = 10。",
+    "efthymiou": "Efthymiou and Halvey. Evaluating the social acceptability of voice based smartwatch search. AIRS 2016.",
+    "kowalczuk": "Kowalczuk and Musial, Computers in Human Behavior Reports, 2024：自我意识情绪与语音助手的持续使用，n = 860。",
+    "perficient": "Voicebot.ai，2019 年 3 月，报道 Perficient 关于在公共场合使用语音的调查，n = 1719。",
+    "pradhan": "Pradhan, Lazar and Findlater. Use of intelligent voice assistants by older adults with low technology use. TOCHI, 2020.",
+    "garg": "Garg and Sengupta. He is just like me: a study of the long-term use of smart speakers by parents and children. IMWUT, 2020.",
+    "koelle": "Koelle, Ananthanarayan and Boll. Social acceptability in HCI: a survey of methods, measures and design strategies. CHI 2020.",
+    "yougov2023": "YouGov，2023 年 11 月：do consumers prefer sending and receiving messages in audio or text form? 17 个市场。",
+    "campbell": "Campbell. Perceptions of mobile phone use in public settings: a cross-cultural comparison. International Journal of Communication, 2007.",
+    "pew2006": "Pew Research Center，2006 年，及 2013 年的后续调查：公共场合大声打电话。",
+    "pew2015": "Pew Research Center，2015 年：美国人对手机礼仪的看法，实地调查于 2014 年。",
+    "bloomberg": "Bloomberg，2026 年 2 月 6 日：语音转文字 AI 让办公室职员用说话代替打字。",
+    "computerworld": "Computerworld，2026 年 7 月：AI 听写工具在职场兴起。",
+    "wisprWhisper": "Wispr Flow：在开放式办公室里耳语。厂商页面。",
+    "silentvoice": "Fukumoto. SilentVoice: unnoticeable voice input by ingressive speech. Microsoft Research, UIST 2018.",
+    "pandey": "Pandey, Hasan and Arif. Acceptability of speech and silent speech input methods in private and public. CHI 2021.",
+    "jama": "Mass General Brigham 与 STAT，2026 年 4 月，关于 JAMA 上一项在 5 个学术医疗中心开展的环境式 AI 记录员研究。",
+    "nejmai": "UCLA 的环境式 AI 记录员随机试验。NEJM AI, 2025，n = 238。",
+    "ama": "American Medical Association，2025 年：环境式 AI 记录员与医生职业倦怠，n = 263。",
+    "notes": "Taylor et al. Quality of clinical notes created by ambient listening generative AI. JMIR Medical Informatics, 2026，356 份病历经医生审阅。PubMed 41996389。"
+  }
+}

@@ -1,0 +1,536 @@
+{
+  "lang": "nl",
+  "dir": "ltr",
+  "endonym": "Nederlands",
+  "htmlLocale": "nl_NL",
+  "decimal": ",",
+  "ui": {
+    "crumb": "← Research",
+    "langGroup": "Taal van de pagina",
+    "tldrOpen": "Kort",
+    "tldrOpenSub": "2 minuten · kopiëren of printen",
+    "tldrHead": "De korte versie",
+    "tldrCopyText": "Kopiëren",
+    "tldrCopyMd": "Markdown",
+    "tldrPrint": "Printen",
+    "tldrClose": "Sluiten",
+    "sourcesH": "Bronnen",
+    "sourcesNote": "Onderzoek uitgevoerd in september 2026. Waar een bron een bedrijf is dat over zichzelf praat, zegt de tekst dat erbij en zijn de balken in de grafieken gearceerd.",
+    "percent": "{n}%",
+    "translationNote": "Vertaald uit het Engelse origineel. Titels van studies en bronnen staan in het Engels. De zin in het experiment met herkenningsfouten is opnieuw in het Nederlands geschreven, met eigen verhoringen. Waar de exacte formulering telt, raadpleeg de documenten hierboven.",
+    "syText": "**Spraakinvoer en vergaderopnames.** Eén sneltoets, elke app, 67+ talen.",
+    "syCta": "30 dagen gratis",
+    "backHome": "← terug naar avgrebenkin.com"
+  },
+  "page": {
+    "htmlTitle": "De stille terugkeer van de stem – praten of typen?",
+    "title": "De stille terugkeer van de stem",
+    "eyebrow": "Onderzoek · Interfaces · oktober 2026",
+    "standfirst": "**Spraakinvoer is terug – niet als Alexa, maar als dicteren en als gesprek met AI.** Ik las de onderzoeken naar hoe snel het is, hoe vaak het je verkeerd verstaat, hoe vermoeiend het is en hoe gênant: die van de afgelopen twee jaar en de oudere waarop ze steunen. De verrassing: wat het snelst verandert, is niet dat mensen meer durven te praten tegen computers. Het is dat de stem zachter wordt.",
+    "disclosure": "**Openheid vooraf.** Ik bouw Speak-Y, een app voor spraakinvoer. Overal waar een getal van een bedrijf over zichzelf komt, staat dat in de tekst en is het in de grafieken gearceerd, los van de onafhankelijke data.",
+    "byline": "Door **Aleksei Grebenkin** · Data: Edison Research, YouGov, Pew, experimenten uit CHI en IMWUT, stemonderzoek uit PubMed, JAMA, opgaven van bedrijven",
+    "heroAlt": "Links een geluidsgolf die rechts overgaat in regels tekst; de staafjes van de golf worden lager naarmate ze de tekst naderen.",
+    "imageAlt": "Links een geluidsgolf die rechts overgaat in regels tekst, met de Engelse titel The quiet comeback of voice.",
+    "metaDescription": "Is praten tegen een computer sneller dan typen? 3× bij overnemen, 1,4× bij zelf schrijven. Wat onderzoek zegt over spraakinvoer, vermoeidheid en schaamte.",
+    "ogDescription": "Praten wint 3× van typen bij overnemen en 1,4× bij zelf schrijven. In je eentje is spraak oké in 96% van de antwoorden, bij vreemden in 16%.",
+    "twitterDescription": "Spraakinvoer is terug. Wat het snelst verandert, is niet dat mensen meer durven te praten. Het is dat de stem zachter wordt.",
+    "ldDescription": "Een overzicht van het bewijs over spraakinvoer in 2024–2026: gebruik, snelheid, nauwkeurigheid van de herkenning, stemvermoeidheid, cognitieve belasting, sociale acceptatie en gewenning, plus de gaten die nog geen enkel onderzoek heeft gevuld."
+  },
+  "tldr": {
+    "sub": "Wat onderzoek zegt over praten tegen computers in plaats van typen.",
+    "b1": "**De assistenten liepen vast. Dicteren brak door – volgens de bedrijven zelf.** Bezit van slimme speakers in de VS: 33% in 2021, 35% in 2025. De groei van dicteren en spraakgesprekken met AI is bijna alleen te zien in wat bedrijven over zichzelf vertellen.",
+    "b2": "**Drie keer sneller bij overnemen, ongeveer 1,4 keer bij zelf formuleren.** Wie een eigen bericht moest schrijven, dacht twee keer zo lang na voordat hij begon te praten (11,0 tegen 5,3 seconden), en elke correctie was duur.",
+    "b3": "**Wat de machine hoort, hangt af van wie er spreekt.** Bij helder voorgelezen Amerikaans Engels is 2,7% van de woorden fout, bij gesprekken met accent 19,7%. Whisper verzon zinnen in ongeveer 1% van de transcripties.",
+    "b4": "**Spraak versnelt de mond, niet het plannen.** Ongeveer twee derde van de schrijftijd gaat op aan plannen. Waar de taak een probleem oplossen is, belast spraak het hoofd juist meer. Van 919 programmeerstudenten koos 88,5% ervoor hun prompts aan een AI-tool te typen in plaats van in te spreken.",
+    "b5": "**De stem raakt vermoeid naar de dosis, en niemand heeft de dosis van dicteren gemeten.** Een fysieke maat voor stembelasting stijgt binnen 15 minuten luid voorlezen, en mensen voelen het na 30. Van de callcentermedewerkers krijgt 33–68% ooit in de loopbaan stemproblemen.",
+    "b6": "**Het gaat niet om de plek, maar om wie er meeluistert.** In je eentje was spraak aanvaardbaar in 96% van de antwoorden; bij collega’s in 26%, bij vreemden in 16%. Het nieuwe is er binnen weken af, terwijl het zelfvertrouwen groeit.",
+    "b7": "**Het kantoor leert fluisteren.** De markt wacht niet tot de norm verandert; ze maakt de stem zachter – zoals bellen normaal werd op straat, maar nooit in vergaderingen.",
+    "src": "Bronnen: Edison Research · YouGov · Pew · experimenten uit CHI en IMWUT · stemonderzoek · JAMA · opgaven van bedrijven, als zodanig aangegeven",
+    "full": "Het volledige onderzoek, met de interactieve onderdelen en alle bronnen:"
+  },
+  "s01": {
+    "num": "01 · Twee golven",
+    "h": "De assistenten liepen vast. Dicteren brak door – volgens de bedrijven zelf",
+    "a": "Zeg “Alexa, zet een timer” en je gebruikt de eerste soort spraakinvoer. Dicteer je een e-mail in plaats van hem te typen, dan gebruik je de tweede.\n\nIn totaal zijn er vijf soorten, en de afgelopen twee jaar gingen ze elk hun eigen weg: **opdrachten aan assistenten**, het dicteren van tekst, spraakberichten, gesproken gesprekken met AI-modellen, en spraak om te programmeren en om AI-agents taken te geven.\n\nDe eerste soort bereikt geen nieuwe mensen meer. In de Verenigde Staten had 33% van de mensen in 2021 een slimme speaker, en 35% in 2025; het onderzoeksbureau zegt zelf dat het cijfer in vier jaar nauwelijks bewoog.[^ssrsUS]\n\nGroot-Brittannië is de uitzondering: van 25% naar 45% in dezelfde jaren, vooral dankzij Alexa.[^ssrsUK] Het gebruik per eigenaar bleef langer stijgen: het aantal taken per week op een speaker ging van 7,5 in 2017 naar 12,4 in 2022.[^smartAudio]\n\nCommercieel gezien **mislukte de eerste golf** echter. De apparatendivisie van Amazon verloor tussen 2017 en 2021 meer dan $25 miljard, omdat mensen hun Echo gebruikten voor de wekker en het weerbericht, niet om te winkelen.[^amazonLoss]",
+    "b": "De tweede golf is bijna alleen zichtbaar in wat bedrijven over zichzelf vertellen. Wispr Flow, een dicteerapp, ging van een waardering van $700 miljoen in november 2025 naar $2 miljard in augustus 2026.[^wispr]\n\nGoogle zegt dat 63% van de meer dan een miljard maandelijkse gebruikers van de Gemini-app “spraak gebruikt”, zonder te vertellen hoe dat is geteld.[^gemini] Apple zegt dat het aantal Siri-verzoeken groeide van ongeveer 1,5 miljard per dag in 2024 naar meer dan 2,5 miljard in 2026.[^siri]\n\nDe grote onafhankelijke peilingen – Pew, YouGov, Edison, Ofcom – vragen nog niet apart naar dicteren of spraakgesprekken met AI. De peiling die het dichtst in de buurt komt, vond dat 57% van de Amerikanen van 12 jaar en ouder minstens één keer een generatieve AI-assistent had gebruikt, getypt of gesproken.[^ssrs2026]\n\nDe groeicurve van de tweede golf wordt dus **getekend door belanghebbenden**.",
+    "figCap": "Links onafhankelijke peilingen, rechts bedrijven over zichzelf",
+    "figNote": "Volle balken: peilingen met een bekende methode en steekproef; het donkere streepje markeert het eerdere jaar. Gearceerde balken: getallen die een bedrijf over zichzelf gaf en die van buitenaf niet te controleren zijn; het streepje markeert de eerdere claim. De twee kanten staan niet op één schaal.",
+    "c": "Spraakberichten, de derde soort, zijn een massagewoonte, maar geen groeiende. De laatste officiële telling van WhatsApp was 7 miljard per dag, in maart 2022.[^whatsapp]\n\nIn een YouGov-peiling onder 2.442 Amerikanen in februari 2026 stuurde ongeveer 10% meerdere keren per week spraakberichten en zei 41% dat het format niets voor hen was. Even veel mensen gebruikten ze minder (12%) als meer (11%).[^yougov2026]"
+  },
+  "s02": {
+    "num": "02 · Snelheid",
+    "h": "Drie keer sneller bij overnemen. Ongeveer 1,4 keer bij zelf formuleren",
+    "a": "Dit is het vaakst geciteerde getal over spraak: praten is **drie keer sneller dan typen**. Het klopt – voor overnemen. In het experiment erachter namen 48 mensen, 24 per taal, korte kant-en-klare zinnetjes over op een iPhone.\n\nMet spraak haalden ze 153 woorden per minuut tegen 52 op het schermtoetsenbord in het Engels, en 123 tegen 43 in het Mandarijn.[^ruan] De auteurs noemen het zelf een bovengrens, bereikt in een lab. En wie echt schrijft, neemt niets over.\n\nIn 2020 vroegen Foley, Casiez en Vogel 28 mensen om op een telefoon **een eigen zin te bedenken** die drie eenvoudige plaatjes met elkaar verbond. Zolang er daadwerkelijk woorden werden uitgesproken of getypt, was spraak nog steeds drie keer sneller: 116,5 tegen 35,1 woorden per minuut.\n\nMaar over de hele poging gerekend – nadenken, praten, verbeteren – kostte een bericht 20,8 seconden met spraak en 29,2 met het toetsenbord. Dat is ongeveer 1,4 keer, geen drie.[^foley]",
+    "b": "Twee dingen vraten het verschil op. Vóór het eerste woord dachten mensen twee keer zo lang na als ze gingen praten: 11,0 seconden tegen 5,3. **Wie typt, denkt al doende; wie praat, plant eerst de zin.**\n\nEn elke correctie was duur: over beide methoden en beide taken heen haalden pogingen die een verbetering nodig hadden 54,6 woorden per minuut, tegen 141,1 voor foutloze pogingen.\n\nTer vergelijking: vrijwilligers op een online typetest haalden gemiddeld 52 woorden per minuut op een fysiek toetsenbord, over 168.000 mensen,[^dhakal] en 36 op een telefoon, over 37.000 mensen.[^palin]\n\nEen gecontroleerde vergelijking tussen zelf formuleren met spraak en met een desktoptoetsenbord, met de spraakherkenning van nu, bestaat niet.\n\nIn de laatste, uit 1999, formuleerden nieuwe gebruikers met spraak 7,8 woorden per minuut, correcties inbegrepen, tegen 19 met toetsenbord en muis; bij overnemen van tekst was het 13,6 tegen 32,5.[^karat]",
+    "splitCap": "Waar de tijd bleef: één zelf geformuleerd bericht op een telefoon, gemiddelde van 28 mensen",
+    "splitNote": "Formuleertaak. Het lichte deel van elke balk is het nadenken vóór het eerste woord; het volle deel is praten of typen, plus eventueel verbeteren.[^foley]",
+    "toolH": "Meet jezelf: je vingers tegen je mond",
+    "toolLead": "Twee stopwatches en één zin. De pagina zet de microfoon nooit aan en kan je niet horen: ze meet alleen hoe lang je erover doet en maakt van de twee tijden twee snelheden.",
+    "step1": "Typ de zin en druk dan op Enter",
+    "step2": "Houd de knop ingedrukt en lees de zin hardop voor",
+    "phrase": "Kun je ons gesprek van donderdag naar de middag verzetten en me vóór die tijd de aantekeningen van vorige week sturen?",
+    "typeAria": "Typ de zin hier",
+    "holdBtn": "Ingedrukt houden tijdens het voorlezen",
+    "againBtn": "Opnieuw beginnen",
+    "c": "Je spreeksnelheid is hoe snel je mond gaat, niet hoe snel dicteren gaat: hier wordt niets herkend en hoeft niets verbeterd te worden. **De verhouding tussen je twee getallen is het maximum dat spraak je ooit kan geven.**\n\nIn het experiment van Foley was alleen het praten 3,3 keer sneller dan typen, en de hele poging 1,4 keer: na nadenken en verbeteren bleef er ongeveer 40% van de snelheidsverhouding over.",
+    "how1h": "Typ het",
+    "how1": "Typ de zin hieronder. De eerste stopwatch loopt van je eerste toetsaanslag tot je op Enter drukt.",
+    "how2h": "Zeg het",
+    "how2": "Houd de knop of de spatiebalk ingedrukt en lees dezelfde zin in je gewone tempo hardop voor. De tweede stopwatch loopt zolang je vasthoudt.",
+    "how3h": "Vergelijk",
+    "how3": "Dezelfde zin, twee tijden. De pagina rekent ze om naar woorden per minuut en zet ze naast de onderzoeken.",
+    "typePh": "Begin hier te typen…",
+    "holdWait": "Doe eerst stap 1",
+    "resType": "woorden per minuut, typen",
+    "resSpeak": "woorden per minuut, praten",
+    "ratesH": "Jouw snelheden naast de onderzoeken"
+  },
+  "s03": {
+    "num": "03 · Nauwkeurigheid",
+    "h": "Wat de machine hoort, hangt af van wie er spreekt",
+    "a": "Zeg “verzet de vergadering naar donderdag om tien uur” in een stille kamer met de uitspraak van een nieuwslezer, en een goede herkenner schrijft het foutloos op. Zeg het met een accent uit Lagos boven het geroezemoes van een café, en er kan “donder dan om thee uur” komen te staan.\n\nHerkenning wordt beoordeeld op de **woordfoutfrequentie** (word error rate): het aandeel woorden dat verkeerd wordt opgeschreven, wegvalt of erbij komt. In oktober 2025 haalde het beste model op een gangbaar openbaar klassement gemiddeld 5,63% over zijn testsets.\n\nWhisper large-v3, het open model achter veel dicteerapps, kwam gemiddeld uit op 7,44%.[^openasr] Ter vergelijking: zorgvuldige professionele transcriptie werd in 2017 gemeten op 5,1% bij opgenomen telefoongesprekken.[^msHuman]\n\nDie gemiddelden verbergen wie er spreekt. Op een verzameling gesprekken in het Engels met accenten van over de hele wereld had Whisper 19,7% van de woorden fout, tegen 2,7% bij helder voorgelezen Amerikaans Engels.\n\nVoor Nigeriaans en Jamaicaans Engels gingen zelfs de sterkere modellen boven de 20%, en een academisch model boven de 45%.[^edacc]\n\nIn 2020 hadden vijf commerciële systemen 35% van de woorden fout bij zwarte sprekers en 19% bij witte: **hetzelfde systeem, bijna twee keer zoveel fouten**.[^koenecke]",
+    "ladderCap": "Kies een foutpercentage en zie wat het doet met één uitgesproken zin",
+    "ladderNote": "De zin telt 26 woorden; de fouten vallen waar ze de meeste schade doen, om te laten zien wat het percentage betekent, niet om een bepaald systeem na te bootsen.",
+    "halluBtn": "Voeg een verzinsel à la Whisper toe",
+    "b": "Generatieve herkenning bracht een nieuw soort fout mee: **dingen verzinnen**. Whisper verzon hele zinnen in ongeveer 1% van de transcripties, en 38% van die verzinsels bevatte iets schadelijks, zoals geweld of onware beweringen.[^careless]\n\nLange pauzes, die veel voorkomen bij mensen met afasie, maakten verzinsels waarschijnlijker. Een verzonnen zin is erger dan een verkeerd verstaan woord, omdat hij vloeiend leest.\n\nHet knelpunt is verschoven van herkennen naar verbeteren. Corrigeren met spraak kent twee onopgeloste problemen: een opdracht onderscheiden van tekst die moet worden opgeschreven, en aanwijzen welke plek verbeterd moet worden.\n\nBij de fout tikken terwijl je de verbetering uitspreekt, en een taalmodel laten uitzoeken wat waar hoort: dat verkortte de taaktijd met 16,4% en het aantal tikken op het toetsenbord met 47,5% ten opzichte van de vorige beste methode, in een test met 16 mensen.[^tapsay]\n\nGedicteerde tekst komt er ook **omslachtig en rommelig** uit, en daarom herschrijven de nieuwe apps hem met een taalmodel voordat ze hem plakken. In een dagboekstudie van 7 tot 10 dagen met zo’n tool pasten 9 van de 12 schrijvers zich aan, met een mediaan comfort van 5 op 7.\n\nWie zijn twijfels hield, noemde de oude lastige punten: aan de volgende zin denken terwijl je praat, en de cursor op de goede plek krijgen.[^rambler]"
+  },
+  "s04": {
+    "num": "04 · Denken",
+    "h": "Spraak versnelt de mond, niet het plannen",
+    "a": "Als spraak drie keer sneller is, waarom gaat schrijven dan niet drie keer sneller? Omdat schrijven grotendeels geen typen is. Een onderzoek uit 1983 naar het schrijven van brieven vond dat **ongeveer twee derde van de schrijftijd plannen is** – tussen 58% en 78% in de geteste opstellingen.\n\nDe brieven werden even goed, of mensen ze nu met de hand schreven, dicteerden of uitspraken.[^gould] Een sneller uitvoerkanaal versnelt alleen het resterende derde deel.\n\nBen Shneiderman stelde in 2000 het mechanisme voor: spreken en het kortetermijngeheugen putten uit dezelfde bron, terwijl een hand bewegen gewoon naast het denken door kan lopen.\n\nIn een van de experimenten van zijn lab waren gesproken opdrachten 12–30% sneller dan de muis, maar door ze hardop uit te spreken werd het moeilijker om symbolen te onthouden die later weer moesten worden ingetypt.[^shneiderman]",
+    "b": "Latere onderzoeken liggen op één lijn, van overnemen tot oplossen. Waar het werk overnemen is, wint spraak op snelheid en voelt het lichter. Waar het werk formuleren is, is spraak iets sneller en voelt het hetzelfde.\n\n**Waar het werk een probleem oplossen is, belast spraak het hoofd meer.** Bij 50 mensen die een medische chatassistent gebruikten, verhoogde spraak de gemeten mentale belasting bij zowel moeilijke als eenvoudige taken.[^chen]\n\nEn 35 spoedartsen die met spraak documenteerden, waren 18,1% trager en maakten 138 fouten tegen 32.[^hodgson]\n\nDe duidelijke winnaars zijn mensen bij wie de hand of de spelling het knelpunt is. Leerlingen met leerstoornissen schreven met spraakherkenning betere opstellen dan met de hand; voor andere leerlingen maakte het geen verschil.[^macarthur]",
+    "specCap": "Van overnemen tot oplossen: hoe spraak zich per taak verhield tot typen",
+    "specHelps": "spraak beter",
+    "specSame": "geen verschil",
+    "specHurts": "typen beter",
+    "c": "Praten met AI ligt op dezelfde lijn. In het grootste onderzoek dat ik vond, konden 919 studenten van een introductiecursus programmeren kiezen hoe ze een AI-tool een prompt gaven. **Bijna negen op de tien kozen alleen tekst** (88,5%), 4,8% alleen spraak en 6,7% allebei.\n\nOnbewerkte spraakprompts werkten minder vaak in één keer: 35% tegen 52% bij de eerste opdracht en 38% tegen 58% bij de tweede. Zodra studenten de transcriptie bewerkten, was het verschil niet langer significant.[^riegel]\n\nBij creatieve taken gaf spraak een snellere eerste prompt en meer en langere vervolgvragen, maar het veranderde niets aan de moeite die mensen voelden of aan hoe ze de resultaten beoordeelden.[^creative]",
+    "promptCap": "Prompt werkte in één keer, aandeel studenten; elke spraakgroep telde 26–51 studenten",
+    "d": "Het populaire idee dat hardop denken helpt, klopt maar half. Over 94 onderzoeken heen veranderde het simpelweg uitspreken van je gedachten niets aan de nauwkeurigheid en maakte het het werk alleen trager; de nauwkeurigheid steeg wanneer mensen hun redenering moesten **uitleggen**.[^fox]\n\nEen probleem met je stem uitleggen aan een AI-model zou best kunnen helpen. Niemand heeft het getest."
+  },
+  "s05": {
+    "num": "05 · Vermoeidheid",
+    "h": "De stem raakt vermoeid naar de dosis. Niemand heeft de dosis van dicteren gemeten",
+    "a": "Een hele dag typen vermoeit je handen. Een hele dag praten vermoeit iets anders, en er bestaat geen wetenschappelijke daglimiet voor hoeveel daarvan veilig is. Wat wel goed gemeten is: hoeveel beroepssprekers hun stem gebruiken.\n\n**Leraren**, een beroep met veel stemstoornissen, laten hun stembanden 23% van de werktijd klinken, tegen 13% buiten het werk en 12% in het weekend, volgens een onderzoek onder 31 leraren uit 2007.[^titze] Een nieuwere groep van 26 leraren kwam uit op 16,2%, 8,4% en 8,0%.[^eastman]\n\nDie klinktijd heet fonatie: ze telt alleen de momenten waarop de stembanden echt trillen, niet de pauzes tussen de woorden.",
+    "phonCap": "Aandeel van de tijd dat de stembanden trillen, leraren",
+    "b": "Het lichaam merkt het snel. Bij luid voorlezen **stijgt een objectieve maat voor stemmoeite al binnen de eerste 15 minuten**, en mensen voelen het na 30, in een onderzoek met 10 mensen.[^xue]\n\nNa twee uur hardop voorlezen op klasvolume beoordeelden 86 leraren hun stem als grotendeels hersteld binnen 4–8 uur, met een klein restje dat een dag of langer bleef.\n\nHet artikel spreekt zichzelf tegen over de precieze cijfers: de samenvatting noemt 90% na 4–6 uur en volledig herstel na 12–18.[^hunter]",
+    "recCap": "Twee uur zwaar stemgebruik, daarna herstel",
+    "recNote": "Aandeel van de zelf gerapporteerde vermoeidheid dat na twee uur luid voorlezen weg is. De curve gaat door de twee punten uit de samenvatting, 90% na 4–6 uur en 100% na 12–18; de conclusie noemt een trager 50% en 90%. Voor zacht dicteren in een microfoon vlak bij de mond is er geen curve; die strook is met opzet leeg.",
+    "c": "Het bestaande beroep dat het dichtst bij een hele dag tegen een computer praten komt, is dat van **callcentermedewerker**. Over 15 onderzoeken heen had 33–68% van de medewerkers ooit in de loopbaan stemproblemen, en 27% op het moment van onderzoek.[^nair]\n\nEén peiling telde 6,8 stemklachten per medewerker, tegen 1,7 in de algemene bevolking.[^piwowarczyk]\n\nDirect bewijs over dicteergebruikers komt alleen uit de jaren negentig en nul, toen dicteren betekende dat je na elk woord pauzeerde. In één reeks gevallen kregen vijf mensen die vanwege pijn in hun handen op spraakherkenning waren overgestapt een overbelaste stem.\n\nNa stemtherapie en kortere sessies ging het bij drie van de vijf beter.[^olson]\n\nSpiermetingen bij 10 mensen wezen erop dat **de belasting verschuift in plaats van verdwijnt**: minder constante spanning in onderarm en nek, en in zekere mate in de schouders, en een neiging naar meer in de cricothyroïdeus, een spier van het strottenhoofd.[^juul]\n\nModern dicteren neemt de vermoedelijke oorzaak weg – vlak, machinaal spreken met een pauze na elk woord – en zet de microfoon dicht bij de mond, zodat mensen zacht kunnen praten. Dat is een redelijke hoop, geen bevinding.\n\nGeen enkel onderzoek heeft de stembelasting gemeten bij mensen die de dicteerapps van nu of de spraakmodi van AI-modellen gebruiken."
+  },
+  "s06": {
+    "num": "06 · Schaamte",
+    "h": "Het gaat niet om de plek. Het gaat om wie er meeluistert",
+    "a": "Stel je voor dat je je telefoon thuis de weg vraagt, dan in de bus, dan aan je bureau met collega’s om je heen. Voor de meeste mensen verandert het antwoord drie keer.\n\nDe beste cijfers hierover komen uit een klein Brits experiment. Daarin bekeken 20 mensen van 23–32 jaar korte video’s van een man die met spraak of met tekst zocht, tegen een neutrale achtergrond.\n\nDaarna vinkten ze de plekken en het gezelschap aan waar ze hetzelfde zouden doen. Alleen achter het stuur, waar je handen bezet zijn, **won spraak het van tekst**.[^efthymiou]\n\nWie er luisterde, woog zwaarder dan waar. In je eentje was spraak aanvaardbaar in 96% van de antwoorden; met vrienden in 83%, met een partner in 78%, met familie in 71%. Met collega’s in 26%. Met vreemden in 16%.\n\nVan alle soorten gezelschap maakten alleen collega’s en vreemden spraak significant minder aanvaardbaar dan tekst; van de plekken deden thuis, de passagiersstoel en het werk dat. Probeer het eerst op jezelf voordat je hun antwoorden bekijkt.",
+    "toolH": "Zou je hier tegen een apparaat praten?",
+    "toolLead": "Tik één keer op een situatie voor ja, twee keer voor nee. Vergelijk daarna met de 20 mensen uit het onderzoek.",
+    "placesH": "Waar",
+    "peopleH": "In het bijzijn van wie",
+    "showBtn": "Vergelijk met het onderzoek",
+    "hideBtn": "Verberg het onderzoek",
+    "b": "In een peiling onder 860 gebruikers van assistenten **verlaagde schaamte de intentie om er een te blijven gebruiken**, specifiek in het openbaar, terwijl trots die intentie overal verhoogde.[^kowalczuk]\n\nDe norm verschoof toch. In Amerikaanse peilingen steeg het gebruik van spraak in een restaurant met vrienden van ongeveer 25% in 2017 naar meer dan 40% in 2019. Mannen gebruikten 1,54 keer zo vaak spraakopdrachten als vrouwen, en 46% zei zich te ergeren als anderen het deden.[^perficient]"
+  },
+  "s07": {
+    "num": "07 · Gewoonte",
+    "h": "Eerst gaat het nieuwe eraf. Daarna ook de verlegenheid",
+    "a": "Wie ooit een slimme speaker kocht, kent de eerste week: timers, grapjes, muziek, vragen die je stelt voor de lol. Dan gaat het nieuwe eraf, en wat overblijft is de gewoonte.\n\nHoe mensen veranderen nadat ze eenmaal begonnen zijn, is bijna alleen gemeten bij slimme speakers thuis. In een onderzoek van drie weken kregen 7 oudere volwassenen een Echo Dot. **Het aantal opdrachten per week daalde met een derde**: 59,6, dan 50,1, dan 39,7.\n\nMuziek zakte van 23,9% van de opdrachten naar 2,9%, terwijl het weer en boodschappenlijstjes groeiden. Eén deelnemer zei dat ze zich eerst “dom voelde om tegen dit apparaat te praten”; aan het eind zeiden alle zeven dat ze zich zekerder voelden en het zouden blijven gebruiken.[^pradhan]",
+    "habitCap": "Drie weken met een slimme speaker, 7 mensen",
+    "b": "Langere logboeken geven een ander beeld. In de Google Home-geschiedenis van 18 gezinnen, gemiddeld 58 weken lang, bleef het gebruik vrij stabiel. Drie gezinnen lieten de speaker kort na de aankoop wekenlang links liggen, vanwege privacy, nutteloosheid of een gewoonte die niet was ontstaan, en kwamen later terug.\n\nGezinnen die er definitief mee stopten, zijn niet onderzocht. Het bedienen van het huis groeide naarmate gezinnen meer slimme apparaten kochten.[^garg]\n\nWaar mensen afhaakten, ging het om nut, betrouwbaarheid of privacy, niet omdat thuis praten ongemakkelijk voelde.\n\nEen overzicht van 69 artikelen over sociale acceptatie wijst erop dat acceptatie verandert naarmate mensen aan een interactie wennen, maar **slechts drie ervan volgden mensen die een interface in het dagelijks leven uitprobeerden**; de meeste lieten mensen het zich voorstellen, of één keer proberen in een lab.[^koelle]\n\nDat is het centrale gat voor deze pagina. Ik vond geen onderzoek dat mensen volgt die op het werk overstapten op dicteren en week na week meet hoe hun schaamte verandert."
+  },
+  "s08": {
+    "num": "08 · Cultuur",
+    "h": "Cultuur bepaalt hoe luid de stem mag zijn",
+    "a": "Of je op een bericht antwoordt met een spraakmemo of met tekst, hangt sterk af van waar je woont.\n\nIn een YouGov-peiling uit 2023 in 17 markten stuurde 66% berichten het liefst als tekst en 7% als audio. De voorkeur voor tekst was het sterkst in Groot-Brittannië (83%), Denemarken (80%) en Zweden (78%) en het zwakst in de Verenigde Arabische Emiraten (38%); in Spanje koos 54% voor tekst en 13% voor audio.[^yougov2023]",
+    "prefCap": "Stuurt berichten het liefst als tekst, 2023",
+    "b": "De mobiele telefoon maakte twintig jaar geleden hetzelfde door. In een vergelijking uit 2007 tussen studenten uit vijf culturen aan één universiteit op Hawaï scoorde **bellen in de bus** 2,53 op 5 bij studenten uit Japan, tegen 3,50 bij die uit Zweden en 3,44 bij die van het Amerikaanse vasteland.[^campbell]\n\nJapan kwam tot een heldere regel – geen stem in de trein, e-mailen mag wel – en keerde zich af van spreken in het openbaar zodra er een stil alternatief was.",
+    "phoneCap": "Hier bellen is aanvaardbaar: 1 = helemaal oneens, 5 = helemaal eens, 2007",
+    "c": "In de VS ergerde 82% zich in 2006 minstens af en toe aan luide telefoongesprekken in het openbaar, en het aandeel dat ze vaak meemaakte, zakte tegen 2012 van 50% naar 39%.[^pew2006]\n\nIn 2014 vond 77% van de Amerikanen bellen prima op straat, 75% in het openbaar vervoer, 38% in een restaurant – en 5% in een vergadering.[^pew2015] Het kwam van twee kanten: omstanders werden toleranter, bellers zachter. En **bij de deur van de vergaderzaal hield het op**."
+  },
+  "s09": {
+    "num": "09 · Het kantoor",
+    "h": "Het kantoor leert fluisteren",
+    "a": "In 2026 bereikte AI-dicteren de kantoren, en de eerste berichten zijn verhalen, geen cijfers. Bloomberg beschrijft hoe het zich van bureau naar bureau verspreidt, hoe er zwanenhalsmicrofoons opduiken en het fluisteren begint.[^bloomberg]\n\nEen analist die Computerworld citeert, noemt schaamte en de angst om collega’s af te leiden een belangrijke drempel in het gedrag. Thumbtack, een volledig remote bedrijf, gaf Wispr Flow aan meer dan 200 medewerkers, en de technologiebaas geeft toe dat wennen aan hardop praten, zelfs alleen in een kamer, tijd kostte.[^computerworld]\n\nDe markt wacht niet tot de norm verandert. Ze **maakt de stem zachter**. Wispr Flow verkoopt een fluistermodus en raadt aan op ongeveer een centimeter van de microfoon te praten.[^wisprWhisper]\n\nHet onderzoek ging in 2018 al verder: SilentVoice van Microsoft herkende korte opdrachten die inademend werden uitgesproken, met minder dan 39 decibel aan hoorbaar geluid, en had 1,8% foute woorden bij een getrainde spreker en 7% bij een nieuwe.[^silentvoice]\n\nMensen ruilen nauwkeurigheid in voor stilte. In een experiment uit 2021 wilden 12 mensen stille spraak – woorden vormen met de mond, zonder geluid – even graag gebruiken met 10–15% bewust toegevoegde fouten als zonder.\n\nHun bereidheid om hardop te praten daalde daarentegen wel. Alle 12 noemden privacy en veiligheid als reden.[^pandey]",
+    "pull": "De snelste vooruitgang is niet dat mensen meer durven te praten. Het is dat de stem zachter wordt."
+  },
+  "s10": {
+    "num": "10 · Geneeskunde",
+    "h": "De enige plek waar het op grote schaal is gemeten: verslagen van artsen",
+    "a": "De geneeskunde is het enige vakgebied waar spraakinvoer met AI-modellen erachter bij duizenden mensen is gemeten. Ambient AI-scribes luisteren mee met het consult en schrijven een concept van het verslag.\n\nIn het grootste onderzoek, in april 2026 gepubliceerd in JAMA, bespaarden ongeveer 1.800 gebruikers, vergeleken met 6.770 niet-gebruikers, 16 minuten documentatie per 8 uur aan consulten, **ongeveer 10%**, zonder significante verandering in werk buiten kantooruren.\n\nSlechts 32% gebruikte de scribe bij meer dan de helft van de consulten.[^jama]\n\nIn een gerandomiseerde studie met 238 artsen verkortte de ene scribe de tijd per verslag met 41 seconden, tegen 18 seconden in de controlegroep, en maakte een andere geen significant verschil.[^nejmai] Burn-out daalde in 30 dagen van 51,9% naar 38,8%, in een onderzoek zonder controlegroep.[^ama]\n\nVan de met de hand gecontroleerde verslagen bevatte 18% weglatingen en 11,5% verzonnen details; 5,3% had een fout die ernstige schade kon veroorzaken.[^notes] Spraak bespaarde meer aandacht dan minuten, en de prijs is dat je de tekst moet nakijken."
+  },
+  "s11": {
+    "num": "11 · Gaten",
+    "h": "De experimenten die nog niemand heeft gedaan",
+    "a": "Dit zijn geen kleine gaten. Elke kaart hieronder is een vraag die deze pagina met een getal wilde beantwoorden en dat niet kon, omdat geen enkel onderzoek het heeft gemeten.",
+    "g1h": "Een peiling die dicteren telt",
+    "g1": "Geen enkele peiling met een aselecte steekproef meet dicteren of spraakgesprekken met AI als apart gedrag. De groeicurve steunt op claims van bedrijven.",
+    "g2h": "De stemdosis van dicteren",
+    "g2": "Niemand heeft de fonatietijd of de stembelasting gemeten bij mensen die met de apps van nu urenlang dicteren.",
+    "g3h": "Een veilige hoeveelheid per dag",
+    "g3": "Er is geen onderbouwde grens voor hoeveel uur praten per dag veilig is voor de stem.",
+    "g4h": "Handen na de overstap",
+    "g4": "Geen enkele gerandomiseerde studie laat zien dat overstappen op spraak overbelastingsklachten aan de handen voorkomt of behandelt.",
+    "g5h": "Formuleren aan een bureau",
+    "g5": "Er is geen gecontroleerde vergelijking tussen schrijven met spraak en op een fysiek toetsenbord met moderne herkenning. De beste data komen uit 1983 en 1999.",
+    "g6h": "Een dag lang praten",
+    "g6": "Geen dagboek- of langetermijnonderzoek volgt mensen die vooral met hun stem werken en meet hun mentale vermoeidheid.",
+    "g7h": "De verlegenheid kwijtraken op het werk",
+    "g7": "Geen veldonderzoek volgt nieuwe dicteergebruikers op kantoor week na week. Elk langetermijnonderzoek naar gewoonte gaat over speakers thuis."
+  },
+  "s12": {
+    "num": "12 · Methode",
+    "h": "Hoe dit is gecontroleerd, en wat ik heb weggelaten",
+    "a": "Ik bouw **Speak-Y**, een app voor spraakinvoer en vergaderopnames, en onderaan deze pagina staat er een banner voor. Dat is een reden om dit onderzoek met argwaan te lezen.\n\nDaarom is elk getal dat van een bedrijf over zichzelf komt – ook van dicteerbedrijven die met het mijne concurreren – in de tekst gemarkeerd en in de grafieken gearceerd.\n\nHet onderzoek is in september 2026 gedaan langs vier vragen: gebruik, snelheid en nauwkeurigheid, vermoeidheid en denken, sociale acceptatie. Elk getal is waar mogelijk herleid tot de oorspronkelijke bron.\n\nKleine steekproeven zijn meegenomen, omdat ze nu eenmaal zijn wat er is, maar de steekproefgrootte staat altijd naast het getal.",
+    "b": "Sommige veelherhaalde getallen gebruik ik hier niet, omdat ze het herleiden niet overleefden of niet betekenen waarvoor ze worden aangehaald. Een bevinding van “Gartner” dat het Siri-gebruik in een jaar met 12% daalde: er was geen Gartner-bron te vinden.\n\n“48% van de werknemers noemt spraak het meest storende kantoorgeluid”: dat gaat terug op een peiling uit 2008 onder 689 Finse kantoormedewerkers en zegt niets over dicteren.\n\n“79% van de artsen wees de AI-scribe af”: een leverancier van dicteersoftware maakte van de vergelijkingsgroep van niet-gebruikers uit het JAMA-onderzoek weigeraars. En de beroemde bewering dat maar 3% van de mensen Siri in het openbaar gebruikte, waarvan de oorspronkelijke pagina niet meer bestaat.",
+    "c": "Mijn eigen lezing van het geheel, en het is een mening: **dicteren wordt normaal thuis, in de auto en in een kamer voor jezelf**, blijft omstreden in de kantoortuin en blijft afwezig in vergaderingen, precies zoals het telefoongesprek. Wat dat zou veranderen, zijn geen dappere mensen maar een zachtere stem."
+  },
+  "js": {
+    "survey": {
+      "usSpeaker": "Heeft een slimme speaker, VS",
+      "ukSpeaker": "Heeft een slimme speaker, VK",
+      "genai": "Ooit een generatieve AI-assistent gebruikt, VS, 12+",
+      "vmsg": "Spraakberichten meerdere keren per week, Amerikaanse volwassenen"
+    },
+    "vendor": {
+      "siri": "Siri-verzoeken per dag",
+      "wispr": "Waardering van Wispr Flow",
+      "gemini": "Maandelijkse Gemini-gebruikers die “spraak gebruiken”"
+    },
+    "surveyH": "Onafhankelijke peilingen",
+    "vendorH": "Bedrijven over zichzelf",
+    "bnDay": "{n} mld.",
+    "usdBn": "${n} mld.",
+    "plus": "{n}+",
+    "times": "×{n}",
+    "noMethod": "methode niet vermeld",
+    "rates": {
+      "ruanV": "Spraak, zinnetjes overnemen (Ruan)",
+      "foleyV": "Spraak, formuleren, tijdens het praten (Foley)",
+      "desk": "Fysiek toetsenbord, gemiddeld (Dhakal)",
+      "ruanK": "Telefoontoetsenbord, overnemen (Ruan)",
+      "phone": "Telefoontoetsenbord, gemiddeld (Palin)",
+      "foleyK": "Telefoontoetsenbord, formuleren (Foley)"
+    },
+    "wpm": "{n} wpm",
+    "youType": "Jij typte",
+    "youSpeak": "Jij sprak",
+    "you": "Jij",
+    "waiting": "—",
+    "ratioYou": "Jouw plafond: praten is **{r}×** sneller dan jouw typen. Als bij jou dezelfde 40% van die verhouding het nadenken en verbeteren overleeft als in het experiment van Foley, zou dicteren voor jou ongeveer **{s}×** sneller zijn.",
+    "ratioSlow": "Je typt ongeveer even snel als je praat, of sneller. Spraak heeft je weinig snelheid te bieden; als je het al zou kiezen, dan om het gemak en voor je handen.",
+    "typedWrong": "Sommige woorden wijken af van de zin; de snelheid telt toch.",
+    "tooShort": "Dat was te kort om de hele zin voor te lezen. Probeer het opnieuw.",
+    "prep": "Nadenken vóór het eerste woord",
+    "entry": "Praten of typen, en verbeteren",
+    "voice": "Spraak",
+    "keys": "Toetsenbord",
+    "sec": "{n} s",
+    "wer": {
+      "clean": "Helder voorgelezen Amerikaans Engels, Whisper",
+      "human": "Zorgvuldige professionele transcriptie",
+      "best": "Beste model, openbaar klassement",
+      "whisper": "Whisper large-v3, openbaar klassement",
+      "white": "Witte sprekers, 5 commerciële systemen, 2020",
+      "accent": "Gesprekken met accent, Whisper",
+      "black": "Zwarte sprekers, 5 commerciële systemen, 2020"
+    },
+    "werErrors": "{e} van {n} woorden fout",
+    "werWords": [
+      [
+        "Verzet",
+        "Vergeet",
+        8
+      ],
+      [
+        "alsjeblieft",
+        "als je bleef",
+        15
+      ],
+      [
+        "het",
+        "heb",
+        21
+      ],
+      [
+        "budgetoverleg",
+        "buurtoverleg",
+        2
+      ],
+      [
+        "met",
+        "mest",
+        12
+      ],
+      [
+        "Anna",
+        "Hanna",
+        4
+      ],
+      [
+        "van",
+        "fan",
+        17
+      ],
+      [
+        "dinsdag",
+        "dienstdag",
+        9
+      ],
+      [
+        "naar",
+        "maar",
+        18
+      ],
+      [
+        "donderdag",
+        "donder dan",
+        1
+      ],
+      [
+        "om",
+        "oom",
+        13
+      ],
+      [
+        "tien",
+        "thee",
+        3
+      ],
+      [
+        "uur",
+        "duur",
+        16
+      ],
+      [
+        "en",
+        "een",
+        20
+      ],
+      [
+        "vraag",
+        "vraat",
+        11
+      ],
+      [
+        "het",
+        "hut",
+        22
+      ],
+      [
+        "designteam",
+        "dessertteam",
+        6
+      ],
+      [
+        "de",
+        "te",
+        23
+      ],
+      [
+        "nieuwste",
+        "nieuwe",
+        10
+      ],
+      [
+        "cijfers",
+        "kijvers",
+        7
+      ],
+      [
+        "voor",
+        "vuur",
+        24
+      ],
+      [
+        "de",
+        "die",
+        25
+      ],
+      [
+        "lancering",
+        "landing",
+        5
+      ],
+      [
+        "mee",
+        "meer",
+        19
+      ],
+      [
+        "te",
+        "de",
+        26
+      ],
+      [
+        "nemen.",
+        "neven.",
+        14
+      ]
+    ],
+    "hallu": "Bedankt voor het kijken.",
+    "spec": {
+      "copy": "Korte zinnetjes overnemen: ongeveer 3 keer sneller, lagere belasting op alle zes schalen",
+      "compose": "Korte berichten formuleren: in totaal ongeveer 1,4 keer sneller, zelfde belasting",
+      "creative": "Creatieve prompts voor AI: sneller en langer, zelfde moeite en zelfde resultaten",
+      "code": "Programmeerprompts, onbewerkte spraak: werkten minder vaak in één keer",
+      "problem": "Problemen oplossen met een chatassistent: hogere mentale belasting",
+      "ehr": "Spoedartsen, medische dossiers: 18,1% trager, 138 fouten tegen 32",
+      "memory": "Gesproken opdrachten in plaats van de muis: sneller, maar het geheugen leed eronder",
+      "ld": "Opstellen van leerlingen met leerstoornissen: beter dan met de hand"
+    },
+    "specCopyEnd": "overnemen",
+    "specThinkEnd": "oplossen",
+    "specExtra": "andere groep",
+    "nPeople": "n = {n}",
+    "nNa": "n niet vermeld",
+    "prompt": "Opdracht {p}",
+    "pText": "Getypt",
+    "pRaw": "Spraak, onbewerkt",
+    "pEdit": "Spraak, bewerkt",
+    "choiceH": "Hoe de 919 studenten ervoor kozen te schrijven",
+    "cText": "alleen tekst",
+    "cVoice": "alleen spraak",
+    "cBoth": "allebei",
+    "phon": {
+      "work": "Op het werk",
+      "off": "Buiten het werk",
+      "weekend": "Weekend"
+    },
+    "phonA": "31 leraren, 2007",
+    "phonB": "26 leraren, 2023",
+    "recLoad": "2 uur zwaar gebruik",
+    "rec90": "90% hersteld",
+    "rec100": "volledig hersteld",
+    "recHours": "uur",
+    "recUnknown": "zacht dicteren: niet gemeten",
+    "places": {
+      "home": "Thuis",
+      "street": "Op straat",
+      "driving": "Achter het stuur",
+      "passenger": "Als passagier",
+      "work": "Op het werk",
+      "pub": "In de kroeg"
+    },
+    "people": {
+      "alone": "Alleen",
+      "friends": "Vrienden",
+      "partner": "Partner",
+      "family": "Familie",
+      "colleagues": "Collega’s",
+      "strangers": "Vreemden"
+    },
+    "yes": "ja",
+    "no": "nee",
+    "voiceOk": "spraak oké",
+    "textOk": "tekst oké",
+    "acceptSum": "Jij zou praten in **{y} van de {n}** situaties. In het onderzoek was spraak aanvaardbaar in ongeveer de helft van alle antwoorden, **zo’n 6 van de 12**.",
+    "acceptNone": "Beantwoord eerst een paar situaties, of vergelijk meteen.",
+    "acceptRow": "in het onderzoek: spraak oké in {v} van de antwoorden, tekst in {t}",
+    "habitCmd": "Opdrachten per week",
+    "habitMusic": "Muziek, aandeel van de opdrachten",
+    "habitConf": "Voelde zich aan het eind zekerder",
+    "week": "Week {n}",
+    "sevenOfSeven": "7 van 7",
+    "cultures": {
+      "us": "Amerikaans vasteland",
+      "hawaii": "Hawaï",
+      "japan": "Japan",
+      "taiwan": "Taiwan",
+      "sweden": "Zweden"
+    },
+    "cplaces": {
+      "bus": "In de bus",
+      "cinema": "In de bioscoop",
+      "sidewalk": "Op de stoep"
+    },
+    "pref": {
+      "uk": "Groot-Brittannië",
+      "dk": "Denemarken",
+      "se": "Zweden",
+      "us": "Verenigde Staten",
+      "all": "Alle 17 markten",
+      "id": "Indonesië",
+      "es": "Spanje",
+      "ae": "Verenigde Arabische Emiraten"
+    },
+    "srcShort": "Bron",
+    "copied": "Gekopieerd",
+    "copyManual": "Selecteer en kopieer",
+    "ratioLoss": "Praten is {r}× sneller dan jouw typen. Met dezelfde verliezen aan nadenken en verbeteren als in het experiment van Foley **zou dicteren je niets opleveren**.",
+    "tooFast": "Dat is sneller dan wie dan ook typt – waarschijnlijk geplakt of automatisch ingevuld. Typ de zin alsjeblieft zelf.",
+    "holdReady": "Klaar: indrukken en vasthouden, lezen, loslaten",
+    "holdNow": "Aan het lezen… laat los bij het laatste woord",
+    "holdAgain": "Klaar. Houd opnieuw ingedrukt om het over te doen",
+    "typeMore": "Typ eerst de hele zin en druk dan op Enter."
+  },
+  "fig": {
+    "wavesSrc": "Edison Research via SSRS[^ssrsUS][^ssrsUK][^ssrs2026] · YouGov[^yougov2026] · Apple via de pers[^siri] · TechCrunch[^wispr] · Google via de pers[^gemini]",
+    "speedSrc": "Ruan et al., n = 48[^ruan] · Foley et al., n = 28[^foley] · Dhakal et al., n ≈ 168.000[^dhakal] · Palin et al., n ≈ 37.000[^palin]",
+    "werSrc": "Open ASR Leaderboard, oktober 2025[^openasr] · Microsoft Research, 2017[^msHuman] · EdAcc[^edacc] · Koenecke et al., 2020[^koenecke] · Careless Whisper, 2024[^careless]",
+    "specSrc": "Ruan[^ruan] · Foley[^foley] · creatieve prompts, 2026[^creative] · Riegel et al.[^riegel] · Chen et al.[^chen] · Hodgson et al.[^hodgson] · Shneiderman[^shneiderman] · MacArthur en Cavalier[^macarthur]",
+    "promptSrc": "Riegel et al., ITiCSE 2026, n = 919[^riegel]",
+    "phonSrc": "Titze et al., 2007[^titze] · Eastman et al., 2023[^eastman]",
+    "recSrc": "Hunter en Titze, 2009, 86 leraren, zelfbeoordeling, cijfers uit de samenvatting[^hunter] · Xue et al., 2019, n = 10[^xue]",
+    "acceptSrc": "Efthymiou en Halvey, 2016, VK, n = 20, 23–32 jaar, beoordeeld aan de hand van video’s[^efthymiou]",
+    "habitSrc": "Pradhan, Lazar en Findlater, 2020, VS, n = 7, 1.049 opdrachten[^pradhan]",
+    "prefSrc": "YouGov, november 2023, 500–2.001 mensen per markt; alleen de markten die in de gepubliceerde tekst worden genoemd, zijn weergegeven[^yougov2023]",
+    "phoneSrc": "Campbell, 2007, n = 271 studenten aan één universiteit op Hawaï, ingedeeld naar thuiscultuur[^campbell]"
+  },
+  "src": {
+    "ssrsUS": "SSRS / Edison Research, The Infinite Dial: bezit van slimme speakers in het VK en de VS, 2021–2025.",
+    "ssrsUK": "SSRS / Edison Research, The Infinite Dial UK 2025.",
+    "smartAudio": "NPR en Edison Research, The Smart Audio Report 2022, zoals gemeld door audioXpress.",
+    "amazonLoss": "GeekWire, 2024, over het bericht van The Wall Street Journal over verliezen bij de apparatendivisie van Amazon.",
+    "wispr": "TechCrunch, november 2025 en 17 augustus 2026: financieringsrondes en waardering van Wispr. Cijfers van het bedrijf.",
+    "gemini": "Search Engine Journal, augustus 2026: Google over het aantal maandelijkse gebruikers van Gemini en het gebruik van spraak. Cijfer van het bedrijf, methode niet vermeld.",
+    "siri": "Om Malik, oktober 2024, en Search Engine Roundtable, september 2026: Siri-verzoeken per dag volgens bestuurders van Apple.",
+    "ssrs2026": "SSRS / Edison Research, The Infinite Dial 2026, januari 2026, n = 2.050.",
+    "whatsapp": "Meta Newsroom, maart 2022: spraakberichten op WhatsApp. Cijfer van het bedrijf.",
+    "yougov2026": "YouGov, februari 2026, n = 2.442: hoe Amerikanen communiceren in 2026.",
+    "ruan": "Ruan, Wobbrock, Liou, Ng en Landay. Comparing speech and keyboard text entry for short messages in two languages on touchscreen phones. IMWUT, 2018 (preprint 2016).",
+    "foley": "Foley, Casiez en Vogel. Comparing smartphone speech recognition and touchscreen typing for composition and transcription. CHI 2020.",
+    "dhakal": "Dhakal, Feit, Kristensson en Oulasvirta. Observations on typing from 136 million keystrokes. CHI 2018.",
+    "palin": "Palin, Feit, Kim, Kristensson en Oulasvirta. How do people type on mobile devices? MobileHCI 2019.",
+    "karat": "Karat, Halverson, Horn en Karat. Patterns of entry and correction in large vocabulary continuous speech recognition systems. CHI 1999.",
+    "openasr": "Srivastav et al. Open ASR Leaderboard, oktober 2025.",
+    "msHuman": "Microsoft Research, 2017: mijlpaal in de herkenning van gesproken conversatie, zorgvuldige professionele transcriptie op 5,1%.",
+    "edacc": "Sanabria et al. The Edinburgh International Accents of English Corpus (EdAcc). ICASSP 2023.",
+    "koenecke": "Koenecke et al. Racial disparities in automated speech recognition. PNAS, 2020.",
+    "careless": "Koenecke, Choi, Mei, Schellmann en Sloane. Careless Whisper: speech-to-text hallucination harms. FAccT 2024.",
+    "tapsay": "Zhao et al., CHI 2025: Tap&Say, gedicteerde tekst corrigeren met aanraking en spraak, met hulp van een taalmodel, n = 16.",
+    "rambler": "Rambler in the wild, CHI Extended Abstracts 2025: een dagboekstudie van 7 tot 10 dagen schrijven met spraak en een taalmodel, n = 12. Bouwt voort op Lin et al., Rambler, CHI 2024.",
+    "gould": "Gould, Conti en Hovanyecz. Composing letters with a simulated listening typewriter. Communications of the ACM, 1983.",
+    "shneiderman": "Shneiderman. The limits of speech recognition. Communications of the ACM, 2000.",
+    "chen": "Chen, Lyell, Laranjo en Magrabi. Effect of speech recognition on problem solving and recall in consumer digital health tasks. JMIR, 2020, n = 50.",
+    "hodgson": "Hodgson, Magrabi en Coiera. Efficiency and safety of speech recognition for documentation in the electronic health record. JAMIA, 2017, n = 35.",
+    "macarthur": "MacArthur en Cavalier, Exceptional Children, 2004: dicteren en spraakherkenning als aanpassing bij schrijftoetsen, n = 31.",
+    "riegel": "Riegel, Hua, Denny, Pădurean, Leinonen, Prather en Singla. Say What? Examining text and voice input modalities for prompt-based programming. ITiCSE 2026.",
+    "creative": "Rathore, Billakanti, Ceha en Henderson. A comparison of speech and typing input for creative generative AI tasks. ACM CUI 2026, n = 40.",
+    "fox": "Fox, Ericsson en Best. Do procedures for verbal reporting of thinking have to be reactive? Psychological Bulletin, 2011.",
+    "titze": "Titze, Hunter en Švec. Voicing and silence periods in daily and weekly vocalizations of teachers. JASA, 2007.",
+    "eastman": "Eastman et al., Perspectives of the ASHA Special Interest Groups, 2023: fonatie van leraren op het werk en daarbuiten, n = 26.",
+    "xue": "Xue et al., Journal of Voice, 2019: stemmoeite tijdens een uur luid voorlezen, n = 10.",
+    "hunter": "Hunter en Titze, Annals of Otology, Rhinology & Laryngology, 2009: herstel na een stembelasting van twee uur, n = 86.",
+    "nair": "Nair et al., Journal of Voice, 2024 (online 2021): systematische review van stemproblemen bij callcentermedewerkers, 15 onderzoeken.",
+    "piwowarczyk": "Piwowarczyk et al., Journal of Voice, 2012: stemklachten bij callcentermedewerkers, n = 157.",
+    "olson": "Olson, Cruz, Izdebski en Baldwin, Ear, Nose & Throat Journal, 2004: vijf gevallen van stemoverbelasting na de overstap op spraakherkenningssoftware.",
+    "juul": "Juul-Kristensen et al., Ergonomics, 2004: spieractiviteit bij computerwerk met spraakherkenning, n = 10.",
+    "efthymiou": "Efthymiou en Halvey. Evaluating the social acceptability of voice based smartwatch search. AIRS 2016.",
+    "kowalczuk": "Kowalczuk en Musial, Computers in Human Behavior Reports, 2024: zelfbewuste emoties en het blijven gebruiken van spraakassistenten, n = 860.",
+    "perficient": "Voicebot.ai, maart 2019, over de peiling van Perficient naar spraakgebruik in het openbaar, n = 1.719.",
+    "pradhan": "Pradhan, Lazar en Findlater. Use of intelligent voice assistants by older adults with low technology use. TOCHI, 2020.",
+    "garg": "Garg en Sengupta. He is just like me: a study of the long-term use of smart speakers by parents and children. IMWUT, 2020.",
+    "koelle": "Koelle, Ananthanarayan en Boll. Social acceptability in HCI: a survey of methods, measures and design strategies. CHI 2020.",
+    "yougov2023": "YouGov, november 2023: do consumers prefer sending and receiving messages in audio or text form? 17 markten.",
+    "campbell": "Campbell. Perceptions of mobile phone use in public settings: a cross-cultural comparison. International Journal of Communication, 2007.",
+    "pew2006": "Pew Research Center, 2006, en vervolgonderzoek uit 2013: luide telefoongesprekken in het openbaar.",
+    "pew2015": "Pew Research Center, 2015: hoe Amerikanen denken over mobiele etiquette, veldwerk 2014.",
+    "bloomberg": "Bloomberg, 6 februari 2026: voice-to-text AI lets office workers talk instead of type.",
+    "computerworld": "Computerworld, juli 2026: de opmars van AI-dicteertools op het werk.",
+    "wisprWhisper": "Wispr Flow: whispering in an open office. Pagina van de leverancier.",
+    "silentvoice": "Fukumoto. SilentVoice: unnoticeable voice input by ingressive speech. Microsoft Research, UIST 2018.",
+    "pandey": "Pandey, Hasan en Arif. Acceptability of speech and silent speech input methods in private and public. CHI 2021.",
+    "jama": "Mass General Brigham en STAT, april 2026, over het JAMA-onderzoek naar ambient AI-scribes in vijf academische centra.",
+    "nejmai": "Gerandomiseerde studie naar ambient AI-scribes bij UCLA. NEJM AI, 2025, n = 238.",
+    "ama": "American Medical Association, 2025: ambient AI-scribes en burn-out bij artsen, n = 263.",
+    "notes": "Taylor et al. Quality of clinical notes created by ambient listening generative AI. JMIR Medical Informatics, 2026, 356 verslagen beoordeeld door artsen. PubMed 41996389."
+  }
+}
