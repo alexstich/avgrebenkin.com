@@ -21,6 +21,9 @@ ORDER = ['en', 'ru', 'uk', 'de', 'fr', 'es', 'pt-BR', 'it', 'nl', 'pl', 'tr', 'j
 DEFAULT = 'en'
 
 STUDIES = [
+    dict(base='/research/voice-input/', dirname='voice-input',
+         image='/images/research/voice-input.jpg',
+         title=lambda L: L['page']['htmlTitle']),
     dict(base='/research/population/', dirname='population',
          image='/images/research/population.jpg',
          title=lambda L: L['htmlTitle']),

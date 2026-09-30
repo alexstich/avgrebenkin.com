@@ -1,0 +1,536 @@
+{
+  "lang": "en",
+  "dir": "ltr",
+  "endonym": "English",
+  "htmlLocale": "en_US",
+  "decimal": ".",
+  "ui": {
+    "crumb": "← Research",
+    "langGroup": "Page language",
+    "tldrOpen": "The short version",
+    "tldrOpenSub": "2 min · copy or print",
+    "tldrHead": "The short version",
+    "tldrCopyText": "Copy",
+    "tldrCopyMd": "Markdown",
+    "tldrPrint": "Print",
+    "tldrClose": "Close",
+    "sourcesH": "Sources",
+    "sourcesNote": "Research done in September 2026. Where a source is a company speaking about itself, the text says so and the charts draw it hatched.",
+    "percent": "{n}%",
+    "translationNote": "",
+    "syText": "**Voice input and meeting recording.** One hotkey, any app, 67+ languages.",
+    "syCta": "30 days free",
+    "backHome": "← back to avgrebenkin.com"
+  },
+  "page": {
+    "htmlTitle": "The quiet comeback of voice — speaking vs typing",
+    "title": "The quiet comeback of voice",
+    "eyebrow": "Research · Interfaces · October 2026",
+    "standfirst": "**Voice input is back — not as Alexa, but as dictation and as conversation with AI.** I read the studies on how fast it is, how often it mishears, how tiring it is and how embarrassing, from the last two years and the older ones they rest on. The surprise: what is changing fastest is not people growing braver about talking to computers. It is voice growing quieter.",
+    "disclosure": "**Disclosure.** I build Speak-Y, an app for voice input. Wherever a number comes from a company about itself, the text says so and the charts draw it hatched, apart from independent data.",
+    "byline": "By **Aleksei Grebenkin** · Data: Edison Research, YouGov, Pew, experiments from CHI and IMWUT, voice-science studies from PubMed, JAMA, company disclosures",
+    "heroAlt": "A sound wave on the left turns into lines of text on the right; the bars of the wave get lower as they approach the text.",
+    "imageAlt": "A sound wave on the left turns into lines of text on the right, with the title The quiet comeback of voice.",
+    "metaDescription": "Is talking to a computer faster than typing? 3× for copying, 1.4× for writing. What the studies say about voice input, fatigue and embarrassment.",
+    "ogDescription": "Speaking beats typing 3× when you copy and 1.4× when you write. Voice feels fine alone in 96% of answers, before strangers in 16%.",
+    "twitterDescription": "Voice input is back. What is changing fastest is not people growing braver. It is voice growing quieter.",
+    "ldDescription": "A review of the evidence on voice input in 2024–2026: adoption, speed, recognition accuracy, vocal fatigue, cognitive load, social acceptability and habituation, with the gaps no study has filled."
+  },
+  "tldr": {
+    "sub": "What the studies say about talking to computers instead of typing.",
+    "b1": "**The assistants stalled. Dictation took off — by its own account.** Smart speaker ownership in the US: 33% in 2021, 35% in 2025. The growth of dictation and voice chat with AI is visible almost only in what companies say about themselves.",
+    "b2": "**Three times faster at copying, about 1.4 times at composing.** Writing their own messages, people thought twice as long before speaking (11.0 against 5.3 seconds), and any correction was expensive.",
+    "b3": "**What the machine hears depends on who is speaking.** 2.7% of words wrong on clean read American English, 19.7% on accented conversation. Whisper invented phrases in about 1% of transcripts.",
+    "b4": "**Voice speeds up the mouth, not the planning.** About two thirds of composing time is planning. Where the task is solving a problem, voice loads the mind more. 88.5% of 919 programming students chose to type rather than speak their prompts to an AI tool.",
+    "b5": "**The voice tires by the dose, and nobody has measured the dose of dictation.** A physical marker of vocal strain rises within 15 minutes of loud reading, and people feel it after 30. 33–68% of call-centre operators have voice problems at some point in their career.",
+    "b6": "**It is not the place, it is who is listening.** Alone, voice was acceptable in 96% of answers; with colleagues in 26%, with strangers in 16%. Novelty fades within weeks, while confidence grows.",
+    "b7": "**The office is learning to whisper.** The market is not waiting for the norm to change; it is making voice quieter — the way the phone call became normal on the street and never in meetings.",
+    "src": "Sources: Edison Research · YouGov · Pew · CHI and IMWUT experiments · voice-science studies · JAMA · company disclosures, marked as such",
+    "full": "Full study, with the interactives and every source:"
+  },
+  "s01": {
+    "num": "01 · Two waves",
+    "h": "The assistants stalled. Dictation took off — by its own account",
+    "a": "Say “Alexa, set a timer” and you are using the first kind of voice input. Dictate an email instead of typing it, and you are using the second.\n\nThere are five kinds in all, and over the last two years they went different ways: **commands to assistants**, dictation of text, voice messages, spoken conversation with AI models, and voice for programming and for giving tasks to AI agents.\n\nThe first kind has stopped growing in reach. In the United States, 33% of people owned a smart speaker in 2021 and 35% in 2025; the survey firm itself says the number barely moved in four years.[^ssrsUS]\n\nBritain is the exception: from 25% to 45% over the same years, mostly thanks to Alexa.[^ssrsUK] Use per owner kept rising for longer: tasks per week on a speaker went from 7.5 in 2017 to 12.4 in 2022.[^smartAudio]\n\nCommercially, though, **the first wave failed**. Amazon's devices unit lost more than $25 billion between 2017 and 2021, because people used Echo for alarms and weather, not for shopping.[^amazonLoss]",
+    "b": "The second wave is visible almost only in what companies say about themselves. Wispr Flow, a dictation app, went from a $700 million valuation in November 2025 to $2 billion in August 2026.[^wispr]\n\nGoogle says 63% of the Gemini app's more than one billion monthly users “use voice”, without saying how that was counted.[^gemini] Apple says Siri requests grew from about 1.5 billion a day in 2024 to more than 2.5 billion in 2026.[^siri]\n\nThe big independent surveys — Pew, YouGov, Edison, Ofcom — do not yet ask about dictation or voice chat with AI as a separate question. The closest one found that 57% of Americans aged 12 and over had used a generative AI assistant at least once, typed or spoken.[^ssrs2026]\n\nSo **the growth curve of the second wave is drawn by interested parties**.",
+    "figCap": "Independent surveys on the left, companies about themselves on the right",
+    "figNote": "Solid bars: surveys with a known method and sample; the dark tick marks the earlier year. Hatched bars: numbers a company gave about itself, which cannot be checked from outside; the tick marks the earlier claim. The two sides are not on one scale.",
+    "c": "Voice messages, the third kind, are a mass habit but not a growing one. WhatsApp's last official count was 7 billion a day, in March 2022.[^whatsapp]\n\nIn a YouGov survey of 2,442 Americans in February 2026, about 10% used voice messages several times a week and 41% said the format did not apply to them. As many used them less (12%) as more (11%).[^yougov2026]"
+  },
+  "s02": {
+    "num": "02 · Speed",
+    "h": "Three times faster at copying. About 1.4 times at composing",
+    "a": "Here is the most quoted number about voice: speaking is **three times faster than typing**. It is true — for copying. In the experiment behind it, 48 people, 24 per language, copied short ready-made phrases on an iPhone: 153 words per minute by voice against 52 on the on-screen keyboard in English, 123 against 43 in Mandarin.[^ruan]\n\nThe authors themselves call it an upper bound reached in a lab. And nobody writes by copying.\n\nIn 2020 Foley, Casiez and Vogel asked 28 people to **compose a sentence of their own** on a phone, linking three simple pictures. While words were actually being spoken or typed, voice still ran three times faster: 116.5 against 35.1 words per minute.\n\nBut counted over the whole attempt — thinking, speaking, fixing — a message took 20.8 seconds by voice and 29.2 by keyboard. That is about 1.4 times, not three.[^foley]",
+    "b": "Two things ate the difference. Before the first word, people thought twice as long when they were about to speak: 11.0 seconds against 5.3. **Typing, people think as they go; speaking, they plan the sentence first.**\n\nAnd any correction was expensive: across both methods and both tasks, attempts that needed a fix ran at 54.6 words per minute, against 141.1 for clean ones.\n\nFor scale, volunteers on an online typing test averaged 52 words per minute on a physical keyboard, across 168,000 people,[^dhakal] and 36 on a phone, across 37,000.[^palin]\n\nThere is no controlled comparison of composing by voice against a desktop keyboard with today's speech recognition. The last one, from 1999, had first-time users composing by voice at 7.8 words per minute, corrections included, against 19 by keyboard and mouse; copying text, it was 13.6 against 32.5.[^karat]",
+    "splitCap": "Where the time went: one message composed on a phone, average of 28 people",
+    "splitNote": "Composing task. The pale part of each bar is the thinking before the first word; the solid part is speaking or typing, plus any fixing.[^foley]",
+    "toolH": "Measure yourself: your fingers against your mouth",
+    "toolLead": "Two stopwatches and one sentence. The page never switches on the microphone and cannot hear you: it only times how long you take, and turns the two times into two speeds.",
+    "step1": "Type the sentence, then press Enter",
+    "step2": "Hold the button and read the sentence aloud",
+    "phrase": "Could you move our Thursday call to the afternoon and send me the notes from last week before then?",
+    "typeAria": "Type the sentence here",
+    "holdBtn": "Hold while you read aloud",
+    "againBtn": "Start over",
+    "c": "Your speaking speed is how fast your mouth goes, not how fast dictation goes: nothing is recognised here, and nothing needs correcting. **The ratio between your two numbers is the most voice can ever give you.**\n\nIn Foley's experiment, speaking alone was 3.3 times faster than typing, and the whole attempt 1.4 times: after thinking and fixing, about 40% of the speed ratio survived.",
+    "how1h": "Type it",
+    "how1": "Type the sentence below. The first stopwatch runs from your first key until you press Enter.",
+    "how2h": "Say it",
+    "how2": "Hold the button, or the space bar, and read the same sentence aloud at your normal pace. The second stopwatch runs while you hold.",
+    "how3h": "Compare",
+    "how3": "Same sentence, two times. The page turns them into words per minute and puts them beside the studies.",
+    "typePh": "Start typing here…",
+    "holdWait": "Finish step 1 first",
+    "resType": "words per minute, typing",
+    "resSpeak": "words per minute, speaking",
+    "ratesH": "Your speeds beside the studies"
+  },
+  "s03": {
+    "num": "03 · Accuracy",
+    "h": "What the machine hears depends on who is speaking",
+    "a": "Say “move the meeting to Thursday at ten” in a quiet room with a newsreader's accent, and a good recogniser will get it right. Say it with a Lagos accent over café noise, and it may type “thirsty at then”.\n\nRecognition is scored by **word error rate**: the share of words it gets wrong, drops or adds. In October 2025 the best model on a standard public leaderboard averaged 5.63% across its test sets.\n\nWhisper large-v3, the open model behind many dictation apps, averaged 7.44%.[^openasr] For comparison, careful professional transcription was measured at 5.1% on recorded phone conversations in 2017.[^msHuman]\n\nThose averages hide who is speaking. On a collection of conversational English with accents from around the world, Whisper got 19.7% of words wrong, against 2.7% on clean read American English. For Nigerian and Jamaican English even the stronger models went above 20%, and an academic model above 45%.[^edacc]\n\nIn 2020, five commercial systems got 35% of words wrong from Black speakers and 19% from white speakers: **the same system, almost twice the errors**.[^koenecke]",
+    "ladderCap": "Pick an error rate and see what it does to one spoken sentence",
+    "ladderNote": "The sentence has 26 words; errors are placed where they do the most harm, to show what the rate means rather than to simulate any particular system.",
+    "halluBtn": "Add a Whisper-style invention",
+    "b": "Generative recognition added a new kind of failure: **making things up**. Whisper invented whole phrases in about 1% of transcripts, and 38% of those inventions contained something harmful, such as violence or false claims.[^careless]\n\nLong pauses, common in people with aphasia, made inventions more likely. An invented sentence is worse than a misheard word, because it reads smoothly.\n\nThe bottleneck has moved from recognition to correction. Editing by voice has two unsolved problems: telling a command from text that should be written down, and pointing at the place to fix.\n\nTapping near the error while saying the correction, and letting a language model work out what goes where, cut task time by 16.4% and keyboard taps by 47.5% against the previous best method, in a test with 16 people.[^tapsay]\n\nDictated text also comes out **wordy and loose**, which is why the new apps rewrite it with a language model before pasting. In a diary study of 7 to 10 days with such a tool, 9 of 12 writers adapted to it, with a median comfort of 5 out of 7.\n\nThose who kept their doubts named the old hard parts: thinking of the next sentence while speaking, and putting the cursor where it should be.[^rambler]"
+  },
+  "s04": {
+    "num": "04 · Thinking",
+    "h": "Voice speeds up the mouth, not the planning",
+    "a": "If voice is three times faster, why doesn't writing get three times faster? Because most of writing is not typing. A 1983 study of letter writing found that **about two thirds of composing time is planning** — between 58% and 78% across the setups tested.\n\nLetters came out equally good whether people wrote them by hand, dictated or spoke them.[^gould] A faster output channel speeds up only the remaining third.\n\nBen Shneiderman proposed the mechanism in 2000: speaking and short-term memory draw on the same resource, while moving a hand runs in parallel with thinking.\n\nIn one of his lab's experiments, spoken commands were 12–30% faster than the mouse, but saying them aloud made it harder to remember symbols that had to be typed back in later.[^shneiderman]",
+    "b": "Later studies line up along one line, from copying to solving. Where the job is copying, voice wins on speed and feels easier. Where the job is composing, voice is a little faster and feels the same.\n\n**Where the job is solving a problem, voice loads the mind more.** For 50 people using a medical chat assistant, speech raised measured mental workload on both hard and simple tasks.[^chen] 35 emergency doctors documenting by voice were 18.1% slower and made 138 errors against 32.[^hodgson]\n\nThe clear winners are people whose bottleneck is the hand or the spelling. Students with learning disabilities wrote better essays with speech recognition than by hand; for other students it made no difference.[^macarthur]",
+    "specCap": "From copying to solving: how voice compared with typing, task by task",
+    "specHelps": "voice better",
+    "specSame": "no difference",
+    "specHurts": "typing better",
+    "c": "Talking to AI sits on the same line. In the largest study I found, 919 students in an introductory programming course could choose how to prompt an AI tool. **Almost nine in ten chose text only** (88.5%), 4.8% voice only and 6.7% both.\n\nUnedited voice prompts worked on the first try less often: 35% against 52% on the first task and 38% against 58% on the second. Once students edited the transcript, the gap was no longer significant.[^riegel]\n\nIn creative tasks, voice gave a faster first prompt and more, longer follow-ups, but changed neither the effort people felt nor how they rated the results.[^creative]",
+    "promptCap": "Prompt worked on the first try, share of students; each voice group had 26–51 students",
+    "d": "The popular idea that thinking out loud helps holds only halfway. Across 94 studies, simply voicing your thoughts did not change accuracy and only made the work slower; accuracy rose when people had to **explain** their reasoning.[^fox]\n\nExplaining a problem to an AI model by voice may well help. Nobody has tested it."
+  },
+  "s05": {
+    "num": "05 · Fatigue",
+    "h": "The voice tires by the dose. Nobody has measured the dose of dictation",
+    "a": "Typing all day tires your hands. Talking all day tires something else, and there is no scientific daily limit for how much of it is safe. What is measured well is how much voice professionals use.\n\n**Teachers**, a job with high rates of voice disorders, sound their vocal folds for 23% of working time, against 13% off work and 12% at weekends, in a study of 31 teachers from 2007.[^titze] A newer group of 26 teachers came out at 16.2%, 8.4% and 8.0%.[^eastman]\n\nThis sounding time is called phonation: it counts only the moments the folds actually vibrate, not the pauses between words.",
+    "phonCap": "Share of the time the vocal folds are vibrating, teachers",
+    "b": "The body notices quickly. In loud reading, an objective marker of vocal effort **rises within the first 15 minutes**, and people feel it after 30, in a study of 10 people.[^xue]\n\nAfter two hours of reading aloud at classroom volume, 86 teachers rated their voices mostly recovered within 4–8 hours, with a small remainder lasting a day or more. The paper disagrees with itself on the exact figures: its abstract gives 90% at 4–6 hours and full recovery at 12–18.[^hunter]",
+    "recCap": "Two hours of heavy voice use, then recovery",
+    "recNote": "Share of the self-rated fatigue gone after two hours of loud reading. The curve is drawn through the two points in the paper's abstract, 90% after 4–6 hours and 100% after 12–18; its conclusion gives a slower 50% and 90%. For quiet dictation into a close microphone there is no curve at all; that strip is left empty on purpose.",
+    "c": "The closest existing job to talking to a computer all day is the **call centre**. Across 15 studies, 33–68% of operators had voice problems at some point in their career, and 27% at the moment they were examined.[^nair]\n\nOne survey counted 6.8 voice symptoms per operator against 1.7 in the general population.[^piwowarczyk]\n\nDirect evidence about dictation users comes only from the 1990s and 2000s, when dictation meant pausing after every word. In one series, five people who switched to speech recognition because of hand pain developed a strained voice; after voice therapy and shorter sessions, three of the five improved.[^olson]\n\nMuscle recordings in 10 people suggested **the load moving rather than disappearing**: less constant strain in the forearm and neck, and to a degree the shoulders, and a trend towards more in the cricothyroid, a muscle of the larynx.[^juul]\n\nModern dictation removes the suspected cause — flat, machine-like speech with a pause after every word — and puts the microphone close to the mouth, so people can speak softly. That is a reasonable hope, not a finding.\n\nNo study has measured vocal load in people using today's dictation apps or the voice modes of AI models."
+  },
+  "s06": {
+    "num": "06 · Embarrassment",
+    "h": "It is not the place. It is who is listening",
+    "a": "Picture asking your phone for directions at home, then on a bus, then at your desk with colleagues around. For most people the answer changes three times.\n\nThe best numbers on this come from a small British experiment. 20 people aged 23–32 watched short videos of a man searching by voice or by text against a plain background, then ticked the places and the audiences where they would do the same. **Voice beat text only behind the wheel**, where the hands are busy.[^efthymiou]\n\nWho was listening mattered more than where. Alone, voice was acceptable in 96% of answers; with friends in 83%, with a partner 78%, with family 71%. With colleagues, 26%. With strangers, 16%.\n\nAmong audiences, only colleagues and strangers made voice significantly less acceptable than text; among places, home, the passenger seat and work did. Try it on yourself before you look at their answers.",
+    "toolH": "Would you speak to a device here?",
+    "toolLead": "Tap each situation once for yes, twice for no. Then compare with the 20 people in the study.",
+    "placesH": "Where",
+    "peopleH": "In front of whom",
+    "showBtn": "Compare with the study",
+    "hideBtn": "Hide the study",
+    "b": "In a survey of 860 assistant users, **shame lowered the intention to keep using one** specifically in public, while pride raised it everywhere.[^kowalczuk]\n\nThe norm moved anyway. In American surveys, using voice in a restaurant with friends rose from about 25% in 2017 to more than 40% in 2019. Men were 1.54 times as likely as women to use voice commands, and 46% said they were annoyed when others did it.[^perficient]"
+  },
+  "s07": {
+    "num": "07 · Habit",
+    "h": "Novelty wears off first. The shyness wears off too",
+    "a": "Anyone who has bought a smart speaker knows the first week: timers, jokes, music, questions asked for the fun of it. Then the novelty wears off, and what is left is the habit.\n\nHow people change after they start is measured almost only on smart speakers at home. In a three-week study, 7 older adults were given an Echo Dot. **Commands per week fell by a third**: 59.6, then 50.1, then 39.7.\n\nMusic dropped from 23.9% of commands to 2.9%, while weather and shopping lists grew. One participant said she first “felt dumb talking to this machine”; by the end, all seven said they felt more confident and would keep using it.[^pradhan]",
+    "habitCap": "Three weeks with a smart speaker, 7 people",
+    "b": "Longer logs look different. In the Google Home histories of 18 families, averaging 58 weeks, use stayed fairly stable. Three families stopped using the speaker for weeks soon after buying it, over privacy, uselessness or a habit that had not formed, and later came back.\n\nFamilies who quit for good were not studied. Control of the home grew as families bought more smart devices.[^garg]\n\nWhere people stepped away, it was over usefulness, reliability or privacy, not because talking at home felt awkward.\n\nA review of 69 papers on social acceptability points out that acceptability changes as people get used to an interaction, yet **only three of them followed people trying an interface in everyday life**; most asked people to imagine it, or tried it once in a lab.[^koelle]\n\nThat is the central gap for this page. I found no study that follows people who switched to dictation at work and measures, week by week, how their embarrassment changes."
+  },
+  "s08": {
+    "num": "08 · Culture",
+    "h": "Culture decides how loud voice is allowed to be",
+    "a": "Whether you answer a message with a voice note or with text depends a lot on where you live.\n\nIn a 2023 YouGov survey across 17 markets, 66% preferred to send messages as text and 7% as audio. The preference for text was strongest in Britain (83%), Denmark (80%) and Sweden (78%) and weakest in the United Arab Emirates (38%); in Spain, 54% preferred text and 13% audio.[^yougov2023]",
+    "prefCap": "Prefer to send messages as text, 2023",
+    "b": "The mobile phone went through the same thing twenty years ago. In a 2007 comparison of students from five cultures at one university in Hawaii, **talking on the phone on a bus** scored 2.53 out of 5 among students from Japan, against 3.50 from Sweden and 3.44 from the mainland US.[^campbell]\n\nJapan settled on a clear rule — no voice on the train, email is fine — and moved away from public voice as soon as a silent alternative existed.",
+    "phoneCap": "A phone call here is acceptable: 1 = strongly disagree, 5 = strongly agree, 2007",
+    "c": "In the US, 82% were irritated at least occasionally by loud phone calls in public in 2006, and the share who often ran into them fell from 50% to 39% by 2012.[^pew2006]\n\nBy 2014, using a phone was fine on the street for 77% of Americans, on public transport for 75%, in a restaurant for 38% — and in a meeting for 5%.[^pew2015] It came from both sides: bystanders grew tolerant, callers grew quieter. And **it stopped at the meeting-room door**."
+  },
+  "s09": {
+    "num": "09 · The office",
+    "h": "The office is learning to whisper",
+    "a": "In 2026 AI dictation reached offices, and the first reports are stories, not numbers. Bloomberg describes it spreading from one desk to the next, with gooseneck microphones appearing and the whispering starting.[^bloomberg]\n\nAn analyst quoted by Computerworld calls embarrassment and the fear of distracting colleagues a major behavioural barrier. Thumbtack, a fully remote company, gave Wispr Flow to more than 200 staff, and its technology chief admits that getting used to speaking aloud, even alone in a room, took time.[^computerworld]\n\nThe market is not waiting for the norm to change. It is **making voice quieter**. Wispr Flow sells a whisper mode and recommends speaking about a centimetre from the microphone.[^wisprWhisper]\n\nResearch went further back in 2018: Microsoft's SilentVoice recognised short commands spoken while breathing in, leaking under 39 decibels of sound, with 1.8% of words wrong for a trained speaker and 7% for a new one.[^silentvoice]\n\nPeople will trade accuracy for silence. In a 2021 experiment, 12 people were as willing to use silent speech — mouthing words without sound — with 10–15% errors deliberately injected as with none, while their willingness to speak aloud fell. All 12 put it down to privacy and security.[^pandey]",
+    "pull": "The fastest progress is not people growing braver. It is voice growing quieter."
+  },
+  "s10": {
+    "num": "10 · Medicine",
+    "h": "The one place it is measured at scale: doctors' notes",
+    "a": "Medicine is the only field where voice input backed by AI models has been measured on thousands of people. Ambient AI scribes listen to the appointment and draft the note.\n\nIn the largest study, published in JAMA in April 2026, about 1,800 users compared with 6,770 non-users saved 16 minutes of documentation per 8 hours of appointments, **about 10%**, with no significant change in after-hours work. Only 32% used the scribe in more than half of their visits.[^jama]\n\nIn a randomised trial with 238 doctors, one scribe cut time per note by 41 seconds against 18 seconds in the control group, and another made no significant difference.[^nejmai] Burnout fell from 51.9% to 38.8% in 30 days, in a study without a control group.[^ama]\n\nNotes checked by hand had omissions in 18% of cases and invented details in 11.5%; 5.3% had an error that could cause serious harm.[^notes] Voice saved attention more than minutes, and the price is checking the text."
+  },
+  "s11": {
+    "num": "11 · Gaps",
+    "h": "The experiments nobody has run yet",
+    "a": "These are not small holes. Each card below is a question this page wanted to answer with a number and could not, because no study has measured it.",
+    "g1h": "A survey that counts dictation",
+    "g1": "No survey with a random sample measures dictation or voice chat with AI as its own behaviour. The growth curve rests on company claims.",
+    "g2h": "The vocal dose of dictation",
+    "g2": "Nobody has measured phonation time or vocal strain in people who dictate for hours with today's apps.",
+    "g3h": "A safe amount per day",
+    "g3": "There is no evidence-based limit on how many hours of speaking a day are safe for the voice.",
+    "g4h": "Hands after switching",
+    "g4": "No randomised trial shows that switching to voice prevents or treats strain injuries of the hands.",
+    "g5h": "Composing at a desk",
+    "g5": "No controlled comparison of writing by voice and on a physical keyboard with modern recognition. The best data are from 1983 and 1999.",
+    "g6h": "A day spent talking",
+    "g6": "No diary or long-term study follows people who work mainly by voice and measures their mental fatigue.",
+    "g7h": "Losing the shyness at work",
+    "g7": "No field study follows new dictation users in an office week by week. Every long-term study of habit is about speakers at home."
+  },
+  "s12": {
+    "num": "12 · Method",
+    "h": "How this was checked, and what I left out",
+    "a": "I build **Speak-Y**, an app for voice input and meeting recording, and there is a banner for it at the bottom of this page. That is a reason to read this study with suspicion.\n\nSo every number that comes from a company about itself — including dictation companies that compete with mine — is marked in the text and drawn hatched in the charts.\n\nThe research was done in September 2026 along four questions: adoption, speed and accuracy, fatigue and thinking, social acceptability. Every number was traced to its original source where that was possible.\n\nSmall samples are kept, because they are what exists, but the sample size is always given next to the number.",
+    "b": "Some widely repeated numbers are not used here, because they did not survive tracing or do not mean what they are quoted for. A “Gartner” finding that Siri use fell 12% in a year: no Gartner source could be found.\n\n“48% of workers call speech the most distracting office noise”: it goes back to a 2008 survey of 689 Finnish office workers and says nothing about dictation.\n\n“79% of doctors rejected the AI scribe”: a dictation vendor turned the JAMA study's comparison group of non-users into refusals. And the famous claim that only 3% of people used Siri in public, whose original page no longer exists.",
+    "c": "My own reading of the whole picture, and it is an opinion: **dictation will become normal at home, in the car and in a room of one's own**, stay contested in the open-plan office and stay absent from meetings, just as the phone call did. What would change that is not braver people but quieter voice."
+  },
+  "js": {
+    "survey": {
+      "usSpeaker": "Owns a smart speaker, US",
+      "ukSpeaker": "Owns a smart speaker, UK",
+      "genai": "Ever used a generative AI assistant, US, age 12+",
+      "vmsg": "Voice messages several times a week, US adults"
+    },
+    "vendor": {
+      "siri": "Siri requests per day",
+      "wispr": "Wispr Flow valuation",
+      "gemini": "Gemini monthly users who “use voice”"
+    },
+    "surveyH": "Independent surveys",
+    "vendorH": "Companies about themselves",
+    "bnDay": "{n} bn",
+    "usdBn": "${n} bn",
+    "plus": "{n}+",
+    "times": "×{n}",
+    "noMethod": "no method given",
+    "rates": {
+      "ruanV": "Voice, copying phrases (Ruan)",
+      "foleyV": "Voice, composing, while speaking (Foley)",
+      "desk": "Physical keyboard, average (Dhakal)",
+      "ruanK": "Phone keyboard, copying (Ruan)",
+      "phone": "Phone keyboard, average (Palin)",
+      "foleyK": "Phone keyboard, composing (Foley)"
+    },
+    "wpm": "{n} wpm",
+    "youType": "You typed",
+    "youSpeak": "You spoke",
+    "you": "You",
+    "waiting": "—",
+    "ratioYou": "Your ceiling: speaking is **{r}×** faster than your typing. If the same 40% of the ratio survives thinking and fixing as in Foley's experiment, dictation would be about **{s}×** faster for you.",
+    "ratioSlow": "You type about as fast as you speak, or faster. Voice has little speed to give you; its case would rest on comfort and on your hands.",
+    "typedWrong": "Some words differ from the sentence; the speed still counts.",
+    "tooShort": "That was too short to be reading the whole sentence. Try again.",
+    "prep": "Thinking before the first word",
+    "entry": "Speaking or typing, and fixing",
+    "voice": "Voice",
+    "keys": "Keyboard",
+    "sec": "{n} s",
+    "wer": {
+      "clean": "Clean read American English, Whisper",
+      "human": "Careful professional transcription",
+      "best": "Best model, public leaderboard",
+      "whisper": "Whisper large-v3, public leaderboard",
+      "white": "White speakers, 5 commercial systems, 2020",
+      "accent": "Accented conversation, Whisper",
+      "black": "Black speakers, 5 commercial systems, 2020"
+    },
+    "werErrors": "{e} of {n} words wrong",
+    "werWords": [
+      [
+        "Please",
+        "Lease",
+        15
+      ],
+      [
+        "move",
+        "moved",
+        8
+      ],
+      [
+        "the",
+        "a",
+        17
+      ],
+      [
+        "budget",
+        "bucket",
+        2
+      ],
+      [
+        "meeting",
+        "eating",
+        12
+      ],
+      [
+        "with",
+        "width",
+        18
+      ],
+      [
+        "Anna",
+        "Hannah",
+        4
+      ],
+      [
+        "from",
+        "for",
+        19
+      ],
+      [
+        "Tuesday",
+        "twos day",
+        9
+      ],
+      [
+        "to",
+        "two",
+        20
+      ],
+      [
+        "Thursday",
+        "thirsty",
+        1
+      ],
+      [
+        "at",
+        "add",
+        21
+      ],
+      [
+        "ten",
+        "then",
+        3
+      ],
+      [
+        "and",
+        "an",
+        14
+      ],
+      [
+        "ask",
+        "asked",
+        16
+      ],
+      [
+        "the",
+        "this",
+        22
+      ],
+      [
+        "design",
+        "decline",
+        6
+      ],
+      [
+        "team",
+        "theme",
+        11
+      ],
+      [
+        "to",
+        "too",
+        23
+      ],
+      [
+        "bring",
+        "ring",
+        13
+      ],
+      [
+        "the",
+        "that",
+        24
+      ],
+      [
+        "latest",
+        "latex",
+        10
+      ],
+      [
+        "numbers",
+        "lumbers",
+        7
+      ],
+      [
+        "for",
+        "four",
+        25
+      ],
+      [
+        "the",
+        "a",
+        26
+      ],
+      [
+        "launch.",
+        "lunch.",
+        5
+      ]
+    ],
+    "hallu": "Thank you for watching.",
+    "spec": {
+      "copy": "Copying short phrases: about 3 times faster, lower workload on all six scales",
+      "compose": "Composing short messages: about 1.4 times faster overall, same workload",
+      "creative": "Creative prompts for AI: faster and longer, same effort and same results",
+      "code": "Programming prompts, unedited voice: worked on the first try less often",
+      "problem": "Problem solving with a chat assistant: higher mental workload",
+      "ehr": "Emergency doctors, medical records: 18.1% slower, 138 errors against 32",
+      "memory": "Spoken commands instead of the mouse: faster, but memory suffered",
+      "ld": "Essays by students with learning disabilities: better than by hand"
+    },
+    "specCopyEnd": "copying",
+    "specThinkEnd": "solving",
+    "specExtra": "different group",
+    "nPeople": "n = {n}",
+    "nNa": "n not given",
+    "prompt": "Task {p}",
+    "pText": "Typed",
+    "pRaw": "Voice, unedited",
+    "pEdit": "Voice, edited",
+    "choiceH": "How the 919 students chose to write",
+    "cText": "text only",
+    "cVoice": "voice only",
+    "cBoth": "both",
+    "phon": {
+      "work": "At work",
+      "off": "Off work",
+      "weekend": "Weekends"
+    },
+    "phonA": "31 teachers, 2007",
+    "phonB": "26 teachers, 2023",
+    "recLoad": "2 h of heavy use",
+    "rec90": "90% recovered",
+    "rec100": "fully recovered",
+    "recHours": "hours",
+    "recUnknown": "quiet dictation: not measured",
+    "places": {
+      "home": "At home",
+      "street": "On the street",
+      "driving": "Driving",
+      "passenger": "As a passenger",
+      "work": "At work",
+      "pub": "In a pub"
+    },
+    "people": {
+      "alone": "Alone",
+      "friends": "Friends",
+      "partner": "Partner",
+      "family": "Family",
+      "colleagues": "Colleagues",
+      "strangers": "Strangers"
+    },
+    "yes": "yes",
+    "no": "no",
+    "voiceOk": "voice OK",
+    "textOk": "text OK",
+    "acceptSum": "You would speak in **{y} of {n}** situations. In the study, voice was acceptable in about half of all answers, **roughly 6 of 12**.",
+    "acceptNone": "Answer a few situations first, or compare right away.",
+    "acceptRow": "in the study, voice OK in {v} of answers, text in {t}",
+    "habitCmd": "Commands per week",
+    "habitMusic": "Music, share of commands",
+    "habitConf": "Felt more confident at the end",
+    "week": "Week {n}",
+    "sevenOfSeven": "7 of 7",
+    "cultures": {
+      "us": "US mainland",
+      "hawaii": "Hawaii",
+      "japan": "Japan",
+      "taiwan": "Taiwan",
+      "sweden": "Sweden"
+    },
+    "cplaces": {
+      "bus": "On a bus",
+      "cinema": "In a cinema",
+      "sidewalk": "On the pavement"
+    },
+    "pref": {
+      "uk": "Britain",
+      "dk": "Denmark",
+      "se": "Sweden",
+      "us": "United States",
+      "all": "All 17 markets",
+      "id": "Indonesia",
+      "es": "Spain",
+      "ae": "United Arab Emirates"
+    },
+    "srcShort": "Source",
+    "copied": "Copied",
+    "copyManual": "Select and copy",
+    "ratioLoss": "Speaking is {r}× faster than your typing. With the same losses to thinking and fixing as in Foley's experiment, **dictation would save you nothing**.",
+    "tooFast": "That is faster than anyone types — probably pasted or autofilled. Please type the sentence yourself.",
+    "holdReady": "Ready: press and hold, read, let go",
+    "holdNow": "Reading… let go on the last word",
+    "holdAgain": "Done. Hold again to retake",
+    "typeMore": "Type the whole sentence first, then press Enter."
+  },
+  "fig": {
+    "wavesSrc": "Edison Research via SSRS[^ssrsUS][^ssrsUK][^ssrs2026] · YouGov[^yougov2026] · Apple via press[^siri] · TechCrunch[^wispr] · Google via press[^gemini]",
+    "speedSrc": "Ruan et al., n = 48[^ruan] · Foley et al., n = 28[^foley] · Dhakal et al., n ≈ 168,000[^dhakal] · Palin et al., n ≈ 37,000[^palin]",
+    "werSrc": "Open ASR Leaderboard, October 2025[^openasr] · Microsoft Research, 2017[^msHuman] · EdAcc[^edacc] · Koenecke et al., 2020[^koenecke] · Careless Whisper, 2024[^careless]",
+    "specSrc": "Ruan[^ruan] · Foley[^foley] · creative prompts, 2026[^creative] · Riegel et al.[^riegel] · Chen et al.[^chen] · Hodgson et al.[^hodgson] · Shneiderman[^shneiderman] · MacArthur and Cavalier[^macarthur]",
+    "promptSrc": "Riegel et al., ITiCSE 2026, n = 919[^riegel]",
+    "phonSrc": "Titze et al., 2007[^titze] · Eastman et al., 2023[^eastman]",
+    "recSrc": "Hunter and Titze, 2009, 86 teachers, self-rated, abstract figures[^hunter] · Xue et al., 2019, n = 10[^xue]",
+    "acceptSrc": "Efthymiou and Halvey, 2016, UK, n = 20, ages 23–32, judged from videos[^efthymiou]",
+    "habitSrc": "Pradhan, Lazar and Findlater, 2020, US, n = 7, 1,049 commands[^pradhan]",
+    "prefSrc": "YouGov, November 2023, 500–2,001 people per market; only the markets named in the published text are shown[^yougov2023]",
+    "phoneSrc": "Campbell, 2007, n = 271 students at one university in Hawaii, grouped by home culture[^campbell]"
+  },
+  "src": {
+    "ssrsUS": "SSRS / Edison Research, The Infinite Dial: smart speaker ownership in the UK and the US, 2021–2025.",
+    "ssrsUK": "SSRS / Edison Research, The Infinite Dial UK 2025.",
+    "smartAudio": "NPR and Edison Research, The Smart Audio Report 2022, as reported by audioXpress.",
+    "amazonLoss": "GeekWire, 2024, on The Wall Street Journal's report of losses in Amazon's devices unit.",
+    "wispr": "TechCrunch, November 2025 and 17 August 2026: Wispr's funding rounds and valuation. Company figures.",
+    "gemini": "Search Engine Journal, August 2026: Google on Gemini's monthly users and voice use. Company figure, no method given.",
+    "siri": "Om Malik, October 2024, and Search Engine Roundtable, September 2026: Siri requests per day as stated by Apple executives.",
+    "ssrs2026": "SSRS / Edison Research, The Infinite Dial 2026, January 2026, n = 2,050.",
+    "whatsapp": "Meta Newsroom, March 2022: voice messages on WhatsApp. Company figure.",
+    "yougov2026": "YouGov, February 2026, n = 2,442: how Americans communicate in 2026.",
+    "ruan": "Ruan, Wobbrock, Liou, Ng and Landay. Comparing speech and keyboard text entry for short messages in two languages on touchscreen phones. IMWUT, 2018 (preprint 2016).",
+    "foley": "Foley, Casiez and Vogel. Comparing smartphone speech recognition and touchscreen typing for composition and transcription. CHI 2020.",
+    "dhakal": "Dhakal, Feit, Kristensson and Oulasvirta. Observations on typing from 136 million keystrokes. CHI 2018.",
+    "palin": "Palin, Feit, Kim, Kristensson and Oulasvirta. How do people type on mobile devices? MobileHCI 2019.",
+    "karat": "Karat, Halverson, Horn and Karat. Patterns of entry and correction in large vocabulary continuous speech recognition systems. CHI 1999.",
+    "openasr": "Srivastav et al. Open ASR Leaderboard, October 2025.",
+    "msHuman": "Microsoft Research, 2017: conversational speech recognition milestone, careful professional transcription at 5.1%.",
+    "edacc": "Sanabria et al. The Edinburgh International Accents of English Corpus (EdAcc). ICASSP 2023.",
+    "koenecke": "Koenecke et al. Racial disparities in automated speech recognition. PNAS, 2020.",
+    "careless": "Koenecke, Choi, Mei, Schellmann and Sloane. Careless Whisper: speech-to-text hallucination harms. FAccT 2024.",
+    "tapsay": "Zhao et al., CHI 2025: Tap&Say, correcting dictated text by touch and voice with a language model, n = 16.",
+    "rambler": "Rambler in the wild, CHI Extended Abstracts 2025: a diary study of 7 to 10 days of writing by speech with a language model, n = 12. Builds on Lin et al., Rambler, CHI 2024.",
+    "gould": "Gould, Conti and Hovanyecz. Composing letters with a simulated listening typewriter. Communications of the ACM, 1983.",
+    "shneiderman": "Shneiderman. The limits of speech recognition. Communications of the ACM, 2000.",
+    "chen": "Chen, Lyell, Laranjo and Magrabi. Effect of speech recognition on problem solving and recall in consumer digital health tasks. JMIR, 2020, n = 50.",
+    "hodgson": "Hodgson, Magrabi and Coiera. Efficiency and safety of speech recognition for documentation in the electronic health record. JAMIA, 2017, n = 35.",
+    "macarthur": "MacArthur and Cavalier, Exceptional Children, 2004: dictation and speech recognition as accommodations in writing tests, n = 31.",
+    "riegel": "Riegel, Hua, Denny, Pădurean, Leinonen, Prather and Singla. Say What? Examining text and voice input modalities for prompt-based programming. ITiCSE 2026.",
+    "creative": "Rathore, Billakanti, Ceha and Henderson. A comparison of speech and typing input for creative generative AI tasks. ACM CUI 2026, n = 40.",
+    "fox": "Fox, Ericsson and Best. Do procedures for verbal reporting of thinking have to be reactive? Psychological Bulletin, 2011.",
+    "titze": "Titze, Hunter and Švec. Voicing and silence periods in daily and weekly vocalizations of teachers. JASA, 2007.",
+    "eastman": "Eastman et al., Perspectives of the ASHA Special Interest Groups, 2023: teachers' phonation at work and away from work, n = 26.",
+    "xue": "Xue et al., Journal of Voice, 2019: vocal effort during an hour of loud reading, n = 10.",
+    "hunter": "Hunter and Titze, Annals of Otology, Rhinology & Laryngology, 2009: recovery after a two-hour vocal load, n = 86.",
+    "nair": "Nair et al., Journal of Voice, 2024 (online 2021): systematic review of voice problems in call-centre operators, 15 studies.",
+    "piwowarczyk": "Piwowarczyk et al., Journal of Voice, 2012: voice symptoms in call-centre operators, n = 157.",
+    "olson": "Olson, Cruz, Izdebski and Baldwin, Ear, Nose & Throat Journal, 2004: five cases of voice strain after starting speech recognition software.",
+    "juul": "Juul-Kristensen et al., Ergonomics, 2004: muscle activity during computer work with speech recognition, n = 10.",
+    "efthymiou": "Efthymiou and Halvey. Evaluating the social acceptability of voice based smartwatch search. AIRS 2016.",
+    "kowalczuk": "Kowalczuk and Musial, Computers in Human Behavior Reports, 2024: self-conscious emotions and continued use of voice assistants, n = 860.",
+    "perficient": "Voicebot.ai, March 2019, on Perficient's survey of voice use in public, n = 1,719.",
+    "pradhan": "Pradhan, Lazar and Findlater. Use of intelligent voice assistants by older adults with low technology use. TOCHI, 2020.",
+    "garg": "Garg and Sengupta. He is just like me: a study of the long-term use of smart speakers by parents and children. IMWUT, 2020.",
+    "koelle": "Koelle, Ananthanarayan and Boll. Social acceptability in HCI: a survey of methods, measures and design strategies. CHI 2020.",
+    "yougov2023": "YouGov, November 2023: do consumers prefer sending and receiving messages in audio or text form? 17 markets.",
+    "campbell": "Campbell. Perceptions of mobile phone use in public settings: a cross-cultural comparison. International Journal of Communication, 2007.",
+    "pew2006": "Pew Research Center, 2006, and 2013 follow-up: loud phone calls in public.",
+    "pew2015": "Pew Research Center, 2015: Americans' views on mobile etiquette, fieldwork 2014.",
+    "bloomberg": "Bloomberg, 6 February 2026: voice-to-text AI lets office workers talk instead of type.",
+    "computerworld": "Computerworld, July 2026: the rise of AI dictation tools at work.",
+    "wisprWhisper": "Wispr Flow: whispering in an open office. Vendor page.",
+    "silentvoice": "Fukumoto. SilentVoice: unnoticeable voice input by ingressive speech. Microsoft Research, UIST 2018.",
+    "pandey": "Pandey, Hasan and Arif. Acceptability of speech and silent speech input methods in private and public. CHI 2021.",
+    "jama": "Mass General Brigham and STAT, April 2026, on the JAMA study of ambient AI scribes at five academic centres.",
+    "nejmai": "Randomised trial of ambient AI scribes at UCLA. NEJM AI, 2025, n = 238.",
+    "ama": "American Medical Association, 2025: ambient AI scribes and physician burnout, n = 263.",
+    "notes": "Taylor et al. Quality of clinical notes created by ambient listening generative AI. JMIR Medical Informatics, 2026, 356 notes reviewed by physicians. PubMed 41996389."
+  }
+}

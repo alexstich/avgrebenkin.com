@@ -1,0 +1,152 @@
+{
+  "_": "Числа графиков и адреса источников. Не переводится. Подписи — в strings/<язык>.json, ключи совпадают.",
+  "data": {
+    "survey": [
+      { "k": "usSpeaker", "a": 33, "ay": 2021, "b": 35, "by": 2025, "src": "ssrsUS" },
+      { "k": "ukSpeaker", "a": 25, "ay": 2021, "b": 45, "by": 2025, "src": "ssrsUK" },
+      { "k": "genai", "b": 57, "by": 2026, "src": "ssrs2026" },
+      { "k": "vmsg", "b": 10, "by": 2026, "src": "yougov2026" }
+    ],
+    "vendor": [
+      { "k": "siri", "a": 1.5, "ay": 2024, "b": 2.5, "by": 2026, "unit": "bnDay", "plus": true, "src": "siri" },
+      { "k": "wispr", "a": 0.7, "ay": 2025, "b": 2.0, "by": 2026, "unit": "usdBn", "src": "wispr" },
+      { "k": "gemini", "b": 63, "by": 2026, "unit": "pct", "src": "gemini" }
+    ],
+    "rates": [
+      { "k": "ruanV", "v": 153, "who": "v" },
+      { "k": "foleyV", "v": 116.5, "who": "v" },
+      { "k": "desk", "v": 52, "who": "k" },
+      { "k": "ruanK", "v": 52, "who": "k" },
+      { "k": "phone", "v": 36.2, "who": "k" },
+      { "k": "foleyK", "v": 35.1, "who": "k" }
+    ],
+    "foley": {
+      "v": { "prep": 10.96, "total": 20.8, "rate": 116.5 },
+      "k": { "prep": 5.28, "total": 29.2, "rate": 35.1 }
+    },
+    "wer": [
+      { "k": "clean", "v": 2.7 },
+      { "k": "human", "v": 5.1 },
+      { "k": "best", "v": 5.63 },
+      { "k": "whisper", "v": 7.44 },
+      { "k": "white", "v": 19 },
+      { "k": "accent", "v": 19.7 },
+      { "k": "black", "v": 35 }
+    ],
+    "spectrum": [
+      { "k": "copy", "e": 1, "n": 48, "y": 2018 },
+      { "k": "compose", "e": 1, "n": 28, "y": 2020 },
+      { "k": "creative", "e": 0, "n": 40, "y": 2026 },
+      { "k": "code", "e": -1, "n": 919, "y": 2026 },
+      { "k": "problem", "e": -1, "n": 50, "y": 2020 },
+      { "k": "ehr", "e": -1, "n": 35, "y": 2017 },
+      { "k": "memory", "e": -1, "n": 16, "y": 1993 },
+      { "k": "ld", "e": 1, "n": 31, "y": 2004 }
+    ],
+    "prompts": [
+      { "p": 1, "text": 52, "raw": 35, "edit": 38 },
+      { "p": 2, "text": 58, "raw": 38, "edit": 50 },
+      { "p": 3, "text": 36, "raw": 31, "edit": 26 }
+    ],
+    "choice": { "text": 88.5, "voice": 4.8, "both": 6.7 },
+    "phon": [
+      { "k": "work", "a": 23, "b": 16.2 },
+      { "k": "off", "a": 13, "b": 8.4 },
+      { "k": "weekend", "a": 12, "b": 8.0 }
+    ],
+    "accept": {
+      "places": [
+        { "k": "home", "v": 90, "t": 98 },
+        { "k": "street", "v": 47, "t": 58 },
+        { "k": "driving", "v": 38, "t": 12 },
+        { "k": "passenger", "v": 35, "t": 67 },
+        { "k": "work", "v": 22, "t": 51 },
+        { "k": "pub", "v": 20, "t": 34 }
+      ],
+      "people": [
+        { "k": "alone", "v": 96, "t": 98 },
+        { "k": "friends", "v": 83, "t": 84 },
+        { "k": "partner", "v": 78, "t": 77 },
+        { "k": "family", "v": 71, "t": 68 },
+        { "k": "colleagues", "v": 26, "t": 48 },
+        { "k": "strangers", "v": 16, "t": 47 }
+      ]
+    },
+    "habit": { "cmd": [59.6, 50.1, 39.7], "music": [23.9, 8.8, 2.9] },
+    "campbell": {
+      "cultures": ["us", "hawaii", "japan", "taiwan", "sweden"],
+      "bus": [3.44, 3.39, 2.53, 3.37, 3.50],
+      "cinema": [1.36, 1.47, 1.76, 2.21, 1.28],
+      "sidewalk": [4.00, 3.73, 3.34, 3.76, 4.08]
+    },
+    "textPref": [
+      { "k": "uk", "v": 83 },
+      { "k": "dk", "v": 80 },
+      { "k": "se", "v": 78 },
+      { "k": "us", "v": 68 },
+      { "k": "all", "v": 66 },
+      { "k": "id", "v": 66 },
+      { "k": "es", "v": 54 },
+      { "k": "ae", "v": 38 }
+    ]
+  },
+  "sources": {
+    "ssrsUS": ["https://ssrs.com/insights/uk-smart-speaker-ownership-outpaces-u-s/"],
+    "ssrsUK": ["https://ssrs.com/insights/the-infinite-dial-uk-2025/"],
+    "smartAudio": ["https://audioxpress.com/news/new-2022-smart-audio-report-from-npr-edison-research-shows-slowing-smart-speaker-and-voice-assistant-adoption"],
+    "amazonLoss": ["https://www.geekwire.com/2024/report-details-financial-pressure-on-amazon-alexa-confirms-plans-for-paid-tier-and-ai-revamp/"],
+    "wispr": ["https://techcrunch.com/2026/08/17/wispr-raises-280m-at-2b-valuation-as-it-looks-beyond-dictation/", "https://techcrunch.com/2025/11/20/as-its-voice-dectation-app-takes-off-wispr-secures-25m-from-notable-capital/"],
+    "gemini": ["https://www.searchenginejournal.com/google-gemini-passes-1b-monthly-users-63-now-use-voice/585624/"],
+    "siri": ["https://om.co/2024/10/23/siri-sucks-even-by-apples-numbers/", "https://www.seroundtable.com/apple-siri-2-5-billion-requests-daily-42060.html"],
+    "ssrs2026": ["https://ssrs.com/insights/the-infinite-dial-2026/"],
+    "whatsapp": ["https://about.fb.com/news/2022/03/new-voice-message-features-on-whatsapp/"],
+    "yougov2026": ["https://yougov.com/en-us/articles/54176-how-americans-communicate-in-2026-the-rise-of-messaging-ai-trends"],
+    "ruan": ["https://dl.acm.org/doi/10.1145/3161187", "https://arxiv.org/abs/1608.07323"],
+    "foley": ["https://hal.science/hal-02919659/document"],
+    "dhakal": ["https://userinterfaces.aalto.fi/136Mkeystrokes/resources/chi-18-analysis.pdf"],
+    "palin": ["https://userinterfaces.aalto.fi/typing37k/resources/Mobile_typing_study.pdf"],
+    "karat": ["https://dl.acm.org/doi/10.1145/302979.303160"],
+    "openasr": ["https://arxiv.org/html/2510.06961v1"],
+    "msHuman": ["https://www.microsoft.com/en-us/research/blog/microsoft-researchers-achieve-new-conversational-speech-recognition-milestone/"],
+    "edacc": ["https://arxiv.org/abs/2303.18110"],
+    "koenecke": ["https://www.pnas.org/doi/10.1073/pnas.1915768117"],
+    "careless": ["https://arxiv.org/abs/2402.08021"],
+    "tapsay": ["https://dl.acm.org/doi/10.1145/3706598.3713376"],
+    "rambler": ["https://arxiv.org/html/2502.05612v1"],
+    "gould": ["https://oandre.gal/files/2015/11/Composing-Letters-long-version.pdf"],
+    "shneiderman": ["https://www.cs.umd.edu/users/ben/papers/Shneiderman2000limits.pdf"],
+    "chen": ["https://pubmed.ncbi.nlm.nih.gov/32442129/"],
+    "hodgson": ["https://pubmed.ncbi.nlm.nih.gov/29016971/"],
+    "macarthur": ["https://eric.ed.gov/?id=EJ696633"],
+    "riegel": ["https://arxiv.org/abs/2607.05808"],
+    "creative": ["https://doi.org/10.1145/3816046.3816224"],
+    "fox": ["https://pubmed.ncbi.nlm.nih.gov/21090887/"],
+    "titze": ["https://pubmed.ncbi.nlm.nih.gov/17297801/"],
+    "eastman": ["https://pubmed.ncbi.nlm.nih.gov/38312372/"],
+    "xue": ["https://pubmed.ncbi.nlm.nih.gov/31543208/"],
+    "hunter": ["https://pubmed.ncbi.nlm.nih.gov/19663377/"],
+    "nair": ["https://pubmed.ncbi.nlm.nih.gov/34474937/"],
+    "piwowarczyk": ["https://pubmed.ncbi.nlm.nih.gov/21704491/"],
+    "olson": ["https://pubmed.ncbi.nlm.nih.gov/15086016/"],
+    "juul": ["https://pubmed.ncbi.nlm.nih.gov/14660208/"],
+    "efthymiou": ["https://strathprints.strath.ac.uk/57622/1/Efthymiou_Halvey_AIRS2016_Social_acceptability_of_voice_based_smartwatch_search.pdf"],
+    "kowalczuk": ["https://www.sciencedirect.com/science/article/pii/S2451958824000836"],
+    "perficient": ["https://voicebot.ai/2019/03/05/consumers-becoming-more-comfortable-using-voice-commands-in-public-especially-men/"],
+    "pradhan": ["https://thatlab.umd.edu/papers/2020_UseOf.pdf"],
+    "garg": ["https://ischool.syracuse.edu/wp-content/uploads/2020/06/He-Is-Just-Like-Me-A-Study-of-the-Long-Term-Use-of-Smart-Speakers-by-Parents-and-Children.pdf"],
+    "koelle": ["https://dl.acm.org/doi/10.1145/3313831.3376162"],
+    "yougov2023": ["https://yougov.com/articles/48604-do-consumers-prefer-sending-and-receiving-messages-in-audio-or-text-form"],
+    "campbell": ["https://ijoc.org/index.php/ijoc/article/download/169/112"],
+    "pew2006": ["https://www.pewresearch.org/internet/2006/04/03/americans-and-their-cell-phones-4/", "https://www.pewresearch.org/short-reads/2013/01/17/fewer-frequently-hear-people-being-loud-and-annoying-on-cell-phones/"],
+    "pew2015": ["https://www.pewresearch.org/internet/2015/08/26/americans-views-on-mobile-etiquette/"],
+    "bloomberg": ["https://www.bloomberg.com/news/articles/2026-02-06/voice-to-text-ai-lets-office-workers-talk-instead-of-type"],
+    "computerworld": ["https://www.computerworld.com/article/4193378/talk-talk-talk-the-rise-of-ai-dictation-tools-at-work.html"],
+    "wisprWhisper": ["https://wisprflow.ai/workflow/whispering-in-an-open-office"],
+    "silentvoice": ["https://www.microsoft.com/en-us/research/publication/silentvoice-unnoticeable-voice-input-by-ingressive-speech/"],
+    "pandey": ["https://www.asarif.com/pub/Pandey_CHI2021_Silent_Speech_Acceptability.pdf"],
+    "jama": ["https://news.massgeneralbrigham.org/en/ai-scribes-linked-to-modest-reductions-in-ehr-documentation-time", "https://www.statnews.com/2026/04/01/ai-ambient-scribes-modest-time-savings-clinical-documentation/"],
+    "nejmai": ["https://ai.nejm.org/doi/abs/10.1056/AIoa2501000"],
+    "ama": ["https://www.ama-assn.org/practice-management/physician-health/how-much-can-ambient-ai-scribes-help-cut-doctor-burnout"],
+    "notes": ["https://pubmed.ncbi.nlm.nih.gov/41996389/"]
+  }
+}

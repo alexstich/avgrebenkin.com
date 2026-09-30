@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<!-- Ролик к исследованию «The quiet comeback of voice» для постов в соцсетях.
+     1080×1350 (4:5, лента LinkedIn и Instagram), 30 кадров в секунду.
+     Каждый кадр рисует функция render(t) — детерминированно, без CSS-переходов,
+     поэтому render.mjs может снять любой кадр в любом порядке.
+     Язык — параметр адреса ?lang=en|ru; тексты в объекте TXT ниже. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=block">
+<style>
+  :root { --bg:#0a1112; --ink:#eef3f2; --ink2:#a9b8b6; --ink3:#6f8583; --voice:#3fd9bd; --keys:#e7b54c; --rule:rgba(255,255,255,.1); --red:#e0574f; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; background: var(--bg); color: var(--ink);
+               font-family: Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  #stage { position: relative; width: 1080px; height: 1350px; overflow: hidden;
+           background:
+             radial-gradient(900px 600px at 80% -10%, rgba(63,217,189,.10), transparent 60%),
+             radial-gradient(700px 500px at -10% 110%, rgba(231,181,76,.07), transparent 60%),
+             var(--bg); }
+  .grid { position: absolute; inset: 0; background-image:
+          linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+          background-size: 36px 36px; }
+  .scene { position: absolute; inset: 0; padding: 120px 90px; opacity: 0; }
+  .kicker { font-family: 'JetBrains Mono', monospace; font-size: 26px; letter-spacing: .14em; text-transform: uppercase; color: var(--voice); }
+  .h { font-family: 'Instrument Serif', serif; font-size: 104px; line-height: .98; letter-spacing: -.01em; margin-top: 26px; }
+  .h em { font-style: italic; color: var(--voice); }
+  .sub { font-size: 38px; line-height: 1.35; color: var(--ink2); margin-top: 30px; }
+  .src { position: absolute; left: 90px; right: 90px; bottom: 120px; font-family: 'JetBrains Mono', monospace;
+         font-size: 22px; line-height: 1.45; color: var(--ink3); }
+  .brand { position: absolute; left: 90px; right: 90px; bottom: 58px; display: flex; justify-content: space-between;
+           font-family: 'JetBrains Mono', monospace; font-size: 22px; color: var(--ink3); letter-spacing: .04em; }
+  .brand b { color: var(--ink2); font-weight: 500; }
+  .wave { position: absolute; left: 90px; right: 90px; display: flex; align-items: center; gap: 7px; }
+  .wave i { flex: 1 1 0; border-radius: 6px; background: var(--voice); }
+  .bars { margin-top: 70px; display: grid; gap: 34px; }
+  .bl { font-size: 32px; color: var(--ink2); margin-bottom: 12px; display: flex; justify-content: space-between; }
+  .bl b { font-family: 'JetBrains Mono', monospace; font-weight: 500; color: var(--ink); }
+  .bt { height: 46px; border-radius: 12px; background: rgba(255,255,255,.06); overflow: hidden; display: flex; }
+  .bf { height: 100%; }
+  .big { font-family: 'Instrument Serif', serif; font-size: 260px; line-height: .9; color: var(--voice); }
+  .sentence { font-family: 'Instrument Serif', serif; font-size: 66px; line-height: 1.3; margin-top: 60px; }
+  .sentence span { border-radius: 8px; padding: 0 6px; margin: 0 -6px; }
+  .sentence .miss { background: var(--red); color: #fff; }
+  .meter { margin-top: 80px; font-family: 'JetBrains Mono', monospace; font-size: 34px; line-height: 1.4; color: var(--ink2); }
+  .meter b { display: block; font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 220px; line-height: .9; color: var(--red); margin-bottom: 18px; }
+  .facts { margin-top: 64px; display: grid; gap: 30px; }
+  .fact { border-left: 5px solid var(--voice); padding: 6px 0 6px 28px; font-size: 40px; line-height: 1.3; color: var(--ink); }
+  .fact.gap { border-left-color: var(--ink3); color: var(--ink2); border-left-style: dashed; }
+  .fact small { display: block; font-size: 26px; color: var(--ink3); margin-top: 6px; font-family: 'JetBrains Mono', monospace; }
+  .end-url { font-family: 'JetBrains Mono', monospace; font-size: 38px; color: var(--voice); margin-top: 44px; }
+  .pill { display: inline-block; margin-top: 40px; font-size: 30px; color: var(--ink); border: 2px solid var(--voice);
+          border-radius: 999px; padding: 16px 30px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="grid"></div>
+
+  <div class="scene" id="s0">
+    <p class="kicker" data-t="k0"></p>
+    <h1 class="h" data-t="h0"></h1>
+    <div class="wave" id="wave0" style="bottom:330px;height:300px"></div>
+  </div>
+
+  <div class="scene" id="s1">
+    <p class="kicker" data-t="k1"></p>
+    <h2 class="h" data-t="h1"></h2>
+    <div class="bars">
+      <div><p class="bl"><span data-t="keysL"></span><b id="v1k"></b></p><div class="bt"><div class="bf" id="b1k" style="background:var(--keys)"></div></div></div>
+      <div><p class="bl"><span data-t="voiceL"></span><b id="v1v"></b></p><div class="bt"><div class="bf" id="b1v" style="background:var(--voice)"></div></div></div>
+    </div>
+    <p class="big" id="x1" style="margin-top:60px">3×</p>
+    <p class="src" data-t="src1"></p>
+  </div>
+
+  <div class="scene" id="s2">
+    <p class="kicker" data-t="k2"></p>
+    <h2 class="h" data-t="h2"></h2>
+    <div class="bars">
+      <div><p class="bl"><span data-t="voiceL"></span><b id="v2v"></b></p><div class="bt"><div class="bf" id="b2vp" style="background:rgba(63,217,189,.4)"></div><div class="bf" id="b2vr" style="background:var(--voice)"></div></div></div>
+      <div><p class="bl"><span data-t="keysL"></span><b id="v2k"></b></p><div class="bt"><div class="bf" id="b2kp" style="background:rgba(231,181,76,.4)"></div><div class="bf" id="b2kr" style="background:var(--keys)"></div></div></div>
+    </div>
+    <p class="sub" data-t="sub2" id="sub2" style="margin-top:48px"></p>
+    <p class="src" data-t="src2"></p>
+  </div>
+
+  <div class="scene" id="s3">
+    <p class="kicker" data-t="k3"></p>
+    <h2 class="h" data-t="h3"></h2>
+    <p class="sentence" id="sent"></p>
+    <p class="meter"><b id="wer"></b> <span id="werL"></span></p>
+    <p class="src" data-t="src3"></p>
+  </div>
+
+  <div class="scene" id="s4">
+    <p class="kicker" data-t="k4"></p>
+    <h2 class="h" data-t="h4"></h2>
+    <div class="bars" id="aud"></div>
+    <p class="src" data-t="src4"></p>
+  </div>
+
+  <div class="scene" id="s5">
+    <p class="kicker" data-t="k5"></p>
+    <h2 class="h" data-t="h5"></h2>
+    <div class="facts">
+      <p class="fact" id="f1"></p>
+      <p class="fact" id="f2"></p>
+      <p class="fact gap" id="f3"></p>
+    </div>
+    <p class="src" data-t="src5"></p>
+  </div>
+
+  <div class="scene" id="s6">
+    <h2 class="h" data-t="h6" style="margin-top:120px"></h2>
+    <div class="wave" id="wave6" style="bottom:300px;height:300px"></div>
+  </div>
+
+  <div class="scene" id="s7">
+    <p class="kicker" data-t="k7"></p>
+    <h2 class="h" data-t="h7"></h2>
+    <p class="sub" data-t="sub7"></p>
+    <p class="pill" data-t="pill7"></p>
+    <p class="end-url">avgrebenkin.com/research/voice-input</p>
+    <div class="wave" id="wave7" style="bottom:170px;height:120px"></div>
+  </div>
+
+  <div class="brand"><span><b>Aleksei Grebenkin</b> · Research</span><span id="clock"></span></div>
+</div>
+
+<script>
+var TXT = {
+  en: {
+    k0:'Research · voice input', h0:'Is talking to your computer <em>faster</em> than typing?',
+    k1:'The famous number', h1:'Speak, don’t type: <em>3×</em> faster.',
+    keysL:'Phone keyboard', voiceL:'Voice', wpm:'wpm', sec:'s',
+    src1:'48 people copying short ready-made phrases on an iPhone, English and Mandarin · Ruan et al., IMWUT 2018',
+    k2:'But nobody writes by copying', h2:'Composing your own sentence: <em>1.4×</em>',
+    sub2:'Before the first word, people thought <b>twice as long</b> when they were about to speak: 11.0 s against 5.3 s.',
+    src2:'Pale part: thinking before the first word · 28 people · Foley, Casiez & Vogel, CHI 2020',
+    k3:'What the machine hears', h3:'Accent changes <em>everything</em>.',
+    werL:'of words wrong', werA:'clean read speech', werB:'accented conversation',
+    src3:'Whisper large · EdAcc corpus, Sanabria et al., 2023',
+    k4:'Who is listening', h4:'Would you talk to a device <em>here?</em>',
+    aud:[['Alone',96],['Friends',83],['Colleagues',26],['Strangers',16]],
+    src4:'Share of answers where voice was acceptable · 20 people judging videos · Efthymiou & Halvey, 2016',
+    k5:'Your voice gets tired too', h5:'The dose nobody has <em>measured</em>.',
+    f1:'A physical marker of vocal strain rises within <b>15 minutes</b> of loud reading.<small>n = 10 · Xue et al., 2019</small>',
+    f2:'<b>33–68%</b> of call-centre operators have voice problems at some point in their career.<small>review of 15 studies · Nair et al.</small>',
+    f3:'Vocal load of people dictating for hours with today’s apps: no study yet.',
+    src5:'',
+    h6:'What changes fastest isn’t people growing braver. <em>It’s voice growing quieter.</em>',
+    k7:'Interactive study · 57 sources', h7:'The quiet comeback of <em>voice</em>',
+    sub7:'Speed, errors, fatigue, embarrassment — and seven experiments nobody has run.',
+    pill7:'Time your own mouth against your fingers'
+  },
+  ru: {
+    k0:'Исследование · голосовой ввод', h0:'Говорить с компьютером <em>быстрее</em>, чем печатать?',
+    k1:'Знаменитая цифра', h1:'Не печатай — скажи: <em>в 3 раза</em> быстрее.',
+    keysL:'Клавиатура телефона', voiceL:'Голос', wpm:'сл/мин', sec:'с',
+    src1:'48 человек переписывали короткие готовые фразы на iPhone, по-английски и по-китайски · Ruan et al., IMWUT 2018',
+    k2:'Но никто не пишет, переписывая', h2:'Своя фраза: <em>в 1,4 раза</em>',
+    sub2:'Перед первым словом люди думали <b>вдвое дольше</b>, когда собирались говорить: 11,0 с против 5,3.',
+    src2:'Светлая часть — обдумывание до первого слова · 28 человек · Foley, Casiez & Vogel, CHI 2020',
+    k3:'Что слышит машина', h3:'Акцент меняет <em>всё</em>.',
+    werL:'слов с ошибкой', werA:'чистая начитка', werB:'разговор с акцентом',
+    src3:'Whisper large · корпус EdAcc, Sanabria et al., 2023',
+    k4:'Кто слушает', h4:'Заговорили бы с устройством <em>здесь?</em>',
+    aud:[['Наедине',96],['С друзьями',83],['При коллегах',26],['При незнакомых',16]],
+    src4:'Доля ответов «голосом — нормально» · 20 человек оценивали видео · Efthymiou & Halvey, 2016',
+    k5:'Голос тоже устаёт', h5:'Его дозу никто не <em>измерял</em>.',
+    f1:'Физический признак напряжения голоса растёт уже в первые <b>15 минут</b> громкого чтения.<small>n = 10 · Xue et al., 2019</small>',
+    f2:'У <b>33–68%</b> операторов колл-центров за карьеру бывают проблемы с голосом.<small>обзор 15 исследований · Nair et al.</small>',
+    f3:'Нагрузку на голос у тех, кто часами диктует в нынешних приложениях, пока не мерил никто.',
+    src5:'',
+    h6:'Быстрее всего меняются не люди, ставшие смелее. <em>Меняется голос — он становится тише.</em>',
+    k7:'Интерактивное исследование · 57 источников', h7:'The quiet comeback of <em>voice</em>',
+    sub7:'Скорость, ошибки, усталость, стеснение — и семь экспериментов, которые ещё никто не поставил.',
+    pill7:'Засеките, что быстрее: ваш рот или пальцы'
+  }
+};
+var SENT = {
+  en: [['Please','Please'],['move','moved'],['the','the'],['budget','bucket'],['meeting','eating'],['with','with'],['Anna','Hannah'],['from','from'],['Tuesday','Tuesday'],['to','two'],['Thursday','thirsty'],['at','at'],['ten.','then.']],
+  ru: [['Перенеси','Перенеси'],['встречу','встречи'],['по','по'],['бюджету','бюджет'],['с','с'],['Анной','Ванной'],['со','со'],['вторника','вторника'],['на','на'],['четверг','четверть'],['в','в'],['десять.','весь день.']]
+};
+var ORDER = { en:[10,3,6,12,4,1,9], ru:[9,5,3,11,1] };
+
+var lang = (new URLSearchParams(location.search).get('lang')) || 'en';
+var L = TXT[lang]; document.documentElement.lang = lang;
+[].forEach.call(document.querySelectorAll('[data-t]'), function(e){ e.innerHTML = L[e.dataset.t] || ''; });
+document.getElementById('f1').innerHTML=L.f1; document.getElementById('f2').innerHTML=L.f2; document.getElementById('f3').innerHTML=L.f3;
+var DEC = lang==='ru' ? ',' : '.';
+function fmt(v,d){ return v.toFixed(d).replace('.',DEC); }
+
+/* сцены: [id, начало, конец] в секундах */
+var SC = [['s0',0,4.6],['s1',4.6,10.6],['s2',10.6,18.6],['s3',18.6,25.6],['s4',25.6,32.6],['s5',32.6,38.6],['s6',38.6,44],['s7',44,49]];
+var DUR = 49;
+
+function clamp(x){ return Math.max(0, Math.min(1, x)); }
+function ease(x){ x=clamp(x); return x<.5 ? 4*x*x*x : 1-Math.pow(-2*x+2,3)/2; }
+function prog(t,a,b){ return ease((t-a)/(b-a)); }
+
+function waveInto(id, n){
+  var w=document.getElementById(id); for(var i=0;i<n;i++) w.appendChild(document.createElement('i')); return w.children;
+}
+var W0=waveInto('wave0',56), W6=waveInto('wave6',56), W7=waveInto('wave7',56);
+function drawWave(bars, t, amp, fade){
+  for(var i=0;i<bars.length;i++){
+    var x=i/(bars.length-1);
+    var env = fade ? (1-x)*0.9+0.1 : 0.55+0.45*Math.sin(x*Math.PI);
+    var syl = 0.35+0.65*Math.abs(Math.sin(i*0.61+t*3.1)*Math.cos(i*0.23+t*1.7));
+    bars[i].style.height = Math.max(6, amp*env*syl)+'px';
+    bars[i].style.opacity = fade ? (1-x*0.55) : 1;
+  }
+}
+
+var aud=document.getElementById('aud');
+L.aud.forEach(function(r){
+  var d=document.createElement('div');
+  d.innerHTML='<p class="bl"><span>'+r[0]+'</span><b></b></p><div class="bt"><div class="bf" style="background:var(--voice)"></div></div>';
+  aud.appendChild(d);
+});
+
+function render(t){
+  SC.forEach(function(s){
+    var el=document.getElementById(s[0]);
+    var inA=clamp((t-s[1])/0.45), outA=clamp((s[2]-t)/0.45);
+    var o = s[0]==='s7' ? inA : Math.min(inA,outA);
+    el.style.opacity=o;
+    el.style.transform='translateY('+((1-inA)*26)+'px)';
+    el.style.visibility = o>0 ? 'visible' : 'hidden';
+  });
+  var sec=Math.floor(t);
+  document.getElementById('clock').textContent='0:'+(sec<10?'0':'')+sec+' / 0:'+DUR;
+
+  /* 0: волна и вопрос */
+  drawWave(W0, t, 280, false);
+
+  /* 1: 52 против 153 */
+  var p1=prog(t,5.4,7.4);
+  document.getElementById('b1k').style.width=(52/170*100*p1)+'%';
+  document.getElementById('b1v').style.width=(153/170*100*p1)+'%';
+  document.getElementById('v1k').textContent=Math.round(52*p1)+' '+L.wpm;
+  document.getElementById('v1v').textContent=Math.round(153*p1)+' '+L.wpm;
+  document.getElementById('x1').style.opacity=prog(t,7.6,8.4);
+
+  /* 2: 20,8 против 29,2 секунды, светлым — обдумывание */
+  var p2=prog(t,11.6,14.2), q2=prog(t,14.2,16);
+  var M=31;
+  document.getElementById('b2vp').style.width=(10.96/M*100*p2)+'%';
+  document.getElementById('b2vr').style.width=((20.8-10.96)/M*100*q2)+'%';
+  document.getElementById('b2kp').style.width=(5.28/M*100*p2)+'%';
+  document.getElementById('b2kr').style.width=((29.2-5.28)/M*100*q2)+'%';
+  document.getElementById('v2v').textContent=fmt(10.96*p2+(20.8-10.96)*q2,1)+' '+L.sec;
+  document.getElementById('v2k').textContent=fmt(5.28*p2+(29.2-5.28)*q2,1)+' '+L.sec;
+  document.getElementById('sub2').style.opacity=prog(t,15.2,16.2);
+
+  /* 3: ошибки распознавания растут с 2,7 % до 19,7 % */
+  var p3=prog(t,20.2,23.6), wer=2.7+(19.7-2.7)*p3;
+  var words=SENT[lang], ord=ORDER[lang], n=words.length;
+  var bad=Math.max(1, Math.round(n*wer/100));
+  var set={}; ord.slice(0,bad).forEach(function(i){ set[i]=1; });
+  document.getElementById('sent').innerHTML=words.map(function(w,i){ return set[i] ? '<span class="miss">'+w[1]+'</span>' : w[0]; }).join(' ');
+  document.getElementById('wer').textContent=fmt(wer,1)+'%';
+  document.getElementById('werL').textContent=L.werL+' · '+(p3<0.5 ? L.werA : L.werB);
+
+  /* 4: наедине 96 … при незнакомых 16 */
+  [].forEach.call(aud.children, function(d,i){
+    var p=prog(t,26.4+i*0.55,27.6+i*0.55), v=L.aud[i][1];
+    d.querySelector('.bf').style.width=(v*p)+'%';
+    d.querySelector('b').textContent=Math.round(v*p)+'%';
+    d.querySelector('.bf').style.background = v<50 ? 'var(--keys)' : 'var(--voice)';
+  });
+
+  /* 5: три факта по очереди */
+  ['f1','f2','f3'].forEach(function(id,i){
+    var e=document.getElementById(id), p=prog(t,33.4+i*1.4,34.2+i*1.4);
+    e.style.opacity=p; e.style.transform='translateX('+((1-p)*-30)+'px)';
+  });
+
+  /* 6: волна стихает до шёпота */
+  var quiet=1-prog(t,40,43.2)*0.85;
+  drawWave(W6, t, 300*quiet, true);
+
+  /* 7: финал, тихая волна внизу */
+  drawWave(W7, t, 90, true);
+}
+window.render=render; window.DUR=DUR;
+render(0);
+</script>
+</body>
+</html>

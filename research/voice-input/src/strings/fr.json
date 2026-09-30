@@ -1,0 +1,536 @@
+{
+  "lang": "fr",
+  "dir": "ltr",
+  "endonym": "Français",
+  "htmlLocale": "fr_FR",
+  "decimal": ",",
+  "ui": {
+    "crumb": "← Research",
+    "langGroup": "Langue de la page",
+    "tldrOpen": "En bref",
+    "tldrOpenSub": "2 minutes · copier ou imprimer",
+    "tldrHead": "La version courte",
+    "tldrCopyText": "Copier",
+    "tldrCopyMd": "Markdown",
+    "tldrPrint": "Imprimer",
+    "tldrClose": "Fermer",
+    "sourcesH": "Sources",
+    "sourcesNote": "Recherche menée en septembre 2026. Quand une source est une entreprise qui parle d’elle-même, le texte le signale et les graphiques la dessinent en hachures.",
+    "percent": "{n} %",
+    "translationNote": "Adapté de l’original anglais. Les titres des travaux cités restent en anglais, tels qu’ils ont été publiés.",
+    "syText": "**Saisie vocale et enregistrement de réunions.** Un raccourci clavier, n’importe quelle application, 67+ langues.",
+    "syCta": "30 jours gratuits",
+    "backHome": "← retour à avgrebenkin.com"
+  },
+  "page": {
+    "htmlTitle": "Le retour de la voix, à voix basse — parler ou taper",
+    "title": "Le retour de la voix, à voix basse",
+    "eyebrow": "Étude · Interfaces · octobre 2026",
+    "standfirst": "**La saisie vocale revient — non plus sous les traits d’Alexa, mais sous ceux de la dictée et de la conversation avec l’IA.** J’ai lu les études sur sa vitesse, sur la fréquence de ses erreurs d’écoute, sur la fatigue et la gêne qu’elle provoque : celles des deux dernières années et les plus anciennes sur lesquelles elles s’appuient. La surprise : ce qui change le plus vite, ce n’est pas l’audace des gens face aux ordinateurs. C’est la voix qui baisse d’un ton.",
+    "disclosure": "**Transparence.** Je développe Speak-Y, une application de saisie vocale. Chaque fois qu’un chiffre vient d’une entreprise qui parle d’elle-même, le texte le signale et les graphiques le dessinent en hachures, à l’écart des données indépendantes.",
+    "byline": "Par **Aleksei Grebenkin** · Données : Edison Research, YouGov, Pew, expériences publiées à CHI et IMWUT, études en sciences de la voix issues de PubMed, JAMA, déclarations d’entreprises",
+    "heroAlt": "Une onde sonore à gauche se transforme en lignes de texte à droite ; les barres de l’onde s’abaissent à mesure qu’elles approchent du texte.",
+    "imageAlt": "Une onde sonore à gauche se transforme en lignes de texte à droite, avec le titre anglais The quiet comeback of voice.",
+    "metaDescription": "Parler à un ordinateur, plus rapide que taper ? 3× pour recopier, 1,4× pour rédiger. Ce que disent les études sur la dictée, la fatigue et la gêne.",
+    "ogDescription": "La voix bat le clavier 3× quand on recopie, 1,4× quand on rédige. Seul, on l’accepte dans 96 % des réponses ; devant des inconnus, dans 16 %.",
+    "twitterDescription": "La saisie vocale revient. Ce qui change le plus vite, ce n’est pas notre audace : c’est la voix qui baisse d’un ton.",
+    "ldDescription": "Un tour d’horizon des données sur la saisie vocale en 2024–2026 : adoption, vitesse, précision de la reconnaissance, fatigue vocale, charge cognitive, acceptabilité sociale et accoutumance, avec les lacunes qu’aucune étude n’a encore comblées."
+  },
+  "tldr": {
+    "sub": "Ce que disent les études sur le fait de parler à un ordinateur au lieu de taper.",
+    "b1": "**Les assistants ont calé. La dictée a décollé — de son propre aveu.** Aux États-Unis, la part des gens équipés d’une enceinte connectée est passée de 33 % en 2021 à 35 % en 2025. L’essor de la dictée et de la conversation vocale avec l’IA ne se voit presque que dans ce que les entreprises disent d’elles-mêmes.",
+    "b2": "**Trois fois plus rapide pour recopier, environ 1,4 fois pour rédiger.** Quand il fallait écrire leurs propres messages, les gens réfléchissaient deux fois plus longtemps avant de parler (11,0 secondes contre 5,3), et la moindre correction coûtait cher.",
+    "b3": "**Ce que la machine entend dépend de qui parle.** Elle se trompe sur 2,7 % des mots d’un anglais américain lu et bien articulé, sur 19,7 % dans une conversation avec accent. Whisper inventait des phrases dans environ 1 % des transcriptions.",
+    "b4": "**La voix accélère la bouche, pas la réflexion.** Environ deux tiers du temps de rédaction servent à planifier. Quand il s’agit de résoudre un problème, la voix charge davantage l’esprit. Sur 919 étudiants en programmation, 88,5 % ont préféré taper leurs requêtes à un outil d’IA plutôt que les dicter.",
+    "b5": "**La voix s’use à la dose, et personne n’a mesuré la dose de la dictée.** Un marqueur physique de l’effort vocal grimpe dès 15 minutes de lecture à voix forte, et on le ressent au bout de 30. De 33 à 68 % des téléconseillers ont des problèmes de voix à un moment de leur carrière.",
+    "b6": "**Ce n’est pas le lieu, c’est qui écoute.** Seul, la voix était jugée acceptable dans 96 % des réponses ; devant des collègues dans 26 %, devant des inconnus dans 16 %. L’effet de nouveauté retombe en quelques semaines, tandis que l’assurance grandit.",
+    "b7": "**Le bureau apprend à chuchoter.** Le marché n’attend pas que la norme change ; il rend la voix plus discrète — de même que le coup de fil est devenu normal dans la rue, mais jamais en réunion.",
+    "src": "Sources : Edison Research · YouGov · Pew · expériences CHI et IMWUT · études en sciences de la voix · JAMA · déclarations d’entreprises, signalées comme telles",
+    "full": "L’étude complète, avec les modules interactifs et toutes les sources :"
+  },
+  "s01": {
+    "num": "01 · Deux vagues",
+    "h": "Les assistants ont calé. La dictée a décollé — de son propre aveu",
+    "a": "Dites « Alexa, mets un minuteur » et vous utilisez la première forme de saisie vocale. Dictez un e-mail au lieu de le taper, et vous voilà dans la deuxième.\n\nIl en existe cinq en tout, et ces deux dernières années, elles ont pris des chemins différents : les **commandes adressées aux assistants**, la dictée de texte, les messages vocaux, la conversation orale avec les modèles d’IA, et la voix pour programmer ou confier des tâches à des agents d’IA.\n\nLa première forme ne gagne plus de terrain. Aux États-Unis, 33 % des gens possédaient une enceinte connectée en 2021 et 35 % en 2025 ; l’institut de sondage reconnaît lui-même que le chiffre n’a presque pas bougé en quatre ans.[^ssrsUS]\n\nLe Royaume-Uni fait exception : de 25 % à 45 % sur la même période, surtout grâce à Alexa.[^ssrsUK] L’usage par propriétaire, lui, a continué de grimper plus longtemps : le nombre de tâches confiées chaque semaine à une enceinte est passé de 7,5 en 2017 à 12,4 en 2022.[^smartAudio]\n\nSur le plan commercial, pourtant, **la première vague a échoué**. La division appareils d’Amazon a perdu plus de 25 milliards de dollars entre 2017 et 2021 : on se servait d’Echo pour le réveil et la météo, pas pour faire ses courses.[^amazonLoss]",
+    "b": "La deuxième vague ne se voit presque que dans ce que les entreprises disent d’elles-mêmes. Wispr Flow, une application de dictée, est passée d’une valorisation de 700 millions de dollars en novembre 2025 à 2 milliards en août 2026.[^wispr]\n\nGoogle affirme que 63 % des plus d’un milliard d’utilisateurs mensuels de l’application Gemini « utilisent la voix », sans dire comment c’est compté.[^gemini] Selon Apple, les requêtes à Siri sont passées d’environ 1,5 milliard par jour en 2024 à plus de 2,5 milliards en 2026.[^siri]\n\nLes grandes enquêtes indépendantes — Pew, YouGov, Edison, Ofcom — ne posent pas encore de question à part sur la dictée ou la conversation vocale avec l’IA.\n\nLa plus proche a établi que 57 % des Américains de 12 ans et plus avaient utilisé au moins une fois un assistant d’IA générative, par écrit ou à l’oral.[^ssrs2026] Autrement dit, **la courbe de croissance de la deuxième vague est tracée par des parties intéressées**.",
+    "figCap": "À gauche, les enquêtes indépendantes ; à droite, les entreprises qui parlent d’elles-mêmes",
+    "figNote": "Barres pleines : enquêtes dont la méthode et l’échantillon sont connus ; le trait foncé marque l’année la plus ancienne. Barres hachurées : chiffres qu’une entreprise a donnés sur elle-même, invérifiables de l’extérieur ; le trait marque l’affirmation précédente. Les deux côtés ne sont pas à la même échelle.",
+    "c": "Les messages vocaux, la troisième forme, sont une habitude de masse, mais qui ne progresse plus. Le dernier chiffre officiel de WhatsApp, en mars 2022, faisait état de 7 milliards par jour.[^whatsapp]\n\nDans une enquête YouGov menée en février 2026 auprès de 2 442 Américains, environ 10 % envoyaient des messages vocaux plusieurs fois par semaine, et 41 % se disaient non concernés par ce format. Autant de gens s’en servaient moins (12 %) que davantage (11 %).[^yougov2026]"
+  },
+  "s02": {
+    "num": "02 · Vitesse",
+    "h": "Trois fois plus rapide pour recopier. Environ 1,4 fois pour rédiger",
+    "a": "Voici le chiffre le plus cité sur la voix : parler serait **trois fois plus rapide que taper**. C’est vrai — quand on recopie.\n\nDans l’expérience d’où il vient, 48 personnes, 24 par langue, recopiaient sur un iPhone de courtes phrases toutes faites : 153 mots par minute à la voix contre 52 au clavier tactile en anglais, 123 contre 43 en mandarin.[^ruan] Les auteurs eux-mêmes y voient un plafond atteint en laboratoire. Et personne n’écrit en recopiant.\n\nEn 2020, Foley, Casiez et Vogel ont demandé à 28 personnes de **rédiger une phrase de leur cru** sur un téléphone, en reliant trois images simples. Tant que les mots étaient effectivement prononcés ou tapés, la voix restait trois fois plus rapide : 116,5 mots par minute contre 35,1.\n\nMais sur l’ensemble de la tentative — réfléchir, parler, corriger —, un message prenait 20,8 secondes à la voix et 29,2 au clavier. Soit environ 1,4 fois plus vite, pas trois.[^foley]",
+    "b": "Deux choses ont mangé la différence. Avant le premier mot, les participants réfléchissaient deux fois plus longtemps quand ils s’apprêtaient à parler : 11,0 secondes contre 5,3. **Au clavier, on pense au fil des mots ; à l’oral, on prépare d’abord sa phrase.**\n\nEt la moindre correction coûtait cher : toutes méthodes et toutes tâches confondues, les tentatives qui demandaient une retouche avançaient à 54,6 mots par minute, contre 141,1 pour celles qui passaient du premier coup.\n\nPour situer : sur un test de frappe en ligne, des volontaires tapaient en moyenne 52 mots par minute sur un clavier physique, sur 168 000 personnes,[^dhakal] et 36 sur un téléphone, sur 37 000.[^palin]\n\nIl n’existe aucune comparaison contrôlée entre la rédaction à la voix et au clavier d’ordinateur avec la reconnaissance vocale d’aujourd’hui. La dernière date de 1999 : des novices rédigeaient à la voix à 7,8 mots par minute, corrections comprises, contre 19 au clavier et à la souris.\n\nEn recopiant un texte, c’était 13,6 contre 32,5.[^karat]",
+    "splitCap": "Où passe le temps : un message rédigé sur téléphone, moyenne de 28 personnes",
+    "splitNote": "Tâche de rédaction. La partie pâle de chaque barre correspond à la réflexion avant le premier mot ; la partie pleine, à la parole ou à la frappe, corrections comprises.[^foley]",
+    "toolH": "Mesurez-vous : vos doigts contre votre bouche",
+    "toolLead": "Deux chronomètres et une phrase. La page n’allume jamais le micro et ne peut pas vous entendre : elle mesure seulement le temps que vous mettez, puis transforme ces deux durées en deux vitesses.",
+    "step1": "Tapez la phrase, puis appuyez sur Entrée",
+    "step2": "Maintenez le bouton et lisez la phrase à voix haute",
+    "phrase": "Tu peux décaler notre appel de jeudi à l’après-midi et m’envoyer les notes de la semaine dernière d’ici là ?",
+    "typeAria": "Tapez la phrase ici",
+    "holdBtn": "Maintenez pendant la lecture",
+    "againBtn": "Recommencer",
+    "c": "Votre vitesse orale, c’est celle de votre bouche, pas celle de la dictée : ici, rien n’est reconnu et rien n’est à corriger. **Le rapport entre vos deux chiffres est le maximum que la voix puisse vous offrir.**\n\nDans l’expérience de Foley, la parole seule allait 3,3 fois plus vite que la frappe, et la tentative complète 1,4 fois : une fois la réflexion et les corrections décomptées, il restait environ 40 % de l’écart de vitesse.",
+    "how1h": "Tapez",
+    "how1": "Tapez la phrase ci-dessous. Le premier chronomètre tourne de votre première touche jusqu’à ce que vous appuyiez sur Entrée.",
+    "how2h": "Dites",
+    "how2": "Maintenez le bouton, ou la barre d’espace, et lisez la même phrase à voix haute, à votre rythme habituel. Le second chronomètre tourne tant que vous maintenez.",
+    "how3h": "Comparez",
+    "how3": "Même phrase, deux durées. La page les convertit en mots par minute et les place à côté des études.",
+    "typePh": "Commencez à taper ici…",
+    "holdWait": "Terminez d’abord l’étape 1",
+    "resType": "mots par minute au clavier",
+    "resSpeak": "mots par minute à l’oral",
+    "ratesH": "Vos vitesses à côté des études"
+  },
+  "s03": {
+    "num": "03 · Précision",
+    "h": "Ce que la machine entend dépend de qui parle",
+    "a": "Dites « déplacez la réunion à jeudi dix heures » dans une pièce calme, avec la diction d’un présentateur du journal télévisé, et un bon logiciel de reconnaissance l’écrira sans faute. Dites-le avec l’accent de Lagos dans le brouhaha d’un café, et il risque de taper « je dis six sœurs ».\n\nLa reconnaissance se note au **taux d’erreur sur les mots** : la part de mots mal transcrits, oubliés ou ajoutés. En octobre 2025, le meilleur modèle d’un classement public de référence affichait en moyenne 5,63 % sur l’ensemble de ses jeux de test.\n\nWhisper large-v3, le modèle ouvert qui fait tourner bon nombre d’applications de dictée, était à 7,44 %.[^openasr] À titre de comparaison, une transcription professionnelle soignée a été mesurée à 5,1 % sur des conversations téléphoniques enregistrées, en 2017.[^msHuman]\n\nCes moyennes masquent qui parle. Sur un corpus d’anglais conversationnel aux accents du monde entier, Whisper se trompait sur 19,7 % des mots, contre 2,7 % sur de l’anglais américain lu et bien articulé.\n\nPour l’anglais du Nigeria et de la Jamaïque, même les modèles les plus performants dépassaient 20 %, et un modèle universitaire 45 %.[^edacc]\n\nEn 2020, cinq systèmes commerciaux se trompaient sur 35 % des mots prononcés par des locuteurs noirs, contre 19 % chez des locuteurs blancs : **le même système, presque deux fois plus d’erreurs**.[^koenecke]",
+    "ladderCap": "Choisissez un taux d’erreur et voyez ce qu’il fait d’une phrase dictée",
+    "ladderNote": "La phrase compte 26 mots ; les erreurs tombent là où elles font le plus de dégâts, pour montrer ce que signifie le taux, et non pour simuler un système en particulier.",
+    "halluBtn": "Ajouter une invention à la Whisper",
+    "b": "La reconnaissance générative a introduit un nouveau type de défaillance : **l’invention pure et simple**. Whisper ajoutait des phrases entières dans environ 1 % des transcriptions, et 38 % de ces inventions contenaient quelque chose de nuisible, comme de la violence ou de fausses affirmations.[^careless]\n\nLes longues pauses, fréquentes chez les personnes aphasiques, rendaient ces inventions plus probables. Une phrase inventée est pire qu’un mot mal entendu, parce qu’elle se lit sans accroc.\n\nLe goulot d’étranglement s’est déplacé de la reconnaissance vers la correction. Corriger à la voix pose deux problèmes non résolus : distinguer une commande du texte à écrire, et désigner l’endroit à corriger.\n\nToucher l’écran près de l’erreur en énonçant la correction, et laisser un modèle de langage déterminer ce qui va où, a réduit la durée de la tâche de 16,4 % et les frappes au clavier de 47,5 % par rapport à la meilleure méthode précédente, lors d’un test avec 16 personnes.[^tapsay]\n\nLe texte dicté sort aussi **bavard et décousu** : c’est pourquoi les nouvelles applications le font réécrire par un modèle de langage avant de le coller. Dans une étude par journal de bord de 7 à 10 jours avec un tel outil, 9 rédacteurs sur 12 s’y sont adaptés, avec un confort médian de 5 sur 7.\n\nCeux qui gardaient des doutes citaient les vieilles difficultés : penser à la phrase suivante tout en parlant, et placer le curseur au bon endroit.[^rambler]"
+  },
+  "s04": {
+    "num": "04 · Réflexion",
+    "h": "La voix accélère la bouche, pas la réflexion",
+    "a": "Si la voix est trois fois plus rapide, pourquoi l’écriture ne l’est-elle pas ? Parce qu’écrire, ce n’est pas d’abord taper. Une étude de 1983 sur la rédaction de lettres a montré qu’**environ deux tiers du temps de rédaction servent à planifier** — entre 58 % et 78 % selon les configurations testées.\n\nLes lettres étaient aussi réussies, qu’on les écrive à la main, qu’on les dicte ou qu’on les prononce.[^gould] Un canal de sortie plus rapide n’accélère que le tiers restant.\n\nBen Shneiderman a proposé un mécanisme en 2000 : la parole et la mémoire à court terme puisent dans la même ressource, alors que le geste de la main se déroule en parallèle de la réflexion.\n\nDans une des expériences de son laboratoire, les commandes vocales étaient de 12 à 30 % plus rapides que la souris, mais le fait de les prononcer à voix haute gênait la mémorisation de symboles qu’il fallait ensuite retaper.[^shneiderman]",
+    "b": "Les études qui ont suivi s’alignent sur un même axe, de la copie à la résolution de problèmes. Quand il s’agit de recopier, la voix gagne en vitesse et paraît plus facile. Quand il s’agit de rédiger, elle est un peu plus rapide et ne paraît ni plus ni moins pénible.\n\n**Quand il s’agit de résoudre un problème, la voix charge davantage l’esprit.** Chez 50 personnes utilisant un assistant conversationnel médical, la parole a augmenté la charge mentale mesurée, sur les tâches difficiles comme sur les simples.[^chen]\n\nChez 35 urgentistes qui documentaient leurs dossiers à la voix, le travail était 18,1 % plus lent, avec 138 erreurs contre 32.[^hodgson]\n\nLes grands gagnants sont ceux dont le goulot d’étranglement est la main ou l’orthographe. Les élèves ayant des troubles de l’apprentissage écrivaient de meilleures rédactions avec la reconnaissance vocale qu’à la main ; pour les autres, cela ne changeait rien.[^macarthur]",
+    "specCap": "De la copie à la résolution : la voix face au clavier, tâche par tâche",
+    "specHelps": "voix meilleure",
+    "specSame": "aucune différence",
+    "specHurts": "clavier meilleur",
+    "c": "Parler à l’IA se place sur le même axe. Dans la plus grande étude que j’ai trouvée, 919 étudiants d’un cours d’initiation à la programmation pouvaient choisir comment formuler leurs requêtes à un outil d’IA. **Près de neuf sur dix ont choisi le texte seul** (88,5 %), 4,8 % la voix seule et 6,7 % les deux.\n\nLes requêtes vocales non retouchées fonctionnaient moins souvent du premier coup : 35 % contre 52 % sur la première tâche, 38 % contre 58 % sur la seconde. Une fois la transcription retouchée par les étudiants, l’écart n’était plus significatif.[^riegel]\n\nDans les tâches créatives, la voix donnait une première requête plus rapide et des relances plus nombreuses et plus longues, sans changer ni l’effort ressenti ni la note donnée aux résultats.[^creative]",
+    "promptCap": "Requête réussie du premier coup, part des étudiants ; chaque groupe « voix » comptait de 26 à 51 étudiants",
+    "d": "L’idée répandue selon laquelle penser à voix haute aide ne tient qu’à moitié. Sur 94 études, se contenter de verbaliser ses pensées ne changeait rien à la justesse et ne faisait que ralentir le travail ; la justesse progressait quand il fallait **expliquer** son raisonnement.[^fox]\n\nExpliquer un problème à voix haute à un modèle d’IA pourrait donc bien aider. Personne ne l’a testé."
+  },
+  "s05": {
+    "num": "05 · Fatigue",
+    "h": "La voix s’use à la dose. Personne n’a mesuré la dose de la dictée",
+    "a": "Taper toute la journée fatigue les mains. Parler toute la journée fatigue autre chose, et il n’existe aucune limite quotidienne établie scientifiquement en deçà de laquelle ce serait sans risque. Ce qu’on mesure bien, en revanche, c’est la quantité de voix qu’utilisent les professionnels de la parole.\n\nLes **enseignants**, un métier très exposé aux troubles de la voix, font vibrer leurs cordes vocales pendant 23 % de leur temps de travail, contre 13 % hors travail et 12 % le week-end, d’après une étude de 2007 sur 31 enseignants.[^titze] Un groupe plus récent de 26 enseignants arrivait à 16,2 %, 8,4 % et 8,0 %.[^eastman]\n\nCe temps de vibration s’appelle la phonation : il ne compte que les instants où les cordes vibrent réellement, pas les pauses entre les mots.",
+    "phonCap": "Part du temps où les cordes vocales vibrent, enseignants",
+    "b": "Le corps s’en aperçoit vite. Pendant une lecture à voix forte, un marqueur objectif de l’effort vocal **augmente dès les 15 premières minutes**, et les gens le ressentent au bout de 30, d’après une étude sur 10 personnes.[^xue]\n\nAprès deux heures de lecture à voix haute au volume d’une salle de classe, 86 enseignants ont jugé leur voix en grande partie rétablie au bout de 4 à 8 heures, avec un léger reste qui durait un jour ou plus.\n\nL’article se contredit sur les chiffres exacts : son résumé annonce 90 % de récupération au bout de 4 à 6 heures, et une récupération complète au bout de 12 à 18.[^hunter]",
+    "recCap": "Deux heures d’usage intensif de la voix, puis la récupération",
+    "recNote": "Part de la fatigue ressentie disparue après 2 heures de lecture à voix forte. La courbe relie les deux points du résumé de l’étude : 90 % après 4 à 6 heures, 100 % après 12 à 18 ; sa conclusion donne des délais plus longs pour 50 % et 90 %. Pour la dictée à voix basse près du micro, aucune courbe : cette bande reste vide exprès.",
+    "c": "Le métier existant le plus proche de parler à un ordinateur toute la journée, c’est le **centre d’appels**. Sur 15 études, de 33 à 68 % des téléconseillers avaient eu des problèmes de voix à un moment de leur carrière, et 27 % au moment de l’examen.[^nair]\n\nUne enquête a compté 6,8 symptômes vocaux par téléconseiller, contre 1,7 dans la population générale.[^piwowarczyk]\n\nLes données directes sur les utilisateurs de la dictée ne datent que des années 1990 et 2000, quand dicter voulait dire marquer une pause après chaque mot.\n\nDans une série de cas, cinq personnes passées à la reconnaissance vocale à cause de douleurs aux mains ont développé un forçage vocal ; après une rééducation de la voix et des séances plus courtes, trois sur cinq allaient mieux.[^olson]\n\nDes enregistrements de l’activité musculaire chez 10 personnes suggéraient que **la charge se déplace plutôt qu’elle ne disparaît** : moins de tension constante dans l’avant-bras et la nuque, et dans une certaine mesure les épaules, mais une tendance à la hausse dans le cricothyroïdien, un muscle du larynx.[^juul]\n\nLa dictée moderne supprime la cause soupçonnée — une parole monocorde, mécanique, hachée d’une pause après chaque mot — et place le micro près de la bouche, ce qui permet de parler doucement. C’est un espoir raisonnable, pas un résultat.\n\nAucune étude n’a mesuré la charge vocale chez les personnes qui utilisent les applications de dictée actuelles ou les modes vocaux des modèles d’IA."
+  },
+  "s06": {
+    "num": "06 · Gêne",
+    "h": "Ce n’est pas le lieu. C’est qui écoute",
+    "a": "Imaginez demander votre chemin à votre téléphone chez vous, puis dans le bus, puis à votre bureau, entouré de collègues. Pour la plupart des gens, la réponse change trois fois.\n\nLes meilleurs chiffres sur la question viennent d’une petite expérience britannique : 20 personnes de 23 à 32 ans ont regardé de courtes vidéos d’un homme qui faisait une recherche à la voix ou par écrit sur un fond neutre, puis ont coché les lieux et les publics devant lesquels elles feraient de même.\n\n**La voix ne l’emportait sur le texte qu’au volant**, là où les mains sont occupées.[^efthymiou]\n\nQui écoutait comptait plus que l’endroit. Seul, la voix était jugée acceptable dans 96 % des réponses ; avec des amis, dans 83 %, avec son conjoint 78 %, en famille 71 %. Avec des collègues, 26 %. Devant des inconnus, 16 %.\n\nParmi les publics, seuls les collègues et les inconnus rendaient la voix significativement moins acceptable que le texte ; parmi les lieux, c’était le cas du domicile, du siège passager et du travail. Essayez sur vous-même avant de regarder leurs réponses.",
+    "toolH": "Parleriez-vous à un appareil ici ?",
+    "toolLead": "Touchez chaque situation une fois pour oui, deux fois pour non. Comparez ensuite avec les 20 personnes de l’étude.",
+    "placesH": "Où",
+    "peopleH": "Devant qui",
+    "showBtn": "Comparer avec l’étude",
+    "hideBtn": "Masquer l’étude",
+    "b": "Dans une enquête auprès de 860 utilisateurs d’assistants, **la honte réduisait l’intention de continuer à s’en servir**, mais seulement en public, tandis que la fierté l’augmentait partout.[^kowalczuk]\n\nLa norme a bougé malgré tout. Dans les enquêtes américaines, l’usage de la voix au restaurant entre amis est passé d’environ 25 % en 2017 à plus de 40 % en 2019.\n\nLes hommes étaient 1,54 fois plus enclins que les femmes à utiliser des commandes vocales, et 46 % des sondés se disaient agacés quand d’autres le faisaient.[^perficient]"
+  },
+  "s07": {
+    "num": "07 · Habitude",
+    "h": "La nouveauté s’use d’abord. La timidité aussi",
+    "a": "Quiconque a acheté une enceinte connectée connaît la première semaine : minuteurs, blagues, musique, questions posées pour le plaisir. Puis la nouveauté s’estompe, et il reste l’habitude.\n\nComment les gens évoluent une fois lancés, on ne le mesure presque que sur les enceintes connectées à domicile. Dans une étude de trois semaines, 7 personnes âgées ont reçu un Echo Dot. **Le nombre de commandes par semaine a baissé d’un tiers** : 59,6, puis 50,1, puis 39,7.\n\nLa musique est passée de 23,9 % des commandes à 2,9 %, tandis que la météo et les listes de courses progressaient. Une participante disait d’abord s’être « sentie bête de parler à cette machine » ; à la fin, les sept se disaient plus sûrs d’eux et comptaient continuer.[^pradhan]",
+    "habitCap": "Trois semaines avec une enceinte connectée, 7 personnes",
+    "b": "Sur la durée, le tableau est différent. Dans les historiques Google Home de 18 familles, sur 58 semaines en moyenne, l’usage restait assez stable.\n\nTrois familles ont cessé d’utiliser l’enceinte pendant des semaines peu après l’achat — pour la vie privée, par manque d’utilité ou faute d’habitude — puis y sont revenues.\n\nLes familles qui ont abandonné pour de bon n’ont pas été étudiées. Le pilotage de la maison progressait à mesure que les familles achetaient d’autres appareils connectés.[^garg]\n\nQuand les gens prenaient leurs distances, c’était pour une question d’utilité, de fiabilité ou de vie privée, pas parce que parler chez soi leur semblait gênant.\n\nUne revue de 69 articles sur l’acceptabilité sociale souligne que celle-ci évolue à mesure qu’on s’habitue à une interaction, et pourtant **trois seulement ont suivi des gens essayant une interface dans la vie de tous les jours** ; la plupart leur demandaient de l’imaginer, ou de l’essayer une fois en laboratoire.[^koelle]\n\nC’est la lacune centrale de cette page. Je n’ai trouvé aucune étude qui suive des personnes passées à la dictée au travail et mesure, semaine après semaine, l’évolution de leur gêne."
+  },
+  "s08": {
+    "num": "08 · Culture",
+    "h": "La culture décide du volume permis à la voix",
+    "a": "Répondre à un message par une note vocale ou par écrit dépend beaucoup de l’endroit où l’on vit.\n\nDans une enquête YouGov menée en 2023 sur 17 marchés, 66 % préféraient envoyer leurs messages par écrit et 7 % en audio.\n\nLa préférence pour l’écrit était la plus forte au Royaume-Uni (83 %), au Danemark (80 %) et en Suède (78 %), et la plus faible aux Émirats arabes unis (38 %) ; en Espagne, 54 % préféraient l’écrit et 13 % l’audio.[^yougov2023]",
+    "prefCap": "Préfèrent envoyer leurs messages par écrit, 2023",
+    "b": "Le téléphone portable est passé par là il y a vingt ans. Dans une comparaison menée en 2007 entre étudiants de cinq cultures d’une même université à Hawaï, **téléphoner dans le bus** obtenait 2,53 sur 5 chez les étudiants venus du Japon, contre 3,50 chez ceux de Suède et 3,44 chez ceux des États-Unis continentaux.[^campbell]\n\nLe Japon a adopté une règle claire — pas de voix dans le train, l’e-mail oui — et s’est détourné de la voix en public dès qu’une solution silencieuse a existé.",
+    "phoneCap": "Un appel téléphonique ici est acceptable : 1 = pas du tout d’accord, 5 = tout à fait d’accord, 2007",
+    "c": "Aux États-Unis, en 2006, 82 % des gens étaient agacés au moins de temps en temps par les conversations téléphoniques bruyantes en public, et la part de ceux qui y étaient souvent confrontés est passée de 50 % à 39 % en 2012.[^pew2006]\n\nEn 2014, se servir de son téléphone était admis dans la rue pour 77 % des Américains, dans les transports en commun pour 75 %, au restaurant pour 38 % — et en réunion pour 5 %.[^pew2015]\n\nLe mouvement est venu des deux côtés : l’entourage est devenu plus tolérant, ceux qui appellent plus discrets. Et **il s’est arrêté à la porte de la salle de réunion**."
+  },
+  "s09": {
+    "num": "09 · Le bureau",
+    "h": "Le bureau apprend à chuchoter",
+    "a": "En 2026, la dictée par IA est arrivée dans les bureaux, et les premiers échos sont des récits, pas des chiffres. Bloomberg la décrit gagnant un poste après l’autre : des micros col-de-cygne apparaissent, et les chuchotements commencent.[^bloomberg]\n\nUn analyste cité par Computerworld voit dans la gêne et la peur de déranger les collègues un frein comportemental majeur.\n\nThumbtack, une entreprise entièrement en télétravail, a équipé plus de 200 salariés de Wispr Flow, et son directeur technique admet que s’habituer à parler à voix haute, même seul dans une pièce, a pris du temps.[^computerworld]\n\nLe marché n’attend pas que la norme change. Il **rend la voix plus discrète**. Wispr Flow vend un mode chuchotement et recommande de parler à environ un centimètre du micro.[^wisprWhisper]\n\nLa recherche est allée plus loin dès 2018 : SilentVoice, de Microsoft, reconnaissait de courtes commandes prononcées en inspirant, qui laissaient échapper moins de 39 décibels, avec 1,8 % de mots erronés pour un locuteur entraîné et 7 % pour un nouveau venu.[^silentvoice]\n\nLes gens sont prêts à troquer de la précision contre du silence. Dans une expérience de 2021, 12 personnes étaient aussi disposées à utiliser la parole silencieuse — articuler les mots sans son — avec 10 à 15 % d’erreurs injectées exprès que sans erreur, alors que leur envie de parler à voix haute, elle, diminuait.\n\nLes 12 participants invoquaient tous la vie privée et la sécurité.[^pandey]",
+    "pull": "Le vrai progrès, ce n’est pas que les gens osent davantage. C’est que la voix baisse d’un ton."
+  },
+  "s10": {
+    "num": "10 · Médecine",
+    "h": "Le seul terrain mesuré à grande échelle : les notes des médecins",
+    "a": "La médecine est le seul domaine où la saisie vocale appuyée sur des modèles d’IA a été mesurée sur des milliers de personnes. Les scribes IA ambiants écoutent la consultation et rédigent un premier jet du compte rendu.\n\nDans la plus grande étude, publiée dans JAMA en avril 2026, environ 1 800 utilisateurs, comparés à 6 770 non-utilisateurs, ont gagné 16 minutes de documentation pour 8 heures de consultations, **soit environ 10 %**, sans changement significatif du travail hors horaires.\n\nSeuls 32 % utilisaient le scribe dans plus de la moitié de leurs consultations.[^jama]\n\nDans un essai randomisé portant sur 238 médecins, un scribe a réduit le temps par note de 41 secondes, contre 18 secondes dans le groupe témoin, et un autre n’a fait aucune différence significative.[^nejmai] L’épuisement professionnel est passé de 51,9 % à 38,8 % en 30 jours, dans une étude sans groupe témoin.[^ama]\n\nLes notes vérifiées à la main présentaient des omissions dans 18 % des cas et des détails inventés dans 11,5 % ; 5,3 % contenaient une erreur susceptible de causer un préjudice grave.[^notes] La voix a fait gagner de l’attention plus que des minutes, et le prix à payer, c’est la relecture du texte."
+  },
+  "s11": {
+    "num": "11 · Lacunes",
+    "h": "Les expériences que personne n’a encore menées",
+    "a": "Ce ne sont pas de petits trous. Chaque carte ci-dessous est une question à laquelle cette page voulait répondre par un chiffre, sans y parvenir, faute d’étude qui l’ait mesuré.",
+    "g1h": "Une enquête qui compte la dictée",
+    "g1": "Aucune enquête sur échantillon aléatoire ne mesure la dictée ou la conversation vocale avec l’IA comme un comportement à part entière. La courbe de croissance repose sur les déclarations des entreprises.",
+    "g2h": "La dose vocale de la dictée",
+    "g2": "Personne n’a mesuré le temps de phonation ni l’effort vocal chez les personnes qui dictent des heures durant avec les applications actuelles.",
+    "g3h": "Une dose sûre par jour",
+    "g3": "Il n’existe aucune limite fondée sur des données quant au nombre d’heures de parole par jour sans danger pour la voix.",
+    "g4h": "Les mains après le passage à la voix",
+    "g4": "Aucun essai randomisé ne montre que passer à la voix prévient ou soigne les lésions des mains dues aux gestes répétitifs.",
+    "g5h": "Rédiger à son bureau",
+    "g5": "Aucune comparaison contrôlée entre l’écriture à la voix et au clavier physique avec la reconnaissance moderne. Les meilleures données datent de 1983 et de 1999.",
+    "g6h": "Une journée à parler",
+    "g6": "Aucune étude par journal de bord ni suivi au long cours ne mesure la fatigue mentale des personnes qui travaillent surtout à la voix.",
+    "g7h": "Perdre sa timidité au travail",
+    "g7": "Aucune étude de terrain ne suit semaine après semaine de nouveaux utilisateurs de la dictée au bureau. Toutes les études au long cours sur l’habitude portent sur des enceintes à domicile."
+  },
+  "s12": {
+    "num": "12 · Méthode",
+    "h": "Comment tout cela a été vérifié, et ce que j’ai écarté",
+    "a": "Je développe **Speak-Y**, une application de saisie vocale et d’enregistrement de réunions, et une bannière en fait la promotion en bas de cette page. C’est une bonne raison de lire cette étude avec méfiance.\n\nAussi, chaque chiffre qui vient d’une entreprise parlant d’elle-même — y compris les éditeurs de dictée concurrents du mien — est signalé dans le texte et dessiné en hachures dans les graphiques.\n\nLa recherche a été menée en septembre 2026 autour de quatre questions : l’adoption, la vitesse et la précision, la fatigue et la réflexion, l’acceptabilité sociale. Chaque chiffre a été remonté jusqu’à sa source d’origine quand c’était possible.\n\nLes petits échantillons sont conservés, parce que c’est ce qui existe, mais la taille de l’échantillon figure toujours à côté du chiffre.",
+    "b": "Certains chiffres abondamment repris ne figurent pas ici, parce qu’ils n’ont pas résisté à la vérification ou ne disent pas ce qu’on leur fait dire. Un résultat « Gartner » selon lequel l’usage de Siri aurait baissé de 12 % en un an : impossible de trouver la moindre source chez Gartner.\n\n« 48 % des salariés citent la parole comme le bruit le plus gênant au bureau » : cela remonte à une enquête de 2008 auprès de 689 employés de bureau finlandais et ne dit rien de la dictée.\n\n« 79 % des médecins ont rejeté le scribe IA » : un éditeur de dictée a transformé en refus le groupe de comparaison des non-utilisateurs de l’étude du JAMA. Et la célèbre affirmation selon laquelle 3 % seulement des gens utilisaient Siri en public, dont la page d’origine n’existe plus.",
+    "c": "Ma propre lecture de l’ensemble, et c’est une opinion : **la dictée deviendra normale à la maison, en voiture et dans une pièce à soi**, restera contestée en open space et absente des réunions, exactement comme le coup de fil. Ce qui pourrait changer la donne, ce ne sont pas des gens plus audacieux, mais une voix plus discrète."
+  },
+  "js": {
+    "survey": {
+      "usSpeaker": "Possède une enceinte connectée, États-Unis",
+      "ukSpeaker": "Possède une enceinte connectée, Royaume-Uni",
+      "genai": "A déjà utilisé un assistant d’IA générative, États-Unis, 12 ans et plus",
+      "vmsg": "Messages vocaux plusieurs fois par semaine, adultes américains"
+    },
+    "vendor": {
+      "siri": "Requêtes Siri par jour",
+      "wispr": "Valorisation de Wispr Flow",
+      "gemini": "Utilisateurs mensuels de Gemini qui « utilisent la voix »"
+    },
+    "surveyH": "Enquêtes indépendantes",
+    "vendorH": "Les entreprises sur elles-mêmes",
+    "bnDay": "{n} Md",
+    "usdBn": "{n} Md$",
+    "plus": "{n}+",
+    "times": "×{n}",
+    "noMethod": "méthode non précisée",
+    "rates": {
+      "ruanV": "Voix, copie de phrases (Ruan)",
+      "foleyV": "Voix, rédaction, pendant la parole (Foley)",
+      "desk": "Clavier physique, moyenne (Dhakal)",
+      "ruanK": "Clavier de téléphone, copie (Ruan)",
+      "phone": "Clavier de téléphone, moyenne (Palin)",
+      "foleyK": "Clavier de téléphone, rédaction (Foley)"
+    },
+    "wpm": "{n} mots/min",
+    "youType": "Vous, au clavier",
+    "youSpeak": "Vous, à l’oral",
+    "you": "Vous",
+    "waiting": "—",
+    "ratioYou": "Votre plafond : vous parlez **{r}×** plus vite que vous ne tapez. Si, comme dans l’expérience de Foley, 40 % de cet écart survivent à la réflexion et aux corrections, la dictée serait pour vous environ **{s}×** plus rapide.",
+    "ratioSlow": "Vous tapez à peu près aussi vite que vous parlez, voire plus vite. La voix n’a guère de vitesse à vous offrir ; son intérêt tiendrait au confort et à vos mains.",
+    "typedWrong": "Certains mots diffèrent de la phrase ; la vitesse compte quand même.",
+    "tooShort": "C’était trop court pour lire toute la phrase. Réessayez.",
+    "prep": "Réflexion avant le premier mot",
+    "entry": "Parole ou frappe, et corrections",
+    "voice": "Voix",
+    "keys": "Clavier",
+    "sec": "{n} s",
+    "wer": {
+      "clean": "Anglais américain lu et bien articulé, Whisper",
+      "human": "Transcription professionnelle soignée",
+      "best": "Meilleur modèle, classement public",
+      "whisper": "Whisper large-v3, classement public",
+      "white": "Locuteurs blancs, 5 systèmes commerciaux, 2020",
+      "accent": "Conversation avec accent, Whisper",
+      "black": "Locuteurs noirs, 5 systèmes commerciaux, 2020"
+    },
+    "werErrors": "{e} mots erronés sur {n}",
+    "werWords": [
+      [
+        "Merci",
+        "Mercier",
+        15
+      ],
+      [
+        "de",
+        "deux",
+        19
+      ],
+      [
+        "déplacer",
+        "des places",
+        8
+      ],
+      [
+        "la",
+        "là",
+        17
+      ],
+      [
+        "réunion",
+        "rognon",
+        6
+      ],
+      [
+        "budget",
+        "bûcher",
+        2
+      ],
+      [
+        "avec",
+        "avait",
+        18
+      ],
+      [
+        "Anna",
+        "ananas",
+        4
+      ],
+      [
+        "de",
+        "le",
+        20
+      ],
+      [
+        "mardi",
+        "maudit",
+        9
+      ],
+      [
+        "à",
+        "a",
+        22
+      ],
+      [
+        "jeudi",
+        "je dis",
+        1
+      ],
+      [
+        "dix",
+        "six",
+        3
+      ],
+      [
+        "heures",
+        "sœurs",
+        7
+      ],
+      [
+        "et",
+        "est",
+        16
+      ],
+      [
+        "de",
+        "des",
+        26
+      ],
+      [
+        "demander",
+        "demandé",
+        21
+      ],
+      [
+        "à",
+        "ah",
+        23
+      ],
+      [
+        "l’équipe",
+        "les chips",
+        10
+      ],
+      [
+        "design",
+        "des singes",
+        12
+      ],
+      [
+        "d’apporter",
+        "d’emporter",
+        13
+      ],
+      [
+        "les",
+        "lait",
+        24
+      ],
+      [
+        "derniers",
+        "derrières",
+        14
+      ],
+      [
+        "chiffres",
+        "chiffons",
+        11
+      ],
+      [
+        "du",
+        "dû",
+        25
+      ],
+      [
+        "lancement.",
+        "lentement.",
+        5
+      ]
+    ],
+    "hallu": "Merci d’avoir regardé cette vidéo !",
+    "spec": {
+      "copy": "Copie de phrases courtes : environ 3 fois plus rapide, charge moindre sur les six échelles",
+      "compose": "Rédaction de messages courts : environ 1,4 fois plus rapide au total, même charge",
+      "creative": "Requêtes créatives pour l’IA : plus rapides et plus longues, même effort et mêmes résultats",
+      "code": "Requêtes de programmation, voix non retouchée : moins souvent réussies du premier coup",
+      "problem": "Résolution de problèmes avec un assistant conversationnel : charge mentale plus élevée",
+      "ehr": "Urgentistes, dossiers médicaux : 18,1 % plus lents, 138 erreurs contre 32",
+      "memory": "Commandes vocales au lieu de la souris : plus rapides, mais la mémoire en pâtit",
+      "ld": "Rédactions d’élèves ayant des troubles de l’apprentissage : meilleures qu’à la main"
+    },
+    "specCopyEnd": "copie",
+    "specThinkEnd": "résolution",
+    "specExtra": "autre groupe",
+    "nPeople": "n = {n}",
+    "nNa": "n non précisé",
+    "prompt": "Tâche {p}",
+    "pText": "Tapé",
+    "pRaw": "Voix, non retouchée",
+    "pEdit": "Voix, retouchée",
+    "choiceH": "Comment les 919 étudiants ont choisi d’écrire",
+    "cText": "texte seul",
+    "cVoice": "voix seule",
+    "cBoth": "les deux",
+    "phon": {
+      "work": "Au travail",
+      "off": "Hors travail",
+      "weekend": "Le week-end"
+    },
+    "phonA": "31 enseignants, 2007",
+    "phonB": "26 enseignants, 2023",
+    "recLoad": "2 h d’usage intensif",
+    "rec90": "rétablie à 90 %",
+    "rec100": "entièrement rétablie",
+    "recHours": "heures",
+    "recUnknown": "dictée à voix basse : non mesurée",
+    "places": {
+      "home": "À la maison",
+      "street": "Dans la rue",
+      "driving": "Au volant",
+      "passenger": "En passager",
+      "work": "Au travail",
+      "pub": "Au bar"
+    },
+    "people": {
+      "alone": "Seul",
+      "friends": "Amis",
+      "partner": "Conjoint",
+      "family": "Famille",
+      "colleagues": "Collègues",
+      "strangers": "Inconnus"
+    },
+    "yes": "oui",
+    "no": "non",
+    "voiceOk": "voix OK",
+    "textOk": "texte OK",
+    "acceptSum": "Vous parleriez dans **{y} situations sur {n}**. Dans l’étude, la voix était acceptable dans environ la moitié des réponses, **soit à peu près 6 sur 12**.",
+    "acceptNone": "Répondez d’abord pour quelques situations, ou comparez tout de suite.",
+    "acceptRow": "dans l’étude, voix OK dans {v} des réponses, texte dans {t}",
+    "habitCmd": "Commandes par semaine",
+    "habitMusic": "Musique, part des commandes",
+    "habitConf": "Plus sûrs d’eux à la fin",
+    "week": "Semaine {n}",
+    "sevenOfSeven": "7 sur 7",
+    "cultures": {
+      "us": "États-Unis continentaux",
+      "hawaii": "Hawaï",
+      "japan": "Japon",
+      "taiwan": "Taïwan",
+      "sweden": "Suède"
+    },
+    "cplaces": {
+      "bus": "Dans le bus",
+      "cinema": "Au cinéma",
+      "sidewalk": "Sur le trottoir"
+    },
+    "pref": {
+      "uk": "Royaume-Uni",
+      "dk": "Danemark",
+      "se": "Suède",
+      "us": "États-Unis",
+      "all": "Les 17 marchés",
+      "id": "Indonésie",
+      "es": "Espagne",
+      "ae": "Émirats arabes unis"
+    },
+    "srcShort": "Source",
+    "copied": "Copié",
+    "copyManual": "Sélectionnez et copiez",
+    "ratioLoss": "Vous parlez {r}× plus vite que vous ne tapez. Avec les mêmes pertes en réflexion et en corrections que dans l’expérience de Foley, **la dictée ne vous ferait rien gagner**.",
+    "tooFast": "C’est plus rapide que quiconque ne sait taper — sans doute un collage ou un remplissage automatique. Tapez la phrase vous-même, s’il vous plaît.",
+    "holdReady": "Prêt : maintenez, lisez, relâchez",
+    "holdNow": "Lecture… relâchez sur le dernier mot",
+    "holdAgain": "Terminé. Maintenez à nouveau pour recommencer",
+    "typeMore": "Tapez d’abord toute la phrase, puis appuyez sur Entrée."
+  },
+  "fig": {
+    "wavesSrc": "Edison Research via SSRS[^ssrsUS][^ssrsUK][^ssrs2026] · YouGov[^yougov2026] · Apple, via la presse[^siri] · TechCrunch[^wispr] · Google, via la presse[^gemini]",
+    "speedSrc": "Ruan et al., n = 48[^ruan] · Foley et al., n = 28[^foley] · Dhakal et al., n ≈ 168 000[^dhakal] · Palin et al., n ≈ 37 000[^palin]",
+    "werSrc": "Open ASR Leaderboard, octobre 2025[^openasr] · Microsoft Research, 2017[^msHuman] · EdAcc[^edacc] · Koenecke et al., 2020[^koenecke] · Careless Whisper, 2024[^careless]",
+    "specSrc": "Ruan[^ruan] · Foley[^foley] · requêtes créatives, 2026[^creative] · Riegel et al.[^riegel] · Chen et al.[^chen] · Hodgson et al.[^hodgson] · Shneiderman[^shneiderman] · MacArthur et Cavalier[^macarthur]",
+    "promptSrc": "Riegel et al., ITiCSE 2026, n = 919[^riegel]",
+    "phonSrc": "Titze et al., 2007[^titze] · Eastman et al., 2023[^eastman]",
+    "recSrc": "Hunter et Titze, 2009, 86 enseignants, auto-évaluation, chiffres du résumé[^hunter] · Xue et al., 2019, n = 10[^xue]",
+    "acceptSrc": "Efthymiou et Halvey, 2016, Royaume-Uni, n = 20, 23–32 ans, jugement sur vidéos[^efthymiou]",
+    "habitSrc": "Pradhan, Lazar et Findlater, 2020, États-Unis, n = 7, 1 049 commandes[^pradhan]",
+    "prefSrc": "YouGov, novembre 2023, de 500 à 2 001 personnes par marché ; seuls les marchés cités dans le texte publié sont représentés[^yougov2023]",
+    "phoneSrc": "Campbell, 2007, n = 271 étudiants d’une université d’Hawaï, regroupés selon leur culture d’origine[^campbell]"
+  },
+  "src": {
+    "ssrsUS": "SSRS / Edison Research, The Infinite Dial : taux d’équipement en enceintes connectées au Royaume-Uni et aux États-Unis, 2021–2025.",
+    "ssrsUK": "SSRS / Edison Research, The Infinite Dial UK 2025.",
+    "smartAudio": "NPR et Edison Research, The Smart Audio Report 2022, repris par audioXpress.",
+    "amazonLoss": "GeekWire, 2024, sur l’enquête du Wall Street Journal consacrée aux pertes de la division appareils d’Amazon.",
+    "wispr": "TechCrunch, novembre 2025 et 17 août 2026 : levées de fonds et valorisation de Wispr. Chiffres de l’entreprise.",
+    "gemini": "Search Engine Journal, août 2026 : Google sur les utilisateurs mensuels de Gemini et l’usage de la voix. Chiffre de l’entreprise, méthode non précisée.",
+    "siri": "Om Malik, octobre 2024, et Search Engine Roundtable, septembre 2026 : requêtes Siri par jour selon des dirigeants d’Apple.",
+    "ssrs2026": "SSRS / Edison Research, The Infinite Dial 2026, janvier 2026, n = 2 050.",
+    "whatsapp": "Meta Newsroom, mars 2022 : les messages vocaux sur WhatsApp. Chiffre de l’entreprise.",
+    "yougov2026": "YouGov, février 2026, n = 2 442 : comment les Américains communiquent en 2026.",
+    "ruan": "Ruan, Wobbrock, Liou, Ng et Landay. Comparing speech and keyboard text entry for short messages in two languages on touchscreen phones. IMWUT, 2018 (prépublication 2016).",
+    "foley": "Foley, Casiez et Vogel. Comparing smartphone speech recognition and touchscreen typing for composition and transcription. CHI 2020.",
+    "dhakal": "Dhakal, Feit, Kristensson et Oulasvirta. Observations on typing from 136 million keystrokes. CHI 2018.",
+    "palin": "Palin, Feit, Kim, Kristensson et Oulasvirta. How do people type on mobile devices? MobileHCI 2019.",
+    "karat": "Karat, Halverson, Horn et Karat. Patterns of entry and correction in large vocabulary continuous speech recognition systems. CHI 1999.",
+    "openasr": "Srivastav et al. Open ASR Leaderboard, octobre 2025.",
+    "msHuman": "Microsoft Research, 2017 : un cap franchi en reconnaissance de la parole conversationnelle, transcription professionnelle soignée à 5,1 %.",
+    "edacc": "Sanabria et al. The Edinburgh International Accents of English Corpus (EdAcc). ICASSP 2023.",
+    "koenecke": "Koenecke et al. Racial disparities in automated speech recognition. PNAS, 2020.",
+    "careless": "Koenecke, Choi, Mei, Schellmann et Sloane. Careless Whisper: speech-to-text hallucination harms. FAccT 2024.",
+    "tapsay": "Zhao et al., CHI 2025 : Tap&Say, corriger un texte dicté au toucher et à la voix avec un modèle de langage, n = 16.",
+    "rambler": "Rambler in the wild, CHI Extended Abstracts 2025 : étude par journal de bord de 7 à 10 jours sur l’écriture à la voix avec un modèle de langage, n = 12. Prolonge Lin et al., Rambler, CHI 2024.",
+    "gould": "Gould, Conti et Hovanyecz. Composing letters with a simulated listening typewriter. Communications of the ACM, 1983.",
+    "shneiderman": "Shneiderman. The limits of speech recognition. Communications of the ACM, 2000.",
+    "chen": "Chen, Lyell, Laranjo et Magrabi. Effect of speech recognition on problem solving and recall in consumer digital health tasks. JMIR, 2020, n = 50.",
+    "hodgson": "Hodgson, Magrabi et Coiera. Efficiency and safety of speech recognition for documentation in the electronic health record. JAMIA, 2017, n = 35.",
+    "macarthur": "MacArthur et Cavalier, Exceptional Children, 2004 : dictée et reconnaissance vocale comme aménagements lors des épreuves écrites, n = 31.",
+    "riegel": "Riegel, Hua, Denny, Pădurean, Leinonen, Prather et Singla. Say What? Examining text and voice input modalities for prompt-based programming. ITiCSE 2026.",
+    "creative": "Rathore, Billakanti, Ceha et Henderson. A comparison of speech and typing input for creative generative AI tasks. ACM CUI 2026, n = 40.",
+    "fox": "Fox, Ericsson et Best. Do procedures for verbal reporting of thinking have to be reactive? Psychological Bulletin, 2011.",
+    "titze": "Titze, Hunter et Švec. Voicing and silence periods in daily and weekly vocalizations of teachers. JASA, 2007.",
+    "eastman": "Eastman et al., Perspectives of the ASHA Special Interest Groups, 2023 : phonation des enseignants au travail et en dehors, n = 26.",
+    "xue": "Xue et al., Journal of Voice, 2019 : effort vocal pendant une heure de lecture à voix forte, n = 10.",
+    "hunter": "Hunter et Titze, Annals of Otology, Rhinology & Laryngology, 2009 : récupération après une charge vocale de deux heures, n = 86.",
+    "nair": "Nair et al., Journal of Voice, 2024 (en ligne en 2021) : revue systématique des troubles de la voix chez les téléconseillers, 15 études.",
+    "piwowarczyk": "Piwowarczyk et al., Journal of Voice, 2012 : symptômes vocaux chez les téléconseillers, n = 157.",
+    "olson": "Olson, Cruz, Izdebski et Baldwin, Ear, Nose & Throat Journal, 2004 : cinq cas de forçage vocal après l’adoption d’un logiciel de reconnaissance vocale.",
+    "juul": "Juul-Kristensen et al., Ergonomics, 2004 : activité musculaire pendant le travail sur ordinateur avec reconnaissance vocale, n = 10.",
+    "efthymiou": "Efthymiou et Halvey. Evaluating the social acceptability of voice based smartwatch search. AIRS 2016.",
+    "kowalczuk": "Kowalczuk et Musial, Computers in Human Behavior Reports, 2024 : émotions de conscience de soi et poursuite de l’usage des assistants vocaux, n = 860.",
+    "perficient": "Voicebot.ai, mars 2019, sur l’enquête de Perficient consacrée à l’usage de la voix en public, n = 1 719.",
+    "pradhan": "Pradhan, Lazar et Findlater. Use of intelligent voice assistants by older adults with low technology use. TOCHI, 2020.",
+    "garg": "Garg et Sengupta. He is just like me: a study of the long-term use of smart speakers by parents and children. IMWUT, 2020.",
+    "koelle": "Koelle, Ananthanarayan et Boll. Social acceptability in HCI: a survey of methods, measures and design strategies. CHI 2020.",
+    "yougov2023": "YouGov, novembre 2023 : Do consumers prefer sending and receiving messages in audio or text form? 17 marchés.",
+    "campbell": "Campbell. Perceptions of mobile phone use in public settings: a cross-cultural comparison. International Journal of Communication, 2007.",
+    "pew2006": "Pew Research Center, 2006, et suivi de 2013 : les conversations téléphoniques bruyantes en public.",
+    "pew2015": "Pew Research Center, 2015 : ce que pensent les Américains des bonnes manières avec le mobile, enquête de terrain en 2014.",
+    "bloomberg": "Bloomberg, 6 février 2026 : l’IA de transcription vocale permet aux employés de bureau de parler au lieu de taper.",
+    "computerworld": "Computerworld, juillet 2026 : l’essor des outils de dictée par IA au travail.",
+    "wisprWhisper": "Wispr Flow : chuchoter dans un open space. Page de l’éditeur.",
+    "silentvoice": "Fukumoto. SilentVoice: unnoticeable voice input by ingressive speech. Microsoft Research, UIST 2018.",
+    "pandey": "Pandey, Hasan et Arif. Acceptability of speech and silent speech input methods in private and public. CHI 2021.",
+    "jama": "Mass General Brigham et STAT, avril 2026, sur l’étude du JAMA consacrée aux scribes IA ambiants dans cinq centres hospitalo-universitaires.",
+    "nejmai": "Essai randomisé de scribes IA ambiants à l’UCLA. NEJM AI, 2025, n = 238.",
+    "ama": "American Medical Association, 2025 : scribes IA ambiants et épuisement professionnel des médecins, n = 263.",
+    "notes": "Taylor et al. Quality of clinical notes created by ambient listening generative AI. JMIR Medical Informatics, 2026, 356 notes relues par des médecins. PubMed 41996389."
+  }
+}
