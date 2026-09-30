@@ -9,6 +9,8 @@
     magick /tmp/c.png -quality 88 images/research/population.jpg
     rsvg-convert -w 1600 -h 560 research/population/src/cover-page.svg -o /tmp/p.png
     cwebp -q 86 /tmp/p.png -o images/research/population-page.webp
+    rsvg-convert -w 800 -h 280 research/population/src/cover-page.svg -o /tmp/p8.png
+    cwebp -q 84 /tmp/p8.png -o images/research/population-page-800.webp   # телефоны, srcset
 
 Мотив (COVERS.md): восемь полос — сколько лет заняло каждое удвоение населения
 мира с 5000 года до н. э., от 1 652 до 37, — и шар из золотых точек, по точке на

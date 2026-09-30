@@ -1,10 +1,18 @@
 /* Население мира, −10 000 … 2023. Всё, что видно, считается из одного вшитого
-   датасета (src/data.json, см. data.py); страница не делает ни одного запроса.
-   Слова, которые рисует скрипт, — из каталога строк (T); числа и годы
-   форматирует Intl по языку страницы. */
+   датасета (src/data.json, см. data.py). build.py кладёт его в общий для всех
+   языков data.js, который грузится с defer и кэшируется; кроме него страница
+   ничего не запрашивает. Слова, которые рисует скрипт, — из каталога строк (T);
+   числа и годы форматирует Intl по языку страницы.
+   Запуск — после первой отрисовки: сначала читатель видит текст, потом глобусы. */
 (function () {
   'use strict';
-  var POP = {{data}};
+  function start() { requestAnimationFrame(function () { setTimeout(boot, 0); }); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
+
+  function boot() {
+  var POP = window.POP_DATA;
+  /* данные не пришли — показываем страницу как без скриптов, а не пустые сцены */
+  if (!POP) { document.documentElement.classList.remove('js'); return; }
   var T = {{i18n}};
   var P = POP, Y = P.years, N = Y.length, END = 2023, PRESENT = 2030, D2R = Math.PI / 180;
   var root = document.documentElement;
@@ -32,6 +40,8 @@
   var NF_LONG = nf({ notation: 'compact', compactDisplay: 'long', maximumSignificantDigits: 3 });
   var NF_SHORT = nf({ notation: 'compact', compactDisplay: 'short', maximumSignificantDigits: 3 });
   var NF_INT = nf({ maximumFractionDigits: 0 });
+  /* знак процента и пробел перед ним — по правилам языка: 12.3%, 12,3 %, %12,3 */
+  var NF_PCT = [null, 1, 2].map(function (d) { return d && nf({ style: 'percent', minimumFractionDigits: d, maximumFractionDigits: d }); });
   var NF_Y = nf({ maximumFractionDigits: 0, useGrouping: false });
   function tpl(s, o) { return String(s).replace(/\{(\w+)\}/g, function (m, k) { return o[k] != null ? o[k] : m; }); }
   function fmtPop(v) { return NF_LONG.format(v); }
@@ -480,7 +490,7 @@
 
     /* паспорт */
     var chart = sec.querySelector('canvas.chart'), g2 = chart.getContext('2d');
-    var AUTH = { PRB: 'PRB (Haub 1995)', UN: 'UN (1999)', Maddison: 'Maddison (2010)', HYDE: 'HYDE 3.1 (2010)', Biraben: 'Biraben (1980)',
+    var AUTH = { PRB: 'PRB', UN: 'UN (1999)', Maddison: 'Maddison (2010)', HYDE: 'HYDE 3.1 (2010)', Biraben: 'Biraben (1980)',
                  McEvedy: 'McEvedy & Jones (1978)', Thomlinson: 'Thomlinson (1975)', Durand: 'Durand (1974)', Clark: 'Clark (1967)' };
     var EST = P.est.map(function (r) {
       var lo = Infinity, hi = 0, n = 0;
@@ -628,7 +638,7 @@
       $('cname').textContent = NAME[cur];
       $('year').textContent = fmtYear(y) + ' · ' + sourceAt(y).name;
       $('cpop').textContent = fmtPop(v);
-      $('cshare').textContent = fmtDec(v / w * 100, v / w < 0.01 ? 2 : 1) + '%';
+      $('cshare').textContent = NF_PCT[v / w < 0.01 ? 2 : 1].format(v / w);
       var rank = 1; CODES.forEach(function (c) { if (c !== cur && popAt(c, y) > v) rank++; });
       $('crank').textContent = tpl(T.rank, { n: rank });
       var v0 = popAt(cur, sp[0]); $('cgrow').textContent = '×' + fmtDec(v / v0, v / v0 < 10 ? 1 : 0);
@@ -721,11 +731,19 @@
       if (e.key === 'ArrowLeft') { e.preventDefault(); showBig(open - 1); }
       if (e.key === 'ArrowRight') { e.preventDefault(); showBig(open + 1); }
     });
-    return function () {
+    /* девять карт — самая дорогая отрисовка на странице; до них ещё листать,
+       поэтому рисуем, только когда раскадровка подошла к экрану */
+    var near = false;
+    function draw() {
+      if (!near) return;
       var p = palette(box);
       YEARS.forEach(function (y, i) { paint(cvs[i], y, p, false); });
       if (lb.open) showBig(open);
-    };
+    }
+    new IntersectionObserver(function (es, ob) {
+      if (es.some(function (e) { return e.isIntersecting; })) { near = true; ob.disconnect(); draw(); }
+    }, { rootMargin: '600px 0px' }).observe(box);
+    return draw;
   })();
 
   /* ── переключатели ─────────────────────────────────────────────── */
@@ -758,4 +776,5 @@
   var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(drawFrames, 150); });
   drawLegend(); drawFrames();
   requestAnimationFrame(loop);
+  }
 })();

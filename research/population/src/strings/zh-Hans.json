@@ -6,7 +6,7 @@
   "htmlTitle": "八十亿人，一次翻一倍",
   "metaDescription": "从公元前 10,000 年到 2023 年的世界人口，放在一个可以转动的地球上：每一次翻倍在屏幕上占用同样的时间，每一个数字都注明出处。",
   "ogDescription": "人类的一次翻倍曾历时 1,442 年，后来的一次只用了 37 年。在地球上滚动走过 12,000 年，选一个国家，看看每个数字从何而来。",
-  "imageAlt": "八根横条，分别对应公元前 5000 年以来世界人口的每一次翻倍，长度从 1,652 年一路缩短到 37 年；旁边是一个由金色圆点组成的地球",
+  "imageAlt": "八根横条，分别对应公元前 5000 年以来世界人口的每一次翻倍，长度大体上从 1,652 年缩短到 37 年；旁边是一个由金色圆点组成的地球",
   "title": "八十亿人，一次翻一倍",
   "ldDescription": "一部可交互的世界人口史，从公元前 10,000 年到 2023 年：地球上每个圆点代表一百万人，也可以按人口密度给各国着色；一种让每次翻倍占用相同时长的播放节奏；各家独立历史估算的范围；以及每个国家与全世界的对比。",
   "ldDatasetName": "各国人口，公元前 10,000 年至 2023 年，附独立历史估算",
@@ -21,7 +21,7 @@
       "shareTitle": "复制一个链接，打开它就能回到现在这套设置",
       "share": "分享这套设置",
       "sub": "从公元前 560 年到公元 882 年，地球上的人口翻了一倍，历时 1,442 年。从 1948 年到 1985 年，人口再翻一倍，只用了 37 年。<b>先往下滚动，看它怎样发生，再亲手操作</b>：选一种视图、一个起点和一个国家，页面上的每个数字都会告诉你它从何而来。",
-      "meta": "数据：HYDE（2023）；Gapminder（2022）；UN WPP（2024），由 <a href=\"https://ourworldindata.org/grapher/population\" target=\"_blank\" rel=\"noopener\">Our World in Data</a> 大幅加工 · 其他估算：<a href=\"https://www.census.gov/data/tables/time-series/demo/international-programs/historical-est-worldpop.html\" target=\"_blank\" rel=\"noopener\">美国人口普查局汇编</a>"
+      "meta": "数据：HYDE（2023）；Gapminder（2022）；UN WPP（2024），由 <a href=\"https://ourworldindata.org/grapher/population\" target=\"_blank\" rel=\"noopener\">Our World in Data</a> 大幅加工 · 其他估算：<a href=\"https://en.wikipedia.org/wiki/Estimates_of_historical_world_population\" target=\"_blank\" rel=\"noopener\">维基百科的汇编</a>，已与<a href=\"https://www.census.gov/data/tables/time-series/demo/international-programs/historical-est-worldpop.html\" target=\"_blank\" rel=\"noopener\">美国人口普查局的表格</a>核对"
     },
     "scroll": {
       "h2": "一次滚动，看完全部历史",
@@ -76,25 +76,25 @@
     },
     "weak": {
       "h2": "哪些数字靠不太住",
-      "p1": "<b>1950 年以前的每个数字都是重建出来的。</b>世界上大部分地方那时没有人口普查。历史学家从税收记录、耕地、城市规模，以及每公顷土地能养活多少人往回推算。对公元 1 年，已发表的估算从约 1.7 亿到 4 亿不等，其中大多数落在 1.7 亿到 3.3 亿之间。",
-      "p2": "1700 年以前，这条序列每个世纪只有一个数字；公元 1 年以前，每一千年才有一个。两个数字之间，页面假定人口稳定增长，所以<b>比间隔更短的瘟疫和战争显示不出来</b>。黑死病却看得出来，因为它让 1400 年的世界人口比 1300 年还少。",
-      "p3": "圆点只说明一个国家住了多少人，不说明他们住在国内哪里：<b>西伯利亚每平方公里分到的圆点和莫斯科一样多</b>。本页涵盖数据序列能一直追溯到公元前 10,000 年的 165 个国家；没有纳入的国家，如今合计约有 7500 万人。",
+      "p1": "<b>1950 年以前的每个数字都是重建出来的。</b>世界上大部分地方那时没有人口普查。历史学家从税收记录、耕地、城市规模，以及每公顷土地能养活多少人往回推算。对公元 1 年，本页展示的九个估算从 1.7 亿到 3.3 亿不等，美国人口普查局的汇总则最高到 4 亿。",
+      "p2": "1700 年以前，这条序列每个世纪只有一个数字；公元 1 年以前，每一千年才有一个。两个数字之间，页面假定人口稳定增长，所以<b>比间隔更短的瘟疫和战争显示不出来</b>。黑死病却看得出来，因为它让 1400 年的世界人口比 1300 年还少。\n\n在数据来源切换的 1800 年和 1950 年，一个国家的曲线可能会跳变：1790 年到 1800 年，埃塞俄比亚从 280 万跳到 1200 万；1940 年到 1950 年，印度从 3.74 亿降到 3.46 亿。<b>这是方法变了，不是发生了什么事件。</b>1700 年以前，国别数据更粗：印度从公元 1 年到 1600 年一直是直线增长。",
+      "p3": "圆点只说明一个国家住了多少人，不说明他们住在国内哪里：<b>西伯利亚每平方公里分到的圆点和莫斯科一样多</b>。本页涵盖数据序列能一直追溯到公元前 10,000 年的 165 个国家；其余国家，包括爱尔兰、塞尔维亚和海地，如今合计约有 7500 万人，在地球上留作空白。",
       "srcH": "资料来源",
       "s1": "<a href=\"https://ourworldindata.org/grapher/population\" target=\"_blank\" rel=\"noopener\">Our World in Data, Population</a>——每一个地球和图表所用的数据序列。",
       "s2": "Kees Klein Goldewijk，<a href=\"https://doi.org/10.24416/UU01-AEZZIT\" target=\"_blank\" rel=\"noopener\">HYDE 3.3, History Database of the Global Environment</a>，乌得勒支大学，2023——用于 1800 年以前。",
-      "s3": "<a href=\"http://gapm.io/dpop\" target=\"_blank\" rel=\"noopener\">Gapminder, Population v7</a>，2022——用于 1800 年至 1949 年。",
+      "s3": "<a href=\"http://gapm.io/dpop\" target=\"_blank\" rel=\"noopener\">Gapminder, Population v7</a>，2022——用于 1800 年至 1949 年；该链接现在指向 v8 的说明文档。",
       "s4": "<a href=\"https://population.un.org/wpp/\" target=\"_blank\" rel=\"noopener\">联合国，World Population Prospects 2024</a>——用于 1950 年以后。",
-      "s5": "<a href=\"https://www.census.gov/data/tables/time-series/demo/international-programs/historical-est-worldpop.html\" target=\"_blank\" rel=\"noopener\">美国人口普查局，Historical Estimates of World Population</a>，以及维基百科上的同一张表——构成其他估算的区间带。",
-      "s6": "国家轮廓：Natural Earth，1:1.1 亿比例尺，公有领域。许可协议：HYDE、Gapminder 和 Our World in Data 为 CC BY 4.0；UN World Population Prospects 为 CC BY 3.0 IGO。"
+      "s5": "<a href=\"https://en.wikipedia.org/wiki/Estimates_of_historical_world_population\" target=\"_blank\" rel=\"noopener\">维基百科，Estimates of historical world population</a>，“Before 1950”表——构成其他估算的区间带，已与<a href=\"https://www.census.gov/data/tables/time-series/demo/international-programs/historical-est-worldpop.html\" target=\"_blank\" rel=\"noopener\">美国人口普查局，Historical Estimates of World Population</a> 核对；其中公元 1 年、1500 年和 1700 年这几行按该表做了更正。",
+      "s6": "国家轮廓：Natural Earth，1:1.1 亿比例尺，公有领域。国家面积和中心点：<a href=\"https://github.com/mledoze/countries\" target=\"_blank\" rel=\"noopener\">mledoze/countries</a>，ODbL。许可协议：HYDE、Gapminder 和 Our World in Data 为 CC BY 4.0；UN World Population Prospects 为 CC BY 3.0 IGO；维基百科为 CC BY-SA 4.0。"
     },
     "tldr": {
       "sub": "从公元前 560 年到公元 882 年，地球上的人口翻了一倍，历时 1,442 年。从 1948 年到 1985 年，人口再翻一倍，只用了 37 年。",
       "b1": "1805 年前后达到 10 亿，1926 年达到 20 亿，2022 年达到 80 亿。",
       "b2": "黑死病：到 1400 年，世界人口比 1300 年还少。",
       "b3": "有史以来最快的增长：20 世纪 60 年代年增长率超过 2%，此后大约每 12 年就多出 10 亿人。",
-      "b4": "<b>1950 年以前的每个数字都是重建出来的。</b>对公元 1 年，已发表的估算从约 1.7 亿到 4 亿不等。",
+      "b4": "<b>1950 年以前的每个数字都是重建出来的。</b>对公元 1 年，已发表的估算大约在 1.7 亿到 3.3 亿之间，有一个高达 4 亿。",
       "b5": "<b>国界一律按今天的算</b>，圆点随机撒在国界之内。",
-      "src": "数据：Our World in Data，基于 HYDE 3.3、Gapminder 和 UN World Population Prospects 2024；其他估算：美国人口普查局汇编。",
+      "src": "数据：Our World in Data，基于 HYDE 3.3、Gapminder 和 UN World Population Prospects 2024；其他估算：维基百科的汇编，已与美国人口普查局的表格核对。",
       "full": "完整的交互式页面："
     },
     "ui": {
@@ -136,10 +136,10 @@
     "kindGap": "汇编估算",
     "kindUn": "基于人口普查的估算",
     "citeHyde": "Kees Klein Goldewijk，History Database of the Global Environment 3.3，乌得勒支大学（2023）——经 Our World in Data",
-    "citeGap": "Gapminder，Population v7（2022），基于 Maddison、HYDE 和各国人口普查——经 Our World in Data",
+    "citeGap": "Gapminder，Population v7（2022），主要基于经 Clio Infra 修订的 Maddison 估算——经 Our World in Data",
     "citeUn": "联合国，World Population Prospects 2024——经 Our World in Data",
     "exact": "已发表的数据点（{y}）。",
-    "between": "位于两个数据点之间：{a}（{av}）和 {b}（{bv}）。页面假定人口稳定增长，以此填补空缺。",
+    "between": "位于本页保存的两个数据点之间：{a}（{av}）和 {b}（{bv}）。页面假定人口稳定增长，以此填补空缺。",
     "estFor": "其他估算（{y}）",
     "estNone": "其他估算",
     "spread": "从 <b>{lo}</b> 到 <b>{hi}</b>：最高值是最低值的 {x} 倍。橙色标记是本页采用的数字。",
@@ -168,14 +168,14 @@
     "copied": "链接已复制",
     "copyManual": "请复制地址栏中的链接",
     "caps": [
-      "农业开始扩散。整个地球上大约有 1900 万人。",
+      "农业开始扩散。整个地球上的人口，还不如今天一个中等国家多。",
       "到公元前 3200 年，美索不达米亚和埃及出现了最早的城市和最早的文字。",
       "公元 1 年前后：大约 2.3 亿人，比今天印度尼西亚的人口还少。",
       "到公元 1000 年，约有 3.2 亿人。增长很慢，一次歉收或一场瘟疫就可能抹掉一个世纪的积累。",
       "黑死病。到 1400 年，世界人口比 1300 年还少。",
       "增长缓缓恢复：到 1500 年达到 5 亿。",
       "1805 年前后达到 10 亿。走到这一步，用去了人类的全部历史。",
-      "1926 年达到 20 亿：第二个 10 亿用了 121 年。",
+      "1926 年达到 20 亿：第二个 10 亿用了大约 120 年。",
       "有史以来最快的增长：20 世纪 60 年代年增长率超过 2%，此后大约每 12 年就多出 10 亿人。",
       "增长正在放缓，但基数已经非常庞大：2022 年达到 80 亿。"
     ],

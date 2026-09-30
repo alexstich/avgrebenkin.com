@@ -17,7 +17,7 @@
 делает ни одного запроса. Числа и годы в скрипте форматирует Intl по языку
 страницы, поэтому каталог задаёт только слова вокруг них.
 """
-import html, json, os, re, sys
+import hashlib, html, json, os, re, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..', '..'))
@@ -113,13 +113,11 @@ def build(code, langs):
     tmpl = open(os.path.join(HERE, 'page.tmpl'), encoding='utf-8').read()
     css = open(os.path.join(HERE, 'page.css'), encoding='utf-8').read().rstrip('\n')
     js = open(os.path.join(HERE, 'page.js'), encoding='utf-8').read().rstrip('\n')
-    data = open(os.path.join(HERE, 'data.json'), encoding='utf-8').read().strip()
 
     js = re.sub(r'\{\{js:(\w+)\}\}', lambda m: json.dumps(L[m.group(1)], ensure_ascii=False), js)
     # Слова, которые рисует сам скрипт: подписи, подсказки, паспорт цифры.
     js = js.replace('{{i18n}}', json.dumps(L['js'], ensure_ascii=False, separators=(',', ':')))
-    js = js.replace('{{data}}', data)
-    # </script> внутри строки данных закрыл бы тег раньше времени
+    # </script> внутри строки закрыл бы тег раньше времени
     js = js.replace('</script', '<\\/script')
 
     url = SITE + path_for(code)
@@ -154,6 +152,7 @@ def build(code, langs):
     fields.update({
         'css': css, 'js': js,
         'up': '../' if code == DEFAULT else '../../',
+        'dataver': DATAVER,
         'canonical': url,
         'hreflang': render_hreflang(langs),
         'ogLocaleAlt': render_og_alt(code, langs),
@@ -186,6 +185,23 @@ def build(code, langs):
     return os.path.join(d, 'index.html'), len(out)
 
 
+DATAVER = ''
+
+
+def write_data():
+    """Данные — один файл на все 13 языков: браузер скачивает его один раз и
+    держит в кэше, а HTML каждой страницы остаётся лёгким и рисуется сразу.
+    Версия в адресе — хэш содержимого, так что новый выпуск данных не
+    застрянет в кэше."""
+    global DATAVER
+    data = json.load(open(os.path.join(HERE, 'data.json'), encoding='utf-8'))
+    body = 'window.POP_DATA=%s;\n' % json.dumps(data, ensure_ascii=False, separators=(',', ':'))
+    DATAVER = hashlib.md5(body.encode('utf-8')).hexdigest()[:8]
+    out = os.path.join(ROOT, 'research', 'population', 'data.js')
+    open(out, 'w', encoding='utf-8').write(body)
+    print('%-8s %-42s %7d байт' % ('data', os.path.relpath(out, ROOT), len(body.encode('utf-8'))))
+
+
 def main():
     avail = sorted(f[:-5] for f in os.listdir(os.path.join(HERE, 'strings')) if f.endswith('.json'))
     unknown = [c for c in avail if c not in ORDER]
@@ -194,6 +210,7 @@ def main():
     want = sys.argv[1:] or [c for c in ORDER if c in avail]
     langs = {c: json.load(open(os.path.join(HERE, 'strings', c + '.json'), encoding='utf-8')) for c in avail}
     os.chdir(ROOT)
+    write_data()
     for c in want:
         p, n = build(c, langs)
         print('%-8s %-42s %7d байт' % (c, os.path.relpath(p, ROOT), n))
