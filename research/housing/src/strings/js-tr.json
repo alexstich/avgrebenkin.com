@@ -104,7 +104,7 @@
   },
   "presets": [
     {
-      "name": "Çalışmanın kendi bakışı",
+      "name": "Çalışmanın varsayımları",
       "desc": "yerel ortalama gelir, 30 yıl, peşinatsız"
     },
     {
@@ -130,11 +130,11 @@
   ],
   "setup": {
     "hhHint": "Eşdeğerlik katsayısı {factor}: OECD ölçeği ilk yetişkini 1, her ek yetişkini 0,5, her çocuğu 0,3 sayar. Yalnızca gelirinizi yerel ortalamayla karşılaştıran satırda kullanılır; bu ortalama Avrupa’da yetişkin eşdeğeri başına, ABD’de hane başınadır.",
-    "wantNoArea": "ABD verilerinde taban alanı yok",
+    "wantNoArea": "ABD verilerinde konut alanı yok",
     "wantAny": "fark etmez",
     "mineDisabled": "Gelirinizi yukarıya girin",
-    "incHint": "Vergi sonrası, hanedeki herkesinki birlikte. Boş bırakırsanız her yer kendi ortalama geliriyle gösterilir; yazarsanız haritalar, kartlar ve sıralamalar sizin paranıza geçer.",
-    "incHintFx": "Vergi sonrası, hanedeki herkesinki birlikte. ECB’nin {date} tarihli referans kuruyla {amount} = {eur}.",
+    "incHint": "Vergi sonrası, hanedeki herkesin geliri toplamı. Boş bırakırsanız her yer, orada yaşayanların ortalama geliriyle hesaplanır; yazarsanız haritalar, kartlar ve sıralamalar sizin paranıza göre değişir.",
+    "incHintFx": "Vergi sonrası, hanedeki herkesin geliri toplamı. ECB’nin {date} tarihli referans kuruyla {amount} = {eur}.",
     "rateAll": "her yerde {rate}",
     "rateOwn": "her ülkenin kendi faizi",
     "adults": {
@@ -163,7 +163,7 @@
       "rent": "kiralanabilen m²",
       "diff": "kira eksi satın alma, m²",
       "years": "kaç yıllık gelir",
-      "share": "kira, gelire oranı %"
+      "share": "kiranın gelire oranı, %"
     },
     "text": {
       "buy": "satın alınabilen metrekare",
@@ -172,19 +172,19 @@
       "years": "kaç yıllık gelir: {basket}",
       "share": "kiranın gelire oranı: {basket}"
     },
-    "noAreaTitle": "ABD’de {units} için taban alanı yayımlanmıyor — bkz. “Rakamlar nereden geliyor”",
+    "noAreaTitle": "ABD’de {units} için konut alanı yayımlanmıyor — bkz. “Rakamlar nereden geliyor”",
     "hint": {
-      "buy": "Gelirden konuta ayrılan {share} pay, yerel faizle {term} yıllık bir konut kredisiyle yerel metrekare fiyatından kaç metrekare satın alıyor. Yeşil çok yer, kırmızı az yer demek.",
-      "rent": "Gelirden konuta ayrılan {share} pay, yerel metrekare kirasıyla kaç metrekare kiralıyor. Yeşil çok yer, kırmızı az yer demek.",
-      "diff": "Kiralanabilen metrekare eksi satın alınabilen metrekare, ikisi de gelirden ayrılan {share} payla: burada hangisi size daha çok yer veriyor. Hangi rengin hangi tarafı gösterdiğini harita açıklaması söylüyor.",
-      "years": "Hiç kredi olmadan, peşin alındığında {basket} bütün gelirin kaç yılına mal oluyor. Az olan iyi; bu yüzden burada yeşil az yıl, kırmızı çok yıl demek — bu ölçek metrekare ölçeğinin tersine işliyor.",
-      "share": "Kira bir aylık gelirin ne kadarını götürüyor: {basket} için. Küçük olan iyi; bu yüzden yeşil küçük pay, kırmızı büyük pay demek."
+      "buy": "Gelirden konuta ayrılan {share} payla, yerel faizle {term} yıllık konut kredisi çekilirse yerel fiyatlardan kaç metrekare alınabilir? Yeşil çok yer, kırmızı az yer demek.",
+      "rent": "Gelirden konuta ayrılan {share} payla yerel kiralardan kaç metrekare kiralanabilir? Yeşil çok yer, kırmızı az yer demek.",
+      "diff": "Kiralanabilen metrekareden satın alınabilen metrekare çıkarılıyor; ikisi de gelirden ayrılan {share} payla hesaplanıyor. Yani burada hangisi size daha çok yer sağlıyor: kiralamak mı, satın almak mı? Hangi rengin hangi taraf lehine olduğu harita açıklamasında yazıyor.",
+      "years": "Hiç kredi çekmeden, peşin alınsa {basket} bütün gelirin kaç yılına mal olur? Az olan iyi; bu yüzden burada yeşil az yıl, kırmızı çok yıl demek — bu ölçek metrekare ölçeğinin tersine işliyor.",
+      "share": "Kira, aylık gelirin ne kadarını götürüyor ({basket} için)? Küçük olan iyi; bu yüzden yeşil küçük pay, kırmızı büyük pay demek."
     }
   },
   "hints": {
     "frame": {
       "eu": "{countries} ülkede {n} belediye, ESPON HOUSE4ALL tablosundan: metrekare başına ilan fiyatları, yetişkin eşdeğeri başına vergi sonrası gelir karşısında.",
-      "na": "American Community Survey’den {n} kontluk: ev sahiplerinin konut değerleri ve kiralar, vergi öncesi hane geliri karşısında. Avrupa’nınkinden farklı bir ölçüm; bu yüzden iki harita hiçbir zaman tek ölçek paylaşmıyor."
+      "na": "American Community Survey’den {n} kontluk: ev sahiplerinin biçtiği konut değerleri ve kiralar, vergi öncesi hane geliri karşısında. Avrupa’dakinden farklı bir ölçüm; bu yüzden iki harita hiçbir zaman aynı ölçekle gösterilmiyor."
     },
     "basis": {
       "local": "Her yer kendi ortalama geliriyle renklendiriliyor: harita, yerel halkın orada yaşamaya gücünün yetip yetmediğini yanıtlıyor.",
@@ -198,7 +198,7 @@
     "rank": {
       "countries": "Her ülke, yerlerinin nüfusa göre ağırlıklı ortalaması; bu yüzden büyük ve pahalı bir başkent ülkesini sıralamada aşağı çeker.",
       "cities": "{min} ve üzeri nüfuslu tek tek yerler, her biri kendi rakamlarıyla.",
-      "regs": "Bölge düğmeleri haritanın yalnızca bazı bölümlerini tutar; birkaçı aynı anda açık olabilir.",
+      "regs": "Bölge düğmeleriyle haritanın yalnızca bazı bölümlerini gösterebilirsiniz; aynı anda birkaçını seçmek mümkün.",
       "sort": "Sıralamak için bir sütun başlığına tıklayın."
     }
   },
@@ -211,11 +211,11 @@
       "150 m²’den fazla"
     ],
     "diff": [
-      "satın alma 20 m²’den fazla veriyor",
-      "satın alma 5–20 m² fazla",
-      "fark 5 m² içinde",
-      "kira 5–20 m² fazla",
-      "kira 20 m²’den fazla veriyor"
+      "satın alma lehine 20 m²’den fazla",
+      "satın alma lehine 5–20 m²",
+      "fark 5 m²’den az",
+      "kiralama lehine 5–20 m²",
+      "kiralama lehine 20 m²’den fazla"
     ],
     "years": [
       "3 yıldan az",
@@ -255,11 +255,11 @@
     "none": "Eşleşme yok. Yerel yazılışı deneyin: Wien, Praha, København."
   },
   "move": {
-    "empty": "Yanıtı görmek için iki yeri de seçin. Sayfadaki diğer her şey zaten uygulanıyor: vadeniz, peşinatınız ve gelirinizden ayırmaya razı olduğunuz pay.",
+    "empty": "Yanıtı görmek için iki yeri de seçin. Sayfadaki diğer ayarlarınız zaten hesaba katılıyor: vadeniz, peşinatınız ve gelirinizden konuta ayırmaya razı olduğunuz pay.",
     "noIncome": "{place} için kayıtlı gelir yok. Yukarıya kendi gelirinizi girin ve “Benim gelirim” seçeneğine geçin.",
     "rentSame": "aynı alanı kiralamak için",
     "rentShare": "kirayı gelirin aynı payında tutmak için",
-    "rentDetailSame": "Şu an yaşadığınız yerdeki {m2} için orada ayda {money} gelir gerekiyor",
+    "rentDetailSame": "Şu an yaşadığınız yerdekiyle aynı {m2} için orada ayda {money} gelir gerekiyor",
     "rentDetail": "Şu an: {home}, ayda {moneyHome}; orada: {there}, ayda {moneyThere}",
     "noRent": "{place} için kayıtlı kira yok, bu yüzden kiralama karşılaştırılamıyor.",
     "buySame": "aynı alanı satın almak için",
@@ -267,7 +267,7 @@
     "buyDetailSame": "Şu an satın alabildiğiniz {m2}; {term} kredi, faiz orada {rateThere}, şu an yaşadığınız yerde {rateHome}",
     "buyDetail": "Şu an: {home}; orada: {there}; {term} kredi, faiz orada {rateThere}, şu an yaşadığınız yerde {rateHome}",
     "noBuy": "İki yerden birinde fiyat ya da kredi faizi yok, bu yüzden satın alma karşılaştırılamıyor.",
-    "layers": "İki katman aynı birimle ölçülmüyor: Avrupa’da metrekare fiyatı var, ABD ise taban alanı yayımlamıyor; bu yüzden karşılaştırma alanı değil, gelirden ayrılan payı sabit tutuyor. Dolayısıyla farkın bir kısmı fiyattan değil büyüklükten geliyor — Amerikan sepeti bütün bir konut ve onun ne kadar büyük olduğu tam da verilerin söylemediği şey.",
+    "layers": "Avrupa ile ABD aynı birimle ölçülmüyor: Avrupa’da metrekare fiyatı var, ABD ise konut alanı yayımlamıyor; bu yüzden karşılaştırmada alan değil, gelirden ayrılan pay sabit tutuluyor. Dolayısıyla farkın bir kısmı fiyattan değil, büyüklükten kaynaklanıyor: ABD’de karşılaştırma bütün bir medyan konut üzerinden yapılıyor ve o konutun ne kadar büyük olduğu, tam da verilerin söylemediği şey.",
     "medianHome": "medyan konut",
     "medianRental": "medyan kiralık konut",
     "head": "Taşınma: <b>{from}</b> → <b>{to}</b>, ayda net {income} gelirle",
@@ -298,7 +298,7 @@
   },
   "card": {
     "label": "Seçilen yer",
-    "empty": "Yukarıdan bir kasaba arayın ya da haritada bir ülkeye tıklayın. Kart, gelirin üçte birinin sizin koşullarınızla orada ne kadar yer aldığını ve istediğiniz büyüklük için ne kadar gelir gerektiğini gösterir.",
+    "empty": "Yukarıdan bir şehir arayın ya da haritada bir ülkeye tıklayın. Kart, sizin koşullarınızda gelirin üçte birinin orada kaç metrekareye yettiğini ve istediğiniz büyüklük için ne kadar gelir gerektiğini gösterir.",
     "coastal": "{deg}, kıyıda",
     "coverage": "nüfusun {pct} kadarı için satış verisi var",
     "countryKind": "ülke",
@@ -315,9 +315,9 @@
     "bigRent": "kiralanabilen m²",
     "yourBudget": "Konut bütçeniz",
     "thirdLocal": "Yerel gelirin üçte biri",
-    "loan": "Bütçenin taşıdığı kredi",
+    "loan": "Bu bütçeyle ödenebilecek kredi",
     "plusDeposit": "Artı {pct} peşinat",
-    "homePrice": "Ulaşılan konut fiyatı",
+    "homePrice": "Alınabilecek konutun fiyatı",
     "medianValue": "Medyan konut değeri, ev sahibinin tahmini",
     "medianRent": "Medyan kira, faturalar dahil",
     "pricePerM2": "m² fiyatı",
@@ -363,7 +363,7 @@
       "sameLocal": "Herkes için aynı koşullar (yerel gelir)",
       "study": "Çalışmanın kendi rakamları",
       "market": "Piyasa{conv}",
-      "both": "İki katman · Avrupa’da sepet {m2}, ABD’de medyan konut — ABD kontlukları için taban alanı yayımlanmıyor{conv}",
+      "both": "İki katman · Avrupa’da {m2} üzerinden, ABD’de medyan konut üzerinden ölçülüyor; ABD’de konut alanı yayımlanmıyor{conv}",
       "euOnly": "Yalnızca Avrupa · bunlar için metrekare fiyatı gerekiyor",
       "usOnly": "Yalnızca ABD · bunlar için bütün konutun medyanı gerekiyor"
     },
@@ -452,7 +452,7 @@
       "sınıflandırılmamış"
     ],
     "tip": "{kind}: nüfusun {pct} kadarı ({m} milyon)",
-    "axis": "yerel ortalama gelirin üçte biriyle ulaşılabilen metrekare"
+    "axis": "yerel ortalama gelirin üçte biriyle alınabilen metrekare"
   },
   "latam": {
     "legendPrice": "m² fiyatı, ABD doları",
@@ -466,13 +466,13 @@
     "setupRent": "Ayda <b>{income}</b>, ECB kuruyla ABD dolarına çevrilmiş · kira payı <b>{share}</b> = ayda <b>{budget}</b>",
     "rateMine": "iki şehirde de sizin <b>{rate}</b> faiziniz",
     "noRent": "Bu katmanda Buenos Aires için kira yok, yalnızca satılık konutların ilan fiyatları var.",
-    "noRate": "Katmanda iki şehrin hiçbiri için konut kredisi faizi yok ve başka bir yerden de ödünç alınmıyor. Ne satın alabileceğinizi görmek için yukarıdaki hesaplayıcıya bir faiz yazın.",
+    "noRate": "Katmanda iki şehrin hiçbiri için konut kredisi faizi yok ve başka bir kaynaktan da faiz eklenmiyor. Ne satın alabileceğinizi görmek için yukarıdaki hesaplayıcıya bir faiz yazın.",
     "rentHow": "Kira türetilmiş: ilçenin fiyatı, merkez bankasının fiyat/kira oranına bölünüyor.",
-    "notInLayer": "katmanda yok",
+    "notInLayer": "veri yok",
     "gapsLine": "{all} barrio’dan {n} tanesinin bu dilimde fiyatı yok ve gri kalıyor: {names}.",
     "gap": {
       "none": "2026’nın ikinci çeyreğinde satışa çıkan daire çok azdı: enstitü bir barrio’yu yalnızca ilan sayısı belirli bir eşiğin üstündeyse yayımlıyor",
-      "lima": "Katmanda yok: merkez bankası {n} ilçe yayımlıyor"
+      "lima": "Veri yok: merkez bankası yalnızca {n} ilçe yayımlıyor"
     },
     "tip": {
       "price": "Fiyat",
@@ -499,8 +499,8 @@
     "sourceEu": "Sielker & Banabak 2026, Journal of Maps; ESPON HOUSE4ALL feature service, 14.09.2026; sınırlar Natural Earth, kamu malı",
     "sourceNa": "US Census Bureau, American Community Survey 2020-2024 (kamu malı); Freddie Mac PMMS 2024; sınırlar Natural Earth, kamu malı",
     "csvLine": "{label}: {text}",
-    "mapCaptionMine": "{mode}, ayda net {income} gelirle, ülke ve kasabaya göre",
-    "mapCaptionLocal": "{mode}, yerel ortalama gelirle, ülke ve kasabaya göre",
+    "mapCaptionMine": "{mode}, ayda net {income} gelirle, ülke ve yerleşim yeri bazında",
+    "mapCaptionLocal": "{mode}, yerel ortalama gelirle, ülke ve yerleşim yeri bazında",
     "sideBySide": "Yan yana: {places}",
     "pngSaved": "PNG kaydedildi",
     "pngCopied": "PNG kopyalandı",

@@ -62,8 +62,8 @@
       "units": "县",
       "reg": "州",
       "regs": "州",
-      "home": "中位数住房",
-      "rental": "中位数出租住房",
+      "home": "中位价住房",
+      "rental": "中位租金住房",
       "unitLabel": "县",
       "regLabel": "州",
       "regKind": "州",
@@ -97,7 +97,7 @@
   },
   "presets": [
     {
-      "name": "研究本身的视角",
+      "name": "研究原始设定",
       "desc": "当地平均收入，30 年，无首付"
     },
     {
@@ -109,7 +109,7 @@
       "desc": "税后 €{inc}，想要 75 m²"
     },
     {
-      "name": "远程工作者，海边",
+      "name": "远程办公，住海边",
       "desc": "税后 €{inc}，沿海城市"
     },
     {
@@ -126,7 +126,7 @@
     "wantNoArea": "美国数据没有住房面积",
     "wantAny": "不限",
     "mineDisabled": "请先在上方输入你的收入",
-    "incHint": "税后，全家所有人合计。留空，每个地方都按其自身的平均收入显示；填上，地图、卡片和排名就都改按你的钱计算。",
+    "incHint": "税后，全家人合计。留空，各地按当地居民的平均收入计算；填上，地图、卡片和排名都改用你的收入。",
     "incHintFx": "税后，全家所有人合计。{amount} = {eur}，按欧洲央行 {date} 参考汇率换算。",
     "rateAll": "各地统一 {rate}",
     "rateOwn": "各国自己的利率",
@@ -142,9 +142,9 @@
     },
     "orig": "（{amount}）",
     "mine": "每月税后 <b>{income}</b>{orig} · <b>{share}</b>用于住房 = 每月 <b>{budget}</b> · <b>{term}</b>房贷，利率：{rate} · 首付 <b>{deposit}</b> · 家庭：{household}（系数 {factor}）",
-    "local": "各地按<b>自身的平均收入</b> · <b>{share}</b>用于住房 · <b>{term}</b>房贷，利率：{rate} · 首付 <b>{deposit}</b>{tail}",
+    "local": "各地按<b>当地居民的平均收入</b> · <b>{share}</b>用于住房 · <b>{term}</b>房贷，利率：{rate} · 首付 <b>{deposit}</b>{tail}",
     "published": "——与已发表的地图完全一致",
-    "studyTerms": "——即研究的条件，套用于此",
+    "studyTerms": "——沿用研究的条件",
     "want": " · 想要 <b>{m2}</b>"
   },
   "modes": {
@@ -159,7 +159,7 @@
       "buy": "可买的平方米数",
       "rent": "可租的平方米数",
       "diff": "可租平方米数减去可买平方米数",
-      "years": "{basket}所需的收入年数",
+      "years": "买下{basket}所需的收入年数",
       "share": "{basket}的租金占收入的比例"
     },
     "noAreaTitle": "美国各{units}没有公布住房面积——见“数字从哪里来”",
@@ -167,7 +167,7 @@
       "buy": "收入的{share}，按当地利率供 {term} 年期房贷，再按当地每平方米价格，能买下多少平方米。绿色表示空间大，红色表示空间小。",
       "rent": "收入的{share}按当地每平方米租金能租下多少平方米。绿色表示空间大，红色表示空间小。",
       "diff": "可租平方米数减去可买平方米数，两者都按收入的{share}计算：在这里，租和买哪一种能换来更大的空间。图例说明每种颜色偏向哪一边。",
-      "years": "不借房贷、一次性全款买下{basket}，要花多少年的全部收入。年数越少越好，所以这里绿色表示年数少、红色表示年数多：这套色阶与平方米的方向正好相反。",
+      "years": "不借房贷、一次性全款买下{basket}，要花几年的全部收入。年数越少越好，所以这里绿色表示年数少、红色表示年数多：这套色阶与平方米的方向正好相反。",
       "share": "以{basket}计，租金要占去一个月收入的多大部分。占比越小越好，所以绿色表示占比小，红色表示占比大。"
     }
   },
@@ -183,12 +183,12 @@
     },
     "read": {
       "base": "每个圆点是一个地方，大小按人口；每个国家按其全国数字着色。悬停或点按可看到数字。灰色表示无数据。",
-      "dimmed": "灰色也标出够不着 {m2} 的地方。"
+      "dimmed": "负担不起 {m2} 的地方也显示为灰色。"
     },
     "rank": {
-      "countries": "每个国家是其所辖各地按人口加权的平均值，所以一个又大又贵的首都会把整个国家在排名中往下拉。",
+      "countries": "国家的数字是境内各地按人口加权的平均值，所以一个又大又贵的首都会把整个国家的排名往下拉。",
       "cities": "人口 {min} 及以上的单个地方，各按自身的数字。",
-      "regs": "地区按钮只保留地图的部分区域；可以同时打开多个。",
+      "regs": "地区按钮可以只看地图的某几部分，能同时选多个。",
       "sort": "点击列标题即可按该列排序。"
     }
   },
@@ -229,14 +229,14 @@
     "aria": "{label}地图：国家整体着色，{units}以圆点标出，颜色表示{mode}"
   },
   "tip": {
-    "yearsFor": "{basket}所需收入年数",
+    "yearsFor": "买下{basket}所需收入年数",
     "rentOf": "{basket}的租金",
     "buy": "可买",
     "rent": "可租",
     "price": "价格",
     "rentp": "租金",
     "noListings": "无房源数据",
-    "medianHome": "中位数住房",
+    "medianHome": "中位价住房",
     "medianRent": "租金中位数",
     "income": "收入"
   },
@@ -257,44 +257,44 @@
     "buyDetailSame": "原居住地的 {m2}；{term}房贷，那里利率 {rateThere}，原居住地 {rateHome}",
     "buyDetail": "{home}（原居住地）对比{there}（那里）；{term}房贷，那里利率 {rateThere}，原居住地 {rateHome}",
     "noBuy": "两地之一没有价格或房贷利率，因此无法比较买房。",
-    "layers": "两个图层的衡量单位不同：欧洲有每平方米价格，美国不公布住房面积，所以这一比较保持不变的是收入比例，而不是居住面积。因此差距中有一部分来自面积而不是价格——美国的参照是一整套住房，而它有多大，恰恰是数据没有说明的。",
-    "medianHome": "中位数住房",
-    "medianRental": "中位数出租住房",
+    "layers": "欧洲和美国的数据单位不同：欧洲有每平方米价格，美国不公布住房面积，所以这里保持不变的是收入比例，而不是居住面积。因此，差距中有一部分来自面积而非价格：在美国，比较的是一整套中位价住房，而它有多大，数据恰恰没有说明。",
+    "medianHome": "中位价住房",
+    "medianRental": "中位租金住房",
     "head": "从<b>{from}</b>搬到<b>{to}</b>，现在每月税后 {income}",
     "more": "+{n}%",
     "less": "−{n}%",
     "aboutSame": "大致相同",
-    "needLabel": "邀约需要达到",
+    "needLabel": "薪水至少要",
     "what": "每月税后，才能{what}：<b>{verdict}</b>",
-    "offerAbove": "你的邀约 {offer}，高出 {gap}",
-    "offerShort": "你的邀约 {offer}，还差 {gap}",
+    "offerAbove": "对方开价 {offer}，高出 {gap}",
+    "offerShort": "对方开价 {offer}，还差 {gap}",
     "gotBuy": "买下 {m2}",
     "gotRent": "租下 {m2}",
     "eitherOr": "{a}，或{b}",
     "gotHome": "；在原居住地则是买 {buy}、租 {rent}",
     "gotM2": "在{place}拿 {offer}，你可以{options}{home}。",
     "gotYears": {
-      "other": "中位数住房要花这份收入的 {n} 年"
+      "other": "买中位价住房要花这份收入 {n} 年"
     },
     "gotShare": "中位数租金占这份收入的 {pct}",
     "both": "{a}，{b}",
     "gotUS": "在{place}拿 {offer}，{options}。",
-    "mortgageShare": "<b>其中多少来自房贷，而不是住房本身。</b>如果两国利率相同，邀约只需 {flat}（{delta}）就能{what}——这就是单纯的价格差。利率差让它每月变动 {rate}。{vintage}",
+    "mortgageShare": "<b>差距里有多少是利率造成的，而不是房子本身。</b>如果两国利率相同，薪水只要 {flat}（{delta}）就能{what}——这才是纯粹的房价差。利率不同，又让所需收入每月相差 {rate}。{vintage}",
     "flatShare": "让住房占收入的比例保持不变",
     "vintageEu": "欧洲的利率是研究所用的全国平均值，大多为 2023 年，而不是现在的利率。如果你知道更准确的利率，请填入上方的利率栏。",
-    "vintageNa": "美国的利率是房地美 2024 年 30 年期平均利率，这一年正是 ACS 估计所用美元的年份。如果你知道更准确的利率，请填入上方的利率栏。",
-    "vintageBoth": "欧洲的利率是研究所用的全国平均值，大多为 2023 年，而不是现在的利率；美国的利率是房地美 2024 年 30 年期平均利率，这一年正是 ACS 估计所用美元的年份。如果你知道更准确的利率，请填入上方的利率栏。"
+    "vintageNa": "美国的利率是房地美 2024 年 30 年期平均利率，与 ACS 金额所用的美元是同一年。如果你知道更准确的利率，请填入上方的利率栏。",
+    "vintageBoth": "欧洲的利率是研究所用的全国平均值，大多为 2023 年，而不是现在的利率；美国的利率是房地美 2024 年 30 年期平均利率，与 ACS 金额所用的美元是同一年。如果你知道更准确的利率，请填入上方的利率栏。"
   },
   "card": {
     "label": "所选地点",
-    "empty": "在上方搜索一个城镇，或在地图上点击一个国家。卡片会显示按你的条件，三分之一的收入在那里能买下多少，以及要拿到你想要的面积需要多少收入。",
+    "empty": "在上方搜索一个城镇，或在地图上点一个国家。卡片会显示：按你的条件，拿三分之一的收入在那里能买多大的房子，想买到你要的面积又需要多少收入。",
     "coastal": "{deg}，沿海",
     "coverage": "{pct} 的人口所在地有售价数据",
     "countryKind": "国家",
     "countryLabel": "国家",
     "moe": "住房价值中位数 ±{pct}",
     "moeWide": "住房价值中位数 ±{pct}，对中位数而言区间很宽",
-    "bigYears": "中位数住房所需的收入年数",
+    "bigYears": "买中位价住房所需的收入年数",
     "bigShare": "中位数租金占收入",
     "bigBuy": "可买 m²",
     "bigBuyTerm": {
@@ -303,7 +303,7 @@
     "bigRent": "可租 m²",
     "yourBudget": "你的住房预算",
     "thirdLocal": "当地收入的三分之一",
-    "loan": "预算可承担的贷款额",
+    "loan": "这笔预算能还的贷款额",
     "plusDeposit": "加上 {pct} 首付",
     "homePrice": "能负担的房价",
     "medianValue": "住房价值中位数（房主估价）",
@@ -322,7 +322,7 @@
     "vsAverage": "你的收入对比当地平均值",
     "ratioUS": "中位数家庭收入的 {ratio} 倍（税前）",
     "ratioEU": "按成人等值计的 {ratio} 倍",
-    "whatItTakes": "需要什么条件",
+    "whatItTakes": "需要多少收入",
     "withDeposit": "，首付 {pct}",
     "haveEnough": "——你有 {money}，够了",
     "haveShort": "——你有 {money}，还差 {pct}",
@@ -330,9 +330,9 @@
     "buyNeed": "在这里用收入的{share}、分 {years}还款{deposit}，买下 {input} m²，需要<b>{need}</b>{have}。",
     "depositSave": "{m2} 的 {pct} 首付是 <b>{amount}</b>。每月存 {input} €，所需时间：<b>{time}</b>。",
     "rentNeed": "在这里用收入的{share}租下 {m2}，需要<b>{need}</b>。",
-    "buyMedianNeed": "在这里用收入的{share}、分 {years}还款{deposit}，买下中位数住房（{price}），需要<b>{need}</b>{have}。",
+    "buyMedianNeed": "在这里用收入的{share}、分 {years}还款{deposit}，买下中位价住房（{price}），需要<b>{need}</b>{have}。",
     "depositSaveMedian": "它的 {pct} 首付是 <b>{amount}</b>。每月存 {input} €，所需时间：<b>{time}</b>。",
-    "rentMedianNeed": "在这里用收入的{share}租下中位数住房（每月 {rent}），需要<b>{need}</b>。",
+    "rentMedianNeed": "在这里用收入的{share}租下中位租金住房（每月 {rent}），需要<b>{need}</b>。",
     "around": "周边",
     "inCmp": "✓ 已加入对比 · 移除",
     "addCmp": "+ 加入对比",
@@ -351,9 +351,9 @@
       "sameLocal": "统一条件（当地收入）",
       "study": "研究自己的数字",
       "market": "市场{conv}",
-      "both": "两个图层 · 欧洲以 {m2} 为参照，美国以中位数住房为参照——美国各县未公布住房面积{conv}",
-      "euOnly": "仅限欧洲 · 这些需要每平方米价格",
-      "usOnly": "仅限美国 · 这些需要整套住房的中位数"
+      "both": "两个图层 · 欧洲按 {m2} 计算，美国按中位价住房计算（美国没有公布住房面积）{conv}",
+      "euOnly": "仅欧洲 · 这几项需要每平方米价格",
+      "usOnly": "仅美国 · 这几项需要整套住房的中位价"
     },
     "rows": {
       "buy": "可买 m²",
@@ -374,10 +374,10 @@
       "avgIncome": "当地平均收入，{sym}/月",
       "rate": "所用房贷利率，%",
       "population": "人口",
-      "yearsMedian": "中位数住房所需收入年数",
+      "yearsMedian": "买中位价住房所需收入年数",
       "shareMedian": "租金中位数占收入，%",
-      "needBuyMedian": "买下中位数住房所需收入，{sym}/月",
-      "needRentMedian": "租下中位数住房所需收入，{sym}/月",
+      "needBuyMedian": "买下中位价住房所需收入，{sym}/月",
+      "needRentMedian": "租下中位租金住房所需收入，{sym}/月",
       "medianValue": "住房价值中位数，{sym}",
       "medianRent": "租金中位数，{sym}/月",
       "medianIncome": "家庭收入中位数，{sym}/月",
@@ -454,11 +454,11 @@
     "noRent": "这个图层里没有布宜诺斯艾利斯的租金，只有出售要价。",
     "noRate": "这个图层对两座城市都没有房贷利率，本页也不从别处借用。请在上方的计算器中输入一个利率，看看能买下多少。",
     "rentHow": "租金是推算出来的：该区的价格除以中央银行公布的房价租金比。",
-    "notInLayer": "不在图层中",
+    "notInLayer": "无数据",
     "gapsLine": "{all} 个街区中有 {n} 个在这一类中没有价格，保持灰色：{names}。",
     "gap": {
       "none": "2026 年第二季度在售的公寓太少：只有房源数量超过一个最低限度，研究所才会公布该街区的数据",
-      "lima": "不在图层中：中央银行只公布 {n} 个区"
+      "lima": "无数据：中央银行只公布 {n} 个区"
     },
     "tip": {
       "price": "价格",

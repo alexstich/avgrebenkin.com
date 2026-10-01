@@ -26,7 +26,7 @@
       "one": "{n} abitante",
       "other": "{n} abitanti"
     },
-    "forever": "infinito",
+    "forever": "mai",
     "aThird": "un terzo"
   },
   "place": {
@@ -133,8 +133,8 @@
     "wantNoArea": "nessuna superficie nei dati USA",
     "wantAny": "qualsiasi",
     "mineDisabled": "Inserisci il tuo reddito qui sopra",
-    "incHint": "Dopo le tasse, tutti i componenti della famiglia insieme. Lascialo vuoto e ogni luogo viene mostrato con il suo reddito medio; inseriscilo e mappe, schede e classifiche passano ai tuoi soldi.",
-    "incHintFx": "Dopo le tasse, tutti i componenti della famiglia insieme. {amount} = {eur} al tasso di riferimento BCE ({date}).",
+    "incHint": "Al netto delle tasse, sommando tutti i componenti della famiglia. Se lo lasci vuoto, ogni luogo viene calcolato sul reddito medio dei suoi abitanti; se lo inserisci, mappe, schede e classifiche si basano sui tuoi soldi.",
+    "incHintFx": "Al netto delle tasse, sommando tutti i componenti della famiglia. {amount} = {eur} al tasso di riferimento BCE ({date}).",
     "rateAll": "{rate} ovunque",
     "rateOwn": "nazionale di ciascun paese",
     "adults": {
@@ -172,19 +172,19 @@
       "years": "anni di reddito per {basket}",
       "share": "affitto per {basket} come quota del reddito"
     },
-    "noAreaTitle": "Superficie non pubblicata negli Stati Uniti (livello: {units}) — vedi «Da dove vengono i numeri»",
+    "noAreaTitle": "Negli Stati Uniti la superficie non viene pubblicata (a livello di {units}) — vedi «Da dove vengono i numeri»",
     "hint": {
-      "buy": "Quanti metri quadrati compra la quota di reddito destinata alla casa ({share}), con un mutuo a {term} anni al tasso locale e al prezzo locale al metro quadrato. Verde vuol dire tanto spazio, rosso poco.",
-      "rent": "Quanti metri quadrati affitta la quota di reddito destinata alla casa ({share}), all’affitto locale al metro quadrato. Verde vuol dire tanto spazio, rosso poco.",
-      "diff": "Metri quadrati affittabili meno metri quadrati acquistabili, entrambi con la stessa quota di reddito ({share}): quale delle due strade ti dà più spazio qui. La legenda dice quale lato favorisce ciascun colore.",
-      "years": "Quanti anni dell’intero reddito costa {basket}, a pagare tutto subito e senza alcun mutuo. Meno è meglio, quindi qui il verde significa pochi anni e il rosso molti: questa scala va al contrario rispetto ai metri.",
-      "share": "Quanto del reddito di un mese se ne va in affitto, per {basket}. Meno è meglio, quindi il verde significa una quota piccola e il rosso una grande."
+      "buy": "Quanti metri quadrati si possono comprare destinando alla casa la quota di reddito scelta ({share}), con un mutuo a {term} anni, al tasso e al prezzo al metro quadrato del posto. Verde vuol dire tanto spazio, rosso poco.",
+      "rent": "Quanti metri quadrati si possono affittare destinando alla casa la quota di reddito scelta ({share}), all’affitto al metro quadrato del posto. Verde vuol dire tanto spazio, rosso poco.",
+      "diff": "Metri quadrati affittabili meno metri quadrati acquistabili, con la stessa quota di reddito ({share}): qui ti dà più spazio l’affitto o l’acquisto? La legenda dice quale delle due strade favorisce ciascun colore.",
+      "years": "Quanti anni di reddito, speso per intero, servono per pagare {basket} in contanti, senza mutuo. Meno è meglio: qui il verde significa pochi anni e il rosso molti, al contrario della scala dei metri quadrati.",
+      "share": "Quanta parte del reddito mensile se ne va in affitto, per {basket}. Meno è meglio: il verde significa una quota piccola, il rosso una grande."
     }
   },
   "hints": {
     "frame": {
       "eu": "{n} comuni in {countries} paesi, dalla tabella ESPON HOUSE4ALL: prezzi richiesti al metro quadrato contro reddito al netto delle tasse per adulto equivalente.",
-      "na": "{n} contee dall’American Community Survey: valori delle case stimati dai proprietari e affitti contro reddito delle famiglie al lordo delle tasse. Una misura diversa da quella europea, per questo le due mappe non condividono mai una scala."
+      "na": "{n} contee dall’American Community Survey: valori delle case stimati dai proprietari e affitti contro reddito delle famiglie al lordo delle tasse. Una misura diversa da quella europea, per questo le due mappe non usano mai la stessa scala."
     },
     "basis": {
       "local": "Ogni luogo è colorato sul suo reddito medio: la mappa dice se la gente del posto può permettersi di viverci.",
@@ -192,13 +192,13 @@
       "mineOff": "Inserisci il tuo reddito nel calcolatore qui sopra per colorare la mappa sui tuoi soldi invece che sulla media locale."
     },
     "read": {
-      "base": "Ogni punto è un luogo, grande in proporzione alla popolazione; ogni paese è campito con il suo dato nazionale. Passa il mouse o tocca per vedere i numeri. Il grigio significa nessun dato.",
+      "base": "Ogni punto è un luogo, grande in proporzione alla popolazione; ogni paese è colorato secondo il suo dato nazionale. Passa il mouse o tocca per vedere i numeri. Il grigio significa nessun dato.",
       "dimmed": "Il grigio segna anche i luoghi in cui {m2} sono fuori portata."
     },
     "rank": {
       "countries": "Ogni paese è la media dei suoi luoghi ponderata per la popolazione, quindi una capitale grande e cara trascina in basso il suo paese in classifica.",
       "cities": "Singoli luoghi da {min} abitanti in su, ciascuno con i propri numeri.",
-      "regs": "I pulsanti delle regioni tengono solo alcune parti della mappa; se ne possono attivare più d’uno insieme.",
+      "regs": "I pulsanti delle aree limitano la tabella ad alcune parti della mappa; se ne possono attivare più d’uno insieme.",
       "sort": "Fai clic sull’intestazione di una colonna per ordinare in base a quella."
     }
   },
@@ -211,11 +211,11 @@
       "oltre 150 m²"
     ],
     "diff": [
-      "comprando, oltre 20 m² in più",
-      "comprando, 5–20 m² in più",
-      "differenza entro 5 m²",
-      "in affitto, 5–20 m² in più",
-      "in affitto, oltre 20 m² in più"
+      "comprando, oltre 20 m² in più",
+      "comprando, 5–20 m² in più",
+      "differenza entro 5 m²",
+      "affittando, 5–20 m² in più",
+      "affittando, oltre 20 m² in più"
     ],
     "years": [
       "meno di 3 anni",
@@ -236,7 +236,7 @@
     "noDataUnder": "nessun dato o meno di {m2}"
   },
   "map": {
-    "aria": "Mappa ({label}): paesi campiti e luoghi ({units}) segnati come punti; colore: {mode}"
+    "aria": "Mappa ({label}): paesi colorati e luoghi ({units}) indicati da punti; colore: {mode}"
   },
   "tip": {
     "yearsFor": "anni di reddito per {basket}",
@@ -255,7 +255,7 @@
     "none": "Nessun risultato. Prova con il nome locale: Wien, Praha, København."
   },
   "move": {
-    "empty": "Scegli entrambi i luoghi per vedere la risposta. Tutto il resto di questa pagina vale già: la durata del mutuo, l’anticipo e la quota di reddito che vuoi spendere.",
+    "empty": "Scegli entrambi i luoghi per vedere la risposta. Valgono anche qui tutte le altre impostazioni della pagina: la durata del mutuo, l’anticipo e la quota di reddito che vuoi spendere.",
     "noIncome": "{place}: nessun reddito registrato. Inserisci il tuo qui sopra e passa a «Il mio reddito».",
     "rentSame": "per affittare lo stesso spazio",
     "rentShare": "per mantenere l’affitto alla stessa quota del reddito",
@@ -267,7 +267,7 @@
     "buyDetailSame": "{m2} come dove vivi ora; mutuo a {term}, tasso {rateThere} lì contro {rateHome} dove vivi ora",
     "buyDetail": "{home} dove vivi ora contro {there} lì; mutuo a {term}, tasso {rateThere} lì contro {rateHome} dove vivi ora",
     "noBuy": "Per uno dei due luoghi manca il prezzo o il tasso ipotecario, quindi l’acquisto non si può confrontare.",
-    "layers": "I due strati non sono misurati nella stessa unità: l’Europa ha un prezzo al metro quadrato, gli Stati Uniti non pubblicano la superficie, quindi il confronto mantiene uguale la quota di reddito invece dello spazio. Una parte dello scarto, dunque, è superficie e non prezzo: il paniere americano è un’intera casa, e quanto sia grande è proprio ciò che i dati non dicono.",
+    "layers": "Europa e Stati Uniti non sono misurati nella stessa unità: l’Europa ha un prezzo al metro quadrato, gli Stati Uniti non pubblicano la superficie, quindi il confronto mantiene uguale la quota di reddito invece dello spazio. Una parte dello scarto dipende dunque dalla superficie e non dal prezzo: negli Stati Uniti si confronta un’intera casa mediana, e quanto sia grande è proprio ciò che i dati non dicono.",
     "medianHome": "la casa mediana",
     "medianRental": "l’alloggio mediano in affitto",
     "head": "<b>{from}</b> → <b>{to}</b>, con {income} netti al mese",
@@ -287,18 +287,18 @@
       "one": "la casa mediana costa {n} anno di questo reddito",
       "other": "la casa mediana costa {n} anni di questo reddito"
     },
-    "gotShare": "l’affitto mediano ne assorbe una quota ({pct})",
+    "gotShare": "l’affitto mediano ne assorbe il {pct}",
     "both": "{a} e {b}",
     "gotUS": "{place}, con {offer}: {options}.",
-    "mortgageShare": "<b>Quanto di tutto questo dipende dal mutuo e non dalla casa.</b> Se i due paesi applicassero lo stesso tasso, l’offerta dovrebbe essere di {flat} ({delta}) {what}: questa è la sola differenza di prezzo. La differenza di tasso la sposta di {rate} al mese. {vintage}",
+    "mortgageShare": "<b>Quanto di tutto questo dipende dal mutuo e non dalla casa.</b> Se i due paesi applicassero lo stesso tasso, l’offerta dovrebbe essere di {flat} ({delta}) {what}: questa è la differenza dovuta ai soli prezzi. La differenza di tasso sposta la cifra di {rate} al mese. {vintage}",
     "flatShare": "per mantenere la stessa quota del reddito",
     "vintageEu": "I tassi europei sono le medie nazionali usate dallo studio, per lo più del 2023, non quelli di oggi. Se ne conosci di migliori, inseriscili nel campo del tasso qui sopra.",
-    "vintageNa": "Il tasso USA è la media 2024 del tasso a 30 anni di Freddie Mac, l’anno nei cui dollari sono espresse le stime ACS. Se ne conosci uno migliore, inseriscilo nel campo del tasso qui sopra.",
-    "vintageBoth": "I tassi europei sono le medie nazionali usate dallo studio, per lo più del 2023, non quelli di oggi; il tasso USA è la media 2024 del tasso a 30 anni di Freddie Mac, l’anno nei cui dollari sono espresse le stime ACS. Se ne conosci di migliori, inseriscili nel campo del tasso qui sopra."
+    "vintageNa": "Il tasso USA è la media 2024 del tasso a 30 anni di Freddie Mac, perché le stime ACS sono espresse in dollari del 2024. Se ne conosci uno migliore, inseriscilo nel campo del tasso qui sopra.",
+    "vintageBoth": "I tassi europei sono le medie nazionali usate dallo studio, per lo più del 2023, non quelli di oggi; il tasso USA è la media 2024 del tasso a 30 anni di Freddie Mac, perché le stime ACS sono espresse in dollari del 2024. Se ne conosci di migliori, inseriscili nel campo del tasso qui sopra."
   },
   "card": {
     "label": "Luogo selezionato",
-    "empty": "Cerca un comune qui sopra o fai clic su un paese della mappa. La scheda mostra cosa compra lì un terzo del reddito alle tue condizioni, e quale reddito servirebbe per avere la superficie che vuoi.",
+    "empty": "Cerca un comune qui sopra o fai clic su un paese della mappa. La scheda mostra quanto spazio si compra lì con un terzo del reddito, alle tue condizioni, e quale reddito servirebbe per la superficie che vuoi.",
     "coastal": "{deg}, sulla costa",
     "coverage": "dati di vendita: {pct} della popolazione",
     "countryKind": "paese",
@@ -315,7 +315,7 @@
     "bigRent": "m² affittabili",
     "yourBudget": "Il tuo budget per la casa",
     "thirdLocal": "Un terzo del reddito locale",
-    "loan": "Prestito sostenibile con il budget",
+    "loan": "Prestito ripagabile con questo budget",
     "plusDeposit": "Più l’anticipo ({pct})",
     "homePrice": "Prezzo della casa raggiungibile",
     "medianValue": "Valore mediano della casa, stima del proprietario",
@@ -363,7 +363,7 @@
       "sameLocal": "Stesse condizioni per tutti (reddito locale)",
       "study": "I dati dello studio",
       "market": "Il mercato{conv}",
-      "both": "Entrambi gli strati · in Europa il paniere è {m2}, negli Stati Uniti la casa mediana: per le contee USA la superficie non viene pubblicata{conv}",
+      "both": "Europa e Stati Uniti · in Europa il calcolo è su un appartamento di {m2}, negli Stati Uniti sulla casa mediana, perché lì la superficie non viene pubblicata{conv}",
       "euOnly": "Solo Europa · richiedono un prezzo al metro quadrato",
       "usOnly": "Solo Stati Uniti · richiedono una mediana per l’intera casa"
     },
@@ -432,7 +432,7 @@
     "coastal": ", solo sulla costa",
     "onYours": "Con il tuo reddito di {money} al mese.",
     "onOwn": "Ciascuno con il proprio reddito medio.",
-    "layerOnly": "Solo {label}: i due strati usano definizioni di reddito diverse e non vanno messi in un’unica classifica.",
+    "layerOnly": "Solo {label}: Europa e Stati Uniti usano definizioni di reddito diverse e non vanno messi in un’unica classifica.",
     "countryMeans": "I valori dei paesi sono medie ponderate per la popolazione, calcolate su {units}.",
     "clickRow": "Fai clic su una riga per aprire il luogo sulla mappa."
   },
@@ -461,18 +461,18 @@
     "legendRent": "m² affittabili con {share} del tuo reddito",
     "range": "{lo}–{hi}",
     "setupPrice": "Ogni mappa è colorata all’interno della propria città: <b>il verde è il quinto più economico</b> dei suoi distretti, il rosso il più caro. Le due scale sono diverse di proposito.",
-    "needIncome": "Inserisci il tuo reddito mensile nel calcolatore qui sopra: lo strato non ha un reddito locale, quindi i metri quadrati si possono contare solo a partire dal tuo.",
+    "needIncome": "Inserisci il tuo reddito mensile nel calcolatore qui sopra: per queste città non c’è un dato sul reddito locale, quindi i metri quadrati si possono contare solo a partire dal tuo.",
     "setupBuy": "<b>{income}</b> al mese, convertiti in dollari USA al tasso BCE · quota per la casa <b>{share}</b> = <b>{budget}</b> al mese · mutuo a <b>{term}</b> · anticipo <b>{deposit}</b> · {rate}",
     "setupRent": "<b>{income}</b> al mese, convertiti in dollari USA al tasso BCE · quota per l’affitto <b>{share}</b> = <b>{budget}</b> al mese",
     "rateMine": "entrambe le città al tuo tasso del <b>{rate}</b>",
-    "noRent": "Per Buenos Aires questo strato non ha affitti, solo prezzi richiesti per la vendita.",
-    "noRate": "Lo strato non ha un tasso ipotecario per nessuna delle due città, e non se ne prende in prestito uno da altrove. Inserisci un tasso nel calcolatore qui sopra per vedere cosa potresti comprare.",
+    "noRent": "Per Buenos Aires ci sono solo i prezzi richiesti per la vendita, non gli affitti.",
+    "noRate": "Per nessuna delle due città c’è un tasso ipotecario nei dati, e non se ne prende in prestito uno da altrove. Inserisci un tasso nel calcolatore qui sopra per vedere che cosa potresti comprare.",
     "rentHow": "L’affitto è ricavato: il prezzo del distretto diviso per il rapporto prezzo/affitto della banca centrale.",
-    "notInLayer": "non presente nello strato",
-    "gapsLine": "{n} barrios su {all} non hanno un prezzo in questa fetta e restano grigi: {names}.",
+    "notInLayer": "nessun dato",
+    "gapsLine": "{n} barrios su {all} non hanno un prezzo per questa tipologia e restano grigi: {names}.",
     "gap": {
       "none": "Troppo pochi appartamenti in vendita nel secondo trimestre del 2026: l’istituto pubblica un barrio solo sopra un numero minimo di annunci",
-      "lima": "Non presente nello strato: la banca centrale pubblica {n} distretti"
+      "lima": "Nessun dato: la banca centrale pubblica solo {n} distretti"
     },
     "tip": {
       "price": "Prezzo",

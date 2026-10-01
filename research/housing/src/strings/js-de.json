@@ -104,7 +104,7 @@
   },
   "presets": [
     {
-      "name": "Die Sicht der Studie",
+      "name": "Wie in der Studie",
       "desc": "örtliches Durchschnittseinkommen, 30 Jahre, ohne Eigenkapital"
     },
     {
@@ -116,7 +116,7 @@
       "desc": "{inc} € netto, möchte 75 m²"
     },
     {
-      "name": "Remote an der Küste",
+      "name": "Remote arbeiten an der Küste",
       "desc": "{inc} € netto, Städte an der Küste"
     },
     {
@@ -124,7 +124,7 @@
       "desc": "{inc} € netto, zwei Erwachsene, 40 % Eigenkapital, 15 Jahre"
     },
     {
-      "name": "Studium, zur Miete",
+      "name": "Im Studium, zur Miete",
       "desc": "{inc} € netto, Mietkarte"
     }
   ],
@@ -133,7 +133,7 @@
     "wantNoArea": "keine Wohnfläche in US-Daten",
     "wantAny": "beliebig",
     "mineDisabled": "Gib oben dein Einkommen ein",
-    "incHint": "Nach Steuern, alle im Haushalt zusammen. Lass es leer, und jeder Ort wird mit seinem eigenen Durchschnittseinkommen gezeigt; trag es ein, und Karten, Steckbriefe und Ranglisten rechnen mit deinem Geld.",
+    "incHint": "Nach Steuern, alle im Haushalt zusammen. Lässt du das Feld leer, rechnet jeder Ort mit dem Durchschnittseinkommen seiner Bewohner; trägst du einen Betrag ein, rechnen Karten, Steckbriefe und Ranglisten mit deinem Geld.",
     "incHintFx": "Nach Steuern, alle im Haushalt zusammen. {amount} = {eur} zum EZB-Referenzkurs vom {date}.",
     "rateAll": "{rate} überall",
     "rateOwn": "je nach Land",
@@ -154,7 +154,7 @@
     "mine": "<b>{income}</b> netto im Monat{orig} · <b>{share}</b> fürs Wohnen = <b>{budget}</b> im Monat · Hypothek über <b>{term}</b>, Zins: {rate} · Eigenkapital <b>{deposit}</b> · Haushalt: {household} (Faktor {factor})",
     "local": "Jeder Ort mit seinem <b>eigenen Durchschnittseinkommen</b> · <b>{share}</b> fürs Wohnen · Hypothek über <b>{term}</b>, Zins: {rate} · Eigenkapital <b>{deposit}</b>{tail}",
     "published": " – exakt die veröffentlichte Karte",
-    "studyTerms": " – die Bedingungen der Studie, hier angewandt",
+    "studyTerms": " – mit den Bedingungen der Studie",
     "want": " · gesucht: <b>{m2}</b>"
   },
   "modes": {
@@ -174,21 +174,21 @@
     },
     "noAreaTitle": "Für US-{units} wird keine Wohnfläche veröffentlicht – siehe „Woher die Zahlen kommen“",
     "hint": {
-      "buy": "Wie viele Quadratmeter {share} des Einkommens mit einer Hypothek über {term} Jahre zum örtlichen Zins und zum örtlichen Preis pro Quadratmeter kauft. Grün ist viel Platz, Rot wenig.",
-      "rent": "Wie viele Quadratmeter {share} des Einkommens zur örtlichen Miete pro Quadratmeter mietet. Grün ist viel Platz, Rot wenig.",
-      "diff": "Quadratmeter beim Mieten minus Quadratmeter beim Kaufen, beides für {share} des Einkommens: welches von beiden dir hier mehr Platz bringt. Die Legende sagt, für welche Seite jede Farbe steht.",
-      "years": "Wie viele Jahre des gesamten Einkommens es für {basket} braucht, auf einen Schlag bezahlt und ganz ohne Hypothek. Weniger ist besser, hier heißt Grün also wenige Jahre und Rot viele: Diese Skala läuft andersherum als die Quadratmeter.",
-      "share": "Welchen Teil eines Monatseinkommens die Miete nimmt, für {basket}. Kleiner ist besser, Grün heißt also ein kleiner Anteil und Rot ein großer."
+      "buy": "Wie viele Quadratmeter man für {share} des Einkommens kaufen kann, mit einer Hypothek über {term} Jahre zum örtlichen Zins und zum örtlichen Quadratmeterpreis. Grün heißt viel Platz, Rot wenig.",
+      "rent": "Wie viele Quadratmeter man für {share} des Einkommens zur örtlichen Quadratmetermiete mieten kann. Grün heißt viel Platz, Rot wenig.",
+      "diff": "Quadratmeter beim Mieten minus Quadratmeter beim Kaufen, beides für {share} des Einkommens: ob du hier zur Miete oder beim Kauf mehr Platz bekommst. Die Legende zeigt, welche Farbe für welche Seite steht.",
+      "years": "Wie viele volle Jahreseinkommen man für {basket} braucht, wenn man auf einen Schlag und ganz ohne Hypothek bezahlt. Weniger ist besser: Grün heißt hier wenige Jahre, Rot viele – die Skala läuft also andersherum als bei den Quadratmetern.",
+      "share": "Welchen Anteil des Monatseinkommens die Miete für {basket} ausmacht. Weniger ist besser: Grün heißt ein kleiner Anteil, Rot ein großer."
     }
   },
   "hints": {
     "frame": {
       "eu": "{n} Gemeinden in {countries} Ländern, aus der ESPON-HOUSE4ALL-Tabelle: Angebotspreise pro Quadratmeter, gemessen am Einkommen nach Steuern pro Erwachsenenäquivalent.",
-      "na": "{n} Countys aus dem American Community Survey: Hauswerte nach Schätzung der Eigentümer und Mieten, gemessen am Haushaltseinkommen vor Steuern. Eine andere Messung als in Europa, deshalb teilen die beiden Karten nie eine Skala."
+      "na": "{n} Countys aus dem American Community Survey: Hauswerte nach Schätzung der Eigentümer und Mieten, gemessen am Haushaltseinkommen vor Steuern. Das ist eine andere Messung als in Europa, deshalb haben die beiden Karten nie eine gemeinsame Skala."
     },
     "basis": {
-      "local": "Jeder Ort ist nach seinem eigenen Durchschnittseinkommen eingefärbt: Die Karte beantwortet, ob sich die Einheimischen das Wohnen dort leisten können.",
-      "mine": "Jeder Ort ist nach deinem Einkommen von {income} im Monat eingefärbt: Die Karte beantwortet, wo du dir das Wohnen leisten könntest.",
+      "local": "Jeder Ort ist nach seinem eigenen Durchschnittseinkommen eingefärbt: Die Karte zeigt, ob sich die Menschen vor Ort das Wohnen dort leisten können.",
+      "mine": "Jeder Ort ist nach deinem Einkommen von {income} im Monat eingefärbt: Die Karte zeigt, wo du dir das Wohnen leisten könntest.",
       "mineOff": "Gib oben im Rechner dein Einkommen ein, um die Karte nach deinem Geld statt nach dem örtlichen Durchschnitt einzufärben."
     },
     "read": {
@@ -196,7 +196,7 @@
       "dimmed": "Grau markiert außerdem die Orte, an denen {m2} außer Reichweite liegen."
     },
     "rank": {
-      "countries": "Jedes Land ist das bevölkerungsgewichtete Mittel seiner Orte, eine große teure Hauptstadt zieht ihr Land also in der Rangliste nach unten.",
+      "countries": "Jedes Land ist das bevölkerungsgewichtete Mittel seiner Orte, eine große, teure Hauptstadt zieht ihr Land also in der Rangliste nach unten.",
       "cities": "Einzelne Orte ab {min} Einwohnern, jeder mit seinen eigenen Zahlen.",
       "regs": "Die Schaltflächen für die Regionen beschränken die Liste auf Teile der Karte; mehrere dürfen gleichzeitig aktiv sein.",
       "sort": "Klick auf eine Spaltenüberschrift, um danach zu sortieren."
@@ -252,29 +252,29 @@
   },
   "search": {
     "country": "Land",
-    "none": "Keine Treffer. Versuch die Schreibweise vor Ort: Wien, Praha, København."
+    "none": "Keine Treffer. Versuch es mit der Schreibweise in der Landessprache: Wien, Praha, København."
   },
   "move": {
-    "empty": "Wähle beide Orte, um die Antwort zu sehen. Alles andere auf dieser Seite gilt bereits: deine Laufzeit, dein Eigenkapital und der Anteil des Einkommens, den du ausgeben willst.",
+    "empty": "Wähle beide Orte aus, dann erscheint die Antwort. Deine übrigen Einstellungen auf dieser Seite gelten auch hier: Laufzeit, Eigenkapital und der Anteil des Einkommens, den du fürs Wohnen ausgeben willst.",
     "noIncome": "Für {place} ist kein Einkommen erfasst. Gib oben dein eigenes ein und wechsle zu „Mein Einkommen“.",
     "rentSame": "um dieselbe Fläche zu mieten",
-    "rentShare": "um die Miete beim selben Einkommensanteil zu halten",
+    "rentShare": "damit die Miete denselben Anteil am Einkommen ausmacht",
     "rentDetailSame": "Für dieselben {m2} wie zu Hause braucht es dort {money} Einkommen im Monat",
     "rentDetail": "Zu Hause: {home}, {moneyHome} im Monat · dort: {there}, {moneyThere}",
     "noRent": "Für {place} ist keine Miete erfasst, daher lässt sich die Miete nicht vergleichen.",
     "buySame": "um dieselbe Fläche zu kaufen",
-    "buyShare": "um beim selben Einkommensanteil zu kaufen",
+    "buyShare": "um mit demselben Einkommensanteil zu kaufen",
     "buyDetailSame": "{m2} wie zu Hause; Hypothek über {term}, Zins dort {rateThere}, zu Hause {rateHome}",
     "buyDetail": "Zu Hause: {home} · dort: {there}; Hypothek über {term}, Zins dort {rateThere}, zu Hause {rateHome}",
     "noBuy": "Für einen der beiden Orte fehlt der Preis oder der Hypothekenzins, daher lässt sich der Kauf nicht vergleichen.",
-    "layers": "Die beiden Ebenen werden nicht in derselben Einheit gemessen: Europa hat einen Preis pro Quadratmeter, die USA veröffentlichen keine Wohnfläche, also hält der Vergleich den Einkommensanteil gleich statt der Fläche. Ein Teil des Unterschieds ist deshalb Größe und nicht Preis – der amerikanische Warenkorb ist ein ganzes Haus, und wie groß es ist, sagen die Daten gerade nicht.",
+    "layers": "Die Einheiten unterscheiden sich: Europa hat einen Quadratmeterpreis, die USA veröffentlichen keine Wohnfläche. Deshalb bleibt hier der Einkommensanteil gleich, nicht die Fläche. Ein Teil des Unterschieds ist also Größe, nicht Preis: In den USA geht es um ein ganzes mittleres Haus, und wie groß es ist, verraten die Daten nicht.",
     "medianHome": "das mittlere Haus",
     "medianRental": "die mittlere Mietwohnung",
     "head": "<b>{from}</b> → <b>{to}</b>, bei {income} netto im Monat",
     "more": "+{n} %",
     "less": "−{n} %",
     "aboutSame": "etwa gleich",
-    "needLabel": "Das Angebot muss betragen",
+    "needLabel": "Das Gehalt muss betragen",
     "what": "netto im Monat, {what}: <b>{verdict}</b>",
     "offerAbove": "Dein Angebot von {offer} liegt {gap} darüber",
     "offerShort": "Deinem Angebot von {offer} fehlen {gap}",
@@ -287,24 +287,24 @@
       "one": "das mittlere Haus kostet {n} Jahr dieses Einkommens",
       "other": "das mittlere Haus kostet {n} Jahre dieses Einkommens"
     },
-    "gotShare": "die mittlere Miete nimmt {pct} davon",
+    "gotShare": "die mittlere Miete macht {pct} davon aus",
     "both": "{a}; {b}",
     "gotUS": "{place}, bei {offer}: {options}.",
-    "mortgageShare": "<b>Wie viel davon an der Hypothek liegt und nicht am Wohnen.</b> Verlangten beide Länder denselben Zins, müsste das Angebot {flat} ({delta}) betragen, {what} – das ist der reine Preisunterschied. Der Zinsunterschied verschiebt es um {rate} im Monat. {vintage}",
-    "flatShare": "um denselben Einkommensanteil zu halten",
+    "mortgageShare": "<b>Wie viel davon an den Zinsen liegt und nicht an den Wohnungspreisen.</b> Gälte in beiden Ländern derselbe Zins, müsste das Angebot {flat} ({delta}) betragen, {what} – das ist der reine Preisunterschied. Der Zinsunterschied verschiebt den Betrag um {rate} im Monat. {vintage}",
+    "flatShare": "damit der Anteil am Einkommen gleich bleibt",
     "vintageEu": "Die europäischen Zinsen sind die nationalen Mittelwerte, mit denen die Studie rechnet, meist von 2023, nicht die heutigen. Trag oben im Zinsfeld deine eigenen ein, wenn du bessere kennst.",
-    "vintageNa": "Der US-Zins ist der 30-jährige Durchschnitt von Freddie Mac für 2024, das Jahr, in dessen Dollar die ACS-Schätzungen angegeben sind. Trag oben im Zinsfeld deinen eigenen ein, wenn du einen besseren kennst.",
-    "vintageBoth": "Die europäischen Zinsen sind die nationalen Mittelwerte, mit denen die Studie rechnet, meist von 2023, nicht die heutigen; der US-Zins ist der 30-jährige Durchschnitt von Freddie Mac für 2024, das Jahr, in dessen Dollar die ACS-Schätzungen angegeben sind. Trag oben im Zinsfeld deine eigenen ein, wenn du bessere kennst."
+    "vintageNa": "Der US-Zins ist der Durchschnittszins für 30-jährige Festzinskredite 2024 laut Freddie Mac, also für das Jahr, in dessen Dollar die ACS-Schätzungen angegeben sind. Trag oben im Zinsfeld deinen eigenen ein, wenn du einen besseren kennst.",
+    "vintageBoth": "Die europäischen Zinsen sind die nationalen Mittelwerte der Studie, meist von 2023, nicht die heutigen; der US-Zins ist der Durchschnitt 2024 für 30-jährige Festzinskredite laut Freddie Mac – das Jahr, in dessen Dollar der ACS rechnet. Trag oben im Zinsfeld deine eigenen ein, wenn du bessere kennst."
   },
   "card": {
     "label": "Ausgewählter Ort",
-    "empty": "Such oben einen Ort oder klick auf der Karte auf ein Land. Der Steckbrief zeigt, was ein Drittel des Einkommens dort zu deinen Bedingungen kauft und welches Einkommen es für die gewünschte Größe bräuchte.",
+    "empty": "Such oben nach einem Ort oder klick auf der Karte ein Land an. Der Steckbrief zeigt dann, wie viel Wohnung du dort zu deinen Bedingungen für ein Drittel des Einkommens bekommst und welches Einkommen du für die gewünschte Größe bräuchtest.",
     "coastal": "{deg}, an der Küste",
     "coverage": "Kaufpreisdaten für {pct} der Bevölkerung",
     "countryKind": "Land",
     "countryLabel": "Land",
     "moe": "Medianwert des Hauses ±{pct}",
-    "moeWide": "Medianwert des Hauses ±{pct}, ein breites Intervall für einen Median",
+    "moeWide": "Medianwert des Hauses ±{pct}, eine große Unsicherheit für einen Median",
     "bigYears": "Jahreseinkommen für das mittlere Haus",
     "bigShare": "des Einkommens für die mittlere Miete",
     "bigBuy": "m² beim Kaufen",
@@ -315,7 +315,7 @@
     "bigRent": "m² beim Mieten",
     "yourBudget": "Dein Wohnbudget",
     "thirdLocal": "Ein Drittel des örtlichen Einkommens",
-    "loan": "Kredit, den das Budget trägt",
+    "loan": "Kredit, den das Budget abzahlen kann",
     "plusDeposit": "Dazu {pct} Eigenkapital",
     "homePrice": "Erreichbarer Kaufpreis",
     "medianValue": "Medianwert des Hauses, Schätzung des Eigentümers",
@@ -334,7 +334,7 @@
     "vsAverage": "Dein Einkommen gegenüber dem örtlichen Durchschnitt",
     "ratioUS": "{ratio}× eines Median-Haushalts, vor Steuern",
     "ratioEU": "{ratio}× pro Erwachsenenäquivalent",
-    "whatItTakes": "Was es bräuchte",
+    "whatItTakes": "Was du bräuchtest",
     "withDeposit": ", Eigenkapital {pct}",
     "haveEnough": " – du hast {money}, das reicht",
     "haveShort": " – du hast {money}, es fehlen {pct}",
@@ -363,7 +363,7 @@
       "sameLocal": "Gleiche Bedingungen für alle (örtliches Einkommen)",
       "study": "Die Werte der Studie",
       "market": "Der Markt{conv}",
-      "both": "Beide Ebenen · in Europa ist der Warenkorb {m2}, in den USA das mittlere Haus – für US-Countys wird keine Wohnfläche veröffentlicht{conv}",
+      "both": "Europa und USA · gemessen in Europa an einer Wohnung von {m2}, in den USA am mittleren Haus, weil dort keine Wohnfläche veröffentlicht wird{conv}",
       "euOnly": "Nur Europa · dafür braucht es einen Preis pro Quadratmeter",
       "usOnly": "Nur USA · dafür braucht es einen Median für ganze Häuser"
     },
@@ -432,7 +432,7 @@
     "coastal": ", nur an der Küste",
     "onYours": "Mit deinem Einkommen von {money} im Monat.",
     "onOwn": "Jeder Ort mit seinem eigenen Durchschnittseinkommen.",
-    "layerOnly": "Nur {label}: Die beiden Ebenen verwenden unterschiedliche Einkommensbegriffe und gehören nicht in eine Rangliste.",
+    "layerOnly": "Nur {label}: Europa und die USA messen Einkommen unterschiedlich und gehören nicht in eine gemeinsame Rangliste.",
     "countryMeans": "Länderwerte sind bevölkerungsgewichtete Mittel ihrer {units}.",
     "clickRow": "Klick auf eine Zeile, um den Ort auf der Karte zu öffnen."
   },
@@ -460,19 +460,19 @@
     "legendBuy": "m², die {share} deines Einkommens kauft",
     "legendRent": "m², die {share} deines Einkommens mietet",
     "range": "{lo}–{hi}",
-    "setupPrice": "Jede Karte ist innerhalb ihrer eigenen Stadt eingefärbt: <b>Grün ist das günstigste Fünftel</b> ihrer Viertel, Rot das teuerste. Die beiden Skalen unterscheiden sich mit Absicht.",
-    "needIncome": "Gib oben im Rechner dein Monatseinkommen ein: Die Ebene hat kein örtliches Einkommen, also lassen sich die Quadratmeter nur aus deinem berechnen.",
+    "setupPrice": "Jede Karte ist nur im Vergleich mit den Stadtteilen derselben Stadt eingefärbt: <b>Grün ist das günstigste Fünftel</b>, Rot das teuerste. Die beiden Skalen unterscheiden sich mit Absicht.",
+    "needIncome": "Gib oben im Rechner dein Monatseinkommen ein: Für diese Städte gibt es kein örtliches Einkommen, also lassen sich die Quadratmeter nur aus deinem berechnen.",
     "setupBuy": "<b>{income}</b> im Monat, zum EZB-Kurs in US-Dollar umgerechnet · <b>{share}</b> fürs Wohnen = <b>{budget}</b> im Monat · Hypothek über <b>{term}</b> · Eigenkapital <b>{deposit}</b> · {rate}",
     "setupRent": "<b>{income}</b> im Monat, zum EZB-Kurs in US-Dollar umgerechnet · <b>{share}</b> für die Miete = <b>{budget}</b> im Monat",
     "rateMine": "beide Städte zu deinem Zins von <b>{rate}</b>",
-    "noRent": "Für Buenos Aires hat diese Ebene keine Mieten, nur Angebotspreise für den Kauf.",
-    "noRate": "Die Ebene hat für keine der beiden Städte einen Hypothekenzins, und es wird auch keiner von anderswo geborgt. Trag oben im Rechner einen Zins ein, um zu sehen, was du kaufen könntest.",
+    "noRent": "Für Buenos Aires gibt es hier keine Mieten, nur Angebotspreise für den Kauf.",
+    "noRate": "Für keine der beiden Städte liegt ein Hypothekenzins vor, und es wird auch keiner von anderswo übernommen. Trag oben im Rechner einen Zins ein, um zu sehen, was du kaufen könntest.",
     "rentHow": "Die Miete ist abgeleitet: der Preis des Distrikts geteilt durch das Preis-Miete-Verhältnis der Zentralbank.",
-    "notInLayer": "nicht in der Ebene",
-    "gapsLine": "{n} von {all} Barrios haben in diesem Ausschnitt keinen Preis und bleiben grau: {names}.",
+    "notInLayer": "keine Daten",
+    "gapsLine": "{n} von {all} Barrios haben in diesem Quartal keinen Preis und bleiben grau: {names}.",
     "gap": {
       "none": "Zu wenige Wohnungen im Angebot im zweiten Quartal 2026: Das Institut veröffentlicht ein Barrio erst ab einer Mindestzahl von Inseraten",
-      "lima": "Nicht in der Ebene: Die Zentralbank veröffentlicht {n} Distrikte"
+      "lima": "Keine Daten: Die Zentralbank veröffentlicht nur {n} Distrikte"
     },
     "tip": {
       "price": "Preis",

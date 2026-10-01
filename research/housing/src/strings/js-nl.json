@@ -124,17 +124,17 @@
       "desc": "€ {inc} netto, twee volwassenen, 40% eigen inbreng, 15 jaar"
     },
     {
-      "name": "Student die huurt",
+      "name": "Huurende student",
       "desc": "€ {inc} netto, huurkaart"
     }
   ],
   "setup": {
-    "hhHint": "Equivalentiefactor {factor}: de OESO-schaal telt de eerste volwassene als 1, elke volgende volwassene als 0,5 en elk kind als 0,3. Alleen gebruikt voor de regel die jouw inkomen vergelijkt met het lokale gemiddelde, dat in Europa per volwassenenequivalent is en in de Verenigde Staten per huishouden.",
+    "hhHint": "Equivalentiefactor {factor}: de OESO-schaal telt de eerste volwassene als 1, elke volgende volwassene als 0,5 en elk kind als 0,3. Telt alleen mee in de regel die je inkomen vergelijkt met het lokale gemiddelde, dat in Europa per volwassenenequivalent is en in de Verenigde Staten per huishouden.",
     "wantNoArea": "geen woonoppervlak in Amerikaanse data",
     "wantAny": "geen",
     "mineDisabled": "Vul hierboven je inkomen in",
-    "incHint": "Na belasting, iedereen in het huishouden samen. Laat het leeg en elke plaats staat op haar eigen gemiddelde inkomen; vul het in en de kaarten, infokaarten en ranglijsten schakelen over op jouw geld.",
-    "incHintFx": "Na belasting, iedereen in het huishouden samen. {amount} = {eur} tegen de referentiekoers van de ECB van {date}.",
+    "incHint": "Na belasting, voor het hele huishouden samen. Laat je het leeg, dan wordt elke plaats doorgerekend met het gemiddelde inkomen van haar inwoners; vul je het in, dan gaan de kaarten, infokaarten en ranglijsten uit van jouw geld.",
+    "incHintFx": "Na belasting, voor het hele huishouden samen. {amount} = {eur} tegen de referentiekoers van de ECB van {date}.",
     "rateAll": "{rate} overal",
     "rateOwn": "de eigen rente van elk land",
     "adults": {
@@ -152,7 +152,7 @@
     },
     "orig": " ({amount})",
     "mine": "<b>{income}</b> netto per maand{orig} · <b>{share}</b> voor wonen = <b>{budget}</b> per maand · hypotheek over <b>{term}</b> tegen {rate} · eigen inbreng <b>{deposit}</b> · huishouden van {household} (factor {factor})",
-    "local": "Elke plaats op haar <b>eigen gemiddelde inkomen</b> · <b>{share}</b> voor wonen · hypotheek over <b>{term}</b> tegen {rate} · eigen inbreng <b>{deposit}</b>{tail}",
+    "local": "Elke plaats met haar <b>eigen gemiddelde inkomen</b> · <b>{share}</b> voor wonen · hypotheek over <b>{term}</b> tegen {rate} · eigen inbreng <b>{deposit}</b>{tail}",
     "published": " — precies de gepubliceerde kaart",
     "studyTerms": " — de voorwaarden van de studie, hier toegepast",
     "want": " · gezocht: <b>{m2}</b>"
@@ -174,11 +174,11 @@
     },
     "noAreaTitle": "Voor Amerikaanse {units} wordt geen woonoppervlak gepubliceerd — zie “Waar de cijfers vandaan komen”",
     "hint": {
-      "buy": "Hoeveel vierkante meter {share} van het inkomen koopt met een hypotheek over {term} jaar tegen de lokale rente en de lokale prijs per vierkante meter. Groen is veel ruimte, rood weinig.",
-      "rent": "Hoeveel vierkante meter {share} van het inkomen huurt tegen de lokale huur per vierkante meter. Groen is veel ruimte, rood weinig.",
-      "diff": "Vierkante meters huren min vierkante meters kopen, beide op {share} van het inkomen: welke van de twee je hier meer ruimte geeft. De legenda zegt welke kant elke kleur bevoordeelt.",
-      "years": "Hoeveel jaar van het hele inkomen {basket} kost als je in één keer betaalt, zonder enige hypotheek. Minder is beter, dus hier betekent groen weinig jaren en rood veel: deze schaal loopt andersom dan de meters.",
-      "share": "Welk deel van een maandinkomen de huur opslokt, voor {basket}. Kleiner is beter, dus groen betekent een klein aandeel en rood een groot."
+      "buy": "Hoeveel vierkante meter je met {share} van het inkomen kunt kopen, met een hypotheek over {term} jaar tegen de plaatselijke rente en de plaatselijke prijs per vierkante meter. Groen is veel ruimte, rood weinig.",
+      "rent": "Hoeveel vierkante meter je met {share} van het inkomen kunt huren tegen de plaatselijke huur per vierkante meter. Groen is veel ruimte, rood weinig.",
+      "diff": "Vierkante meters huren min vierkante meters kopen, beide met {share} van het inkomen: waarmee krijg je hier meer ruimte? De legenda laat zien voor welke van de twee elke kleur staat.",
+      "years": "Hoeveel jaar volledig inkomen {basket} kost als je in één keer betaalt, zonder hypotheek. Minder is beter, dus hier staat groen voor weinig jaren en rood voor veel: deze schaal loopt andersom dan die van de vierkante meters.",
+      "share": "Welk deel van het maandinkomen opgaat aan de huur, voor {basket}. Minder is beter, dus groen betekent een klein deel en rood een groot."
     }
   },
   "hints": {
@@ -187,18 +187,18 @@
       "na": "{n} county’s uit de American Community Survey: woningwaarden volgens de eigenaren en huren, afgezet tegen huishoudinkomen vóór belasting. Een andere meting dan de Europese, dus de twee kaarten delen nooit één schaal."
     },
     "basis": {
-      "local": "Elke plaats is gekleurd op haar eigen gemiddelde inkomen: de kaart laat zien of de inwoners hun eigen woonplaats kunnen betalen.",
-      "mine": "Elke plaats is gekleurd op jouw inkomen van {income} per maand: de kaart laat zien waar jij zou kunnen wonen.",
+      "local": "Elke plaats is gekleurd op basis van het gemiddelde inkomen van haar eigen inwoners: de kaart laat zien of mensen zich hun eigen woonplaats kunnen veroorloven.",
+      "mine": "Elke plaats is gekleurd op basis van jouw inkomen van {income} per maand: de kaart laat zien waar jij je het wonen zou kunnen veroorloven.",
       "mineOff": "Vul hierboven in de rekenhulp je inkomen in om de kaart op jouw geld te kleuren in plaats van op het lokale gemiddelde."
     },
     "read": {
-      "base": "Elke stip is een plaats, hoe groter hoe meer inwoners; elk land is ingekleurd met zijn landelijke cijfer. Beweeg erover of tik erop voor de cijfers. Grijs betekent geen data.",
+      "base": "Elke stip is een plaats, hoe groter hoe meer inwoners; elk land heeft de kleur van zijn landelijke cijfer. Wijs een stip of land aan of tik erop voor de cijfers. Grijs betekent geen data.",
       "dimmed": "Grijs markeert ook de plaatsen waar {m2} buiten bereik ligt."
     },
     "rank": {
-      "countries": "Elk land is het naar bevolking gewogen gemiddelde van zijn plaatsen, dus een grote dure hoofdstad trekt haar land omlaag in de ranglijst.",
-      "cities": "Afzonderlijke plaatsen van {min} inwoners of meer, elk op zijn eigen cijfers.",
-      "regs": "De regioknoppen houden alleen delen van de kaart over; er kunnen er meerdere tegelijk aan staan.",
+      "countries": "Het cijfer van een land is het naar inwonertal gewogen gemiddelde van zijn plaatsen, dus een grote, dure hoofdstad trekt haar land omlaag in de ranglijst.",
+      "cities": "Losse plaatsen met {min} inwoners of meer, elk met de eigen cijfers.",
+      "regs": "Met de regioknoppen beperk je de lijst tot delen van de kaart; je kunt er meerdere tegelijk aanzetten.",
       "sort": "Klik op een kolomkop om daarop te sorteren."
     }
   },
@@ -255,19 +255,19 @@
     "none": "Niets gevonden. Probeer de lokale spelling: Wien, Praha, København."
   },
   "move": {
-    "empty": "Kies beide plaatsen om het antwoord te zien. Al het andere op deze pagina geldt al: je looptijd, eigen inbreng en het deel van het inkomen dat je wilt uitgeven.",
+    "empty": "Kies beide plaatsen om het antwoord te zien. Je overige instellingen op deze pagina tellen al mee: looptijd, eigen inbreng en het deel van je inkomen dat je aan wonen wilt besteden.",
     "noIncome": "Geen inkomen bekend voor {place}. Vul hierboven je eigen inkomen in en kies “Mijn inkomen”.",
     "rentSame": "om dezelfde ruimte te huren",
     "rentShare": "om de huur op hetzelfde deel van het inkomen te houden",
-    "rentDetailSame": "dezelfde {m2} als thuis vraagt daar {money} inkomen per maand",
+    "rentDetailSame": "voor dezelfde {m2} als thuis heb je daar {money} per maand nodig",
     "rentDetail": "{home} thuis tegenover {there} daar — {moneyHome} per maand tegenover {moneyThere}",
     "noRent": "Geen huur bekend voor {place}, dus huren is niet te vergelijken.",
     "buySame": "om dezelfde ruimte te kopen",
     "buyShare": "om te kopen voor hetzelfde deel van het inkomen",
-    "buyDetailSame": "{m2} zoals thuis, met een hypotheek over {term} tegen {rateThere} daar en {rateHome} thuis",
+    "buyDetailSame": "{m2}, net als thuis, met een hypotheek over {term} tegen {rateThere} daar en {rateHome} thuis",
     "buyDetail": "{home} thuis tegenover {there} daar, met een hypotheek over {term} tegen {rateThere} daar en {rateHome} thuis",
     "noBuy": "Voor een van de twee ontbreekt een prijs of een hypotheekrente, dus kopen is niet te vergelijken.",
-    "layers": "De twee lagen zijn niet in dezelfde eenheid gemeten: Europa heeft een prijs per vierkante meter, de Verenigde Staten publiceren geen woonoppervlak, dus de vergelijking houdt het deel van het inkomen gelijk in plaats van de ruimte. Een deel van het verschil is daarom oppervlakte en geen prijs — het Amerikaanse pakket is een hele woning, en hoe groot die is, is precies wat de data niet zeggen.",
+    "layers": "Europa en de Verenigde Staten zijn niet in dezelfde eenheid gemeten: voor Europa is er een prijs per vierkante meter, de Verenigde Staten publiceren geen woonoppervlak. De vergelijking houdt daarom het deel van het inkomen gelijk in plaats van de ruimte. Een deel van het verschil komt dus door de grootte van de woning en niet door de prijs: in de Verenigde Staten wordt een hele mediane woning vergeleken, en hoe groot die is, is precies wat de data niet vermelden.",
     "medianHome": "de mediane woning",
     "medianRental": "de mediane huurwoning",
     "head": "Verhuizen van <b>{from}</b> naar <b>{to}</b> met {income} netto per maand",
@@ -276,8 +276,8 @@
     "aboutSame": "ongeveer gelijk",
     "needLabel": "Het aanbod moet zijn",
     "what": "netto per maand {what}: <b>{verdict}</b>",
-    "offerAbove": "Je aanbod van {offer} ligt {gap} hoger",
-    "offerShort": "Je aanbod van {offer} komt {gap} tekort",
+    "offerAbove": "Het aanbod van {offer} zit daar {gap} boven",
+    "offerShort": "Het aanbod van {offer} komt {gap} tekort",
     "gotBuy": "{m2} kopen",
     "gotRent": "{m2} huren",
     "eitherOr": "{a} of {b}",
@@ -290,7 +290,7 @@
     "gotShare": "de mediane huur slokt {pct} daarvan op",
     "both": "{a}, en {b}",
     "gotUS": "Met {offer} in {place}: {options}.",
-    "mortgageShare": "<b>Hoeveel hiervan de hypotheek is, en niet het wonen.</b> Als beide landen dezelfde rente rekenden, zou het aanbod {flat} ({delta}) moeten zijn {what} — dat is alleen het prijsverschil. Het renteverschil verschuift het met {rate} per maand. {vintage}",
+    "mortgageShare": "<b>Hoeveel hiervan door de hypotheek komt, en niet door de woning zelf.</b> Als beide landen dezelfde rente rekenden, zou het aanbod {flat} ({delta}) moeten zijn {what} — dat is alleen het prijsverschil. Het renteverschil verschuift het bedrag met {rate} per maand. {vintage}",
     "flatShare": "om hetzelfde deel van het inkomen te houden",
     "vintageEu": "Europese rentes zijn de nationale gemiddelden die de studie gebruikte, meestal van 2023, niet van nu. Vul hierboven in het rentevak je eigen rente in als je betere cijfers kent.",
     "vintageNa": "De Amerikaanse rente is het 30-jaarsgemiddelde van Freddie Mac voor 2024, het jaar waarin de dollars van de ACS-ramingen zijn uitgedrukt. Vul hierboven in het rentevak je eigen rente in als je betere cijfers kent.",
@@ -298,7 +298,7 @@
   },
   "card": {
     "label": "Gekozen plaats",
-    "empty": "Zoek hierboven een plaats of klik op een land op de kaart. De infokaart toont wat een derde van het inkomen daar op jouw voorwaarden koopt, en welk inkomen nodig is voor de oppervlakte die je wilt.",
+    "empty": "Zoek hierboven een plaats of klik op een land op de kaart. De infokaart toont wat je daar op jouw voorwaarden met een derde van het inkomen kunt kopen, en welk inkomen je nodig hebt voor de oppervlakte die je wilt.",
     "coastal": "{deg}, aan de kust",
     "coverage": "koopprijsdata voor {pct} van de bevolking",
     "countryKind": "land",
@@ -315,7 +315,7 @@
     "bigRent": "m² om te huren",
     "yourBudget": "Jouw woonbudget",
     "thirdLocal": "Een derde van het lokale inkomen",
-    "loan": "Lening die het budget kan dragen",
+    "loan": "Lening die je met dit budget kunt afbetalen",
     "plusDeposit": "Plus {pct} eigen inbreng",
     "homePrice": "Woningprijs die binnen bereik komt",
     "medianValue": "Mediane woningwaarde, schatting van de eigenaar",
@@ -332,19 +332,19 @@
     "studyValue": "{buy} m² om te kopen · {rent} m² om te huren",
     "vsMedian": "Jouw inkomen t.o.v. de lokale mediaan",
     "vsAverage": "Jouw inkomen t.o.v. het lokale gemiddelde",
-    "ratioUS": "{ratio}× een mediaan huishouden, vóór belasting",
+    "ratioUS": "{ratio}× dat van een mediaan huishouden, vóór belasting",
     "ratioEU": "{ratio}× per volwassenenequivalent",
     "whatItTakes": "Wat ervoor nodig is",
     "withDeposit": " met {pct} eigen inbreng",
     "haveEnough": " — je hebt {money}, genoeg",
     "haveShort": " — je hebt {money}, {pct} te weinig",
     "netMonth": "{money} netto per maand",
-    "buyNeed": "Om hier {input} m² te kopen voor {share} van het inkomen over {years}{deposit}, heb je <b>{need}</b> nodig{have}.",
-    "depositSave": "Een eigen inbreng van {pct} op {m2} is <b>{amount}</b>. Als je € {input} per maand spaart, duurt dat <b>{time}</b>.",
-    "rentNeed": "Om hier {m2} te huren voor {share} van het inkomen, heb je <b>{need}</b> nodig.",
-    "buyMedianNeed": "Om hier de mediane woning ({price}) te kopen voor {share} van het inkomen over {years}{deposit}, heb je <b>{need}</b> nodig{have}.",
-    "depositSaveMedian": "Een eigen inbreng van {pct} daarop is <b>{amount}</b>. Als je € {input} per maand spaart, duurt dat <b>{time}</b>.",
-    "rentMedianNeed": "Om hier de mediane woning te huren ({rent} per maand) voor {share} van het inkomen, heb je <b>{need}</b> nodig.",
+    "buyNeed": "Om hier {input} m² te kopen, met {share} van het inkomen als woonlast en een hypotheek over {years}{deposit}, heb je <b>{need}</b> nodig{have}.",
+    "depositSave": "Een eigen inbreng van {pct} voor {m2} komt neer op <b>{amount}</b>. Spaar je € {input} per maand, dan duurt dat <b>{time}</b>.",
+    "rentNeed": "Om hier {m2} te huren met {share} van het inkomen als woonlast, heb je <b>{need}</b> nodig.",
+    "buyMedianNeed": "Om hier de mediane woning ({price}) te kopen, met {share} van het inkomen als woonlast en een hypotheek over {years}{deposit}, heb je <b>{need}</b> nodig{have}.",
+    "depositSaveMedian": "Een eigen inbreng van {pct} komt daarbij neer op <b>{amount}</b>. Spaar je € {input} per maand, dan duurt dat <b>{time}</b>.",
+    "rentMedianNeed": "Om hier de mediane woning te huren ({rent} per maand) met {share} van het inkomen als woonlast, heb je <b>{need}</b> nodig.",
     "around": "In de omgeving",
     "inCmp": "✓ In de vergelijking · verwijderen",
     "addCmp": "+ Toevoegen aan vergelijking",
@@ -363,7 +363,7 @@
       "sameLocal": "Dezelfde voorwaarden voor iedereen (lokaal inkomen)",
       "study": "De eigen cijfers van de studie",
       "market": "De markt{conv}",
-      "both": "Beide lagen · in Europa is het pakket {m2}, in de Verenigde Staten de mediane woning — voor Amerikaanse county’s wordt geen woonoppervlak gepubliceerd{conv}",
+      "both": "Beide lagen · berekend voor {m2} in Europa en voor de mediane woning in de Verenigde Staten, waar geen woonoppervlak wordt gepubliceerd{conv}",
       "euOnly": "Alleen Europa · hiervoor is een prijs per vierkante meter nodig",
       "usOnly": "Alleen Verenigde Staten · hiervoor is een mediaan voor de hele woning nodig"
     },
@@ -431,7 +431,7 @@
     "within": " waar {m2} binnen bereik ligt",
     "coastal": ", alleen kust",
     "onYours": "Op jouw inkomen van {money} per maand.",
-    "onOwn": "Elk op het eigen gemiddelde inkomen.",
+    "onOwn": "Elke plaats met het eigen gemiddelde inkomen.",
     "layerOnly": "Alleen {label}: de twee lagen gebruiken verschillende inkomensdefinities en horen niet in één ranglijst.",
     "countryMeans": "Waarden per land zijn naar bevolking gewogen gemiddelden van {units}.",
     "clickRow": "Klik op een rij om de plaats op de kaart te openen."
@@ -452,7 +452,7 @@
       "niet ingedeeld"
     ],
     "tip": "{kind}: {pct} van de bevolking ({m} mln)",
-    "axis": "betaalbare vierkante meters voor een derde van het lokale gemiddelde inkomen"
+    "axis": "betaalbare vierkante meters met een derde van het lokale gemiddelde inkomen"
   },
   "latam": {
     "legendPrice": "Prijs per m², US-dollars",
@@ -460,19 +460,19 @@
     "legendBuy": "m² die je met {share} van je inkomen koopt",
     "legendRent": "m² die je met {share} van je inkomen huurt",
     "range": "{lo}–{hi}",
-    "setupPrice": "Elke kaart is gekleurd binnen haar eigen stad: <b>groen is het goedkoopste vijfde</b> van de districten, rood het duurste. De twee schalen verschillen met opzet.",
-    "needIncome": "Vul hierboven in de rekenhulp je maandinkomen in: de laag heeft geen lokaal inkomen, dus de vierkante meters kunnen alleen vanuit het jouwe worden berekend.",
+    "setupPrice": "Elke kaart heeft een eigen kleurschaal voor haar eigen stad: <b>groen is het goedkoopste vijfde</b> van de districten, rood het duurste. Dat de twee schalen verschillen, is met opzet.",
+    "needIncome": "Vul hierboven in de rekenhulp je maandinkomen in: voor deze steden zijn geen plaatselijke inkomens bekend, dus de vierkante meters kunnen alleen met jouw inkomen worden berekend.",
     "setupBuy": "<b>{income}</b> per maand, omgerekend naar US-dollars tegen de ECB-koers · <b>{share}</b> voor wonen = <b>{budget}</b> per maand · hypotheek over <b>{term}</b> · eigen inbreng <b>{deposit}</b> · {rate}",
     "setupRent": "<b>{income}</b> per maand, omgerekend naar US-dollars tegen de ECB-koers · <b>{share}</b> voor huur = <b>{budget}</b> per maand",
     "rateMine": "beide steden tegen jouw rente van <b>{rate}</b>",
-    "noRent": "Geen huren voor Buenos Aires in deze laag, alleen vraagprijzen voor koop.",
-    "noRate": "De laag heeft voor geen van beide steden een hypotheekrente, en er wordt er geen van elders geleend. Vul hierboven in de rekenhulp een rente in om te zien wat je zou kunnen kopen.",
+    "noRent": "Voor Buenos Aires bevat deze laag geen huren, alleen vraagprijzen voor koop.",
+    "noRate": "Voor geen van beide steden is een hypotheekrente beschikbaar, en er wordt er ook geen van elders overgenomen. Vul hierboven in de rekenhulp een rente in om te zien wat je zou kunnen kopen.",
     "rentHow": "De huur is afgeleid: de prijs van het district gedeeld door de prijs-huurverhouding van de centrale bank.",
-    "notInLayer": "niet in de laag",
-    "gapsLine": "{n} van {all} barrio’s hebben in deze doorsnede geen prijs en blijven grijs: {names}.",
+    "notInLayer": "geen data",
+    "gapsLine": "{n} van {all} barrio’s hebben voor dit kwartaal en dit woningtype geen prijs en blijven grijs: {names}.",
     "gap": {
       "none": "Te weinig appartementen te koop in het tweede kwartaal van 2026: het bureau publiceert een barrio pas boven een minimumaantal advertenties",
-      "lima": "Niet in de laag: de centrale bank publiceert {n} districten"
+      "lima": "Geen data: de centrale bank publiceert maar {n} districten"
     },
     "tip": {
       "price": "Prijs",
@@ -509,7 +509,7 @@
     "imageFailed": "De afbeelding kon niet worden gemaakt"
   },
   "csv": {
-    "rank": "plaats",
+    "rank": "positie",
     "country": "land",
     "metric": "maat",
     "place": "{name} ({country})"
