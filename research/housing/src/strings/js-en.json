@@ -133,7 +133,7 @@
     "wantNoArea": "no floor area in US data",
     "wantAny": "any",
     "mineDisabled": "Enter your income above",
-    "incHint": "After tax, everyone in the household together. Leave it empty and every place is shown on its own average income; type it and the maps, cards and rankings switch to your money.",
+    "incHint": "After tax, everyone in the household together. Leave it empty and every place is computed on its residents' average income; type it and the maps, cards and rankings switch to your money.",
     "incHintFx": "After tax, everyone in the household together. {amount} = {eur} at the ECB reference rate of {date}.",
     "rateAll": "{rate} everywhere",
     "rateOwn": "each country's own rate",
@@ -363,7 +363,7 @@
       "sameLocal": "Same terms for everyone (local income)",
       "study": "The study's own figures",
       "market": "The market{conv}",
-      "both": "Both layers · in Europe the basket is {m2}, in the United States the median home — floor area is not published for US counties{conv}",
+      "both": "Both layers · measured on {m2} in Europe and on the median home in the United States, where floor area is not published{conv}",
       "euOnly": "Europe only · these need a price per square metre",
       "usOnly": "United States only · these need a whole-home median"
     },
