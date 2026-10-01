@@ -104,7 +104,7 @@
   },
   "presets": [
     {
-      "name": "Le point de vue de l’étude",
+      "name": "Les hypothèses de l’étude",
       "desc": "revenu local moyen, 30 ans, sans apport"
     },
     {
@@ -113,7 +113,7 @@
     },
     {
       "name": "Couple avec un enfant",
-      "desc": "{inc} € nets, veut 75 m²"
+      "desc": "{inc} € nets, cherche 75 m²"
     },
     {
       "name": "Télétravail sur la côte",
@@ -133,7 +133,7 @@
     "wantNoArea": "pas de surface dans les données américaines",
     "wantAny": "aucune",
     "mineDisabled": "Saisissez votre revenu plus haut",
-    "incHint": "Après impôts, tous les revenus du foyer réunis. Laissez le champ vide, et chaque lieu est calculé sur son propre revenu moyen ; saisissez-le, et les cartes, les fiches et les classements passent à votre argent.",
+    "incHint": "Après impôts, tous les revenus du foyer réunis. Laissez le champ vide, et chaque lieu est calculé avec le revenu moyen de ses habitants ; remplissez-le, et les cartes, les fiches et les classements sont recalculés avec le vôtre.",
     "incHintFx": "Après impôts, tous les revenus du foyer réunis. {amount} = {eur} au cours de référence de la BCE du {date}.",
     "rateAll": "{rate} partout",
     "rateOwn": "propre à chaque pays",
@@ -152,7 +152,7 @@
     },
     "orig": " ({amount})",
     "mine": "<b>{income}</b> nets par mois{orig} · <b>{share}</b> pour le logement = <b>{budget}</b> par mois · prêt sur <b>{term}</b>, taux : {rate} · apport <b>{deposit}</b> · ménage : {household} (coefficient {factor})",
-    "local": "Chaque lieu sur son <b>propre revenu moyen</b> · <b>{share}</b> pour le logement · prêt sur <b>{term}</b>, taux : {rate} · apport <b>{deposit}</b>{tail}",
+    "local": "Chaque lieu avec le <b>revenu moyen de ses habitants</b> · <b>{share}</b> pour le logement · prêt sur <b>{term}</b>, taux : {rate} · apport <b>{deposit}</b>{tail}",
     "published": " — exactement la carte publiée",
     "studyTerms": " — les conditions de l’étude, appliquées ici",
     "want": " · objectif : <b>{m2}</b>"
@@ -174,11 +174,11 @@
     },
     "noAreaTitle": "Aucune surface n’est publiée pour les {units} américains — voir « D’où viennent les chiffres »",
     "hint": {
-      "buy": "Combien de mètres carrés {share} du revenu achète avec un prêt sur {term} ans au taux local et au prix local du mètre carré. Vert, c’est beaucoup d’espace ; rouge, c’est peu.",
-      "rent": "Combien de mètres carrés {share} du revenu permet de louer au loyer local du mètre carré. Vert, c’est beaucoup d’espace ; rouge, c’est peu.",
-      "diff": "Mètres carrés en location moins mètres carrés à l’achat, tous deux sur {share} du revenu : lequel des deux vous donne le plus d’espace ici. La légende dit quel côté chaque couleur favorise.",
-      "years": "Combien d’années du revenu entier il faut pour payer {basket} comptant, sans aucun prêt. Moins, c’est mieux : ici, le vert signifie peu d’années et le rouge beaucoup, cette échelle est donc inversée par rapport aux mètres carrés.",
-      "share": "Quelle part du revenu d’un mois prélève le loyer, pour {basket}. Moins, c’est mieux : le vert signifie une petite part, le rouge une grande."
+      "buy": "Combien de mètres carrés on peut acheter en consacrant {share} du revenu à un prêt sur {term} ans, au taux et au prix du mètre carré locaux. Vert : beaucoup d’espace ; rouge : peu.",
+      "rent": "Combien de mètres carrés on peut louer avec {share} du revenu, au loyer local du mètre carré. Vert : beaucoup d’espace ; rouge : peu.",
+      "diff": "Mètres carrés en location moins mètres carrés à l’achat, tous deux avec {share} du revenu : de quoi voir lequel des deux donne le plus d’espace ici. La légende indique quel côté chaque couleur favorise.",
+      "years": "Combien d’années il faudrait, en y consacrant tout le revenu, pour payer {basket} comptant, sans emprunt. Moins, c’est mieux : ici, le vert signifie peu d’années et le rouge beaucoup, à l’inverse de l’échelle des mètres carrés.",
+      "share": "La part du revenu mensuel qu’absorbe le loyer, pour {basket}. Moins, c’est mieux : le vert signifie une petite part, le rouge une grande."
     }
   },
   "hints": {
@@ -187,18 +187,18 @@
       "na": "{n} comtés tirés de l’American Community Survey : valeurs des logements estimées par leurs propriétaires et loyers, rapportés au revenu des ménages avant impôts. Une mesure différente de celle de l’Europe, si bien que les deux cartes ne partagent jamais une même échelle."
     },
     "basis": {
-      "local": "Chaque lieu est coloré sur son propre revenu moyen : la carte dit si ses habitants ont les moyens d’y vivre.",
-      "mine": "Chaque lieu est coloré sur votre revenu de {income} par mois : la carte dit où vous auriez les moyens de vivre.",
-      "mineOff": "Saisissez votre revenu dans le calculateur plus haut pour colorer la carte sur votre argent plutôt que sur la moyenne locale."
+      "local": "Chaque lieu est coloré d’après le revenu moyen de ses habitants : la carte montre s’ils ont les moyens d’y vivre.",
+      "mine": "Chaque lieu est coloré d’après votre revenu de {income} par mois : la carte montre où vous auriez les moyens de vivre.",
+      "mineOff": "Saisissez votre revenu dans le calculateur plus haut pour colorer la carte d’après votre revenu plutôt que d’après la moyenne locale."
     },
     "read": {
-      "base": "Chaque point est un lieu, dimensionné selon sa population ; chaque pays est coloré selon son chiffre national. Survolez ou touchez pour voir les chiffres. Le gris signifie : pas de données.",
+      "base": "Chaque point est un lieu, d’autant plus gros qu’il est peuplé ; chaque pays est coloré selon son chiffre national. Survolez ou touchez pour voir les chiffres. Le gris signifie : pas de données.",
       "dimmed": "Le gris marque aussi les lieux où {m2} sont hors de portée."
     },
     "rank": {
       "countries": "Chaque pays est la moyenne de ses lieux pondérée par la population : une grande capitale chère tire donc son pays vers le bas du classement.",
-      "cities": "Des lieux pris un par un, de {min} habitants ou plus, chacun sur ses propres chiffres.",
-      "regs": "Les boutons de région ne gardent que certaines parties de la carte ; plusieurs peuvent être actifs à la fois.",
+      "cities": "Les lieux de {min} habitants ou plus, pris un par un, chacun avec ses propres chiffres.",
+      "regs": "Les boutons de région limitent la liste à certaines parties de la carte ; on peut en activer plusieurs à la fois.",
       "sort": "Cliquez sur l’en-tête d’une colonne pour trier selon elle."
     }
   },
@@ -211,11 +211,11 @@
       "plus de 150 m²"
     ],
     "diff": [
-      "l’achat donne plus de 20 m² de plus",
-      "l’achat donne 5 à 20 m² de plus",
+      "l’achat l’emporte de plus de 20 m²",
+      "l’achat l’emporte de 5 à 20 m²",
       "à 5 m² près",
-      "la location donne 5 à 20 m² de plus",
-      "la location donne plus de 20 m² de plus"
+      "la location l’emporte de 5 à 20 m²",
+      "la location l’emporte de plus de 20 m²"
     ],
     "years": [
       "moins de 3 ans",
@@ -259,7 +259,7 @@
     "noIncome": "Aucun revenu enregistré pour {place}. Saisissez le vôtre plus haut et passez à « Mon revenu ».",
     "rentSame": "pour louer la même surface",
     "rentShare": "pour garder le loyer à la même part du revenu",
-    "rentDetailSame": "Les mêmes {m2} que chez vous demandent là-bas {money} de revenu par mois",
+    "rentDetailSame": "Pour louer là-bas les mêmes {m2} que chez vous, il faut {money} de revenu par mois",
     "rentDetail": "{home} chez vous contre {there} là-bas — {moneyHome} par mois contre {moneyThere}",
     "noRent": "Aucun loyer enregistré pour {place} : la location ne peut pas être comparée.",
     "buySame": "pour acheter la même surface",
@@ -267,7 +267,7 @@
     "buyDetailSame": "Vos {m2} actuels, avec un prêt sur {term} à {rateThere} là-bas contre {rateHome} chez vous",
     "buyDetail": "{home} chez vous contre {there} là-bas, avec un prêt sur {term} à {rateThere} là-bas contre {rateHome} chez vous",
     "noBuy": "Pas de prix ou pas de taux hypothécaire pour l’un des deux : l’achat ne peut pas être comparé.",
-    "layers": "Les deux couches ne sont pas mesurées dans la même unité : l’Europe a un prix au mètre carré, les États-Unis ne publient pas la surface, si bien que la comparaison garde égale la part du revenu plutôt que la surface. Une partie de l’écart tient donc à la taille et non au prix — le panier américain est un logement entier, et sa taille est précisément ce que les données ne disent pas.",
+    "layers": "L’Europe et les États-Unis n’ont pas la même unité de mesure : l’une a un prix au mètre carré, les autres ne publient pas la surface. La comparaison garde donc égale la part du revenu, pas la surface, et une partie de l’écart tient à la taille, non au prix : côté américain, elle porte sur un logement médian entier, dont les données ne disent justement pas la taille.",
     "medianHome": "le logement médian",
     "medianRental": "le logement locatif médian",
     "head": "Déménagement : <b>{from}</b> → <b>{to}</b>, avec {income} nets par mois",
@@ -290,15 +290,15 @@
     "gotShare": "le loyer médian absorbe {pct} de cette somme",
     "both": "{a}, et {b}",
     "gotUS": "{place}, avec {offer} : {options}.",
-    "mortgageShare": "<b>Quelle part de l’écart tient au crédit, et non au logement.</b> Si les deux pays pratiquaient le même taux d’intérêt, l’offre devrait atteindre {flat} ({delta}) {what} — c’est la seule différence de prix. L’écart de taux la déplace de {rate} par mois. {vintage}",
+    "mortgageShare": "<b>Quelle part de l’écart tient au crédit, et non au logement.</b> Si les deux pays pratiquaient le même taux d’intérêt, l’offre devrait atteindre {flat} ({delta}) {what} : c’est l’écart dû aux seuls prix. La différence de taux fait varier ce montant de {rate} par mois. {vintage}",
     "flatShare": "pour garder la même part du revenu",
     "vintageEu": "Les taux européens sont les moyennes nationales utilisées par l’étude, surtout de 2023, pas ceux d’aujourd’hui. Indiquez les vôtres dans le champ du taux plus haut si vous en connaissez de meilleurs.",
-    "vintageNa": "Le taux américain est la moyenne 2024 du taux à 30 ans de Freddie Mac, l’année dans les dollars de laquelle sont exprimées les estimations de l’ACS. Indiquez le vôtre dans le champ du taux plus haut si vous en connaissez un meilleur.",
-    "vintageBoth": "Les taux européens sont les moyennes nationales utilisées par l’étude, surtout de 2023, pas ceux d’aujourd’hui ; le taux américain est la moyenne 2024 du taux à 30 ans de Freddie Mac, l’année dans les dollars de laquelle sont exprimées les estimations de l’ACS. Indiquez les vôtres dans le champ du taux plus haut si vous en connaissez de meilleurs."
+    "vintageNa": "Le taux américain est la moyenne 2024 du taux à 30 ans de Freddie Mac : l’ACS exprime ses estimations en dollars de 2024. Indiquez le vôtre dans le champ du taux plus haut si vous en connaissez un meilleur.",
+    "vintageBoth": "Les taux européens sont les moyennes nationales utilisées par l’étude, surtout de 2023, pas ceux d’aujourd’hui ; le taux américain est la moyenne 2024 du taux à 30 ans de Freddie Mac, car l’ACS exprime ses estimations en dollars de 2024. Indiquez les vôtres dans le champ du taux plus haut si vous en connaissez de meilleurs."
   },
   "card": {
     "label": "Lieu sélectionné",
-    "empty": "Cherchez une ville plus haut ou cliquez sur un pays de la carte. La fiche montre ce qu’un tiers du revenu achète à cet endroit à vos conditions, et quel revenu il faudrait pour obtenir la surface que vous voulez.",
+    "empty": "Cherchez une ville plus haut ou cliquez sur un pays de la carte. La fiche montre ce qu’un tiers du revenu permet d’y acheter à vos conditions, et quel revenu il faudrait pour obtenir la surface voulue.",
     "coastal": "{deg}, sur la côte",
     "coverage": "données de vente pour {pct} de la population",
     "countryKind": "pays",
@@ -315,9 +315,9 @@
     "bigRent": "m² en location",
     "yourBudget": "Votre budget logement",
     "thirdLocal": "Un tiers du revenu local",
-    "loan": "Prêt que le budget permet",
+    "loan": "Emprunt possible avec ce budget",
     "plusDeposit": "Plus un apport de {pct}",
-    "homePrice": "Prix de logement accessible",
+    "homePrice": "Prix maximal du logement",
     "medianValue": "Valeur médiane du logement, selon le propriétaire",
     "medianRent": "Loyer médian, charges comprises",
     "pricePerM2": "Prix au m²",
@@ -363,9 +363,9 @@
       "sameLocal": "Mêmes conditions pour tous (revenu local)",
       "study": "Les chiffres de l’étude",
       "market": "Le marché{conv}",
-      "both": "Les deux couches · en Europe, le panier est de {m2} ; aux États-Unis, c’est le logement médian — la surface n’est pas publiée pour les comtés américains{conv}",
-      "euOnly": "Europe seulement · il faut un prix au mètre carré",
-      "usOnly": "États-Unis seulement · il faut une médiane par logement entier"
+      "both": "Les deux volets · {m2} en Europe, logement médian aux États-Unis, où la surface n’est pas publiée{conv}",
+      "euOnly": "Europe seulement · lignes qui exigent un prix au mètre carré",
+      "usOnly": "États-Unis seulement · lignes qui exigent une médiane par logement entier"
     },
     "rows": {
       "buy": "m² à l’achat",
@@ -399,10 +399,10 @@
     },
     "remove": "Retirer",
     "addMore": {
-      "one": "encore {n} au plus",
-      "other": "encore {n} au plus"
+      "one": "encore {n} possible",
+      "other": "encore {n} possibles"
     },
-    "nothing": "rien de sélectionné pour l’instant : ajoutez un lieu avec + Ajouter à la comparaison sur sa fiche, ou avec le + dans les classements"
+    "nothing": "rien de sélectionné pour l’instant : ajoutez un lieu avec + Ajouter à la comparaison sur sa fiche, ou avec le + dans les classements"
   },
   "rank": {
     "coast": "côte seulement",
@@ -431,8 +431,8 @@
     "within": " où {m2} sont à portée",
     "coastal": ", côte seulement",
     "onYours": "Sur votre revenu de {money} par mois.",
-    "onOwn": "Chacun sur son propre revenu moyen.",
-    "layerOnly": "{label} seulement : les deux couches utilisent des définitions du revenu différentes et n’ont pas leur place dans un même classement.",
+    "onOwn": "Chaque lieu avec le revenu moyen de ses habitants.",
+    "layerOnly": "{label} seulement : les deux volets reposent sur des définitions du revenu différentes et n’ont pas leur place dans un même classement.",
     "countryMeans": "Les valeurs par pays sont des moyennes des {units} pondérées par la population.",
     "clickRow": "Cliquez sur une ligne pour ouvrir le lieu sur la carte."
   },
@@ -457,22 +457,22 @@
   "latam": {
     "legendPrice": "Prix au m², en dollars US",
     "legendRentPrice": "Loyer au m² par mois, en dollars US",
-    "legendBuy": "m² qu’achète {share} de votre revenu",
-    "legendRent": "m² que loue {share} de votre revenu",
+    "legendBuy": "m² achetables avec {share} de votre revenu",
+    "legendRent": "m² louables avec {share} de votre revenu",
     "range": "{lo}–{hi}",
     "setupPrice": "Chaque carte est colorée à l’intérieur de sa propre ville : <b>le vert, c’est le cinquième le moins cher</b> de ses districts, le rouge le plus cher. Les deux échelles diffèrent à dessein.",
-    "needIncome": "Saisissez votre revenu mensuel dans le calculateur plus haut : cette couche n’a pas de revenu local, les mètres carrés ne peuvent donc être comptés que sur le vôtre.",
+    "needIncome": "Saisissez votre revenu mensuel dans le calculateur plus haut : ce volet n’a pas de revenu local, les mètres carrés ne peuvent donc être calculés que sur le vôtre.",
     "setupBuy": "<b>{income}</b> par mois, convertis en dollars US au cours de la BCE · <b>{share}</b> pour le logement = <b>{budget}</b> par mois · prêt sur <b>{term}</b> · apport <b>{deposit}</b> · {rate}",
     "setupRent": "<b>{income}</b> par mois, convertis en dollars US au cours de la BCE · <b>{share}</b> pour le loyer = <b>{budget}</b> par mois",
     "rateMine": "les deux villes à votre taux de <b>{rate}</b>",
-    "noRent": "Pas de loyers pour Buenos Aires dans cette couche, seulement des prix de vente demandés.",
-    "noRate": "La couche n’a de taux hypothécaire pour aucune des deux villes, et aucun n’est emprunté ailleurs. Saisissez un taux dans le calculateur plus haut pour voir ce que vous pourriez acheter.",
+    "noRent": "Pas de loyers pour Buenos Aires dans ce volet, seulement des prix de vente demandés.",
+    "noRate": "Ce volet ne dispose d’aucun taux hypothécaire pour les deux villes, et aucun n’est repris d’une autre source. Saisissez un taux dans le calculateur plus haut pour voir ce que vous pourriez acheter.",
     "rentHow": "Le loyer est déduit : le prix du district divisé par le rapport prix/loyer publié par la banque centrale.",
-    "notInLayer": "absent de la couche",
+    "notInLayer": "pas de données",
     "gapsLine": "{n} barrios sur {all} n’ont pas de prix dans cette tranche et restent en gris : {names}.",
     "gap": {
-      "none": "Trop peu d’appartements en vente au deuxième trimestre 2026 : l’institut ne publie un barrio qu’au-delà d’un nombre minimal d’annonces",
-      "lima": "Absent de la couche : la banque centrale publie {n} districts"
+      "none": "Trop peu d’appartements en vente au deuxième trimestre 2026 : l’institut ne publie un barrio qu’au-delà d’un nombre minimal d’annonces",
+      "lima": "Pas de données : la banque centrale ne publie que {n} districts"
     },
     "tip": {
       "price": "Prix",

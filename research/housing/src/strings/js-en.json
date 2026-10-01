@@ -177,7 +177,7 @@
       "buy": "How many square metres {share} of the income buys with a {term}-year mortgage at the local rate and the local price per square metre. Green is a lot of space, red is little.",
       "rent": "How many square metres {share} of the income rents at the local rent per square metre. Green is a lot of space, red is little.",
       "diff": "Square metres to rent minus square metres to buy, both on {share} of the income: which of the two gets you more space here. The legend says which side each colour favours.",
-      "years": "How many years of the whole income {basket} costs outright, with no mortgage at all. Fewer is better, so here green means few years and red means many: this scale runs the other way from the metres.",
+      "years": "How many years of income, all of it and not just a third, {basket} costs outright, with no mortgage at all. Fewer is better, so here green means few years and red means many: this scale runs the other way from the metres.",
       "share": "What part of a month's income the rent takes, for {basket}. Smaller is better, so green means a small share and red a large one."
     }
   },
@@ -267,7 +267,7 @@
     "buyDetailSame": "{m2} at home, on a {term} mortgage at {rateThere} there against {rateHome} at home",
     "buyDetail": "{home} at home against {there} there, on a {term} mortgage at {rateThere} there against {rateHome} at home",
     "noBuy": "No price or no mortgage rate for one of the two, so buying cannot be compared.",
-    "layers": "The two layers are not measured in the same unit: Europe has a price per square metre, the United States does not publish floor area, so the comparison keeps the share of income equal rather than the space. Part of the gap is therefore size and not price — the American basket is a whole home, and how big it is, is exactly what the data does not say.",
+    "layers": "Europe and the United States are not measured in the same unit: Europe has a price per square metre, the United States does not publish floor area, so the comparison keeps the share of income equal rather than the space. Part of the gap is therefore size and not price: in the United States the comparison is on a whole median home, and how big it is, is exactly what the data does not say.",
     "medianHome": "the median home",
     "medianRental": "the median rental",
     "head": "Moving from <b>{from}</b> to <b>{to}</b> on {income} net a month",
@@ -290,11 +290,11 @@
     "gotShare": "the median rent takes {pct} of it",
     "both": "{a}, and {b}",
     "gotUS": "On {offer} in {place}, {options}.",
-    "mortgageShare": "<b>How much of this is the mortgage, not the housing.</b> If both countries charged the same interest, the offer would need to be {flat} ({delta}) {what} — that is the price difference alone. The rate difference moves it by {rate} a month. {vintage}",
+    "mortgageShare": "<b>How much of the gap is the interest rate, and how much the prices.</b> If both countries charged the same interest, the offer would need to be {flat} ({delta}) {what} — that is the price difference alone. The rate difference moves it by {rate} a month. {vintage}",
     "flatShare": "to keep the same share of income",
     "vintageEu": "European rates are the national averages the study used, mostly 2023, not today's. Put your own in the rate field above if you know better ones.",
-    "vintageNa": "The US rate is the Freddie Mac 30-year average for 2024, the year whose dollars the ACS estimates are in. Put your own in the rate field above if you know better ones.",
-    "vintageBoth": "European rates are the national averages the study used, mostly 2023, not today's; the US rate is the Freddie Mac 30-year average for 2024, the year whose dollars the ACS estimates are in. Put your own in the rate field above if you know better ones."
+    "vintageNa": "The US rate is Freddie Mac's 2024 average for 30-year mortgages, the year whose dollars the ACS estimates are in. Put your own in the rate field above if you know better ones.",
+    "vintageBoth": "European rates are the national averages the study used, mostly 2023, not today's; the US rate is Freddie Mac's 2024 average for 30-year mortgages, the year whose dollars the ACS estimates are in. Put your own in the rate field above if you know better ones."
   },
   "card": {
     "label": "Selected place",
@@ -468,11 +468,11 @@
     "noRent": "No rents for Buenos Aires in this layer, only asking prices for sale.",
     "noRate": "The layer has no mortgage rate for either city, and none is borrowed from elsewhere. Type a rate in the calculator above to see what you could buy.",
     "rentHow": "Rent is derived: the district's price divided by the central bank's price-to-rent ratio.",
-    "notInLayer": "not in the layer",
-    "gapsLine": "{n} of {all} barrios have no price in this slice and stay grey: {names}.",
+    "notInLayer": "no data",
+    "gapsLine": "{n} of {all} barrios have no price for this flat type and stay grey: {names}.",
     "gap": {
       "none": "Too few flats on offer in the second quarter of 2026: the institute publishes a barrio only above a minimum number of listings",
-      "lima": "Not in the layer: the central bank publishes {n} districts"
+      "lima": "No data: the central bank publishes only {n} districts"
     },
     "tip": {
       "price": "Price",

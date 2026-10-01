@@ -31,7 +31,7 @@
   },
   "place": {
     "city": "cidade",
-    "town": "vila ou subúrbio",
+    "town": "cidade pequena ou subúrbio",
     "rural": "área rural"
   },
   "frames": {
@@ -104,12 +104,12 @@
   },
   "presets": [
     {
-      "name": "A visão do próprio estudo",
+      "name": "Como no estudo",
       "desc": "renda média local, 30 anos, sem entrada"
     },
     {
       "name": "Dev júnior",
-      "desc": "€ {inc} líquidos, morando só, 30 anos"
+      "desc": "€ {inc} líquidos, mora sozinho, 30 anos"
     },
     {
       "name": "Casal com um filho",
@@ -124,7 +124,7 @@
       "desc": "€ {inc} líquidos, dois adultos, 40% de entrada, 15 anos"
     },
     {
-      "name": "Estudante de aluguel",
+      "name": "Estudante no aluguel",
       "desc": "€ {inc} líquidos, mapa do aluguel"
     }
   ],
@@ -133,8 +133,8 @@
     "wantNoArea": "não há área nos dados dos EUA",
     "wantAny": "qualquer",
     "mineDisabled": "Digite sua renda acima",
-    "incHint": "Depois dos impostos, somando todos do domicílio. Deixe vazio e cada lugar aparece com sua própria renda média; digite e os mapas, os cartões e os rankings passam a usar o seu dinheiro.",
-    "incHintFx": "Depois dos impostos, somando todos do domicílio. {amount} = {eur} pela taxa de referência do BCE de {date}.",
+    "incHint": "Valor líquido, já descontados os impostos, somando a renda de todos que moram na casa. Em branco, cada lugar é calculado com a renda média dos seus moradores; preenchido, os mapas, os cartões e os rankings passam a usar o seu dinheiro.",
+    "incHintFx": "Valor líquido, já descontados os impostos, somando a renda de todos que moram na casa. {amount} = {eur} pela taxa de referência do BCE de {date}.",
     "rateAll": "{rate} em todo lugar",
     "rateOwn": "a taxa própria de cada país",
     "adults": {
@@ -177,8 +177,8 @@
       "buy": "Quantos metros quadrados {share} da renda compra com um financiamento de {term} anos à taxa local e ao preço local do metro quadrado. Verde é muito espaço, vermelho é pouco.",
       "rent": "Quantos metros quadrados {share} da renda aluga ao aluguel local por metro quadrado. Verde é muito espaço, vermelho é pouco.",
       "diff": "Metros quadrados para alugar menos metros quadrados para comprar, ambos com {share} da renda: qual dos dois dá mais espaço aqui. A legenda diz que lado cada cor favorece.",
-      "years": "Quantos anos da renda inteira leva para comprar {basket} à vista, sem financiamento nenhum. Menos é melhor, então aqui verde significa poucos anos e vermelho, muitos: esta escala corre ao contrário da dos metros.",
-      "share": "Que parte da renda de um mês o aluguel leva, para {basket}. Menor é melhor, então verde significa uma parcela pequena e vermelho, uma grande."
+      "years": "Quantos anos de renda, inteira, seriam necessários para comprar {basket} à vista, sem financiamento. Menos é melhor, então aqui verde significa poucos anos e vermelho, muitos: a escala é invertida em relação à dos metros quadrados.",
+      "share": "Que parte da renda mensal o aluguel consome, considerando {basket}. Menos é melhor, então verde significa uma parcela pequena e vermelho, uma grande."
     }
   },
   "hints": {
@@ -198,7 +198,7 @@
     "rank": {
       "countries": "Cada país é a média de seus lugares ponderada pela população, então uma capital grande e cara puxa o país para baixo no ranking.",
       "cities": "Lugares individuais com {min} habitantes ou mais, cada um com seus próprios números.",
-      "regs": "Os botões de região mantêm só partes do mapa; vários podem ficar ligados ao mesmo tempo.",
+      "regs": "Os botões de região filtram partes do mapa; dá para ligar vários ao mesmo tempo.",
       "sort": "Clique no cabeçalho de uma coluna para ordenar por ela."
     }
   },
@@ -255,7 +255,7 @@
     "none": "Nada encontrado. Tente a grafia local: Wien, Praha, København."
   },
   "move": {
-    "empty": "Escolha os dois lugares para ver a resposta. Todo o resto da página já vale aqui: seu prazo, sua entrada e a parcela da renda que você aceita gastar.",
+    "empty": "Escolha os dois lugares para ver a resposta. O que você configurou no resto da página vale aqui também: o prazo, a entrada e a parcela da renda que você aceita gastar.",
     "noIncome": "Não há renda registrada para {place}. Digite a sua acima e mude para “Minha renda”.",
     "rentSame": "para alugar o mesmo espaço",
     "rentShare": "para manter o aluguel na mesma parcela da renda",
@@ -267,7 +267,7 @@
     "buyDetailSame": "{m2} onde você mora, com financiamento de {term} a {rateThere} lá contra {rateHome} onde você mora",
     "buyDetail": "{home} onde você mora contra {there} lá, com financiamento de {term} a {rateThere} lá contra {rateHome} onde você mora",
     "noBuy": "Falta o preço ou a taxa de financiamento de um dos dois, então não dá para comparar a compra.",
-    "layers": "As duas camadas não são medidas na mesma unidade: a Europa tem preço por metro quadrado, os Estados Unidos não publicam a área dos imóveis, então a comparação mantém igual a parcela da renda, e não o espaço. Parte da diferença, portanto, é de tamanho e não de preço — a cesta americana é um imóvel inteiro, e o tamanho dele é exatamente o que os dados não dizem.",
+    "layers": "A Europa e os Estados Unidos não usam a mesma unidade: a Europa tem preço por metro quadrado, e os Estados Unidos não publicam a área dos imóveis. Por isso a comparação mantém igual a parcela da renda, e não o espaço, e parte da diferença vem do tamanho, não do preço: nos Estados Unidos, a conta é feita sobre um imóvel inteiro, cujo tamanho os dados não informam.",
     "medianHome": "o imóvel mediano",
     "medianRental": "o aluguel mediano",
     "head": "Mudando de <b>{from}</b> para <b>{to}</b> com {income} líquidos por mês",
@@ -293,12 +293,12 @@
     "mortgageShare": "<b>Quanto disso é o financiamento, e não a moradia.</b> Se os dois países cobrassem os mesmos juros, a oferta precisaria ser de {flat} ({delta}) {what} — essa é só a diferença de preço. A diferença de taxas muda o valor em {rate} por mês. {vintage}",
     "flatShare": "para manter a mesma parcela da renda",
     "vintageEu": "As taxas europeias são as médias nacionais que o estudo usou, em geral de 2023, não as de hoje. Se você conhece taxas melhores, informe-as no campo de juros acima.",
-    "vintageNa": "A taxa dos EUA é a média de 2024 da taxa de 30 anos da Freddie Mac, o ano em cujos dólares estão as estimativas da ACS. Se você conhece taxas melhores, informe-as no campo de juros acima.",
-    "vintageBoth": "As taxas europeias são as médias nacionais que o estudo usou, em geral de 2023, não as de hoje; a taxa dos EUA é a média de 2024 da taxa de 30 anos da Freddie Mac, o ano em cujos dólares estão as estimativas da ACS. Se você conhece taxas melhores, informe-as no campo de juros acima."
+    "vintageNa": "A taxa dos EUA é a média de 2024 da taxa de 30 anos da Freddie Mac, o mesmo ano dos dólares em que a ACS expressa suas estimativas. Se você conhece taxas melhores, informe-as no campo de juros acima.",
+    "vintageBoth": "As taxas europeias são as médias nacionais que o estudo usou, em geral de 2023, não as de hoje; a taxa dos EUA é a média de 2024 da taxa de 30 anos da Freddie Mac, o mesmo ano dos dólares em que a ACS expressa suas estimativas. Se você conhece taxas melhores, informe-as no campo de juros acima."
   },
   "card": {
     "label": "Lugar selecionado",
-    "empty": "Busque uma cidade acima ou clique num país do mapa. O cartão mostra o que um terço da renda compra ali nas suas condições, e que renda seria preciso para ter o tamanho que você quer.",
+    "empty": "Busque uma cidade acima ou clique num país do mapa. O cartão mostra quanto espaço um terço da renda compra ali nas suas condições e que renda seria preciso ter para conseguir o tamanho que você quer.",
     "coastal": "{deg}, no litoral",
     "coverage": "dados de venda para {pct} da população",
     "countryKind": "país",
@@ -315,9 +315,9 @@
     "bigRent": "m² para alugar",
     "yourBudget": "Seu orçamento para moradia",
     "thirdLocal": "Um terço da renda local",
-    "loan": "Empréstimo que o orçamento sustenta",
+    "loan": "Empréstimo que cabe no orçamento",
     "plusDeposit": "Mais uma entrada de {pct}",
-    "homePrice": "Preço de imóvel ao alcance",
+    "homePrice": "Preço do imóvel ao seu alcance",
     "medianValue": "Valor mediano do imóvel, estimativa do proprietário",
     "medianRent": "Aluguel mediano, contas incluídas",
     "pricePerM2": "Preço por m²",
@@ -345,7 +345,7 @@
     "buyMedianNeed": "Para comprar o imóvel mediano daqui ({price}) com {share} da renda em {years}{deposit}, você precisa de <b>{need}</b>{have}.",
     "depositSaveMedian": "Uma entrada de {pct} sobre ele é <b>{amount}</b>. Poupando € {input} por mês, isso leva <b>{time}</b>.",
     "rentMedianNeed": "Para alugar o imóvel mediano daqui ({rent} por mês) com {share} da renda, você precisa de <b>{need}</b>.",
-    "around": "Em volta",
+    "around": "Nos arredores",
     "inCmp": "✓ Na comparação · remover",
     "addCmp": "+ Adicionar à comparação",
     "showOnMap": "Mostrar no mapa",
@@ -363,7 +363,7 @@
       "sameLocal": "Mesmas condições para todos (renda local)",
       "study": "Os números do próprio estudo",
       "market": "O mercado{conv}",
-      "both": "As duas camadas · na Europa a cesta é de {m2}, nos Estados Unidos é o imóvel mediano — não há área publicada para os condados dos EUA{conv}",
+      "both": "Europa e Estados Unidos · calculado sobre {m2} na Europa e sobre o imóvel mediano nos Estados Unidos, onde a área não é publicada{conv}",
       "euOnly": "Só Europa · exigem um preço por metro quadrado",
       "usOnly": "Só Estados Unidos · exigem uma mediana do imóvel inteiro"
     },
@@ -432,7 +432,7 @@
     "coastal": ", só no litoral",
     "onYours": "Com sua renda de {money} por mês.",
     "onOwn": "Cada um com sua própria renda média.",
-    "layerOnly": "Só este mapa ({label}): as duas camadas usam definições de renda diferentes e não cabem num único ranking.",
+    "layerOnly": "Só este mapa ({label}): Europa e Estados Unidos usam definições de renda diferentes e não cabem num único ranking.",
     "countryMeans": "Os valores dos países são médias de {units} ponderadas pela população.",
     "clickRow": "Clique numa linha para abrir o lugar no mapa."
   },
@@ -447,7 +447,7 @@
     ],
     "kinds": [
       "cidades",
-      "vilas e subúrbios",
+      "cidades pequenas e subúrbios",
       "áreas rurais",
       "sem classificação"
     ],
@@ -461,18 +461,18 @@
     "legendRent": "m² que {share} da sua renda aluga",
     "range": "{lo}–{hi}",
     "setupPrice": "Cada mapa é colorido dentro da própria cidade: <b>verde é a quinta parte mais barata</b> dos seus distritos, vermelho, a mais cara. As duas escalas são diferentes de propósito.",
-    "needIncome": "Digite sua renda mensal na calculadora acima: a camada não tem renda local, então os metros quadrados só podem ser calculados a partir da sua.",
+    "needIncome": "Digite sua renda mensal na calculadora acima: para essas cidades não há dados de renda local, então os metros quadrados só podem ser calculados a partir da sua.",
     "setupBuy": "<b>{income}</b> por mês, convertidos em dólares americanos pela taxa do BCE · <b>{share}</b> para moradia = <b>{budget}</b> por mês · financiamento de <b>{term}</b> · entrada: <b>{deposit}</b> · {rate}",
     "setupRent": "<b>{income}</b> por mês, convertidos em dólares americanos pela taxa do BCE · <b>{share}</b> para o aluguel = <b>{budget}</b> por mês",
     "rateMine": "as duas cidades à sua taxa de <b>{rate}</b>",
-    "noRent": "Não há aluguéis de Buenos Aires nesta camada, só preços pedidos de venda.",
-    "noRate": "A camada não tem taxa de financiamento para nenhuma das duas cidades, e nenhuma é emprestada de outro lugar. Digite uma taxa na calculadora acima para ver o que você poderia comprar.",
+    "noRent": "Para Buenos Aires não há dados de aluguel, só preços pedidos de venda.",
+    "noRate": "Não há taxa de financiamento para nenhuma das duas cidades, e a página não usa taxa emprestada de outro lugar. Digite uma taxa na calculadora acima para ver o que você poderia comprar.",
     "rentHow": "O aluguel é derivado: o preço do distrito dividido pela relação preço/aluguel do banco central.",
-    "notInLayer": "fora da camada",
+    "notInLayer": "sem dados",
     "gapsLine": "{n} de {all} barrios não têm preço neste recorte e ficam cinza: {names}.",
     "gap": {
       "none": "Poucos apartamentos à venda no segundo trimestre de 2026: o instituto só publica um barrio acima de um número mínimo de anúncios",
-      "lima": "Fora da camada: o banco central publica {n} distritos"
+      "lima": "Sem dados: o banco central só publica {n} distritos"
     },
     "tip": {
       "price": "Preço",
