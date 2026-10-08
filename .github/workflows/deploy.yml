@@ -1,0 +1,90 @@
+# Выкладка сайта на сервер при каждом пуше в main.
+#
+# Сайт статический: собирать нечего, rsync по SSH кладёт файлы репозитория в корень
+# сайта на сервере. Секреты заводит .github/setup-deploy.sh — один раз, со своей машины.
+#
+#   DEPLOY_HOST         адрес сервера
+#   DEPLOY_USER         пользователь, под которым заходит rsync
+#   DEPLOY_SSH_KEY      приватный ключ этого пользователя (только для CI)
+#   DEPLOY_KNOWN_HOSTS  отпечаток сервера — чтобы не подменили хост
+#   DEPLOY_PATH         корень сайта на сервере, например /var/www/avgrebenkin.com
+#
+# Файлы, которых больше нет в репозитории, на сервере не удаляются (без --delete):
+# в корне сайта могут лежать вещи не из репозитория — .well-known для сертификата,
+# чужие поддомены. Удалить устаревшее можно руками.
+
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: production
+      url: https://avgrebenkin.com/
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: SSH-ключ и отпечаток сервера
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          for v in SSH_KEY KNOWN_HOSTS; do
+            [ -n "${!v}" ] || { echo "::error::Не задан секрет DEPLOY_$v — запусти .github/setup-deploy.sh"; exit 1; }
+          done
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy
+          chmod 600 ~/.ssh/deploy
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+
+      - name: rsync на сервер
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          for v in DEPLOY_HOST DEPLOY_USER DEPLOY_PATH; do
+            [ -n "${!v}" ] || { echo "::error::Не задан секрет $v — запусти .github/setup-deploy.sh"; exit 1; }
+          done
+          # Наружу идёт только то, что отдаёт веб-сервер: без git, CI, исходников
+          # исследований (src/ — из чего страницы собраны, сами страницы на них не
+          # ссылаются), скриптов и внутренних заметок в .md.
+          # --checksum: после checkout у всех файлов свежее время, сравнение по
+          # времени гнало бы весь сайт заново. --delay-updates: новые файлы встают
+          # на место разом в конце, а не по одному посреди выкладки.
+          rsync -rlz --checksum --delay-updates --itemize-changes \
+            --chmod=D755,F644 \
+            --exclude='.git*' --exclude='.github/' --exclude='.claude/' \
+            --exclude='.DS_Store' --exclude='__pycache__/' \
+            --exclude='research/*/src/' --exclude='*.py' --exclude='*.md' \
+            -e 'ssh -i ~/.ssh/deploy -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o BatchMode=yes' \
+            ./ "$DEPLOY_USER@$DEPLOY_HOST:${DEPLOY_PATH%/}/"
+
+      - name: Сайт отдаёт новую версию
+        run: |
+          # Сравниваем главную на сайте с index.html из коммита. Расхождение — это
+          # кэш (Cloudflare, nginx) или не тот корень сайта: предупреждение, не провал,
+          # файлы на сервер уже легли.
+          want=$(sha256sum index.html | cut -d' ' -f1)
+          for i in 1 2 3 4 5 6; do
+            got=$(curl -fsSL --max-time 20 -H 'Cache-Control: no-cache' "https://avgrebenkin.com/?deploy=$GITHUB_SHA" | sha256sum | cut -d' ' -f1) || got=
+            if [ "$got" = "$want" ]; then
+              echo "avgrebenkin.com отдаёт index.html из $GITHUB_SHA"
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "::warning::avgrebenkin.com отдаёт не тот index.html, что в коммите. Проверь DEPLOY_PATH (тот ли это корень сайта) и кэш CDN."
