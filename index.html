@@ -106,7 +106,6 @@
         "height": 360
       },
       "email": "mailto:aleksey.v.grebenkin@gmail.com",
-      "telephone": "+995599581365",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Batumi",
@@ -175,7 +174,7 @@
         "@type": "Blog",
         "@id": "https://avgrebenkin.com/#notes",
         "name": "Notes by Aleksei Grebenkin",
-        "description": "Notes on AI workflows, context engineering, voice-first interfaces and building Speak-Y in the open, by founder and software engineer Aleksei Grebenkin.",
+        "description": "Notes on AI workflows, context engineering, voice-first interfaces and building Speak-Y and Talisa in the open, by founder and software engineer Aleksei Grebenkin.",
         "url": "https://avgrebenkin.com/#notes",
         "inLanguage": "en",
         "author": {
@@ -188,6 +187,9 @@
           "@id": "https://avgrebenkin.com/#website"
         },
         "blogPost": [
+          {
+            "@id": "https://avgrebenkin.com/#note-talisa-launch"
+          },
           {
             "@id": "https://avgrebenkin.com/#note-ramble-sessions"
           },
@@ -234,6 +236,33 @@
             "@id": "https://avgrebenkin.com/#note-prompting-bottleneck"
           }
         ]
+      },
+      {
+        "@type": "BlogPosting",
+        "@id": "https://avgrebenkin.com/#note-talisa-launch",
+        "headline": "The hardest part of a stand-up happens before it starts",
+        "description": "Meet Talisa — an AI team lead that prepares the agenda, runs the meeting by voice and files what was agreed.",
+        "url": "https://avgrebenkin.com/#note-talisa-launch",
+        "datePublished": "2026-10-07",
+        "dateModified": "2026-10-07",
+        "inLanguage": "en",
+        "articleSection": "AI workflow",
+        "image": "https://avgrebenkin.com/images/notes/talisa-launch.webp",
+        "wordCount": 190,
+        "sameAs": "https://www.linkedin.com/posts/aiteamlead-teammanagement-standup-share-7513548298708869120-lkyf/",
+        "about": { "@id": "https://avgrebenkin.com/#talisa" },
+        "author": {
+          "@id": "https://avgrebenkin.com/#person"
+        },
+        "publisher": {
+          "@id": "https://avgrebenkin.com/#person"
+        },
+        "isPartOf": {
+          "@id": "https://avgrebenkin.com/#notes"
+        },
+        "mainEntityOfPage": {
+          "@id": "https://avgrebenkin.com/#webpage"
+        }
       },
       {
         "@type": "BlogPosting",
@@ -1626,7 +1655,7 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
     <h2 class="section-title">Notes<span class="sr-only"> — writing on AI workflows, voice interfaces and building a product solo</span></h2>
     <p class="notes-intro">
       Short essays I publish as I go — on where AI is pushing software development, what voice input changes about
-      working with models, and what I run into building Speak-Y in the open. Originally written for LinkedIn, collected here.
+      working with models, and what I run into building Speak-Y and Talisa in the open. Originally written for LinkedIn, collected here.
     </p>
     <div class="notes-filters" role="group" aria-label="Filter notes by topic">
       <button type="button" class="note-filter note-filter-active" data-filter="all">All</button>
@@ -1637,6 +1666,31 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
       <button type="button" class="note-filter" data-filter="AI safety">AI safety</button>
     </div>
     <div class="notes-grid" id="notes-grid">
+      <article class="note" id="note-talisa-launch" data-topic="AI workflow">
+        <img class="note-cover" src="images/notes/talisa-launch.webp" alt="Note cover — Meet Talisa: an AI team lead that runs your stand-ups" width="1200" height="628" loading="lazy" decoding="async">
+        <div class="note-body">
+          <p class="note-meta">
+            <time datetime="2026-10-07">7 Oct 2026</time>
+            <span class="note-topic">AI workflow</span>
+            <span class="note-read">2 min</span>
+          </p>
+          <h3 class="note-title">The hardest part of a stand-up happens before it starts</h3>
+          <p class="note-dek">Meet Talisa — an AI team lead that prepares the agenda, runs the meeting by voice and files what was agreed.</p>
+          <button type="button" class="note-open">Read note <span aria-hidden="true">→</span></button>
+        </div>
+        <div class="note-full">
+          <p>The hardest part of a stand-up happens before it starts: the agenda.</p>
+          <p>Someone has to find last week's notes, check what moved in the tracker and decide what is worth discussing. When nobody does, the meeting turns into reading the board aloud, and things get missed.</p>
+          <p>Talisa is an AI team lead that takes this routine off you.</p>
+          <p>Before the meeting, she checks in with each person one-to-one, looks at what changed in the tracker and drafts the agenda. You approve it.</p>
+          <p>In the meeting, she leads by voice. She opens the call, gives people the floor, and keeps to the agenda and the clock.</p>
+          <p>After the meeting, the tasks and notes are already filed.</p>
+          <p>Between meetings, she keeps the team coordinated. She follows up on statuses, reminds people what they took on, helps clear blockers, and tells you when something needs your decision. Whatever stays open goes into the next agenda.</p>
+          <p>You keep the decisions, the people and the direction. Talisa runs the rest.</p>
+          <p>We're onboarding the first teams in small waves. Founding teams get their first 3 months for $10 instead of $600, refundable in full before launch.</p>
+          <p>Watch the <a href="https://lnkd.in/etUBcP38" target="_blank" rel="noopener">2-minute demo with sound</a>, see <a href="https://talisa.avgrebenkin.com" target="_blank" rel="noopener">talisa.avgrebenkin.com</a>, or read the <a href="https://www.linkedin.com/posts/aiteamlead-teammanagement-standup-share-7513548298708869120-lkyf/" target="_blank" rel="noopener">original post on LinkedIn</a>.</p>
+        </div>
+      </article>
       <article class="note" id="note-ramble-sessions" data-topic="Voice">
         <img class="note-cover" src="images/notes/ramble-sessions.webp" alt="Note cover — Ramble sessions: talk to the model for ten minutes" width="1200" height="628" loading="lazy" decoding="async">
         <div class="note-body">
@@ -2219,10 +2273,6 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
         <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 3-20 8 6 2 2 6 3-4 5 4z"/><path d="m8 13 8-6"/></svg></span>
         <span class="contact-label">@avgrebenkin</span>
       </a>
-      <a href="tel:+995599581365" class="contact-card">
-        <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg></span>
-        <span class="contact-label">+995 599 581 365</span>
-      </a>
       <a href="https://www.linkedin.com/in/avgrebenkin/" class="contact-card" target="_blank" rel="noopener">
         <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-11h4v1.5A6 6 0 0 1 16 8z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></span>
         <span class="contact-label">linkedin.com/in/avgrebenkin</span>
@@ -2234,6 +2284,10 @@ footer .to-top{font-family:var(--font-mono);font-size:.8rem}
       <a href="https://speak-y.com" class="contact-card" target="_blank" rel="noopener">
         <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg></span>
         <span class="contact-label">speak-y.com</span>
+      </a>
+      <a href="https://talisa.avgrebenkin.com" class="contact-card" target="_blank" rel="noopener">
+        <span class="contact-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg></span>
+        <span class="contact-label">talisa.avgrebenkin.com</span>
       </a>
     </div>
     <div class="contacts-divider"></div>
